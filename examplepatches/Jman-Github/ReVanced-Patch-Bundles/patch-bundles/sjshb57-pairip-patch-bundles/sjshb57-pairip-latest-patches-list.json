@@ -1,6 +1,16 @@
 {
-    "version": "v1.6.0",
+    "version": "v1.9.0",
     "patches": [
+        {
+            "compatiblePackages": null,
+            "default": true,
+            "dependencies": [
+                "BytecodePatch"
+            ],
+            "description": "Inlines pairip's static call-wrapper stubs ($<number>) back into their call sites and removes the stubs.",
+            "name": "Inline pairip call wrappers",
+            "options": []
+        },
         {
             "compatiblePackages": null,
             "default": true,

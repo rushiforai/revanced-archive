@@ -74,7 +74,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Kondratjev](#-kondratjev-bundle-patch-list) | 23 | 12 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 74 | 51 | Generated |
 | [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 87 | 7 | Generated |
-| [Morphe](#-morphe-bundle-patch-list) | 115 | 4 | Generated |
+| [Morphe](#-morphe-bundle-patch-list) | 117 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
 | [IMXEren](#-imxeren-bundle-patch-list) | 2 | 2 | Generated |
@@ -110,8 +110,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Ajstrick81-AndroidTV](#-ajstrick81-androidtv-bundle-patch-list) | 12 | 9 | Generated |
 | [Icysymmetra-TikTok](#-icysymmetra-tiktok-bundle-patch-list) | 15 | 1 | Generated |
 | [AlexNaga](#-alexnaga-bundle-patch-list) | 2 | 1 | Generated |
-| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 69 | 49 | Generated |
-| [Sjshb57-PairIP](#-sjshb57-pairip-bundle-patch-list) | 3 | 1 | Generated |
+| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 67 | 48 | Generated |
+| [Sjshb57-PairIP](#-sjshb57-pairip-bundle-patch-list) | 4 | 1 | Generated |
 
 ### Legacy
 | Bundle | Patches | Apps | Status |
@@ -2597,7 +2597,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Morphe Bundle Patch List:
 [📦 Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Morphe</b> - 115 patches, 4 apps</summary>
+<summary><b>Morphe</b> - 117 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -2606,11 +2606,11 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Disable screenshot popup``` | ```Adds an option to disable the popup that appears when taking a screenshot.``` | ```Reddit``` | ```All versions``` |
 | ```Hide ads``` | ```Adds options to hide ads.``` | ```Reddit``` | ```All versions``` |
 | ```Hide Ask button``` | ```Adds an option to hide Ask button in the search bar.``` | ```Reddit``` | ```All versions``` |
+| ```Hide communities shelf``` | ```Adds an option to hide the related or suggested communities shelf in subreddits.``` | ```Reddit``` | ```All versions``` |
 | ```Hide navigation buttons``` | ```Adds options to hide buttons in the navigation bar.``` | ```Reddit``` | ```All versions``` |
-| ```Hide recommended communities shelf``` | ```Adds an option to hide the recommended communities shelves in subreddits.``` | ```Reddit``` | ```All versions``` |
 | ```Hide Reddit search``` | ```Permanently hides the Reddit search in the contextual menu. This patch does not work with root mounting``` | ```Reddit``` | ```All versions``` |
 | ```Hide sidebar components``` | ```Adds options to hide the sidebar components.``` | ```Reddit``` | ```All versions``` |
-| ```Hide Trending Today shelf``` | ```Adds an option to hide the Trending Today shelf from search suggestions.``` | ```Reddit``` | ```All versions``` |
+| ```Hide Trending shelves``` | ```Adds an option to hide Trending shelves from search suggestions.``` | ```Reddit``` | ```All versions``` |
 | ```Open links directly``` | ```Adds an option to skip over redirection URLs in external links.``` | ```Reddit``` | ```All versions``` |
 | ```Open links externally``` | ```Adds an option to always open links in your browser instead of with the in-app-browser.``` | ```Reddit``` | ```All versions``` |
 | ```Remove subreddit dialog``` | ```Adds options to remove the NSFW community warning and notifications suggestion dialogs by dismissing them automatically.``` | ```Reddit``` | ```All versions``` |
@@ -2666,6 +2666,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Media notification controls``` | ```Adds options to disable the seekbar and previous/next buttons in the media notification and headphone controls.``` | ```YouTube``` | ```All versions``` |
 | ```Miniplayer``` | ```Adds options to change the in-app minimized player.``` | ```YouTube``` | ```All versions``` |
 | ```Navigation bar``` | ```Adds options to hide and change the bottom navigation bar (such as the Shorts button) and the upper navigation toolbar. Patching version 20.21.37 and lower also adds a setting to use a wide searchbar.``` | ```YouTube``` | ```All versions``` |
+| ```Network proxy``` | ```Adds settings to route supported network requests through an HTTP or HTTPS proxy.``` | ```YouTube``` | ```All versions``` |
 | ```Open channel of live avatar``` | ```Adds an option to prevent a channel's current live video from opening when tapping its avatar.``` | ```YouTube``` | ```All versions``` |
 | ```Open links externally``` | ```Adds an option to always open links in your browser instead of with the in-app browser.``` | ```YouTube``` | ```All versions``` |
 | ```Open Shorts in regular player``` | ```Adds options to open Shorts in the regular video player.``` | ```YouTube``` | ```All versions``` |
@@ -2710,6 +2711,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Hide music video ads``` | ```Adds an option to hide ads that appear while listening to or streaming music videos, podcasts, or songs.``` | ```YouTube Music``` | ```All versions``` |
 | ```Miniplayer previous and next buttons``` | ```Adds options to show previous and next track buttons in the miniplayer.``` | ```YouTube Music``` | ```All versions``` |
 | ```Navigation bar``` | ```Adds options to hide navigation bar, labels and buttons.``` | ```YouTube Music``` | ```All versions``` |
+| ```Network proxy``` | ```Adds settings to route supported network requests through an HTTP or HTTPS proxy.``` | ```YouTube Music``` | ```All versions``` |
 | ```Permanent repeat``` | ```Adds an option to always repeat even if the playlist ends or another track is played.``` | ```YouTube Music``` | ```All versions``` |
 | ```Remove background playback restrictions``` | ```Removes restrictions on background playback, including playing kids videos in the background.``` | ```YouTube Music``` | ```All versions``` |
 | ```Sanitize sharing links``` | ```Removes the tracking query parameters from shared links.``` | ```YouTube Music``` | ```All versions``` |
@@ -3791,7 +3793,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Paramount+ Android TV``` | ```Removes VOD ads and pause ads while preserving live TV.``` | ```com.cbs.ott``` | ```16.12.0, 16.8.0``` |
 | ```Disney+ Android TV``` | ```Removes mid-roll / pre-roll ads and pause ads.``` | ```com.disney.disneyplus``` | ```26.6.0+rc5-2026.04.21, 26.8.0+rc6-2026.05.20, 26.9.2+rc1-2026.06.12``` |
 | ```Skip ads``` | ```Suppresses all ad delivery systems in Fox One Android TV: Google IMA/DAI for VOD, Yospace SSAI for live content.``` | ```com.fox.foxone``` | ```1.9.2``` |
-| ```Skip ads``` | ```Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring across all three OkHttp surfaces (app NetworkingKt client, Sky SDK addon network client, and the SDK root/media client), New Relic agent init no-op, and WebView shouldInterceptRequest wrapper. Validated v7.5.102 and v7.6.100.``` | ```com.peacocktv.peacockandroid``` | ```7.5.102, 7.6.100``` |
+| ```Skip ads``` | ```Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring across the app NetworkingKt client and the Sky SDK addon network client, New Relic agent init no-op, and WebView shouldInterceptRequest wrapper. Validated v7.5.102 and v7.6.100.``` | ```com.peacocktv.peacockandroid``` | ```7.5.102, 7.6.100``` |
 | ```Skip ads``` | ```Suppresses all ad delivery systems in Tubi Android TV.``` | ```com.tubitv``` | ```10.20.5000``` |
 | ```Skip ads``` | ```Suppresses ViX ad delivery by disabling the FreeWheel ad provider at the config level and preventing the Innovid SSAI overlay from mounting.``` | ```com.univision.prendetv``` | ```4.46.0_tv``` |
 | ```HBO Max - Disable Ads``` | ```Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types.``` | ```com.wbd.hbomax``` | ```7.5.0.73, 7.2.0.41``` |
@@ -3841,7 +3843,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Rushiranpise Bundle Patch List:
 [📦 Rushiranpise-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-rushiranpise-patches-bundle-morphe)
 <details>
-<summary><b>Rushiranpise</b> - 69 patches, 49 apps</summary>
+<summary><b>Rushiranpise</b> - 67 patches, 48 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3894,13 +3896,11 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Ad-Free``` | ```Removes ads and unlocks ad-free status in Speedtest by Ookla.``` | ```Speedtest by Ookla``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks Splitwise Pro features, removes ad banners, and suppresses all upgrade upsell prompts.``` | ```Splitwise``` | ```All versions``` |
 | ```Unlock Subscription``` | ```Unlocks all subscription features in TWT App.``` | ```Stargazing Hub``` | ```All versions``` |
-| ```Unlock Pro``` | ```Unlocks Tasker Pro features.``` | ```Tasker``` | ```All versions``` |
 | ```Unlock VIP``` | ```Unlocks Dubox Drive VIP/SVIP (Premium+)``` | ```TeraBox``` | ```All versions``` |
 | ```Disable Ads``` | ```Prevents the AppOpen ad preloader from initialising.``` | ```Universal TV Remote Control``` | ```All versions``` |
 | ```Suppress Paywall``` | ```Suppresses the in-app paywall.``` | ```Universal TV Remote Control``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks Premium Features In the App.``` | ```Universal TV Remote Control``` | ```All versions``` |
 | ```Alert Distances``` | ```Configures radar/camera and hazard alert announcement distances. Credits: Waze CGE Mod.``` | ```Waze - GPS, Maps & Traffic``` | ```All versions``` |
-| ```AudioKit Integration``` | ```Allows third-party audio apps (like Morphe YouTube Music) to be recognized as official partners by Waze AudioKit.``` | ```Waze - GPS, Maps & Traffic``` | ```All versions``` |
 | ```AutoZoom``` | ```Controls how aggressively the map zooms in/out based on driving speed. Credits: Waze Chuppito Mod``` | ```Waze - GPS, Maps & Traffic``` | ```All versions``` |
 | ```Disable Ads``` | ```Suppresses all Waze ad systems via bundled preferences file: • AdMob SDK (Ad_.*) • Google Ads (Google_Ads.*) • Ads Inventory Prediction • ExternalPOI pins, coupons, popups (ExternalPO_ + Extern__POI both key variants) • Search autocomplete server ads Credits: Waze CGE Mod (ExternalPOI keys), Waze Chuppito (dual-key coverage).``` | ```Waze - GPS, Maps & Traffic``` | ```All versions``` |
 | ```Disable Advil Ad Requests``` | ```Stubs AdvilRequest.getPageUrl() → "" so the Advil ad server receives no page URL and returns no ad content.``` | ```Waze - GPS, Maps & Traffic``` | ```All versions``` |
@@ -3921,10 +3921,11 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Sjshb57-PairIP Bundle Patch List:
 [📦 Sjshb57-PairIP-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-sjshb57-pairip-patches-bundle-morphe)
 <details>
-<summary><b>Sjshb57-PairIP</b> - 3 patches, 1 app</summary>
+<summary><b>Sjshb57-PairIP</b> - 4 patches, 1 app</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
+| ```Inline pairip call wrappers``` | ```Inlines pairip's static call-wrapper stubs ($<number>) back into their call sites and removes the stubs.``` | ```Universal``` | ```All versions``` |
 | ```Remove pairip protection``` | ```Restores obfuscated strings and removes pairip bytecode protection.``` | ```Universal``` | ```All versions``` |
 | ```Restore extracted methods``` | ```Inlines methods hidden in $c<number> helper classes back into the host class, then removes those helper and reflection method-holder classes.``` | ```Universal``` | ```All versions``` |
 | ```Strip debug info``` | ```Removes .line (line numbers) and .source (source file name) debug data from every class. Optional, disabled by default.``` | ```Universal``` | ```All versions``` |
