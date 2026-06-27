@@ -28,6 +28,7 @@ Taknok/revanced-patches
 The412Banner/bannerhub-revanced
 Tosox/revanced-patches
 Vernoxvernax/revanced-patches
+VinkyV/AppleMusicPatches
 XDream8/revanced-creator
 YT-Advanced/ReX-patches
 alim-zanibekov/ultrasandbox
