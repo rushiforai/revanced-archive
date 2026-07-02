@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-06-30T21:45:23",
-  "description": "## What's Changed\r\n\r\n* 5976faeb Regenerate patches-list.json via generatePatchesList\r\n* a4762a89 1.5.0: Reflection-based listener callback for native MAX AdsFreeRewards + NoAds\r\n",
-  "download_url": "https://github.com/Nai64/Nai64Patches/releases/download/1.5.0/patches-1.5.0.mpp",
+  "created_at": "2026-07-01T17:20:49",
+  "description": "## [1.5.7](https://github.com/Nai64/Nai64Patches/compare/1.5.6...1.5.7) (2026-07-01)\n\n### Bug Fixes\n\n* **AdsFreeRewards:** fix register corruption, add OnRewardedAdDisplayedEvent ([2fbdd05](https://github.com/Nai64/Nai64Patches/commit/2fbdd056013578849074c77dd3e2f795a0fe7430))\n",
+  "download_url": "https://github.com/Nai64/Nai64Patches/releases/download/1.5.7/patches-1.5.7.mpp",
   "signature_download_url": "N/A",
-  "version": "1.5.0"
+  "version": "1.5.7"
 }

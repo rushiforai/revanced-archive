@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-06-30T01:10:11",
-  "description": "## [1.36.0](https://github.com/arandomhooman/hoomans-morphe-patches/compare/v1.35.0...v1.36.0) (2026-06-30)\n\n### \u2728 New Features\n\n* add Symfonium unlock premium ([0ab2ecb](https://github.com/arandomhooman/hoomans-morphe-patches/commit/0ab2ecba425a3e2728783be994170515a61a566d))\n",
-  "download_url": "https://github.com/arandomhooman/hoomans-morphe-patches/releases/download/v1.36.0/patches-1.36.0.mpp",
+  "created_at": "2026-07-01T23:08:44",
+  "description": "## [1.39.0](https://github.com/arandomhooman/hoomans-morphe-patches/compare/v1.38.0...v1.39.0) (2026-07-01)\n\n### \u2728 New Features\n\n* add Todoist unlock pro ([cd547ac](https://github.com/arandomhooman/hoomans-morphe-patches/commit/cd547ac6a2869c66f563470707b5275737613fa5))\n",
+  "download_url": "https://github.com/arandomhooman/hoomans-morphe-patches/releases/download/v1.39.0/patches-1.39.0.mpp",
   "signature_download_url": "N/A",
-  "version": "v1.36.0"
+  "version": "v1.39.0"
 }
