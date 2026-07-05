@@ -1,5 +1,5 @@
 {
-    "version": "v1.3.0-dev.12",
+    "version": "v1.3.0-dev.17",
     "patches": [
         {
             "compatiblePackages": null,
@@ -202,28 +202,22 @@
                     "apkFileType": null,
                     "appIconColor": "#6668BC",
                     "description": null,
-                    "name": "Readle",
-                    "packageName": "com.hello.german",
+                    "name": "LingQ",
+                    "packageName": "com.linguist",
                     "signatures": null,
                     "targets": [
                         {
                             "description": null,
                             "isExperimental": false,
                             "minSdk": null,
-                            "version": "4.7.3"
-                        },
-                        {
-                            "description": null,
-                            "isExperimental": false,
-                            "minSdk": null,
-                            "version": ">=4.7.3"
+                            "version": "6.1.24"
                         }
                     ]
                 }
             ],
             "default": true,
             "dependencies": [],
-            "description": "Forces Readle Pro entitlement checks to always pass.",
+            "description": "Forces LingQ Premium entitlement checks to always pass by overriding model fields.",
             "name": "Enable Pro",
             "options": []
         },
