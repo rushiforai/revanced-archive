@@ -1,0 +1,7 @@
+[versions]
+# Must match the ReVanced Patcher bundled by the ReVanced CLI used to apply this bundle.
+# CLI 6.0.0 bundles Patcher 22.
+revanced-patcher = "22.0.0"
+# Tracking https://github.com/google/smali/issues/64.
+#noinspection GradleDependency
+smali = "3.0.9"

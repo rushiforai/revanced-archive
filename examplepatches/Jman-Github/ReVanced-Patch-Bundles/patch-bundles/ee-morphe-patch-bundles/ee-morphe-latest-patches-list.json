@@ -1,5 +1,5 @@
 {
-    "version": "v1.3.0-dev.17",
+    "version": "v1.3.0-dev.25",
     "patches": [
         {
             "compatiblePackages": null,
@@ -216,10 +216,31 @@
                 }
             ],
             "default": true,
-            "dependencies": [],
+            "dependencies": [
+                "BytecodePatch"
+            ],
             "description": "Forces LingQ Premium entitlement checks to always pass by overriding model fields.",
             "name": "Enable Pro",
-            "options": []
+            "options": [
+                {
+                    "default": "premium",
+                    "description": "Custom string to use for the Tier.",
+                    "key": "customTierString",
+                    "required": true,
+                    "title": "Tier Name",
+                    "type": "kotlin.String",
+                    "values": null
+                },
+                {
+                    "default": true,
+                    "description": "Set grandfathered status to true.",
+                    "key": "enableGrandfatherMode",
+                    "required": false,
+                    "title": "Enable Grandfather Mode",
+                    "type": "kotlin.Boolean",
+                    "values": null
+                }
+            ]
         },
         {
             "compatiblePackages": null,

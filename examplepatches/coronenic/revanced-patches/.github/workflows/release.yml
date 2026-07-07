@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      # Minimal, tag-triggered release. Push a version tag (e.g. v1.0.0) to cut a release.
+      # NOTE: the .rvp version comes from `version` in gradle.properties, NOT the tag —
+      # bump gradle.properties to match before tagging.
+      - "v*"
+
+jobs:
+  release:
+    name: Release
+    permissions:
+      contents: write   # create the GitHub Release
+      packages: read    # read ReVanced Patcher + gradle plugin from GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Cache Gradle
+        uses: burrunan/gradle-cache-action@v2
+
+      # Auth for GitHub Packages (see build.yml for the two-consumer explanation).
+      # buildAndroid D8-compiles the patches to DEX and merges it into the same .rvp,
+      # so the bundle works on both the CLI and ReVanced Manager (Android).
+      - name: Build patch bundle (.rvp)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG_GRADLE_PROJECT_githubPackagesUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew build buildAndroid --no-daemon
+
+      - name: Select the patch bundle
+        id: bundle
+        run: |
+          file=$(find patches/build/libs -name '*.rvp' ! -name '*sources*' ! -name '*javadoc*' | head -n1)
+          if [ -z "$file" ]; then
+            echo "No .rvp bundle found" >&2
+            exit 1
+          fi
+          echo "path=$file" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${{ github.ref_name }}" "${{ steps.bundle.outputs.path }}" --title "${{ github.ref_name }}" --generate-notes
+
+      # ReVanced Manager's "Enter URL" expects a ReVancedAsset JSON descriptor
+      # (NOT the .rvp itself): { version, created_at, description, download_url }.
+      # created_at MUST be offset-less ISO-8601 (LocalDateTime) or the import throws.
+      # Published under the stable name patches.json so the Manager URL never changes:
+      #   https://github.com/<owner>/<repo>/releases/latest/download/patches.json
+      - name: Publish patch bundle descriptor (patches.json)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="${{ github.ref_name }}"
+          rvp_name="$(basename "${{ steps.bundle.outputs.path }}")"
+          download_url="${{ github.server_url }}/${{ github.repository }}/releases/download/${version}/${rvp_name}"
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%S)"
+          notes="$(gh release view "$version" --json body -q .body)"
+          notes="${notes:-Release $version}"
+          jq -n \
+            --arg version "$version" \
+            --arg created_at "$created_at" \
+            --arg description "$notes" \
+            --arg download_url "$download_url" \
+            '{version: $version, created_at: $created_at, description: $description, download_url: $download_url}' \
+            > patches.json
+          gh release upload "$version" patches.json --clobber

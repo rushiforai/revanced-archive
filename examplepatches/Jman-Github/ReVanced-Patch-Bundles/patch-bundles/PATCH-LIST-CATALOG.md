@@ -40,16 +40,22 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Alim-zanibekov](#-alim-zanibekov-bundle-patch-list) | 1 | 1 | Generated |
 | [Daboynb](#-daboynb-bundle-patch-list) | 1 | 1 | Generated |
 | [MojiRS-RIF](#-mojirs-rif-bundle-patch-list) | 2 | 1 | Generated |
+| [Coronenic](#-coronenic-bundle-patch-list) | 4 | 1 | Generated |
 
 ### Morphe
 | Bundle | Patches | Apps | Status |
 | --- | ---: | ---: | --- |
+| [Shaun-Sheep](#-shaun-sheep-bundle-patch-list) | 1 | 1 | Generated |
+| [Bufferk](#-bufferk-bundle-patch-list) | 14 | 6 | Generated |
+| [Franticg33k](#-franticg33k-bundle-patch-list) | 9 | 5 | Generated |
+| [Modx](#-modx-bundle-patch-list) | 1 | 1 | Generated |
+| [Gryphous-Morphe](#-gryphous-morphe-bundle-patch-list) | 1 | 1 | Generated |
 | [Okish-Morphe](#-okish-morphe-bundle-patch-list) | 1 | 1 | Generated |
 | [Xhehab](#-xhehab-bundle-patch-list) | 3 | 3 | Generated |
 | [Arunpdl](#-arunpdl-bundle-patch-list) | 8 | 4 | Generated |
 | [Nai64](#-nai64-bundle-patch-list) | 4 | 1 | Generated |
 | [Morphe-Google](#-morphe-google-bundle-patch-list) | 2 | 1 | Generated |
-| [Prathxm](#-prathxm-bundle-patch-list) | 5 | 1 | Generated |
+| [Prathxm](#-prathxm-bundle-patch-list) | 6 | 1 | Generated |
 | [Telegram-Morphe](#-telegram-morphe-bundle-patch-list) | 10 | 1 | Generated |
 | [Morphe-Screenshot](#-morphe-screenshot-bundle-patch-list) | 1 | 1 | Generated |
 | [NPCI-BHIM](#-npci-bhim-bundle-patch-list) | 6 | 1 | Generated |
@@ -85,7 +91,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Fin-Tweaks](#-fin-tweaks-bundle-patch-list) | - | - | Pending patch list |
 | [Kondratjev](#-kondratjev-bundle-patch-list) | 25 | 13 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 75 | 52 | Generated |
-| [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 85 | 6 | Generated |
+| [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 86 | 6 | Generated |
 | [Morphe](#-morphe-bundle-patch-list) | 122 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
@@ -137,6 +143,103 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [AyushTNM](#-ayushtnm-bundle-patch-list) | 3 | 1 | Generated |
 | [Arsclib](#-arsclib-bundle-patch-list) | 16 | 2 | Generated |
 | [Hepolise](#-hepolise-bundle-patch-list) | 1 | 1 | Generated |
+
+
+---
+### 🧩 Coronenic Bundle Patch List:
+[📦 Coronenic-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-coronenic-patches-bundle-revanced)
+<details>
+<summary><b>Coronenic</b> - 4 patches, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Add ReVanced patch version field``` | ```Adds a 'Revanced patch version' field below the current and latest version in Settings > About.``` | ```com.dcinside.app.android``` | ```All versions``` |
+| ```Spoof signature``` | ```Presents the original signing certificate to the app's own tamper checks so the re-signed build passes verification.``` | ```com.dcinside.app.android``` | ```All versions``` |
+| ```Voice reply file upload``` | ```Adds an upload button to the voice-reply record tab so an existing AAC audio file can be sent as a voice reply.``` | ```com.dcinside.app.android``` | ```All versions``` |
+| ```Voice reply file upload resources``` | ```Layout and manifest changes for the voice-reply audio file picker.``` | ```com.dcinside.app.android``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Shaun-Sheep Bundle Patch List:
+[📦 Shaun-Sheep-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-shaun-sheep-patches-bundle-morphe)
+<details>
+<summary><b>Shaun-Sheep</b> - 1 patch, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Unlock Premium``` | ```Unlocks all premium features by forcing KineService.Companion.isTrial() to return false (pro state).``` | ```KineStop``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Bufferk Bundle Patch List:
+[📦 Bufferk-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-bufferk-patches-bundle-morphe)
+<details>
+<summary><b>Bufferk</b> - 14 patches, 6 apps</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Bypass license check``` | ```Bypasses the Google Play LVL backend license check, allowing full app access without activation.``` | ```Bounce Companion``` | ```All versions``` |
+| ```Unlock premium``` | ```Unlocks all AT4K premium features by forcing the premium status to true.``` | ```com.overdevs.at4k``` | ```All versions``` |
+| ```Freedium``` | ```Adds a profile setting to choose the Freedium Mirror host, and a floating button on articles that opens the current article using the chosen Freedium Mirror in a webview.``` | ```Medium``` | ```All versions``` |
+| ```Flutter Premium Bypass``` | ```Forces premium status inside the JSON payload sent to Flutter``` | ```MyGate``` | ```All versions``` |
+| ```Hide ads``` | ```Removes MyGate in-app ads (pre-approval screen, allow-entries screen, activity feed, and visitor profile masthead).``` | ```MyGate``` | ```All versions``` |
+| ```Unlock premium``` | ```Unlocks all MyGate premium features: spoofs USER_PREMIUM_PLAN status, suppresses upgrade dialogs and paywalls, enables frequent pre-approvals for deliveries, cabs and visiting help, unlocks surprise delivery and the always-approve-entries toggle.``` | ```MyGate``` | ```All versions``` |
+| ```Unlock Pro``` | ```Spoofs Splitwise Pro subscription status everywhere it is checked â€” bypasses the server-driven feature gate (charts, receipt scanning, currency conversion, default splits, auto-split, transaction import, itemization), forces Person.isPro() to true for receipt quality and UI gating, and suppresses all in-app upsell ad banners (home-screen, recent activity, post-add-expense). Works entirely client-side with no server interaction.``` | ```Splitwise``` | ```All versions``` |
+| ```Disable analytics``` | ```Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry.``` | ```Truecaller``` | ```All versions``` |
+| ```Enable premium features``` | ```Unlocks all client-side premium features by bypassing the feature-availability gate.``` | ```Truecaller``` | ```All versions``` |
+| ```Hide 'Get Premium' banners``` | ```Dismisses premium upgrade prompts and paywall screens automatically.``` | ```Truecaller``` | ```All versions``` |
+| ```Hide ads``` | ```Removes ads from the after-call screen and caller-ID overlay.``` | ```Truecaller``` | ```All versions``` |
+| ```Hide premium upgrade prompts``` | ```Removes 'Get Premium' and 'Switch to Premium' buttons from the nav bar, settings, and profile.``` | ```Truecaller``` | ```All versions``` |
+| ```Mock premium``` | ```Always shows the premium/gold badge and unlocks premium UI features.``` | ```Truecaller``` | ```All versions``` |
+| ```Remove Premium UI``` | ```Removes the Premium tab from the bottom navigation bar and the Premium row in the profile section.``` | ```Truecaller``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Franticg33k Bundle Patch List:
+[📦 Franticg33k-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-franticg33k-patches-bundle-morphe)
+<details>
+<summary><b>Franticg33k</b> - 9 patches, 5 apps</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Enable Online Pro``` | ```Experimental companion patch that keeps byAir's online Pro gates open without forcing the crash-prone global entitlement refresh path.``` | ```byAir``` | ```All versions``` |
+| ```Enable Pro``` | ```Suppresses the main byAir paywall, unlock banners, and local user gating.``` | ```byAir``` | ```All versions``` |
+| ```Remove License Activity``` | ```Removes the PairIP LicenseActivity from AndroidManifest.xml.``` | ```JellyWatch``` | ```All versions``` |
+| ```Unlock Premium``` | ```Unlocks all premium features and shop items in JellyWatch.``` | ```JellyWatch``` | ```All versions``` |
+| ```Unlock Premium``` | ```Patches Dart AOT-compiled libapp.so to unlock all premium features. Forces hasPremiumAccess and isPaidUser to always return true by NOPing their ARM64 conditional branch instructions.``` | ```Mero Karobar``` | ```All versions``` |
+| ```Remove Ads``` | ```Disables all ad serving from Facebook Audience Network (FAN) and Google Mobile Ads (AdMob). No-ops the plugin bridges so no ads are shown.``` | ```Nepalipatro``` | ```All versions``` |
+| ```Remove License Activity``` | ```Removes the PairIP LicenseActivity from AndroidManifest.xml.``` | ```Prismatica Pro``` | ```All versions``` |
+| ```Remove License Check``` | ```Bypasses the PairIP Google Play Licensing check so the app runs without a valid Play Store license.``` | ```Prismatica Pro``` | ```All versions``` |
+| ```Remove Watermark``` | ```Patches the procedural GLSL shader in libharwin_native.so to disable the "PRISMATICA" watermark in the video player and exported videos.``` | ```Prismatica Pro``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Modx Bundle Patch List:
+[📦 Modx-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-modx-patches-bundle-morphe)
+<details>
+<summary><b>Modx</b> - 1 patch, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Disable video ads``` | ```Disables video ads by patching the native library.``` | ```MX Player``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Gryphous-Morphe Bundle Patch List:
+[📦 Gryphous-Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-gryphous-morphe-patches-bundle-morphe)
+<details>
+<summary><b>Gryphous-Morphe</b> - 1 patch, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Enable Picture-in-Picture``` | ```Enables automatic Android Picture-in-Picture when leaving Crunchyroll playback.``` | ```Crunchyroll``` | ```All versions``` |
+
+</details>
 
 ---
 ### 🧩 Okish-Morphe Bundle Patch List:
@@ -215,13 +318,14 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Prathxm Bundle Patch List:
 [📦 Prathxm-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-prathxm-patches-bundle-morphe)
 <details>
-<summary><b>Prathxm</b> - 5 patches, 1 app</summary>
+<summary><b>Prathxm</b> - 6 patches, 1 app</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Ad-Free & Local Analysis``` | ```Removes advertisements, unlocks ad-free features, and enables local Stockfish engine for post-game review & analysis.``` | ```Chess.com``` | ```All versions``` |
 | ```Clone Chess.com``` | ```Changes the package name to com.chess.prathxm, allowing the patched app to be installed side-by-side with the original Chess.com app.``` | ```Chess.com``` | ```All versions``` |
 | ```Custom Titles``` | ```Fetches and applies custom titles for users from a remote database. DM PrathxmOp to get yours for fun lol!``` | ```Chess.com``` | ```All versions``` |
+| ```Global Crash Handler``` | ```Catches uncaught exceptions and displays a custom crash screen with details to report issues.``` | ```Chess.com``` | ```All versions``` |
 | ```Lichess Puzzles``` | ```Loads daily puzzles from Lichess and bypasses Chess.com puzzle premium limits.``` | ```Chess.com``` | ```All versions``` |
 | ```Unlock All Bots``` | ```Unlocks all premium and restricted bots in the Versus Bots feature.``` | ```Chess.com``` | ```All versions``` |
 
@@ -2700,7 +2804,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 AmpleReVanced Bundle Patch List:
 [📦 AmpleReVanced-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-amplerevanced-patches-bundle-morphe)
 <details>
-<summary><b>AmpleReVanced</b> - 85 patches, 6 apps</summary>
+<summary><b>AmpleReVanced</b> - 86 patches, 6 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -2769,6 +2873,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Hide More tab components``` | ```Adds options to hide components from the More tab.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Hide More tab Game tab``` | ```Hides the Game tab from the More tab.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Hook Package Manager``` | ```Hooks the Package Manager to bypass integrity checks.``` | ```Kakao Talk``` | ```All versions``` |
+| ```Open profile from open chat feed``` | ```Opens open chat member profiles from join and leave feed messages.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Override feature flag``` | ```Overrides the feature flag to enable the feature.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Play YouTube player in chat room``` | ```Allows playing YouTube videos in KakaoTalk chat rooms.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Register settings activity``` | ```Registers the Morphe settings activity in the app manifest.``` | ```Kakao Talk``` | ```All versions``` |

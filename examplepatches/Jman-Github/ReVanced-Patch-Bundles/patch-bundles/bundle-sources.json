@@ -619,6 +619,36 @@
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "prerelease": false
     },
+    "bufferk-stable": {
+        "patches": "https://api.github.com/repos/bufferk/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "franticg33k-stable": {
+        "patches": "https://api.github.com/repos/franticg33k/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "modx-stable": {
+        "patches": "https://api.github.com/repos/Utsavrajputt/Modx-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "gryphous-morphe-stable": {
+        "patches": "https://api.github.com/repos/NekoGryphou/gryphous-morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "coronenic-stable": {
+        "patches": "https://api.github.com/repos/coronenic/revanced-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "shaun-sheep-stable": {
+        "patches": "https://api.github.com/repos/shaun-the-sheep-patches/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
     "piko-dev": {
         "patches": "https://api.github.com/repos/crimera/piko",
         "integration": "https://api.github.com/repos/crimera/revanced-integrations",
@@ -1234,6 +1264,36 @@
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "prerelease": true
     },
+    "bufferk-dev": {
+        "patches": "https://api.github.com/repos/bufferk/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "franticg33k-dev": {
+        "patches": "https://api.github.com/repos/franticg33k/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "modx-dev": {
+        "patches": "https://api.github.com/repos/Utsavrajputt/Modx-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "gryphous-morphe-dev": {
+        "patches": "https://api.github.com/repos/NekoGryphou/gryphous-morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "coronenic-dev": {
+        "patches": "https://api.github.com/repos/coronenic/revanced-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "shaun-sheep-dev": {
+        "patches": "https://api.github.com/repos/shaun-the-sheep-patches/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
     "piko-latest": {
         "patches": "https://api.github.com/repos/crimera/piko",
         "integration": "https://api.github.com/repos/crimera/revanced-integrations",
@@ -1846,6 +1906,36 @@
     },
     "okish-morphe-latest": {
         "patches": "https://api.github.com/repos/byehi98/okish-morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "bufferk-latest": {
+        "patches": "https://api.github.com/repos/bufferk/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "franticg33k-latest": {
+        "patches": "https://api.github.com/repos/franticg33k/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "modx-latest": {
+        "patches": "https://api.github.com/repos/Utsavrajputt/Modx-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "gryphous-morphe-latest": {
+        "patches": "https://api.github.com/repos/NekoGryphou/gryphous-morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "coronenic-latest": {
+        "patches": "https://api.github.com/repos/coronenic/revanced-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "shaun-sheep-latest": {
+        "patches": "https://api.github.com/repos/shaun-the-sheep-patches/morphe-patches",
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "latest": true
     }

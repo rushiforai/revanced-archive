@@ -1,0 +1,18 @@
+# Local, non-committed analysis scratch.
+local/
+
+# Gradle / build outputs.
+.gradle/
+**/build/
+
+# Compiled / packaged artifacts.
+*.class
+*.rvp
+*.apk
+*.jar
+# …but the Gradle wrapper jar MUST be committed for CI/offline builds.
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE.
+.idea/
+*.iml

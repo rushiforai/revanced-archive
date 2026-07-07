@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Prebuilt extension dex / any dex: never EOL-normalize (binary).
+*.rve binary
+*.dex binary
