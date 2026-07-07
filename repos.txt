@@ -37,6 +37,7 @@ blazskufca/revanced-patch
 brosssh/revanced-external-bundles
 burgers1312/revanced-patches
 chsbuffer/RevancedXposed
+coronenic/revanced-patches
 daboynb/revanced-instagram-viewonce
 dalapenko/perplexity-stt-android-patches
 dalapenko/yt-ya.voiceover-android-patches
