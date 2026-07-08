@@ -45,6 +45,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### Morphe
 | Bundle | Patches | Apps | Status |
 | --- | ---: | ---: | --- |
+| [Pinterest-Morphed](#-pinterest-morphed-bundle-patch-list) | 10 | 1 | Generated |
+| [Movistar-Block-Ads](#-movistar-block-ads-bundle-patch-list) | 1 | 1 | Generated |
 | [Shaun-Sheep](#-shaun-sheep-bundle-patch-list) | 1 | 1 | Generated |
 | [Bufferk](#-bufferk-bundle-patch-list) | 14 | 6 | Generated |
 | [Franticg33k](#-franticg33k-bundle-patch-list) | 9 | 5 | Generated |
@@ -144,6 +146,39 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Arsclib](#-arsclib-bundle-patch-list) | 16 | 2 | Generated |
 | [Hepolise](#-hepolise-bundle-patch-list) | 1 | 1 | Generated |
 
+
+---
+### 🧩 Pinterest-Morphed Bundle Patch List:
+[📦 Pinterest-Morphed-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-pinterest-morphed-patches-bundle-morphe)
+<details>
+<summary><b>Pinterest-Morphed</b> - 10 patches, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Disable Android Privacy Sandbox Ad Services``` | ```Removes the AD_SERVICES_CONFIG property so Android Privacy Sandbox ad APIs (Topics, Attribution Reporting, Custom Audiences) are not opted into.``` | ```Pinterest``` | ```All versions``` |
+| ```Disable AppsFlyer tracking``` | ```Neutralises the AppsFlyer attribution / tracking SDK. init() becomes a no-op and isStopped() always returns true, so no events, installs, uninstalls or attribution data are transmitted.``` | ```Pinterest``` | ```All versions``` |
+| ```Disable Bugsnag crash tracking``` | ```Removes the Bugsnag API key metadata so the crash reporting SDK cannot initialize or upload telemetry.``` | ```Pinterest``` | ```All versions``` |
+| ```Disable Google Ads SDK``` | ```Removes the Google Mobile Ads (AdMob) initialization metadata so the SDK never starts.``` | ```Pinterest``` | ```All versions``` |
+| ```Disable Google Engage integration``` | ```Removes the Google Engage broadcast receiver so Pinterest cannot publish content recommendations back to Google (Discover, Assistant, Play Store, etc.).``` | ```Pinterest``` | ```All versions``` |
+| ```Disable Google Engage worker``` | ```Rewrites GoogleEngageWorker.createWork() to return null so WorkManager fails the periodic job and no content recommendations are ever published to Google.``` | ```Pinterest``` | ```All versions``` |
+| ```Hide promoted pins``` | ```Overrides every `isPromoted` getter on the Pinterest pin/story models to return false, so ad chrome, ad beacons and click-out CTAs are never rendered or fired.``` | ```Pinterest``` | ```All versions``` |
+| ```Opt out of Google Analytics``` | ```Sets the default Google Analytics consent flags to false so the Firebase Measurement SDK does not collect analytics, ad data or personalization signals.``` | ```Pinterest``` | ```All versions``` |
+| ```Remove Advertising ID permission``` | ```Strips the com.google.android.gms.permission.AD_ID permission so any residual SDK cannot read the device's Google Advertising ID.``` | ```Pinterest``` | ```All versions``` |
+| ```Sanitize sharing links``` | ```Strips UTM and click-ID tracking parameters from the URL the app puts on the Android share sheet, so friends receive clean pin links.``` | ```Pinterest``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Movistar-Block-Ads Bundle Patch List:
+[📦 Movistar-Block-Ads-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-movistar-block-ads-patches-bundle-morphe)
+<details>
+<summary><b>Movistar-Block-Ads</b> - 1 patch, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Block Ads``` | ```Blocks advertisements and promo clips.``` | ```Movistar Plus``` | ```All versions``` |
+
+</details>
 
 ---
 ### 🧩 Coronenic Bundle Patch List:

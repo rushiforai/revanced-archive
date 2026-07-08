@@ -649,6 +649,16 @@
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "prerelease": false
     },
+    "movistar-block-ads-stable": {
+        "patches": "https://api.github.com/repos/Tornillo2/movistar-block-ads-morphe",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
+    "pinterest-morphed-stable": {
+        "patches": "https://api.github.com/repos/SouBryan/pinterest-morphed",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": false
+    },
     "piko-dev": {
         "patches": "https://api.github.com/repos/crimera/piko",
         "integration": "https://api.github.com/repos/crimera/revanced-integrations",
@@ -1294,6 +1304,16 @@
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "prerelease": true
     },
+    "movistar-block-ads-dev": {
+        "patches": "https://api.github.com/repos/Tornillo2/movistar-block-ads-morphe",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
+    "pinterest-morphed-dev": {
+        "patches": "https://api.github.com/repos/SouBryan/pinterest-morphed",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "prerelease": true
+    },
     "piko-latest": {
         "patches": "https://api.github.com/repos/crimera/piko",
         "integration": "https://api.github.com/repos/crimera/revanced-integrations",
@@ -1936,6 +1956,16 @@
     },
     "shaun-sheep-latest": {
         "patches": "https://api.github.com/repos/shaun-the-sheep-patches/morphe-patches",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "movistar-block-ads-latest": {
+        "patches": "https://api.github.com/repos/Tornillo2/movistar-block-ads-morphe",
+        "integration": "https://api.github.com/repos/revanced/revanced-integrations",
+        "latest": true
+    },
+    "pinterest-morphed-latest": {
+        "patches": "https://api.github.com/repos/SouBryan/pinterest-morphed",
         "integration": "https://api.github.com/repos/revanced/revanced-integrations",
         "latest": true
     }
