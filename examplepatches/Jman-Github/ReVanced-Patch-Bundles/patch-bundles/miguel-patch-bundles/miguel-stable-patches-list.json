@@ -1,0 +1,53 @@
+{
+    "version": "v1.3.8",
+    "patches": [
+        {
+            "compatiblePackages": [
+                {
+                    "apkFileType": "APK",
+                    "appIconColor": "#C62828",
+                    "name": "Anger of Stick 5",
+                    "packageName": "jpark.AOS5",
+                    "targets": [
+                        {
+                            "isExperimental": false,
+                            "version": "1.1.94"
+                        },
+                        {
+                            "isExperimental": true
+                        }
+                    ]
+                }
+            ],
+            "default": true,
+            "dependencies": [],
+            "description": "Skips Google Play Billing and credits IAP items (gem packs, coin packs, starter packs) directly. Lets the original failure path run after crediting to close the Contacting screen naturally. Also disables the startup purchase-restore flow.",
+            "name": "Free in-app purchases",
+            "options": []
+        },
+        {
+            "compatiblePackages": [
+                {
+                    "apkFileType": "APK",
+                    "appIconColor": "#29CC29",
+                    "name": "CubeX Solver",
+                    "packageName": "diozz.cubex",
+                    "targets": [
+                        {
+                            "isExperimental": false,
+                            "version": "4.1.0"
+                        },
+                        {
+                            "isExperimental": true
+                        }
+                    ]
+                }
+            ],
+            "default": true,
+            "dependencies": [],
+            "description": "Unlocks all premium-gated features (Advanced Solver / Kociemba, custom color schemes, VIP support, no relaunch screens). Returns true from PremiumHelper.hasActivePurchase() so the entire app behaves as if a premium subscription is active.",
+            "name": "Unlock premium",
+            "options": []
+        }
+    ]
+}
