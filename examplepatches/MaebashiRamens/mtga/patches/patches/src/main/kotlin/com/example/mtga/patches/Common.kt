@@ -10,7 +10,10 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.reference.StringReference
 import com.android.tools.smali.dexlib2.iface.value.StringEncodedValue
+import com.example.mtga.common.ClassTarget
 import com.example.mtga.common.TargetSet
 import com.example.mtga.common.Targets
 
@@ -74,6 +77,60 @@ internal fun BytecodePatchContext.mutableClassByTypeOrNull(type: String): Mutabl
 
 /** Return all methods on a class with the given name. */
 internal fun MutableClassDef.methodsNamed(name: String): List<MutableMethod> = methods.filter { it.name == name }
+
+/**
+ * Every [ClassDef] whose own bytecode emits [stringConstant] as a `const-string`
+ * literal. R8 never rewrites string literals (this app ships no string
+ * encryption), so a class that references a distinctive string can be re-found on
+ * any build by that string alone — the build-time equivalent of a ReVanced string
+ * fingerprint. A literal is not guaranteed unique, so this returns all matches
+ * and lets the caller disambiguate.
+ *
+ * Only use anchors that live in the *target class's own* method bodies; a string
+ * stored in a JSON adapter or a Retrofit annotation resolves to that holder, not
+ * the class you want (see [com.example.mtga.common.TargetAnchors]).
+ */
+internal fun BytecodePatchContext.classDefsByStringConstant(stringConstant: String): List<ClassDef> =
+    classDefs.filter { it.referencesStringConstant(stringConstant) }
+
+private fun ClassDef.referencesStringConstant(value: String): Boolean =
+    methods.any { method ->
+        method.implementation?.instructions?.any { insn ->
+            (insn.opcode == Opcode.CONST_STRING || insn.opcode == Opcode.CONST_STRING_JUMBO) &&
+                ((insn as? ReferenceInstruction)?.reference as? StringReference)?.string == value
+        } == true
+    }
+
+/**
+ * Resolve a class's DEX type descriptor, **calibrated-first, anchor-fallback**.
+ *
+ * When this APK actually contains the calibrated [target] (the common case — a
+ * build in `Targets.knownVersions`), its descriptor is returned verbatim with no
+ * scanning and no behaviour change. Only when the calibrated name is *absent*
+ * from the APK — an uncalibrated release, where `mtgaTargets` handed back the
+ * latest-known but now-stale name — does this fall back to locating the class by
+ * its [stringAnchor], keeping only candidates that pass [disambiguate].
+ *
+ * A string anchor is not guaranteed unique: an unrelated class can emit the same
+ * literal, and `classDefs` iteration order is R8-controlled, so picking an
+ * arbitrary first match could inject bytecode into the wrong class. The fallback
+ * therefore requires **exactly one** surviving candidate and throws otherwise —
+ * failing loudly beats mis-targeting a method.
+ */
+internal fun BytecodePatchContext.resolveClassDescriptor(
+    target: ClassTarget,
+    stringAnchor: String,
+    disambiguate: (ClassDef) -> Boolean = { true },
+): String {
+    val calibrated = target.descriptor
+    if (classDefs.any { it.type == calibrated }) return calibrated
+    val candidates = classDefsByStringConstant(stringAnchor).filter(disambiguate)
+    return candidates.singleOrNull()?.type
+        ?: throw PatchException(
+            "Could not resolve ${target.name}: absent from APK and ${candidates.size} class(es) " +
+                "match anchor \"$stringAnchor\" after disambiguation (need exactly one)",
+        )
+}
 
 /**
  * Build-time equivalent of [com.example.mtga.hooks.UICleanupHook.noopAllComposables].
@@ -147,7 +204,8 @@ internal fun BytecodePatchContext.dropFeedItemTypes(vararg typeNames: String) {
     val wrapperDesc = targets.feedItemWrapper?.descriptor ?: return
     val cls = mutableClassByTypeOrNull(mapperDesc) ?: return
     val method =
-        cls.methodsNamed(targets.feedItemMapperMethod)
+        cls
+            .methodsNamed(targets.feedItemMapperMethod)
             .firstOrNull { it.returnType == "Ljava/util/ArrayList;" }
             ?: throw PatchException("$mapperDesc.${targets.feedItemMapperMethod}: FeedItem mapper not found")
 

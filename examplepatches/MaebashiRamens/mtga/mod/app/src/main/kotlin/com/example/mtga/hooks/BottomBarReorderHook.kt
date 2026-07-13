@@ -20,8 +20,9 @@ import de.robv.android.xposed.XposedHelpers
  * We:
  *   1. Force <clinit> by loading the class.
  *   2. Read each static field as `List<Any>`.
- *   3. Tag every entry with its route id; unknown entries keep their
- *      original relative order at the tail.
+ *   3. Tag every entry with its route id; entries the user didn't list
+ *      (known-but-unlisted or unknown) keep their original relative order
+ *      at the tail, so a partial/stale order never drops a native tab.
  *   4. Reorder per the user's pref, write back via
  *      [XposedHelpers.setStaticObjectField].
  *
@@ -55,13 +56,16 @@ class BottomBarReorderHook(
             return
         }
 
-        val orderString = Settings.getString(SettingKeys.BottomBarTabOrder, SettingKeys.DefaultBottomBarTabOrder)
+        fun parseOrder(raw: String): List<String> = raw.split(',').map { it.trim().lowercase() }.filter { it.isNotEmpty() }
+
+        val defaultOrder = parseOrder(SettingKeys.DefaultBottomBarTabOrder)
         val preferredOrder =
-            orderString.split(',').map { it.trim() }.filter { it.isNotEmpty() }
-        if (preferredOrder.isEmpty()) {
-            XposedBridge.log("[$TAG] BottomBarReorder skipped — empty order pref")
-            return
-        }
+            Settings
+                .getString(SettingKeys.BottomBarTabOrder, SettingKeys.DefaultBottomBarTabOrder)
+                .let(::parseOrder)
+                // A blank or token-empty pref (e.g. ", ," from clearing every
+                // row) must still yield a defined order, not the stock bar.
+                .ifEmpty { defaultOrder }
 
         val tabsClass = XposedHelpers.findClass(targets.bottomNavTabs.name, classLoader)
         // Trigger <clinit> so the static fields are populated before we read them.
@@ -92,33 +96,34 @@ class BottomBarReorderHook(
                 return
             } ?: return
 
-        // Tag every element with its route id (null if unmatched).
-        val tagged: List<Pair<String?, Any>> =
-            current.map { tab ->
-                val route =
-                    routeToClass.entries.firstOrNull { (_, cls) -> cls.isInstance(tab) }?.key
-                route to tab
-            }
+        // Tab singletons are distinct final objects, so match by exact class;
+        // fall back to isInstance only if a build ever wraps them. Exact-match
+        // stops a base/subclass pair from collapsing two tabs onto one route.
+        fun routeOf(tab: Any): String? =
+            routeToClass.entries.firstOrNull { (_, cls) -> cls == tab.javaClass }?.key
+                ?: routeToClass.entries.firstOrNull { (_, cls) -> cls.isInstance(tab) }?.key
 
+        val tagged: List<Pair<String?, Any>> = current.map { tab -> routeOf(tab) to tab }
         val byRoute = tagged.filter { it.first != null }.associateBy { it.first!! }
-        val unknown = tagged.filter { it.first == null }.map { it.second }
+        // Dedup by object identity, not route: even if two tabs ever resolved
+        // to one route (only possible via the isInstance fallback on a future
+        // wrapping build), every native tab is emitted exactly once.
+        val emitted = java.util.Collections.newSetFromMap(java.util.IdentityHashMap<Any, Boolean>())
         val reordered: List<Any> =
             buildList {
-                // Strict-include: only tabs the user listed appear, in the
-                // listed order. Known routes the user omitted are dropped;
-                // they can be re-added via the "+ route" chips in MTGA
-                // Settings.
                 for (route in preferredOrder) {
-                    byRoute[route]?.let { add(it.second) }
+                    byRoute[route]?.let { if (emitted.add(it.second)) add(it.second) }
                 }
-                // Preserve unknown tabs at the tail. Truth Social may add
-                // new routes in a future build we haven't calibrated, and
-                // we don't want a stale preferred-order string to hide them.
-                addAll(unknown)
+                // Keep every unlisted tab at the tail: dropping a native tab
+                // hides it and desyncs the length of the two variant lists
+                // Truth Social swaps between at runtime.
+                for ((_, tab) in tagged) {
+                    if (emitted.add(tab)) add(tab)
+                }
             }
 
         val originalRoutes = tagged.map { it.first ?: "?" }
-        val newRoutes = reordered.map { tab -> routeToClass.entries.firstOrNull { it.value.isInstance(tab) }?.key ?: "?" }
+        val newRoutes = reordered.map { routeOf(it) ?: "?" }
 
         if (reordered == current) {
             XposedBridge.log("[$TAG] BottomBarReorder: $fieldName already in desired order ($originalRoutes)")
@@ -127,9 +132,18 @@ class BottomBarReorderHook(
 
         try {
             XposedHelpers.setStaticObjectField(tabsClass, fieldName, reordered)
-            XposedBridge.log("[$TAG] BottomBarReorder: $fieldName  $originalRoutes -> $newRoutes")
         } catch (t: Throwable) {
             XposedBridge.log("[$TAG] BottomBarReorder: write ${tabsClass.name}.$fieldName failed: ${t.message}")
+            return
+        }
+
+        // R8 may keep the field `final` and ART can silently no-op a reflective
+        // write; read the slot back (log-only) so a dead reorder is diagnosable.
+        val readBack = runCatching { XposedHelpers.getStaticObjectField(tabsClass, fieldName) }.getOrNull()
+        if (readBack === reordered) {
+            XposedBridge.log("[$TAG] BottomBarReorder: $fieldName  $originalRoutes -> $newRoutes")
+        } else {
+            XposedBridge.log("[$TAG] BottomBarReorder: $fieldName write did not stick (final/inlined field?) — bar may be unchanged")
         }
     }
 }

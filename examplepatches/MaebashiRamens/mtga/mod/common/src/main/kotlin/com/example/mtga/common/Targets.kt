@@ -31,6 +31,17 @@ package com.example.mtga.common
  *    their owning class.
  * 6. Append a new `TargetsV<X_Y_Z>` constant and register it in [knownVersions].
  * 7. `./gradlew :mod:app:assembleDebug` and `nix run .#build-patches`.
+ *
+ * ## Anchor-based self-healing
+ *
+ * Some classes carry a stable string in their own bytecode (the header / route
+ * literal in their `HOW TO LOCATE` note); those are registered once, version-
+ * independently, in [TargetAnchors]. The patch vector resolves them
+ * calibrated-first, anchor-fallback (`resolveClassDescriptor`), so an
+ * uncalibrated build still locates them without a fresh [ClassTarget] — the
+ * obfuscated name here is the fast path, not the only path. Anchors never
+ * replace calibration (most symbols have no own-body string to key on); they
+ * just shrink what a new release strictly requires.
  */
 object Targets {
     const val PACKAGE = "com.truthsocial.android.app"

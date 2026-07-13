@@ -18,6 +18,10 @@ val blockTruthPlusUpsellPatch =
 
         execute {
             val targets = mtgaTargets
+            // Both route classes stay calibration-only: their Compose-nav route
+            // string lives on the OUTER holder / in a `route/{feature}` template,
+            // never as a bare const-string on the inner `$a` route subclass the
+            // instance-of needs, so a string anchor can't reach the right class.
             mutableClassByType(targets.navHandler.descriptor)
                 .methodsNamed(targets.navHandlerNavigateMethod)
                 .forEach { method ->

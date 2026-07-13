@@ -31,13 +31,12 @@ object SettingKeys {
     const val PostScheduleMode = "post_schedule_mode"
     const val BlockTruthPlusUpsell = "block_truth_plus_upsell"
 
-    // Bottom-bar tab reorder (v1.26.2+; the older builds use a dynamic tab
-    // list and aren't affected). The order string is a comma-separated list
-    // of route ids; unknown routes are appended at the end in their original
-    // order so the feature degrades safely if the user supplies a partial list.
+    // Bottom-bar tab reorder (v1.26.2+). `predictions` and `chats` are
+    // mutually exclusive at runtime (Truth Social ships one variant list per
+    // server flag), so listing both keeps whichever is active at the same slot.
     const val ReorderBottomBar = "reorder_bottom_bar"
     const val BottomBarTabOrder = "bottom_bar_tab_order"
-    const val DefaultBottomBarTabOrder = "feeds,discover,alerts,groups,predictions"
+    const val DefaultBottomBarTabOrder = "feeds,discover,alerts,groups,predictions,chats"
 
     // v1.26.2+ home-feed additions hidden by dedicated hooks rather than the
     // server-side Features ctor override (which the server can still ignore).

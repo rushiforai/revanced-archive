@@ -1,8 +1,10 @@
 package com.example.mtga
 
 import android.content.Context
+import android.util.Log
 import com.example.mtga.common.TargetResolver
 import com.example.mtga.common.TargetSet
+import java.lang.reflect.Modifier
 
 /**
  * Resolver for builds whose versionCode is not in [Targets.knownVersions].
@@ -59,30 +61,55 @@ class FallbackResolver(
                 }.toMap()
         if (staticResolved.size == targets.bottomNavTabClasses.size) return staticResolved
 
-        val discovered = discoverTabsInSiblingPackage()
-        if (discovered.isEmpty()) return staticResolved
-
-        // Static results win when both sources name the same route (they're
-        // human-verified); discovery fills the gaps.
-        return discovered + staticResolved
+        // Partial (a renamed tab class on an uncalibrated build) or empty:
+        // probe the sibling package to fill the gaps. Static entries win when
+        // both name the same route — they're human-verified.
+        val merged = discoverTabsInSiblingPackage() + staticResolved
+        if (merged.size < targets.bottomNavTabClasses.size) {
+            Log.w(
+                "MTGA",
+                "resolveBottomBarTabClasses: only ${merged.size}/${targets.bottomNavTabClasses.size} " +
+                    "routes resolved on an uncalibrated build",
+            )
+        }
+        return merged
     }
 
     /**
-     * Walk single-letter classes (`a`..`z`) in the package hosting
-     * [TargetSet.bottomNavTabs]. Each tab subclass is a Kotlin `object` with
-     * a static field `a` and an instance method `b()` returning the route
-     * string. Reflection failures on any candidate are absorbed so a
-     * misshapen class doesn't break discovery for sibling tabs.
+     * Recover the route → tab-class map on an uncalibrated build where R8
+     * shifted the tab classes' single-letter names.
+     *
+     * The tab base's accessors return resource ids, not a route string, so the
+     * tab carries no route to key on. Instead we key on each tab's overridden
+     * `toString()` label — stable across obfuscation — mapped to the route via
+     * [tabLabelToRoute]; unmatched labels are skipped so the static map wins.
      */
     private fun discoverTabsInSiblingPackage(): Map<String, Class<*>> {
         val tabsPackage = targets.bottomNavTabs.name.substringBeforeLast('.', missingDelimiterValue = "")
         if (tabsPackage.isEmpty()) return emptyMap()
+
+        val alertsCls = runCatching { classLoader.loadClass(targets.bottomNavAlertsTab.name) }.getOrNull() ?: return emptyMap()
+        val tabBase = alertsCls.superclass ?: return emptyMap()
+
         val result = mutableMapOf<String, Class<*>>()
         for (ch in 'a'..'z') {
-            val fqn = "$tabsPackage.$ch"
-            val cls = runCatching { classLoader.loadClass(fqn) }.getOrNull() ?: continue
-            val singleton = runCatching { cls.getField("a").get(null) }.getOrNull() ?: continue
-            val route = runCatching { cls.getMethod("b").invoke(singleton) as? String }.getOrNull() ?: continue
+            val cls = runCatching { classLoader.loadClass("$tabsPackage.$ch") }.getOrNull() ?: continue
+            if (cls == tabBase || Modifier.isAbstract(cls.modifiers) || cls.isInterface) continue
+            if (!tabBase.isAssignableFrom(cls)) continue
+
+            // Match the singleton field by type, not name, to survive renaming.
+            val singletonField =
+                cls.declaredFields.firstOrNull {
+                    Modifier.isStatic(it.modifiers) && it.type == cls
+                } ?: continue
+            val singleton =
+                runCatching {
+                    singletonField.isAccessible = true
+                    singletonField.get(null)
+                }.getOrNull() ?: continue
+
+            val label = runCatching { singleton.toString() }.getOrNull()?.trim()?.lowercase() ?: continue
+            val route = tabLabelToRoute[label] ?: continue
             result[route] = cls
         }
         return result
@@ -95,4 +122,23 @@ class FallbackResolver(
                 fqn
             }.getOrNull()
         }
+
+    private companion object {
+        /**
+         * Tab `toString()` label (lower-cased) → route id. The labels diverge
+         * from the route ids (`Home`→`feeds`, `Messages`→`chats`), which is why
+         * a tab accessor can't be read as the route directly.
+         */
+        val tabLabelToRoute =
+            mapOf(
+                "home" to "feeds",
+                "messages" to "chats",
+                "alerts" to "alerts",
+                "discover" to "discover",
+                "groups" to "groups",
+                "predictions" to "predictions",
+                "feeds" to "feeds",
+                "chats" to "chats",
+            )
+    }
 }

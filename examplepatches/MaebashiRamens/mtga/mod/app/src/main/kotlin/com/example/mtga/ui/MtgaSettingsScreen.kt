@@ -60,7 +60,6 @@ import com.example.mtga.common.FeatureOverride
 import com.example.mtga.common.PremiumMode
 import com.example.mtga.common.SettingKeys
 import com.example.mtga.common.TargetSet
-import com.example.mtga.common.Targets
 import com.example.mtga.config.FeatureOverrideEntry
 import com.example.mtga.config.PremiumModeEntry
 import com.example.mtga.config.SettingItem
@@ -148,7 +147,7 @@ fun MtgaSettingsScreen(
                 is NavScreen.Detail -> {
                     val vc = visibleCategories.firstOrNull { it.category.title == current.categoryTitle }
                     if (vc != null) {
-                        CategoryDetailScreen(category = vc, prefs = prefs, contentPadding = padding)
+                        CategoryDetailScreen(category = vc, prefs = prefs, targets = targets, contentPadding = padding)
                     }
                 }
             }
@@ -251,6 +250,7 @@ private fun AdvancedScreen(
 private fun CategoryDetailScreen(
     category: VisibleCategory,
     prefs: SharedPreferences,
+    targets: TargetSet,
     contentPadding: PaddingValues,
 ) {
     // No inline section header — the screen title in the TopAppBar already
@@ -263,7 +263,7 @@ private fun CategoryDetailScreen(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         items(category.items, key = { itemKey(it) }) { item ->
-            RenderItem(item, prefs)
+            RenderItem(item, prefs, targets)
         }
     }
 }
@@ -365,13 +365,14 @@ private fun MtgaTheme(content: @Composable () -> Unit) {
 private fun RenderItem(
     item: SettingItem,
     prefs: SharedPreferences,
+    targets: TargetSet,
 ) {
     when (item) {
         is SettingItem.Bool -> {
             ToggleRow(item.toggle, prefs)
             // Render the reorder UI immediately under its enabling switch.
             if (item.toggle.key == SettingKeys.ReorderBottomBar) {
-                BottomBarReorderBlock(prefs)
+                BottomBarReorderBlock(prefs, targets)
             }
         }
         is SettingItem.Mode -> PremiumModeRow(item.entry, prefs)
@@ -569,24 +570,27 @@ private fun <T> TriStateRadioRow(
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun BottomBarReorderBlock(prefs: SharedPreferences) {
-    val knownRoutes = remember {
-        Targets.latest.bottomNavTabClasses.keys.toList()
+private fun BottomBarReorderBlock(
+    prefs: SharedPreferences,
+    targets: TargetSet,
+) {
+    // Route set of the *installed* build, not Targets.latest — the chip row
+    // and route labels must match what this build actually renders.
+    val knownRoutes = remember(targets) {
+        targets.bottomNavTabClasses.keys.toList()
     }
 
-    // Snapshot list backs both the reorderable LazyColumn and the chip row.
-    // Initialised from prefs, falling back to the calibrated default order,
-    // and pruned of any persisted-but-unknown routes (defensive against
-    // pref-file drift between releases).
-    val order = remember {
+    // Persisted routes are kept verbatim — even ones not in `knownRoutes` — so
+    // an edit never erases a route the hook would preserve at the tail.
+    val order = remember(targets) {
         val raw = prefs.getString(SettingKeys.BottomBarTabOrder, null)
+            ?.ifBlank { null }
             ?: SettingKeys.DefaultBottomBarTabOrder
-        val parsed = raw.split(',').map { it.trim() }.filter { it.isNotEmpty() }
-        val pruned = parsed.filter { it in knownRoutes }.toMutableList()
-        if (pruned.isEmpty()) {
-            pruned.addAll(SettingKeys.DefaultBottomBarTabOrder.split(','))
+        val parsed = raw.split(',').map { it.trim() }.filter { it.isNotEmpty() }.distinct()
+        val seed = parsed.ifEmpty {
+            SettingKeys.DefaultBottomBarTabOrder.split(',').map { it.trim() }.filter { it.isNotEmpty() }
         }
-        mutableStateListOf<String>().apply { addAll(pruned) }
+        mutableStateListOf<String>().apply { addAll(seed) }
     }
 
     Column(
