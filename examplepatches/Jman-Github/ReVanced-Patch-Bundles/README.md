@@ -1435,19 +1435,6 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 </details>
 
 ---
-### 📦 TS-Patches-Patches-Bundle [Morphe]:
-[🧩 TS-Patches Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-ts-patches-bundle-patch-list)
-<details>
-<summary><i>Expand For Links</i></summary>
-
-**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/ts-patches-patch-bundles/ts-patches-latest-patches-bundle.json```
-
-**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/ts-patches-patch-bundles/ts-patches-stable-patches-bundle.json```
-
-**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/ts-patches-patch-bundles/ts-patches-dev-patches-bundle.json```
-</details>
-
----
 ### 📦 Zpatches-Patches-Bundle [Morphe]:
 [🧩 Zpatches Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-zpatches-bundle-patch-list)
 <details>
@@ -1601,19 +1588,6 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 **Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/morphe-google-patch-bundles/morphe-google-stable-patches-bundle.json```
 
 **Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/morphe-google-patch-bundles/morphe-google-dev-patches-bundle.json```
-</details>
-
----
-### ?? Arunpdl-Patches-Bundle [Morphe]:
-[?? Arunpdl Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-arunpdl-bundle-patch-list)
-<details>
-<summary><i>Expand For Links</i></summary>
-
-**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/arunpdl-patch-bundles/arunpdl-latest-patches-bundle.json```
-
-**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/arunpdl-patch-bundles/arunpdl-stable-patches-bundle.json```
-
-**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/arunpdl-patch-bundles/arunpdl-dev-patches-bundle.json```
 </details>
 
 ---
@@ -1822,6 +1796,84 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 **Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/babyhuehnchen-patch-bundles/babyhuehnchen-stable-patches-bundle.json```
 
 **Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/babyhuehnchen-patch-bundles/babyhuehnchen-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 Proxma-Patches-Bundle [Morphe]:
+[🧩 Proxma Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-proxma-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/proxma-patch-bundles/proxma-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/proxma-patch-bundles/proxma-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/proxma-patch-bundles/proxma-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 Jouss-Patches-Bundle [Morphe]:
+[🧩 Jouss Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-jouss-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/jouss-patch-bundles/jouss-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/jouss-patch-bundles/jouss-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/jouss-patch-bundles/jouss-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 ItsTheJoker-Patches-Bundle [Morphe]:
+[🧩 ItsTheJoker Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-itsthejoker-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/itsthejoker-patch-bundles/itsthejoker-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/itsthejoker-patch-bundles/itsthejoker-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/itsthejoker-patch-bundles/itsthejoker-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 Gmaps-Patches-Bundle [Morphe]:
+[🧩 Gmaps Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-gmaps-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/gmaps-patch-bundles/gmaps-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/gmaps-patch-bundles/gmaps-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/gmaps-patch-bundles/gmaps-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 Seobject-Patches-Bundle [Morphe]:
+[🧩 Seobject Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-seobject-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/seobject-patch-bundles/seobject-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/seobject-patch-bundles/seobject-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/seobject-patch-bundles/seobject-dev-patches-bundle.json```
+</details>
+
+---
+### 📦 Abeja-Patches-Bundle [Morphe]:
+[🧩 Abeja Bundle Patch List](https://github.com/Jman-Github/ReVanced-Patch-Bundles/blob/bundles/patch-bundles/PATCH-LIST-CATALOG.md#-abeja-bundle-patch-list)
+<details>
+<summary><i>Expand For Links</i></summary>
+
+**Latest:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/abeja-patch-bundles/abeja-latest-patches-bundle.json```
+
+**Stable:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/abeja-patch-bundles/abeja-stable-patches-bundle.json```
+
+**Dev:** ```https://raw.githubusercontent.com/Jman-Github/ReVanced-Patch-Bundles/bundles/patch-bundles/abeja-patch-bundles/abeja-dev-patches-bundle.json```
 </details>
 
 ## 📱 Compatible Managers
@@ -2055,8 +2107,6 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 
 #### 🏷️ [Morphe-Portal-Patches-Bundle](https://github.com/andronedev/morphe-portal-patch)
 
-#### 🏷️ [TS-Patches-Patches-Bundle](https://github.com/osirisad/ts-patches)
-
 #### 🏷️ [Zpatches-Patches-Bundle](https://github.com/cesbar/zpatches)
 
 #### 🏷️ [iHealth-Morphe-Patches-Bundle](https://github.com/bdgerszewski/morphe-patches-ihealth)
@@ -2080,8 +2130,6 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 #### 🏷️ [Nai64-Patches-Bundle](https://github.com/Nai64/Nai64Patches)
 
 #### 🏷️ [Morphe-Google-Patches-Bundle](https://github.com/Ripthulhu/morphe-google-patches)
-
-#### 🏷️ [Arunpdl-Patches-Bundle](https://github.com/arunpdl/morphe-patches)
 
 #### 🏷️ [Xhehab-Patches-Bundle](https://github.com/Xhehab/Xhehab-Patches)
 
@@ -2114,6 +2162,18 @@ If you know of another working ReVanced or Morphe patch repository that is not l
 #### 🏷️ [Cobalt-Morphe-Patches-Bundle](https://github.com/skulldogged/cobalt-morphe)
 
 #### 🏷️ [Babyhuehnchen-Patches-Bundle](https://github.com/babyhuehnchen/morphe-patches)
+
+#### 🏷️ [Proxma-Patches-Bundle](https://github.com/totsiaw/proxma-patches)
+
+#### 🏷️ [Jouss-Patches-Bundle](https://github.com/Joussflls10/Jouss-Patches)
+
+#### 🏷️ [ItsTheJoker-Patches-Bundle](https://github.com/itsthejoker/itsthejoker-patches)
+
+#### 🏷️ [Gmaps-Patches-Bundle](https://github.com/fangkampanat/gmaps-patches)
+
+#### 🏷️ [Seobject-Patches-Bundle](https://github.com/Seobject/Seobject-patches)
+
+#### 🏷️ [Abeja-Patches-Bundle](https://github.com/TheRealCrazyfuy/abeja-morphe-patches)
 
 </details>
 
@@ -2169,10 +2229,4 @@ Implemented a patch serializer for all `.rvp` (API v4) patch bundles in this
 
 ## ⭐ Star History
 
-<a href="https://www.star-history.com/?repos=Jman-Github%2FRevanced-Patch-Bundlestype=date&legend=top-left">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Jman-Github/Revanced-Patch-Bundles&type=date&theme=dark&legend=top-left" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Jman-Github/Revanced-Patch-Bundles&type=date&legend=top-left" />
-    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=Jman-Github/Revanced-Patch-Bundles&type=date&legend=top-left" />
-  </picture>
-</a>
+[![Star History Chart](https://api.star-history.com/chart?repos=Jman-Github/Revanced-Patch-Bundlestype=date&type=date&legend=top-left&sealed_token=ORKUsht4OVNKSfhsXvs3ZJepz2X0oR7wgn7Eam-hPnsfIyJ-7843-C-shDPjdqC3W-LHutXghTgPXKtKsgaake_XbwSX4aZWMkWBDKEYvkVxbEvK82pcWg)](https://www.star-history.com/?repos=Jman-Github%2FRevanced-Patch-Bundlestype%3Ddate&type=date&legend=top-left)
