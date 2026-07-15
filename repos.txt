@@ -20,6 +20,7 @@ LoV432/revanced-patches
 MaebashiRamens/mtga
 MarcaDian/Mystery-manager
 MojiRS/revanced-rif-patches
+NexAlloy/NexAlloy
 PawiX25/pepper-revanced-patches
 ReVanced/revanced-patches
 Slenderman00/revanced-patches-grindr
