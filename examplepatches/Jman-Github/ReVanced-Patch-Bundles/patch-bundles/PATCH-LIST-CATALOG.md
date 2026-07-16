@@ -54,10 +54,10 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Babyhuehnchen](#-babyhuehnchen-bundle-patch-list) | 1 | 1 | Generated |
 | [Cobalt-Morphe](#-cobalt-morphe-bundle-patch-list) | 1 | 1 | Generated |
 | [Pichiwa](#-pichiwa-bundle-patch-list) | 18 | 1 | Generated |
-| [Saiesh](#-saiesh-bundle-patch-list) | 10 | 3 | Generated |
+| [Saiesh](#-saiesh-bundle-patch-list) | 10 | 4 | Generated |
 | [Letterboxd-Stremio](#-letterboxd-stremio-bundle-patch-list) | 3 | 1 | Generated |
-| [Miguel](#-miguel-bundle-patch-list) | 11 | 6 | Generated |
-| [Pinterest-Morphed](#-pinterest-morphed-bundle-patch-list) | 12 | 1 | Generated |
+| [Miguel](#-miguel-bundle-patch-list) | 13 | 7 | Generated |
+| [Pinterest-Morphed](#-pinterest-morphed-bundle-patch-list) | 13 | 1 | Generated |
 | [Movistar-Block-Ads](#-movistar-block-ads-bundle-patch-list) | 1 | 1 | Generated |
 | [Shaun-Sheep](#-shaun-sheep-bundle-patch-list) | 4 | 4 | Generated |
 | [Bufferk](#-bufferk-bundle-patch-list) | 14 | 6 | Generated |
@@ -103,7 +103,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Fin-Tweaks](#-fin-tweaks-bundle-patch-list) | - | - | Pending patch list |
 | [Kondratjev](#-kondratjev-bundle-patch-list) | 25 | 13 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 77 | 53 | Generated |
-| [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 86 | 6 | Generated |
+| [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 85 | 6 | Generated |
 | [Morphe](#-morphe-bundle-patch-list) | 126 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
@@ -111,7 +111,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Almewty](#-almewty-bundle-patch-list) | 3 | 2 | Generated |
 | [Anddea-Morphed](#-anddea-morphed-bundle-patch-list) | 133 | 6 | Generated |
 | [RookieEnough](#-rookieenough-bundle-patch-list) | 84 | 35 | Generated |
-| [Adobo](#-adobo-bundle-patch-list) | 40 | 5 | Generated |
+| [Adobo](#-adobo-bundle-patch-list) | 41 | 5 | Generated |
 | [Docbt](#-docbt-bundle-patch-list) | 6 | 3 | Generated |
 | [PixelPusher247](#-pixelpusher247-bundle-patch-list) | 1 | 1 | Generated |
 | [Rabilrbl](#-rabilrbl-bundle-patch-list) | 2 | 1 | Generated |
@@ -140,7 +140,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Ajstrick81-AndroidTV](#-ajstrick81-androidtv-bundle-patch-list) | 20 | 10 | Generated |
 | [Icysymmetra-TikTok](#-icysymmetra-tiktok-bundle-patch-list) | 15 | 1 | Generated |
 | [AlexNaga](#-alexnaga-bundle-patch-list) | 2 | 1 | Generated |
-| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 213 | 142 | Generated |
+| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 215 | 144 | Generated |
 | [Sjshb57-PairIP](#-sjshb57-pairip-bundle-patch-list) | 4 | 1 | Generated |
 
 ### Legacy
@@ -343,11 +343,11 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Hide Forwarded``` | ```Quita la etiqueta "reenviado" de los mensajes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Read Receipts``` | ```Read messages without sending blue ticks.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Typing``` | ```Escribe sin mostrar "escribiendo...".``` | ```com.whatsapp``` | ```2.26.27.4``` |
+| ```Login Fix``` | ```Bypasses verification bans by spoofing signatures, installers, and faking GMS checks. REQUIRED: You must manually install microG-RE for Play Integrity to pass.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```No Forward Limit``` | ```Forward messages to unlimited contacts.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Communities``` | ```Hide the communities tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Updates``` | ```Hide the updates/statuses tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Settings Menu``` | ```Add the Pichiwa menu in settings.``` | ```com.whatsapp``` | ```2.26.27.4``` |
-| ```SMS Verification Bypass``` | ```Bypasses SMS verification bans by spoofing signatures, installers, and hiding GMS. REQUIRED: You must manually install microG-RE for Play Integrity to pass.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 
 </details>
 
@@ -355,14 +355,14 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Saiesh Bundle Patch List:
 [📦 Saiesh-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-saiesh-patches-bundle-morphe)
 <details>
-<summary><b>Saiesh</b> - 10 patches, 3 apps</summary>
+<summary><b>Saiesh</b> - 10 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Disable PairIP DRM``` | ```Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing.``` | ```AT4K Launcher (Android TV)``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks all premium features by forcing the premium state to true in the purchase manager.``` | ```AT4K Launcher (Android TV)``` | ```All versions``` |
-| ```Disable PairIP DRM``` | ```Disables PairIP signature verification, Google Play LVL license check, System.exit kill switch, checksum integrity verification, and MHSDK analytics. Required for the app to launch after re-signing.``` | ```Lightroom``` | ```All versions``` |
-| ```Unlock Premium``` | ```Unlocks all premium features by forcing entitlement status to SUBSCRIPTION and making all premium gating checks return true.``` | ```Lightroom``` | ```All versions``` |
+| ```Unlock Premium``` | ```Unlocks all premium features by forcing the pro_version SharedPreferences check to always return true.``` | ```ISS Live Now``` | ```All versions``` |
+| ```Unlock Premium``` | ```Unlocks all premium features by bypassing the native library premium check.``` | ```Projectivy Launcher``` | ```All versions``` |
 | ```Fix Firebase after re-signing``` | ```Fixes Firebase services (push notifications, Remote Config, Firebase Auth) that break after Morphe re-signs the app with a different certificate. Apply with Original app certificate patch no other config needed.``` | ```Universal``` | ```All versions``` |
 | ```GmsCore support (MicroG)``` | ```Routes Google Play Services calls through MicroG instead of real GPS. Works for: Google apps (YouTube, Maps, News, Photos) and third-party apps using classic Google Sign-In (Android 13 and below). Does not work for: Android 14+ Credential Manager sign-in (most modern third-party apps), Play Integrity / SafetyNet checks, or apps with custom auth. Requires MicroG RE installed. Apply with Original app certificate patch.``` | ```Universal``` | ```All versions``` |
 | ```Provide Original app certificate``` | ```By Default it Reads the signing certificate from the original app installed. Required for GmsCore, Firebase, and Signature spoof patches. Only fill options below if the original is uninstalled.``` | ```Universal``` | ```All versions``` |
@@ -390,11 +390,13 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Miguel Bundle Patch List:
 [📦 Miguel-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-miguel-patches-bundle-morphe)
 <details>
-<summary><b>Miguel</b> - 11 patches, 6 apps</summary>
+<summary><b>Miguel</b> - 13 patches, 7 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Free in-app purchases``` | ```Skips Google Play Billing and credits IAP items (gem packs, coin packs, starter packs) directly. Lets the original failure path run after crediting to close the Contacting screen naturally. Also disables the startup purchase-restore flow.``` | ```Anger of Stick 5``` | ```All versions``` |
+| ```Free in-app purchases``` | ```Skips purchase signature verification and forces billing to report success. Patches RunnerBillingSecurity.verifyPurchase to always return true, Purchase.isAcknowledged/getPurchaseState to return valid values, and the billing bridge callbacks.``` | ```Climb!``` | ```All versions``` |
+| ```Remove ads``` | ```Simulates the purchase of the 'climbnoads' IAP product so the game thinks you bought No Ads and stops showing ads naturally. Patches GPBilling_Purchase_GetState to return PURCHASED when called with 'climbnoads'.``` | ```Climb!``` | ```All versions``` |
 | ```Unlock premium``` | ```Unlocks all premium-gated features (Advanced Solver / Kociemba, custom color schemes, VIP support, no relaunch screens). Returns true from PremiumHelper.hasActivePurchase() so the entire app behaves as if a premium subscription is active.``` | ```CubeX Solver``` | ```All versions``` |
 | ```Auto reward ads``` | ```When a rewarded ad is closed, the game always thinks you watched the entire ad. You get the reward even if you skip or close the ad immediately.``` | ```Hunter Assassin``` | ```All versions``` |
 | ```Unlimited gems, rubies & unlock all``` | ```Sets gems, rubies (diamonds), keys and tickets to 9999999. Unlocks VIP (removes ads + VIP rewards + Ninja Assassin VIP character), all assassin characters (2-44), including all Legendary characters (Scarecrow, Dracula, Thor, Wolverine, Myers, Santa, Grinch, Nutcracker, Cricket Player), and all special knives.``` | ```Hunter Assassin``` | ```All versions``` |
@@ -403,7 +405,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Remove ads``` | ```Prevents video ads from loading. When the game tries to load an ad, nothing happens. Ads will not be shown.``` | ```Plants vs. Zombies FREE``` | ```All versions``` |
 | ```Free in-app purchases``` | ```Patches the Google Play Billing bridge to report success and validate purchases. Handles crystal packs and other IAP items at the billing layer. For unlocking tribes and skins, use the 'Unlock all tribes' patch instead.``` | ```The Battle of Polytopia``` | ```All versions``` |
 | ```Unlock all tribes``` | ```Unlocks all 20 tribes (Xinxi, Imperius, Bardur, Oumaji, Kickoo, Hoodrick, Luxidoor, Vengir, Zebasi, Aimo, Aquarion, Elyrion, Polaris, Magma, Yadakk, Quetzali, Cymanti, Swamp, Ikarus, Urkaz) and all skins by patching the native IL2CPP library (libil2cpp.so). Makes IsProductUnlocked return true, skips the purchase flow, and suppresses the 'Purchase error' dialog. Pure ARM64 hex patching, no smali, no extension.``` | ```The Battle of Polytopia``` | ```All versions``` |
-| ```Billing bypass``` | ```Attempts to credit purchases by scanning the app for billing code and applying the appropriate bypass. Runs 4 phases.``` | ```Universal``` | ```All versions``` |
+| ```Billing bypass``` | ```Attempts to credit purchases by scanning the app for billing code and applying the appropriate bypass. Runs 5 phases: (1) Cocos2d-x helper, (2) GameMaker verifyPurchase, (3) Google Play Billing, (4) Unity billing bridge, (5) Fallback. Also depends on Unity IL2CPP hex patch.``` | ```Universal``` | ```All versions``` |
 | ```Unity IL2CPP hex patch``` | ```Patches libil2cpp.so to bypass Unity IL2CPP billing validation.``` | ```Universal``` | ```All versions``` |
 
 </details>
@@ -412,13 +414,14 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Pinterest-Morphed Bundle Patch List:
 [📦 Pinterest-Morphed-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-pinterest-morphed-patches-bundle-morphe)
 <details>
-<summary><b>Pinterest-Morphed</b> - 12 patches, 1 app</summary>
+<summary><b>Pinterest-Morphed</b> - 13 patches, 1 app</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Disable Android Privacy Sandbox Ad Services``` | ```Removes the AD_SERVICES_CONFIG property so Android Privacy Sandbox ad APIs (Topics, Attribution Reporting, Custom Audiences) are not opted into.``` | ```Pinterest``` | ```All versions``` |
 | ```Disable AppsFlyer tracking``` | ```Neutralises the AppsFlyer attribution / tracking SDK. init() becomes a no-op and isStopped() always returns true, so no events, installs, uninstalls or attribution data are transmitted.``` | ```Pinterest``` | ```All versions``` |
 | ```Disable Bugsnag crash tracking``` | ```Removes the Bugsnag API key metadata so the crash reporting SDK cannot initialize or upload telemetry.``` | ```Pinterest``` | ```All versions``` |
+| ```Disable Firebase services``` | ```Adds the officially documented Firebase off-switches (`firebase_analytics_collection_deactivated`, `firebase_crashlytics_collection_enabled=false`, `firebase_performance_collection_deactivated`, `google_analytics_adid_collection_enabled=false`) so the Firebase Analytics, Crashlytics and Performance SDKs go dormant.``` | ```Pinterest``` | ```All versions``` |
 | ```Disable Google Ads SDK``` | ```Removes the Google Mobile Ads (AdMob) initialization metadata so the SDK never starts.``` | ```Pinterest``` | ```All versions``` |
 | ```Disable Google Engage integration``` | ```Removes the Google Engage broadcast receiver so Pinterest cannot publish content recommendations back to Google (Discover, Assistant, Play Store, etc.).``` | ```Pinterest``` | ```All versions``` |
 | ```Disable Google Engage worker``` | ```Rewrites GoogleEngageWorker.createWork() to return null so WorkManager fails the periodic job and no content recommendations are ever published to Google.``` | ```Pinterest``` | ```All versions``` |
@@ -2985,7 +2988,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```MicroG integration``` | ```Allows the app to work without root by using MicroG instead of Google Play Services.``` | ```Solid Explorer``` | ```All versions``` |
 | ```AMOLED dark theme``` | ```Changes the default dark theme to use true blacks for AMOLED screens.``` | ```SoundCloud``` | ```All versions``` |
 | ```Disable telemetry``` | ```Disables SoundCloud's telemetry system.``` | ```SoundCloud``` | ```All versions``` |
-| ```Enable SoundCloud Go+``` | ```Enables app features locked behind the subscription paywall.``` | ```SoundCloud``` | ```All versions``` |
+| ```Enable SoundCloud Go``` | ```Enables app features locked behind the subscription paywall.``` | ```SoundCloud``` | ```All versions``` |
 | ```Disable telemetry``` | ```Blocks SuperChinese's custom telemetry reporting.``` | ```SuperChinese``` | ```All versions``` |
 | ```Unlock all lessons``` | ```Only unlocks lessons on the client UI! This is useful for pre-downloading content during free trial periods.``` | ```SuperChinese``` | ```All versions``` |
 | ```Enable Premium``` | ```Enables app features locked behind the subscription paywall.``` | ```Teuida``` | ```All versions``` |
@@ -3116,7 +3119,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 AmpleReVanced Bundle Patch List:
 [📦 AmpleReVanced-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-amplerevanced-patches-bundle-morphe)
 <details>
-<summary><b>AmpleReVanced</b> - 86 patches, 6 apps</summary>
+<summary><b>AmpleReVanced</b> - 85 patches, 6 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3177,7 +3180,6 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Disable verifying signature``` | ```Disables the signature verification check that prevents the app from running.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Enable Markdown``` | ```Render plain text messages with markdown-style formatting.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Enable reaction mention flag``` | ```Enables the reaction mention flag in KakaoTalk chat logs.``` | ```Kakao Talk``` | ```All versions``` |
-| ```Enable recording pause/resume feature``` | ```Enable recording pause/resume feature in KakaoTalk``` | ```Kakao Talk``` | ```All versions``` |
 | ```Enable send big text``` | ```Allows sending big text messages in KakaoTalk.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Force enable debug mode``` | ```Enables debug mode in the app.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Force enable emoticon plus feature``` | ```Force enable emoticon plus feature (Unpurchased emoticon can be sent once per day)``` | ```Kakao Talk``` | ```All versions``` |
@@ -3187,7 +3189,6 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Hook Package Manager``` | ```Hooks the Package Manager to bypass integrity checks.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Open profile from open chat feed``` | ```Opens open chat member profiles from join and leave feed messages.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Override feature flag``` | ```Overrides the feature flag to enable the feature.``` | ```Kakao Talk``` | ```All versions``` |
-| ```Play YouTube player in chat room``` | ```Allows playing YouTube videos in KakaoTalk chat rooms.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Register settings activity``` | ```Registers the Morphe settings activity in the app manifest.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Remove BizBoard ads``` | ```Removes the BizBoard ad by forcing its dimensions to 0x0 and visibility to GONE in onMeasure.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Remove feed ad``` | ```Removes the feed ad from the app.``` | ```Kakao Talk``` | ```All versions``` |
@@ -3199,6 +3200,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Remove Short-form Tab``` | ```Removes the Short-form tab from the now fragment.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Show chatroom channel ID``` | ```Shows the channel ID in chatroom settings and copies it when tapping the chat side title.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Show deleted, hidden, or edited messages``` | ```Allows you to see deleted, hidden, and edited message history in chat logs.``` | ```Kakao Talk``` | ```All versions``` |
+| ```Show message read receipts``` | ```Shows the members who have or have not read each chat message.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Spoof apk checksums``` | ```Spoofs the apk checksums to pass integrity checks.``` | ```Kakao Talk``` | ```All versions``` |
 | ```Spoof App ID``` | ```Spoofs the App ID to bypass integrity checks. (to bypass biometric auth etc.)``` | ```Kakao Talk``` | ```All versions``` |
 | ```Spoof signature``` | ```Spoofs the app signature to pass integrity checks.``` | ```Kakao Talk``` | ```All versions``` |
@@ -3817,7 +3819,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Adobo Bundle Patch List:
 [📦 Adobo-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-adobo-patches-bundle-morphe)
 <details>
-<summary><b>Adobo</b> - 40 patches, 5 apps</summary>
+<summary><b>Adobo</b> - 41 patches, 5 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3840,6 +3842,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Hide Ask button from search bar``` | ```Hides the Ask button (Reddit Answers) from the search bar.``` | ```Reddit``` | ```All versions``` |
 | ```Hide awards``` | ```Hides the awards on Reddit posts and comments.``` | ```Reddit``` | ```All versions``` |
 | ```Hide community highlights``` | ```Hides the community highlights section.``` | ```Reddit``` | ```All versions``` |
+| ```Hide community menu badge``` | ```Hides the red notification badge on the community menu (hamburger menu).``` | ```Reddit``` | ```All versions``` |
 | ```Hide post view counts``` | ```Removes the "views" indicator from the post metadata.``` | ```Reddit``` | ```All versions``` |
 | ```Hide prominent search bar``` | ```Hides the new prominent search bar on the main screen. Applicable only to version 2026.24.0 and earlier.``` | ```Reddit``` | ```All versions``` |
 | ```Hide share count``` | ```Hides the share count on Reddit posts.``` | ```Reddit``` | ```All versions``` |
@@ -4496,7 +4499,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Rushiranpise Bundle Patch List:
 [📦 Rushiranpise-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-rushiranpise-patches-bundle-morphe)
 <details>
-<summary><b>Rushiranpise</b> - 213 patches, 142 apps</summary>
+<summary><b>Rushiranpise</b> - 215 patches, 144 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -4519,6 +4522,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Remove ads``` | ```Hides sponsored and ad content in Amazon Shopping via CSS injection.``` | ```Amazon Shopping, Amazon India``` | ```All versions``` |
 | ```Sanitize share links``` | ```Strips tracking parameters from copied/shared Amazon links, leaving only the clean product URL.``` | ```Amazon Shopping, Amazon India``` | ```All versions``` |
 | ```Unlock premium``` | ```Unlocks AmoledPix premium features and disables ads.``` | ```AmoledPix``` | ```All versions``` |
+| ```Bypass developer verification``` | ```Forces all APK install verification sessions to be bypassed, preventing the verifier from blocking sideloaded or unsigned apps on Android 16+ devices.Important: Requires pushing the patched APK as a system app replacement (e.g. via Magisk module or ADB with root)since the original holds DEVELOPER_VERIFICATION_AGENT permission. ADB installs are exempt from verification regardless.``` | ```Android Developer Verifier``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks all premium wallpapers.``` | ```Anime Depth Wallpapers``` | ```All versions``` |
 | ```Unlock Ultimate``` | ```Unlocks Ultimate Ad-Free + Android TV.``` | ```APKMirror Installer``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks all Pro features in app.``` | ```App Permission Manager``` | ```All versions``` |
@@ -4539,6 +4543,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Pro``` | ```Unlocks all Citizen Plus/Protect features: Safety Network, Safety Center, Zones, Live Agent, Offender alerts, Clarity crime map, incident video, and more.``` | ```Citizen``` | ```All versions``` |
 | ```Unlock Club``` | ```Unlocks Citymapper Club Membership Note: Need to manually Purchase inside APP!.``` | ```Citymapper``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks premium in Clickmate``` | ```Clickmate``` | ```All versions``` |
+| ```Unlock Plus``` | ```Forces Clue Plus subscription active, unlocking all premium features.``` | ```Clue Period & Cycle Tracker``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks ColorNote premium and removes advertising ID permissions.``` | ```ColorNote``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks all premium features in Countdown Widget``` | ```Countdown Widget``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks premium features in app.``` | ```CPU-Z``` | ```All versions``` |
