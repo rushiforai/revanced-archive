@@ -1,5 +1,5 @@
 {
-    "version": "v1.10.1",
+    "version": "v1.11.7",
     "patches": [
         {
             "compatiblePackages": [
@@ -207,7 +207,7 @@
             ],
             "default": true,
             "dependencies": [],
-            "description": "Simulates the purchase of the 'climbnoads' IAP product so the game thinks you bought No Ads and stops showing ads naturally. Patches GPBilling_Purchase_GetState to return PURCHASED when called with 'climbnoads'.",
+            "description": "Simulates the purchase of the 'climbnoads' IAP product by injecting a fake Purchase into the purchase list when the game queries purchases. The game finds 'climbnoads' and treats No Ads as purchased.",
             "name": "Remove ads",
             "options": []
         },
@@ -241,6 +241,30 @@
             "dependencies": [],
             "description": "Sets gems, rubies (diamonds), keys and tickets to 9999999. Unlocks VIP (removes ads + VIP rewards + Ninja Assassin VIP character), all assassin characters (2-44), including all Legendary characters (Scarecrow, Dracula, Thor, Wolverine, Myers, Santa, Grinch, Nutcracker, Cricket Player), and all special knives.",
             "name": "Unlimited gems, rubies & unlock all",
+            "options": []
+        },
+        {
+            "compatiblePackages": [
+                {
+                    "apkFileType": "APKS",
+                    "appIconColor": "#8BC34A",
+                    "name": "Zombie Catchers",
+                    "packageName": "fi.twomenandadog.zombiecatchers",
+                    "targets": [
+                        {
+                            "isExperimental": false,
+                            "version": "1.67.15"
+                        },
+                        {
+                            "isExperimental": true
+                        }
+                    ]
+                }
+            ],
+            "default": true,
+            "dependencies": [],
+            "description": "Hex patches libcocos2dcpp.so to: bypass Play Store redirect (openPlayStore, openUrl, quitApplication), skip billing connection, return null from getSHA256, and make getIntegerForKey return 999999999 for Balance keys. Pure native patching — no DEX modification, no C++ integrity check trigger.",
+            "name": "Unlock all",
             "options": []
         },
         {

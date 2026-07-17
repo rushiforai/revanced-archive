@@ -1,33 +1,6 @@
 {
-    "version": "v1.13.0-dev.5",
+    "version": "v1.13.1-dev.1",
     "patches": [
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Adds or replaces one raw APK file from text options.",
-            "name": "Add resource file",
-            "options": [
-                {
-                    "default": "res/values/morphe_added.xml",
-                    "description": null,
-                    "key": "universalAddResourcePath",
-                    "required": true,
-                    "title": "Target path",
-                    "type": "kotlin.String",
-                    "values": null
-                },
-                {
-                    "default": "",
-                    "description": null,
-                    "key": "universalAddResourceContent",
-                    "required": false,
-                    "title": "File content",
-                    "type": "kotlin.String",
-                    "values": null
-                }
-            ]
-        },
         {
             "compatiblePackages": [
                 {
@@ -218,7 +191,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -239,7 +212,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -254,33 +227,6 @@
             "compatiblePackages": null,
             "default": false,
             "dependencies": [],
-            "description": "Changes manifest package and optionally provider/permission authorities.",
-            "name": "Change package name",
-            "options": [
-                {
-                    "default": "append.morphe",
-                    "description": null,
-                    "key": "universalNewPackageName",
-                    "required": true,
-                    "title": "New package or suffix",
-                    "type": "kotlin.String",
-                    "values": null
-                },
-                {
-                    "default": "true",
-                    "description": null,
-                    "key": "universalRewriteAuthorities",
-                    "required": true,
-                    "title": "Rewrite authorities",
-                    "type": "kotlin.String",
-                    "values": null
-                }
-            ]
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
             "description": "Changes android:versionCode.",
             "name": "Change version code",
             "options": [
@@ -290,24 +236,6 @@
                     "key": "universalVersionCode",
                     "required": true,
                     "title": "Version code",
-                    "type": "kotlin.String",
-                    "values": null
-                }
-            ]
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Adds a permissive network security config with system/user certs.",
-            "name": "Custom certificates",
-            "options": [
-                {
-                    "default": "true",
-                    "description": null,
-                    "key": "universalAllowCleartext",
-                    "required": true,
-                    "title": "Allow cleartext",
                     "type": "kotlin.String",
                     "values": null
                 }
@@ -456,14 +384,6 @@
             "dependencies": [],
             "description": "Blocks app clipboard reads and writes.",
             "name": "Disable clipboard access",
-            "options": []
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Blocks Play Integrity service binding.",
-            "name": "Disable Play Integrity",
             "options": []
         },
         {
@@ -786,42 +706,6 @@
                     "key": "packageName",
                     "required": false,
                     "title": "Custom package name (optional)",
-                    "type": "kotlin.String",
-                    "values": null
-                }
-            ]
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Replaces one hex byte pattern inside one APK file.",
-            "name": "Hex patch",
-            "options": [
-                {
-                    "default": "classes.dex",
-                    "description": null,
-                    "key": "universalHexTargetPath",
-                    "required": true,
-                    "title": "Target path",
-                    "type": "kotlin.String",
-                    "values": null
-                },
-                {
-                    "default": "",
-                    "description": null,
-                    "key": "universalHexFrom",
-                    "required": true,
-                    "title": "Find hex",
-                    "type": "kotlin.String",
-                    "values": null
-                },
-                {
-                    "default": "",
-                    "description": null,
-                    "key": "universalHexTo",
-                    "required": true,
-                    "title": "Replace hex",
                     "type": "kotlin.String",
                     "values": null
                 }
@@ -1538,14 +1422,6 @@
             "options": []
         },
         {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Forces runtime audio capture policy to ALLOW_CAPTURE_BY_ALL.",
-            "name": "Remove audio capture policy",
-            "options": []
-        },
-        {
             "compatiblePackages": [
                 {
                     "apkFileType": "XAPK",
@@ -1555,7 +1431,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -1564,22 +1440,6 @@
             "dependencies": [],
             "description": "Removes all  item limits in-app.",
             "name": "Remove Item Limits",
-            "options": []
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Allows audio playback capture in the manifest.",
-            "name": "Remove screen capture restriction",
-            "options": []
-        },
-        {
-            "compatiblePackages": null,
-            "default": false,
-            "dependencies": [],
-            "description": "Removes FLAG_SECURE and screenshot blocking.",
-            "name": "Remove screenshot restriction",
             "options": []
         },
         {
@@ -2168,7 +2028,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -2483,7 +2343,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -2661,14 +2521,14 @@
         {
             "compatiblePackages": [
                 {
-                    "apkFileType": "APKS",
+                    "apkFileType": "XAPK",
                     "appIconColor": "#5D2DE6",
                     "name": "Life360",
                     "packageName": "com.life360.android.safetymapd",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.25.0"
+                            "version": "26.26.0"
                         }
                     ]
                 }
@@ -2988,7 +2848,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.27.0"
+                            "version": "26.28.0"
                         }
                     ]
                 }
@@ -3044,13 +2904,14 @@
         {
             "compatiblePackages": [
                 {
+                    "apkFileType": "XAPK",
                     "appIconColor": "#FF3D00",
                     "name": "Fitbod",
                     "packageName": "com.fitbod.fitbod",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "8.24.1-0"
+                            "version": "8.25.0-2"
                         }
                     ]
                 }
@@ -3399,13 +3260,14 @@
         {
             "compatiblePackages": [
                 {
+                    "apkFileType": "XAPK",
                     "appIconColor": "#4CAF50",
                     "name": "PictureThis - Plant Identifier",
                     "packageName": "cn.danatech.xingseus",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "5.29.0"
+                            "version": "5.30.0"
                         }
                     ]
                 }
@@ -3854,7 +3716,7 @@
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "5.7.0"
+                            "version": "5.7.1"
                         }
                     ]
                 }
@@ -3951,14 +3813,14 @@
         {
             "compatiblePackages": [
                 {
-                    "apkFileType": "APKS",
+                    "apkFileType": "XAPK",
                     "appIconColor": "#003087",
                     "name": "NAVITIME",
                     "packageName": "com.navitime.inbound.walk",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "12.0.1"
+                            "version": "12.0.4"
                         }
                     ]
                 }
@@ -4074,13 +3936,14 @@
         {
             "compatiblePackages": [
                 {
+                    "apkFileType": "APKS",
                     "appIconColor": "#0066FF",
                     "name": "Citizen",
                     "packageName": "sp0n.citizen",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "0.1300.0"
+                            "version": "0.1301.0"
                         }
                     ]
                 }
@@ -4362,13 +4225,14 @@
         {
             "compatiblePackages": [
                 {
+                    "apkFileType": "APK",
                     "appIconColor": "#1CC29F",
                     "name": "Splitwise",
                     "packageName": "com.Splitwise.SplitwiseMobile",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "26.7.1"
+                            "version": "26.7.2"
                         }
                     ]
                 }
@@ -4845,13 +4709,14 @@
         {
             "compatiblePackages": [
                 {
+                    "apkFileType": "XAPK",
                     "appIconColor": "#2196F3",
                     "name": "HTTP Sniffer",
                     "packageName": "com.anetcapture.mock",
                     "targets": [
                         {
                             "isExperimental": false,
-                            "version": "2.11.4-ad_mob"
+                            "version": "2.11.7-ad_mob"
                         }
                     ]
                 }
