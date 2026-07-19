@@ -56,11 +56,11 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Pichiwa](#-pichiwa-bundle-patch-list) | 18 | 1 | Generated |
 | [Saiesh](#-saiesh-bundle-patch-list) | 10 | 4 | Generated |
 | [Letterboxd-Stremio](#-letterboxd-stremio-bundle-patch-list) | 3 | 1 | Generated |
-| [Miguel](#-miguel-bundle-patch-list) | 14 | 8 | Generated |
+| [Miguel](#-miguel-bundle-patch-list) | 17 | 9 | Generated |
 | [Pinterest-Morphed](#-pinterest-morphed-bundle-patch-list) | 14 | 1 | Generated |
 | [Movistar-Block-Ads](#-movistar-block-ads-bundle-patch-list) | 1 | 1 | Generated |
 | [Shaun-Sheep](#-shaun-sheep-bundle-patch-list) | 4 | 4 | Generated |
-| [Bufferk](#-bufferk-bundle-patch-list) | 15 | 7 | Generated |
+| [Bufferk](#-bufferk-bundle-patch-list) | 13 | 7 | Generated |
 | [Franticg33k](#-franticg33k-bundle-patch-list) | 16 | 8 | Generated |
 | [Modx](#-modx-bundle-patch-list) | 7 | 1 | Generated |
 | [Gryphous-Morphe](#-gryphous-morphe-bundle-patch-list) | 1 | 1 | Generated |
@@ -86,7 +86,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Hoomans-Morphe](#-hoomans-morphe-bundle-patch-list) | 54 | 41 | Generated |
 | [Realme-Link](#-realme-link-bundle-patch-list) | 1 | 1 | Generated |
 | [ProGuard](#-proguard-bundle-patch-list) | 2 | 2 | Generated |
-| [Lain](#-lain-bundle-patch-list) | 43 | 30 | Generated |
+| [Lain](#-lain-bundle-patch-list) | 45 | 32 | Generated |
 | [Edge-Morphe](#-edge-morphe-bundle-patch-list) | 3 | 1 | Generated |
 | [Anddea](#-anddea-bundle-patch-list) | 115 | 3 | Generated |
 | [Piko](#-piko-bundle-patch-list) | 126 | 2 | Generated |
@@ -95,7 +95,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Andronedev](#-andronedev-bundle-patch-list) | 2 | 1 | Generated |
 | [Brosssh](#-brosssh-bundle-patch-list) | 22 | 5 | Generated |
 | [Quantro100](#-quantro100-bundle-patch-list) | - | - | Pending patch list |
-| [Chiggi](#-chiggi-bundle-patch-list) | 31 | 5 | Generated |
+| [Chiggi](#-chiggi-bundle-patch-list) | 52 | 8 | Generated |
 | [LaKaka](#-lakaka-bundle-patch-list) | 3 | 3 | Generated |
 | [EE-Morphe](#-ee-morphe-bundle-patch-list) | 12 | 6 | Generated |
 | [X-Shim](#-x-shim-bundle-patch-list) | 3 | 1 | Generated |
@@ -104,14 +104,14 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Kondratjev](#-kondratjev-bundle-patch-list) | 25 | 13 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 77 | 53 | Generated |
 | [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 85 | 6 | Generated |
-| [Morphe](#-morphe-bundle-patch-list) | 126 | 4 | Generated |
+| [Morphe](#-morphe-bundle-patch-list) | 127 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
 | [IMXEren](#-imxeren-bundle-patch-list) | 2 | 2 | Generated |
 | [Almewty](#-almewty-bundle-patch-list) | 3 | 2 | Generated |
 | [Anddea-Morphed](#-anddea-morphed-bundle-patch-list) | 133 | 6 | Generated |
 | [RookieEnough](#-rookieenough-bundle-patch-list) | 84 | 35 | Generated |
-| [Adobo](#-adobo-bundle-patch-list) | 41 | 5 | Generated |
+| [Adobo](#-adobo-bundle-patch-list) | 42 | 5 | Generated |
 | [Docbt](#-docbt-bundle-patch-list) | 6 | 3 | Generated |
 | [PixelPusher247](#-pixelpusher247-bundle-patch-list) | 1 | 1 | Generated |
 | [Rabilrbl](#-rabilrbl-bundle-patch-list) | 2 | 1 | Generated |
@@ -140,10 +140,10 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Ajstrick81-AndroidTV](#-ajstrick81-androidtv-bundle-patch-list) | 20 | 10 | Generated |
 | [Icysymmetra-TikTok](#-icysymmetra-tiktok-bundle-patch-list) | 15 | 1 | Generated |
 | [AlexNaga](#-alexnaga-bundle-patch-list) | 2 | 1 | Generated |
-| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 210 | 147 | Generated |
+| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 212 | 149 | Generated |
 | [Sjshb57-PairIP](#-sjshb57-pairip-bundle-patch-list) | 4 | 1 | Generated |
 | [RIVanced-Universal](#-rivanced-universal-bundle-patch-list) | 27 | 1 | Generated |
-| [Variablenine](#-variablenine-bundle-patch-list) | 126 | 4 | Generated |
+| [Variablenine](#-variablenine-bundle-patch-list) | 127 | 4 | Generated |
 | [Stylus](#-stylus-bundle-patch-list) | 2 | 1 | Generated |
 | [HXReborn](#-hxreborn-bundle-patch-list) | 4 | 3 | Generated |
 | [Ikura](#-ikura-bundle-patch-list) | 4 | 2 | Generated |
@@ -351,7 +351,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Hide Forwarded``` | ```Quita la etiqueta "reenviado" de los mensajes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Read Receipts``` | ```Read messages without sending blue ticks.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Typing``` | ```Escribe sin mostrar "escribiendo...".``` | ```com.whatsapp``` | ```2.26.27.4``` |
-| ```Login Fix``` | ```Bypasses verification bans by spoofing signature hashes. REQUIRED: Install microG-RE for Play Integrity.``` | ```com.whatsapp``` | ```2.26.27.4``` |
+| ```Login Fix``` | ```Bypasses verification bans by spoofing signature hashes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```No Forward Limit``` | ```Forward messages to unlimited contacts.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Communities``` | ```Hide the communities tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Updates``` | ```Hide the updates/statuses tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
@@ -398,7 +398,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Miguel Bundle Patch List:
 [📦 Miguel-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-miguel-patches-bundle-morphe)
 <details>
-<summary><b>Miguel</b> - 14 patches, 8 apps</summary>
+<summary><b>Miguel</b> - 17 patches, 9 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -408,6 +408,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Unlock premium``` | ```Unlocks all premium-gated features (Advanced Solver / Kociemba, custom color schemes, VIP support, no relaunch screens). Returns true from PremiumHelper.hasActivePurchase() so the entire app behaves as if a premium subscription is active.``` | ```CubeX Solver``` | ```All versions``` |
 | ```Auto reward ads``` | ```When a rewarded ad is closed, the game always thinks you watched the entire ad. You get the reward even if you skip or close the ad immediately.``` | ```Hunter Assassin``` | ```All versions``` |
 | ```Unlimited gems, rubies & unlock all``` | ```Sets gems, rubies (diamonds), keys and tickets to 9999999. Unlocks VIP (removes ads + VIP rewards + Ninja Assassin VIP character), all assassin characters (2-44), including all Legendary characters (Scarecrow, Dracula, Thor, Wolverine, Myers, Santa, Grinch, Nutcracker, Cricket Player), and all special knives.``` | ```Hunter Assassin``` | ```All versions``` |
+| ```Free in-app purchases``` | ```Makes every IAP purchase succeed instantly without contacting Google Play Billing. When the user taps 'Buy' on any in-app product, the game credits the purchase immediately and skips the Play Store dialog. For Oddmar 0.111 the only IAP product is 'unlock_all_levels', so this patch gives a free full-game unlock on demand. Note: literal 'unlimited coins' (the in-game currency counter) requires native libil2cpp.so patching and is NOT covered by this Java patch.``` | ```Oddmar``` | ```All versions``` |
+| ```Unlock full game``` | ```Unlocks the full game (all levels, all worlds) by intercepting the IAP 'has product been purchased' check. Oddmar's only IAP product is 'unlock_all_levels' — this patch makes the game think it has already been purchased, so every level is unlocked from the start. No Google Play Billing connection is required. Also disables the startup 'acknowledge all purchases' query so the patch doesn't try to reach Google Play at boot.``` | ```Oddmar``` | ```All versions``` |
 | ```Free in-app purchases``` | ```When you try to buy something, the purchase is immediately marked as successful without contacting Google Play. The EA Nimble MTX system receives a null error (success) and grants the item.``` | ```Plants vs. Zombies FREE``` | ```All versions``` |
 | ```Free reward ads``` | ```When the game tries to show a rewarded ad, it immediately fires the ad-clicked and ad-closed callbacks without actually showing the ad. You get the reward instantly.``` | ```Plants vs. Zombies FREE``` | ```All versions``` |
 | ```Remove ads``` | ```Prevents video ads from loading. When the game tries to load an ad, nothing happens. Ads will not be shown.``` | ```Plants vs. Zombies FREE``` | ```All versions``` |
@@ -415,7 +417,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Unlock all tribes``` | ```Unlocks all 20 tribes (Xinxi, Imperius, Bardur, Oumaji, Kickoo, Hoodrick, Luxidoor, Vengir, Zebasi, Aimo, Aquarion, Elyrion, Polaris, Magma, Yadakk, Quetzali, Cymanti, Swamp, Ikarus, Urkaz) and all skins by patching the native IL2CPP library (libil2cpp.so). Makes IsProductUnlocked return true, skips the purchase flow, and suppresses the 'Purchase error' dialog. Pure ARM64 hex patching, no smali, no extension.``` | ```The Battle of Polytopia``` | ```All versions``` |
 | ```Billing bypass``` | ```Attempts to credit purchases by scanning the app for billing code and applying the appropriate bypass. Runs 5 phases: (1) Cocos2d-x helper, (2) GameMaker verifyPurchase, (3) Google Play Billing, (4) Unity billing bridge, (5) Fallback. Also depends on Unity IL2CPP hex patch.``` | ```Universal``` | ```All versions``` |
 | ```Unity IL2CPP hex patch``` | ```Patches libil2cpp.so to bypass Unity IL2CPP billing validation.``` | ```Universal``` | ```All versions``` |
-| ```Unlock all``` | ```Removes PairIP from manifest, hex patches libcocos2dcpp.so for unlimited currencies (plutonium, coins, squeezer parts) and blocks Play Store redirect. Based on working mod analysis.``` | ```Zombie Catchers``` | ```All versions``` |
+| ```Unlock all``` | ```Removes PairIP StartupLauncher from ComponentFactory and depends on hex patch for manifest + .so patching.``` | ```Zombie Catchers``` | ```All versions``` |
+| ```ZC hex patch``` | ```Changes manifest and hex patches libcocos2dcpp.so``` | ```Zombie Catchers``` | ```All versions``` |
 
 </details>
 
@@ -490,17 +493,15 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Bufferk Bundle Patch List:
 [📦 Bufferk-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-bufferk-patches-bundle-morphe)
 <details>
-<summary><b>Bufferk</b> - 15 patches, 7 apps</summary>
+<summary><b>Bufferk</b> - 13 patches, 7 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Bypass license check``` | ```Bypasses the Google Play LVL backend license check, allowing full app access without activation.``` | ```Bounce Companion``` | ```All versions``` |
-| ```Enable Brave Origin``` | ```Enables Brave Origin features by default.``` | ```Brave Browser``` | ```All versions``` |
+| ```Brave Origin``` | ```Unlocks Brave Origin and enables feature toggle controls.``` | ```Brave Browser``` | ```All versions``` |
 | ```Unlock premium``` | ```Unlocks all AT4K premium features by forcing the premium status to true.``` | ```com.overdevs.at4k``` | ```All versions``` |
 | ```Freedium``` | ```Adds a profile setting to choose the Freedium Mirror host, and a floating button on articles that opens the current article using the chosen Freedium Mirror in a webview.``` | ```Medium``` | ```All versions``` |
-| ```Flutter Premium Bypass``` | ```Forces premium status inside the JSON payload sent to Flutter``` | ```MyGate``` | ```All versions``` |
-| ```Hide ads``` | ```Removes MyGate in-app ads (pre-approval screen, allow-entries screen, activity feed, and visitor profile masthead).``` | ```MyGate``` | ```All versions``` |
-| ```Unlock premium``` | ```Unlocks all MyGate premium features: spoofs USER_PREMIUM_PLAN status, suppresses upgrade dialogs and paywalls, enables frequent pre-approvals for deliveries, cabs and visiting help, unlocks surprise delivery and the always-approve-entries toggle.``` | ```MyGate``` | ```All versions``` |
+| ```MyGate``` | ```Unlocks MyGate premium, removes ads, fixes notifications and e-Intercom.``` | ```MyGate``` | ```All versions``` |
 | ```Unlock Pro``` | ```Spoofs Splitwise Pro subscription status everywhere it is checked — bypasses the server-driven feature gate (charts, receipt scanning, currency conversion, default splits, auto-split, transaction import, itemization), forces Person.isPro() to true for receipt quality and UI gating, and suppresses all in-app upsell ad banners (home-screen, recent activity, post-add-expense). Works entirely client-side with no server interaction.``` | ```Splitwise``` | ```All versions``` |
 | ```Disable analytics``` | ```Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry.``` | ```Truecaller``` | ```All versions``` |
 | ```Enable premium features``` | ```Unlocks all client-side premium features by bypassing the feature-availability gate.``` | ```Truecaller``` | ```All versions``` |
@@ -1433,7 +1434,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Lain Bundle Patch List:
 [📦 Lain-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-lain-patches-bundle-morphe)
 <details>
-<summary><b>Lain</b> - 43 patches, 30 apps</summary>
+<summary><b>Lain</b> - 45 patches, 32 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -1455,6 +1456,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Unlock Premium``` | ```Enable premium features.``` | ```Hermit``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlock premium features such as Disable Ads and access AI Assistant.``` | ```Hidden Settings``` | ```All versions``` |
 | ```Enable Premium``` | ```Unlock premium features such as Unlimited access to PDF tools, Enable Cloud Storage; Split, Merge, Compress documents, and more. Google login or Google Drive storage is broken, need MicroG integration patch.``` | ```iLovePDF``` | ```All versions``` |
+| ```Enable Kapi Pro``` | ```Unlock all features of Kapi Pro lifetime membership.``` | ```Kapi Cam``` | ```All versions``` |
+| ```Unlock Premium``` | ```Enable Floating Buttons and Assistant Trigger features.``` | ```Key Mapper``` | ```All versions``` |
 | ```Enable Premium``` | ```Unlock all features in Pro.``` | ```Keymate``` | ```All versions``` |
 | ```Bypass Reading Limitation``` | ```Bypass 'First Time Free' read limitation for all languages. Only affect 'Standard/Deluxe' plan titles, exclusive 'Deluxe' plan titles are server-driven.``` | ```Manga Plus``` | ```All versions``` |
 | ```Enable Deluxe Plan``` | ```Enable Deluxe plan badge on settings. Bypass the 'First Time Free' read limitation only for English language on 'Standard/Deluxe' plan titles. Other languages aren't affected.``` | ```Manga Plus``` | ```All versions``` |
@@ -2733,7 +2736,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Chiggi Bundle Patch List:
 [📦 Chiggi-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-chiggi-patches-bundle-morphe)
 <details>
-<summary><b>Chiggi</b> - 31 patches, 5 apps</summary>
+<summary><b>Chiggi</b> - 52 patches, 8 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -2747,6 +2750,22 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Disable analytics``` | ```Stops native Sentry crash/telemetry upload by neutering the Capacitor Sentry plugin's native init (io.sentry.capacitor.SentryCapacitor.initNativeSdk), so it resolves without starting the native Sentry SDK. Firebase auth, ConfigCat and push are unaffected.``` | ```CrazyGames``` | ```All versions``` |
 | ```Remove AD_ID permission``` | ```Removes the advertising-id and Ad Services (Privacy Sandbox) permissions so the device advertising id, Topics, Attribution and Custom Audience signals cannot be read for ad tracking.``` | ```CrazyGames``` | ```All versions``` |
 | ```Remove ads``` | ```Removes native ads (AdMob and its Pangle/Audience Network mediation) by neutering the Capacitor AdMob plugin (com.getcapacitor.community.admob.AdMob): no video is shown for interstitial or rewarded ads — instead the show methods fire the ad's lifecycle events so the game's loading overlay dismisses and rewarded ads still credit their reward; banners never display. Note: in-page web video ads served remotely inside the WebView (from crazygames.com) are not part of the app bytecode and cannot be removed here.``` | ```CrazyGames``` | ```All versions``` |
+| ```Bypass proxy/VPN security block``` | ```Stops the "Something is interfering with your secure connection" (NET_201) screen that JioHotstar shows when it detects a VPN/proxy. The app self-enforces a proxy verdict the server sends via the X-Hs-SetProxyState response header: the client stores it and, when it is BLOCKED/RESTRICTED, shows the security error. This neuters the handler that stores that verdict, so the client keeps reporting a clean (unblocked) proxy state and never blocks itself. It also neuters the store's periodic proxy-state refresh coroutines, which would otherwise re-fetch endlessly (the verdict is never stored, so the TTL check always sees it expired) and make the app feel laggy/retrying. Note: if JioHotstar also refuses playback server-side based on the connection IP, video may still fail even though the error screen is gone.``` | ```JioHotstar``` | ```All versions``` |
+| ```Change app name``` | ```Changes the app name shown under the launcher icon. Set the desired name in the patch options.``` | ```JioHotstar``` | ```All versions``` |
+| ```Disable analytics``` | ```Disables Firebase/Google Analytics, Crashlytics and Performance data collection via manifest flags. CleverTap is left intact (it drives in-app UI and disabling it would crash the app). Push notifications are unaffected.``` | ```JioHotstar``` | ```All versions``` |
+| ```Enable all codecs``` | ```Forces all video codecs (H265/VP9/AV1) and 4K support on by bypassing the capability/blacklist checks. Off by default: forcing a codec/resolution a TV cannot actually decode can break playback. Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Enable screen mirroring``` | ```Allows playback to continue while screen mirroring or an external HDMI display is connected, instead of showing the multiple-display block. Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Enable screenshots``` | ```Removes screenshot and screen-recording restrictions on the app UI (the DRM video itself stays protected by Widevine). Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Force HDR10``` | ```Forces HDR10 / HDR10+ / Dolby Vision playback by bypassing the capability/blacklist check. Off by default: forcing HDR on a panel that cannot render it can wash out or break playback. Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Make installable on TV``` | ```For PHONE builds only: makes a phone APK installable on Android TV / Google TV by marking touchscreen, portrait-screen and other phone-only features optional (they are why the TV installer reports "not compatible with your TV"), declaring the leanback feature optional, and adding the leanback launcher category. Off by default because the JioHotstar TV build (.apkm) is already a native leanback D-pad app and does not need it. Note: a phone build patched this way still shows a portrait touch UI — a mouse or air-remote may be needed since it expects touch, not a D-pad.``` | ```JioHotstar``` | ```All versions``` |
+| ```Premium unlock``` | ```Unlocks premium UI state: shows the subscribed badge, enables the download button for all content and suppresses subscription nudges during playback. This is a UI unlock only — it does not grant access to DRM content you are not entitled to. Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Remove AD_ID permission``` | ```Removes the advertising-id and Ad Services (Privacy Sandbox) permissions so the device advertising id, Attribution and Topics signals cannot be read for ad tracking.``` | ```JioHotstar``` | ```All versions``` |
+| ```Remove ads``` | ```Removes pre-roll, mid-roll and live-match video ads by clearing the SSAI ad tag in the AdMetadata constructor, so the client requests a clean, non-ad-stitched stream at the source. This surgical approach lets the app's own ad machinery see "no ads" and behave normally (no retry loops, no empty ad slots). Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Spoof device-integrity self-report``` | ```Forces JioHotstar's security-suite checks (VPN, proxy, root, debugger, open ports, suspicious files) to report false, so the device-integrity attestation the app sends to the server looks clean. Helps rooted/modded devices and complements the VPN bypass. Note: the attestation is also server-validated (signed nonce) and the server sees the connection IP, so this is not guaranteed to defeat a server-side check on its own.``` | ```JioHotstar``` | ```All versions``` |
+| ```Change app name``` | ```Changes the app name shown under the launcher icon. Set the desired name in the patch options.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
+| ```Disable analytics``` | ```Disables Firebase/Google Analytics, Crashlytics and Performance data collection via manifest flags. CleverTap is left intact (it drives in-app UI and disabling it would crash the app). Push notifications are unaffected.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
+| ```Remove AD_ID permission``` | ```Removes the advertising-id and Ad Services (Privacy Sandbox) permissions so the device advertising id, Attribution and Topics signals cannot be read for ad tracking.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
+| ```Remove ads``` | ```Removes JioTV+ ads. Display/banner ads are neutered at the JioAds SDK entry (JioAdView.loadAd / cacheAd), and player video ads (pre-roll, mid-roll, post-roll and SSAI stitched ads) are removed by no-oping VMAPAdsHelper.fetchAds — the single method that fetches and sets up all player ads from the playback-rights model.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
 | ```Add food search bar``` | ```Adds a live search box below each meal-time header in the day/meal form. Typing filters that meal's food chips as you type; filtering only hides chips, so items you have already added stay added. The hardest patch to keep working — it hooks the obfuscated form adapter and will likely need re-fingerprinting after Nutrilio updates.``` | ```Nutrilio``` | ```All versions``` |
 | ```Change app name``` | ```Changes the app name shown under the launcher icon. Set the desired name in the patch options.``` | ```Nutrilio``` | ```All versions``` |
 | ```Change package name``` | ```Changes the app package name so the patched app installs alongside the original. Set the desired package name in the patch options. Changing the package name can cause unexpected issues with some app features.``` | ```Nutrilio``` | ```All versions``` |
@@ -2768,6 +2787,11 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Change package name``` | ```Changes the app package name so the patched app installs alongside the original Threads. Set the desired package name in the patch options. WARNING: Meta apps hardcode many component/provider references — renaming the package can break Facebook login (SSO), content providers, or push. Disable this patch if you hit such issues.``` | ```Threads``` | ```All versions``` |
 | ```Hide ads``` | ```Hides sponsored posts and injected "suggested" netego units from the Threads feed. Marks every media as organic (Media.DED) and blocks the feed ad-injection scheduler (BarcelonaSpoolFeedCacheHandler). Client-side only.``` | ```Threads``` | ```All versions``` |
 | ```Remove AD_ID permission``` | ```Removes the advertising-id (AD_ID) permissions so the device advertising id cannot be read for ad tracking. Does not disable Meta's core analytics.``` | ```Threads``` | ```All versions``` |
+| ```Change app name``` | ```Changes the app name shown under the launcher icon. Set the desired name in the patch options.``` | ```Vi Movies and TV``` | ```All versions``` |
+| ```Disable analytics``` | ```Disables Firebase/Google Analytics, Crashlytics and Performance data collection via manifest flags. CleverTap is left intact (it drives in-app UI and disabling it would crash the app). Push notifications are unaffected.``` | ```Vi Movies and TV``` | ```All versions``` |
+| ```Premium unlock (UI)``` | ```Forces the client 'subscribed' flags true so premium UI state shows unlocked. OFF by default: Vi Movies and TV enforces entitlement server-side with Widevine DRM, so this does NOT grant content you are not entitled to — it only changes UI, and content that appears playable may still be refused by the server. Cosmetic UI change only.``` | ```Vi Movies and TV``` | ```All versions``` |
+| ```Remove AD_ID permission``` | ```Removes the advertising-id and Ad Services (Privacy Sandbox) permissions so the device advertising id, Attribution and Topics signals cannot be read for ad tracking.``` | ```Vi Movies and TV``` | ```All versions``` |
+| ```Remove ads``` | ```Removes pre-roll, mid-roll and SSAI video ads. The player builds its IMA/SSAI ad-tag URL from AdUrlResponse.getAdUrlTypes(); forcing that to null (and the TorcAiAdConfig.isAdEnabled() gate to false) means no ad tag is ever loaded, so no ad plays.``` | ```Vi Movies and TV``` | ```All versions``` |
 
 </details>
 
@@ -3244,7 +3268,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Morphe Bundle Patch List:
 [📦 Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Morphe</b> - 126 patches, 4 apps</summary>
+<summary><b>Morphe</b> - 127 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3344,6 +3368,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Change miniplayer color``` | ```Adds an option to change the miniplayer background color to match the fullscreen player.``` | ```YouTube Music``` | ```All versions``` |
 | ```Change start page``` | ```Adds an option to set which page the app opens in instead of the homepage.``` | ```YouTube Music``` | ```All versions``` |
 | ```Check watch history domain name resolution``` | ```Checks if the device DNS server is preventing user watch history from being saved.``` | ```YouTube Music``` | ```All versions``` |
+| ```Crossfade``` | ```Adds a true dual-player crossfade between consecutive tracks. Requires YouTube Music 9.00 or newer; on older versions the patch is a no-op.``` | ```YouTube Music``` | ```All versions``` |
 | ```Custom branding``` | ```Adds options to change the app icon and app name. Branding cannot be changed for mounted (root) installations.``` | ```YouTube Music``` | ```All versions``` |
 | ```Disable dislike redirection``` | ```Adds an option to prevent skipping to the next track when the dislike button is pressed.``` | ```YouTube Music``` | ```All versions``` |
 | ```Disable DRC audio``` | ```Adds an option to disable DRC (Dynamic Range Compression) audio.``` | ```YouTube Music``` | ```All versions``` |
@@ -3367,13 +3392,13 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Remember repeat state``` | ```Adds an option to remember the repeat state when playing a new track or playlist.``` | ```YouTube Music``` | ```All versions``` |
 | ```Remember shuffle state``` | ```Adds an option to remember the shuffle state when playing a new track or playlist.``` | ```YouTube Music``` | ```All versions``` |
 | ```Remove background playback restrictions``` | ```Removes restrictions on background playback, including playing kids videos in the background.``` | ```YouTube Music``` | ```All versions``` |
+| ```Return YouTube Dislike``` | ```Adds an option to show the dislike count of tracks with Return YouTube Dislike.``` | ```YouTube Music``` | ```All versions``` |
 | ```Sanitize sharing links``` | ```Removes the tracking query parameters from shared links.``` | ```YouTube Music``` | ```All versions``` |
 | ```Scrobbling``` | ```Adds options to add played tracks to Last.fm and ListenBrainz.``` | ```YouTube Music``` | ```All versions``` |
 | ```SponsorBlock``` | ```Adds options to enable and configure SponsorBlock, which can skip non-music segments.``` | ```YouTube Music``` | ```All versions``` |
 | ```Spoof app version``` | ```Adds an option to trick the app into thinking you are running an older version.``` | ```YouTube Music``` | ```All versions``` |
 | ```Spoof video streams``` | ```Adds options to spoof the client video streams to fix playback.``` | ```YouTube Music``` | ```All versions``` |
 | ```Theme``` | ```Adds options for theming and applies a custom background theme (dark background theme defaults to pure black).``` | ```YouTube Music``` | ```All versions``` |
-| ```Track crossfade``` | ```Adds a true dual-player crossfade between consecutive tracks. Requires YouTube Music 9.00 or newer; on older versions the patch is a no-op.``` | ```YouTube Music``` | ```All versions``` |
 
 </details>
 
@@ -3834,7 +3859,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Adobo Bundle Patch List:
 [📦 Adobo-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-adobo-patches-bundle-morphe)
 <details>
-<summary><b>Adobo</b> - 41 patches, 5 apps</summary>
+<summary><b>Adobo</b> - 42 patches, 5 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3849,6 +3874,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Toggle feature flags``` | ```Toggles Gboard feature flags to enable or disable experimental or hidden features.``` | ```Gboard``` | ```All versions``` |
 | ```Remove IMDb's ads, trackers, and analytics``` | ```Removes ads, trackers, and analytics in the IMDb app.``` | ```IMDb``` | ```All versions``` |
 | ```Colorize comment indent lines``` | ```Replaces the default gray comment indent lines with color-coded lines.``` | ```Reddit``` | ```All versions``` |
+| ```Disable bottom navigation bar auto-hide``` | ```Prevents the bottom navigation bar from hiding when scrolling down.``` | ```Reddit``` | ```All versions``` |
 | ```Disable home feed auto-refresh``` | ```Disables the automatic refresh of the home feed after viewing a post or after being away from the app.``` | ```Reddit``` | ```All versions``` |
 | ```Disable home feed swipe``` | ```Disables the horizontal page swipe gesture used to switch feeds.``` | ```Reddit``` | ```All versions``` |
 | ```Disable home screen redirect``` | ```Disables the automatic redirect to the home screen after being away from the app or returning from the background.``` | ```Reddit``` | ```All versions``` |
@@ -3905,8 +3931,8 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Hide ads``` | ```Hides sponsored ads and Google Ads. Also disables Microsoft Clarity analytics.``` | ```com.ebay.kleinanzeigen``` | ```2026.16.1, 2026.14.2, 2026.14.0``` |
 | ```Hide Pur``` | ```Hides the Pur ad-free subscription option from the settings menu.``` | ```com.ebay.kleinanzeigen``` | ```2026.16.1, 2026.14.2, 2026.14.0``` |
 | ```Remove tracking parameters from share URLs``` | ```Strips UTM tracking parameters from URLs shared via the in-app share function.``` | ```com.ebay.kleinanzeigen``` | ```2026.16.1, 2026.14.2, 2026.14.0``` |
-| ```Enable CustomTabs``` | ```Enables CustomTabs to open articles in your default browser.``` | ```com.google.android.apps.magazines``` | ```5.161.0.931240252``` |
-| ```GmsCore support``` | ```Allows Google News to sign in via MicroG (GmsCore) instead of Google Play Services when installed under a renamed package.``` | ```com.google.android.apps.magazines``` | ```5.161.0.931240252, 5.158.0.908428942, 5.156.0.892791979``` |
+| ```Enable CustomTabs``` | ```Enables CustomTabs to open articles in your default browser.``` | ```com.google.android.apps.magazines``` | ```5.163.0.947799485``` |
+| ```GmsCore support``` | ```Allows Google News to sign in via MicroG (GmsCore) instead of Google Play Services when installed under a renamed package.``` | ```com.google.android.apps.magazines``` | ```5.163.0.947799485, 5.161.0.931240252, 5.158.0.908428942, 5.156.0.892791979``` |
 | ```Change package name``` | ```Appends ".morphe" to the package name by default. Changing the package name of the app can lead to unexpected issues.``` | ```Universal``` | ```All versions``` |
 
 </details>
@@ -4463,7 +4489,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Skip ads``` | ```Suppresses all ad delivery systems in Tubi Android TV.``` | ```com.tubitv``` | ```10.20.5000``` |
 | ```Override certificate pinning``` | ```Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium.``` | ```com.univision.prendetv``` | ```4.46.0_tv, 4.47.2_tv``` |
 | ```Skip ads``` | ```Suppresses ViX ad delivery by stopping the LuraPlayer linear ad-break scheduler (client-side VAST) and preventing the Innovid SSAI ad overlay from mounting.``` | ```com.univision.prendetv``` | ```4.46.0_tv, 4.47.2_tv``` |
-| ```HBO Max - Disable Ads``` | ```Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types.``` | ```com.wbd.hbomax``` | ```7.5.0.73, 7.2.0.41``` |
+| ```HBO Max - Disable Ads``` | ```Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types.``` | ```com.wbd.hbomax``` | ```7.7.0.78, 7.5.0.73, 7.2.0.41``` |
 | ```Clone Pluto TV``` | ```Installs the patched Pluto TV as a separate app alongside the stock one, instead of replacing it. Enable this when Pluto TV is a preinstalled system app that can't be uninstalled — most commonly on Amazon Fire TV, and on some Android TV boxes and Onn devices. The clone gets its own package (suffix .mod), so it shows up as a second Pluto TV icon and keeps its own settings. Leave OFF if you were able to uninstall the original Pluto TV first (a normal in-place install is cleaner). Opt-in.``` | ```tv.pluto.android``` | ```5.66.0-leanback``` |
 | ```Disable auto-updates``` | ```Stops the Google Play Store from silently updating Pluto TV back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps.``` | ```tv.pluto.android``` | ```5.66.0-leanback``` |
 | ```Override certificate pinning``` | ```Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config — including the pluto.tv entry that is otherwise system-only — so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct to the manifest-rewrite ad approach.``` | ```tv.pluto.android``` | ```5.66.0-leanback``` |
@@ -4514,7 +4540,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Rushiranpise Bundle Patch List:
 [📦 Rushiranpise-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-rushiranpise-patches-bundle-morphe)
 <details>
-<summary><b>Rushiranpise</b> - 210 patches, 147 apps</summary>
+<summary><b>Rushiranpise</b> - 212 patches, 149 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -4581,6 +4607,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Ad-Free``` | ```Forces FlightAware ad-free subscribed state.``` | ```FlightAware``` | ```All versions``` |
 | ```Unlock Business Premium``` | ```Unlocks Business/Gold premium features in Flightradar24: ad-free map, weather layers, ATC, 3D view, flight history, and unlimited saved locations.``` | ```Flightradar24``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks premium features in app.``` | ```Flightsky``` | ```All versions``` |
+| ```Remove Ads``` | ```Removes all ads in app``` | ```Flud``` | ```All versions``` |
 | ```Unlock Ultra``` | ```Unlocks Ultra features in app.``` | ```Genius Scan``` | ```All versions``` |
 | ```Unlock Donation Features``` | ```Unlocks all premium donation features in Greenify.``` | ```Greenify``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks all pro features in Hibernator.``` | ```Hibernator``` | ```All versions``` |
@@ -4601,6 +4628,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Platinum``` | ```Unlocks Life360 Platinum feature in app.``` | ```Life360``` | ```All versions``` |
 | ```Remove ads``` | ```Disables LiveScore banner, native, and interstitial ad requests.``` | ```LiveScore``` | ```All versions``` |
 | ```Remove Ads``` | ```Removes interstitial and exit native ads from m-Indicator.``` | ```m-Indicator``` | ```All versions``` |
+| ```Unlock Premium``` | ```Unlocks Premium features in app after login.``` | ```Mapy``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks all Pro features.``` | ```MEGA``` | ```All versions``` |
 | ```Unlock Enterprise``` | ```Unlocks Enterprise features in app.``` | ```MigraConnect``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlock all premium widgets.``` | ```Minimal Widgets``` | ```All versions``` |
@@ -4801,7 +4829,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Variablenine Bundle Patch List:
 [📦 Variablenine-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-variablenine-patches-bundle-morphe)
 <details>
-<summary><b>Variablenine</b> - 126 patches, 4 apps</summary>
+<summary><b>Variablenine</b> - 127 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -4922,7 +4950,8 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Miniplayer previous and next buttons``` | ```Adds options to show previous and next track buttons in the miniplayer.``` | ```YouTube Music``` | ```All versions``` |
 | ```Navigation bar``` | ```Adds options to hide navigation bar, labels and buttons.``` | ```YouTube Music``` | ```All versions``` |
 | ```Network proxy``` | ```Adds settings to route supported network requests through an HTTP or HTTPS proxy.``` | ```YouTube Music``` | ```All versions``` |
-| ```Permanent repeat``` | ```Adds an option to always repeat even if the playlist ends or another track is played.``` | ```YouTube Music``` | ```All versions``` |
+| ```Remember repeat state``` | ```Adds an option to remember the repeat state when playing a new track or playlist.``` | ```YouTube Music``` | ```All versions``` |
+| ```Remember shuffle state``` | ```Adds an option to remember the shuffle state when playing a new track or playlist.``` | ```YouTube Music``` | ```All versions``` |
 | ```Remove background playback restrictions``` | ```Removes restrictions on background playback, including playing kids videos in the background.``` | ```YouTube Music``` | ```All versions``` |
 | ```Sanitize sharing links``` | ```Removes the tracking query parameters from shared links.``` | ```YouTube Music``` | ```All versions``` |
 | ```Scrobbling``` | ```Adds options to add played tracks to Last.fm and ListenBrainz.``` | ```YouTube Music``` | ```All versions``` |
