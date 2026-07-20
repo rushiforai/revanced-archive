@@ -1,5 +1,5 @@
 {
-    "version": "1.6.0",
+    "version": "1.8.0",
     "patches": [
         {
             "compatiblePackages": [
@@ -51,6 +51,29 @@
             "compatiblePackages": [
                 {
                     "apkFileType": "APK_REQUIRED",
+                    "appIconColor": "#00A8E0",
+                    "name": "My Telenor",
+                    "packageName": "com.telenor.pakistan.mytelenor",
+                    "signatures": [],
+                    "targets": [
+                        {
+                            "isExperimental": false,
+                            "minSdk": 24,
+                            "version": "4.2.62"
+                        }
+                    ]
+                }
+            ],
+            "default": true,
+            "dependencies": [],
+            "description": "Neutralizes the client-side device-validation gate (anti-root / anti-emulator / anti-Frida / anti-Xposed / anti-tamper battery) that shows a \"Device validation failed\" toast and kills the app via finishAffinity() on a rooted, emulated or re-signed build. Redirects the single failure callback to the success path so all ~16 checks report as passed and the app keeps running pre- and post-login.",
+            "name": "Bypass device validation",
+            "options": []
+        },
+        {
+            "compatiblePackages": [
+                {
+                    "apkFileType": "APK_REQUIRED",
                     "appIconColor": "#1E88E5",
                     "name": "Investify",
                     "packageName": "com.blueinklabs.investifystocks.free",
@@ -91,6 +114,29 @@
             "dependencies": [],
             "description": "Disables Simosa's anti-tamper signature check so a re-signed APK launches normally instead of stalling on the splash / \"version is not correct\" dialog.",
             "name": "Bypass signature verification",
+            "options": []
+        },
+        {
+            "compatiblePackages": [
+                {
+                    "apkFileType": "APK_REQUIRED",
+                    "appIconColor": "#0088CC",
+                    "name": "MTProxy",
+                    "packageName": "com.sdev.mtproxy",
+                    "signatures": [],
+                    "targets": [
+                        {
+                            "isExperimental": false,
+                            "minSdk": 32,
+                            "version": "2.1.4"
+                        }
+                    ]
+                }
+            ],
+            "default": true,
+            "dependencies": [],
+            "description": "Removes every AdMob ad — the interstitial (rerouted to its onAdFailedToLoad branch so the proxy-apply action still runs, but no ad loads or shows) and the on-screen banner (load skipped). No feature is lost.",
+            "name": "Remove ads",
             "options": []
         },
         {

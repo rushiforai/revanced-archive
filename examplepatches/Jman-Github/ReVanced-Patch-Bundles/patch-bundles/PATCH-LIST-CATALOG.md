@@ -49,7 +49,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Gmaps](#-gmaps-bundle-patch-list) | 1 | 1 | Generated |
 | [Seobject](#-seobject-bundle-patch-list) | 1 | 1 | Generated |
 | [Abeja](#-abeja-bundle-patch-list) | 3 | 1 | Generated |
-| [Proxma](#-proxma-bundle-patch-list) | 10 | 5 | Generated |
+| [Proxma](#-proxma-bundle-patch-list) | 12 | 6 | Generated |
 | [Jouss](#-jouss-bundle-patch-list) | 58 | 23 | Generated |
 | [Babyhuehnchen](#-babyhuehnchen-bundle-patch-list) | 1 | 1 | Generated |
 | [Cobalt-Morphe](#-cobalt-morphe-bundle-patch-list) | 1 | 1 | Generated |
@@ -81,7 +81,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Perplexity-STT](#-perplexity-stt-bundle-patch-list) | 1 | 1 | Generated |
 | [Browzomje](#-browzomje-bundle-patch-list) | 5 | 1 | Generated |
 | [Morphe-Portal](#-morphe-portal-bundle-patch-list) | 3 | 2 | Generated |
-| [Zpatches](#-zpatches-bundle-patch-list) | 6 | 3 | Generated |
+| [Zpatches](#-zpatches-bundle-patch-list) | 7 | 4 | Generated |
 | [iHealth-Morphe](#-ihealth-morphe-bundle-patch-list) | 6 | 2 | Generated |
 | [Hoomans-Morphe](#-hoomans-morphe-bundle-patch-list) | 54 | 41 | Generated |
 | [Realme-Link](#-realme-link-bundle-patch-list) | 1 | 1 | Generated |
@@ -89,13 +89,13 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Lain](#-lain-bundle-patch-list) | 45 | 32 | Generated |
 | [Edge-Morphe](#-edge-morphe-bundle-patch-list) | 3 | 1 | Generated |
 | [Anddea](#-anddea-bundle-patch-list) | 115 | 3 | Generated |
-| [Piko](#-piko-bundle-patch-list) | 126 | 2 | Generated |
+| [Piko](#-piko-bundle-patch-list) | 127 | 2 | Generated |
 | [HK-Morphe](#-hk-morphe-bundle-patch-list) | 10 | 4 | Generated |
 | [BholeyKaBhakt](#-bholeykabhakt-bundle-patch-list) | 24 | 15 | Generated |
 | [Andronedev](#-andronedev-bundle-patch-list) | 2 | 1 | Generated |
 | [Brosssh](#-brosssh-bundle-patch-list) | 22 | 5 | Generated |
 | [Quantro100](#-quantro100-bundle-patch-list) | - | - | Pending patch list |
-| [Chiggi](#-chiggi-bundle-patch-list) | 52 | 8 | Generated |
+| [Chiggi](#-chiggi-bundle-patch-list) | 53 | 8 | Generated |
 | [LaKaka](#-lakaka-bundle-patch-list) | 3 | 3 | Generated |
 | [EE-Morphe](#-ee-morphe-bundle-patch-list) | 12 | 6 | Generated |
 | [X-Shim](#-x-shim-bundle-patch-list) | 3 | 1 | Generated |
@@ -140,12 +140,12 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Ajstrick81-AndroidTV](#-ajstrick81-androidtv-bundle-patch-list) | 20 | 10 | Generated |
 | [Icysymmetra-TikTok](#-icysymmetra-tiktok-bundle-patch-list) | 15 | 1 | Generated |
 | [AlexNaga](#-alexnaga-bundle-patch-list) | 2 | 1 | Generated |
-| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 212 | 149 | Generated |
+| [Rushiranpise](#-rushiranpise-bundle-patch-list) | 218 | 150 | Generated |
 | [Sjshb57-PairIP](#-sjshb57-pairip-bundle-patch-list) | 4 | 1 | Generated |
 | [RIVanced-Universal](#-rivanced-universal-bundle-patch-list) | 27 | 1 | Generated |
 | [Variablenine](#-variablenine-bundle-patch-list) | 127 | 4 | Generated |
 | [Stylus](#-stylus-bundle-patch-list) | 2 | 1 | Generated |
-| [HXReborn](#-hxreborn-bundle-patch-list) | 4 | 3 | Generated |
+| [HXReborn](#-hxreborn-bundle-patch-list) | 7 | 4 | Generated |
 | [Ikura](#-ikura-bundle-patch-list) | 4 | 2 | Generated |
 
 ### Legacy
@@ -186,7 +186,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
-| ```Google Maps MicroG``` | ```Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata.``` | ```Google Maps``` | ```26.26.04.935742811, 26.27.05.941319029``` |
+| ```Google Maps MicroG``` | ```Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata.``` | ```Google Maps``` | ```All versions``` |
 
 </details>
 
@@ -220,14 +220,16 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Proxma Bundle Patch List:
 [📦 Proxma-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-proxma-patches-bundle-morphe)
 <details>
-<summary><b>Proxma</b> - 10 patches, 5 apps</summary>
+<summary><b>Proxma</b> - 12 patches, 6 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Bypass PairIP license check``` | ```Disables Google PairIP's license/installer check (com.pairip.licensecheck) so a re-signed build runs on a real device instead of being redirected to the Play Store and killed. No-ops the LicenseContentProvider entry point and LicenseClient.initializeLicenseCheck().``` | ```Investify``` | ```All versions``` |
 | ```Unlock premium (remove ads)``` | ```Unlocks Investify premium — forces the backend `no_ads` entitlement getter to report true in both the model and its Realm proxy, so the app treats the account as ad-free without any purchase. Ad SDK loads are gated on this flag app-wide.``` | ```Investify``` | ```All versions``` |
+| ```Remove ads``` | ```Removes every AdMob ad — the interstitial (rerouted to its onAdFailedToLoad branch so the proxy-apply action still runs, but no ad loads or shows) and the on-screen banner (load skipped). No feature is lost.``` | ```MTProxy``` | ```All versions``` |
 | ```Block trackers``` | ```Stops the Insider, TikTok Business SDK and Mixpanel Session Replay trackers from initializing (event/attribution/session-replay tracking never starts). Leaves AWS Amplify, Firebase core/RemoteConfig/FCM and Google Ads init untouched so app data, push and the remote ad-config the ads patch relies on keep working.``` | ```My Telenor``` | ```All versions``` |
 | ```Block trackers (manifest flags)``` | ```Disables Firebase Analytics + Google advertiser-id auto-collection and the Facebook SDK's auto app-events / advertiser-id / auto-init via AndroidManifest <meta-data> flags — the SDK-side auto-collection that no bytecode init-stub can reach. Leaves Firebase core (FCM push, RemoteConfig) and the Facebook ContentProvider intact. Separate from the bytecode Block trackers patch so you can pick either or both.``` | ```My Telenor``` | ```All versions``` |
+| ```Bypass device validation``` | ```Neutralizes the client-side device-validation gate (anti-root / anti-emulator / anti-Frida / anti-Xposed / anti-tamper battery) that shows a "Device validation failed" toast and kills the app via finishAffinity() on a rooted, emulated or re-signed build. Redirects the single failure callback to the success path so all ~16 checks report as passed and the app keeps running pre- and post-login.``` | ```My Telenor``` | ```All versions``` |
 | ```Remove ads``` | ```Removes every Google Ad Manager ad (banners + interstitials) across Daily Rewards, Home, Test Your Skills and Explore by nulling the remote ad-config chokepoint, so each surface renders its no-ads layout and never requests an interstitial.``` | ```My Telenor``` | ```All versions``` |
 | ```Remove ads & tracking``` | ```Removes every ad (AdMob) and every tracker (Firebase Analytics, AppsFlyer, Facebook, TikTok, and the Veridium SDK's own Google Analytics) — event sends, full SDK init (AppsFlyer init, TikTok initializeSdk/startTrack, MobileAds.initialize), and auto-collection. Pushwoosh push is left intact. The app then phones home only to its own Zong API.``` | ```MyZong``` | ```All versions``` |
 | ```Unlock daily reward (skip ad)``` | ```Claim MyZong's daily reward with no 'watch ad' popup and no ad. Forces the reward-bubble tap to take the app's own direct-claim branch (the same claim call the post-ad path makes), upstream of both the popup and the rewarded ad.``` | ```MyZong``` | ```All versions``` |
@@ -351,7 +353,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Hide Forwarded``` | ```Quita la etiqueta "reenviado" de los mensajes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Read Receipts``` | ```Read messages without sending blue ticks.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Typing``` | ```Escribe sin mostrar "escribiendo...".``` | ```com.whatsapp``` | ```2.26.27.4``` |
-| ```Login Fix``` | ```Bypasses verification bans by spoofing signature hashes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
+| ```Login Fix``` | ```Bypasses verification bans. REQUIRED: Install microG-RE for Play Integrity.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```No Forward Limit``` | ```Forward messages to unlimited contacts.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Communities``` | ```Hide the communities tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Updates``` | ```Hide the updates/statuses tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
@@ -840,7 +842,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Zpatches Bundle Patch List:
 [?? Zpatches-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-zpatches-patches-bundle-morphe)
 <details>
-<summary><b>Zpatches</b> - 6 patches, 3 apps</summary>
+<summary><b>Zpatches</b> - 7 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -848,7 +850,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Disable map animations``` | ```Disable the map zoom-in animation``` | ```com.jcdecaux.vls.lyon``` | ```3.1.1``` |
 | ```No geolocalisation check``` | ```Allows you to unlock a bike even if you're not near the station.``` | ```com.jcdecaux.vls.lyon``` | ```3.1.1``` |
 | ```Spoof package signature``` | ```Spoofs the package signature required for Firebase, fixes notifications``` | ```com.jcdecaux.vls.lyon``` | ```3.1.1``` |
-| ```Premium``` | ```Unlock all purchasables options``` | ```ee.dustland.android.minesweeper``` | ```1.21.1``` |
+| ```Disable Internet and Telemetry``` | ```Disable Internet and Telemetry by removing all non-necessary permissions from the manifest``` | ```ee.dustland.android.minesweeper, ee.dustland.android.solitaire``` | ```All versions``` |
+| ```Enable Premium``` | ```Unlock all purchasables options``` | ```ee.dustland.android.minesweeper, ee.dustland.android.solitaire``` | ```All versions``` |
 | ```Export all activities``` | ```Makes all activities launchable externally by setting android:exported="true" in the manifest``` | ```Universal``` | ```All versions``` |
 
 </details>
@@ -1630,7 +1633,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Piko Bundle Patch List:
 [📦 Piko-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-piko-patches-bundle-morphe)
 <details>
-<summary><b>Piko</b> - 126 patches, 2 apps</summary>
+<summary><b>Piko</b> - 127 patches, 2 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -1653,6 +1656,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Disable screenshot detection``` | ```Disables screenshots detection in DM``` | ```Instagram``` | ```All versions``` |
 | ```Disable stories``` | ```N/A``` | ```Instagram``` | ```All versions``` |
 | ```Disable story flipping``` | ```Disable automatic flipping/moving to next story``` | ```Instagram``` | ```All versions``` |
+| ```Disable swipe to create``` | ```Prevents opening the creation screen by swiping right on the home tab.``` | ```Instagram``` | ```All versions``` |
 | ```Disable typing status``` | ```N/A``` | ```Instagram``` | ```All versions``` |
 | ```Disable video autoplay``` | ```N/A``` | ```Instagram``` | ```All versions``` |
 | ```Download media``` | ```Adds ability to download posts, reels, stories and highlights``` | ```Instagram``` | ```All versions``` |
@@ -2736,7 +2740,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Chiggi Bundle Patch List:
 [📦 Chiggi-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-chiggi-patches-bundle-morphe)
 <details>
-<summary><b>Chiggi</b> - 52 patches, 8 apps</summary>
+<summary><b>Chiggi</b> - 53 patches, 8 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -2761,6 +2765,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Premium unlock``` | ```Unlocks premium UI state: shows the subscribed badge, enables the download button for all content and suppresses subscription nudges during playback. This is a UI unlock only — it does not grant access to DRM content you are not entitled to. Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
 | ```Remove AD_ID permission``` | ```Removes the advertising-id and Ad Services (Privacy Sandbox) permissions so the device advertising id, Attribution and Topics signals cannot be read for ad tracking.``` | ```JioHotstar``` | ```All versions``` |
 | ```Remove ads``` | ```Removes pre-roll, mid-roll and live-match video ads by clearing the SSAI ad tag in the AdMetadata constructor, so the client requests a clean, non-ad-stitched stream at the source. This surgical approach lets the app's own ad machinery see "no ads" and behave normally (no retry loops, no empty ad slots). Approach adapted from Paresh-Maheshwari's patches (GPL-3.0).``` | ```JioHotstar``` | ```All versions``` |
+| ```Spoof device attestation``` | ```Forces the device-attestation blob JioHotstar sends to the server to report a clean device (IsTampered/IsRooted/IsProxy/isVpnActive/IsEmulator/suspicious-file/open-ports/debugger all false). The re-signed build otherwise sends IsTampered=true, which the server flags as "suspicious activity" and locks the account for 24 hours (error NM-4290). WARNING: this reduces one client-sent signal but does NOT make the account safe — the server still sees the VPN exit IP, and an already-flagged account stays on Hotstar's radar. Do not run this on an account you cannot afford to lose.``` | ```JioHotstar``` | ```All versions``` |
 | ```Spoof device-integrity self-report``` | ```Forces JioHotstar's security-suite checks (VPN, proxy, root, debugger, open ports, suspicious files) to report false, so the device-integrity attestation the app sends to the server looks clean. Helps rooted/modded devices and complements the VPN bypass. Note: the attestation is also server-validated (signed nonce) and the server sees the connection IP, so this is not guaranteed to defeat a server-side check on its own.``` | ```JioHotstar``` | ```All versions``` |
 | ```Change app name``` | ```Changes the app name shown under the launcher icon. Set the desired name in the patch options.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
 | ```Disable analytics``` | ```Disables Firebase/Google Analytics, Crashlytics and Performance data collection via manifest flags. CleverTap is left intact (it drives in-app UI and disabling it would crash the app). Push notifications are unaffected.``` | ```Jiotv+: LiveTV & OTT``` | ```All versions``` |
@@ -4540,7 +4545,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Rushiranpise Bundle Patch List:
 [📦 Rushiranpise-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-rushiranpise-patches-bundle-morphe)
 <details>
-<summary><b>Rushiranpise</b> - 212 patches, 149 apps</summary>
+<summary><b>Rushiranpise</b> - 218 patches, 150 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -4609,6 +4614,12 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Premium``` | ```Unlocks premium features in app.``` | ```Flightsky``` | ```All versions``` |
 | ```Remove Ads``` | ```Removes all ads in app``` | ```Flud``` | ```All versions``` |
 | ```Unlock Ultra``` | ```Unlocks Ultra features in app.``` | ```Genius Scan``` | ```All versions``` |
+| ```AMOLED dark theme``` | ```Makes Google Photos dark surfaces true black.``` | ```Google Photos``` | ```All versions``` |
+| ```Change package name``` | ```Installs Google Photos beside the system Photos app by changing package, permissions, providers, and app name.``` | ```Google Photos``` | ```All versions``` |
+| ```Enable DCIM folders backup control``` | ```Allows controlling Camera and other DCIM folder backup individually.``` | ```Google Photos``` | ```All versions``` |
+| ```Fix DCIM folder classification``` | ```Prevents non-Camera DCIM folders from being grouped as Camera.``` | ```Google Photos``` | ```All versions``` |
+| ```GmsCore support``` | ```Adds MicroG/GmsCore support metadata for Google Photos.``` | ```Google Photos``` | ```All versions``` |
+| ```Spoof features``` | ```Spoofs selectable Pixel Photos build and feature flags.``` | ```Google Photos``` | ```All versions``` |
 | ```Unlock Donation Features``` | ```Unlocks all premium donation features in Greenify.``` | ```Greenify``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks all pro features in Hibernator.``` | ```Hibernator``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlock Premium features in app.``` | ```Historical Calendar``` | ```All versions``` |
@@ -4980,13 +4991,16 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 HXReborn Bundle Patch List:
 [📦 HXReborn-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-hxreborn-patches-bundle-morphe)
 <details>
-<summary><b>HXReborn</b> - 4 patches, 3 apps</summary>
+<summary><b>HXReborn</b> - 7 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
-| ```Unlock premium``` | ```Unlocks premium features.``` | ```ForusApp``` | ```All versions``` |
+| ```Unlock premium``` | ```Unlocks all premium features.``` | ```ForusApp``` | ```All versions``` |
 | ```Disable tracking``` | ```Disables analytics and crash reporting.``` | ```Projectivy Launcher``` | ```All versions``` |
-| ```Unlock premium``` | ```Unlocks premium features.``` | ```Projectivy Launcher``` | ```All versions``` |
+| ```Unlock premium``` | ```Unlocks all premium features.``` | ```Projectivy Launcher``` | ```All versions``` |
+| ```Hide sidebar upselling``` | ```Hides the 'Upgrade to Mail Plus' entry from the sidebar.``` | ```Proton Mail``` | ```All versions``` |
+| ```Remove 'Sent from' signature``` | ```Removes the 'Sent from Proton Mail mobile' signature from emails.``` | ```Proton Mail``` | ```All versions``` |
+| ```Remove free accounts limit``` | ```Removes the limit for maximum free accounts logged in.``` | ```Proton Mail``` | ```All versions``` |
 | ```Unlock premium``` | ```Unlocks ad removal, light theme, custom images, list view types, quick ratings, and transparent widgets.``` | ```Showly``` | ```All versions``` |
 
 </details>
