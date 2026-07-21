@@ -83,7 +83,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Morphe-Portal](#-morphe-portal-bundle-patch-list) | 3 | 2 | Generated |
 | [Zpatches](#-zpatches-bundle-patch-list) | 7 | 4 | Generated |
 | [iHealth-Morphe](#-ihealth-morphe-bundle-patch-list) | 6 | 2 | Generated |
-| [Hoomans-Morphe](#-hoomans-morphe-bundle-patch-list) | 54 | 41 | Generated |
+| [Hoomans-Morphe](#-hoomans-morphe-bundle-patch-list) | 53 | 40 | Generated |
 | [Realme-Link](#-realme-link-bundle-patch-list) | 1 | 1 | Generated |
 | [ProGuard](#-proguard-bundle-patch-list) | 2 | 2 | Generated |
 | [Lain](#-lain-bundle-patch-list) | 45 | 32 | Generated |
@@ -104,7 +104,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Kondratjev](#-kondratjev-bundle-patch-list) | 25 | 13 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 77 | 53 | Generated |
 | [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 85 | 6 | Generated |
-| [Morphe](#-morphe-bundle-patch-list) | 127 | 4 | Generated |
+| [Morphe](#-morphe-bundle-patch-list) | 129 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
 | [IMXEren](#-imxeren-bundle-patch-list) | 2 | 2 | Generated |
@@ -186,7 +186,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
-| ```Google Maps MicroG``` | ```Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata.``` | ```Google Maps``` | ```All versions``` |
+| ```Google Maps for ReVanced GmsCore``` | ```Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata.``` | ```Google Maps``` | ```All versions``` |
 
 </details>
 
@@ -353,7 +353,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Hide Forwarded``` | ```Quita la etiqueta "reenviado" de los mensajes.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Read Receipts``` | ```Read messages without sending blue ticks.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Hide Typing``` | ```Escribe sin mostrar "escribiendo...".``` | ```com.whatsapp``` | ```2.26.27.4``` |
-| ```Login Fix``` | ```Bypasses verification bans. REQUIRED: Install microG-RE for Play Integrity.``` | ```com.whatsapp``` | ```2.26.27.4``` |
+| ```Login Fix``` | ```Bypasses verification bans by spoofing signatures, installers, and faking GMS checks. REQUIRED: You must manually install microG-RE for Play Integrity to pass.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```No Forward Limit``` | ```Forward messages to unlimited contacts.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Communities``` | ```Hide the communities tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
 | ```Remove Updates``` | ```Hide the updates/statuses tab.``` | ```com.whatsapp``` | ```2.26.27.4``` |
@@ -877,7 +877,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### ?? Hoomans-Morphe Bundle Patch List:
 [?? Hoomans-Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-hoomans-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Hoomans-Morphe</b> - 54 patches, 41 apps</summary>
+<summary><b>Hoomans-Morphe</b> - 53 patches, 40 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -893,7 +893,6 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Unlock Premium``` | ```Turns on ChatBoost premium so the app's paid features and UI open up. Premium is decided by a single internal flag holder whose two flags both ship hardcoded off, so forcing them on makes the entitlement flow report premium no matter what Google Play Billing says, and every gate reads that one flow. One thing to know: ChatBoost is bring your own key, so the AI runs on your own provider API keys and was never part of the subscription. This unlocks the client-side paid features and UX, not free AI usage. The AI already runs on your keys.``` | ```ChatBoost``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks Collectr's premium features without a subscription, like unlimited collections, price alerts, and the advanced analytics. This is the arm64 build. Anything Collectr serves from its own servers still needs the real subscription.``` | ```Collectr``` | ```All versions``` |
 | ```Unlock Gold``` | ```Unlocks Cronometer Gold without a subscription, like custom charts, advanced reports, the fasting tracker, custom biometrics, an ad-free view, and more. Anything Cronometer works out on its own servers still needs Gold.``` | ```Cronometer``` | ```All versions``` |
-| ```Unlock Premium``` | ```Unlocks DirectChat's premium without the in-app purchase, so the chat-head styles and themes, extra bubble options and the other paid settings all open, and the ad inside the message bubble is hidden too. Premium is a local flag the app seeds from its own purchase, so the unlock holds across restarts on a free account.``` | ```DirectChat``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks Essence's premium tools without a subscription, like the detailed statistics and insights, custom themes, app lock, data export, and more. They run on your device, so they work offline. The AI recovery coach and anything else Essence makes on its servers still needs the real subscription.``` | ```Essence``` | ```All versions``` |
 | ```Unlock Plus``` | ```Unlocks Finch Plus features without a subscription, including the Plus shop items, extra themes and customization, seasonal event tiers, the monthly recap, and Plus insights. It also clears the upgrade prompts. This is the arm64 build. Cloud backup and cross-device sync run on Finch's own servers and still need the real subscription. Re-signing breaks Google sign-in, so log in with email instead.``` | ```Finch``` | ```All versions``` |
 | ```Remove ads``` | ```Removes the ads in Flightradar24. The Gold map layers, flight history, and 3D view are produced on Flightradar24's servers and still need a subscription.``` | ```Flightradar24``` | ```All versions``` |
@@ -915,9 +914,9 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | ```Unlock Premium``` | ```Unlocks Replaio's premium and removes the ads, so the equalizer, sleep timer, alarm, recording, and favorites all open up. Data Replaio keeps on its servers (synced favorites past the free cap) still needs an account that paid.``` | ```Replaio``` | ```All versions``` |
 | ```Unlock Premium``` | ```Turns on Rumble Premium without a subscription: removes the ad-supported playback, drops the premium upsell, and unlocks the premium-only videos. The premium flag is read from your account profile when you sign in, so it takes effect on a logged-in Rumble account.``` | ```Rumble``` | ```All versions``` |
 | ```Unlock Full``` | ```Unlocks Smart AudioBook Player's full version by forcing the local license decision to Full.``` | ```Smart AudioBook Player``` | ```All versions``` |
-| ```Remove Ads``` | ```Stops the banner and interstitial ads SofaScore shows around scores and between screens. Every ad site reads one decision method off the cached account, and the app's own ad master switch caches that method's result, so forcing it to "no ads" turns them all off with no login needed. The result holds across a sync because the switch re-reads the same method. Ads that are served by the video/story SDK inside embedded content are not affected. Re-signing breaks SofaScore's login (it only offers Google and Facebook sign-in, both of which reject the new signature), but removing ads does not need an account so the patch still works.``` | ```SofaScore``` | ```All versions``` |
+| ```Remove Ads``` | ```Stops the banner and interstitial ads SofaScore shows around scores and between screens. Every ad site reads one decision method off the cached account, and the app's own ad master switch caches that method's result, so forcing it to "no ads" turns them all off with no login needed. The result holds across a sync because the switch re-reads the same method. Ads that are served by the video/story SDK inside embedded content are not affected. The patch also keeps Firebase notification registration compatible with the re-signed build. Re-signing breaks SofaScore's login (it only offers Google and Facebook sign-in, both of which reject the new signature), but removing ads does not need an account so the patch still works.``` | ```SofaScore``` | ```All versions``` |
 | ```Unlock Pro``` | ```Turns on Stash Pro and removes the ads. Pro is a flag the server sends with your account, so the unlock takes effect on a signed-in account once it loads. With it on the ads go away and the Pro-gated UI opens up: the Become Pro upsell card, the home screen block layout, custom collection cover images, and the locked review detail fields. Anything the Stash server checks for a non-paying account is unaffected, so data kept behind a paid account does not sync. Re-signing breaks Google and Facebook login, so sign in with email.``` | ```Stash``` | ```All versions``` |
-| ```Unlock Premium``` | ```Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial: a license value the app keeps locally decides whether the paid UI is open, and two timers (the beta cutoff and the trial countdown) lock the app once they pass. This forces the license read to "licensed" so the paid screens open, drops the "trial expires on ..." line from settings, and freezes the trusted-time lookup the timers read at a fixed pre-cutoff instant so neither timer can fire. The license is checked on the client (a local Play purchase verify), so the unlock holds without an account. Connecting Plex, Jellyfin and other media servers is untouched.``` | ```Symfonium``` | ```All versions``` |
+| ```Unlock Premium``` | ```Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched.``` | ```Symfonium``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks Teach Me Anatomy's premium features without a subscription, dropping the upgrade banners and ads and opening up the locked articles, quizzes, and flashcards. Content served from the server still needs a real account.``` | ```Teach Me Anatomy``` | ```All versions``` |
 | ```Unlock Pro``` | ```Turns on Todoist Pro on the signed-in account: the project, task, section, filter and label caps go to unlimited, reminders, comments, deadlines, durations, calendar layout, the activity log, file uploads and the paid templates all open, and the plan badge reads Pro. Pro on Todoist is a plan the server sends down and the app caches, so the unlock takes hold once a signed-in account loads and it holds across a sync. Anything the Todoist server runs itself is untouched: the AI assistant, real team/Business collaboration, and server-enforced storage still need a paid account. Re-signing breaks Google sign-in, so sign in with email and password.``` | ```Todoist``` | ```All versions``` |
 | ```Unlock Pro``` | ```Unlocks Tracked's premium training tools without a subscription, like muscle analytics, training programs, dashboard customization, and session density/net progression. They run on the workout data already on your device, so they keep working offline. The separate human-coaching marketplace still needs its own subscription.``` | ```Tracked``` | ```All versions``` |
@@ -3273,13 +3272,15 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Morphe Bundle Patch List:
 [📦 Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Morphe</b> - 127 patches, 4 apps</summary>
+<summary><b>Morphe</b> - 129 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Custom branding name for Reddit``` | ```Changes the Reddit app name to the name specified in patch options.``` | ```Reddit``` | ```All versions``` |
+| ```Custom font``` | ```Adds an option to replace Reddit Sans / Roboto with a custom TTF or OTF font file at runtime.``` | ```Reddit``` | ```All versions``` |
 | ```Disable modern home``` | ```Adds an option to disable the modern home UI. This patch works with Reddit 2026.24.0 and earlier.``` | ```Reddit``` | ```All versions``` |
 | ```Disable screenshot popup``` | ```Adds an option to disable the popup that appears when taking a screenshot.``` | ```Reddit``` | ```All versions``` |
+| ```Force system font``` | ```Adds an option that renders Reddit with the device system font instead of Reddit Sans / Roboto.``` | ```Reddit``` | ```All versions``` |
 | ```Hide ads``` | ```Adds options to hide ads.``` | ```Reddit``` | ```All versions``` |
 | ```Hide Ask button``` | ```Adds an option to hide Ask button in the search bar.``` | ```Reddit``` | ```All versions``` |
 | ```Hide communities shelf``` | ```Adds an option to hide the related or suggested communities shelf in subreddits.``` | ```Reddit``` | ```All versions``` |
@@ -4491,7 +4492,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Clone Peacock``` | ```Installs the patched Peacock as a separate app alongside the stock one, instead of replacing it. Enable this when Peacock is a preinstalled system app that can't be uninstalled — most commonly on Amazon Fire TV, and on some Android TV boxes and Onn devices. The clone gets its own package (suffix .mod), so it shows up as a second Peacock icon and keeps its own login. Leave OFF if you were able to uninstall the original Peacock first (a normal in-place install is cleaner). Opt-in.``` | ```com.peacocktv.peacockandroid``` | ```7.5.102, 7.6.100``` |
 | ```Disable auto-updates``` | ```Stops the Google Play Store from silently updating Peacock back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps.``` | ```com.peacocktv.peacockandroid``` | ```7.5.102, 7.6.100``` |
 | ```Skip ads``` | ```Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring on both the app NetworkingKt OkHttp client and the Sky SDK addon network client, and a WebView shouldInterceptRequest wrapper. Validated v7.5.102 and v7.6.100.``` | ```com.peacocktv.peacockandroid``` | ```7.5.102, 7.6.100``` |
-| ```Skip ads``` | ```Suppresses all ad delivery systems in Tubi Android TV.``` | ```com.tubitv``` | ```10.20.5000``` |
+| ```Skip ads``` | ```Suppresses all ad delivery systems in Tubi Android TV.``` | ```com.tubitv``` | ```10.28.5000``` |
 | ```Override certificate pinning``` | ```Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium.``` | ```com.univision.prendetv``` | ```4.46.0_tv, 4.47.2_tv``` |
 | ```Skip ads``` | ```Suppresses ViX ad delivery by stopping the LuraPlayer linear ad-break scheduler (client-side VAST) and preventing the Innovid SSAI ad overlay from mounting.``` | ```com.univision.prendetv``` | ```4.46.0_tv, 4.47.2_tv``` |
 | ```HBO Max - Disable Ads``` | ```Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types.``` | ```com.wbd.hbomax``` | ```7.7.0.78, 7.5.0.73, 7.2.0.41``` |
