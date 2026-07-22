@@ -67,7 +67,7 @@ val addRevancedVersionFieldPatch = resourcePatch(
                 androidAttr("layout_width", "0dp")
                 androidAttr("layout_height", "wrap_content")
                 androidAttr("layout_weight", "1")
-                androidAttr("text", "v1.3.0")
+                androidAttr("text", "v1.3.1")
                 androidAttr("layout_marginEnd", "20dp")
             }
             row.appendChild(value)
