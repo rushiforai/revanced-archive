@@ -19,22 +19,30 @@ Source for the signature-spoof extension merged by `Spoof signature`
 
 ## Regenerate the dex (no gradle needed)
 
-Requires a JDK, an Android `android.jar` (API ≥ 34), and `d8` (Android build-tools).
+Requires a JDK, an Android `android.jar` (API ≥ 34 — use the level the **target app** compiles against,
+currently API 36 for DCInside 5.3.2), and `d8` (Android build-tools).
 
 ```bash
-# 1. regenerate the delegate for the target API (only if PackageManager's contract changed)
+# 1. regenerate the delegate for the target API (only if PackageManager's contract changed).
+#    The second argument is just the API level written into the generated header comment.
 javac Gen.java
-java Gen /path/to/android.jar > src/main/java/app/revanced/extension/dcinside/SpoofPackageManager.java
+java Gen /path/to/android.jar 36 > src/main/java/app/revanced/extension/dcinside/SpoofPackageManager.java
 
 # 2. compile both classes against android.jar
 javac -bootclasspath /path/to/android.jar -source 8 -target 8 \
-  src/main/java/app/revanced/extension/dcinside/*.java
+  src/main/java/app/revanced/extension/dcinside/SignatureSpoof.java \
+  src/main/java/app/revanced/extension/dcinside/SpoofPackageManager.java
 
 # 3. dex at the app's minSdk (23) and install as the patch resource
 java -cp /path/to/d8.jar com.android.tools.r8.D8 --min-api 23 --lib /path/to/android.jar \
   --output . src/main/java/app/revanced/extension/dcinside/*.class
 cp classes.dex ../../patches/src/main/resources/dcinside/signature-spoof.rve
 ```
+
+A new API level usually adds `PackageManager` methods (API 36 added
+`parseAndroidManifest(ParcelFileDescriptor, Function)`, 159 → 160 methods). Every one of them **must**
+be delegated: the ones the delegate misses fall through to base stubs that throw
+`UnsupportedOperationException`. Regenerate whenever the target app's `targetSdk` rises.
 
 ## Updating the embedded certificate
 

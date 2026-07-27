@@ -9,11 +9,13 @@ public class Gen {
         return t.getTypeName().replace('$', '.');
     }
     public static void main(String[] args) throws Exception {
+        // args: <android.jar> [api level label, for the generated header comment]
+        String api = args.length > 1 ? args[1] : "unknown";
         URLClassLoader cl = new URLClassLoader(new URL[]{ new java.io.File(args[0]).toURI().toURL() });
         Class<?> pm = Class.forName("android.content.pm.PackageManager", false, cl);
         StringBuilder b = new StringBuilder();
         b.append("package app.revanced.extension.dcinside;\n\n");
-        b.append("// AUTO-GENERATED from android.jar (API 35) by Gen.java. Do not hand-edit.\n");
+        b.append("// AUTO-GENERATED from android.jar (API " + api + ") by Gen.java. Do not hand-edit.\n");
         b.append("// Delegates every overridable PackageManager instance method to the real instance;\n");
         b.append("// only getPackageInfo(...) is intercepted to inject the original signature.\n");
         b.append("@SuppressWarnings({\"unchecked\",\"deprecation\",\"rawtypes\"})\n");

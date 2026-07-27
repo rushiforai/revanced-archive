@@ -43,16 +43,18 @@ jobs:
           ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew build --no-daemon
 
-      # Guard: the signature-spoof extension dex must ship inside the .rvp
-      # (it is bundled from patches/src/main/resources by the jar task, not built
-      # from the extensions/ source module). Fail loudly if it ever stops shipping.
-      - name: Verify extension is bundled
+      # Guard: the prebuilt extension dexes must ship inside the .rvp (they are
+      # bundled from patches/src/main/resources by the jar task, not built from the
+      # extensions/ source module). Fail loudly if one ever stops shipping.
+      - name: Verify extensions are bundled
         run: |
           rvp=$(find patches/build/libs -name '*.rvp' ! -name '*sources*' ! -name '*javadoc*' | head -n1)
           if [ -z "$rvp" ]; then echo "No .rvp built" >&2; exit 1; fi
-          unzip -l "$rvp" | grep -q 'dcinside/signature-spoof.rve' \
-            || { echo "signature-spoof.rve missing from $rvp" >&2; exit 1; }
-          echo "OK: signature-spoof.rve present in $(basename "$rvp")"
+          for rve in dcinside/signature-spoof.rve dcinside/voice-file-picker.rve; do
+            unzip -l "$rvp" | grep -q "$rve" \
+              || { echo "$rve missing from $rvp" >&2; exit 1; }
+          done
+          echo "OK: extension dexes present in $(basename "$rvp")"
 
       - name: Upload .rvp artifact
         uses: actions/upload-artifact@v4
