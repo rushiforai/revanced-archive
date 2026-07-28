@@ -1,0 +1,46 @@
+--- /home/tch/Downloads/portfolio-performance-freemium-patch/patches/src/main/kotlin/app/revanced/patches/portfolioperformance/freemium/FreemiumPatch.kt
++++ /home/tch/Downloads/portfolio-performance-freemium-patch/patches/src/main/kotlin/app/revanced/patches/portfolioperformance/freemium/FreemiumPatch.kt
+@@ -48,22 +48,45 @@
+         // 2. onMethodCall – intercept "getCustomerInfo" at the very top.
+         val orig = onMethodCallFingerprint.method.getInstruction(0)
+         onMethodCallFingerprint.method.addInstructionsWithLabels(
+             0,
+             """
+                 iget-object v0, p1, Lj2/i;->a:Ljava/lang/String;
+                 const-string v1, "getCustomerInfo"
+                 invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                 move-result v0
+-                if-eqz v0, :skip
++                if-nez v0, :build
++                
++                iget-object v0, p1, Lj2/i;->a:Ljava/lang/String;
++                const-string v1, "getOfferings"
++                invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
++                move-result v0
++                if-nez v0, :build
++                
++                iget-object v0, p1, Lj2/i;->a:Ljava/lang/String;
++                const-string v1, "getAppUserID"
++                invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
++                move-result v0
++                if-nez v0, :user
++                
++                goto :skip
++                
++                :user
++                const-string v0, "fake_user"
++                invoke-interface {p2, v0}, Lj2/j${'$'}d;->a(Ljava/lang/Object;)V
++                return-void
++                
++                :build
+                 invoke-static {}, ${'$'}EXTENSION_CLASS->buildFakeCustomerInfo()Ljava/util/HashMap;
+                 move-result-object v0
+                 invoke-interface {p2, v0}, Lj2/j${'$'}d;->a(Ljava/lang/Object;)V
+                 return-void
++                
+                 :skip
+             """,
+             mapOf("skip" to ExternalLabel("skip", orig))
+         )
+     }
+ }

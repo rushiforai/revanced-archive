@@ -1,0 +1,12 @@
+[versions]
+revanced-patcher = "22.0.1"
+# Tracking https://github.com/google/smali/issues/64.
+#noinspection GradleDependency
+smali = "3.0.9"
+
+[libraries]
+revanced-patcher = { module = "app.revanced:patcher", version.ref = "revanced-patcher" }
+smali = { module = "com.android.tools.smali:smali", version.ref = "smali" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.3.10" }

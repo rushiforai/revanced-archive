@@ -1,0 +1,4 @@
+public final class app/revanced/patches/portfolioperformance/freemium/FreemiumPatchKt {
+	public static final fun getFreemiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+

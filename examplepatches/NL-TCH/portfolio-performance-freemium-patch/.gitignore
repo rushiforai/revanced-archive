@@ -1,0 +1,14 @@
+.gradle/
+**/build/
+local.properties
+.kotlin/
+*.iml
+.idea/
+node_modules/
+
+# Build outputs
+*.apk
+*.jar
+*.rvp
+*.keystore
+patched-temporary-files/
