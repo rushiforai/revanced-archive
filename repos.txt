@@ -20,6 +20,7 @@ LoV432/revanced-patches
 MaebashiRamens/mtga
 MarcaDian/Mystery-manager
 MojiRS/revanced-rif-patches
+NL-TCH/portfolio-performance-freemium-patch
 NexAlloy/NexAlloy
 PawiX25/pepper-revanced-patches
 ReVanced/revanced-patches
