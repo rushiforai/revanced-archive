@@ -59,6 +59,7 @@ korhelyleves/revanced-patches
 lennyRBLX/apk-patches
 liaralabs/revanced-patches
 lluni/custom-revanced-patches
+loan-mgt/moovit-patch
 prevanced/prevanced-manager
 rufusin/revanced-patches
 selfmusing/RVX-Lite-Modules
