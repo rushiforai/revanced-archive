@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.0.5)'
+        required: true
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_ACTOR: ${{ secrets.GH_ACTOR }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      ORG_GRADLE_PROJECT_githubPackagesUsername: ${{ secrets.GH_ACTOR }}
+      ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - name: Derive version
+        id: version
+        run: |
+          RAW_TAG="${{ inputs.tag || github.ref_name }}"
+          echo "tag=$RAW_TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${RAW_TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Stamp version into build
+        run: |
+          sed -i "s/^version\s*=\s*.*/version = ${{ steps.version.outputs.version }}/" gradle.properties
+
+      - name: Build patch bundle
+        run: ./gradlew build :patches:buildAndroid --no-daemon
+
+      - name: Locate built .rvp
+        id: artifact
+        run: |
+          RVP_PATH=$(find patches/build/libs -name "*.rvp" ! -name "*sources*" ! -name "*javadoc*" | head -n1)
+          echo "path=$RVP_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          generate_release_notes: true
+          files: ${{ steps.artifact.outputs.path }}
+
+      - name: Get release notes body
+        id: notes
+        run: |
+          gh release view "${{ steps.version.outputs.tag }}" --json body -q .body > /tmp/release-notes.md
+
+      - name: Generate patches-bundle.json
+        run: |
+          bash scripts/generate-patches-bundle.sh \
+            "${{ steps.version.outputs.version }}" \
+            /tmp/release-notes.md \
+            "${{ github.repository }}"
+
+      - name: Commit patches-bundle.json to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout main
+          git pull origin main
+          cp /tmp/patches-bundle.json patches-bundle.json
+          git add patches-bundle.json
+          git commit -m "chore: update patches-bundle.json for ${{ steps.version.outputs.tag }} [skip ci]"
+          git push origin main
