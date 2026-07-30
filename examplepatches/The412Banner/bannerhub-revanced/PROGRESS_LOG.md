@@ -1,5 +1,129 @@
 # BannerHub ReVanced — GameHub 6.0 Port Progress Log
 
+## 2026-07-29 — 🔓 pcengine plugin signature bypass — 2 patches written (branch `feature/pcengine-signature-bypass`)
+
+Since 6.1.0 loads the PC emulator as a downloadable plugin whose signing cert must equal the HOST's, and every BannerHub build is re-signed with our own key, the genuine XiaoJi-signed plugin is rejected → no emulator. Device-proven via `pc_engine_plugin_manager_journal.json` (11× `Verification` failures 「插件签名与宿主不一致」). Two independent host-side gates, both patched:
+
+1. **`PcEngineValidationStrategyPatch`** (`com/combo` framework gate). Forces `com.combo.core.model.PluginFrameworkContext.getValidationStrategy()` to return `ValidationStrategy.Insecure` (the enum's own permissive value; ships `Strict`). Non-obfuscated class/method → stable anchor. Injects `sget-object p0, …ValidationStrategy;->Insecure… ; return-object p0` at head (method is `.locals 0`, p0=this, safe to overwrite before return).
+2. **`PcEnginePluginSignatureCheckPatch`** (pcengine manager's own gate, NOT governed by ValidationStrategy). The obfuscated manager method (`xy5.G0(File)Ljava/lang/String;` on 6.1.0) returns null on cert-match / the mismatch message otherwise; its sole caller branches `if-eqz`. Force it to return null → always "match". Anchored on the globally-unique mismatch string `插件签名与宿主不一致 host=` (survives R8 renames). Injects `const/4 v0, 0x0 ; return-object v0` at head (`.locals 12`).
+
+Both are `bytecodePatch` auto-discovered (no registry). Kept as 2 separate patches so the first CI run confirms each anchor independently. ⚠️ Device-test caveat: a fresh install must reach the plugin-download step; login bypass is NOT re-derived on 610 yet, so stock XiaoJi login is required to trigger the download before the bypass can be observed loading it.
+
+**✅ BUILD GREEN + DELIVERED 2026-07-29.** Run `30452215986` off `feature/pcengine-signature-bypass` `b6ced04`, version `1.0.0-610-pre1`, artifacts-only. **Both patches applied on ALL 9 variants** — CI log: `INFO: "PC engine plugin — bypass manager signature check" succeeded` + `INFO: "PC engine plugin — force Insecure validation" succeeded`, zero SEVERE. Anchors correct. Delivered **Genshin** variant to `/sdcard/Download/BannerHub-V6-1.0.0-610-pre1-Patched-Genshin.apk`, md5 `50137ab626bb9f3ddcfbc60f8ec6b063`, cert `10895a31…894ce0ba` (our stable key). (Many OTHER patches SEVERE-skipped as expected — 610 fingerprints not re-derived yet — but the build continues and produces working APKs.)
+
+**🔑 THREE gates on the plugin, not two (found while evaluating "re-sign the plugin to match host" idea):** besides the 2 signature checks we patched, the manager ALSO computes the downloaded plugin's SHA-256 and compares it to the value in the server manifest (`插件 SHA-256 校验失败 expected=`, xy5:9362; manifest `PcEnginePluginVersion` carries `sha256`+`md5`+`downloadUrl`). **Consequence:** re-signing the plugin changes its bytes → new sha256 → trips the hash gate too, so "just drop a re-signed plugin in `plugin_packages/`" does NOT work without ALSO serving a matching manifest (customVersionUrl / our endpoint). This is why **patching the host wins**: the app downloads the GENUINE plugin (sha256 ✓, XiaoJi sig — now unchecked), satisfying/bypassing all 3 gates with zero plugin hosting. Re-signing the plugin is strictly more infra (host + plugin + manifest) and only works paired with a host WE sign anyway.
+⛔ **Cannot help the user's CURRENTLY-installed host** (cert `a40da80a…`, unknown origin): we don't hold that private key, so we can neither re-sign a matching plugin nor re-sign a patched host to update it in place. Test path = uninstall the `a40da80a` build, install this `10895a31` patched build fresh → it re-downloads the genuine plugin → patched host accepts it.
+
+## 2026-07-29 — ✅ RESOLVED: 6.1.0 moved the whole PC emulator into a **downloadable DexClassLoader plugin** (`:pcengine`)
+
+Answers the "where did the runtime go" question from the onboarding entry below. This is an **architecture change, not an R8 reshuffle** — 6.1.0 is not a normal base bump.
+
+### What upstream did
+GameHub 6.1.0 extracted the entire PC emulation engine out of the APK and turned it into a **downloadable, hash-verified plugin** loaded via `DexClassLoader` into a dedicated **`:pcengine`** process.
+
+Evidence, all from `~/gh610-apktool-d` vs `~/gh609-apktool-d`:
+
+| | 6.0.9 | 6.1.0 |
+|---|---|---|
+| `com.xiaoji.egggame.plugin.pcengine.host.*` | **0 classes** | **5** (new) |
+| `com/combo/**` plugin framework | absent | **49 classes** (`core/runtime/{loader,installer,app}`, activity/service/provider/receiver proxies) |
+| `DexClassLoader` uses | **0** | 6 — incl. `com/combo/core/runtime/loader/PluginClassLoader extends DexClassLoader` |
+| `com/winemu/**` classes | 39 | **3** (`CabFile`, `gamepad/GamepadServerManager`, `openapi/Config`) |
+| `com/xiaoji/egggame/common/winemu/**` | **198** | **1** (`service/EmuFileService`) |
+| `android:process=":pcengine"` | — | **new**, hosts 3 activities + 1 service |
+| native runtime `.so` | winemu/xserver/vfs/gpuinfo present | **all 4 removed** (6.71 MB) |
+
+- **`WineActivity` is now an `<activity-alias>`** → `LegacyPcEngineActivityTrampoline`. The real entry points are `PcEnginePluginHostActivity` / `…SettingsHostActivity` / `…DependencyInstallHostActivity`, all in `:pcengine`.
+- **`PcEnginePluginHostService`** drives install with actions `…host.action.INSTALL_PLUGIN` / `COMMIT_PLUGIN_INSTALL` / `HEALTH_PROBE` and extras `INSTALL_CANDIDATE_PATH`, `INSTALL_EXPECTED_ABI`, `INSTALL_EXPECTED_PLUGIN_ID`, `INSTALL_EXPECTED_SCHEMA_VERSION`, **`INSTALL_EXPECTED_SHA256`**, `INSTALL_OPERATION_ID`.
+- **`com.winemu.openapi.Config`** (new, `Parcelable` + `CREATOR`) is the host↔plugin API boundary — it carries the entire launch config: `runMode, exePath, gameRootDir, steamAppId, box64Config, fexConfig, gpuDriver, gpuConfig, dllOverrides, resolution, enableESync, enableMangoHUD, inGameHud, hostCoreMask, envVars, localeCode, …`. Built by `zmv.m(Context,String,String,y63,List)` and `xfu`; consumed by `y9.<init>(Context, Config, m35, wsu)`. Parcelable because it crosses into `:pcengine`.
+- **`EmuFileService`** (the sole survivor of the 198-class `common/winemu` package) is the downloader — handles `download_ext_info` / `checkDownloadInfo`.
+- Full download/install/update UX already exists as strings: `common_game_pc_engine_action_{download,installing,update}`, `…install_required_{launch_game,download_game,open_settings}`, `…compat_update_{title,message,confirm,cancel}`, `…md5_label`, `…launch_failed`.
+
+Residual `System.loadLibrary("winemu")` in `GamepadServerManager` and the `nativeLibraryDir/libvfs.so` path built in `zmv.m` (alongside `WINEMU_ROOT_FS`, `getDataDir()`) are **leftovers pointing at the app's own lib dir**, where those files no longer exist — consistent with the engine having moved out from under them.
+
+### Ruled out along the way
+Not a split/asset-pack base APK (no split markers; `lib/arm64-v8a/` still ships 21 other `.so`). Not a companion app (`EmuFileService` is `exported="false"`; the only `createPackageContext` calls target Google Play Services and Huawei HMS). Not a stripped/repacked file (surgical removal of 36 winemu + 197 common/winemu Kotlin classes, dex 5→4, compileSdk 36→37 — a repacker does none of that).
+
+### 🔴 What this means for BannerHub — read before planning 610
+1. **The Worker almost certainly has to serve the plugin.** Our Redirect-catalog-API patch points the app at the BannerHub Worker. If the pcengine plugin is fetched through the catalog, then **patched 6.1.0 has no emulator at all until the Worker serves it** — and `INSTALL_EXPECTED_SHA256` + `INSTALL_EXPECTED_PLUGIN_ID` + `INSTALL_EXPECTED_ABI` + `INSTALL_EXPECTED_SCHEMA_VERSION` mean we must serve the **genuine artifact**, not a substitute. **Where the plugin URL comes from is the next thing to establish** (not yet traced).
+2. **Patches whose upstream anchors no longer exist in the APK at all:**
+   - **Offline component picker** — `com/xiaoji/egggame/common/winemu/bean/{ComponentType,EnvLayerEntity}` gone with the other 197. (This is the one that first worked on 609.)
+   - **GPU Spoof** — `Lcom/winemu/core/utils/EnvVars;` gone.
+   - **Legacy GLES2 renderer** — `com/winemu/core/server/XServer` gone.
+   - HUD / frame-gen / trans_layer (`Box64Config`, `FEXConfig`, `TemplateFexConfig`) all gone.
+   These are no longer re-derivation targets — whatever they did now happens **inside the plugin**, which is not ours to patch by these means.
+3. **Likely still portable** (app-shell, untouched by the split): Bypass login, Debug logging, Redirect catalog API + `/v6` prefix, Explore tab hijack, the menu/keystone family, privacy/analytics stubs, GOG, Steam chat/voice overlay.
+4. **PC-accurate vibration is ambiguous:** `GamepadServerManager` survives in the main APK with our hook site intact, but the winebus disk-patch targets a container whose ownership has moved.
+
+### Repo state
+Branch **`gamehub-610-build`** created off `gamehub-609-build` and pushed. `ci(610)` bumps `release.yml` to `base-apk-610`/`GameHub_6.1.0.apk`; `patches(610)` bumps `GAMEHUB_VERSION` 6.0.9→6.1.0 (no stray 6.0.9 pins; the 10 by-design 6.0.4 pins untouched). YAML validated. **No smoke-test dispatch yet** — a SEVERE list is not the useful next artifact while item 1 above is open. jadx pass done: `~/gamehub-6.1.0-jadx` (22,480 files, 120 errors = normal R8 noise; 609 had 143).
+
+## 2026-07-29 — 📦 GameHub **6.1.0** base APK onboarded (`base-apk-610`) — ⚠️ NATIVE EMULATION RUNTIME IS NOT IN THE APK
+
+Upstream shipped **6.1.0 / versionCode 122** (609 was 121 — sequential, no skip this time). Source APK supplied by user from SD backup `/storage/7B7F-E3AA/APK Backups/Gamehub/v6/GameHub_6.1.0.apk`, copied to `~/GameHub_6.1.0.apk`.
+
+| | 6.0.9 | 6.1.0 |
+|---|---|---|
+| versionCode | 121 | **122** |
+| size | 86,643,386 | **76,567,271** (−10,076,115, −11.6%) |
+| minSdk / targetSdk / compileSdk | 29 / 36 / 36 | 29 / 36 / **37** |
+| dex files | 5 | **4** |
+| `.so` count (arm64-v8a, only ABI) | 25 | **21** |
+| md5 | `ae6f18b5…` | `ad428649b1b7d779e8093c7d27407193` |
+| sha256 | — | `d101aefc02b4a1ada85cbfe03a4fec466f382c88c212f3c70a16e9f8b1c7ee7f` |
+
+**Release `base-apk-610` published** (shell first, then `gh release upload` separately per the 609 rollback lesson — the inline-asset path is still not to be used). Asset verified at exactly 76,567,271 bytes, `state=uploaded`. `unzip -t` clean.
+
+### 🚨 THE HEADLINE: four native runtime libs were REMOVED
+
+Present in 6.0.9, **absent from 6.1.0** (7,035,352 bytes = 6.71 MB of the 10 MB shrink):
+
+| lib | 6.0.9 size | role |
+|---|---|---|
+| `libxserver.so` | 5,065,592 | the X server |
+| `libvfs.so` | 969,496 | virtual filesystem |
+| `libwinemu.so` | 658,320 | **the Wine emulation core** (also the FpsLimit host) |
+| `libgpuinfo.so` | 341,944 | GPU introspection |
+
+Verified absent, not relocated: **zero** hits for `winemu|xserver|libvfs|gpuinfo` anywhere else in the zip (assets, unknown/, any ABI). Only `arm64-v8a` exists as an ABI dir, same as 609. Manifest has **no** split / asset-pack / dynamic-feature markers — plain single APK, so this is not Play Asset Delivery.
+
+**But the loader call survives:** `com/winemu/core/gamepad/GamepadServerManager` still runs `System.loadLibrary("winemu")`, and the whole `com/winemu/core/**` Java layer plus the `com.xiaoji.egggame.common.winemu_core` Compose string bundles are intact. `System.load` (path-based) call sites in 610 all belong to JNA / Tencent IM / liteav / QQ-security loaders — **no winemu-from-disk loader found**. Tencent TRTC voice libs from 609 (`libImSDK`/`libliteavsdk`/`libtxffmpeg`/`libtxsoundtouch`) are all still shipped, so the shrink is NOT the 609 Team-Room stack coming back out.
+
+**⚠️ UNRESOLVED — this is the first thing the 610 diff must bottom out.** `System.loadLibrary` only searches `nativeLibraryDir`, which the app cannot write to, so a component downloaded into `files/` could not satisfy that call as-is. Candidate explanations, none yet confirmed: (a) the runtime moved into the server-driven **component/catalog** pipeline (fits their architecture — imagefs, wine containers, DXVK, Turnip, FEX all already arrive that way) with some loader change not yet located; (b) the PC path pivoted toward cloud (`libhaima_rtc_so.so`, 8.2 MB Haima cloud-gaming RTC, still shipped; there is a `features.cloud/drawable/feature_winemu_ic_ingame_setting_tab.xml`); (c) this build is region/channel-specific. **Do not start the patch re-derivation worklist until this is answered** — if the runtime now arrives via the catalog, our Redirect-catalog-API patch means the **BannerHub Worker must serve it** or patched builds have no emulator at all.
+
+**Authenticity:** `unzip -t` clean, resources + manifest decode cleanly, coherent AGP metadata, compileSdk bumped 36→37 (a repacker would not do that). NOTE: a v1-signature cert comparison against 609 was attempted and was **vacuous** — both APKs are v2/v3-signed only, so there are no `META-INF/*.RSA` files to compare. Signature identity vs. 609 is therefore **not** established here; verify with `apksigner verify --print-certs` on a machine where the SDK build-tools run (the Termux `aapt2`/`apksigner` binaries fail under PRoot — missing ELF interpreter).
+
+Decompiled: `apktool → ~/gh610-apktool-d` (4 smali dirs, exit 0). jadx pass not yet run. **Branch `gamehub-610-build` NOT yet created** — held pending the runtime-delivery question above.
+
+## 2026-07-29 — 🩹 README download badges were frozen since the 609 cut (badge workflow still pinned to 608)
+
+**Symptom:** the README badges on the default branch had read **59k total / "0" latest** since 2026-06-18 — i.e. the front page advertised zero downloads for `v1.0.0-609` for six weeks.
+
+**Cause:** `.github/workflows/update-badges.yml` pins its checkout + push target to a branch explicitly (the `release: published` event checks out the *tag*, so the branch can't be inferred). That pin was still `gamehub-608-build` from when the badge system was built on the 608 line. When the default branch moved to `gamehub-609-build` at the 609 stable cut, the README's two `raw.githubusercontent.com` URLs moved with it — but the workflow did not. The hourly cron kept computing correct numbers and committing them to `gamehub-608-build`, which nothing reads. Real values on 608 at time of fix: **117k total / 48k latest**.
+
+**Fix:** `BADGE_BRANCH` env → `gamehub-609-build`, and the checkout step now reads `ref: ${{ env.BADGE_BRANCH }}` instead of repeating the literal — one place to edit instead of two that can silently disagree. Comment above the env now names this as a base-line-bump chore alongside the README raw URLs.
+
+**⚠️ Base-bump checklist item:** every new `gamehub-6XX-build` default branch must update `BADGE_BRANCH` **and** the two README badge URLs together. This was already a recorded gotcha when the badge endpoint was introduced; the 609 swap just never triggered it. Stale badge data is silent — the workflow stays green either way, so nothing surfaces the drift.
+
+## 2026-07-02 — 🔓 Secret-leak audit: `bh_gog_debug.txt` writes GOG credentials to shared storage (FIX PENDING)
+
+**Trigger:** evaluating whether gamehub-lite's v5.1.7→5.1.8 "redact Steam auth tokens from logs" fix (a `SensitiveLogRedactor` hooked into logcat sinks) should be ported to v6. Answer: **no** — v6's exposure is a *file*, not logcat.
+
+**Method:** on-device inspection of the installed v6 variant (`com.miHoYo.GenshinImpact`, a disguised package name — 58 MB, NOT real Genshin) via the `getlog` root bridge (daemon `127.0.0.1:8765`; note plain `su`/magiskd was down but the bridge gives `uid=0 context=u:r:magisk:s0`).
+
+**Findings:**
+- **logcat = CLEAN.** 5000-line root, package-filtered pull → 0 token/secret hits. A logcat redactor would have nothing to redact here.
+- **THE LEAK = `bh_gog_debug.txt`.** Written by our own extension code to **external, other-app-readable** storage (`/sdcard/Android/data/<pkg>/files/bh_gog_debug.txt`, group `ext_data_rw`). 68-line file, **4 sensitive items (device-confirmed)**:
+  1. GOG **`clientSecret`** (`6934b68e…bca8e195`, file-line 16) — from `GogDownloadManager.java:278` dumping the first 300 chars of the decompressed build manifest (embeds clientId+clientSecret).
+  2. **Fastly CDN secure-link `token`** (`…token=0b51d28…`, time-limited by `nva` expiry) — `:357` + full signed URLs at `:365`/`:391`.
+  3. **gcdn.co `wsSecret`+`wsTime`** (`wsSecret=62369653…`) — `:365`/`:391`.
+  4. `clientId` (semi-public, completes the credential).
+  - OAuth access_token is **NOT** leaked (line 141 writes only `token OK` status). Sink = `writeDebug()` @ `:222-232` via `ctx.getExternalFilesDir(null)`.
+- **Creation chain (it's ours, not the base):** GOG store added by patches `GogManifestPatch`/`GogMenuRowPatch`/`GogLibraryCardPatch` → UI → `BhDownloadService.java:327` → `GogDownloadManager.startDownload()` (builds `dbg` @ :121) → `writeDebug()` at every exit path (:158,175,186,190,207,211,217). Compiled **extension Java** (classes dex), not a patch resource. **UNCONDITIONAL — no DEBUG/BuildConfig gate** (grep empty): a dev diagnostic from the Gen1/Gen2 download debugging that shipped always-on in every variant.
+- **Steam = CLEAN.** Base XiaoJi steamkit keeps real secrets (`access_token`/`login_key`/`guard_data`/`web_token`/`steam_id`) in `files/steam_data/steamkit/accounts.json` mode 0600 **app-private** — correct. `steam-trace.log` (0600) = depot-download telemetry only (its "token"/"password" hits were HL2 asset filenames like `createtokendialog.res`). `bh_steam_chat.xml` (our feature) = UI settings only. No Steam secret on shared storage.
+
+**FIX (not yet applied):** best = **gate `writeDebug` behind a debug flag, off in release** (it's a dev diagnostic → stops writing in prod). Keep-for-support alternative = redact `clientSecret`/`token=`/`wsSecret` from the manifest snippet (:278) + cdn URLs (:365/:391) before append **and** write to app-private `getFilesDir()` (:224) instead of external. Java extension edit + extension-dex rebuild (not smali/resource), low-risk. Verify on a fresh GOG sync via the bridge. TODO: check the other 8 variant packages for the same file on their shared storage.
+
 ## 2026-06-08 — 🔒 Plan 11: Disable Firebase auto-init (Crashlytics runtime-reenable fix) — MERGED to `gamehub-608-build` `61a2a3f`
 
 Live DNS/SNI captures (via the new DNSWatch root app) of patched vs stock 6.0.8 showed BannerHub still
@@ -4478,3 +4602,195 @@ All privacy strips (Firebase/Crashlytics/GMS/MobPush/heartbeat/Ad-ID, Aliyun Num
 **Approach:** mirror `project_gamehub_608_patch_rederivation` re-pin method. Decompiles: `~/gh609-apktool-d` (apktool) + `~/gamehub-6.0.9-jadx` (jadx).
 
 **After all 9 root re-pinned:** rewrite 608-specific release-notes prose in `release.yml` (vc119→121, voice-room narrative), then cut a real 609 build.
+
+## 2026-07-29 — pre2: fixed startup crash (StripCloudGaming), re-delivered Genshin
+pre1 Genshin crashed at launch: `MissingResourceException composeResources/com.xiaoji.egggame.features.cloud/values/strings.commonMain.cvr`. Root cause = `StripCloudGamingPatch`: its bytecode half SEVERE-failed on 6.1.0 (anchors gone) but its resource-delete DEPENDENCY (`stripCloudGamingResourcePatch`, no fingerprints) ran first and deleted the whole features.cloud asset module + Haima libs. On 6.1.0 features.cloud is loaded at STARTUP (was optional on 609) → crash. Lesson: a SEVERE-failed patch can still do damage via an already-executed resource dependency. Fix: `-d "Strip cloud gaming"` in release.yml (commit `77146c9`, with maintainer comment). pre2 run `30453222210` GREEN: `"Strip cloud gaming" disabled manually`, both pcengine patches `succeeded`, features.cloud restored (46 assets incl. the crash .cvr). Delivered `/sdcard/Download/BannerHub-V6-1.0.0-610-pre2-Patched-Genshin.apk`, md5 `ddf2021556a87aa1108bf7eff70772da`, cert `10895a31…894ce0ba`. ⏭️ StripCloudGaming needs proper 610 handling later (re-derive stubs OR re-scope to strip only the big cloud PNGs, never strings.commonMain.cvr).
+
+## 2026-07-29 — pre3: THIRD signature gate found on-device (ComboLite install)
+Device test of pre2 Genshin: signature bypass WORKED (journal failure changed `Verification`→`Install`; plugin downloads 22.7MB + passes our 2 gates). But install still failed. Live logcat capture (`:pcengine` pid, ComboLite logs to logcat+file) caught the real exception:
+`java.lang.IllegalArgumentException: Plugin signatures do not exactly match host signatures  at e43.q → ivi.D0 → ivi.H0 → ivi.C → PcEnginePluginHostService`.
+= a THIRD signature check, HARD-CODED in ComboLite's InstallerManager (`ivi.D0(Application,PackageInfo,rti)V`), NOT gated by ValidationStrategy (so GATE 1/Insecure doesn't reach it), running at commit time in the `:pcengine` process. `ivi.D0` is a pure void validator (pkgid/metadata/schema/abi/host-sig-readable/plugin-sig-readable/**sig-match**, all via `e43.q(msg)` throw). Genuine plugin passes all but sig-match. **Fix = `PcEnginePluginInstallVerifyPatch`: force `ivi.D0` `return-void` at head** (anchored on the globally-unique English string). Also confirmed: **plugin resolves the RENAMED host fine** (`host AppRuntimeInfoHolder probe: ok … com.miHoYo.GenshinImpact`) → the package-spoof caveat is NOT a problem; endpoint = `api-international-gamehub.xiaoji.com/game/mobile/v1/plugin/latest`. Building pre3 with all 3 patches.
+
+## 2026-07-29 — pre3 GREEN + delivered (all 3 signature gates)
+pre3 run built off `21f0939`. All three pcengine patches `succeeded` on Genshin (+ all variants): force Insecure validation / bypass manager signature check / bypass install-time signature check. Delivered `/sdcard/Download/BannerHub-V6-1.0.0-610-pre3-Patched-Genshin.apk`, md5 `6d8581b2955b41d61f78463cb6c981ae`, cert `10895a31…894ce0ba`. Same package/cert/versionCode as pre2 → installs in place over pre2 (keeps login + imported game). Awaiting device test: does the pcengine plugin now install + PC emulation launch, or is there a gate 4? Live-capture method ready (`bridge logcat -c` → nohup capture → retry → grep :pcengine).
+
+## 2026-07-29 — ✅✅ WORKING: pcengine plugin installs + PC emulation launches on re-signed 6.1.0
+Device-confirmed by user on pre3 (Genshin, cert 10895a31). Journal now shows `installedVersion` (versionName 100-1, vc100, abi arm64-v8a), NO failures. The 3-gate signature bypass is COMPLETE and device-proven — a re-signed BannerHub host loads XiaoJi's genuine ComboLite pcengine plugin.
+- Real plugin CDN (resolved from /game/mobile/v1/plugin/latest): `https://gamehub-cdn.masnet.cn/uploads/plugin/20260729/<hash>.apk` (md5 0ab09364…, sha256 2457a32b…, 22761293 b). If we ever mirror/serve it, this is the artifact.
+- THE RECIPE (3 patches, all in patches/gamehub/pcengine/, anchored on stable strings/non-obfuscated combo classes → survive R8 bumps):
+  1. PcEngineValidationStrategyPatch — PluginFrameworkContext.getValidationStrategy() → Insecure.
+  2. PcEnginePluginSignatureCheckPatch — pcengine manager check (Chinese "插件签名与宿主不一致"), force return null.
+  3. PcEnginePluginInstallVerifyPatch — ComboLite ivi.D0 install validator (English "Plugin signatures do not exactly match host signatures"), force return-void. ← the decisive one; hard-coded, not gated by ValidationStrategy, runs in :pcengine at commit.
+- No gate 4. Package-spoof is fine (plugin resolves renamed host). StripCloudGaming stays disabled on 610.
+NEXT: merge feature/pcengine-signature-bypass → gamehub-610-build (device-proven). Then the rest of the 610 re-derivation (login/redirect/explore/keystone/etc.) + the deferred permission fix + proper StripCloudGaming 610 handling.
+
+## 2026-07-29 — 📦 PRERELEASE cut: "GameHub 6.1.0 — PC-engine signature bypass (experimental)"
+Tag `v1.0.0-610-pcengine` (run 30456383325 off gamehub-610-build `fade7c8`, stable=true then flipped). **prerelease=true, NOT Latest** (609 re-pinned as repo Latest). 13 assets: **9 APKs renamed to `Gamehub-v6.1.0-Patched-<variant>.apk`** (Normal/Original/PuBG/PuBG-CrossFire/AnTuTu/alt-AnTuTu/Ludashi/Genshin/Normal-GHL, all 56MB) + bh_explore.json + 3 .rvp. Rename done manually post-build (deleted BannerHub-V6-… assets, uploaded Gamehub-v6.1.0-… ; slow over link, per-file loop). Release notes rewritten for ACCURACY (user flag: not all 609 features carried over) — explains the 3 signature gates + why rename+testkey no longer works + honest works/doesn't-work (only pcengine sig-bypass + file access + external launcher + privacy strips work; login/catalog/explore/menus/GOG/steamchat NOT re-derived → still XiaoJi login/API). Also fixed: base-apk-609/610 were non-prerelease → base-apk-610 had stolen repo "Latest"; marked both prerelease + explicitly pinned v1.0.0-609 as Latest.
+
+## 2026-07-29 — release finalized (identity + trim)
+`v1.0.0-610-pcengine` updated in place (still prerelease, not Latest): title → "Gamehub 6.1.0 - Patched Performance Builds"; notes → collapsible <details> sections (NOT-BannerHub banner visible). App identity fixed (commit `0ffda36`): variant labels "BannerHub v6…"→"Gamehub <variant>" + disabled "Change app icon" (stock GameHub icon) — installed builds were showing BannerHub name+icon. Rebuilt artifacts-only (run 30463471453; a prior run 30461556813 hung 20min on the Gradle bundle step = transient runner, cancelled+re-ran). Verified: Genshin manifest android:label="Gamehub Genshin", "Change app icon" disabled in CI log. Assets trimmed to EXACTLY the 9 `Gamehub-v6.1.0-Patched-<variant>.apk` (deleted bh_explore.json + 3 .rvp). ~55MB each.
+
+## 2026-07-29 — 🧭 610 PLAN OF RECORD + full static trace of the plugin-manifest chain
+User approved building the "point 610 at our Worker" trio BEFORE the remaining re-derivation, then continuing with the normal patch re-derivation. Rationale: the manifest work is NOT in the 19-failure set (it's a new patch fingerprinted against 610 from scratch, so obfuscation drift can't have broken it), and it's the ONLY item that can degrade on upstream's schedule instead of ours — every current pre3 build reads XiaoJi's manifest to decide which engine to download.
+
+### 🚨 THREE CORRECTIONS to the earlier plan (2 of them would have caused real damage)
+1. **DO NOT retarget `pe0`'s host literals.** `pe0.a(String)` (smali_classes3/pe0.smali:54) builds `https://<host>/<path>` for the ENTIRE new 610 API surface — ~10 caller classes (`zy5, ffq, aos, gos, e2p, hos, zns, vdh, zot, zw3`) including login and profile. Swapping its 4 hosts would send all of it to our Worker and break the app. Earlier note ("a NEW patch retargeting pe0's host literal(s)") was WRONG.
+2. **The correct patch is ONE inserted instruction**, thanks to an absolute-URL escape hatch: `kee.a(tgc,String)` uses the string verbatim (`h7r.b`) if it startsWith `http://`/`https://`, else appends it as a path. So at `smali_classes2/zy5.smali` — `:360 const-string v1,"game/mobile/v1/plugin/latest"` / `:364 invoke-static Lpe0;->a` / `:369 move-result-object v1` / `:372 new-instance v4,Lrk0;` — insert `const-string v1,"<absolute worker URL>"` right AFTER `move-result-object v1`. Zero removals, pe0 untouched, nothing else redirected. (Can't delete the invoke — move-result-object must directly follow it. v1 is not read again until the `kee.c` call at :474, so the clobber is safe.)
+3. **The wire DTO is NOT `PcEnginePluginVersion`.** `tvi`/`rvi` (14 camelCase fields: channel/rolloutPercent/forceUpdate/min-maxHostVersionCode/notes) is the INTERNAL descriptor. The server sends the **8-field snake_case `PcEnginePluginUpdateDataDto`** (`mvi`, serializer `kvi`, keys literal-verified in kvi.smali:50-116), all 8 optional: `update_type, plugin_name("pcengine", hard-coded in mvi's secondary ctor), plugin_version, schema_version (String, not int!), apk_url, md5, sha256, file_size(Long)`. No rollout/forceUpdate/version-window on the wire — client-side defaults. Envelope = `BaseResult{code, msg(@JsonNames "message"), time, data}` (a62.smali:29).
+
+### Request shape + success code — both pinned statically
+GET (zy5.smali:474 calls `kee.c` → `dgc.b`; `dgc.<clinit>` proves b=GET, c=POST), query params added by `rk0`: `plugin_name`/`schema_version`/`plugin_version`; arg order = `zy5.a(pluginName, schemaVersion, pluginVersion, cont)`. Client validates `^[a-f0-9]{64}$` sha256 / `^[a-f0-9]{32}$` md5; errors "Empty response body" / "Body is not JSON". **Success code = 200, msg "Success"** — bannerhub-worker.js already answers this same BaseResult class that way for 6.0.x clients, so no upstream capture was needed.
+
+### Anchors verified unique on 610 → both patches go structural (no more R8 letters)
+- `smali_classes3/f7n.smali` is the ONLY class with BOTH catalog hosts (cn :39→v5, oversea :43→v6; Online first, Beta :75/:79; 6-arg `<init>`). ⇒ replace RedirectCatalogApiPatch's hardcoded `ENV_ENUM_CLASS` (7 re-pins to date: mcj/zhj/xrj/esj/nnh/qnh/yei) with the structural anchor its own comment already documents → bump-proof.
+- `game/mobile/v1/plugin/latest` occurs in exactly ONE class (`zy5`).
+
+### Worker-side recon
+Worker = `bannerhub-worker.js` at the bannerhub-api repo root (1,670 lines; NOT src/index.ts, which is the static-JSON generator). `/v6/` prefix stripped at :853 setting `is60` ⇒ sending the manifest request to `…/v6/game/mobile/v1/plugin/latest` makes it v6-gated for free, which is why the patch's URL includes /v6/. 🚨 The route MUST be registered BEFORE the generic fall-through proxy (unallowlisted paths → `GAMEHUB_API = https://landscape-api.vgabc.com`, :2), or the new path gets proxied to the old catalog host which has never heard of it. Deploy = manual CF REST, `main` branch only, and is GATED on explicit user go-ahead (paid + outward-facing).
+
+### Device-test success criterion (already known from pre3)
+XiaoJi's live artifact resolves to `https://gamehub-cdn.masnet.cn/uploads/plugin/20260729/<hash>.apk`, md5 `0ab09364…`. Ours is md5 `a07d9ef8…` / sha256 `ad27bbc2…` / 22,765,391 b. So after the redirect: **md5 a07d9ef8… = our Worker won; 0ab09364… = it didn't.** Ground truth stays `pc_engine_plugin_manager_journal.json` (installedVersion 100-1, no failures). Our plugin is v6-signed so the cert matches natively — the 3 bypass patches become redundant seatbelts.
+
+### 13-item plan of record
+Phase A: (1) repair Redirect catalog API structurally · (2) repair Prefix API path /v6 · (3) NEW pcengine manifest redirect · (4) Worker route, code-only, deploy gated · (5) CI build + device-test the trio.
+Phase B: (6) Bypass login + Debug logging [mandated first; the 3 Class.forName constants aren't apply-time validated] · (7) Explore hijack · (8) menu-id keystone → unblocks 5 menu rows · (9) remainder incl. privacy re-audit vs 610's new multi-OEM push stack · (10) cleanly disable the 2 dropped patches (offline picker, perf overlay — anchors are plugin-side now; remember pre1's lesson that a SEVERE-failed patch can still damage via an already-run resource dependency).
+Phase C: (11) deferred push.permission.MESSAGE one-liner [MUST precede any multi-variant release] · (12) proper StripCloudGaming 610 handling · (13) silent base-bump chores (BADGE_BRANCH, 2 README raw URLs, release.yml tagging the default branch).
+
+## 2026-07-29 — ✅ Phase A built: both API redirects re-derived STRUCTURALLY + pcengine manifest redirect + Worker route
+Commits: this repo `630f301` · bannerhub-api `8b1b5a2` (main). CI run `30503506055`, headSha `630f3013` == pushed SHA (verified), label `1.0.0-610-pre4`, artifact-only.
+
+### 🚨 update_type MUST be "plugin" — the trap that would have faked a redirect failure
+`xy5.i(...)` at smali_classes2/xy5.smali:14042 reads `mvi.a` (`update_type`) → maps to enum `qvi` = **App/Plugin/Unknown** → branches on `.ordinal()`:
+- `"app"` → App → the APP-update path (do NOT send)
+- `"plugin"` → Plugin → ordinal 1 → `:cond_19` = the plugin-install path
+- anything else **including the serializer default `""`** → Unknown → ordinal 2 → bails, **installs nothing**
+Inside `:cond_19` it then **equality-checks `plugin_name` and `schema_version`** and returns early on mismatch. So `update_type:"plugin"` + `plugin_name:"pcengine"` + `schema_version:"1"` (a STRING) are hard requirements. Serving the DTO defaults would have looked exactly like "the redirect didn't work" on device.
+
+### Both redirects now structural — no R8 letters left to re-pin
+- **Redirect catalog API** → the unique `<clinit>` carrying BOTH `landscape-api-{cn,oversea}.vgabc.com`. Ends 7 bumps of letter chasing (mcj→zhj→xrj→esj→nnh→qnh→yei→f7n).
+- **Prefix API path /v6** → the only **static (builder, String) -> void** method carrying BOTH `"http://"` and `"https://"`, which is what the helper structurally IS (the one place deciding absolute-vs-relative). Measured: 33 classes have `"https://"`, 15 have both, exactly **1 method** matches the full shape = `kee.a(Ltgc;Ljava/lang/String;)V`. Framework-typed first params excluded so `com.xiaomi.push.service.x`'s three `(Context,String)V` helpers can't match. History: zdb→ohb→vob→cpb→zua→dva→scb→**kee**.
+- **NEW Redirect PC engine plugin manifest** → anchored on the endpoint path literal (globally unique to `zy5`). ONE inserted `const-string` after `move-result-object`; invoke/move-result deliberately left intact (move-result-object must directly follow its invoke). ⛔ Explicitly NOT a `pe0` host rewrite — `pe0.a()` serves the whole new 6.1.0 API surface (~10 callers incl. login/profile). URL hardcodes `/v6/` so it's Worker-gated independent of the prefix patch, and the prefix patch passes absolute URLs through untouched ⇒ they compose in any combination.
+- CI enables patches by default (`-d` opt-outs, `-e` for parameterized) ⇒ the new patch needed no registration.
+
+### Worker
+`/game/mobile/v1/plugin/latest` added ABOVE the fall-through proxy (verified by char offset: 48703 < 90128) returning `{code:200,msg:'Success',time,data:{…8 snake_case fields…}}` from a documented `PCENGINE_PLUGIN` constant. `node --check` clean. Asset verified: release `pcengine-plugin-610` non-draft, `state=uploaded`, download URL **200 anonymously** through GitHub's redirect chain (client's HttpURLConnection follows redirects). ⛔ **NOT DEPLOYED** — CF deploy is manual/paid/gated, so the live Worker still lacks the route. The device test cannot pass until it's deployed.
+
+### Default branch → gamehub-610-build (user request)
+Matters because `release.yml` tags the DEFAULT branch, so cuts will now tag 610 (still verify headSha after every cut). Repointed in the same commit: `BADGE_BRANCH` (was still 609 — the exact silent rot that froze badges at "0" for 6 weeks), the 2 README badge raw URLs, the README build instruction, and release.yml's 5 blob/tree doc links.
+⚠️ **release.yml's release-notes PROSE is still entirely 609** and would publish false claims on a 610 cut (:314 "a patched build of GameHub 6.0.9", :350 claims the menu chain was re-derived, :359 claims the full v6 feature set is device-verified incl. the offline picker + perf overlay we're dropping, :385 "unmodified 6.0.9 versionCode 121"). Left alone deliberately — that's a rewrite, not a find-and-replace, and the honesty bar from the pre3 notes applies.
+
+## 2026-07-29 — ✅ run 30503506055 GREEN: all 3 redirect patches applied on all 9 variants
+`Redirect catalog API` 9x · `Prefix API path with /v6` 9x · `Redirect PC engine plugin manifest` 9x.
+**SEVERE 19 → 17, and that reconciles exactly:** only 2 of the original 19 were repairs (catalog + prefix); the manifest redirect was net-new and never in the failure set. So the earlier "19 minus 3" framing was wrong — 17 is the correct expected number, not an anomaly.
+Remaining 17: Bypass login, Debug logging, Explore tab hijack, Per-game menu id capture (shared), Show Game ID menu row, Show PC Game Settings row, GOG menu row, Banner Tools menu row, PC Vibration Settings menu row, Stub analytics events, Disable heartbeat, Disable Firebase auto-init, Recording-compatible audio, PC-accurate vibration, In-game Steam chat overlay, + the 2 DROP-list entries (In-game performance overlay, Offline component picker — local list) which are not re-derivation targets.
+⚠️ **"Applied" ≠ "works".** Apply-time success only proves the anchors matched and the emitted bytecode is valid. In particular the pcengine manifest redirect CANNOT be device-tested yet: the CF Worker deploy is still pending/gated, so the live Worker does not serve `/game/mobile/v1/plugin/latest` — a patched build would get no manifest and install no engine. Order is: deploy the Worker, THEN device-test.
+
+## 2026-07-30 — 🟢 Worker DEPLOYED (deployment `b9b81005924f474287b26a8d4b74b449`) — device test now unblocked
+Deployed the pcengine-manifest route to the live bannerhub-api Worker, with guardrails. **All checks green.**
+
+### 🔴 The guardrail that mattered: bindings were 6, not 3
+The 77-day-old worker memory listed 3 bindings. Live read showed **6**: `kv_namespace/TOKEN_STORE`, `r2_bucket/CHAT_IMAGES` (bucket `bannerhub-chat-images`), and 4 `secret_text` (`SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `TURN_API_TOKEN`, `TURN_KEY_ID`). Deploying from the remembered list would have **dropped R2 chat-images + both TURN secrets** → broken chat images and broken voice calls for every existing user. Working metadata: declare `kv_namespace` + `r2_bucket` explicitly, `"keep_bindings":["secret_text"]` carries the 4 secrets; pass `compatibility_date`/`compatibility_flags` matching live, omit `usage_model`. **Verified before==after: all 6 preserved.**
+
+### Drift check
+Live script == repo `0f393a8` **byte-for-byte** after stripping CF's multipart envelope (GET returns the script wrapped: boundary + `Content-Disposition` + blank at top, blank + closing boundary at bottom — strip or you see phantom drift) and normalizing the trailing newline. So no live/repo divergence this time (the old `master`-5KB-ahead class of bug, fixed in `3df6494`), and the deploy added only the additive route.
+
+### Rollback (durable, outside /tmp)
+`/data/data/com.termux/files/home/worker-backups/20260730-pcengine-route/` — `ROLLBACK.sh` (executable, re-declares all 6 bindings), `rollback-bannerhub-worker.js` (`cmp`-verified identical to pre-deploy live), `metadata.json`, `settings.json` / `settings-after.json`, `deploy-response.json`.
+
+### Post-deploy verification
+- Existing routes all 200: `/v6/simulator/v2/getImagefsDetail` (1.4.2 reshaped), bare `/simulator/v2/getImagefsDetail` (static passthrough — **different shape, version gate intact**), `/v6/simulator/v2/getContainerList`, `/base/getBaseInfo`, `/devices/getDevicesList`, `/chat/rooms`.
+- New route passes all 10 client-contract checks: `code:200`, `msg`, `time`, `update_type:"plugin"`, `plugin_name:"pcengine"`, `schema_version:"1"` (STRING), md5 `^[a-f0-9]{32}$`, sha256 `^[a-f0-9]{64}$`, `file_size` int, https `apk_url`.
+- Prior builds are structurally unable to reach the new code: the path is 6.1.0-only, exact-match, and the change was 70 insertions / 0 deletions.
+
+⏭️ NEXT: device-test pre4 (run 30503506055). Success criterion = the installed plugin's md5 is **a07d9ef8…** (ours) not **0ab09364…** (XiaoJi's); ground truth `pc_engine_plugin_manager_journal.json` shows installedVersion 100-1 with no failures. Per the DEBUG RULE, verify the installed APK's sha256 against the staged build first.
+
+## 2026-07-30 — 🎯 SCOPE CHANGE: the 610 line is full BannerHub v6 again (commit `cbd2fc1`)
+User: *"we were only making this for the community to have a working vanilla gamehub with performance package names, this is work to build a full bannerhub v6 again now."*
+So the GameHub-identity framing from `0ffda36` is retired. Reversed its identity half: 9 variant labels `"Gamehub …"` → `"BannerHub v6 …"`, and **`Change app icon` re-enabled** (adaptive icon, Wine container header, auth/splash). `-d "Strip cloud gaming"` stays — still genuinely broken on 6.1.0. (The lone remaining "Change app icon" hit in release.yml is the docs table at :404, not a flag.)
+**Consequences:** the re-derivation backlog is now REQUIRED rather than optional · the deferred `push.permission.MESSAGE` fix is genuinely blocking again (multi-variant BannerHub releases are back) · release-notes prose needs BannerHub framing restored *on top of* the 609→610 rewrite it already needed.
+⚠️ pre4 (run 30503506055) predates this commit → those APKs still show stock GameHub icon + "Gamehub <variant>" label. Cosmetic only; does not affect the manifest-redirect test.
+
+### Staged for device test (both from run 30503506055, cert `10895a31…894ce0ba`)
+| variant | file | md5 | note |
+|---|---|---|---|
+| Genshin | `/sdcard/Download/BannerHub-V6-1.0.0-610-pre4-Patched-Genshin.apk` | `57e322fc11b9ce860edde557d00656dc` | ✅ **use this** — pkg `com.miHoYo.GenshinImpact` is free, clean install, no plugin state ⇒ guaranteed to exercise our manifest endpoint |
+| Normal | `/sdcard/Download/BannerHub-V6-1.0.0-610-pre4-Patched-Normal.apk` | `c895052cfbf0ce6f6fbc33277726deb6` | ⛔ **do not install** — `banner.hub` already installed at vc78 / 145 MB signed with the **AOSP testkey** (`a40da80a…`), not our v6 key ⇒ cert mismatch, install refuses; would need uninstalling that app and losing its data |
+
+Per-artifact dex verification (both variants): our manifest URL PRESENT · worker host PRESENT · `pe0` host PRESENT (untouched by design) · Online-enum `landscape-api-cn.vgabc.com` ABSENT (replaced) · Beta-enum hosts PRESENT (kept on purpose).
+Device state at staging time: `com.miHoYo.GenshinImpact` and `com.xiaoji.egggame` NOT installed (pre3 Genshin and the stock 6.1.0 are both gone); `gamehub.lite` installed at vc121 (a 609 build); no pcengine plugin state under either installed package.
+
+## 2026-07-30 — 🐛 "Failed to install the PC engine plugin" — latent manifest bug found + fixed; pre5 staged
+User screenshot (21:09, AIO-Graphics-Test-32bit in Library) showed the toast **"Failed to install the PC engine plugin."** App was uninstalled before I could read live state, so this was diagnosed statically.
+
+### Root cause found in the bytecode: the manifest reply must ECHO the request
+`xy5.i(...)` calls `zy5.a(pluginName, schemaVersion, pluginVersion, cont)` to fetch the manifest, then — after mapping `update_type` to the App/Plugin/Unknown enum and taking the Plugin branch (`:cond_19`) — compares the RESPONSE's `plugin_name` (`mvi.b`) and `schema_version` (`mvi.d`) against **the very registers it passed as request arguments**, not against constants. Mismatch ⇒ silent bail ⇒ exactly this toast, with nothing pointing at the manifest.
+Our Worker HARDCODED `plugin_name:"pcengine"` / `schema_version:"1"`, which only works if those are the exact wire values the client sends. **Fix: echo both back from the query string**, keeping the constants as fallback for manual curls. Commit `27dfd27`, deployed `48eb38f730084b679e47cc1653d0a580`.
+Verified live: `?plugin_name=ZZZTEST&schema_version=9` → echoed verbatim; `?plugin_name=com.xiaoji.egggame.plugin.pcengine` → echoed verbatim; no params → falls back to defaults. `time` increments between calls (not cached). **All 6 bindings preserved**; existing routes (`/v6/` + bare 5.x imagefs, chat, baseInfo) still 200. Rollback at `worker-backups/20260730-echo-params/`.
+⚠️ Honest caveat: this is a REAL bug that produces this exact symptom, but it is not yet PROVEN to be the one the user hit. Other candidates remain (download/redirect failure, ComboLite install). Needs the live capture below.
+
+### Device findings while triaging
+- `com.xiaoji.egggame.plugin.pcengine` is installed as a **standalone app** (vc100, versionName 100-1, installed 2026-07-29 08:31) — a leftover from the pre3 plugin-retrieval work. ComboLite loads from `files/plugin_packages/`, not from an installed package, so it shouldn't matter, but it's noise: **recommend uninstalling before the next test.**
+- `com.miHoYo.Yuanshen` (vc32208010) is the REAL Genshin game, NOT our variant — our Genshin variant is `com.miHoYo.GenshinImpact`, so no collision. But `com.antutu.ABenchMark` IS installed (vc1, the real AnTuTu) and **does** collide with our AnTuTu variant package.
+- ⚠️ `bridge` returns inconsistent/empty results for multi-package `dumpsys` loops — use one simple command per call.
+
+### pre5 built + staged (run 30504941894, sha 1248e090 == HEAD)
+GREEN. `Redirect catalog API` / `Prefix API path with /v6` / `Redirect PC engine plugin manifest` / **`Change app icon`** all 9x. SEVERE still 17.
+`/sdcard/Download/BannerHub-V6-1.0.0-610-pre5-Patched-Genshin.apk` — md5 `352ecc2e36755082b478b2b9eb92717a`, 58,940,295 b, cert `10895a31…894ce0ba`, manifest URL confirmed present in dex. This one carries the restored BannerHub icon + "BannerHub v6 Genshin" label.
+
+### 🆕 6.1.0 GUEST MODE — built-in login bypass (new, absent in 609)
+String `android_features_auth_guest_mode_entry` = 游客模式，先体验一下 ("Guest mode, try it first", id 0x7f110032) + drawable `android_features_auth_ic_guest_entry`. Built programmatically in `mi.b(...)` (`smali_classes2/mi.smali:298`) as a LinearLayout + icon + 14sp TextView, and **registered onto the Aliyun one-tap login screen** via `com.mobile.auth.gatewayauth.PhoneNumberAuthHelper` + `AuthRegisterViewConfig$Builder` (mi.smali:23/206/210). Click handler `Lii;` invokes a caller-supplied `Function0`, checks its Boolean, may Toast, then continues via `mi.c(...)`. Callers: `li.smali:1265`, `:2443`; other refs `bgp.smali`, `smali_classes3/i27.smali`.
+🚨 **CONFLICT: guest mode is rendered BY the Aliyun NumberAuth SDK, which our privacy suite stubs.** One of the 5 still-applying manifest-level privacy patches targets Aliyun NumberAuth — if that SDK is neutered the guest entry may never render, i.e. our own privacy hardening could destroy the built-in login bypass. Verify before assuming guest mode can retire the "Bypass login" patch.
+
+## 2026-07-30 — 🎯 ROOT CAUSE: `plugin_version` must be the numeric version CODE (device-diagnosed, fixed, deployed)
+pre5 install hash-verified as the installed APK (`9b2ed055…` == staged) per the DEBUG RULE, then the journal gave the answer outright — 9 identical entries:
+`{"kind":"Verification","message":"服务端插件版本号不合法: 100-1"}` = **"server plugin version number is invalid: 100-1"**.
+
+**Cause:** the client runs Kotlin **`toLongOrNull()` on `plugin_version`** (`xy5.smali:14181`, at `:cond_1b` — reached only after the `plugin_name` and `schema_version` equality checks PASS, which incidentally proves the echo fix was working). The plugin's versionName `100-1` is not Long-parseable; its versionCode is `100`. **Fix = `plugin_version:"100"`.** bannerhub-api `2e3de83`, deploy `0a86fe8b343e4cd99a593f8bb6aecd29`, rollback `worker-backups/20260730-version-code-fix/`, all 6 bindings preserved, live reply verified to parse as a Long.
+
+**It was never a signing / download / which-APK problem.** The client bailed during manifest validation and never attempted a download — so the user's suggestion of also hosting the original re-signed plugin to "see which one gets through" would have failed identically for both copies. Worth remembering: the toast is generic and names nothing, so **read the journal, never guess from the toast.**
+
+### 📜 Full manifest-validation contract discovered in xy5.smali (use this before inventing field values)
+| line | message (translated) | requirement |
+|---|---|---|
+| :24584 | server plugin name mismatch, **expected `pcengine`**, actual … | `plugin_name` literally `pcengine` |
+| :24576 | server schemaVersion=… | `schema_version` must match what the client sent |
+| :24580 | server plugin version number is invalid: … | `plugin_version` **Long-parseable** (version CODE) |
+| :25142 | server did not return plugin download URL | `apk_url` non-empty |
+| :25631 | server returned illegal SHA-256 | `^[a-f0-9]{64}$` |
+| :25775 | server returned illegal MD5 | `^[a-f0-9]{32}$` |
+Plus the `update_type` enum gate: `"plugin"` → Plugin branch; `""` or anything else → Unknown → silent no-op.
+
+⏭️ No new APK needed — this was purely server-side. **Retest with the SAME installed pre5 build** (md5 `352ecc2e36755082b478b2b9eb92717a`). Success = journal shows `installedVersion` 100-1 with no failures, and the downloaded artifact's md5 is `a07d9ef8…` (ours) not `0ab09364…` (XiaoJi's).
+
+## 2026-07-30 — ✅ OUR PLUGIN IS LIVE ON DEVICE + 🔴 catalog redirect proven INERT
+### ✅ Phase A's actual goal achieved: patched 6.1.0 installs OUR engine, not XiaoJi's
+Triple-confirmed on pre5 / `com.miHoYo.GenshinImpact` (installed APK sha256 `9b2ed055…` == staged, per the DEBUG RULE):
+1. journal `installedVersion.downloadUrl` = our GitHub release asset
+2. journal `md5`/`lastUpdateMd5` = `a07d9ef8…` (ours), NOT `0ab09364…` (XiaoJi's `gamehub-cdn.masnet.cn` build)
+3. on-disk bytes md5 = `a07d9ef8…`
+Zero journal failures. 📌 The real install path is **`files/plugins/<id>/base.apk`** — `files/plugin_packages/<id>/` exists but is EMPTY, don't look there. Siblings: `pc_engine_active_plugin_identity`, `pc_engine_plugin_operation_results`, `pc_engine_plugin_recovery`, `plugins.xml`.
+
+### 🔴 But the catalog redirect has NO runtime effect on 610 (user: no components under dxvk/vkd3d/GPU drivers)
+- Device `shared_prefs/sp_winemu_unified_resources.xml` (454,344 b → `/sdcard/Download/reg610.xml`): **783 download URLs, ALL `uxdl.mac520.com`** (XiaoJi CDN) + 1 bigeyes.com, **ZERO github.com**.
+- Our Worker is healthy and would be unmistakable: `/v6/simulator/v2/getAllComponentList` → **612 entries, ALL github.com**; the bare 5.x path → also ALL github.com. **No Worker path can produce `uxdl` URLs** ⇒ the app never asked us.
+- 🔑 **Why the plugin manifest worked and this doesn't:** our manifest patch injects an **ABSOLUTE** URL, which `kee.a`'s `http(s)://` branch uses verbatim — bypassing base-URL resolution entirely. Catalog calls use **relative** paths and resolve against the HttpClient's base, which is still XiaoJi's. The absolute-URL trick was load-bearing, not incidental.
+- **Ruled out:** wrong enum value (`f7n.f` IS active; `ne0.b` defaults to it; no `server_environment` override on device) · wrong fields (`f7n.<init>` iputs p3→a p4→b p5→c p6→d; the two vgabc literals load into v5/v6 ⇒ **c=cn host, d=oversea host**, exactly what we rewrite) · dead fields (they ARE read, in `ne0.b()` at `ne0.smali:399`/`:407`, selected by `kg0.a()`, called by `ne0.a()`; `ne0.a()` has 7 callers, `ne0.b()` 4).
+- `ao4.smali` (holds the `simulator/v2/getAllComponentList` literal at :348) references **neither `pe0` nor `f7n`** — it routes through `kee`, whose client is `kee.a:Lvec;`.
+⏭️ NEXT: locate where the Ktor client `Lvec;` gets its base URL (the DI `defaultRequest` config) and repoint it; or reuse the proven absolute-URL trick per catalog call site; or redirect `pe0` **selectively for allowlisted paths only** (never wholesale — it serves login/profile too). Also re-verify whether the `/v6` prefix patch does anything at runtime on 610, since our Worker's 6.x-vs-5.x branching depends on it.
+
+## 2026-07-30 — 🎯 CATALOG ROOT CAUSE: it's fetched BY THE PLUGIN, so no host patch can reach it
+Chased the base URL to the end. **The host is exonerated; the plugin owns the catalog.**
+
+### Host side is definitively NOT the problem
+- Exactly ONE base-URL source exists: `beh.smali:123` and `:164` set `mvq.d = ne0.a()` (sole reader `svq.smali:2247`). `ne0.a()` → `ne0.b()` → `f7n.c` (cn) / `f7n.d` (oversea) — **precisely the fields our Redirect-catalog patch rewrites.**
+- `f7n.f` (= Online) IS the active env (`ne0.b` defaults to it), and there's no `server_environment` override in the app's data.
+- So the host's base URL genuinely IS our Worker after patching. The catalog simply never goes through it.
+- Tell: `ao4` passes a **relative** path to `kee.c`, whereas `zy5` (plugin manifest) passed `pe0.a(...)`'s **absolute** URL. That asymmetry is exactly why only the manifest redirect took effect.
+
+### The plugin has its own catalog client
+`/sdcard/Download/pcengine-100-1-decompiled` contains **all** the catalog endpoints — including the 4 that "vanished" from the host: `simulator/v2/{getAllComponentList,getComponentList,getContainerList,getDefaultComponent}` and `simulator/executeScript`, plus configList/shareConfig/getTabList/getGameLoadingPromptList — **and its own host literals**: `landscape-api-{cn,oversea}.vgabc.com`, `landscape-api-{beta,cn-beta,oversea-beta}.vgabc.com`, `api-{cn,international}-gamehub.xiaoji.com`, `clientgsw.vgabc.com`, `dev2-*`, `statistic-gamehub-api.vgabc.com`. It runs in `:pcengine`, shares the app data dir, and writes `sp_winemu_unified_resources.xml` itself — hence 783 uxdl URLs and zero github.
+⇒ Earlier note that those 4 endpoints "moved into the plugin with the launch path" was right; the consequence — that the catalog redirect becomes unreachable — wasn't drawn.
+
+### 🔑 The fix: we own the artifact, so patch the plugin too
+Rewrite the plugin's `landscape-api-{cn,oversea}.vgabc.com` → `bannerhub-api.the412banner.workers.dev`, `apktool b`, re-sign with the v6 keystore, re-upload to release `pcengine-plugin-610`, update the Worker's `PCENGINE_PLUGIN` md5/sha256/fileSize.
+⚠️ Solve first: (1) **re-download won't trigger on the same version** — device has vc100 and the client compares the manifest's Long-parseable `plugin_version` against it; bumping to "101" while the APK declares vc100 may fail a consistency check, so bump both or clear plugin state. (2) The plugin won't send the **`/v6` prefix**, and our Worker gates the 6.x reshape + EnvListData wrapper on `is60` — without it the plugin gets 5.x-shaped JSON that 6.1.0's kotlinx-strict parser may reject (same class as the historical EnvListData bug). (3) Confirm which of the plugin's many hosts actually serve the catalog before rewriting; leave beta/dev/statistic alone.
