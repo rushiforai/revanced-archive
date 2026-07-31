@@ -1,0 +1,17 @@
+.gradle/
+.kotlin/
+.idea/
+.vscode/
+*.iml
+
+**/build/
+node_modules/
+
+/local/
+*.apk
+*.aab
+/edge-mod.keystore
+
+/patches/src/main/resources/edge-devtools-frontend.zip
+
+hs_err_pid*

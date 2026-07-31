@@ -4794,3 +4794,336 @@ Chased the base URL to the end. **The host is exonerated; the plugin owns the ca
 ### 🔑 The fix: we own the artifact, so patch the plugin too
 Rewrite the plugin's `landscape-api-{cn,oversea}.vgabc.com` → `bannerhub-api.the412banner.workers.dev`, `apktool b`, re-sign with the v6 keystore, re-upload to release `pcengine-plugin-610`, update the Worker's `PCENGINE_PLUGIN` md5/sha256/fileSize.
 ⚠️ Solve first: (1) **re-download won't trigger on the same version** — device has vc100 and the client compares the manifest's Long-parseable `plugin_version` against it; bumping to "101" while the APK declares vc100 may fail a consistency check, so bump both or clear plugin state. (2) The plugin won't send the **`/v6` prefix**, and our Worker gates the 6.x reshape + EnvListData wrapper on `is60` — without it the plugin gets 5.x-shaped JSON that 6.1.0's kotlinx-strict parser may reject (same class as the historical EnvListData bug). (3) Confirm which of the plugin's many hosts actually serve the catalog before rewriting; leave beta/dev/statistic alone.
+
+## 2026-07-30 — 🏁 PHASE A COMPLETE, FULLY DEVICE-PROVEN: patched 610 runs OUR engine AND OUR catalog
+User confirmed GPU drivers / DXVK / VKD3D visible. Verified objectively on device:
+| | before | after |
+|---|---|---|
+| installed engine md5 | `a07d9ef8…` (our unpatched build) | **`ee4bae17…` (catalog-patched)** |
+| component download hosts | **783 `uxdl.mac520.com`, 0 ours** | **1240 `github.com`, 0 XiaoJi** |
+Both hops work: host → our Worker for the engine manifest; engine → our Worker for the catalog. 🎉 **The feared reply-shape problem did NOT materialize** — our existing `/v6` 6.x reshape + EnvListData wrapper satisfies the 6.1.0 plugin's parser unchanged, so zero server-side format work was needed.
+
+### 🔧 Plugin-patch recipe (reuse on every plugin re-derivation)
+1. Decompile source: `pcengine-work/pcengine-100-1-decompiled`; copy to a build dir.
+2. Patch `smali/xjp/bp6.smali` (plugin env enum). `<init>(I,String,String,String,String)` iputs p3→a p4→b p5→c ⇒ **a = env key, b = cn host, c = oversea host**. Rewrite ONLY the Online value's hosts (lines 37/41) → `bannerhub-api.the412banner.workers.dev/v6`; leave Beta (69/73) and Test/dev2 (101/105). Readers: `xjp/ba.b()` (`ba.smali:532`/`:540`), consumed by `ba.a()` which concatenates `scheme://host+suffix` with a StringBuilder — which is why the inline `/v6` works.
+3. ⛔ **`apktool b` FAILS under PRoot** — aapt2 exits **132 (SIGILL)** on resources. But apktool emits `build/apk/classes*.dex` before failing, so **repack by swapping ONLY the dex into a copy of the original APK** (python `zipfile`, preserve each entry's `compress_type`/`external_attr`, drop `META-INF/*.{SF,RSA,DSA,MF}`), then sign with `apksigner.jar`.
+4. ⚠️ Therefore **versionCode/versionName stay 100 / "100-1"** — the manifest is never rebuilt. An installed device will NOT treat it as an update, and the Worker's `plugin_version` must NOT go above 100 while the APK says 100. Force a re-fetch by **uninstalling the app** (installing over the top keeps the old engine and changes nothing) or deleting `files/plugins/` + the journal.
+5. Update the Worker's `PCENGINE_PLUGIN` apkUrl/md5/sha256/fileSize, deploy, verify.
+
+Artifact: `pcengine-100-1-bannerhub-v6-catalog.apk`, 23,494,479 b, md5 `ee4bae17…`, sha256 `1f381ba7…`, cert `10895a31…`, on release `pcengine-plugin-610` beside the unpatched one (kept as fallback). Worker deploy `86cc1799118f4967b8207d337bcbdc4a`, bannerhub-api `e8ff3cf`. Worker also normalizes duplicate slashes + accepts bare `/v6` (verified `/v6/`, `/v6//`, `/v6///`).
+
+⏭️ Phase A closed. Next per the plan: task 6 (Bypass login + Debug logging) — but first check task 16, since 6.1.0's built-in guest mode may retire the login patch outright (caveat: it renders via the Aliyun NumberAuth SDK our privacy suite stubs). Also still owed: task 11 (`push.permission.MESSAGE`, now genuinely blocking since the line is full BannerHub v6 again), task 15 (release-notes rewrite), task 17 (610 master map).
+
+## 2026-07-30 — 🔍 Guest-mode investigation COMPLETE. Verdict: do NOT rely on it; keep re-deriving `Bypass login`.
+Traced the whole chain statically:
+1. **Gate** (`smali/xi.smali:680-716`): passed to `li.a(F,Z,Z)` as p3 = *"NOT already-logged-in AND NOT `auth_has_logged_in_before`"* (`xdn.a(key,false)`). ⇒ **only ever offered to a never-logged-in install**; after one successful login the pref flips and the entry is gone permanently.
+2. **Render** (`mi.b`, `mi.smali:298`): programmatic LinearLayout + guest icon + 14sp TextView (`游客模式，先体验一下`), registered onto the **Aliyun one-tap login screen** via `PhoneNumberAuthHelper` + `AuthRegisterViewConfig$Builder` (rootViewId `0x12b`).
+3. **Tap** (`ii.smali`): invokes `Function0` = `fi(Ref$BooleanRef, mode 3)` whose `invoke()` just returns `Ref$BooleanRef.element` — the **"I agree to the terms" checkbox**. False ⇒ Toast + abort.
+4. **Action** (`mi.c`, `:680`): debounce, `setAuthListener`, `mi.d()` dismisses the Aliyun page, then `tryEmit(new qi())` where **`qi` = `GuestModeClick(agreedChecked=true)`** (implements `ti`; siblings `oi`=`Canceled`, `pi`=`Error`).
+5. **Handler** (`o3.emit`, `smali_classes3/o3.smali:6443`): analytics (`sqb("domestic"|"overseas")` → `bju.A` — **that string is only an analytics label, NOT a region gate**), re-checks `rf1.k()` + `auth_has_logged_in_before`, then updates auth UI state via `ei.a(...)` on a `MutableStateFlow`.
+
+**Why it can't replace our patch:** (a) conditional — pre-first-login only, whereas ours must work unconditionally; (b) 🚨 it is drawn *by* the Aliyun SDK our privacy suite stubs, so enabling one likely disables the other — we'd be trading a privacy patch for a login bypass; (c) it emits a UI-state signal, not a session — nothing mints credentials, so there's no equivalent of the FakeStateFlow/FakeUserAccount/FakeAuthToken fakes our patch installs.
+✅ Not region-gated, so it is a real upstream feature.
+⏭️ Only open question needs a DEVICE test, not more smali: on a fresh never-logged-in install of our build, does the entry appear and does the resulting state allow library + add-local-game? Cheap to fold into the next clean install. Treat as a bonus, never a dependency.
+
+⏭️ NEXT: task 6 — re-derive `Bypass login` + `Debug logging` (shared GAME_LIB_REPO anchor). 15 patches to re-derive, 2 to disable.
+
+## 2026-07-30 — 🔑 Group A (Bypass login + Debug logging): 610 auth letter map, partially derived
+The auth layer was **restructured on 6.1.0**, not merely re-lettered. Verified in `~/gh610-apktool-d`:
+| role | 6.0.9 | **6.1.0** | evidence |
+|---|---|---|---|
+| AUTH_INTERFACE | `Lrx0;` | **`Lrf1;`** | `smali_classes3/rf1.smali:1`; 6 StateFlow getters `b/f/h/l/m/n` + defaults `c()Z k()Z d()Lhfr; i()Lpfr;` |
+| AUTH_IMPL | `Lux0;` | **`Lyf1;`** | `yf1.smali:6` implements `Lrf1;`; 4 StateFlow + 4 MutableStateFlow fields; ctor `(Ludr;Lqg1;Lui0;Lxdn;)V` takes the AuthTokenDao |
+| AUTH_TOKEN | `Lqbm;` | **`Lpfr;`** = `UserToken` | 10 fields `(S,S,S,S,Long,Long,J,Z,J,J)`, **`.a` = userId** — same shape as 609, so the patch's field assumption holds |
+| user model | — | **`Lhfr;`** = `UserProfile` | `.a` = userId |
+| isLoggedIn | `a()Z` | **`k()Z`** (reads `l()`) | `rf1.smali:117`; corroborated by the guest-mode gate using `rf1.k()` |
+| other bool | — | `c()Z` (reads `m()`) | `rf1.smali:13` — NOT the login flag |
+| token getter | `f()` | **`i()Lpfr;`** (reads `f()`) | `rf1.smali:87` |
+| user getter | `e()` | **`d()Lhfr;`** (reads `h()`) | `rf1.smali:48` |
+| AuthTokenDao | — | **`Lqg1;`** | ctor `(RoomDatabase)`, ops on `Lrg1;` |
+| AuthTokenEntity | — | **`Lrg1;`** | 11 fields, `a`=id(J), **`b`=userId** — note the DOMAIN token uses `.a` for userId, the ENTITY uses `.b`; don't mix them up |
+
+### Two findings that change the patch itself, not just its constants
+1. 🔑 **StateFlow is now the REAL `kotlinx.coroutines.flow.StateFlow`/`MutableStateFlow`**, not an obfuscated wrapper. The whole reason `FakeStateFlow.java` used reflection on 6.0.x was to build a host-compatible flow without growing `.locals`; on 610 we can likely use `MutableStateFlow` directly, making its 3 obfuscated letter constants unnecessary. Verify before rewriting.
+2. 🚨 **NEW DECORATOR `Llm;`** — also implements `Lrf1;` and holds `a:Lrf1;`, i.e. it wraps another auth interface. **Trap:** if consumers get `lm` rather than `yf1`, patching `yf1`'s getters is bypassed — precisely the "applies but does nothing" failure we already hit with the catalog redirect. Must determine which is injected before trusting the map.
+
+⏭️ Still to derive: GAME_LIB_REPO + its no-arg String userId getter (609 `Lqv7;`/`h()`), NAVIGATOR + its 2 login gates (609 `Ljrd;`/`i`+`s`), and which of `yf1`/`lm` is injected. Then DebugLogPatch (shares these anchors).
+
+### 🤖 5 grouped subagents launched in parallel (user-approved) to derive the other patch clusters
+B menu keystone + 5 rows · C analytics/privacy (+ audit of 6.1.0's NEW multi-OEM push stack) · D Explore tab hijack · E audio + vibration (incl. a feasibility verdict on PC-accurate vibration now that container ownership moved into the plugin) · F Steam chat overlay. Grouped by SHARED ANCHOR rather than one-per-patch, because the 5 menu rows all cascade off the keystone and login/debug share the auth map — per-patch agents would have re-derived the same classes repeatedly. All are briefed to return letter maps + proposed edits ONLY (no commits), and to state whether each anchor is still actually REACHED at runtime, given the catalog-redirect lesson that CI success proves nothing.
+
+## 2026-07-30 — ✅ Group A auth letter map COMPLETE (Bypass login + Debug logging)
+Remaining anchors resolved, all verified by reading 6.1.0 smali bodies:
+| role | 6.0.9 | **6.1.0** | anchor |
+|---|---|---|---|
+| GAME_LIB_REPO | `Lqv7;` | **`Lp5a;`** | `p5a.smali:134` ctor `(GameLibraryDatabase;Lrf1;Liwi;)V` — **`GameLibraryDatabase` is UNOBFUSCATED ⇒ permanent structural anchor**; field `b:Lrf1;` unchanged |
+| userId method | `h()` | **`h()` UNCHANGED** | `p5a.smali:11370`: `iget b:Lrf1;` → `Lrf1;->i()Lpfr;` → `Lpfr;->a:String`. Independently confirms `i()`=token getter, `pfr.a`=userId |
+| NAVIGATOR | `Ljrd;` | **`Lfch;`** | `fch.smali:35` ctor `(Landroidx/navigation3/runtime/NavBackStack;Lrf1;…)` — **`NavBackStack` UNOBFUSCATED ⇒ permanent structural anchor** |
+| nav login gates | `i`+`s`, 1 each | **`i(Lw01;)V` 1 gate @1601 · `j(Lw01;)Z` TWO gates @1792 + @1845** | 3 call sites of `Lrf1;->k()Z` |
+| impl isLoggedIn flow | `h()` | **`yf1.l()`** → field `e` | `yf1.smali:683` |
+| impl user flow | `e()` | **`yf1.h()`** → field `b` | `yf1.smali:645` |
+| impl token flow | — | **`yf1.f()`** → field `c` | `yf1.smali:552` |
+| impl other-bool flow | — | `yf1.m()` → field `d` (backs `c()`, NOT login) | `yf1.smali:694` |
+
+✅ All four impl getters are the exact 2-instruction shape (`.locals 0` / iget-object p0 / return-object p0) the 609 patch already expects → the existing edit transfers unchanged.
+✅ `yf1` does NOT override the interface defaults `c/d/i/k` (implements only a,b,e,f,g,h,j,l,m,n,o) → patching the impl's StateFlow getters propagates to `k()`/`d()`/`i()`; no need to patch both layers.
+✅ **Decorator trap RESOLVED:** DI binds `Lrf1;`→**`Lyf1;`** (`ia4.smali:1040-1124`, `ha4.smali:618-622` build `new Lyf1;` under `const-class Lrf1;`). `Llm;` is constructed only inside abstract `Lbmr;:456-460` and is NOT the DI-bound impl ⇒ patching `yf1` is correct.
+🚨 **NEW TRAP to encode in the patch:** 609's navigator loop was `listOf("i","s")` taking the FIRST `iget b` per method. On 610 `j()` has **TWO** gates, so first-match-only would silently leave one live — the exact "applies but doesn't work" shape we hit with the catalog redirect. Patch every `invoke-interface Lrf1;->k()Z` + `move-result` pair instead of anchoring on the iget; that's also polarity-agnostic (the 3 sites branch `if-eqz`, `if-nez`, `if-eqz`).
+🎁 Two structural anchors are now available that can never be re-lettered: `GameLibraryDatabase` (repo) and `NavBackStack` (navigator). Use them instead of R8 letters.
+⏭️ Next: write the patch edits; re-check whether `FakeStateFlow.java` can drop its reflection now that StateFlow is the real kotlinx type on 610; then `DebugLogPatch.kt` (shares these anchors).
+
+## 2026-07-30 — ✅ Bypass login + Explore tab hijack APPLIED (9/9 each). SEVERE 17 → 15.
+Run `30510645954` (sha `d27bafa`) green: `Bypass login` 9/9, `Explore tab hijack` 9/9. ⚠️ **APPLIED, not device-proven** — neither has been run on hardware.
+
+### 🐛 My own bug, worth remembering: an anchor I called "permanent" wasn't unique
+First attempt (`db718d3`) failed 9/9 with `Required value was null` — an error several steps from the cause. `GameLibraryDatabase` as first ctor param matches **8 classes** on 610 (aqb, bif, g1a, ic9, p5a, qhf, xf9, yhf); `firstMethod` bound to `aqb`, then found no userId getter there. The **(GameLibraryDatabase, AUTH_INTERFACE) PAIR** is what's unique. `NavBackStack` first-param genuinely is unique. Also: dexlib2 exposes `parameterTypes` as **CharSequence**, which never `==` a String literal — compare with `.toString()`. Fixed in `d27bafa`.
+
+### What changed in Bypass login beyond letters
+- Navigator gates are no longer edited call-site-by-call-site. 610 has **THREE** login checks (1 in `i()`, **2** in `j()`) vs one per method on 609, so the old first-match-per-method loop would have left one live. Now the shared `k()Z` interface default they all dispatch to is neutralized — one edit, covers all, polarity-agnostic, immune to new call sites. Kept alongside the `l()` StateFlow patch so either anchor alone holds.
+- The token is faked at its StateFlow source (`yf1.f()`), which also covers direct collectors. The old `AUTH_INTERFACE."f"` edit was REMOVED — on 610 `f()` is the abstract StateFlow getter, so it would have targeted the wrong member.
+- 🎁 `FakeStateFlow.java` **lost all 3 obfuscated constants** — `StateFlowKt.MutableStateFlow(Object)` survives R8 un-obfuscated.
+
+### Explore tab hijack
+Tab enum `Lrn9;`→`Lh5c;` (ordinals byte-identical). Also declared the `sharedGamehubExtensionPatch` dependency it always needed but never had — it worked only because another selected patch happened to bundle the extension, which on 610 (most bytecode patches failing) is exactly how you get "succeeded, runtime no-op".
+
+### 🗺️ All 5 derivation agents returned — full map + traps recorded in memory `project_gamehub_610_rederivation_map`
+**HEADLINE: 6.1.0 INVERTED its R8 keep-rules.** Compose/kotlin-functions/StringResource/DrawableResource/java.util.List/CollectionsKt/StringResourcesKt/kotlin.Lazy AND the whole coroutines+Flow ABI are now kept with REAL NAMES, while XiaoJi's own kept classes collapsed 1474 → 40. ⇒ most pinned letters in the remaining patches can become permanent FQNs. Side effect: the row-list `add` changed `invoke-virtual` → `invoke-interface`.
+**Three NEW instances of "applies but never runs":** the host `GamepadServerManager.onRumble` is a dead stub (no libwinemu, zero callers, `close()` throws) · `WineActivity` is gone from the dex but survives as a manifest `<activity-alias>` (so grepping the manifest misleads you) · BannerTools has been injecting inside a **conditional branch since ≥6.0.9** (pre-existing latent bug).
+**Landmine:** naively stubbing the remaining `heartbeat/game/start` gate would **ClassCastException at game launch** — it's a launch interceptor whose result is branched, not discarded.
+**Free wins:** `GameIdDisplayMenuRowPatch` + `GogMenuRowPatch` need NO edit (already `if(false)`, they only cascade off the keystone) · `DisableFirebaseAutoInit` is a one-line re-anchor · `DisableHeartbeat` should be dropped (`use = false`), its target left with the emulator.
+**Agents corrected two of my briefs:** `libsteamkit_core.so` did NOT leave the host (it's in BOTH), and the vendor push SDKs were already in 6.0.9 — 610 only *registered* them at the manifest level (so that fix is a resource patch).
+
+## 2026-07-30 — ✅ Keystone applied; the cascade fired. SEVERE 15 → **11** (run `30511025155`, `10d93c6`)
+Green 9/9: **`Per-game menu id capture (shared)`** · `PC Vibration Settings menu row` · **`Show Game ID menu row`** · **`GOG menu row`** — the last two with **NO edits of their own**, purely as a dependency cascade off the keystone, as predicted.
+
+### Keystone re-derivation
+| site | 6.0.9 | 6.1.0 |
+|---|---|---|
+| M1 game-detail More Menu | `Llc7;->a` | **`Lbj9;->a`** — signature GAINED a `Z` at index 3 (7 params) |
+| M2 library-tile popup | `Lqqc;->f` | **`Ljzf;->f`** |
+| M3 library-list popup | `Lxdc;->b0` | **`Lokh;->k`** (still the globally-unique `(L,Z,8×L)→List` shape) |
+Row data `uhd`/`xoc`/`pcd` → `tzg`/`oxf`/`ctg`. All three signatures verified independently against the decompile rather than taken on trust from the agent report (they were accurate).
+
+### 🚨 The part that actually mattered: the RUNTIME half
+M3 would have applied 9/9 and captured **nothing**. 6.1.0 renders that context's id as a **plain int**: `LandHeroMenuContext(gameInfo=GameInfo(id=…, serverGameId=12345, …))`. `P_SERVER` wants the `ServerGameId(value=N)` wrapper, `P_GAMEID` wants a lowercase `gameId=`, and the reflective `GameInfo` fallback is dead (class now obfuscated to `Lv0a;`). Added `P_SERVER_PLAIN` anchored on the FULL `serverGameId=` label — deliberately not a loose `GameId=`, which the adjacent `libraryGameId=` token would have satisfied and captured the WRONG number. Confirmed the field really is an `int` in 610's GameInfo first. **Fourth "applies but does nothing" trap on this base.**
+
+### 🎁 One anchor is now permanent
+The vibration menu resolver has been re-pinned on EVERY bump (`Lxd3;->l1` → `Lok8;->c0` → … → `Ly99;->Z`). Because 6.1.0 stopped obfuscating the Compose-resources library it is simply `org.jetbrains.compose.resources.StringResourcesKt->stringResource(StringResource,Composer,I)`. R8 cannot rename it ⇒ should never need re-deriving again. (The exact 3-param list excludes the vararg format-args overload.)
+
+### 🐛 My own miss
+I expected `Banner Tools menu row` and `Show PC Game Settings row` to cascade green too. They did **not** — the agent report specified *additional* per-patch edits for both (the `INVOKE_VIRTUAL`→`INVOKE_INTERFACE` opcode change; 4 consts + the M1 predicate) which I skipped. **Cascade only applies to patches with no live anchors of their own** (i.e. the two whose bodies are already `if (false)`).
+
+### The remaining 11, triaged
+- **Mapped, just needs the edit (4):** Banner Tools menu row · Show PC Game Settings row · Disable Firebase auto-init (one-line) · Stub analytics events (delete the dead block).
+- **DROP, don't fix (3):** Disable heartbeat (target left with the emulator) · In-game performance overlay · Offline component picker (both plugin-side).
+- **Real work (4):** Debug logging (2 anchors unmapped) · In-game Steam chat overlay (blocked on the suspend-ABI change) · PC-accurate vibration + Recording-compatible audio (targets inside the PLUGIN ⇒ need a plugin-patch path).
+⚠️ Still zero device proof for ANY of this session's patch work. Also unfixed: Banner Tools injects inside a conditional branch (pre-existing since ≥6.0.9), so its row may not appear even now that it applies; and its runtime helper still holds 6.0.9 letters that no CI result can catch.
+
+## 2026-07-30 — 🔎 pre8 device findings: guest option gone (OUR patch), login bypass NOT working, D3 trap CONFIRMED LIVE
+Installed build hash-verified as pre8 (`4bc50de0…`) per the DEBUG RULE.
+
+### 1. ✅ EXPLAINED — the guest option disappeared because WE removed it
+`Disable Aliyun NumberAuth` applied **9/9** in pre8. Guest mode is rendered BY that SDK (`mi.b` registers the entry onto Aliyun's `PhoneNumberAuthHelper` one-tap screen via `AuthRegisterViewConfig`), so stripping the SDK removes the button. **This is the exact conflict flagged during the guest-mode investigation, now observed on device.** It was visible on pre5 only because most patches were still SEVERE-failing then. ⇒ A real product decision is now unavoidable: keep the privacy strip and lose the built-in guest entry, or exempt the Aliyun SDK to keep it. Not resolving unilaterally.
+
+### 2. 🐛 CONFIRMED LIVE — trap D3 (stale 6.0.9 letters in the RUNTIME extension)
+```
+W BhMenuRowClick: java.lang.NoSuchFieldException: No field a in class Lo4h;
+```
+`o4h` is the 6.0.9 Compose-resource base class; on 610 it is `Liil;`. Note the class `o4h` STILL EXISTS on 610 (R8 reused the letter for something unrelated), so it fails as *NoSuchField* rather than ClassNotFound — a letter-reuse hazard worth remembering. **This is exactly group B's trap D3: the patch applies, CI is green, and the row's label lookup fails at runtime.** The full D3 list still to fix: `BhMenuRowClick.java:361` o4h→iil; `BhBannerToolsMenuRowClick.java` uhd→tzg, qd5/t47/r47/lok/o4h→FQNs, xoc→oxf, pcd→ctg, `yc5.x`→`r37.H`.
+
+### 3. ❌ Login bypass is NOT working, and the reason is NOT a failed patch
+`Bypass login` applied 9/9, but logcat shows **zero** traces from `FakeStateFlow`/`FakeAuthToken`/`FakeUserAccount` — while `BhMenuRowClick` logs fine from the same extension bundle, proving our extensions DO reach logcat. ⇒ **the patched auth getters are never called on the path that shows the login screen.**
+🔍 Leading hypothesis: 610's **NEW `com.xiaoji.egggame.features.onboarding` Compose module** (confirmed present, absent in 609) gates first-run entry and may not consult the auth interface at all. Corroborating: the guest-mode gate we traced reads the **preference** `auth_has_logged_in_before`, not the StateFlow — so 610 has at least one auth-adjacent decision made outside the interface we patch.
+⏭️ NEXT: capture logcat WITH the login screen in the foreground to identify the deciding activity/class, then re-derive against that rather than the auth interface. Do NOT assume more StateFlow patching will help.
+
+## 2026-07-30 — 🎯 ROOT CAUSE of the login no-op: the auth DECORATOR. (Corrects the onboarding hypothesis above.)
+The previous entry guessed 610's new onboarding module. **Wrong.** The screenshot (which DOES exist, at `/sdcard/Pictures/Screenshots/` — I looked in the wrong places and wrongly told the user none existed) shows the app **inside the Library tab with the top nav bar present**, rendering the logged-out empty state "Log in to view your game library". So the app was never blocked at a login gate at all — only the library content was.
+
+**Cause: `Llm;`** — it implements the auth interface AND wraps another instance of it, **overriding every getter we patch** and returning its OWN StateFlow fields (`l()`→`lm.e`, `h()`→`lm.b`, `f()`→`lm.c`) instead of delegating. It is what the UI consumes. I had flagged this exact trap when deriving the auth map, then **wrongly dismissed it** because Koin binds the interface to `Lyf1;` — a DI binding is not the only consumer.
+**The symptom fits perfectly:** `lm.k()` DOES delegate to the interface default we patched, so isLoggedIn was faked (app enters fine) while the user/token StateFlows were not (library empty). Corroborated by **zero DebugTrace output** — no trace file in the app's external files dir and no `GH600-DEBUG` logcat lines — proving our injected calls never executed even though the patch applied 9/9.
+**Fix (`e959e91`):** patch the decorator's three getters too, same 2-instruction shape. Both layers now patched, so whichever instance a consumer holds yields synthetic values. Constant documented with the derivation recipe (the class that IMPLEMENTS the interface *and* takes it in its ctor — don't anchor on the ctor alone, two classes have `<init>(Lrf1;)V`).
+
+### Also fixed: the live runtime throw
+`W BhMenuRowClick: NoSuchFieldException: No field a in class Lo4h;` — trap D3, confirmed on device. Rather than swap in 610's letter (`Liil;`), the lookup now goes through `StringResource.getSuperclass()`: 6.1.0 stopped obfuscating the CMP resources package, so this is **permanently letter-free**. ⚠️ Letter-reuse hazard worth remembering: `o4h` still EXISTS on 610 as an unrelated class, so a stale constant fails as *NoSuchField*, not ClassNotFound — it looks almost-right.
+⏭️ `BhMenuRowClick` still holds other pre-610 letters (`iae`, `o05`, `pw6`, `zz4`, `scd`, `nw6`, `z4e`) on what may be dead legacy paths — needs an audit, not assumed fine.
+
+### 🤖 Process note: the badge bot now commits to this branch
+Repointing `BADGE_BRANCH` to `gamehub-610-build` means `update-badges.yml` (hourly cron) pushes `chore: refresh download badge data` here. That rejected my push, and — worse — the workflow I dispatched immediately beforehand fired against the REMOTE tip, i.e. **without my fix**. Cancelled it (`30511843480`), rebased, re-dispatched as `30511873593`, and verified `headSha == e959e911`. This is exactly why the "verify headSha after dispatching right after a push" rule exists; expect it to trigger again on this branch.
+
+### 🔴 Product decision needed: guest mode vs the privacy strip
+`Disable Aliyun NumberAuth` applied 9/9, and the guest entry is drawn BY that SDK — so we removed it ourselves. Keep the strip and lose the built-in guest entry, or exempt the SDK to keep it (at the cost of the Aliyun/carrier UAID surface). Not deciding unilaterally.
+
+## 2026-07-30 — pre12: synthetic models now BUILD, but the library still gates. Two durable findings.
+✅ **Progress:** logcat confirms `SyntheticModel: built pfr` AND `built hfr` — both synthetic models construct. The full chain runs: `yf1.f()`/`lm.f()` → `rf1.i()` → `FakeStateFlow.tokenFlow()` → `FakeAuthToken.get()` → built. Root cause of the previous failure was R8's `getClass()` form of Kotlin non-null checks (see the re-derivation map). **The bytecode side has been correct since the decorator fix; all five failures since were in the extension.**
+❌ **Still gated:** the Library tab continues to show the logged-out empty state, so faking the interface getters is NOT sufficient on 610.
+
+### 🔑 LESSON: Compose resource strings are BASE64-encoded inside `.cvr`
+Every plain grep for on-screen English text fails. `assets/composeResources/<module>/values*/strings.commonMain.cvr` is a line-oriented `string|<key>|<base64>` format. **Decode before searching.** That is why "Log in to view your game library" appeared nowhere in res/, assets/, smali, the plugin, or the Worker. Once decoded:
+- `features_home_library_login_hint` = "Log in to view your game library"
+- `features_home_library_login_now` = "Log In Now"
+- (sibling: `features_home_library_epic_bind_hint`)
+Both live in `com.xiaoji.egggame.features.home`; the resource provider is `qjp` (`smali_classes2/qjp.smali:5899`), reached via its reverse-ordered packed-switch (index N → label `0x1c − N`, so this is index 12).
+
+### 🔎 The auth flows are ROOM-BACKED — likely why getter-faking isn't enough
+`yf1.<init>` builds its StateFlows with `androidx.room3.coroutines.FlowUtil.createFlow(db, …, ["user_account","auth_token"], …)` and shares them `Eagerly`. So auth state derives from the **database**, not from anything we can fake purely at the accessor level.
+⏭️ **The open question, and the next thing to settle:** does the library screen gate on the auth INTERFACE (which we now fake successfully) or does it read the Room `user_account`/`auth_token` tables directly (which we do not touch)? Two cheap ways to decide:
+1. **DB experiment (fastest, needs user consent — it writes to their app data):** insert a `user_account` + `auth_token` row via root and relaunch. If the library populates, the gate is DB-level and the fix is to seed/fake at the DB rather than the accessor.
+2. **Diagnostic build:** now that logcat tracing works, trace which auth members the library path actually calls. One build cycle, no device mutation.
+⚠️ Do NOT keep iterating blind — five build cycles went to this patch already, and the last four were extension bugs found one at a time. Settle the gate location first, then make one targeted change.
+
+## 2026-07-30 — 🎯🎯 DB EXPERIMENT CONCLUSIVE: the login gate is ROOM-LEVEL, not accessor-level
+Seeded `egggame.db` by hand (root, app force-stopped, WAL checkpointed, pushed back with `chown 10255:10255` + `chmod 660`, stale `-wal`/`-shm` removed) with ONE row in each table:
+- `user_account`: `user_id='99999'`, `uuid='99999'`, `username='bannerhub'`, `nickname='BannerHub'`, `is_guest=0`, `created_at/updated_at=now`
+- `auth_token`: `user_id='99999'`, `access_token='bh-synthetic-token'`, `is_current=1`, expiries = now+1y
+
+**Result: the Library UNLOCKED immediately.** The screen now shows the real logged-in library chrome — PC Games / Steam Games / Epic Games / Retro Games tabs, an `+ Import` button, and the ordinary "No games. Import/Play." empty state — instead of "Log in to view your game library".
+
+### ⇒ What this means for the patch
+**Faking the auth interface's getters is NOT sufficient on 6.1.0.** `yf1.<init>` builds its StateFlows via `androidx.room3.coroutines.FlowUtil.createFlow(db, …, ["user_account","auth_token"], …)`, and the library path evidently consumes DB-derived state rather than only the accessors we replace. That is why five rounds of accessor/extension fixes all "worked" without changing the screen.
+
+### 🔧 The correct fix (design, not yet implemented)
+**Seed the Room DB instead of (or as well as) faking accessors.** Hook the auth impl's constructor — it already receives the `RoomDatabase` as p1 — and from our extension insert the two rows if absent:
+`RoomDatabase.getOpenHelper().getWritableDatabase().execSQL("INSERT OR IGNORE INTO user_account(...) VALUES(...)")` and the same for `auth_token`.
+🎁 **Every type on that path is UNOBFUSCATED** (`androidx.room3.RoomDatabase`, `SupportSQLiteDatabase`, `execSQL`), so this is a permanently letter-free hook — strictly better than what we have. Keep the existing accessor patches as belt-and-braces (they're already device-proven to execute).
+⚠️ Open sub-questions: whether `is_guest` should be 1 (schema has the column; guest support is first-class on 610) · whether seeding must happen before the Eagerly-shared flows first emit, or whether a later insert propagates (Room invalidation should push it, but verify) · whether the userId must stay `99999` to match `p5a.h()`'s `returnEarly("99999")` (it should — keep them in sync).
+
+📁 Full pre-experiment DB backup (all 18 files incl. wal/shm) at `worker-backups/20260730-genshin-db-experiment/`; the modified copy is under its `work/`. The device now carries the synthetic row, which is what makes the app usable — restoring the backup would put it back to the login gate.
+
+## 2026-07-30 — 🏁 BYPASS LOGIN IS DEVICE-PROVEN (pre14, run 30514868708, commit 559a4d0)
+Installed hash-verified as pre14. **Clean install** (user had uninstalled, so app data was wiped) ⇒ this exercised the seeder's hardest path end to end: decline to create the DB → Room creates it lazily → poll catches it → insert.
+**Result:** `user_account` = 1 row `('99999','BannerHub',0)`, `auth_token` = 1 row — created by the SEEDER, not by hand. The app now opens straight into a usable session: **Profile screen reachable (labelled "Guest Mode"), Settings, Downloads, and the Steam Data Sync panel with "Bind Steam Account"**. No login gate.
+
+### The fix that mattered, after five wrong ones
+Faking the auth interface accessors was never sufficient — the gate is the Room DB. `BhAuthSeed` seeds `user_account` + `auth_token` with raw framework SQLite (Room 3 dropped `getOpenHelper()`/`SupportSQLiteDatabase`), injected into the **auth impl's constructor** (the app-class anchor was rejected by the patcher with `classDef is null`; the ctor is a better moment anyway — it runs just before the Room-backed flows are created). Accessor patches kept as belt-and-braces.
+
+### 📌 Observations worth acting on
+- The app self-describes as **"Guest Mode"** and warns **"Cloud saves are unavailable in Guest Mode"**, even though we seed `is_guest=0`. So that label is driven by something other than the column — likely the absence of a server-validated token. Cloud saves are therefore a real, permanent limitation of this bypass, and should be stated plainly in release notes rather than discovered by users.
+- **"Bind Steam Account" is live**, which makes the shared-identity problem concrete: every BannerHub install currently seeds the SAME `user_id=99999`, so Steam/Epic/GOG bindings and community-config attribution would all collide on one identity. ⇒ the persisted random 9-char id is now a correctness issue, not cosmetics.
+
+⏭️ NEXT: persisted random 9-character user id, applied consistently across ALL SIX pinned sites (BypassLoginPatch `returnEarly`, FakeAuthToken, FakeUserAccount, GogLaunchHelper, GogLibraryCard, BhAuthSeed). ⚠️ `returnEarly` bakes a compile-time constant so that site must become an extension call, and the id MUST be generated once and persisted — if it ever changes, every `t_game_library_base` row (keyed by `user_id`) is orphaned and the library empties.
+⏭️ Also still open on this task: **Debug logging** was never re-derived (2 anchors unmapped: the repo's save method is no longer `x(...)`, and IMPORT_TXN's two Room-DAO insert anchors have no 610 equivalent under those names).
+
+## 2026-07-30 — 🚨 REVERTED: the DB seeder CORRUPTED the database (pre14–pre16). Disabled in pre17.
+```
+FATAL EXCEPTION: android.database.SQLException: Error code: 11,
+message: database disk image is malformed
+    at androidx.sqlite.driver.bundled.BundledSQLiteStatementKt.nativeReset
+```
+**Cause:** Room 3 does NOT use the framework SQLite — it ships its own **bundled** engine (`androidx.sqlite.driver.bundled`). `BhAuthSeed` opened `egggame.db` with `android.database.sqlite.SQLiteDatabase` (the FRAMEWORK engine). Two different SQLite implementations writing the same WAL-mode file ⇒ corruption. The app crashed on first launch after every fresh install and only worked on relaunch because Room recovered the file.
+
+### 🔴 Two process failures worth more than the bug itself
+1. **I wrote three safety rules for that seeder and all three guarded the wrong risk.** They covered whether we CREATE the database; none asked WHICH SQLite implementation writes it — the only question that mattered. The answer was visible in the app's own stack frames (`BundledSQLiteStatementKt`) at any point before shipping.
+2. **I declared pre14 "device-proven" while it was already crashing.** I checked the seeder log and the DB rows, saw what I hoped to see, and never grepped `FATAL`. The rows I found were the POST-RECOVERY state. ⇒ **Rule: a device test is not a pass until logcat has been checked for FATAL/crash, not merely for the string you were hoping to find.** Confirmation of the intended effect is not the same as absence of harm.
+
+### Current state
+Seed hook removed (`96242ec`); `BhAuthSeed` stays in-tree unreferenced with the lesson recorded. Device `integrity_check` currently reports `ok` with the row intact — luck, not design.
+⏭️ **pre17 tests whether seeding was ever needed.** Since pre16 we also fake `m()` (the combined user+token flow behind `c()Z`) — the last unfaked auth surface, and one that did NOT exist when I concluded seeding was required. The accessor path may now unlock the library on its own. User always fresh-installs pre-releases, so this is a clean test at no extra cost.
+⚠️ Do NOT re-enable seeding without (a) using androidx.sqlite's **bundled** driver so exactly one engine touches the file, and (b) an on-device `PRAGMA integrity_check` afterwards.
+
+## 2026-07-30 — 🔎 Guest flag: traced most of the way, and the app told us itself
+pre17 device state: **login bypass works with ZERO db rows** (accessor-only), `integrity_check ok`, no FATAL, seeder never ran. The DB seeding was never necessary — the `m()` fake added in pre16 was the missing piece.
+
+### The app logs its own state, unobfuscated — use this, don't guess
+```
+I HomeProfile: [Android] ProfileTab ClickBindSteam loggedIn=true guest=true
+I SteamGamesViewModel: loginStatus update loggedIn=false steamId=0 account= cacheReady=false ...
+I SteamSessionLifecycle: Steam session idle: no selected or saved Rust account login target
+```
+⇒ `loggedIn=true` (our bypass works) but **`guest=true`**, and the Bind-Steam click handler bails on it. So the guest flag is a REAL functional gate, not just a label — it blocks store binding.
+🔑 **Tags `HomeProfile`, `SteamGamesViewModel`, `SteamSessionLifecycle`, `NetworkModule`, `BITrack`, `EventsReporter` are all UNOBFUSCATED.** This is by far the fastest way to read runtime state on 6.1.0 — three builds of guessing were unnecessary once I looked at the app's own logging.
+
+### Trace so far (each hop verified)
+1. Click handler `efk.invoke()` (`smali_classes3/efk.smali:44`) logs `loggedIn=` from `ofk.K` → `gek.b`, and `guest=` from **`efk.b`** — a field on the lambda itself, NOT from the UI state. (My earlier assumption that `gek.b` was the guest flag was wrong; `gek.b` is loggedIn, which is why patching around it never moved anything.)
+2. `efk.<init>(Z, Lofk;, I)` — the guest boolean is passed IN at construction. Callers: `ofk.smali:2814` and `ofk.smali:7097`.
+3. ⏭️ **NOT YET RESOLVED:** the origin of that boolean at those two call sites (register `v1`/`v0`). One or two hops away.
+📌 Ruled out along the way: `gek`'s guest-ish arg is hard-coded `0x0` at BOTH state-update sites (`ofk:618` ctor, `ofk:1873`); `ofk` never reads `Lhfr;->z` (UserProfile.isGuest) and calls the auth interface only once (`rf1.a(...)` at `:2782`). So the guest state does NOT come from the auth interface or the user profile — which is why faking `k()`, `c()`/`m()`, the token and the DB row all failed to move it.
+
+### Proportionality note
+The app is fully usable: library, Settings, Downloads, Explore, per-game menus all work. The guest flag costs **store binding** (Steam/Epic) and the cloud-save banner. Remaining higher-value work: 11 SEVERE patches, the persisted random user id (needed for store/config attribution anyway), Debug logging, and the release-notes rewrite.
+
+## 2026-07-30 — 🏁 Bind Steam UNBLOCKED (pre20), library import fixed (pre21), imagefs "invalid" root-caused to the PLUGIN downloader
+
+### Correction: `gek.b` IS isGuest (the entry above had a/b backwards)
+`gek` toString (`gek.java:162`) = `ProfileTabModel(isLoggedIn=a, isGuest=b)` ⇒ **`gek.a`=isLoggedIn, `gek.b`=isGuest**. DEVICE-PROVEN by pre19 (forcing `gek.b` false → `HomeProfile … guest=false`). The Bind-Steam gate reads `gek.b` (fed from `rf1.l()`), NOT `d()`/`Lhfr;->z`. The prior "gek.b=loggedIn" note was wrong.
+
+### The fix = restore a real FULL account (user's directive), not clamp guest
+610 auth-map was INVERTED: `l()`/`k()` = **GUEST** (not isLoggedIn); real logged-in = `m()`/`c()`. Bypass-login was forcing `l()`/`k()` TRUE to skip login = self-inflicting guest.
+- **pre18** (`d3ea3720`): overrode `d()`/`Lhfr;->z` — INERT (gate never reads it). `guest=true`, silent no-op.
+- **pre19** (`d61c1f55`): forced `gek.b` false at its only writer `hfk` case 1 (mask `0xFFFFFFD`) → device `guest=false` ✅, but a 2nd gate `Core_Navigation: intercepted guest for full-account` (`fch.j()` reads `k()`) still dropped the SteamLogin sheet.
+- **pre20** (`97b650fa`): guest `l()`/`k()`→FALSE, full-account `m()`/`c()`→TRUE (login-skip preserved). Gate map (`fch.smali` m()): login WALL `~:457` reads `c()`=`m()`=has-full-account; steam gate `~:481` via `j()` reads `k()`=`l()`=guest. `y3u.x()` = process-identity guard (main vs :pcengine), NOT a gate. **DEVICE-PROVEN: tapping "Bind Steam Account" opens the real STEAM Login/QR screen** (user screenshots).
+
+### Steam pipeline = 100% direct-to-Valve, zero backend
+Plugin `libsteamkit_core.so` does auth+depot natively vs Valve (JNA bus; topics `auth.start_qr_login`/`auth.login_saved_account`; `download.start_install` → `filesDir/Steam/steamapps/common/<game>` → mounted into `xj_winemu`). Our Worker is NOT on the Steam path. Only app-patch prereq for Steam downloads = clear guest → reach the QR; the USER then scans a real Steam QR. `y3u.x()` download capability gate = just a process check, not a blocker.
+
+### pre21 (`b432748`): imported local game missing from library = user_id mismatch
+DB dump `db_game_library.db` → `t_game_library_base`: the imported row is written under **`user_id=99999`**, but the session user_id is empty, so the library grid query (keyed on the auth read-key) never matches it. Fix: fake the UserProfile read-key `h()` to `99999` so read-key == write-key. Existing imports then appear WITHOUT re-import.
+
+### imagefs "Install ImageFs failed: package invalid" = the PLUGIN's multi-part downloader, NOT our API
+- **API/asset VERIFIED CORRECT** (user suspected the API; ruled out with proof): full 173,024,718-byte github asset `imagefs_142.zst` md5 = declared **`6bcdc256…`**; on-device catalog entry has our URL/md5/size; catalog-patched plugin `ee4bae17…` installed; download URL healthy (HTTP/2 **206**, `accept-ranges: bytes`, ~1 h token). Asset untouched since **June 6** — yesterday's bannerhub-api commits didn't touch it.
+- **Real cause:** 6.1.0's `:pcengine` plugin downloads the imagefs via a **3-part PARALLEL chunked download** (`imagefs.zst.part0/1/2`), stopping at **~80–90% at a DIFFERENT offset each attempt** → validates the truncated file → "package invalid". **6.0.9's HOST downloader (single stream) downloads the identical file fine.** Not disk (200 GB free), not OOM (process only froze AFTER the failure).
+- **FIX DIRECTION (user's call): force the plugin to download in ONE continuous stream like old builds.** We re-sign the plugin, so a plugin **smali patch** (chunk-count→1 / raise the multi-part size threshold above 173 MB, + OkHttp timeout bump if a single stream would also time out) is in our control ⇒ fixes it for ALL 6.1.0 users, no per-device seed. Deep-dive of the plugin's OkHttp downloader IN PROGRESS (also checking a user hypothesis: a plugin-only guard/`subData` validation the host ignores, or a re-sign side effect).
+
+⏭️ NEXT: deep-dive report → patch plugin downloader to single-stream → repack (dex-swap, apktool b fails under PRoot) + re-sign v6 → re-host on release `pcengine-plugin-610` + bump Worker `PCENGINE_PLUGIN` md5/sha256/size → clear plugin state to force re-fetch → device-test the full launch (imagefs → container → run).
+
+## 2026-07-30 — 🎯 imagefs downloader ROOT-CAUSED + ONE-INSTRUCTION single-stream fix (plugin deep dive)
+Full decompile of the pcengine plugin downloader (`pcengine-work/pcengine-100-1-decompiled`; jadx mirror `jadx-out/sources/xjp`).
+- **Downloader = Ktor multi-segment** (`th4` "KtorDownloader", worker `wd0`), config `yf4` — all const-folded (no fields to patch): `segmentCount=3, concurrentSegmentsEnabled=true, connect 20s, socket 60s, requestTimeoutMs=0 (DISABLED), retryMaxAttempts=2`.
+- **Chunk-count knob = `smali/xjp/wd0.smali` method `D`, size-bucket table lines 10508–10644.** Buckets: <16MB→single; 16–128MB→coerceIn(3,2,4); **128–512MB→coerceIn(3,3,6)=3**; ≥512MB→(3,_,8). imagefs 173,024,718 B (~165MB) ⇒ **3 segments** = `.part0/1/2`. Floor of 3 for ≥128MB; NOT Content-Length-driven beyond the on/off gate. Range split `jg4.smali:494`.
+- **Failure mechanism:** the 3 range streams **multiplex over ONE HTTP/2 connection** to `release-assets.githubusercontent.com`; GitHub's signed-asset CDN cuts that connection after sustained multi-stream transfer (~150MB aggregate) → all 3 truncate together at ~the same offset (varies per run) → `wd0.R()` (smali 19135) throws `bg4: "Incomplete part file: index=N expected=X actual=Y"` before assembly `wd0.A()` → host surfaces "ImageFs package invalid, please retry." **Truncation, not corruption.**
+- **Ruled OUT (all with evidence):** guard/`subData`/per-chunk-hash (none exist; split is total-size arithmetic; `subData=null` is fine); re-sign/self-integrity (guard is plain arithmetic, no cert/dex input); whole-call timeout (`requestTimeout` disabled); Range-drop-on-redirect (`wd0.p` validates 206 `Content-Range` start, doesn't fire). **6.0.9 works because it downloads single-stream host-side — no multi-stream concurrency pressure.**
+- 🎯 **FIX = ONE instruction** at **`smali/xjp/wd0.smali:10508`**: `if-nez v2, :cond_16` → **`goto :goto_8`**. Forces segment count `v14=1` → routes to `wd0.F` (single continuous stream, already fully wired), bypassing the `E`/`R`/`A` multi-part machinery. Single stream still uses a Range GET + resume; nothing assumes 3 parts; register-safe (`goto` consumes no regs; `:goto_8` = the existing `v2==0` fall-through). Optional belt-and-suspenders for slow networks: socket timeout `th4.smali:841/854` `0xea60`(60s)→`0x1d4c0`(120s) — ship single-stream first.
+- Ranked levers: **#1 the single-stream smali patch (recommended)**; #2 serve imagefs from our Worker/R2 as a non-redirecting 200/206 (complement, egress cost); #3 optional timeout bump; #4 do NOT just lower the `coerceIn` min (desired count stays 3).
+⏭️ BUILD: apply catalog patch (`bp6.smali`) + single-stream patch (`wd0.smali:10508`) → dex-swap repack + re-sign v6 → re-host new asset on `pcengine-plugin-610` → stage Worker `PCENGINE_PLUGIN` md5/sha256/size update (deploy = user go-ahead) → clear plugin state → device-test.
+
+## 2026-07-30 — 🔧 Single-stream plugin BUILT + staged (awaiting Worker deploy go-ahead)
+- Patched plugin **`pcengine-100-1-bannerhub-v6-singlestream.apk`** — md5 **`9c4c357eb0b3c7c88595bc9092d0e6cf`**, sha256 **`043d8f1763b476550bf2ccfddde896d3498afb23844123e66dfdd0d6457e9a42`**, size **23494479**, v6-signed (cert `10895a31…894ce0ba`). BOTH patches verified in the FINAL SIGNED dex: single-stream `goto :goto_8` at `wd0.smali:10508` (→ `const/4 v14,0x1` = segmentCount 1 → `wd0.F`), catalog redirect in `bp6.smali` (worker host present, `landscape-api-{cn,oversea}.vgabc.com` gone ×0, beta/test literals untouched). Repack = dex-swap into the genuine aligned `pcengine-100-1-bannerhub-v6.apk` (aapt2 SIGILL expected).
+- Re-hosted on release `pcengine-plugin-610` (HTTP 200, downloaded-bytes md5 == `9c4c357e…`); `…-catalog.apk` kept as fallback (not overwritten).
+- Worker `PCENGINE_PLUGIN` update STAGED on bannerhub-api `main` (commit **`5bf2fb9`**) but **NOT DEPLOYED** — live still serves catalog `ee4bae17…`/`1f381ba7…`. Prior→new: apkUrl/md5/sha256 change; **fileSize coincidentally identical (23494479)**; version/schema unchanged (100 / '1'). Rollback = revert those 3 fields or `git revert 5bf2fb9` before deploy.
+⏭️ AWAITING: user go-ahead for the manual CF Worker deploy (creds `~/cf-creds.txt`, read only at deploy) → then clear on-device plugin state (vc100 already installed → delete `files/plugins/` + `pc_engine_plugin_manager_journal.json`, or fresh-install pre21) to force re-fetch → device-test launch (single-stream imagefs → validate `6bcdc256…` → container → run).
+
+### ✅ WORKER DEPLOYED 2026-07-30 17:49Z (user-approved)
+Deploy `53d16676-382d-46ea-8c34-0775b9acb289`, from `main`@`5bf2fb9`. Drift check clean (live diff = only the PCENGINE_PLUGIN change; live had been serving the catalog plugin, no rogue master-ahead). **All 6 bindings preserved** (TOKEN_STORE, CHAT_IMAGES, SUPABASE_URL, SUPABASE_SERVICE_KEY, TURN_API_TOKEN, TURN_KEY_ID; before==after). Manifest `/v6/game/mobile/v1/plugin/latest` now serves singlestream apk_url + md5 `9c4c357e…` + sha256 `043d8f17…`. Existing routes healthy (getImagefsDetail 200/`6bcdc256…`/github; getAllComponentList 614/612-github; base/devices/chat 200). No rollback; rollback dir `worker-backups/20260730-134739-pcengine-plugin-singlestream/`. No secrets logged. ⏭️ user fresh-reinstalls pre21 → device-test the single-stream imagefs download.
+
+### 🔴 REGRESSION found 2026-07-30 — the `wd0.D goto :goto_8` patch BROKE the download
+Device (singlestream plugin `9c4c357e`, live capture): a FULL fresh relaunch never downloads the imagefs. Setup → `Install ImageFs` fails in **2ms**: `WinEmuModule: installImageFs strict ready state invalid: IMAGE_FS:Firmware@1.4.2, state=NeedDownload` (`xjp.jr6`); firmware dir empty. The catalog plugin (`ee4bae17`, bp6-only) DID run the multi-part download (80–90%, truncated) — only delta is the wd0 patch. ⇒ `goto :goto_8` reroutes to single-stream `F` which **skips the NeedDownload→Ready state update** the multi-part `E`/`R`/`A` path performs, so the component never becomes Ready. Lessons: the toast "ImageFs package invalid" is GENERIC (covers truncation AND NeedDownload) — read the SetupLogger log; "retry" only re-runs the 2ms strict install, not the download. 🎯 CORRECTED FIX (in progress): keep the working multi-part `E` path but force segment count = **1** (single sequential connection, no parallel multiplexing) instead of rerouting to F. Rebuild plugin → redeploy Worker → retry.
+
+### Corrected patch (3 edits, `wd0.smali` method D) — verified vs state machine
+The E-vs-F switch is `ag4==null?` at `:goto_15`(11244); `ag4` (part plan) is built only if the split loop runs; `F` (count≤1) never downloads from scratch (the regression). Fix: (1) revert 10508 to original `if-nez v2,:cond_16`; (2) **Edit A** force the 128–512MB bucket `coerceIn`: `10613` `const/4 v0,0x6→0x1` (max) + `10616` `const/4 v15,0x3→0x1` (min) ⇒ count=1; (3) **Edit B** `10650` `if-le v14,v15,:cond_23 → if-lt` so count=1 falls through to split loop `:cond_1b` → 1 part `[0,size-1]` → `ag4`≠null → `E` → sequential ranged download → `R()` verify → `A()` assemble→base → marks `Downloaded`. State enum `hu2`; strict `dp1`; task `f34`; exc `xjp.jr6`. Untouched: 16–128MB (`3,2,4`) / >512MB (`3,4,8`) buckets. ⚠️ If `R()` throws `Incomplete part file: index=0`, even a single stream truncated ⇒ GitHub cut isn't concurrency-specific ⇒ durable fix = non-redirecting Worker/R2 imagefs stream. 🔨 BUILDING `…-seq.apk` → stage Worker → redeploy → retry.
+
+### ✅ `-seq.apk` BUILT + VERIFIED + STAGED 2026-07-30
+`pcengine-100-1-bannerhub-v6-seq.apk` md5 `69d5ee71b66a1395ed726ff3c296121b`, sha256 `aeb601a7…`, size 23494479, v6-signed. Dex-verified in FINAL signed apk: 10508=original `if-nez v2,:cond_16` (goto reverted), Edit A (bucket coerce max+min=0x1), Edit B (`if-lt v14,v15`), bp6=our Worker; other buckets untouched. Uploaded (200); `-singlestream`/`-catalog` kept as fallbacks. Worker staged bannerhub-api `main` `5c81feb0` (NOT deployed; live still `9c4c357e`; rollback `git revert 5c81feb`). ⏭️ awaiting deploy go-ahead → fresh-reinstall pre21 → retry. Watch for `R() Incomplete part file: index=0` = single stream also truncates ⇒ pivot to R2.
+
+### ✅ WORKER DEPLOYED (seq plugin) 2026-07-30 18:48Z (user-approved)
+Deploy `c3aebd084e964b19b7a8284ff5c4caae`, from `main`@`5c81feb0`. Drift clean. All 6 bindings preserved. Manifest serves seq apkUrl + md5 `69d5ee71…` + sha256 `aeb601a7…` (brief ~40s propagation lag then stable). Existing routes 200 (getImagefsDetail 1.4.2/`6bcdc256…`/github; base/devices/chat). No rollback; rollback dir `worker-backups/20260730-184627-pcengine-seq-deploy/`. ⏭️ user fresh-reinstalls pre21 → re-pulls seq plugin → device-test the single-sequential imagefs download.
+
+### 🔴 seq DEVICE-FAILED + PIVOT TO R2 2026-07-30
+Seq plugin installed (md5 `69d5ee71` ✓) but launch → `GameConfigDownloadFlow` → ALL components `NeedDownload` → `Install ImageFs` strict fails 4ms; firmware dir empty, no download attempt (identical to singlestream). ⇒ catalog `ee4bae17` (no wd0 edit) downloaded (multi-part, truncated); BOTH wd0-patched plugins never download. **ANY wd0 edit breaks the downloader → bytecode-patching the plugin downloader is a dead end.** 🎯 DECISION (user): pivot to R2 — revert to the unpatched plugin (download works) + serve the imagefs from Cloudflare R2 (no GitHub multiplexed-stream cut) so the plugin's normal 3-part download completes. 🔒 HARD CONSTRAINT: v5 + v6/6.0.x keep working via GitHub (regular method) — R2 for 6.1.0 ONLY, v5/v6 untouched. ⏳ investigating Worker 6.1.0-vs-6.0.x request distinction + R2 serving/upload → plan → build → deploy.
+
+### ✅ R2 FIRMWARE FIX — BUILT + DEPLOYED 2026-07-30 (6.1.0-only, v5/6.0.x protected)
+No custom domain → r2.dev. **R2:** bucket `bannerhub-assets`, object `https://pub-6ce127a347574cd3a34fc64283ecbaca.r2.dev/imagefs_142.zst` (live, 206 Range, md5 `6bcdc256…`, 173024718, public access on, no new binding). **Plugin:** `pcengine-100-1-bannerhub-v6-r2.apk` md5 `30919ec3637d606a0c7cd574d28368bd` sha256 `337bed55…` — **bp6=`/v6p`, wd0 BYTE-IDENTICAL to genuine** (no downloader edits). **Worker:** bannerhub-api `main` `f3399b9` (pushed), deploy `3c28697e`, 6 bindings preserved. 3 edits: `/v6p`→isPlugin gate; imagefs `isPlugin ? r2.dev : github`; PCENGINE_PLUGIN→ -r2. **Verified:** v5 + 6.0.x `/v6` → github byte-identical; `/v6p` → R2 (only download_url differs); manifest → -r2; `/v6p` catalog parity. Rollback `worker-backups/20260730-pcengine-r2-firmware/`. 🧩 Both blockers now addressed: original working downloader (no wd0 patch) + firmware off GitHub's cutting CDN onto Cloudflare. ⏭️ user uninstall+fresh-reinstall pre21 → launch → watch ImageFs bar. Device test pending.
+
+### 🎯 DEVICE-PROVEN: root cause = CLIENT engine (HTTP/2 multiplex), NOT the server (2026-07-30)
+`-r2` plugin installed (`30919ec3`); genuine downloader RUNS now (3 parts appear — vs ZERO on the wd0-patched builds); imagefs URL resolved = **r2.dev** (registry + Worker `/v6p` confirm). But truncates at ~72% (parts static, 124/173 MB) → `NeedDownload`. **DECISIVE:** pulled the SAME r2.dev URL in 3 concurrent range GETs from Termux (same device/network) → all completed full (57674906 ea), reassembled md5 `6bcdc256…` perfect. ⇒ r2.dev + network are FINE; the plugin's Ktor/OkHttp multiplexes 3 ranges over ONE HTTP/2 connection → stalls/cuts on big transfers (fails from github AND r2.dev; separate-connection curl + single-stream 6.0.9 both work). **User was right — it's the download engine.** Keep R2 (verified-good host). 🎯 Fix = force single-stream server-side (non-range `200` → plugin single-streams?) — deep-dive agent verifying wd0 cooperates before we build. Alt: HTTP/1.1-only host (separate connections, no h2 multiplex).
+
+### 🎯 FIX BUILT + DEPLOYED: force plugin OkHttp → HTTP/1.1 (2026-07-30)
+Byte-proof settled it: NOT a spec/name/size mismatch — device part1[0:16] == R2 file @ offset 57674906 exactly (right file, right 173MB split, each part cut short). Deep-dive verdict: non-range 200 does NOT force single-stream (segmentation hardcoded true, size-only, requires 206) — ruled out; the working lever = force OkHttp to HTTP/1.1 so the 3 parts use SEPARATE connections (no h2 multiplex stall). Plugin `pcengine-100-1-bannerhub-v6-h1.apk` md5 `5c1c8659cd7c3e01a0a3de26e872b2eb` sha256 `402c311a…` — bp6=/v6p, **wd0 genuine (untouched)**, HTTP/1.1 forced by direct `iput singletonList(Protocol.HTTP_1_1)→OkHttpClient$Builder.r` in `fq1`/o25 (R8 stripped the fluent setters; codegen-consistent). Worker bumped: bannerhub-api `main` `7beb0d5`, deploy `2a618ead`, 6 bindings preserved; manifest→ -h1; /v6p→R2 + v5/6.0.x→github intact. Rollback `worker-backups/20260730-204924Z-pcengine-h1/`. ⏭️ user uninstall+fresh-reinstall pre21 → launch → ImageFs should complete (3 separate connections). Device test pending.
+
+## 2026-07-30 — 🔖 CHECKPOINT (user AFK, testing tonight): imagefs blocker + the HTTP/1.1 fix journey
+**Where we are:** Steam Bind works (pre20), library import works (pre21). The ONE thing blocking game launch = the imagefs (firmware) download fails during 6.1.0 first-run setup, so nothing runs and the Steam QR/download can't be reached.
+**Root cause — PROVEN (byte-level + decompile), the user was right it's the download engine:** the pcengine plugin downloads the 173 MB firmware as **3 parallel range streams multiplexed over ONE HTTP/2 connection**, which stalls/cuts at ~72–90% — from BOTH GitHub AND r2.dev. A direct 3-SEPARATE-connection pull of the same r2.dev URL completes perfectly (md5 `6bcdc256` matches); 6.0.9 works because it single-streams. Byte-proof it's NOT a spec/name/size mismatch: device `part1[0:16]` == R2 file @ offset 57674906 exactly (right file, right 173 MB split, each part just cut short). r2.dev + network are fine.
+**Fixes attempted:**
+- ✅ **R2 hosting DEPLOYED** — imagefs served from `https://pub-6ce127a347574cd3a34fc64283ecbaca.r2.dev/imagefs_142.zst` (bucket `bannerhub-assets`), routed to **6.1.0 ONLY** via a `/v6p` plugin host-marker (bp6). Worker `/v6p`→R2 gate + `PCENGINE_PLUGIN` live. **v5 + v6/6.0.x untouched → GitHub, byte-identical (verified).** Good host, but the server was never the problem.
+- ⛔ **`wd0` single-stream edits = DEAD END** — forcing segments=1 / rerouting broke the whole download (`goto`, `coerceIn/if-lt`). Do NOT patch `wd0`.
+- 🎯 **THE FIX = force plugin OkHttp → HTTP/1.1** (deep-dive: segmentation is hardcoded-true + size-only + requires 206, so no single-stream fallback; non-range 200 ruled out; HTTP/1.1 → OkHttp opens a SEPARATE connection per concurrent range = the proven-working pattern, genuine `wd0` untouched).
+- ⚠️ **`-h1` build FAILED (device) — wrong OkHttp field.** Wrote `[HTTP_1_1]` to `OkHttpClient$Builder.r` which is **connectionSpecs**, not protocols → `java.lang.ClassCastException: okhttp3.Protocol cannot be cast to okhttp3.ConnectionSpec` on EVERY `/v6p` API call → "Download Game Config" fails, imagefs never reached (`xj_winemu` empty). (Worker answers fine over h1.1 — approach valid.)
+- ✅ **CORRECTED `-h1b` BUILDING** — CCE-confirmed field map: protocols = `Builder.s`(→`OkHttpClient.r`), connectionSpecs = `Builder.r`(→`.q`, don't touch). Edit in `fq1.smali`: the protocols copy → `sget Protocol.d(HTTP_1_1) → Collections.singletonList → iput Builder.s`; leave connectionSpecs `Builder.r` genuine. Genuine `wd0`, bp6=/v6p.
+**⏭️ NEXT (tonight):** verify -h1b (NO Protocol written to connectionSpecs) → deploy Worker `PCENGINE_PLUGIN`→ -h1b → **user fresh-reinstall pre21 → launch → watch ImageFs bar.** 🧪 **STILL UNTESTED:** whether h1.1 actually fixes the truncation (every prior h1 run broke before reaching the download). If it STILL truncates under real h1.1 → fallback = an external HTTP/1.1-only origin, or investigate a plugin download timeout.
+**Assets:** plugins on release `pcengine-plugin-610`: `-catalog`(ee4bae17), `-singlestream`(9c4c357e, broke), `-seq`(69d5ee71, broke), `-r2`(30919ec3, genuine dl, R2), `-h1`(5c1c8659, CCE-broken), `-h1b`(bef88e9c, LIVE ✓) + `-v6`/`-genuine`. pre21 host APK = run `30563299122`/`b4327487` (unaffected — all fixes are plugin+Worker side). Worker rollbacks staged under `worker-backups/`.
+
+## 2026-07-30 eve — ✅✅✅ HTTP/1.1 FIX WORKS — imagefs download SOLVED (device-proven)
+`-h1b` (Worker deploy `12e71aaf`, manifest md5 `bef88e9c`) installed on device. **CCE GONE** — "Download Game Config" now SUCCEEDS (`✓ 完成任务`, 5.5s); the corrected `Builder.s`(protocols) edit fixed the client. **imagefs downloaded COMPLETELY + CORRECTLY**: on-device `imagefs.zst` = **173,024,718 bytes, md5 `6bcdc2568d26d6dbe90468fcdb4490ce`** (exact) — no truncation, no `.partN`. Forcing HTTP/1.1 → 3 separate connections beat the h2-multiplex stall (from both github AND r2.dev). Both engine bugs (CCE + truncation) fixed. ⚠️ Remaining = a **timing race**, not a real failure: `Install ImageFs` (strict) ran at 18:23:30 → NeedDownload, but the async download finished assembling `imagefs.zst` at 18:23:36 (~6 s later) — it checked too early. Firmware is complete+valid on disk. ⏭️ **RELAUNCH should clear it** (download step now just verifies the existing complete file → Downloaded → Install proceeds → extract → container setup). Core imagefs blocker BEATEN. → then past ImageFs → container → the Steam QR hand-off.
+
+## 2026-07-30 eve — 🏆 END-TO-END: a Windows EXE RUNS under the emulator on 6.1.0
+Device, 5-screenshot sequence across ~3 launches (user-confirmed the per-launch pattern): (1) "Downloading & installing components 2/2"; (2a launch2) "Installing firmware X/100" — imagefs EXTRACTS (past download+validation) → (2b) "Install Container & Check Virtual Container failed (incomplete, progress:0)"; (3) **AIO Graphics Test v1.6.1 Windows GUI RUNNING** (Cube-Vulkan/OpenGL/DirectDraw/D3D8-12, GPU Info, Benchmark…). Full pipeline proven: plugin → imagefs download (HTTP/1.1 fix) → imagefs install → container install → **game/EXE launches + renders**. The 6.1.0 emulation setup WORKS; games run. The whole imagefs saga is CLOSED.
+⚠️ Remaining POLISH (not a blocker): every setup stage (imagefs download, imagefs install, container install) shares the SAME async-download-vs-strict-install RACE, so the strict install fails a beat early and each RELAUNCH advances exactly one stage — user relaunches ~3× to complete setup. Functional but rough. FOLLOW-UP: make the strict install wait for / re-poll async completion (or download synchronously) so setup finishes first-try. Not urgent.
+🎯 BIGGER GOAL now REACHABLE: games launch ⇒ the Steam path (Bind Steam → QR → depot download direct-from-Valve → run) is finally testable — next frontier.
