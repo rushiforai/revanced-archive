@@ -2,7 +2,7 @@
 
 An auto-generated, continuously updated index of every GitHub repository that publishes a [Revanced](https://revanced.app) (`.rvp`) patch bundle.
 
-![Repos tracked](https://img.shields.io/badge/repos%20tracked-67-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-07-30%2001:59%20UTC-555)
+![Repos tracked](https://img.shields.io/badge/repos%20tracked-68-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-07-31%2002:23%20UTC-555)
 
 ---
 
@@ -18,7 +18,7 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 
 ---
 
-## 📋 Tracked Repositories (67)
+## 📋 Tracked Repositories (68)
 
 | # | Repository | Link |
 |---|------------|------|
@@ -29,66 +29,67 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 | 5 | `AmpleReVanced/revanced-cli` | [🔗 Open](https://github.com/AmpleReVanced/revanced-cli) |
 | 6 | `AmpleReVanced/revanced-manager-compose` | [🔗 Open](https://github.com/AmpleReVanced/revanced-manager-compose) |
 | 7 | `AmpleReVanced/revanced-patcher` | [🔗 Open](https://github.com/AmpleReVanced/revanced-patcher) |
-| 8 | `Aunali321/revanced-downloader-plugins` | [🔗 Open](https://github.com/Aunali321/revanced-downloader-plugins) |
-| 9 | `Aunali321/revanced-web-patcher-backend` | [🔗 Open](https://github.com/Aunali321/revanced-web-patcher-backend) |
-| 10 | `Aunali321/ReVancedExperiments` | [🔗 Open](https://github.com/Aunali321/ReVancedExperiments) |
-| 11 | `BakasuraRCE/bakasura-patches` | [🔗 Open](https://github.com/BakasuraRCE/bakasura-patches) |
-| 12 | `bawr/revanced-patches` | [🔗 Open](https://github.com/bawr/revanced-patches) |
-| 13 | `blazskufca/revanced-patch` | [🔗 Open](https://github.com/blazskufca/revanced-patch) |
-| 14 | `brosssh/revanced-external-bundles` | [🔗 Open](https://github.com/brosssh/revanced-external-bundles) |
-| 15 | `burgers1312/revanced-patches` | [🔗 Open](https://github.com/burgers1312/revanced-patches) |
-| 16 | `chsbuffer/RevancedXposed` | [🔗 Open](https://github.com/chsbuffer/RevancedXposed) |
-| 17 | `coronenic/revanced-patches` | [🔗 Open](https://github.com/coronenic/revanced-patches) |
-| 18 | `daboynb/revanced-instagram-viewonce` | [🔗 Open](https://github.com/daboynb/revanced-instagram-viewonce) |
-| 19 | `dalapenko/perplexity-stt-android-patches` | [🔗 Open](https://github.com/dalapenko/perplexity-stt-android-patches) |
-| 20 | `dalapenko/yt-ya.voiceover-android-patches` | [🔗 Open](https://github.com/dalapenko/yt-ya.voiceover-android-patches) |
-| 21 | `exconvinced/revanced-web-app` | [🔗 Open](https://github.com/exconvinced/revanced-web-app) |
-| 22 | `eyalm2000/tidal-debug-menu` | [🔗 Open](https://github.com/eyalm2000/tidal-debug-menu) |
-| 23 | `Faith001/revanced-molten-glass` | [🔗 Open](https://github.com/Faith001/revanced-molten-glass) |
-| 24 | `forsyth47/revanced-patches` | [🔗 Open](https://github.com/forsyth47/revanced-patches) |
-| 25 | `Graywizard888/Enhancify` | [🔗 Open](https://github.com/Graywizard888/Enhancify) |
-| 26 | `hoo-dles/jadx-morphe` | [🔗 Open](https://github.com/hoo-dles/jadx-morphe) |
-| 27 | `HZbutcoding/sn-patching` | [🔗 Open](https://github.com/HZbutcoding/sn-patching) |
-| 28 | `indrastorms/Dropped-Patches` | [🔗 Open](https://github.com/indrastorms/Dropped-Patches) |
-| 29 | `inotia00/revanced-cli-arsclib` | [🔗 Open](https://github.com/inotia00/revanced-cli-arsclib) |
-| 30 | `inotia00/revanced-manager` | [🔗 Open](https://github.com/inotia00/revanced-manager) |
-| 31 | `inotia00/revanced-patches` | [🔗 Open](https://github.com/inotia00/revanced-patches) |
-| 32 | `jkennethcarino/privacy-revanced-patches` | [🔗 Open](https://github.com/jkennethcarino/privacy-revanced-patches) |
-| 33 | `Jman-Github/ReVanced-Patch-Bundles` | [🔗 Open](https://github.com/Jman-Github/ReVanced-Patch-Bundles) |
-| 34 | `Jman-Github/Universal-ReVanced-Manager` | [🔗 Open](https://github.com/Jman-Github/Universal-ReVanced-Manager) |
-| 35 | `kangrio/MicroG-Patches-Re` | [🔗 Open](https://github.com/kangrio/MicroG-Patches-Re) |
-| 36 | `kitadai31/revanced-manager-android5-7` | [🔗 Open](https://github.com/kitadai31/revanced-manager-android5-7) |
-| 37 | `kitadai31/revanced-patches-android6-7` | [🔗 Open](https://github.com/kitadai31/revanced-patches-android6-7) |
-| 38 | `korhelyleves/revanced-patches` | [🔗 Open](https://github.com/korhelyleves/revanced-patches) |
-| 39 | `LeddaZ/MorpheUpdater` | [🔗 Open](https://github.com/LeddaZ/MorpheUpdater) |
-| 40 | `LeeeeT/bt-keepalive-patch` | [🔗 Open](https://github.com/LeeeeT/bt-keepalive-patch) |
-| 41 | `lennyRBLX/apk-patches` | [🔗 Open](https://github.com/lennyRBLX/apk-patches) |
-| 42 | `liaralabs/revanced-patches` | [🔗 Open](https://github.com/liaralabs/revanced-patches) |
-| 43 | `LisoUseInAIKyrios/revanced-patcher` | [🔗 Open](https://github.com/LisoUseInAIKyrios/revanced-patcher) |
-| 44 | `lluni/custom-revanced-patches` | [🔗 Open](https://github.com/lluni/custom-revanced-patches) |
-| 45 | `loan-mgt/moovit-patch` | [🔗 Open](https://github.com/loan-mgt/moovit-patch) |
-| 46 | `LoV432/revanced-patches` | [🔗 Open](https://github.com/LoV432/revanced-patches) |
-| 47 | `MaebashiRamens/mtga` | [🔗 Open](https://github.com/MaebashiRamens/mtga) |
-| 48 | `MarcaDian/Mystery-manager` | [🔗 Open](https://github.com/MarcaDian/Mystery-manager) |
-| 49 | `MojiRS/revanced-rif-patches` | [🔗 Open](https://github.com/MojiRS/revanced-rif-patches) |
-| 50 | `NexAlloy/NexAlloy` | [🔗 Open](https://github.com/NexAlloy/NexAlloy) |
-| 51 | `NL-TCH/portfolio-performance-freemium-patch` | [🔗 Open](https://github.com/NL-TCH/portfolio-performance-freemium-patch) |
-| 52 | `PawiX25/pepper-revanced-patches` | [🔗 Open](https://github.com/PawiX25/pepper-revanced-patches) |
-| 53 | `prevanced/prevanced-manager` | [🔗 Open](https://github.com/prevanced/prevanced-manager) |
-| 54 | `ReVanced/revanced-patches` | [🔗 Open](https://github.com/ReVanced/revanced-patches) |
-| 55 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
-| 56 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
-| 57 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
-| 58 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
-| 59 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
-| 60 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
-| 61 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
-| 62 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
-| 63 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
-| 64 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
-| 65 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
-| 66 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
-| 67 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
+| 8 | `AriesAlex/edge-revanced` | [🔗 Open](https://github.com/AriesAlex/edge-revanced) |
+| 9 | `Aunali321/revanced-downloader-plugins` | [🔗 Open](https://github.com/Aunali321/revanced-downloader-plugins) |
+| 10 | `Aunali321/revanced-web-patcher-backend` | [🔗 Open](https://github.com/Aunali321/revanced-web-patcher-backend) |
+| 11 | `Aunali321/ReVancedExperiments` | [🔗 Open](https://github.com/Aunali321/ReVancedExperiments) |
+| 12 | `BakasuraRCE/bakasura-patches` | [🔗 Open](https://github.com/BakasuraRCE/bakasura-patches) |
+| 13 | `bawr/revanced-patches` | [🔗 Open](https://github.com/bawr/revanced-patches) |
+| 14 | `blazskufca/revanced-patch` | [🔗 Open](https://github.com/blazskufca/revanced-patch) |
+| 15 | `brosssh/revanced-external-bundles` | [🔗 Open](https://github.com/brosssh/revanced-external-bundles) |
+| 16 | `burgers1312/revanced-patches` | [🔗 Open](https://github.com/burgers1312/revanced-patches) |
+| 17 | `chsbuffer/RevancedXposed` | [🔗 Open](https://github.com/chsbuffer/RevancedXposed) |
+| 18 | `coronenic/revanced-patches` | [🔗 Open](https://github.com/coronenic/revanced-patches) |
+| 19 | `daboynb/revanced-instagram-viewonce` | [🔗 Open](https://github.com/daboynb/revanced-instagram-viewonce) |
+| 20 | `dalapenko/perplexity-stt-android-patches` | [🔗 Open](https://github.com/dalapenko/perplexity-stt-android-patches) |
+| 21 | `dalapenko/yt-ya.voiceover-android-patches` | [🔗 Open](https://github.com/dalapenko/yt-ya.voiceover-android-patches) |
+| 22 | `exconvinced/revanced-web-app` | [🔗 Open](https://github.com/exconvinced/revanced-web-app) |
+| 23 | `eyalm2000/tidal-debug-menu` | [🔗 Open](https://github.com/eyalm2000/tidal-debug-menu) |
+| 24 | `Faith001/revanced-molten-glass` | [🔗 Open](https://github.com/Faith001/revanced-molten-glass) |
+| 25 | `forsyth47/revanced-patches` | [🔗 Open](https://github.com/forsyth47/revanced-patches) |
+| 26 | `Graywizard888/Enhancify` | [🔗 Open](https://github.com/Graywizard888/Enhancify) |
+| 27 | `hoo-dles/jadx-morphe` | [🔗 Open](https://github.com/hoo-dles/jadx-morphe) |
+| 28 | `HZbutcoding/sn-patching` | [🔗 Open](https://github.com/HZbutcoding/sn-patching) |
+| 29 | `indrastorms/Dropped-Patches` | [🔗 Open](https://github.com/indrastorms/Dropped-Patches) |
+| 30 | `inotia00/revanced-cli-arsclib` | [🔗 Open](https://github.com/inotia00/revanced-cli-arsclib) |
+| 31 | `inotia00/revanced-manager` | [🔗 Open](https://github.com/inotia00/revanced-manager) |
+| 32 | `inotia00/revanced-patches` | [🔗 Open](https://github.com/inotia00/revanced-patches) |
+| 33 | `jkennethcarino/privacy-revanced-patches` | [🔗 Open](https://github.com/jkennethcarino/privacy-revanced-patches) |
+| 34 | `Jman-Github/ReVanced-Patch-Bundles` | [🔗 Open](https://github.com/Jman-Github/ReVanced-Patch-Bundles) |
+| 35 | `Jman-Github/Universal-ReVanced-Manager` | [🔗 Open](https://github.com/Jman-Github/Universal-ReVanced-Manager) |
+| 36 | `kangrio/MicroG-Patches-Re` | [🔗 Open](https://github.com/kangrio/MicroG-Patches-Re) |
+| 37 | `kitadai31/revanced-manager-android5-7` | [🔗 Open](https://github.com/kitadai31/revanced-manager-android5-7) |
+| 38 | `kitadai31/revanced-patches-android6-7` | [🔗 Open](https://github.com/kitadai31/revanced-patches-android6-7) |
+| 39 | `korhelyleves/revanced-patches` | [🔗 Open](https://github.com/korhelyleves/revanced-patches) |
+| 40 | `LeddaZ/MorpheUpdater` | [🔗 Open](https://github.com/LeddaZ/MorpheUpdater) |
+| 41 | `LeeeeT/bt-keepalive-patch` | [🔗 Open](https://github.com/LeeeeT/bt-keepalive-patch) |
+| 42 | `lennyRBLX/apk-patches` | [🔗 Open](https://github.com/lennyRBLX/apk-patches) |
+| 43 | `liaralabs/revanced-patches` | [🔗 Open](https://github.com/liaralabs/revanced-patches) |
+| 44 | `LisoUseInAIKyrios/revanced-patcher` | [🔗 Open](https://github.com/LisoUseInAIKyrios/revanced-patcher) |
+| 45 | `lluni/custom-revanced-patches` | [🔗 Open](https://github.com/lluni/custom-revanced-patches) |
+| 46 | `loan-mgt/moovit-patch` | [🔗 Open](https://github.com/loan-mgt/moovit-patch) |
+| 47 | `LoV432/revanced-patches` | [🔗 Open](https://github.com/LoV432/revanced-patches) |
+| 48 | `MaebashiRamens/mtga` | [🔗 Open](https://github.com/MaebashiRamens/mtga) |
+| 49 | `MarcaDian/Mystery-manager` | [🔗 Open](https://github.com/MarcaDian/Mystery-manager) |
+| 50 | `MojiRS/revanced-rif-patches` | [🔗 Open](https://github.com/MojiRS/revanced-rif-patches) |
+| 51 | `NexAlloy/NexAlloy` | [🔗 Open](https://github.com/NexAlloy/NexAlloy) |
+| 52 | `NL-TCH/portfolio-performance-freemium-patch` | [🔗 Open](https://github.com/NL-TCH/portfolio-performance-freemium-patch) |
+| 53 | `PawiX25/pepper-revanced-patches` | [🔗 Open](https://github.com/PawiX25/pepper-revanced-patches) |
+| 54 | `prevanced/prevanced-manager` | [🔗 Open](https://github.com/prevanced/prevanced-manager) |
+| 55 | `ReVanced/revanced-patches` | [🔗 Open](https://github.com/ReVanced/revanced-patches) |
+| 56 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
+| 57 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
+| 58 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
+| 59 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
+| 60 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
+| 61 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
+| 62 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
+| 63 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
+| 64 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
+| 65 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
+| 66 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
+| 67 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
+| 68 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
 
 ---
 
@@ -97,4 +98,4 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 This README is regenerated automatically by GitHub Actions whenever `repos.txt` changes.
 To add a repo manually, append it to `custom_repos.txt`. To remove one permanently, add it to `ignore_repos.txt`.
 
-*Last generated: 2026-07-30 01:59 UTC*
+*Last generated: 2026-07-31 02:23 UTC*

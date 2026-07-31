@@ -4,6 +4,7 @@ AmpleReVanced/revanced-api
 AmpleReVanced/revanced-cli
 AmpleReVanced/revanced-manager-compose
 AmpleReVanced/revanced-patcher
+AriesAlex/edge-revanced
 Aunali321/ReVancedExperiments
 Aunali321/revanced-downloader-plugins
 Aunali321/revanced-web-patcher-backend
