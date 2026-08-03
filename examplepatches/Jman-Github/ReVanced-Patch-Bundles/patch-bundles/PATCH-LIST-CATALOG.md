@@ -65,7 +65,7 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [Franticg33k](#-franticg33k-bundle-patch-list) | 17 | 9 | Generated |
 | [Modx](#-modx-bundle-patch-list) | 7 | 1 | Generated |
 | [Gryphous-Morphe](#-gryphous-morphe-bundle-patch-list) | 1 | 1 | Generated |
-| [Okish-Morphe](#-okish-morphe-bundle-patch-list) | 6 | 5 | Generated |
+| [Okish-Morphe](#-okish-morphe-bundle-patch-list) | 7 | 6 | Generated |
 | [Xhehab](#-xhehab-bundle-patch-list) | 14 | 13 | Generated |
 | [Nai64](#-nai64-bundle-patch-list) | 9 | 1 | Generated |
 | [Morphe-Google](#-morphe-google-bundle-patch-list) | 2 | 1 | Generated |
@@ -102,10 +102,10 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [X-Shim](#-x-shim-bundle-patch-list) | 3 | 1 | Generated |
 | [Pepper-Morphe](#-pepper-morphe-bundle-patch-list) | 17 | 10 | Generated |
 | [Fin-Tweaks](#-fin-tweaks-bundle-patch-list) | - | - | Pending patch list |
-| [Kondratjev](#-kondratjev-bundle-patch-list) | 25 | 13 | Generated |
+| [Kondratjev](#-kondratjev-bundle-patch-list) | 26 | 13 | Generated |
 | [Hoo-dles](#-hoo-dles-bundle-patch-list) | 78 | 54 | Generated |
 | [AmpleReVanced](#-amplerevanced-bundle-patch-list) | 101 | 6 | Generated |
-| [Morphe](#-morphe-bundle-patch-list) | 133 | 4 | Generated |
+| [Morphe](#-morphe-bundle-patch-list) | 134 | 4 | Generated |
 | [Patcheddit](#-patcheddit-bundle-patch-list) | 39 | 19 | Generated |
 | [RVX-Morphed](#-rvx-morphed-bundle-patch-list) | 113 | 3 | Generated |
 | [IMXEren](#-imxeren-bundle-patch-list) | 2 | 2 | Generated |
@@ -162,6 +162,8 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 | [D0NJ](#-d0nj-bundle-patch-list) | 1 | 1 | Generated |
 | [Morphe-NL](#-morphe-nl-bundle-patch-list) | 3 | 1 | Generated |
 | [TIDAL](#-tidal-bundle-patch-list) | 1 | 1 | Generated |
+| [Zarko](#-zarko-bundle-patch-list) | 2 | 1 | Generated |
+| [TikTok-Lite](#-tiktok-lite-bundle-patch-list) | 35 | 2 | Generated |
 
 ### Legacy
 | Bundle | Patches | Apps | Status |
@@ -599,10 +601,11 @@ Patch lists are collapsed by default. Expand a bundle to inspect its generated p
 ### 🧩 Okish-Morphe Bundle Patch List:
 [📦 Okish-Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-okish-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Okish-Morphe</b> - 6 patches, 5 apps</summary>
+<summary><b>Okish-Morphe</b> - 7 patches, 6 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
+| ```Doodle Jump Billing Bypass``` | ```Unlocks the full game by bypassing Google Play billing.``` | ```Doodle Jump``` | ```All versions``` |
 | ```FreeJobAlert Ad Removal``` | ```Removes all Google AdMob ads (banner, interstitial, rewarded, app open, native).``` | ```FreeJobAlert``` | ```All versions``` |
 | ```FreeJobAlert License Bypass``` | ```Bypasses the Pairip Play Store installation check so the app launches normally.``` | ```FreeJobAlert``` | ```All versions``` |
 | ```Jetpack Joyride Billing Bypass``` | ```Intercepts all in-app purchases and reports instant success to the game engine.``` | ```Jetpack Joyride``` | ```All versions``` |
@@ -2992,7 +2995,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Kondratjev Bundle Patch List:
 [📦 Kondratjev-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-kondratjev-patches-bundle-morphe)
 <details>
-<summary><b>Kondratjev</b> - 25 patches, 13 apps</summary>
+<summary><b>Kondratjev</b> - 26 patches, 13 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3006,6 +3009,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Unlock Premium``` | ```Unlocks part of Ornament Pro features.``` | ```Ornament``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks premium features.``` | ```Parcels``` | ```All versions``` |
 | ```Disable analytics``` | ```Disables PulseSDK analytics.``` | ```Pillo``` | ```All versions``` |
+| ```Pillo GmsCore support``` | ```Routes Pillo Google services and legacy Google Sign-In through MicroG-RE.``` | ```Pillo``` | ```All versions``` |
 | ```Unlock Premium``` | ```Unlocks premium features and removes ads.``` | ```Pillo``` | ```All versions``` |
 | ```Disable ads``` | ```Removes all advertisements from the app.``` | ```RuStore``` | ```All versions``` |
 | ```Disable analytics``` | ```Disables VK-specific analytics.``` | ```RuStore``` | ```All versions``` |
@@ -3349,7 +3353,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 ### 🧩 Morphe Bundle Patch List:
 [📦 Morphe-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-morphe-patches-bundle-morphe)
 <details>
-<summary><b>Morphe</b> - 133 patches, 4 apps</summary>
+<summary><b>Morphe</b> - 134 patches, 4 apps</summary>
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
@@ -3430,6 +3434,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | ```Open videos fullscreen``` | ```Adds options to automatically open videos in fullscreen portrait or landscape mode.``` | ```YouTube``` | ```All versions``` |
 | ```Override YouTube Music buttons``` | ```Overrides YouTube Music buttons to open Morphe Music or any compatible third-party client.``` | ```YouTube``` | ```All versions``` |
 | ```Play all``` | ```Adds an option to play all the videos from a channel and to display play all button in the video player.``` | ```YouTube``` | ```All versions``` |
+| ```Playback in feeds``` | ```Adds the 'Playback in feeds' setting of YouTube to the Morphe settings, where it is always available even if YouTube hides it.``` | ```YouTube``` | ```All versions``` |
 | ```Playback speed``` | ```Adds options to customize available playback speeds, set a default playback speed, and show a speed dialog button in the video player.``` | ```YouTube``` | ```All versions``` |
 | ```Reload video``` | ```Adds an option to display reload video button in the video player.``` | ```YouTube``` | ```All versions``` |
 | ```Remove background playback restrictions``` | ```Removes restrictions on background playback, including playing kids videos in the background.``` | ```YouTube``` | ```All versions``` |
@@ -5176,7 +5181,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 |----------|---------------|---------------------|-------------------------|
 | ```Disable LINE Premium``` | ```Hides all LINE Yahoo Premium (LYP) surfaces — upsells, badges, the Premium settings page, and subscribe/manage flows. Doesn't unlock anything (premium is server-enforced).``` | ```LINE``` | ```All versions``` |
 | ```Disable VOOM``` | ```Neutralizes VOOM entry points — deep links, shares, and notifications do nothing and the standalone VOOM feed closes on open. Messaging and other tabs are unaffected.``` | ```LINE``` | ```All versions``` |
-| ```Fix push notifications``` | ```Restores push notifications on re-signed builds when LINE is fully closed. If they still don't arrive, use a Root Mount install.``` | ```LINE``` | ```All versions``` |
+| ```Fix push notifications``` | ```Restores push notifications on re-signed builds when LINE is fully closed. Root Mount install does not need this patch.``` | ```LINE``` | ```All versions``` |
 | ```Hide ad views``` | ```Hides LINE display ad views — the LINE Ads SDK containers across the app, the chat-list Smart Channel banner, and Google AdManager ads.``` | ```LINE``` | ```All versions``` |
 | ```Hide attach menu extra tools``` | ```Removes all the server-provided extra tools from a chat room's + attach menu (Poll, Reservation, Schedule, Ladder shuffle, and any others). The built-in tiles (camera, gallery, files, contact, etc.) are unaffected.``` | ```LINE``` | ```All versions``` |
 | ```Hide calendar buttons``` | ```Removes every LINE Calendar button inside the messenger: the one in the Chats-tab header, and the four inside a chat room — the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu.``` | ```LINE``` | ```All versions``` |
@@ -5264,7 +5269,7 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
-| ```Voice Over Translation (Yandex)``` | ```Adds an option to enable Yandex voice-over translation of video audio tracks. Requires the "Add-on support" patch of Morphe Patches.``` | ```YouTube``` | ```All versions``` |
+| ```Voice Over Translation (Yandex)``` | ```Adds an option to enable Yandex voice-over translation of video audio tracks. Requires a Morphe Patches version with add-on support.``` | ```YouTube``` | ```All versions``` |
 
 </details>
 
@@ -5405,5 +5410,64 @@ _No generated patch list is available yet. The bundle metadata exists, but no `*
 | **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
 |----------|---------------|---------------------|-------------------------|
 | ```Swipe to add to queue``` | ```Adds a Spotify style swipe right gesture that adds the swiped item to the play queue, on every screen that lists tracks, albums, playlists or mixes.``` | ```TIDAL``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 Zarko Bundle Patch List:
+[📦 Zarko-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-zarko-patches-bundle-morphe)
+<details>
+<summary><b>Zarko</b> - 2 patches, 1 app</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Disable license check``` | ```Removes the PairIP LicenseClient.checkLicense() call, which otherwise force-closes a re-signed/sideloaded patched APK a short while after launch.``` | ```Sunrise Alarm: Wake-Up Light``` | ```All versions``` |
+| ```Unlock premium``` | ```Always report the 'remove_ads' and 'pro' in-app products as purchased, regardless of the real Play Billing purchase state.``` | ```Sunrise Alarm: Wake-Up Light``` | ```All versions``` |
+
+</details>
+
+---
+### 🧩 TikTok-Lite Bundle Patch List:
+[📦 TikTok-Lite-Patches-Bundle](https://github.com/Jman-Github/ReVanced-Patch-Bundles#-tiktok-lite-patches-bundle-morphe)
+<details>
+<summary><b>TikTok-Lite</b> - 35 patches, 2 apps</summary>
+
+| **Name** | **Description** | **Compatible Apps** | **Compatible Versions** |
+|----------|---------------|---------------------|-------------------------|
+| ```Always show publish date``` | ```Always shows the publish date in video author information. Thanks to lyyako for the original implementation.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Copy comments without username``` | ```Copies only the comment text without including the creator's username.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Custom offline videos limit``` | ```Adds a custom entry to TikTok's offline videos menu with a configurable limit of up to 500 videos.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Disable login requirement``` | ```Removes TikTok's mandatory login gate from supported flows.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Disable screen capture detection``` | ```Prevents TikTok from detecting screenshots and screen recordings.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Downloads``` | ```Adds watermark-free video and photo downloads, comment sticker saving, and configurable download-folder controls.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Enable Open Debug``` | ```Uses TikTok's hidden Open Debug settings cell as the entry point for Morphe settings. Required for the Morphe settings menu to appear. Supports TikTok 43.8.3.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Feature Gate Lab``` | ```Adds a menu for viewing and overriding supported TikTok feature flags and configuration values.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Feed filter``` | ```Hides feed ads, TikTok Shop items, livestreams, stories, photo posts, and videos outside configured view or like ranges.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Feed tab navigation``` | ```Controls which loaded top and bottom navigation tabs remain visible, blocks newly added tabs when requested, and can hide the Tako AI bubble.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Fix Google login``` | ```Restores Google account sign-in after patching.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Hide CAPTCHA popups``` | ```Prevents client-side verification puzzle dialogs from opening, including those shown while browsing LIVE. This does not bypass server-side checks.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Hide floating promotions``` | ```Removes floating promotional badges, coin icons, and timer banners from the Home feed.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Hold-and-slide 2x lock``` | ```Enables TikTok's native hold, slide down, and release gesture to lock 2x speed.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Open external links directly``` | ```Opens profile and story website links in the system browser instead of TikTok's in-app browser. Thanks to lyyako for the original implementation.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Playback speed``` | ```Enables playback-speed controls for all videos and remembers the selected speed between videos.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Remember clear display``` | ```Remembers TikTok's clear-display state between videos.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Sanitize sharing links``` | ```Removes tracking parameters from TikTok links before they are shared.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Settings``` | ```Adds the Morphe settings screen inside TikTok.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Show seekbar``` | ```Shows TikTok's native video seekbar where it would normally be hidden.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```SIM spoof``` | ```Spoofs SIM country and operator information retrieved by TikTok, with country presets for easier setup.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Translate comments``` | ```Adds comment translation controls using TikTok's translation system, with selectable language exclusions.``` | ```com.zhiliaoapp.musically``` | ```43.8.3``` |
+| ```Disable login requirement``` | ```Removes TikTok's mandatory login gate from supported flows.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Disable screen capture detection``` | ```Prevents TikTok from detecting screenshots and screen recordings.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Downloads``` | ```Adds watermark-free video downloads and configurable download-folder controls.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Feature Gate Lab``` | ```Adds a menu for viewing and overriding supported TikTok feature flags and configuration values.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Fix Google login``` | ```Restores Google account sign-in after patching.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Hide CAPTCHA popups``` | ```Prevents client-side verification puzzle dialogs from opening. This does not bypass server-side checks.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Hide floating promotions``` | ```Removes floating promotional badges, coin icons, and timer banners from the Home feed.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Open external links directly``` | ```Opens profile and story website links in the system browser instead of TikTok's in-app browser. Thanks to lyyako for the original implementation.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Playback speed``` | ```Enables playback-speed controls for all videos and remembers the selected speed between videos.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Region bypass``` | ```Spoofs the store country reported to TikTok and suppresses the TTP region alert, so the app is not detected as being used in an unsupported region.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Sanitize share URLs``` | ```Removes tracking (campaign) parameters from shared links.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```Settings``` | ```Adds the Morphe settings screen ('Premium features') reachable from every settings entry point, including the logged-out profile page.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
+| ```SIM spoof``` | ```Spoofs SIM country and operator information retrieved by TikTok, with country presets for easier setup.``` | ```com.zhiliaoapp.musically.go``` | ```44.9.2``` |
 
 </details>
