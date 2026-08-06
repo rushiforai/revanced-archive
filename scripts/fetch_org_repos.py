@@ -21,6 +21,8 @@ SOURCE_BRANCH = "bundles"
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "repos.txt")
 CUSTOM_FILE = os.environ.get("CUSTOM_FILE", "custom_repos.txt")
 IGNORE_FILE = os.environ.get("IGNORE_FILE", "ignore_repos.txt")
+PENDING_FILE = os.environ.get("PENDING_FILE", "pending_repos.txt")
+REVIEW_DISCOVERIES = os.environ.get("REVIEW_DISCOVERIES", "").lower() in ("1", "true", "yes")
 
 HEADERS = {
     "Accept": "application/vnd.github.v3+json",
@@ -134,7 +136,10 @@ def extract_repo_url(bundle_json, bundle_name):
     for text in candidates:
         match = re.search(r"https://(github|gitlab)\.com/([^/]+)/([^/]+)", text)
         if match:
-            return f"{match.group(2)}/{match.group(3)}"
+            host, owner, repo = match.group(1), match.group(2), match.group(3).removesuffix(".git")
+            if host == "gitlab":
+                return f"gitlab.com/{owner}/{repo}"
+            return f"{owner}/{repo}"
 
     # Fallback default used by the original pipeline
     return f"{bundle_name}/revanced-patches"
@@ -211,11 +216,21 @@ def load_lines(path):
     """Read a newline-separated list file, ignoring blanks and # comments."""
     if not os.path.exists(path):
         return set()
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return {
             line.strip() for line in f
             if line.strip() and not line.strip().startswith("#")
         }
+
+
+def append_pending_repos(path, repos):
+    if not repos:
+        return
+    existing = load_lines(path)
+    combined = sorted(existing | set(repos), key=str.lower)
+    with open(path, "w", encoding="utf-8") as f:
+        for repo in combined:
+            f.write(repo + "\n")
 
 
 def main():
@@ -227,25 +242,29 @@ def main():
     ignore_repos = load_lines(IGNORE_FILE)
 
     discovered = jman_repos | awesome_repos
+    new_discoveries = discovered - existing_repos - custom_repos - ignore_repos
 
-    # Merge: keep everything we already had, add new discoveries + custom
-    # additions, then drop anything explicitly ignored. This means a repo
-    # that disappears from the source (Jman registry / awesome list) on a
-    # later run is NOT auto-removed -- it stays unless added to
-    # ignore_repos.txt. Remove a repo from repos.txt manually (or via
-    # ignore_repos.txt) if it should be dropped for real.
-    all_repos = (existing_repos | discovered | custom_repos) - ignore_repos
+    # Merge: keep everything we already had, add custom additions, then drop
+    # anything explicitly ignored. In review mode, newly discovered repos are
+    # written to PENDING_FILE instead of being added to repos.txt automatically.
+    discovered_to_add = set() if REVIEW_DISCOVERIES else discovered
+    all_repos = (existing_repos | discovered_to_add | custom_repos) - ignore_repos
     sorted_repos = sorted(all_repos, key=str.lower)
 
-    with open(OUTPUT_FILE, "w") as f:
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         for repo in sorted_repos:
             f.write(repo + "\n")
+
+    if REVIEW_DISCOVERIES:
+        append_pending_repos(PENDING_FILE, new_discoveries)
 
     print(
         f"Discovered: {len(jman_repos)} from Jman bundles, {len(awesome_repos)} from awesome-for-Revanced. "
         f"Custom: {len(custom_repos)}. Ignored: {len(ignore_repos)}. "
         f"Saved {len(sorted_repos)} total unique repos to {OUTPUT_FILE}."
     )
+    if REVIEW_DISCOVERIES:
+        print(f"Queued {len(new_discoveries)} newly discovered repos for review in {PENDING_FILE}.")
 
 
 if __name__ == "__main__":
