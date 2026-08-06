@@ -52,8 +52,19 @@ jobs:
       - name: Generate README
         env:
           OUTPUT_FILE: ${{ env.OUTPUT_FILE }}
+          VALIDATE_BUNDLES: "1"
         run: |
           python scripts/generate_readme.py
+
+      - name: Generate Settings Json
+        env:
+          OUTPUT_FILE: ${{ env.OUTPUT_FILE }}
+        run: |
+          python scripts/add_repos_to_bundles.py
+
+      - name: Generate Website
+        run: |
+          python scripts/generate_site.py
 
       - name: Commit and Push Changes
         run: |
