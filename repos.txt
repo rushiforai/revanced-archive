@@ -44,6 +44,7 @@ coronenic/revanced-patches
 daboynb/revanced-instagram-viewonce
 dalapenko/perplexity-stt-android-patches
 dalapenko/yt-ya.voiceover-android-patches
+dbhavsar76/revanced-patches
 exconvinced/revanced-web-app
 eyalm2000/tidal-debug-menu
 forsyth47/revanced-patches
@@ -63,6 +64,7 @@ lluni/custom-revanced-patches
 loan-mgt/moovit-patch
 prevanced/prevanced-manager
 rufusin/revanced-patches
+rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
 valonsodev/jadx-revanced
 vinceTheProgrammer/sticknodes-patches
