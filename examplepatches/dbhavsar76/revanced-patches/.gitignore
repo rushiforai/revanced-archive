@@ -1,0 +1,48 @@
+# Scratch area: APKs, decompiled output, build artifacts, keystores.
+# Everything here is ignored except the README that documents the layout.
+workspace/*
+!workspace/README.md
+
+# APKs / bundles / dex — never commit these anywhere in the tree
+*.apk
+*.apks
+*.apkm
+*.xapk
+*.aab
+*.dex
+*.odex
+*.vdex
+*.jar.asc
+
+# Signing material
+*.jks
+*.keystore
+*.p12
+*.pepk
+keystore.properties
+
+# Gradle / Kotlin build output
+.gradle/
+build/
+out/
+local.properties
+*.hprof
+.kotlin
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Logs and temp
+*.log
+*.tmp
+tmp/

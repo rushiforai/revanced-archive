@@ -1,0 +1,189 @@
+name: Release
+
+# Tag a commit on main and push the tag:
+#   git tag v1.1.0 && git push origin v1.1.0
+#
+# Builds the .rvp, publishes it as a release asset, then rewrites patches.json on
+# main to point at it. The manifest URL users add to ReVanced Manager never
+# changes — only its contents do.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version without the leading v (e.g. 1.1.0)"
+        required: true
+
+# No workflow-level permissions: each job declares only what it needs.
+permissions: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the release
+      id-token: write # OIDC identity for the provenance attestation
+      attestations: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # This job never pushes; don't leave a usable token in .git/config.
+          persist-credentials: false
+
+      - name: Resolve version
+        id: version
+        env:
+          # Read through env rather than interpolating `${{ }}` straight into the
+          # script: inline interpolation is substituted before bash sees it, so a
+          # crafted tag or dispatch input becomes executable shell.
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            VERSION="$INPUT_VERSION"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"   # v1.1.0 -> 1.1.0
+          fi
+
+          # This value becomes a filename, a URL and a git commit message, so
+          # constrain it hard. Anything with shell metacharacters is rejected here
+          # rather than reaching a later step.
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$'; then
+            echo "::error::refusing to build invalid version '$VERSION'"
+            exit 1
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building version $VERSION"
+
+      # JDK 21 specifically: the Kotlin toolchain requires it, and the compiler
+      # cannot parse a two-digit JDK major version (dies on 26 with
+      # "IllegalArgumentException: 26.0.1", reported only as "Internal compiler error").
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Build .rvp
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          # settings.gradle.kts reads gpr.user/gpr.key first, then falls back to
+          # these. ReVanced publishes only to GitHub Packages, which needs auth
+          # even for public packages.
+          #
+          # The automatic GITHUB_TOKEN is scoped to THIS repository and generally
+          # cannot read packages owned by another org (revanced/registry). If the
+          # build fails with 401/403 resolving app.revanced:patcher, add a PAT with
+          # scope `read:packages` as the repository secret GPR_KEY (and GPR_USER if
+          # your username differs from the tag pusher). Grant it nothing else — the
+          # Gradle build and every plugin it loads can read this value.
+          GITHUB_ACTOR: ${{ secrets.GPR_USER || github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GPR_KEY || secrets.GITHUB_TOKEN }}
+        run: gradle :patches:jar --no-daemon -PpatchesVersion="$VERSION"
+
+      - name: Verify the artifact is a loadable patch bundle
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          RVP="patches/build/libs/patches-$VERSION.rvp"
+          test -f "$RVP" || { echo "::error::$RVP not produced"; exit 1; }
+          # An .rvp is a JAR. One with no patch classes uploads cleanly and then
+          # fails silently at apply time, emitting an unpatched APK — so fail loudly.
+          unzip -l "$RVP" | grep -q 'app/revanced/patches/.*\.class' \
+            || { echo "::error::no patch classes in $RVP"; exit 1; }
+          unzip -l "$RVP"
+
+      # Free supply-chain provenance: proves this .rvp came from this repo's
+      # workflow. No keys, no secrets — GitHub's OIDC identity does the work.
+      # Verify independently with:
+      #   gh attestation verify patches-<v>.rvp --repo <owner>/<repo>
+      - name: Attest build provenance
+        id: attest
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: patches/build/libs/patches-${{ steps.version.outputs.version }}.rvp
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          cp "$BUNDLE" "patches/build/libs/patches-$VERSION.rvp.sigstore.json"
+          cd patches/build/libs
+          gh release create "v$VERSION" \
+            "patches-$VERSION.rvp" \
+            "patches-$VERSION.rvp.sigstore.json" \
+            --title "v$VERSION" \
+            --generate-notes
+
+  # Separate job: the build above runs with a detached HEAD at the tag, but the
+  # manifest has to land on main for the raw URL to serve it.
+  manifest:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit the updated manifest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Point patches.json at the new release
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          python3 - <<'PY'
+          import json, os, datetime
+
+          version = os.environ["VERSION"]
+          repo = os.environ["GITHUB_REPOSITORY"]
+
+          with open("patches.json") as f:
+              manifest = json.load(f)
+
+          # Manager compares `version` to decide an update is available, so this
+          # must change every release even though download_url derives from it.
+          manifest["version"] = f"v{version}"
+          # NO trailing "Z" and no offset. ReVanced Manager deserialises this into
+          # kotlinx.datetime.LocalDateTime, which accepts only a *local* ISO
+          # datetime — a "Z" makes it an instant, parsing throws, and Manager
+          # reports the unhelpful "Failed to download patches: ...APIFailure".
+          manifest["created_at"] = datetime.datetime.now(
+              datetime.timezone.utc
+          ).strftime("%Y-%m-%dT%H:%M:%S")
+          # Server from the environment too, so this holds on GitHub Enterprise.
+          server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
+          manifest["download_url"] = (
+              f"{server}/{repo}/releases/download/v{version}/patches-{version}.rvp"
+          )
+          # Nullable in the schema. ReVanced Manager ignores it entirely — it has
+          # no signature-verification code. Set this only if you start signing.
+          manifest["signature_download_url"] = None
+
+          with open("patches.json", "w") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")
+          PY
+          cat patches.json
+
+      - name: Commit
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet patches.json; then
+            echo "manifest already current, nothing to commit"
+            exit 0
+          fi
+          git add patches.json
+          git commit -m "chore: point patches.json at v$VERSION"
+          git push origin main
