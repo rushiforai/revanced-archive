@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-08 01:15 UTC",
+  "generatedAt": "2026-08-09 01:21 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 617,
-  "patchCount": 2252,
-  "universalPatchCount": 168,
+  "appCount": 623,
+  "patchCount": 2285,
+  "universalPatchCount": 170,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -61,47 +61,47 @@
       "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
       "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
       "avatarUrl": "https://github.com/ajstrick81.png?size=96",
-      "patchCount": 23,
-      "appCount": 11,
+      "patchCount": 28,
+      "appCount": 12,
       "createdAt": 1784836028108,
       "updatedAt": 1784836028108,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.18.1 (2026-08-07)",
-        "date": "2026-08-07",
+        "title": "1.21.1 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+            "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
           },
           {
             "category": "Bug Fixes",
-            "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+            "text": "**netflix:** match AppTarget to real versionName + README install section"
           },
           {
             "category": "Features",
-            "text": "**twitch:** add two-layer ad suppression patch (untested)"
-          },
-          {
-            "category": "Features",
-            "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-          },
-          {
-            "category": "Features",
-            "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-          },
-          {
-            "category": "Features",
-            "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+            "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
           },
           {
             "category": "Bug Fixes",
-            "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+            "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
           },
           {
             "category": "Features",
-            "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+            "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+          },
+          {
+            "category": "Features",
+            "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+          },
+          {
+            "category": "Features",
+            "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+          },
+          {
+            "category": "Features",
+            "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
           }
         ]
       },
@@ -138,6 +138,13 @@
           "name": "com.fox.foxone",
           "packageName": "com.fox.foxone",
           "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "com.netflix.ninja",
+          "packageName": "com.netflix.ninja",
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -421,7 +428,7 @@
       "webUrl": "https://github.com/AmpleReVanced/revanced-patches",
       "addUrl": "https://Revanced.software/add-source?github=AmpleReVanced/revanced-patches",
       "avatarUrl": "https://github.com/AmpleReVanced.png?size=96",
-      "patchCount": 99,
+      "patchCount": 110,
       "appCount": 5,
       "createdAt": 1784836018996,
       "updatedAt": 1784836018996,
@@ -476,7 +483,7 @@
         {
           "name": "dcinside",
           "packageName": "com.dcinside.app.android",
-          "patchCount": 23,
+          "patchCount": 24,
           "iconUrl": "",
           "iconColor": "#3D4491"
         },
@@ -490,7 +497,7 @@
         {
           "name": "Kakao Talk",
           "packageName": "com.kakao.talk",
-          "patchCount": 57,
+          "patchCount": 67,
           "iconUrl": "",
           "iconColor": "#FEE500"
         },
@@ -1650,19 +1657,19 @@
       "webUrl": "https://github.com/cesbar/zpatches",
       "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
       "avatarUrl": "https://github.com/cesbar.png?size=96",
-      "patchCount": 10,
+      "patchCount": 11,
       "appCount": 5,
       "createdAt": 1784836032428,
       "updatedAt": 1784836032428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.9.1 (2026-08-05)",
-        "date": "2026-08-05",
+        "title": "1.10.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.56.2"
+            "category": "\u2728 New Features",
+            "text": "**velov:** Block data collection"
           }
         ]
       },
@@ -1677,7 +1684,7 @@
         {
           "name": "com.jcdecaux.vls.lyon",
           "packageName": "com.jcdecaux.vls.lyon",
-          "patchCount": 5,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -2153,31 +2160,18 @@
       "webUrl": "https://github.com/dexnis-dev/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=dexnis-dev/morphe-patches",
       "avatarUrl": "https://github.com/dexnis-dev.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 0,
+      "appCount": 0,
       "createdAt": 1784837694892,
       "updatedAt": 1784837694892,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.0.0 (2026-07-17)",
-        "date": "2026-07-17",
-        "items": [
-          {
-            "category": "\u2728 New Features",
-            "text": "IDOS Premium Patch"
-          }
-        ]
+        "title": "",
+        "date": "",
+        "items": []
       },
-      "apps": [
-        {
-          "name": "IDOS",
-          "packageName": "cz.mafra.jizdnirady",
-          "patchCount": 1,
-          "iconUrl": "",
-          "iconColor": "#9FC5E8"
-        }
-      ]
+      "apps": []
     },
     {
       "name": "morphe-patches",
@@ -2570,19 +2564,19 @@
       "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
       "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
-      "patchCount": 25,
-      "appCount": 68,
+      "patchCount": 39,
+      "appCount": 80,
       "createdAt": 1785034851561,
       "updatedAt": 1785034851561,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.8.0 (2026-08-04)",
-        "date": "2026-08-04",
+        "title": "1.9.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Added Listy, Super Status Bar, Volume Styles"
+            "text": "Added Support"
           }
         ]
       },
@@ -2593,6 +2587,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#023C69"
+        },
+        {
+          "name": "Arm Workout",
+          "packageName": "armworkout.armworkoutformen.armexercises",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FF5252"
         },
         {
           "name": "AutoLocation",
@@ -2847,6 +2848,13 @@
           "iconColor": "#023C69"
         },
         {
+          "name": "Does Not Commute",
+          "packageName": "com.mediocre.commute",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#2E7D6F"
+        },
+        {
           "name": "DP-203",
           "packageName": "com.trieudadlovestun.dp203",
           "patchCount": 1,
@@ -2866,6 +2874,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#023C69"
+        },
+        {
+          "name": "EOBD Facile",
+          "packageName": "org.eobdfacile.android",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#1565C0"
         },
         {
           "name": "Gboard",
@@ -2917,11 +2932,39 @@
           "iconColor": "#007AFF"
         },
         {
+          "name": "Lose Weight App for Men",
+          "packageName": "menloseweight.loseweightappformen.weightlossformen",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#0DA98D"
+        },
+        {
+          "name": "MacroDroid",
+          "packageName": "com.arlosoft.macrodroid",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#20334D"
+        },
+        {
+          "name": "Material Capsule",
+          "packageName": "com.pryshedko.mtisland",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#212121"
+        },
+        {
           "name": "Nova Launcher",
           "packageName": "com.teslacoilsw.launcher",
           "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#DA4624"
+        },
+        {
+          "name": "Obd Mary",
+          "packageName": "com.elm.elm327.obd2.eobd.obd.car.scanner.diagnostics.tool.dashboard.doctor.check.engine.torque.speed.trouble.codes.mary",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#17364C"
         },
         {
           "name": "Panels",
@@ -2945,11 +2988,25 @@
           "iconColor": "#6C63FF"
         },
         {
+          "name": "Photon Camera",
+          "packageName": "com.hinnka.mycamera",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#252525"
+        },
+        {
           "name": "Pinnit",
           "packageName": "dev.sasikanth.pinnit2",
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#E0563F"
+        },
+        {
+          "name": "PinOut",
+          "packageName": "com.mediocre.pinout",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#E91E63"
         },
         {
           "name": "PMI-ACP",
@@ -2999,6 +3056,27 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#023C69"
+        },
+        {
+          "name": "Sleep as Android",
+          "packageName": "com.urbandroid.sleep",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#80C583"
+        },
+        {
+          "name": "Smart AudioBook Player",
+          "packageName": "ak.alizandro.smartaudiobookplayer",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#EF5350"
+        },
+        {
+          "name": "Smash Hit",
+          "packageName": "com.mediocre.smashhit",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#1E88E5"
         },
         {
           "name": "SnowPro Core",
@@ -3958,23 +4036,19 @@
       "webUrl": "https://github.com/humzakh/HK-Morphe-Patches",
       "addUrl": "https://Revanced.software/add-source?github=humzakh/HK-Morphe-Patches",
       "avatarUrl": "https://github.com/humzakh.png?size=96",
-      "patchCount": 10,
+      "patchCount": 11,
       "appCount": 3,
       "createdAt": 1784836036887,
       "updatedAt": 1784836036887,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.6.0 (2026-07-08)",
-        "date": "2026-07-08",
+        "title": "1.7.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Fix Select text dialog displaying when option is disabled"
-          },
-          {
             "category": "\u2728 New Features",
-            "text": "Add Fix Reddit Video Links patch"
+            "text": "Add Fix Inline Images patch (95d7ec8), closes #55 #56"
           }
         ]
       },
@@ -3982,21 +4056,21 @@
         {
           "name": "Sync for Reddit",
           "packageName": "com.laurencedawson.reddit_sync",
-          "patchCount": 9,
+          "patchCount": 10,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Dev",
           "packageName": "com.laurencedawson.reddit_sync.dev",
-          "patchCount": 9,
+          "patchCount": 10,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Pro",
           "packageName": "com.laurencedawson.reddit_sync.pro",
-          "patchCount": 9,
+          "patchCount": 10,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -4570,7 +4644,7 @@
       "webUrl": "https://github.com/JonnyVR1/morph-patches",
       "addUrl": "https://Revanced.software/add-source?github=JonnyVR1/morph-patches",
       "avatarUrl": "https://github.com/JonnyVR1.png?size=96",
-      "patchCount": 10,
+      "patchCount": 13,
       "appCount": 1,
       "createdAt": 1785983278208,
       "updatedAt": 1785983278208,
@@ -4585,7 +4659,7 @@
         {
           "name": "Tantan",
           "packageName": "com.tantantribe.tribe",
-          "patchCount": 10,
+          "patchCount": 13,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -5821,47 +5895,19 @@
       "webUrl": "https://github.com/MorpheApp/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=MorpheApp/morphe-patches",
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
-      "patchCount": 133,
+      "patchCount": 136,
       "appCount": 3,
       "createdAt": 1784836023316,
       "updatedAt": 1784836023316,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.38.0 (2026-08-01)",
-        "date": "2026-08-01",
+        "title": "1.39.1 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Mirror in RTL locales and restyle to match the manager (#2273)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Hidden category title is included when copying a setting breadcrumb"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Seekbar thumbnail:** Always show timestamp and chapter name"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Swipe controls:** Evaluate swipe zone before recycling MotionEvent (#2238)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Swipe controls:** Resolve memory leaks in swipe controls (#2268)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube Music - Bypass certificate checks:** Resolve Android Auto crash (#2239)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube:** Resolve legacy app target crash"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "Add Change installer source universal patch (#2257)"
+            "text": "**YouTube - Add to queue:** Flyout menu not available in fullscreen"
           }
         ]
       },
@@ -5876,14 +5922,14 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 74,
+          "patchCount": 75,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
         {
           "name": "YouTube Music",
           "packageName": "com.google.android.apps.youtube.music",
-          "patchCount": 37,
+          "patchCount": 39,
           "iconUrl": "",
           "iconColor": "#FF0000"
         }
@@ -9234,59 +9280,18 @@
       "webUrl": "https://github.com/WZSE/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=WZSE/morphe-patches",
       "avatarUrl": "https://github.com/WZSE.png?size=96",
-      "patchCount": 4,
-      "appCount": 1,
+      "patchCount": 0,
+      "appCount": 0,
       "createdAt": 1784837694404,
       "updatedAt": 1784837694404,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.34.0 (2026-07-10)",
-        "date": "2026-07-10",
-        "items": [
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**GmsCore support:** Use custom provider package name when Change package name is used"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Reddit - Settings:** Morphe language does not change after restarting (#1950)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Spoof video streams:** Change default client to 'TV'"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Add to queue:** Allows tablet patches for versions 21.xx"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Add to queue:** Prevents the flyout video id reset blocking"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Miniplayer/Disable automatic reposition:** Support vertical position lock"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Return YouTube Dislike:** Remove RYD Shorts due to YT removing Shorts dislike and RYD API no longer providing reliable Shorts dislikes data (#1924)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Spoof video streams:** Mention Android Studio 720p limitation in settings UI"
-          }
-        ]
+        "title": "",
+        "date": "",
+        "items": []
       },
-      "apps": [
-        {
-          "name": "ZEE5",
-          "packageName": "com.graymatrix.did",
-          "patchCount": 4,
-          "iconUrl": "",
-          "iconColor": "#1C1C28"
-        }
-      ]
+      "apps": []
     },
     {
       "name": "Xhehab-Patches",
@@ -9425,12 +9430,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.11.8 (2026-08-07)",
-        "date": "2026-08-07",
+        "title": "1.11.9 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** scope promo navbar removal"
+            "text": "**ozon:** preserve promo navbar background"
           }
         ]
       },
@@ -10378,12 +10383,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -11600,6 +11605,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "armworkout.armworkoutformen.armexercises",
+      "name": "Arm Workout",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "armworkout-armworkoutformen-armexercises-entree3k-morning-entree-patches",
+            "releaseTag": "app-armworkout-armworkoutformen-armexercises-entree3k-morning-entree-patches",
+            "assetName": "arm-workout-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Arm Workout Premium. Use with Spoof App Signature"
+            }
+          ],
+          "versions": [
+            "2.4.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Arm Workout Premium. Use with Spoof App Signature"
+        }
+      ],
+      "versions": [
+        "2.4.3"
+      ],
+      "iconColor": "#FF5252",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.easybrain.arrow.puzzle.game",
       "name": "Arrow Puzzle",
       "repos": [
@@ -12328,12 +12391,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12502,12 +12565,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12560,12 +12623,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.8 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.11.9 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** scope promo navbar removal"
+                "text": "**ozon:** preserve promo navbar background"
               }
             ]
           },
@@ -12745,12 +12808,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12803,12 +12866,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12861,12 +12924,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12919,12 +12982,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -12977,12 +13040,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13035,12 +13098,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13093,12 +13156,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13151,12 +13214,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13209,12 +13272,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13325,12 +13388,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13383,12 +13446,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13441,12 +13504,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13499,12 +13562,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13557,12 +13620,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -13615,12 +13678,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -14993,12 +15056,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -16393,12 +16456,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -16720,12 +16783,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -16778,12 +16841,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -16836,12 +16899,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -16894,12 +16957,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -17581,6 +17644,7 @@
             }
           ],
           "versions": [
+            "3.10.0",
             "3.9.0"
           ]
         }
@@ -17615,6 +17679,7 @@
         }
       ],
       "versions": [
+        "3.10.0",
         "3.9.0"
       ],
       "iconColor": "#00FFA3",
@@ -17731,12 +17796,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -17789,12 +17854,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -18386,40 +18451,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -19203,40 +19268,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -19429,40 +19494,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -19520,12 +19585,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-05)",
-            "date": "2026-08-05",
+            "title": "1.10.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.56.2"
+                "category": "\u2728 New Features",
+                "text": "**velov:** Block data collection"
               }
             ]
           },
@@ -19626,40 +19691,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -20594,40 +20659,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -21814,12 +21879,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -22543,12 +22608,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-05)",
-            "date": "2026-08-05",
+            "title": "1.10.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.56.2"
+                "category": "\u2728 New Features",
+                "text": "**velov:** Block data collection"
               }
             ]
           },
@@ -22560,6 +22625,10 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Block data collection",
+              "description": "Block Didomi tracking SDK, disable consent prompt."
+            },
             {
               "name": "Disable map animations",
               "description": "Disable the map zoom-in animation"
@@ -22587,6 +22656,7 @@
         }
       ],
       "patches": [
+        "Block data collection",
         "Disable map animations",
         "Easy deeplinks configuration",
         "Google Maps API key",
@@ -22594,6 +22664,10 @@
         "Spoof package signature"
       ],
       "patchDetails": [
+        {
+          "name": "Block data collection",
+          "description": "Block Didomi tracking SDK, disable consent prompt."
+        },
         {
           "name": "Disable map animations",
           "description": "Disable the map zoom-in animation"
@@ -23071,6 +23145,128 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.netflix.ninja",
+      "name": "com.netflix.ninja",
+      "repos": [
+        "ajstrick81/morphe-androidtv-patches"
+      ],
+      "sources": [
+        {
+          "repo": "ajstrick81/morphe-androidtv-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
+          "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
+          "source": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/ajstrick81.png?size=96",
+          "latestChanges": {
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-netflix-ninja-ajstrick81-morphe-androidtv-patches",
+            "releaseTag": "app-com-netflix-ninja-ajstrick81-morphe-androidtv-patches",
+            "assetName": "com-netflix-ninja-ajstrick81-morphe-androidtv-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Clone Netflix",
+              "description": "Installs the patched Netflix as a separate app alongside the stock one (package suffix .clone), instead of replacing it. Required on devices where Netflix is a preinstalled system app that can't be uninstalled (Onn, Fire TV, most Android TV boxes). Keep the stock Netflix installed + enabled \u2014 the clone borrows its signature to pass Netflix's native tamper check (stock auto-updating is fine). You just launch the clone instead. Recommended: leave ON."
+            },
+            {
+              "name": "Disable Netflix CertCheck",
+              "description": "Neutralises Netflix's DexGuard signing-certificate anti-tamper check so a re-signed build doesn't self-crash on launch. Required for every Netflix patch."
+            },
+            {
+              "name": "Minimize Network Fingerprint",
+              "description": "Blanks the local IP / MAC / Wi-Fi SSID the Netflix app reports about your network (keeps interface name/type) and stops the app from reporting your advertising ID (GAID) in its ad-collection telemetry. Reduces network + ad fingerprinting. Does NOT stop the server-side \"I'm traveling\"/household check (that's driven by your public IP \u2014 use a VPN for that). Opt-in / experimental; test on-device."
+            },
+            {
+              "name": "Remove Netflix ads (bundle engine)",
+              "description": "Bundles the in-process ad-kill script (killads.js) and its loader into the app. This is the ad remover: at launch the app runs the script itself (script mode \u2014 no PC, no root, no frida server) and empties Netflix's ad breaks (pre-roll, mid-roll) and the pause-screen ad overlay. Pairs with the loader patch. Default ON."
+            },
+            {
+              "name": "Remove Netflix ads (loader)",
+              "description": "Arms the ad remover: injects the startup call that loads the in-process ad-kill engine (bundled by the companion patch) as early as possible, so ads are emptied before playback. Requires the bundle-engine patch. Default ON."
+            }
+          ],
+          "versions": [
+            "13.0.1 build 25028"
+          ]
+        }
+      ],
+      "patches": [
+        "Clone Netflix",
+        "Disable Netflix CertCheck",
+        "Minimize Network Fingerprint",
+        "Remove Netflix ads (bundle engine)",
+        "Remove Netflix ads (loader)"
+      ],
+      "patchDetails": [
+        {
+          "name": "Clone Netflix",
+          "description": "Installs the patched Netflix as a separate app alongside the stock one (package suffix .clone), instead of replacing it. Required on devices where Netflix is a preinstalled system app that can't be uninstalled (Onn, Fire TV, most Android TV boxes). Keep the stock Netflix installed + enabled \u2014 the clone borrows its signature to pass Netflix's native tamper check (stock auto-updating is fine). You just launch the clone instead. Recommended: leave ON."
+        },
+        {
+          "name": "Disable Netflix CertCheck",
+          "description": "Neutralises Netflix's DexGuard signing-certificate anti-tamper check so a re-signed build doesn't self-crash on launch. Required for every Netflix patch."
+        },
+        {
+          "name": "Minimize Network Fingerprint",
+          "description": "Blanks the local IP / MAC / Wi-Fi SSID the Netflix app reports about your network (keeps interface name/type) and stops the app from reporting your advertising ID (GAID) in its ad-collection telemetry. Reduces network + ad fingerprinting. Does NOT stop the server-side \"I'm traveling\"/household check (that's driven by your public IP \u2014 use a VPN for that). Opt-in / experimental; test on-device."
+        },
+        {
+          "name": "Remove Netflix ads (bundle engine)",
+          "description": "Bundles the in-process ad-kill script (killads.js) and its loader into the app. This is the ad remover: at launch the app runs the script itself (script mode \u2014 no PC, no root, no frida server) and empties Netflix's ad breaks (pre-roll, mid-roll) and the pause-screen ad overlay. Pairs with the loader patch. Default ON."
+        },
+        {
+          "name": "Remove Netflix ads (loader)",
+          "description": "Arms the ad remover: injects the startup call that loads the in-process ad-kill engine (bundled by the companion patch) as early as possible, so ads are emptied before playback. Requires the bundle-engine patch. Default ON."
+        }
+      ],
+      "versions": [
+        "13.0.1 build 25028"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.nothing.smartcenter",
       "name": "com.nothing.smartcenter",
       "repos": [
@@ -23341,40 +23537,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -24651,40 +24847,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -24871,8 +25067,8 @@
         }
       ],
       "patches": [
-        "Disable Ad-Free Banner",
         "Disable ad-free banner",
+        "Disable Ad-Free Banner",
         "Disable blog notification reminder",
         "Disable dashboard ads",
         "Disable gift message popup",
@@ -24884,12 +25080,12 @@
       ],
       "patchDetails": [
         {
-          "name": "Disable Ad-Free Banner",
-          "description": "Disables the banner with a frog, prompting you to buy Tumblr Ad-Free."
-        },
-        {
           "name": "Disable ad-free banner",
           "description": "Hides the banner with the frog that prompts you to buy Tumblr Ad-Free."
+        },
+        {
+          "name": "Disable Ad-Free Banner",
+          "description": "Disables the banner with a frog, prompting you to buy Tumblr Ad-Free."
         },
         {
           "name": "Disable blog notification reminder",
@@ -25855,40 +26051,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -26116,40 +26312,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -26898,12 +27094,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -26956,12 +27152,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27014,12 +27210,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27072,12 +27268,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27130,12 +27326,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27188,12 +27384,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27246,12 +27442,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27304,12 +27500,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27362,12 +27558,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -27420,12 +27616,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -28692,12 +28888,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -28852,6 +29048,10 @@
               "description": "Enables the OneStore feature in DC Inside app."
             },
             {
+              "name": "Filter recently viewed posts by gallery",
+              "description": "Adds a gallery filter below the recently viewed posts filters, which narrows the list down to the posts of a single gallery."
+            },
+            {
               "name": "Hide DC official notices",
               "description": "Hides official DCInside operator notices from gallery notice lists."
             },
@@ -28881,7 +29081,7 @@
             },
             {
               "name": "Show author identifier",
-              "description": "Adds options to show the author identifier next to the nickname in posts, post lists, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
+              "description": "Adds options to show the author identifier next to the nickname in posts, post lists, comments, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
             },
             {
               "name": "Spoof Signature",
@@ -28889,7 +29089,7 @@
             }
           ],
           "versions": [
-            "5.3.0"
+            "5.3.2"
           ]
         }
       ],
@@ -28908,6 +29108,7 @@
         "Disable Image Ad",
         "Disable update check",
         "Enable OneStore feature",
+        "Filter recently viewed posts by gallery",
         "Hide DC official notices",
         "Hide home components",
         "Hide Main Ad",
@@ -28976,6 +29177,10 @@
           "description": "Enables the OneStore feature in DC Inside app."
         },
         {
+          "name": "Filter recently viewed posts by gallery",
+          "description": "Adds a gallery filter below the recently viewed posts filters, which narrows the list down to the posts of a single gallery."
+        },
+        {
           "name": "Hide DC official notices",
           "description": "Hides official DCInside operator notices from gallery notice lists."
         },
@@ -29005,7 +29210,7 @@
         },
         {
           "name": "Show author identifier",
-          "description": "Adds options to show the author identifier next to the nickname in posts, post lists, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
+          "description": "Adds options to show the author identifier next to the nickname in posts, post lists, comments, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
         },
         {
           "name": "Spoof Signature",
@@ -29013,7 +29218,7 @@
         }
       ],
       "versions": [
-        "5.3.0"
+        "5.3.2"
       ],
       "iconColor": "#3D4491",
       "iconUrl": ""
@@ -29385,7 +29590,8 @@
       "packageName": "com.mediocre.commute",
       "name": "Does Not Commute",
       "repos": [
-        "durgesh0505/chiggi_morphe_patches"
+        "durgesh0505/chiggi_morphe_patches",
+        "Entree3k/Morning-Entree-Patches"
       ],
       "sources": [
         {
@@ -29422,12 +29628,52 @@
           "versions": [
             "1.5.5"
           ]
+        },
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-mediocre-commute-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-mediocre-commute-entree3k-morning-entree-patches",
+            "assetName": "does-not-commute-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Does Not Commute Premium. Just Tap Get Premium and Restore Purchase When Prompted"
+            }
+          ],
+          "versions": [
+            "1.5.5"
+          ]
         }
       ],
       "patches": [
+        "Enable Premium",
         "Unlock premium"
       ],
       "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Does Not Commute Premium. Just Tap Get Premium and Restore Purchase When Prompted"
+        },
         {
           "name": "Unlock premium",
           "description": "Unlocks the paid 'premium' upgrade (IAP com.mediocre.commute.premium) without a purchase. The native game asks the Java billing bridge AndroidStore whether the product is owned via isProductIdRestored() and reads the store status via getStatusAsString(); this forces the former to true and the latter to \"2\" (STORE_SUCCEEDED), so the game treats premium as owned. No Play purchase is made or needed. Note: the game's actual entitlement logic is in native libcommute.so, which cannot be patched here \u2014 if it independently re-verifies the purchase, this may not take effect."
@@ -29513,12 +29759,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -29571,12 +29817,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -29629,12 +29875,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -29857,12 +30103,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-05)",
-            "date": "2026-08-05",
+            "title": "1.10.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.56.2"
+                "category": "\u2728 New Features",
+                "text": "**velov:** Block data collection"
               }
             ]
           },
@@ -29929,12 +30175,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-05)",
-            "date": "2026-08-05",
+            "title": "1.10.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.56.2"
+                "category": "\u2728 New Features",
+                "text": "**velov:** Block data collection"
               }
             ]
           },
@@ -29992,12 +30238,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-05)",
-            "date": "2026-08-05",
+            "title": "1.10.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.56.2"
+                "category": "\u2728 New Features",
+                "text": "**velov:** Block data collection"
               }
             ]
           },
@@ -30224,6 +30470,64 @@
         "3.0.3"
       ],
       "iconColor": "#29B6F6",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "org.eobdfacile.android",
+      "name": "EOBD Facile",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "org-eobdfacile-android-entree3k-morning-entree-patches",
+            "releaseTag": "app-org-eobdfacile-android-entree3k-morning-entree-patches",
+            "assetName": "eobd-facile-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks EOBD Facile Premium"
+            }
+          ],
+          "versions": [
+            "3.87.1179"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks EOBD Facile Premium"
+        }
+      ],
+      "versions": [
+        "3.87.1179"
+      ],
+      "iconColor": "#1565C0",
       "iconUrl": ""
     },
     {
@@ -31229,6 +31533,8 @@
             }
           ],
           "versions": [
+            "1.4.4.10",
+            "1.4.4.12",
             "1.4.4.9"
           ]
         }
@@ -31248,6 +31554,8 @@
         }
       ],
       "versions": [
+        "1.4.4.10",
+        "1.4.4.12",
         "1.4.4.9"
       ],
       "iconColor": "#0096FA",
@@ -32178,12 +32486,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -32548,12 +32856,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -33646,43 +33954,9 @@
       "packageName": "cz.mafra.jizdnirady",
       "name": "IDOS",
       "repos": [
-        "dexnis-dev/morphe-patches",
         "kolaron/morphe-patches"
       ],
       "sources": [
-        {
-          "repo": "dexnis-dev/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/dexnis-dev/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=dexnis-dev/morphe-patches",
-          "source": "https://raw.githubusercontent.com/dexnis-dev/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/dexnis-dev/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/dexnis-dev.png?size=96",
-          "latestChanges": {
-            "title": "1.0.0 (2026-07-17)",
-            "date": "2026-07-17",
-            "items": [
-              {
-                "category": "\u2728 New Features",
-                "text": "IDOS Premium Patch"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "cz-mafra-jizdnirady-dexnis-dev-morphe-patches",
-            "releaseTag": "app-cz-mafra-jizdnirady-dexnis-dev-morphe-patches",
-            "assetName": "idos-dexnis-dev-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Unlock premium",
-              "description": "Spoofs the premium subscription check."
-            }
-          ],
-          "versions": []
-        },
         {
           "repo": "kolaron/morphe-patches",
           "host": "github.com",
@@ -33715,17 +33989,12 @@
         }
       ],
       "patches": [
-        "Disable ads",
-        "Unlock premium"
+        "Disable ads"
       ],
       "patchDetails": [
         {
           "name": "Disable ads",
           "description": "Disables ads in Mafra AdView."
-        },
-        {
-          "name": "Unlock premium",
-          "description": "Spoofs the premium subscription check."
         }
       ],
       "versions": [
@@ -35764,12 +36033,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -36835,12 +37104,32 @@
               "description": "Users with hiding privileges can hide any chat, including their own messages."
             },
             {
+              "name": "Allow invisible characters",
+              "description": "Stops zero width and other invisible characters from being stripped out of the chat input and out of the messages shown in a chat room."
+            },
+            {
+              "name": "Allow open chat media bundle",
+              "description": "Removes the open chat restriction that stops webp, gif and other media from being bundled into a single multi-photo message."
+            },
+            {
+              "name": "Allow profile media download",
+              "description": "Adds the save option of the profile media viewer to the profile pictures and background images of other people."
+            },
+            {
               "name": "Allow reply to feed",
-              "description": "Allows replying to feed messages"
+              "description": "Adds a setting to allow swiping feed messages to reply, or to comment where chat room comments are enabled."
             },
             {
               "name": "Always Show Kick Button",
               "description": "Always shows the kick button in group member management."
+            },
+            {
+              "name": "Block reactions on deleted or hidden messages",
+              "description": "Stops reactions, including the double tap gesture, from being sent on messages that the server considers deleted or hidden and that are only still visible because they are kept by a patch."
+            },
+            {
+              "name": "Block replies on deleted or hidden messages",
+              "description": "Stops the swipe gesture, and any reply or comment send, from targeting messages that the server considers deleted or hidden and that are only still visible because they are kept by a patch."
             },
             {
               "name": "Bypass input mention limit in non-multichat",
@@ -36848,7 +37137,7 @@
             },
             {
               "name": "Bypass Moat check",
-              "description": "Add a setting to bypass the Moat integrity check that can prevent KakaoPay from running."
+              "description": "Add a setting to bypass the KakaoPay Moat integrity check. It stops the native scan from running, so the tamper/root/hook verdict is never computed or reported and KakaoPay is not force-closed. Payments on a modified build are still risky."
             },
             {
               "name": "Change model",
@@ -36873,6 +37162,14 @@
             {
               "name": "Disable 99 unread limit",
               "description": "Skip the 99-cap so unread count shows full value"
+            },
+            {
+              "name": "Disable abuse detection report",
+              "description": "Answers the startup and login integrity challenge with an empty token and a benign Play Integrity failure code instead of a Google-signed token that would expose the re-signed certificate. The report itself is still sent, so the client does not go conspicuously silent on the server's nonce the way suppressing it entirely would."
+            },
+            {
+              "name": "Disable AdFit environment detection",
+              "description": "Stops the AdFit ad SDK from reporting a root or emulator verdict to its telemetry and ad request endpoints."
             },
             {
               "name": "Disable chat room list ad",
@@ -37035,8 +37332,20 @@
               "description": "Spoofs the App ID to bypass integrity checks. (to bypass biometric auth etc.)"
             },
             {
+              "name": "Spoof attestation package name",
+              "description": "Reports the original package name in the attestation report, which otherwise reveals a renamed install. Only the report is affected, so the app keeps using its real package name everywhere else."
+            },
+            {
+              "name": "Spoof installer package name",
+              "description": "Reports Google Play as the install source in the integrity report, which otherwise reveals a sideloaded install."
+            },
+            {
               "name": "Spoof signature",
               "description": "Spoofs the app signature to pass integrity checks."
+            },
+            {
+              "name": "Strip image metadata",
+              "description": "Removes EXIF metadata, including the GPS capture location, from images sent in original quality, while keeping the picture and its orientation intact."
             },
             {
               "name": "Version info patch",
@@ -37044,7 +37353,7 @@
             }
           ],
           "versions": [
-            "26.6.1"
+            "26.6.3"
           ]
         }
       ],
@@ -37054,8 +37363,13 @@
         "Add settings resources",
         "Add settings tab",
         "Allow Hide on Any Chat",
+        "Allow invisible characters",
+        "Allow open chat media bundle",
+        "Allow profile media download",
         "Allow reply to feed",
         "Always Show Kick Button",
+        "Block reactions on deleted or hidden messages",
+        "Block replies on deleted or hidden messages",
         "Bypass input mention limit in non-multichat",
         "Bypass Moat check",
         "Change model",
@@ -37064,6 +37378,8 @@
         "Default external browser",
         "Disable 300+ unread limit",
         "Disable 99 unread limit",
+        "Disable abuse detection report",
+        "Disable AdFit environment detection",
         "Disable chat room list ad",
         "Disable ChatRoomAdController",
         "Disable Collapse Button",
@@ -37104,7 +37420,10 @@
         "Show message read receipts",
         "Spoof apk checksums",
         "Spoof App ID",
+        "Spoof attestation package name",
+        "Spoof installer package name",
         "Spoof signature",
+        "Strip image metadata",
         "Version info patch"
       ],
       "patchDetails": [
@@ -37129,12 +37448,32 @@
           "description": "Users with hiding privileges can hide any chat, including their own messages."
         },
         {
+          "name": "Allow invisible characters",
+          "description": "Stops zero width and other invisible characters from being stripped out of the chat input and out of the messages shown in a chat room."
+        },
+        {
+          "name": "Allow open chat media bundle",
+          "description": "Removes the open chat restriction that stops webp, gif and other media from being bundled into a single multi-photo message."
+        },
+        {
+          "name": "Allow profile media download",
+          "description": "Adds the save option of the profile media viewer to the profile pictures and background images of other people."
+        },
+        {
           "name": "Allow reply to feed",
-          "description": "Allows replying to feed messages"
+          "description": "Adds a setting to allow swiping feed messages to reply, or to comment where chat room comments are enabled."
         },
         {
           "name": "Always Show Kick Button",
           "description": "Always shows the kick button in group member management."
+        },
+        {
+          "name": "Block reactions on deleted or hidden messages",
+          "description": "Stops reactions, including the double tap gesture, from being sent on messages that the server considers deleted or hidden and that are only still visible because they are kept by a patch."
+        },
+        {
+          "name": "Block replies on deleted or hidden messages",
+          "description": "Stops the swipe gesture, and any reply or comment send, from targeting messages that the server considers deleted or hidden and that are only still visible because they are kept by a patch."
         },
         {
           "name": "Bypass input mention limit in non-multichat",
@@ -37142,7 +37481,7 @@
         },
         {
           "name": "Bypass Moat check",
-          "description": "Add a setting to bypass the Moat integrity check that can prevent KakaoPay from running."
+          "description": "Add a setting to bypass the KakaoPay Moat integrity check. It stops the native scan from running, so the tamper/root/hook verdict is never computed or reported and KakaoPay is not force-closed. Payments on a modified build are still risky."
         },
         {
           "name": "Change model",
@@ -37167,6 +37506,14 @@
         {
           "name": "Disable 99 unread limit",
           "description": "Skip the 99-cap so unread count shows full value"
+        },
+        {
+          "name": "Disable abuse detection report",
+          "description": "Answers the startup and login integrity challenge with an empty token and a benign Play Integrity failure code instead of a Google-signed token that would expose the re-signed certificate. The report itself is still sent, so the client does not go conspicuously silent on the server's nonce the way suppressing it entirely would."
+        },
+        {
+          "name": "Disable AdFit environment detection",
+          "description": "Stops the AdFit ad SDK from reporting a root or emulator verdict to its telemetry and ad request endpoints."
         },
         {
           "name": "Disable chat room list ad",
@@ -37329,8 +37676,20 @@
           "description": "Spoofs the App ID to bypass integrity checks. (to bypass biometric auth etc.)"
         },
         {
+          "name": "Spoof attestation package name",
+          "description": "Reports the original package name in the attestation report, which otherwise reveals a renamed install. Only the report is affected, so the app keeps using its real package name everywhere else."
+        },
+        {
+          "name": "Spoof installer package name",
+          "description": "Reports Google Play as the install source in the integrity report, which otherwise reveals a sideloaded install."
+        },
+        {
           "name": "Spoof signature",
           "description": "Spoofs the app signature to pass integrity checks."
+        },
+        {
+          "name": "Strip image metadata",
+          "description": "Removes EXIF metadata, including the GPS capture location, from images sent in original quality, while keeping the picture and its orientation intact."
         },
         {
           "name": "Version info patch",
@@ -37338,7 +37697,7 @@
         }
       ],
       "versions": [
-        "26.6.1"
+        "26.6.3"
       ],
       "iconColor": "#FEE500",
       "iconUrl": ""
@@ -38021,12 +38380,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -38412,12 +38771,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -38645,12 +39004,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -38743,6 +39102,64 @@
         "9.8"
       ],
       "iconColor": "#E30613",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "menloseweight.loseweightappformen.weightlossformen",
+      "name": "Lose Weight App for Men",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "menloseweight-loseweightappformen-weightlossformen-entree3k-morning-entree-patches",
+            "releaseTag": "app-menloseweight-loseweightappformen-weightlossformen-entree3k-morning-entree-patches",
+            "assetName": "lose-weight-app-for-men-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Lose Weight App for Men Premium. Use with Spoof App Signature"
+            }
+          ],
+          "versions": [
+            "2.4.37"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Lose Weight App for Men Premium. Use with Spoof App Signature"
+        }
+      ],
+      "versions": [
+        "2.4.37"
+      ],
+      "iconColor": "#0DA98D",
       "iconUrl": ""
     },
     {
@@ -39028,10 +39445,46 @@
       "packageName": "com.arlosoft.macrodroid",
       "name": "MacroDroid",
       "repos": [
+        "Entree3k/Morning-Entree-Patches",
         "Joussflls10/Jouss-Patches",
         "Paresh-Maheshwari/paresh-patches"
       ],
       "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-arlosoft-macrodroid-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-arlosoft-macrodroid-entree3k-morning-entree-patches",
+            "assetName": "macrodroid-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks MacroDroid Pro, Use With Spoof App Signature"
+            }
+          ],
+          "versions": [
+            "5.65.9"
+          ]
+        },
         {
           "repo": "Joussflls10/Jouss-Patches",
           "host": "github.com",
@@ -39127,16 +39580,22 @@
         }
       ],
       "patches": [
+        "Enable Premium",
         "MacroDroid Premium"
       ],
       "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks MacroDroid Pro, Use With Spoof App Signature"
+        },
         {
           "name": "MacroDroid Premium",
           "description": "Unlocks premium features and removes macro limits."
         }
       ],
       "versions": [
-        "5.62.11"
+        "5.62.11",
+        "5.65.9"
       ],
       "iconColor": "#20334D",
       "iconUrl": ""
@@ -39633,6 +40092,105 @@
         "6.6"
       ],
       "iconColor": "#1A1A2E",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.pryshedko.mtisland",
+      "name": "Material Capsule",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches",
+        "heinrich26/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-pryshedko-mtisland-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-pryshedko-mtisland-entree3k-morning-entree-patches",
+            "assetName": "material-capsule-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Material Capsule Pro"
+            }
+          ],
+          "versions": [
+            "15.7"
+          ]
+        },
+        {
+          "repo": "heinrich26/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/heinrich26/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=heinrich26/morphe-patches",
+          "source": "https://raw.githubusercontent.com/heinrich26/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/heinrich26/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/heinrich26.png?size=96",
+          "latestChanges": {
+            "title": "1.0.1 (2026-08-05)",
+            "date": "2026-08-05",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "patch should now work"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-pryshedko-mtisland-heinrich26-morphe-patches",
+            "releaseTag": "app-com-pryshedko-mtisland-heinrich26-morphe-patches",
+            "assetName": "material-capsule-heinrich26-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock Pro",
+              "description": ""
+            }
+          ],
+          "versions": [
+            "15.7"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium",
+        "Unlock Pro"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Material Capsule Pro"
+        },
+        {
+          "name": "Unlock Pro",
+          "description": ""
+        }
+      ],
+      "versions": [
+        "15.7"
+      ],
+      "iconColor": "#212121",
       "iconUrl": ""
     },
     {
@@ -41473,64 +42031,6 @@
         "26.03.100"
       ],
       "iconColor": "#00A9E0",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "com.pryshedko.mtisland",
-      "name": "MT Capsule",
-      "repos": [
-        "heinrich26/morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "heinrich26/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/heinrich26/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=heinrich26/morphe-patches",
-          "source": "https://raw.githubusercontent.com/heinrich26/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/heinrich26/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/heinrich26.png?size=96",
-          "latestChanges": {
-            "title": "1.0.1 (2026-08-05)",
-            "date": "2026-08-05",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "patch should now work"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-pryshedko-mtisland-heinrich26-morphe-patches",
-            "releaseTag": "app-com-pryshedko-mtisland-heinrich26-morphe-patches",
-            "assetName": "mt-capsule-heinrich26-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Unlock Pro",
-              "description": ""
-            }
-          ],
-          "versions": [
-            "15.7"
-          ]
-        }
-      ],
-      "patches": [
-        "Unlock Pro"
-      ],
-      "patchDetails": [
-        {
-          "name": "Unlock Pro",
-          "description": ""
-        }
-      ],
-      "versions": [
-        "15.7"
-      ],
-      "iconColor": "#FF0045",
       "iconUrl": ""
     },
     {
@@ -43497,12 +43997,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -44267,6 +44767,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.elm.elm327.obd2.eobd.obd.car.scanner.diagnostics.tool.dashboard.doctor.check.engine.torque.speed.trouble.codes.mary",
+      "name": "Obd Mary",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-elm-elm327-obd2-eobd-obd-car-scanner-diagnostics-tool-dashboard-doctor-check-engine-torque-speed-trouble-codes-mary-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-elm-elm327-obd2-eobd-obd-car-scanner-diagnostics-tool-dashboard-doctor-check-engine-torque-speed-trouble-codes-mary-entree3k-morning-entree-patches",
+            "assetName": "obd-mary-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Obd Mary's Paid Features, Including the Diagnostics Edition"
+            }
+          ],
+          "versions": [
+            "1.318"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Obd Mary's Paid Features, Including the Diagnostics Edition"
+        }
+      ],
+      "versions": [
+        "1.318"
+      ],
+      "iconColor": "#17364C",
+      "iconUrl": ""
+    },
+    {
       "packageName": "eu.darken.octi",
       "name": "Octi",
       "repos": [
@@ -44755,12 +45313,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.8 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.11.9 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** scope promo navbar removal"
+                "text": "**ozon:** preserve promo navbar background"
               }
             ]
           },
@@ -45005,12 +45563,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -45356,12 +45914,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -45472,12 +46030,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -45659,6 +46217,64 @@
         "8.81"
       ],
       "iconColor": "#4A90D9",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.hinnka.mycamera",
+      "name": "Photon Camera",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-hinnka-mycamera-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-hinnka-mycamera-entree3k-morning-entree-patches",
+            "assetName": "photon-camera-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Photon Camera Pro"
+            }
+          ],
+          "versions": [
+            "1.25.1.2"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Photon Camera Pro"
+        }
+      ],
+      "versions": [
+        "1.25.1.2"
+      ],
+      "iconColor": "#252525",
       "iconUrl": ""
     },
     {
@@ -45918,12 +46534,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -45958,6 +46574,64 @@
         "1.13.0"
       ],
       "iconColor": "#E0563F",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.mediocre.pinout",
+      "name": "PinOut",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-mediocre-pinout-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-mediocre-pinout-entree3k-morning-entree-patches",
+            "assetName": "pinout-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks PinOut Premium. Just Tap Get Premium and Restore Purchase When Prompted"
+            }
+          ],
+          "versions": [
+            "1.0.7"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks PinOut Premium. Just Tap Get Premium and Restore Purchase When Prompted"
+        }
+      ],
+      "versions": [
+        "1.0.7"
+      ],
+      "iconColor": "#E91E63",
       "iconUrl": ""
     },
     {
@@ -46998,12 +47672,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -48923,12 +49597,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -48981,12 +49655,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -49560,40 +50234,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.38.0 (2026-08-01)",
-            "date": "2026-08-01",
+            "title": "1.39.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Mirror in RTL locales and restyle to match the manager (#2273)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Hidden category title is included when copying a setting breadcrumb"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Seekbar thumbnail:** Always show timestamp and chapter name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Evaluate swipe zone before recycling MotionEvent (#2238)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Resolve memory leaks in swipe controls (#2268)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube Music - Bypass certificate checks:** Resolve Android Auto crash (#2239)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube:** Resolve legacy app target crash"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "Add Change installer source universal patch (#2257)"
+                "text": "**YouTube - Add to queue:** Flyout menu not available in fullscreen"
               }
             ]
           },
@@ -49682,8 +50328,8 @@
             "2026.04.0",
             "2026.14.0",
             "2026.24.0",
-            "2026.28.0",
-            "2026.29.0"
+            "2026.30.0",
+            "2026.31.1"
           ]
         },
         {
@@ -50000,7 +50646,9 @@
         "2026.17.0",
         "2026.24.0",
         "2026.28.0",
-        "2026.29.0"
+        "2026.29.0",
+        "2026.30.0",
+        "2026.31.1"
       ],
       "iconColor": "#FF4500",
       "iconUrl": ""
@@ -50973,12 +51621,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -51164,12 +51812,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -51222,12 +51870,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -51730,12 +52378,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -52170,9 +52818,45 @@
       "packageName": "com.urbandroid.sleep",
       "name": "Sleep as Android",
       "repos": [
+        "Entree3k/Morning-Entree-Patches",
         "hoo-dles/morphe-patches"
       ],
       "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-urbandroid-sleep-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-urbandroid-sleep-entree3k-morning-entree-patches",
+            "assetName": "sleep-as-android-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Sleep as Android Premium. Tap Wait I already Paid when Prompted"
+            }
+          ],
+          "versions": [
+            "20260616"
+          ]
+        },
         {
           "repo": "hoo-dles/morphe-patches",
           "host": "github.com",
@@ -52219,11 +52903,12 @@
       "patchDetails": [
         {
           "name": "Enable Premium",
-          "description": "Enables app features locked behind the subscription paywall."
+          "description": "Unlocks Sleep as Android Premium. Tap Wait I already Paid when Prompted"
         }
       ],
       "versions": [
-        "20260526"
+        "20260526",
+        "20260616"
       ],
       "iconColor": "#80C583",
       "iconUrl": ""
@@ -52290,7 +52975,8 @@
       "packageName": "ak.alizandro.smartaudiobookplayer",
       "name": "Smart AudioBook Player",
       "repos": [
-        "arandomhooman/hoomans-morphe-patches"
+        "arandomhooman/hoomans-morphe-patches",
+        "Entree3k/Morning-Entree-Patches"
       ],
       "sources": [
         {
@@ -52327,19 +53013,60 @@
           "versions": [
             "11.7.8"
           ]
+        },
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ak-alizandro-smartaudiobookplayer-entree3k-morning-entree-patches",
+            "releaseTag": "app-ak-alizandro-smartaudiobookplayer-entree3k-morning-entree-patches",
+            "assetName": "smart-audiobook-player-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Full Version",
+              "description": "Unlocks the full version of Smart AudioBook Player"
+            }
+          ],
+          "versions": [
+            "11.8.2"
+          ]
         }
       ],
       "patches": [
+        "Enable Full Version",
         "Unlock Full"
       ],
       "patchDetails": [
+        {
+          "name": "Enable Full Version",
+          "description": "Unlocks the full version of Smart AudioBook Player"
+        },
         {
           "name": "Unlock Full",
           "description": "Unlocks Smart AudioBook Player's full version by forcing the local license decision to Full."
         }
       ],
       "versions": [
-        "11.7.8"
+        "11.7.8",
+        "11.8.2"
       ],
       "iconColor": "#EF5350",
       "iconUrl": ""
@@ -52419,7 +53146,8 @@
       "packageName": "com.mediocre.smashhit",
       "name": "Smash Hit",
       "repos": [
-        "byehi98/okish-morphe-patches"
+        "byehi98/okish-morphe-patches",
+        "Entree3k/Morning-Entree-Patches"
       ],
       "sources": [
         {
@@ -52456,12 +53184,52 @@
           "versions": [
             "1.5.14"
           ]
+        },
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-mediocre-smashhit-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-mediocre-smashhit-entree3k-morning-entree-patches",
+            "assetName": "smash-hit-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Smash Hit. Just Tap Get Premium and Restore Purchase When Prompted"
+            }
+          ],
+          "versions": [
+            "1.5.14"
+          ]
         }
       ],
       "patches": [
+        "Enable Premium",
         "Smash Hit Premium Unlock"
       ],
       "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Smash Hit. Just Tap Get Premium and Restore Purchase When Prompted"
+        },
         {
           "name": "Smash Hit Premium Unlock",
           "description": "Unlocks premium and all game modes without purchase."
@@ -52667,12 +53435,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -53391,7 +54159,7 @@
             }
           ],
           "versions": [
-            "8.28.3"
+            "8.28.5"
           ]
         }
       ],
@@ -53450,7 +54218,7 @@
         }
       ],
       "versions": [
-        "8.28.3"
+        "8.28.5"
       ],
       "iconColor": "#0068FF",
       "iconUrl": ""
@@ -53873,12 +54641,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -54867,12 +55635,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -55160,16 +55928,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/humzakh/HK-Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/humzakh.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-07-08)",
-            "date": "2026-07-08",
+            "title": "1.7.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Fix Select text dialog displaying when option is disabled"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "Add Fix Reddit Video Links patch"
+                "text": "Add Fix Inline Images patch (95d7ec8), closes #55 #56"
               }
             ]
           },
@@ -55196,6 +55960,10 @@
             {
               "name": "Fix imgur links",
               "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+            },
+            {
+              "name": "Fix inline images",
+              "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
             },
             {
               "name": "Fix r/random",
@@ -55345,6 +56113,7 @@
         "Fix /s/ links",
         "Fix Image Post Selftext",
         "Fix imgur links",
+        "Fix inline images",
         "Fix Other discussions",
         "Fix post thumbnails",
         "Fix r/random",
@@ -55385,6 +56154,10 @@
         {
           "name": "Fix imgur links",
           "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+        },
+        {
+          "name": "Fix inline images",
+          "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
           "name": "Fix Other discussions",
@@ -55454,16 +56227,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/humzakh/HK-Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/humzakh.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-07-08)",
-            "date": "2026-07-08",
+            "title": "1.7.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Fix Select text dialog displaying when option is disabled"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "Add Fix Reddit Video Links patch"
+                "text": "Add Fix Inline Images patch (95d7ec8), closes #55 #56"
               }
             ]
           },
@@ -55490,6 +56259,10 @@
             {
               "name": "Fix imgur links",
               "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+            },
+            {
+              "name": "Fix inline images",
+              "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
             },
             {
               "name": "Fix r/random",
@@ -55597,6 +56370,7 @@
         "Fix /s/ links",
         "Fix Image Post Selftext",
         "Fix imgur links",
+        "Fix inline images",
         "Fix post thumbnails",
         "Fix r/random",
         "Fix Reddit Video Links",
@@ -55632,6 +56406,10 @@
         {
           "name": "Fix imgur links",
           "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+        },
+        {
+          "name": "Fix inline images",
+          "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
           "name": "Fix post thumbnails",
@@ -55697,16 +56475,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/humzakh/HK-Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/humzakh.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-07-08)",
-            "date": "2026-07-08",
+            "title": "1.7.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Fix Select text dialog displaying when option is disabled"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "Add Fix Reddit Video Links patch"
+                "text": "Add Fix Inline Images patch (95d7ec8), closes #55 #56"
               }
             ]
           },
@@ -55733,6 +56507,10 @@
             {
               "name": "Fix imgur links",
               "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+            },
+            {
+              "name": "Fix inline images",
+              "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
             },
             {
               "name": "Fix r/random",
@@ -55840,6 +56618,7 @@
         "Fix /s/ links",
         "Fix Image Post Selftext",
         "Fix imgur links",
+        "Fix inline images",
         "Fix post thumbnails",
         "Fix r/random",
         "Fix Reddit Video Links",
@@ -55875,6 +56654,10 @@
         {
           "name": "Fix imgur links",
           "description": "Fixes imgur.com/a/ links to properly display in the image viewer."
+        },
+        {
+          "name": "Fix inline images",
+          "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
           "name": "Fix post thumbnails",
@@ -55939,12 +56722,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -56068,6 +56851,10 @@
           },
           "patches": [
             {
+              "name": "AB Test Override",
+              "description": "Override A/B test group assignments to force default behavior"
+            },
+            {
               "name": "Ad Removal",
               "description": "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads, fake splash view, video ad player, official advert, ad reward dialogs, live streaming ad user, treasure prize ads"
             },
@@ -56085,11 +56872,11 @@
             },
             {
               "name": "Live Streaming Enhancement",
-              "description": "Live streaming enhancement: push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits, permission control, daily payment, noble config, stealth privacy, video chat, voice features, monetization, game operations, star toggle"
+              "description": "Live streaming enhancement: push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits, permission control, daily payment, noble config, stealth privacy, video chat, voice features, monetization, game operations, star toggle, unlimited coins, free gifts, 1080p streaming, treasure box removal, beauty filters unlock"
             },
             {
               "name": "Messaging Enhancement",
-              "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval"
+              "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval, heartbeat match, message integration, assistant message clear, ice break dialog config, continues op conv config"
             },
             {
               "name": "Premium Unlock",
@@ -56101,7 +56888,15 @@
             },
             {
               "name": "Privacy Enhancement",
-              "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention"
+              "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention, HTTP proxy detection bypass, clipboard read monitoring"
+            },
+            {
+              "name": "Remote Config Override",
+              "description": "Override remote configuration values to control feature flags and bypass A/B testing"
+            },
+            {
+              "name": "Search Discovery Enhancement",
+              "description": "Enhance discovery features by removing search limitations"
             },
             {
               "name": "UI Cleanup",
@@ -56114,6 +56909,7 @@
         }
       ],
       "patches": [
+        "AB Test Override",
         "Ad Removal",
         "Analytics Disable",
         "Dialog Cleanup",
@@ -56123,9 +56919,15 @@
         "Premium Unlock",
         "Privacy Controls",
         "Privacy Enhancement",
+        "Remote Config Override",
+        "Search Discovery Enhancement",
         "UI Cleanup"
       ],
       "patchDetails": [
+        {
+          "name": "AB Test Override",
+          "description": "Override A/B test group assignments to force default behavior"
+        },
         {
           "name": "Ad Removal",
           "description": "Removes all ad displays: navigation bar banner, native feed ads, live streaming banner ads, live video feed ads, live square ads, conversation Google ads, marriage guide card, four-select-one card, daily selection card, visitor list ads, likers ads, meet likers ads, meet visitor ads, splash screen ads, profile photo carousel ads, incentive video ads, fake splash view, video ad player, official advert, ad reward dialogs, live streaming ad user, treasure prize ads"
@@ -56144,11 +56946,11 @@
         },
         {
           "name": "Live Streaming Enhancement",
-          "description": "Live streaming enhancement: push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits, permission control, daily payment, noble config, stealth privacy, video chat, voice features, monetization, game operations, star toggle"
+          "description": "Live streaming enhancement: push limit bypass, swipe card unlimited, chat rate limit removal, voice game access, all-day PK battles, gift leaderboard, knight privileges, entrance limits, permission control, daily payment, noble config, stealth privacy, video chat, voice features, monetization, game operations, star toggle, unlimited coins, free gifts, 1080p streaming, treasure box removal, beauty filters unlock"
         },
         {
           "name": "Messaging Enhancement",
-          "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval"
+          "description": "Removes message limits, unlimited pin chat, voice/video calls, quick chat, typing indicator, free gifts, letter, greeting, ice breaker, read receipts, AI translation, message recall, group chat, live chat, message filter, chat partner config, ODiamond visitor config, prologue config, love buzz data, secret crush limit, boost limit, message tab revision, collapsible conversation, chat helper AI, call duration, conversation refresh interval, heartbeat match, message integration, assistant message clear, ice break dialog config, continues op conv config"
         },
         {
           "name": "Premium Unlock",
@@ -56160,7 +56962,15 @@
         },
         {
           "name": "Privacy Enhancement",
-          "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention"
+          "description": "Advanced privacy protections: root/emulator detection bypass, ShuMeng SDK blocking, Facebook SDK emulator detection bypass, APK signature verification bypass, package enumeration prevention, HTTP proxy detection bypass, clipboard read monitoring"
+        },
+        {
+          "name": "Remote Config Override",
+          "description": "Override remote configuration values to control feature flags and bypass A/B testing"
+        },
+        {
+          "name": "Search Discovery Enhancement",
+          "description": "Enhance discovery features by removing search limitations"
         },
         {
           "name": "UI Cleanup",
@@ -56364,12 +57174,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.8 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.11.9 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** scope promo navbar removal"
+                "text": "**ozon:** preserve promo navbar background"
               }
             ]
           },
@@ -56921,12 +57731,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -57650,12 +58460,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -59467,40 +60277,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -59582,40 +60392,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.18.1 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.21.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** skip DASH period strip on live (dynamic) manifests (#89)"
+                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**twitch:** correct playerType-spoof layer, remove broken GrandDads layer"
+                "text": "**netflix:** match AppTarget to real versionName + README install section"
               },
               {
                 "category": "Features",
-                "text": "**twitch:** add two-layer ad suppression patch (untested)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** ship live ad-reduction (embed playerType + GrandDads + stitched-metadata) (f79108f), closes #75"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** remove VOD ads via DASH period surgery (Skip ads Hook 5) (#80)"
-              },
-              {
-                "category": "Features",
-                "text": "**primevideo-native:** suppress TV-show preroll/mid-roll ads (regolith)"
+                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo-native:** skip decompression chunks to stop CURL 61 corruption"
+                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
               },
               {
                 "category": "Features",
-                "text": "**primevideo-native:** working GOT/PLT import hook for in-process ad strip"
+                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
               }
             ]
           },
@@ -59839,12 +60649,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -60743,12 +61553,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -60919,12 +61729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-04)",
-            "date": "2026-08-04",
+            "title": "1.9.0 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Listy, Super Status Bar, Volume Styles"
+                "text": "Added Support"
               }
             ]
           },
@@ -61736,12 +62546,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.8 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.11.9 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** scope promo navbar removal"
+                "text": "**ozon:** preserve promo navbar background"
               }
             ]
           },
@@ -63229,40 +64039,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.38.0 (2026-08-01)",
-            "date": "2026-08-01",
+            "title": "1.39.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Mirror in RTL locales and restyle to match the manager (#2273)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Hidden category title is included when copying a setting breadcrumb"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Seekbar thumbnail:** Always show timestamp and chapter name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Evaluate swipe zone before recycling MotionEvent (#2238)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Resolve memory leaks in swipe controls (#2268)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube Music - Bypass certificate checks:** Resolve Android Auto crash (#2239)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube:** Resolve legacy app target crash"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "Add Change installer source universal patch (#2257)"
+                "text": "**YouTube - Add to queue:** Flyout menu not available in fullscreen"
               }
             ]
           },
@@ -63364,7 +64146,7 @@
             },
             {
               "name": "Disable sign in to TV popup",
-              "description": "Adds an option to disable the popup asking to sign into a TV on the same local network."
+              "description": "Adds options to disable the popups asking to sign into or connect to a TV on the same local network."
             },
             {
               "name": "Disable video codecs",
@@ -63495,6 +64277,10 @@
               "description": "Adds an option to play all the videos from a channel and to display play all button in the video player."
             },
             {
+              "name": "Playback in feeds",
+              "description": "Adds the 'Playback in feeds' setting of YouTube to the Morphe settings, where it is always available even if YouTube hides it."
+            },
+            {
               "name": "Playback speed",
               "description": "Adds options to customize available playback speeds, set a default playback speed, and show a speed dialog button in the video player."
             },
@@ -63576,10 +64362,9 @@
             "20.31.42",
             "20.51.39",
             "21.04.223",
-            "21.05.265",
-            "21.26.360",
             "21.28.204",
-            "21.29.366"
+            "21.31.523",
+            "21.32.2"
           ]
         },
         {
@@ -64392,8 +65177,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -64903,12 +65688,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -64956,7 +65741,9 @@
         "21.25.523",
         "21.26.360",
         "21.28.204",
-        "21.29.366"
+        "21.29.366",
+        "21.31.523",
+        "21.32.2"
       ],
       "iconColor": "#FF0033",
       "iconUrl": ""
@@ -65292,40 +66079,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.38.0 (2026-08-01)",
-            "date": "2026-08-01",
+            "title": "1.39.1 (2026-08-08)",
+            "date": "2026-08-08",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Mirror in RTL locales and restyle to match the manager (#2273)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Hidden category title is included when copying a setting breadcrumb"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Seekbar thumbnail:** Always show timestamp and chapter name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Evaluate swipe zone before recycling MotionEvent (#2238)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Swipe controls:** Resolve memory leaks in swipe controls (#2268)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube Music - Bypass certificate checks:** Resolve Android Auto crash (#2239)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube:** Resolve legacy app target crash"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "Add Change installer source universal patch (#2257)"
+                "text": "**YouTube - Add to queue:** Flyout menu not available in fullscreen"
               }
             ]
           },
@@ -65454,6 +66213,10 @@
               "description": "Removes restrictions on background playback, including playing kids videos in the background."
             },
             {
+              "name": "Remove viewer discretion dialog",
+              "description": "Adds an option to remove the dialog that appears when opening a video that has been age-restricted by accepting it automatically. This does not bypass the age restriction."
+            },
+            {
               "name": "Return YouTube Dislike",
               "description": "Adds an option to show the dislike count of tracks with Return YouTube Dislike."
             },
@@ -65484,10 +66247,13 @@
             {
               "name": "Theme",
               "description": "Adds options for theming and applies a custom background theme (dark background theme defaults to pure black)."
+            },
+            {
+              "name": "Third-party lyrics",
+              "description": "Adds an option to show synced lyrics from LRCLIB or KuGou in the lyrics panel."
             }
           ],
           "versions": [
-            "7.29.52",
             "9.15.51",
             "9.28.51",
             "9.29.54",
@@ -66324,119 +67090,6 @@
       "iconUrl": ""
     },
     {
-      "packageName": "com.graymatrix.did",
-      "name": "ZEE5",
-      "repos": [
-        "WZSE/morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "WZSE/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/WZSE/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=WZSE/morphe-patches",
-          "source": "https://raw.githubusercontent.com/WZSE/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/WZSE/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/WZSE.png?size=96",
-          "latestChanges": {
-            "title": "1.34.0 (2026-07-10)",
-            "date": "2026-07-10",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**GmsCore support:** Use custom provider package name when Change package name is used"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Reddit - Settings:** Morphe language does not change after restarting (#1950)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Spoof video streams:** Change default client to 'TV'"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Add to queue:** Allows tablet patches for versions 21.xx"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Add to queue:** Prevents the flyout video id reset blocking"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Miniplayer/Disable automatic reposition:** Support vertical position lock"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Return YouTube Dislike:** Remove RYD Shorts due to YT removing Shorts dislike and RYD API no longer providing reliable Shorts dislikes data (#1924)"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Spoof video streams:** Mention Android Studio 720p limitation in settings UI"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-graymatrix-did-wzse-morphe-patches",
-            "releaseTag": "app-com-graymatrix-did-wzse-morphe-patches",
-            "assetName": "zee5-wzse-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Disable ads",
-              "description": "Disables ad loading (Google IMA server-side ad insertion) in the player. Content playback is unaffected. No paid/subscription features are touched."
-            },
-            {
-              "name": "Disable analytics",
-              "description": "Disables all third-party analytics (CleverTap, Firebase, Mixpanel, videoanalytics) by short-circuiting the central analytics dispatch method. No tracking data is sent."
-            },
-            {
-              "name": "Disable CleverTap",
-              "description": "Prevents the CleverTap analytics SDK from initializing, stopping behavioral tracking and advertising-id (GAID) collection."
-            },
-            {
-              "name": "Disable Firebase analytics",
-              "description": "Prevents Firebase Analytics from initializing, stopping event and user-property reporting to Google."
-            }
-          ],
-          "versions": [
-            "5.78.8"
-          ]
-        }
-      ],
-      "patches": [
-        "Disable ads",
-        "Disable analytics",
-        "Disable CleverTap",
-        "Disable Firebase analytics"
-      ],
-      "patchDetails": [
-        {
-          "name": "Disable ads",
-          "description": "Disables ad loading (Google IMA server-side ad insertion) in the player. Content playback is unaffected. No paid/subscription features are touched."
-        },
-        {
-          "name": "Disable analytics",
-          "description": "Disables all third-party analytics (CleverTap, Firebase, Mixpanel, videoanalytics) by short-circuiting the central analytics dispatch method. No tracking data is sent."
-        },
-        {
-          "name": "Disable CleverTap",
-          "description": "Prevents the CleverTap analytics SDK from initializing, stopping behavioral tracking and advertising-id (GAID) collection."
-        },
-        {
-          "name": "Disable Firebase analytics",
-          "description": "Prevents Firebase Analytics from initializing, stopping event and user-property reporting to Google."
-        }
-      ],
-      "versions": [
-        "5.78.8"
-      ],
-      "iconColor": "#1C1C28",
-      "iconUrl": ""
-    },
-    {
       "packageName": "com.android.gallery3d",
       "name": "ZTE Gallery",
       "repos": [
@@ -66692,12 +67345,12 @@
       "avatarUrl": "https://github.com/cesbar.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.9.1 (2026-08-05)",
-        "date": "2026-08-05",
+        "title": "1.10.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.56.2"
+            "category": "\u2728 New Features",
+            "text": "**velov:** Block data collection"
           }
         ]
       },
@@ -66908,18 +67561,23 @@
       "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
-      "patchCount": 2,
+      "patchCount": 4,
       "latestChanges": {
-        "title": "1.8.0 (2026-08-04)",
-        "date": "2026-08-04",
+        "title": "1.9.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Added Listy, Super Status Bar, Volume Styles"
+            "text": "Added Support"
           }
         ]
       },
       "patches": [
+        {
+          "name": "Provide original app certificate",
+          "description": "Extracts and Base64-encodes the original app's signing certificate. Applied automatically by 'Spoof signature verification'; you normally do not need to touch it. Use 'Certificate source' to control where the certificate comes from.",
+          "default": false
+        },
         {
           "name": "Remove internet permission",
           "description": "Removes the INTERNET permission so the app cannot access the network at all. Blocks all trackers, analytics and ads from phoning home, but also disables any legitimate online features. Only enable for apps you want fully offline.",
@@ -66928,6 +67586,11 @@
         {
           "name": "Spoof install source",
           "description": "Makes the app think it was installed from a specific store (default: Google Play). Useful when an app blocks features or errors because it detects it was not installed from the Play Store. Only affects what the app sees, not the real system record.",
+          "default": false
+        },
+        {
+          "name": "Spoof signature verification",
+          "description": "Spoofs the signature verification",
           "default": false
         }
       ]
@@ -67015,16 +67678,12 @@
       "avatarUrl": "https://github.com/humzakh.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.6.0 (2026-07-08)",
-        "date": "2026-07-08",
+        "title": "1.7.0 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Fix Select text dialog displaying when option is disabled"
-          },
-          {
             "category": "\u2728 New Features",
-            "text": "Add Fix Reddit Video Links patch"
+            "text": "Add Fix Inline Images patch (95d7ec8), closes #55 #56"
           }
         ]
       },
@@ -67387,40 +68046,12 @@
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.38.0 (2026-08-01)",
-        "date": "2026-08-01",
+        "title": "1.39.1 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Mirror in RTL locales and restyle to match the manager (#2273)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Hidden category title is included when copying a setting breadcrumb"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Seekbar thumbnail:** Always show timestamp and chapter name"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Swipe controls:** Evaluate swipe zone before recycling MotionEvent (#2238)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Swipe controls:** Resolve memory leaks in swipe controls (#2268)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube Music - Bypass certificate checks:** Resolve Android Auto crash (#2239)"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube:** Resolve legacy app target crash"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "Add Change installer source universal patch (#2257)"
+            "text": "**YouTube - Add to queue:** Flyout menu not available in fullscreen"
           }
         ]
       },
@@ -67431,8 +68062,8 @@
           "default": false
         },
         {
-          "name": "Change package name",
-          "description": "Appends \".morphe\" to the package name by default. Changing the package name of the app can lead to unexpected issues.",
+          "name": "Clone app",
+          "description": "Changes the app package name to allow installing the same app multiple times. By default \".morphe\" is appended the package name. Each cloned install must use a unique package name. Cloning does not work with all apps and using this patch may cause app crashes or other unexpected behavior.",
           "default": false
         },
         {
@@ -68214,12 +68845,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.11.8 (2026-08-07)",
-        "date": "2026-08-07",
+        "title": "1.11.9 (2026-08-08)",
+        "date": "2026-08-08",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** scope promo navbar removal"
+            "text": "**ozon:** preserve promo navbar background"
           }
         ]
       },
