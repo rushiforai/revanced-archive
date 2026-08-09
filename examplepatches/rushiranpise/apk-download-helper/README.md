@@ -1,7 +1,7 @@
 # APK Download Helper
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4f0b4262-3bfe-4ff0-b001-9a56f77a541a" alt="APK Download Helper for Morphe" width="180" />
+  <img src="docs/logo.png" alt="APK Download Helper for Morphe" width="180" />
 </p>
 
 APK Download Helper is a standalone Android helper app for finding and returning original APK files requested by Morphe Manager.
@@ -19,6 +19,7 @@ This project is independent from the APK source websites listed below. Source av
 - Validates downloaded files before returning them to Morphe Manager.
 - Falls back to web/manual flows when direct download is not available.
 - Keeps Play Store listing opens separate from Aurora's Play-backed download flow.
+- Includes Helper settings for download location, network access, and temporary APK cleanup.
 
 ## Supported Sources
 
@@ -31,6 +32,46 @@ This project is independent from the APK source websites listed below. Source av
 - Play Store listing
 
 Not every source can provide every requested version or file format. Some sources only expose latest versions, some require manual web interaction, and some split formats may not match the patch request.
+
+## Helper Settings
+
+The helper has its own settings screen:
+
+- **Download location**: use temporary hand-off cache, or keep a validated copy in `Downloads/APK Download Helper`.
+- **Network access**: allow Wi-Fi only, mobile data only, or both Wi-Fi and mobile data.
+- **Temporary cleanup**: remove staged APKs after Morphe has had time to copy them, and clean old cache files on launch.
+
+Temporary hand-off is the default because Morphe Manager copies the returned APK URI into its own private workspace before patching.
+
+## Release Signing
+
+Release APKs must be signed with a private release certificate. Debug signing is only for local test builds and must not be used for public releases.
+
+GitHub Actions expects these repository secrets:
+
+- `HELPER_RELEASE_KEYSTORE_BASE64`: base64-encoded release keystore
+- `HELPER_RELEASE_STORE_PASSWORD`
+- `HELPER_RELEASE_KEY_ALIAS`
+- `HELPER_RELEASE_KEY_PASSWORD`
+
+For local release builds, place the same values in `local.properties` or pass them as Gradle properties/environment variables. Do not commit keystores or signing passwords.
+
+## Source Audit Script
+
+Use `tools/audit_helper_sources.py` to test source availability for every app declared in a Morphe `Constants.kt` file without launching the Android app:
+
+```powershell
+python tools\audit_helper_sources.py --output reports\source-audit.csv
+```
+
+Useful targeted checks:
+
+```powershell
+python tools\audit_helper_sources.py --package club.boxbox.android --sources apkpure,aptoide,apkcombo
+python tools\audit_helper_sources.py --limit 20 --sources apkmirror,uptodown,apkpure,apkcombo,aptoide
+```
+
+The CSV/JSON output reports whether each source matched the requested version, only found latest, found the wrong file format, or failed to resolve the package.
 
 ## Intent Contract
 

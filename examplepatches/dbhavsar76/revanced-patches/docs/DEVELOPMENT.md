@@ -83,6 +83,67 @@ Rank candidates by:
 - **Is it ads-only?** Check the hook doesn't also gate entitlement, licensing or
   content access.
 
+### Naming patches
+
+Follow [ReVanced's conventions](https://github.com/ReVanced/revanced-patcher/blob/main/docs/4_structure_and_conventions.md):
+name a patch after **what it does**, and write the description in third person,
+present tense, ending with a period.
+
+The docs give `Remove ads` as their example, but the official bundle is not
+consistent about the verb — it ships `Block video ads`, `Disable ads`,
+`Hide ads` and `Remove ads` side by side, with mixed casing. So pick whichever
+verb honestly describes the effect. `Disable ads` is right for a patch that stops
+ads being requested; `Hide ads` would be right for one that only suppresses the UI.
+
+**Do not prefix the app name.** Names repeat across apps in the official bundle
+(several `Hide ads`, several `Disable ads`), and that is fine: a user only ever
+sees the patches whose `compatibleWith` package matches the app they picked, so
+the package disambiguates. `Disable ZEE5 ads` would be redundant everywhere it is
+displayed.
+
+Their conventions also warn against overloading a matcher with attributes likely
+to change — a method *name* is the prime example. Where a name is the only
+practical anchor, pair it with a fallback that does not depend on one, as the ZEE5
+patch does.
+
+### One patch, several builds
+
+The phone and TV builds of the same app can differ enough that no single hook
+exists — and the difference may be *architectural*, not just renamed symbols.
+
+ZEE5 is the worked example. The TV build discards its whole `AdConfig` when
+`canDisableAds()` is true, so forcing that boolean disables everything. The mobile
+build has no such method — and not because R8 hid it. It **always** constructs an
+`AdConfig` and disables ads by leaving the fields empty, so there is no boolean to
+force. Hunting harder for a mobile `canDisableAds` would have been wasted effort.
+
+Two lessons worth carrying:
+
+- **Confirm a symbol is *absent* before assuming it is *renamed*.** Check whether
+  the surrounding architecture still calls for it. Here the construction site
+  proved the method could not exist.
+- **Look for a shared choke point further down.** Both builds' `toMediaItem()`
+  reads `getAdTagUrl()` and `getDaiAssetId()`, so nulling those two getters is
+  indistinguishable from a null `AdConfig` — and works on both. When the app-layer
+  logic diverges, the module underneath often still agrees.
+
+Structure the patch as strategies tried in order, preferring the one that puts the
+app into a state it already ships:
+
+```kotlin
+val tvHook = firstMethodOrNull { /* … */ }
+if (tvHook != null) { /* patch it */; return@apply }
+// otherwise fall back to the mobile strategy
+```
+
+Fail with a `PatchException` naming which strategy matched how far, so a future
+break says where to look rather than just "no match".
+
+**Watch for name collisions when matching by method name.** `getAdTagUrl()` also
+exists on the bundled IMA SDK; without a `definingClass.startsWith(...)` filter the
+fingerprint silently patches the wrong class. Verify which class was modified, not
+just that something was.
+
 ## Bundles
 
 APKMirror often serves `.apkm` (APKMirror Installer bundle) instead of a plain
@@ -169,6 +230,23 @@ java -jar workspace/tools/APKEditor-1.4.9.jar m -i workspace/tmp/<app>-splits -o
 APKEditor also sanitizes the manifest, stripping `isSplitRequired` and
 `com.android.vending.splits` — leftovers that otherwise cause a splits error at
 launch.
+
+**Match density and language too, not just ABI.** A TV bundle may ship a single
+dpi and no language splits, but a phone bundle routinely carries seven densities
+and two dozen languages — pick the wrong density and the app installs with missing
+or mis-scaled assets. Ask the target device rather than guessing:
+
+```bash
+adb shell wm density && adb shell getprop ro.product.cpu.abi
+```
+
+`420` dpi resolves to the `xxhdpi` split, `320` to `xhdpi`. So a 420 dpi arm64
+phone wants `base` + `arm64_v8a` + `xxhdpi` + your language.
+
+**The merged APK is not installable as-is.** APKEditor leaves a stale signature
+block, so `adb install` fails with `INSTALL_PARSE_FAILED_NO_CERTIFICATES`. That is
+fine when feeding ReVanced CLI or Manager, which re-sign anyway. To install it
+unpatched — as a control build, say — zipalign and sign it first.
 
 If a bundle is protected and will not open, install the app on a device and pull
 what it actually resolved:
@@ -300,6 +378,47 @@ java.io.IOException: Wrong version of key store.
 Let the CLI generate and reuse its own keystore. The consequence is that CLI
 output carries a different signing key than any hand-patched build, so the two
 cannot upgrade over each other.
+
+### Manager cannot patch an installed app
+
+In Manager, *Select an app* fails at the final write with:
+
+```
+I ReVanced Patcher: Aligning APK
+E FileNotFoundException: …/app_ephemeral/patcher/result.apk: EACCES (Permission denied)
+```
+
+Misleading, because the patch itself succeeded — only the output write failed.
+Manager copies the source APK to `result.apk` **preserving its mode**, and an
+installed APK is read-only:
+
+```
+installed app  -r-xr-xr-x 3 system system
+normal file    -rw-r--r-- 1 system system
+```
+
+`chmod` cannot fix it either ("Invalid argument") because installed APKs are
+fs-verity sealed. Use **Select from storage** with a merged APK instead — a
+different code path that writes a fresh file. This is also the only route that
+works for bundled apps, since a Play Store install is itself split.
+
+### An .rvp needs both .class *and* classes.dex
+
+A bundle built as a plain JVM jar patches fine from the CLI and then fails in
+Manager with `EmptyMultiDexContainerException`, surfaced as
+"Failed to download patches". The two hosts load patches differently:
+
+| Host | Loader | Reads |
+| --- | --- | --- |
+| ReVanced CLI (JVM) | `URLClassLoader` | `.class` entries |
+| ReVanced Manager (Android) | `MultiDexIO` + `DexClassLoader` | `classes.dex` |
+
+The official bundle ships both — 863 `.class` entries alongside one
+`classes.dex`. [patches/build.gradle.kts](../patches/build.gradle.kts) reproduces
+that with a D8 pass, the same tool the upstream Gradle plugin invokes.
+
+Manager also reads the bundle's display name from the JAR manifest; without a
+`Name:` attribute it lists the bundle as **Unnamed**.
 
 ### The upstream patches repo is gone
 

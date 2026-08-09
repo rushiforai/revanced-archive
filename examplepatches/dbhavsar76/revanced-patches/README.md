@@ -8,37 +8,59 @@ Personal use, on hardware I own. These are not affiliated with ReVanced.
 
 ## 📦 Patches
 
-| 💊 Patch | 🖥️ App | 📦 Package | 🏷️ Versions | 📝 Description |
-| --- | --- | --- | --- | --- |
-| `Disable ads` | ZEE5 | `com.graymatrix.did` | any | Removes pre-roll, mid-roll and post-roll video ads, on both on-demand content and live channels. |
+| 💊 Patch | 🖥️ App | 📦 Package | 📱 Builds | 🏷️ Versions | 📝 Description |
+| --- | --- | --- | --- | --- | --- |
+| `Disable ads` | ZEE5 | `com.graymatrix.did` | Android TV + mobile | any | Removes pre-roll, mid-roll and post-roll video ads, on both on-demand content and live channels. |
+
+Verified on Android TV **5.82.7** and mobile **39.55.9**. One patch covers both —
+no need to pick.
 
 <details>
 <summary><b>How <code>Disable ads</code> works</b></summary>
 
 ZEE5 serves ads down two independent paths, both driven by Google IMA:
 
-- **Client-side (CSAI)** — `com.zee.mediaplayer.ads.VmapBuilder` assembles the VMAP
-  playlist locally and hands it to ExoPlayer as a `data:text/xml` URI.
+- **Client-side (CSAI)** — the VMAP playlist is assembled locally and handed to
+  ExoPlayer as a `data:text/xml` URI.
 - **Server-side (DAI)** — `ImaServerSideAdInsertionUriBuilder`, where ads are
   stitched into the video stream itself and normally cannot be removed on-device.
 
-Both are chosen inside `MediaUtilsKt.toMediaItem()` and both are gated on a
-nullable `AdConfig`. Upstream, `PlaybackViewModel.toMediaConfig()` discards that
-`AdConfig` entirely when `PlaybackBridge.canDisableAds()` returns true — leaving
-no ad tag URL *and* no DAI asset id, so the server-side branch is never taken and
-playback falls through to the plain content URL. One boolean defeats both.
+Both are chosen inside the player module's `toMediaItem()`, and both hang off a
+single `AdConfig`:
 
-The patch forces that method to return true. The stock implementation is
-`isSubscribed() && !enableAdsForSubscribed(remoteConfig)`, so this puts the app
-into a state it already ships and exercises for every paying subscriber — no
-untested code path. It governs only whether ads are attached to playback;
+```java
+if (adConfig != null && adConfig.getDaiAssetId()?.isNotEmpty()) return toImaServerSideMediaItem(...)
+builder.setAdsConfiguration(adConfig?.getAdTagUrl()?.let { AdsConfiguration(it) })
+```
+
+Defeat that one object and both paths go with it — playback falls through to the
+plain content URL.
+
+The two builds reach it differently, so the patch tries both and applies whichever
+fits:
+
+**Android TV** — `PlaybackViewModel.toMediaConfig()` discards the whole `AdConfig`
+when `PlaybackBridge.canDisableAds()` returns true. Stock, that is
+`isSubscribed() && !enableAdsForSubscribed(remoteConfig)`, so forcing it true puts
+the app into a state it already ships and exercises for every paying subscriber —
+no untested code path. Preferred wherever it exists, for exactly that reason. The
+method is matched by *shape* (boolean, no parameters, non-abstract) rather than by
+class name.
+
+**Mobile** — there is no such bridge. The mobile build **always** constructs an
+`AdConfig` and disables ads by leaving its fields empty, so there is nothing to
+force true. Instead the patch empties it at the source: `getAdTagUrl()` and
+`getDaiAssetId()` are made to return null, which `toMediaItem()` cannot
+distinguish from a null `AdConfig`. Both getters are annotated `@Nullable` in the
+app's own code and every caller null-checks them, so this stays inside the
+contract the app already declares. R8 minifies the class to
+`com/zee/mediaplayer/config/a` in this build, but the package and the getter names
+survive — and the fingerprint filters on that package so it cannot accidentally
+match the IMA SDK's own `getAdTagUrl()`.
+
+Either way the change governs only whether ads are attached to playback;
 entitlement, DRM licensing and which content is playable are enforced elsewhere
 and are untouched.
-
-The method is matched by *shape* — boolean return, no parameters, non-abstract —
-rather than by class name, so the same patch covers the Android TV build
-(`com.zee5.androidtv.playback.DefaultPlaybackBridge`) and the mobile build, which
-uses a different class.
 
 </details>
 
@@ -59,11 +81,18 @@ Manager takes a **JSON manifest URL**, not a `.rvp` directly.
 
 
 > [!IMPORTANT]
+> **Use *Select from storage*, not *Select an app*.** Patching an installed app
+> fails at the very last step with
+> `FileNotFoundException: …/result.apk: EACCES` — Manager copies the installed APK
+> preserving its mode, and installed APKs are read-only and fs-verity sealed, so
+> the output cannot be reopened for writing. Patching a file from storage avoids
+> it entirely.
+>
 > **Manager cannot patch app bundles.** If your only download is an `.apkm`,
 > `.xapk` or `.apks`, Manager will fail — its troubleshooting guide lists
 > "patching a full APK file and not an APK bundle" as a cause. A Play Store
-> install is itself split, so *Select an app* hits this too, not just
-> *Select from storage*. Flatten the bundle first:
+> install is itself split, so this affects *Select an app* too. Flatten the bundle
+> first, merging only the splits matching your device's ABI **and density**:
 > [Getting a single APK from a bundle](docs/DEVELOPMENT.md#getting-a-single-apk-from-a-bundle).
 >
 > **Manager needs Android 8.0+.** On older devices — many Android TV boxes —
