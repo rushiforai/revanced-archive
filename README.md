@@ -2,7 +2,7 @@
 
 An auto-generated, continuously updated index of every GitHub repository that publishes a [Revanced](https://revanced.app) (`.rvp`) patch bundle.
 
-![Repos tracked](https://img.shields.io/badge/repos%20tracked-70-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-08-09%2001:20%20UTC-555)
+![Repos tracked](https://img.shields.io/badge/repos%20tracked-71-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-08-10%2001:22%20UTC-555)
 
 ---
 
@@ -18,7 +18,7 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 
 ---
 
-## 📋 Tracked Repositories (70)
+## 📋 Tracked Repositories (71)
 
 | # | Repository | Link |
 |---|------------|------|
@@ -78,20 +78,21 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 | 54 | `PawiX25/pepper-revanced-patches` | [🔗 Open](https://github.com/PawiX25/pepper-revanced-patches) |
 | 55 | `prevanced/prevanced-manager` | [🔗 Open](https://github.com/prevanced/prevanced-manager) |
 | 56 | `ReVanced/revanced-patches` | [🔗 Open](https://github.com/ReVanced/revanced-patches) |
-| 57 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
-| 58 | `rushiranpise/apk-download-helper` | [🔗 Open](https://github.com/rushiranpise/apk-download-helper) |
-| 59 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
-| 60 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
-| 61 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
-| 62 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
-| 63 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
-| 64 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
-| 65 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
-| 66 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
-| 67 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
-| 68 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
-| 69 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
-| 70 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
+| 57 | `roflsunriz/chmate-revanced` | [🔗 Open](https://github.com/roflsunriz/chmate-revanced) |
+| 58 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
+| 59 | `rushiranpise/apk-download-helper` | [🔗 Open](https://github.com/rushiranpise/apk-download-helper) |
+| 60 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
+| 61 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
+| 62 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
+| 63 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
+| 64 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
+| 65 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
+| 66 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
+| 67 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
+| 68 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
+| 69 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
+| 70 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
+| 71 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
 
 ---
 
@@ -100,4 +101,4 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 This README is regenerated automatically by GitHub Actions whenever `repos.txt` changes.
 To add a repo manually, append it to `custom_repos.txt`. To remove one permanently, add it to `ignore_repos.txt`.
 
-*Last generated: 2026-08-09 01:20 UTC*
+*Last generated: 2026-08-10 01:22 UTC*

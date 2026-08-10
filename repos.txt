@@ -63,6 +63,7 @@ liaralabs/revanced-patches
 lluni/custom-revanced-patches
 loan-mgt/moovit-patch
 prevanced/prevanced-manager
+roflsunriz/chmate-revanced
 rufusin/revanced-patches
 rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
