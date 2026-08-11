@@ -9,6 +9,7 @@ Aunali321/ReVancedExperiments
 Aunali321/revanced-downloader-plugins
 Aunali321/revanced-web-patcher-backend
 BakasuraRCE/bakasura-patches
+D4NZ-jpg/revanced-patches
 Faith001/revanced-molten-glass
 Graywizard888/Enhancify
 HZbutcoding/sn-patching
@@ -67,5 +68,6 @@ roflsunriz/chmate-revanced
 rufusin/revanced-patches
 rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
+simnple/revanced-patches
 valonsodev/jadx-revanced
 vinceTheProgrammer/sticknodes-patches
