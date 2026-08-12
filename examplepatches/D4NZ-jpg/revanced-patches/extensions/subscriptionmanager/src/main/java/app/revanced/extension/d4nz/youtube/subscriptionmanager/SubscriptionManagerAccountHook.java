@@ -15,6 +15,7 @@ public final class SubscriptionManagerAccountHook {
 
     /** Applies a committed account transition without reading an account name or email address. */
     public static void setAccount(AccountIdentity identity) {
+        SubscriptionManagerSwipeHandler.invalidateAllOwnership();
         long generation = beginTransition();
         applyLatestAccount(generation);
         if (finishTransition(generation, identity)) {
@@ -24,9 +25,21 @@ public final class SubscriptionManagerAccountHook {
 
     /** Applies startup hydration only if no newer account transition has started. */
     public static void setAccountFromStartup(Object identity) {
+        SubscriptionManagerSwipeHandler.invalidateAllOwnership();
         if (rememberStartup(identity)) {
             applyLatestAccount(0);
         }
+    }
+
+    /** Hydrates a process that reuses YouTube's already-loaded active identity state. */
+    public static void hydrateAccountFromActiveIdentity(Object identity) {
+        SubscriptionManagerAccount account = resolveSafely(identity);
+        synchronized (ACCOUNT_LOCK) {
+            if (transitionGeneration != 0 || pendingAccount.equals(account)) return;
+            pendingAccount = account;
+        }
+        SubscriptionManagerSwipeHandler.invalidateAllOwnership();
+        applyLatestAccount(0);
     }
 
     static long beginTransition() {

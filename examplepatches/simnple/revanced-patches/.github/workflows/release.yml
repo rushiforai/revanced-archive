@@ -6,7 +6,7 @@ on:
       tag:
         description: "Release tag"
         required: true
-        default: "v1.4.1"
+        default: "v1.7.1"
   push:
     branches: [main]
     paths:
@@ -45,10 +45,10 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.4.1' }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.7.1' }}
         run: |
           gh release create "$RELEASE_TAG" patches/build/libs/*.rvp \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "ReVanced Patches $RELEASE_TAG" \
-            --notes "Fixes Goondori tab visibility patches by updating both Hermes property identifiers and their inline-cache slots."
+            --notes "Adds Hide More Mailbox and automatically removes the empty Features section when all five More-menu functions are hidden."

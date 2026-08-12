@@ -1,8 +1,10 @@
 package app.revanced.patches.d4nz.youtube.subscriptionmanager
 
+import app.revanced.com.android.tools.smali.dexlib2.mutable.MutableMethod
 import app.revanced.patcher.extensions.addInstruction
 import app.revanced.patcher.extensions.instructions
 import app.revanced.patcher.firstClassDef
+import app.revanced.patcher.patch.BytecodePatchContext
 import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.patch.bytecodePatch
 import app.revanced.patches.all.misc.resources.addResources
@@ -32,6 +34,49 @@ import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
+private data class LithoCardBindHookMatch(
+    val method: MutableMethod,
+    val insertIndex: Int,
+    val componentRegister: Int,
+    val rootRegister: Int,
+)
+
+private fun Int.isOrdinaryInvokeRegister() = this in 0..15
+
+private fun MutableMethod.findRegularLithoCardBindHookMatches() =
+    instructions.indices.mapNotNull { index ->
+        if (index + 2 >= instructions.size) return@mapNotNull null
+        val producer = instructions[index]
+        val moveResult = instructions[index + 1]
+        val consumer = instructions[index + 2]
+        val producerMethod = (producer as? ReferenceInstruction)?.reference as? MethodReference
+            ?: return@mapNotNull null
+        val producerRegisters = producer as? FiveRegisterInstruction ?: return@mapNotNull null
+        val resultRegister = moveResult as? OneRegisterInstruction ?: return@mapNotNull null
+        val consumerMethod = (consumer as? ReferenceInstruction)?.reference as? MethodReference
+            ?: return@mapNotNull null
+        val consumerRegisters = consumer as? FiveRegisterInstruction ?: return@mapNotNull null
+        val componentRegister = producerRegisters.registerC
+        val componentTreeRegister = resultRegister.registerA
+        val rootRegister = consumerRegisters.registerC
+
+        if (producer.opcode != Opcode.INVOKE_VIRTUAL || producerRegisters.registerCount != 1 ||
+            producerMethod.parameterTypes.isNotEmpty() ||
+            producerMethod.returnType != LITHO_COMPONENT_TREE_DESCRIPTOR ||
+            !componentRegister.isOrdinaryInvokeRegister() ||
+            moveResult.opcode != Opcode.MOVE_RESULT_OBJECT ||
+            !componentTreeRegister.isOrdinaryInvokeRegister() ||
+            consumer.opcode != Opcode.INVOKE_VIRTUAL || consumerRegisters.registerCount != 2 ||
+            consumerMethod.parameterTypes.size != 1 ||
+            consumerMethod.parameterTypes.single().toString() != LITHO_COMPONENT_TREE_DESCRIPTOR ||
+            consumerMethod.returnType != "V" ||
+            consumerRegisters.registerD != componentTreeRegister ||
+            !rootRegister.isOrdinaryInvokeRegister()
+        ) return@mapNotNull null
+
+        LithoCardBindHookMatch(this, index + 3, componentRegister, rootRegister)
+    }
+
 private fun addSubscriptionManagerResources() {
     mapOf(
         "revanced_d4nz_subscription_manager_screen_title" to "Subscription manager",
@@ -39,13 +84,19 @@ private fun addSubscriptionManagerResources() {
             "Experimental Subscriptions feed settings",
         "revanced_d4nz_subscription_manager_about_title" to "About subscription manager",
         "revanced_d4nz_subscription_manager_about_summary" to
-            """Automatically hides regular videos from your Subscriptions feed after you watch the selected percentage. Refresh the feed after watching a video. Shorts, live streams, and upcoming videos are not affected.
+            """Automatically hides supported regular videos from your Subscriptions feed after you watch the selected percentage. Refresh the feed after watching a video.
 
-Swipe-to-hide and channel hiding are not available yet.""",
+Experimental left swipe can hide supported Subscription entries locally. Channel hiding is not available.""",
         "revanced_d4nz_subscription_manager_title" to "Enable subscription manager",
         "revanced_d4nz_subscription_manager_summary_on" to
             "Enabled for the Subscriptions feed",
         "revanced_d4nz_subscription_manager_summary_off" to "Disabled",
+        "revanced_d4nz_subscription_manager_swipe_to_hide_title" to
+            "Experimental: Swipe to hide",
+        "revanced_d4nz_subscription_manager_swipe_to_hide_summary_on" to
+            "Deliberate left swipe hides supported Subscription entries locally",
+        "revanced_d4nz_subscription_manager_swipe_to_hide_summary_off" to
+            "Left swipe hiding is off",
         "revanced_d4nz_subscription_manager_hide_watched_title" to "Hide watched videos",
         "revanced_d4nz_subscription_manager_hide_watched_summary_on" to
             "Hide watched videos detected in the Subscriptions feed",
@@ -220,11 +271,76 @@ val subscriptionManagerPatch = bytecodePatch(
                 "->setAccountFromStartup(Ljava/lang/Object;)V",
         )
 
+        val resolvedIdentityMethod = resolvedAccountIdentityMethod
+        val resolvedIdentityReturns = resolvedIdentityMethod.instructions.indices.filter { index ->
+            resolvedIdentityMethod.instructions[index].opcode == Opcode.RETURN_OBJECT &&
+                (resolvedIdentityMethod.instructions[index] as? OneRegisterInstruction)
+                    ?.registerA?.isOrdinaryInvokeRegister() == true
+        }
+        if (resolvedIdentityReturns.size != 2) {
+            throw PatchException(
+                "Could not prove the resolved AccountIdentity returns " +
+                    "(found ${resolvedIdentityReturns.size} structural matches)",
+            )
+        }
+        resolvedIdentityReturns.asReversed().forEach { returnIndex ->
+            val returnRegister =
+                (resolvedIdentityMethod.instructions[returnIndex] as OneRegisterInstruction).registerA
+            resolvedIdentityMethod.addInstruction(
+                returnIndex,
+                "invoke-static {v$returnRegister}, " +
+                    "Lapp/revanced/extension/d4nz/youtube/subscriptionmanager/SubscriptionManagerAccountHook;" +
+                    "->hydrateAccountFromActiveIdentity(Ljava/lang/Object;)V",
+            )
+        }
+
         addSubscriptionManagerResources()
 
         addLithoFilter(
             "Lapp/revanced/extension/d4nz/youtube/patches/litho/SubscriptionManagerFilter;",
         )
+
+        val bindMethod = regularLithoCardBindMethod
+        val bindMatches = bindMethod.findRegularLithoCardBindHookMatches()
+        if (bindMatches.size != 1) {
+            throw PatchException(
+                "Could not uniquely identify the regular Litho card bind seam " +
+                    "(found ${bindMatches.size} validated producer/result/consumer chains)",
+            )
+        }
+        val bindMatch = bindMatches.single()
+        val bindHook = SUBSCRIPTION_MANAGER_SWIPE_HANDLER_DESCRIPTOR +
+            "->onLithoComponentBound(Ljava/lang/Object;Ljava/lang/Object;)V"
+        bindMethod.addInstruction(
+            bindMatch.insertIndex,
+            "invoke-static {v${bindMatch.componentRegister}, v${bindMatch.rootRegister}}, $bindHook",
+        )
+        val injectedBindHooks = bindMethod.instructions.count { instruction ->
+            val reference = (instruction as? ReferenceInstruction)?.reference as? MethodReference
+            reference?.toString() == bindHook
+        }
+        if (injectedBindHooks != 1) {
+            throw PatchException(
+                "Could not verify the injected subscription card bind hook " +
+                    "(found $injectedBindHooks calls)",
+            )
+        }
+
+        val adapterNotifyItemChangedMethods = firstClassDef("Ldefpackage/mx;").methods.filter { method ->
+            method.name == "hf" &&
+                method.parameterTypes.map { it.toString() } == listOf("I") &&
+                method.returnType == "V" &&
+                !AccessFlags.STATIC.isSet(method.accessFlags) &&
+                AccessFlags.PUBLIC.isSet(method.accessFlags) &&
+                AccessFlags.FINAL.isSet(method.accessFlags)
+        }
+        if (adapterNotifyItemChangedMethods.size != 1) {
+            throw PatchException(
+                "Could not verify the RecyclerView item-rebind ABI " +
+                    "(found ${adapterNotifyItemChangedMethods.size} exact matches)",
+            )
+        }
+
         videoTimeHook(
             "Lapp/revanced/extension/d4nz/youtube/subscriptionmanager/SubscriptionManagerPlayback;",
             "setVideoTime",
@@ -237,6 +353,7 @@ val subscriptionManagerPatch = bytecodePatch(
                 preferences = setOf(
                     NonInteractivePreference("revanced_d4nz_subscription_manager_about"),
                     SwitchPreference("revanced_d4nz_subscription_manager"),
+                    SwitchPreference("revanced_d4nz_subscription_manager_swipe_to_hide"),
                     SwitchPreference("revanced_d4nz_subscription_manager_hide_watched"),
                     TextPreference(
                         "revanced_d4nz_subscription_manager_watched_threshold",
