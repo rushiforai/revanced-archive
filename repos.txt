@@ -49,6 +49,7 @@ dbhavsar76/revanced-patches
 exconvinced/revanced-web-app
 eyalm2000/tidal-debug-menu
 forsyth47/revanced-patches
+fromhgbwithluv/ReX-patches
 hoo-dles/jadx-morphe
 indrastorms/Dropped-Patches
 inotia00/revanced-cli-arsclib
