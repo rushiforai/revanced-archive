@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-14 01:29 UTC",
+  "generatedAt": "2026-08-15 00:59 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 644,
-  "patchCount": 2339,
+  "patchCount": 2335,
   "universalPatchCount": 175,
   "hostCounts": {
     "github.com": 122,
@@ -68,40 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.21.1 (2026-08-08)",
-        "date": "2026-08-08",
+        "title": "1.26.3 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**netflix:** match AppTarget to real versionName + README install section"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+            "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
           }
         ]
       },
@@ -2638,19 +2610,23 @@
       "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
       "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
-      "patchCount": 52,
-      "appCount": 92,
+      "patchCount": 53,
+      "appCount": 93,
       "createdAt": 1785034851561,
       "updatedAt": 1785034851561,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.15.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.16.0 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Added Support"
+            "text": "Added Six Pack in 30 Days"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Update"
           }
         ]
       },
@@ -3207,6 +3183,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#023C69"
+        },
+        {
+          "name": "Six Pack in 30 Days",
+          "packageName": "sixpack.sixpackabs.absworkout",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FF6D00"
         },
         {
           "name": "Sleep as Android",
@@ -4617,47 +4600,23 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 30,
+      "patchCount": 31,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "2.9.0 (2026-08-13)",
-        "date": "2026-08-13",
+        "title": "2.10.0 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Change emoji size patch, which enables Gboard's emoji size setting."
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Enable cursor trackpad mode patch, which enables long-press-spacebar trackpad and cursor lock modes."
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Access Points menu style patch, which lets you switch between the new and legacy Access Points menu styles."
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Enable split keyboard patch, with Access Point controls and an optional Auto split setting."
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Enable accessibility layout patch, which exposes Gboard's accessibility layout setting."
+            "text": "**Gboard:** add the G Logo on Spacebar patch."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Change emoji size Patch\uff0c\u555f\u7528 Gboard \u7684\u8868\u60c5\u7b26\u865f\u5927\u5c0f\u8a2d\u5b9a\u3002"
-          },
-          {
-            "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Enable cursor trackpad mode Patch\uff0c\u555f\u7528\u9577\u6309\u7a7a\u767d\u9375\u89f8\u63a7\u677f\u8207\u6e38\u6a19\u9396\u5b9a\u6a21\u5f0f\u3002"
-          },
-          {
-            "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Access Points menu style Patch\uff0c\u53ef\u5207\u63db\u65b0\u7248\u8207\u820a\u7248 Access Points \u9078\u55ae\u6a23\u5f0f\u3002"
+            "text": "**Gboard:** \u65b0\u589e G Logo on Spacebar Patch\u3002"
           }
         ]
       },
@@ -4665,7 +4624,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 30,
+          "patchCount": 31,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -5547,31 +5506,18 @@
       "webUrl": "https://github.com/kun-codes/npci-bhim-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=kun-codes/npci-bhim-morphe-patches",
       "avatarUrl": "https://github.com/kun-codes.png?size=96",
-      "patchCount": 6,
-      "appCount": 1,
+      "patchCount": 0,
+      "appCount": 0,
       "createdAt": 1784836038418,
       "updatedAt": 1784836038418,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.2.0 (2026-06-28)",
-        "date": "2026-06-28",
-        "items": [
-          {
-            "category": "\u2728 New Features",
-            "text": "add BypassLicensePaywall patch to neutralize paywall at source"
-          }
-        ]
+        "title": "",
+        "date": "",
+        "items": []
       },
-      "apps": [
-        {
-          "name": "BHIM UPI",
-          "packageName": "in.org.npci.upiapp",
-          "patchCount": 6,
-          "iconUrl": "",
-          "iconColor": "#097969"
-        }
-      ]
+      "apps": []
     },
     {
       "name": "morphe-patches",
@@ -7122,12 +7068,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.1 (2026-07-15)",
-        "date": "2026-07-15",
+        "title": "1.0.2 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.3.0 target"
+            "text": "add SeriesGuide v2026.4.0 target"
           }
         ]
       },
@@ -9685,12 +9631,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.11.13 (2026-08-13)",
-        "date": "2026-08-13",
+        "title": "1.12.0 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.5003-rustore"
+            "category": "\u2728 New Features",
+            "text": "**avito:** hide reserved offers"
           }
         ]
       },
@@ -10864,12 +10810,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -12487,12 +12437,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -12545,12 +12499,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -13410,12 +13368,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -13505,12 +13467,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -13669,12 +13635,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -13802,12 +13772,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.13 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.12.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.5003-rustore"
+                "category": "\u2728 New Features",
+                "text": "**avito:** hide reserved offers"
               }
             ]
           },
@@ -13849,7 +13819,7 @@
             },
             {
               "name": "UI tweaks",
-              "description": "Optional interface tweaks, each toggleable in \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 Morphe: single-row home categories, hide the \"\u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438\" tab in \u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435, hide installments (\u0420\u0430\u0441\u0441\u0440\u043e\u0447\u043a\u0430) and the \"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u0435 \u0443 \u043f\u0440\u043e\u0434\u0430\u0432\u0446\u0430\" block on offers, expand descriptions by default (no \"\u0427\u0438\u0442\u0430\u0442\u044c \u0434\u0430\u043b\u0435\u0435\"), hide offer recommendations, hide profile raffle, referral and Avito Pro promos, and hide the Avi assistant tab in the bottom navigation."
+              "description": "Optional interface tweaks, each toggleable in \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 Morphe: single-row home categories, hide the \"\u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438\" tab in \u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435, hide installments (\u0420\u0430\u0441\u0441\u0440\u043e\u0447\u043a\u0430) and the \"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u0435 \u0443 \u043f\u0440\u043e\u0434\u0430\u0432\u0446\u0430\" block on offers, expand descriptions by default (no \"\u0427\u0438\u0442\u0430\u0442\u044c \u0434\u0430\u043b\u0435\u0435\"), hide reserved offers and offer recommendations, hide profile raffle, referral and Avito Pro promos, and hide the Avi assistant tab in the bottom navigation."
             }
           ],
           "versions": [
@@ -13900,7 +13870,7 @@
         },
         {
           "name": "UI tweaks",
-          "description": "Optional interface tweaks, each toggleable in \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 Morphe: single-row home categories, hide the \"\u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438\" tab in \u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435, hide installments (\u0420\u0430\u0441\u0441\u0440\u043e\u0447\u043a\u0430) and the \"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u0435 \u0443 \u043f\u0440\u043e\u0434\u0430\u0432\u0446\u0430\" block on offers, expand descriptions by default (no \"\u0427\u0438\u0442\u0430\u0442\u044c \u0434\u0430\u043b\u0435\u0435\"), hide offer recommendations, hide profile raffle, referral and Avito Pro promos, and hide the Avi assistant tab in the bottom navigation."
+          "description": "Optional interface tweaks, each toggleable in \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 Morphe: single-row home categories, hide the \"\u041f\u043e\u0434\u043f\u0438\u0441\u043a\u0438\" tab in \u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435, hide installments (\u0420\u0430\u0441\u0441\u0440\u043e\u0447\u043a\u0430) and the \"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u0435 \u0443 \u043f\u0440\u043e\u0434\u0430\u0432\u0446\u0430\" block on offers, expand descriptions by default (no \"\u0427\u0438\u0442\u0430\u0442\u044c \u0434\u0430\u043b\u0435\u0435\"), hide reserved offers and offer recommendations, hide profile raffle, referral and Avito Pro promos, and hide the Avi assistant tab in the bottom navigation."
         }
       ],
       "versions": [
@@ -14055,12 +14025,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14113,12 +14087,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14171,12 +14149,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14229,12 +14211,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14287,12 +14273,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14345,12 +14335,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14403,12 +14397,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14461,12 +14459,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14519,12 +14521,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14635,12 +14641,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14693,12 +14703,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14751,12 +14765,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14809,12 +14827,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14867,12 +14889,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -14925,12 +14951,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -15530,109 +15560,6 @@
       "iconUrl": ""
     },
     {
-      "packageName": "in.org.npci.upiapp",
-      "name": "BHIM UPI",
-      "repos": [
-        "kun-codes/npci-bhim-morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "kun-codes/npci-bhim-morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/kun-codes/npci-bhim-morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=kun-codes/npci-bhim-morphe-patches",
-          "source": "https://raw.githubusercontent.com/kun-codes/npci-bhim-morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/kun-codes/npci-bhim-morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/kun-codes.png?size=96",
-          "latestChanges": {
-            "title": "1.2.0 (2026-06-28)",
-            "date": "2026-06-28",
-            "items": [
-              {
-                "category": "\u2728 New Features",
-                "text": "add BypassLicensePaywall patch to neutralize paywall at source"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "in-org-npci-upiapp-kun-codes-npci-bhim-morphe-patches",
-            "releaseTag": "app-in-org-npci-upiapp-kun-codes-npci-bhim-morphe-patches",
-            "assetName": "bhim-upi-kun-codes-npci-bhim-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Bypass License Activity",
-              "description": "Neutralizes LicenseActivity.onStart to prevent the paywall and error dialog from being displayed, acting as a catch-all guard if LicenseActivity is ever started."
-            },
-            {
-              "name": "Bypass License Check",
-              "description": "Bypasses Google Play Store license verification in com.pairip.licensecheck.LicenseClient to prevent System.exit(0) on non-Play Store installs."
-            },
-            {
-              "name": "Bypass License Paywall",
-              "description": "Neutralizes the license paywall and error dialog at the source by patching LicenseClient.processResponse, startPaywallActivity, and handleError to return immediately."
-            },
-            {
-              "name": "Bypass Signature Verification",
-              "description": "Bypasses APK signature verification in com.pairip.SignatureCheck to prevent SignatureTamperedException on modified APKs."
-            },
-            {
-              "name": "Disable Blacklisting",
-              "description": "Disables the blacklisting check in the affirmation flow to prevent the app from blocking rooted devices server-side."
-            },
-            {
-              "name": "Force Safe Root Status",
-              "description": "Forces the root status to 'safe' in device details and skips root status comparison logic to bypass root detection on the client side."
-            }
-          ],
-          "versions": [
-            "4.0.24"
-          ]
-        }
-      ],
-      "patches": [
-        "Bypass License Activity",
-        "Bypass License Check",
-        "Bypass License Paywall",
-        "Bypass Signature Verification",
-        "Disable Blacklisting",
-        "Force Safe Root Status"
-      ],
-      "patchDetails": [
-        {
-          "name": "Bypass License Activity",
-          "description": "Neutralizes LicenseActivity.onStart to prevent the paywall and error dialog from being displayed, acting as a catch-all guard if LicenseActivity is ever started."
-        },
-        {
-          "name": "Bypass License Check",
-          "description": "Bypasses Google Play Store license verification in com.pairip.licensecheck.LicenseClient to prevent System.exit(0) on non-Play Store installs."
-        },
-        {
-          "name": "Bypass License Paywall",
-          "description": "Neutralizes the license paywall and error dialog at the source by patching LicenseClient.processResponse, startPaywallActivity, and handleError to return immediately."
-        },
-        {
-          "name": "Bypass Signature Verification",
-          "description": "Bypasses APK signature verification in com.pairip.SignatureCheck to prevent SignatureTamperedException on modified APKs."
-        },
-        {
-          "name": "Disable Blacklisting",
-          "description": "Disables the blacklisting check in the affirmation flow to prevent the app from blocking rooted devices server-side."
-        },
-        {
-          "name": "Force Safe Root Status",
-          "description": "Forces the root status to 'safe' in device details and skips root status comparison logic to bypass root detection on the client side."
-        }
-      ],
-      "versions": [
-        "4.0.24"
-      ],
-      "iconColor": "#097969",
-      "iconUrl": ""
-    },
-    {
       "packageName": "com.x8bit.bitwarden",
       "name": "Bitwarden",
       "repos": [
@@ -16154,12 +16081,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -16597,12 +16528,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -18053,12 +17988,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -18428,12 +18367,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -18486,12 +18429,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -18544,12 +18491,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -18602,12 +18553,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -19293,12 +19248,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -19351,12 +19310,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -19918,40 +19881,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -20437,40 +20372,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -20585,40 +20492,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -20797,40 +20676,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -21318,40 +21169,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -22176,12 +21999,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -22217,40 +22044,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "2.9.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "2.10.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Change emoji size patch, which enables Gboard's emoji size setting."
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Enable cursor trackpad mode patch, which enables long-press-spacebar trackpad and cursor lock modes."
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Access Points menu style patch, which lets you switch between the new and legacy Access Points menu styles."
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Enable split keyboard patch, with Access Point controls and an optional Auto split setting."
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Enable accessibility layout patch, which exposes Gboard's accessibility layout setting."
+                "text": "**Gboard:** add the G Logo on Spacebar patch."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Change emoji size Patch\uff0c\u555f\u7528 Gboard \u7684\u8868\u60c5\u7b26\u865f\u5927\u5c0f\u8a2d\u5b9a\u3002"
-              },
-              {
-                "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Enable cursor trackpad mode Patch\uff0c\u555f\u7528\u9577\u6309\u7a7a\u767d\u9375\u89f8\u63a7\u677f\u8207\u6e38\u6a19\u9396\u5b9a\u6a21\u5f0f\u3002"
-              },
-              {
-                "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Access Points menu style Patch\uff0c\u53ef\u5207\u63db\u65b0\u7248\u8207\u820a\u7248 Access Points \u9078\u55ae\u6a23\u5f0f\u3002"
+                "text": "**Gboard:** \u65b0\u589e G Logo on Spacebar Patch\u3002"
               }
             ]
           },
@@ -22325,6 +22128,10 @@
             {
               "name": "English QWERTY Up-Flick Uppercase",
               "description": "\u82f1\u6587 QWERTY \u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\nFlick up on the English QWERTY keyboard to toggle uppercase and lowercase."
+            },
+            {
+              "name": "G Logo on Spacebar",
+              "description": "\u5728\u7a7a\u767d\u9375\u986f\u793a G Logo\uff0c\u4e26\u96b1\u85cf\u8a9e\u8a00\u540d\u7a31\nShow the G Logo on the spacebar and hide the language label."
             },
             {
               "name": "Grammar Checker",
@@ -22504,6 +22311,7 @@
         "Enable Undo feature",
         "Enable voice typing in incognito",
         "English QWERTY Up-Flick Uppercase",
+        "G Logo on Spacebar",
         "Grammar Checker",
         "Incognito Mode Toggle",
         "Inline Suggestions",
@@ -22624,6 +22432,10 @@
         {
           "name": "English QWERTY Up-Flick Uppercase",
           "description": "\u82f1\u6587 QWERTY \u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\nFlick up on the English QWERTY keyboard to toggle uppercase and lowercase."
+        },
+        {
+          "name": "G Logo on Spacebar",
+          "description": "\u5728\u7a7a\u767d\u9375\u986f\u793a G Logo\uff0c\u4e26\u96b1\u85cf\u8a9e\u8a00\u540d\u7a31\nShow the G Logo on the spacebar and hide the language label."
         },
         {
           "name": "Grammar Checker",
@@ -23127,40 +22939,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -23434,40 +23218,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -24006,40 +23762,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -25001,40 +24729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -25169,40 +24869,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -25916,12 +25588,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -25974,12 +25650,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26032,12 +25712,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26090,12 +25774,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26148,12 +25836,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26206,12 +25898,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26264,12 +25960,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26322,12 +26022,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26380,12 +26084,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -26438,12 +26146,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -27525,8 +27237,8 @@
         "Bypass PairIP integrity check",
         "Bypass PairIP manifest",
         "Puzzles Unlock",
-        "Remove Ads",
         "Remove ads",
+        "Remove Ads",
         "Unlock all designs"
       ],
       "patchDetails": [
@@ -27543,12 +27255,12 @@
           "description": "Unlocks all puzzles."
         },
         {
-          "name": "Remove Ads",
-          "description": "Removes ads."
-        },
-        {
           "name": "Remove ads",
           "description": "Removes all advertisements (rewarded ads and interstitial ads) from the app. When the user taps 'Watch ad to unlock' on a locked design, the ad is skipped and the design is unlocked instantly \u2014 the reward is granted without showing any ad. Also disables rewarded ad preloading to save bandwidth. Note: this patch does NOT automatically unlock designs \u2014 the user must still tap each locked design to unlock it (the ad is just skipped). For automatic unlock of ALL designs at startup, enable the 'Unlock all designs' patch. Requires the 'Bypass PairIP integrity check' patch."
+        },
+        {
+          "name": "Remove Ads",
+          "description": "Removes ads."
         },
         {
           "name": "Unlock all designs",
@@ -27790,12 +27502,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -28526,12 +28242,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -28651,12 +28371,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -28709,12 +28433,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -28767,12 +28495,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -29486,12 +29218,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -30264,12 +30000,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -31164,12 +30904,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -31973,12 +31717,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -32666,12 +32414,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -33636,12 +33388,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -33843,12 +33599,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -36410,12 +36170,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -36527,12 +36291,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -38903,12 +38671,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -39002,12 +38774,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -39370,12 +39146,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -39619,12 +39399,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -39743,12 +39527,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -40091,12 +39879,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -44849,12 +44641,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -45403,12 +45199,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -45805,12 +45605,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -46418,12 +46222,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.13 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.12.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.5003-rustore"
+                "category": "\u2728 New Features",
+                "text": "**avito:** hide reserved offers"
               }
             ]
           },
@@ -46517,12 +46321,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -46728,12 +46536,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -47153,12 +46965,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -47277,12 +47093,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -47562,12 +47382,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -47939,12 +47763,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -47997,12 +47825,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -49309,12 +49141,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -50647,12 +50483,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -51561,12 +51401,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -51619,12 +51463,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -54117,12 +53965,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -54308,12 +54160,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -54366,12 +54222,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -54846,12 +54706,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RoundSalmon4/morphe-patches-template/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RoundSalmon4.png?size=96",
           "latestChanges": {
-            "title": "1.0.1 (2026-07-15)",
-            "date": "2026-07-15",
+            "title": "1.0.2 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add SeriesGuide v2026.3.0 target"
+                "text": "add SeriesGuide v2026.4.0 target"
               }
             ]
           },
@@ -54870,7 +54730,8 @@
           ],
           "versions": [
             "2026.2.2",
-            "2026.3.0"
+            "2026.3.0",
+            "2026.4.0"
           ]
         }
       ],
@@ -54885,7 +54746,8 @@
       ],
       "versions": [
         "2026.2.2",
-        "2026.3.0"
+        "2026.3.0",
+        "2026.4.0"
       ],
       "iconColor": "#E53935",
       "iconUrl": ""
@@ -54906,12 +54768,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -55202,6 +55068,68 @@
       "iconUrl": ""
     },
     {
+      "packageName": "sixpack.sixpackabs.absworkout",
+      "name": "Six Pack in 30 Days",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "sixpack-sixpackabs-absworkout-entree3k-morning-entree-patches",
+            "releaseTag": "app-sixpack-sixpackabs-absworkout-entree3k-morning-entree-patches",
+            "assetName": "six-pack-in-30-days-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Premium"
+            }
+          ],
+          "versions": [
+            "1.4.8"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Premium"
+        }
+      ],
+      "versions": [
+        "1.4.8"
+      ],
+      "iconColor": "#FF6D00",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.adsk.sketchbook",
       "name": "Sketchbook",
       "repos": [
@@ -55371,12 +55299,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -55587,12 +55519,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -55762,12 +55698,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -56019,12 +55959,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -57420,12 +57364,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -58646,12 +58594,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -59753,12 +59705,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -59931,7 +59887,7 @@
             },
             {
               "name": "Remote Config Override",
-              "description": "Overrides remote configuration values: disables popup scheduling, prevents aggressive token expiry, removes quick chat limits, disables text buzz auto-delete"
+              "description": "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete"
             },
             {
               "name": "Search Discovery",
@@ -60005,7 +59961,7 @@
         },
         {
           "name": "Remote Config Override",
-          "description": "Overrides remote configuration values: disables popup scheduling, prevents aggressive token expiry, removes quick chat limits, disables text buzz auto-delete"
+          "description": "Overrides remote configuration values: removes quick chat limits, disables text buzz auto-delete"
         },
         {
           "name": "Search Discovery",
@@ -60213,12 +60169,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.13 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.12.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.5003-rustore"
+                "category": "\u2728 New Features",
+                "text": "**avito:** hide reserved offers"
               }
             ]
           },
@@ -61057,12 +61013,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -61330,12 +61290,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -61868,12 +61832,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -63854,40 +63822,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -63969,40 +63909,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.21.1 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.26.3 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** ship the frida-gadget binary in the patch bundle"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** match AppTarget to real versionName + README install section"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** default-on Clone, clearer ad-remover patch names"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**netflix:** verify gadget-injection fingerprint vs 13.0.1-25028 bytecode"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add clone patch; clone installs+launches but hits DexGuard CertCheck"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** add offset-free Frida appboot dumper + non-root runbook"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** BOTH ad kills PROVEN together, data-oracle-verified"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** crack native RJni_SignatureCheck \u2014 clone now runs past both anti-tampers"
+                "text": "**primevideo:** stop native ad-strip causing the mid-roll/resume restart (#14)"
               }
             ]
           },
@@ -64229,12 +64141,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -65324,12 +65240,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -65500,12 +65420,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.15.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.16.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Added Support"
+                "text": "Added Six Pack in 30 Days"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
               }
             ]
           },
@@ -66321,12 +66245,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.11.13 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.12.0 (2026-08-14)",
+            "date": "2026-08-14",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.5003-rustore"
+                "category": "\u2728 New Features",
+                "text": "**avito:** hide reserved offers"
               }
             ]
           },
@@ -68935,8 +68859,8 @@
         "Save to watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -69389,11 +69313,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -71352,12 +71276,16 @@
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
       "patchCount": 5,
       "latestChanges": {
-        "title": "1.15.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.16.0 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Added Support"
+            "text": "Added Six Pack in 30 Days"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Update"
           }
         ]
       },
@@ -72643,12 +72571,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.11.13 (2026-08-13)",
-        "date": "2026-08-13",
+        "title": "1.12.0 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.5003-rustore"
+            "category": "\u2728 New Features",
+            "text": "**avito:** hide reserved offers"
           }
         ]
       },
@@ -72977,12 +72905,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.1 (2026-07-15)",
-        "date": "2026-07-15",
+        "title": "1.0.2 (2026-08-14)",
+        "date": "2026-08-14",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.3.0 target"
+            "text": "add SeriesGuide v2026.4.0 target"
           }
         ]
       },
