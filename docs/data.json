@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-15 00:59 UTC",
+  "generatedAt": "2026-08-16 01:02 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 644,
-  "patchCount": 2335,
+  "appCount": 645,
+  "patchCount": 2337,
   "universalPatchCount": 175,
   "hostCounts": {
     "github.com": 122,
@@ -635,35 +635,19 @@
       "webUrl": "https://github.com/arandomhooman/hoomans-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=arandomhooman/hoomans-morphe-patches",
       "avatarUrl": "https://github.com/arandomhooman.png?size=96",
-      "patchCount": 54,
-      "appCount": 41,
+      "patchCount": 55,
+      "appCount": 42,
       "createdAt": 1784836029535,
       "updatedAt": 1784836029535,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.44.0 (2026-08-13)",
-        "date": "2026-08-13",
+        "title": "1.45.0 (2026-08-15)",
+        "date": "2026-08-15",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "hide DirectChat message-bubble ad in Unlock Premium"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "resolve reported app regressions"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "resolve reported patch regressions"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "resolve Symfonium playback and Poweramp settings crashes"
-          },
-          {
             "category": "\u2728 New Features",
-            "text": "add DirectChat unlock premium patch"
+            "text": "add Moneta Unlock Plus patch"
           }
         ]
       },
@@ -821,6 +805,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#5065A1"
+        },
+        {
+          "name": "Moneta",
+          "packageName": "currency.converter.moneta",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#4BBA17"
         },
         {
           "name": "Money Manager",
@@ -4258,27 +4249,19 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 12,
-      "appCount": 5,
+      "patchCount": 13,
+      "appCount": 6,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.5.1 (2026-08-15)",
+        "date": "2026-08-15",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-          },
-          {
-            "category": "New Features",
-            "text": "**Audible - Open Library on launch:** add patch"
-          },
-          {
-            "category": "New Features",
-            "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+            "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
           }
         ]
       },
@@ -4317,6 +4300,13 @@
           "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#F44336"
+        },
+        {
+          "name": "Symfonium",
+          "packageName": "app.symfonik.music.player",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#E22728"
         }
       ]
     },
@@ -4607,16 +4597,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "2.10.0 (2026-08-14)",
-        "date": "2026-08-14",
+        "title": "2.11.0 (2026-08-15)",
+        "date": "2026-08-15",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add the G Logo on Spacebar patch."
+            "text": "**Gboard:** nothing was added."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e G Logo on Spacebar Patch\u3002"
+            "text": "**Gboard:** \u4ec0\u9ebc\u90fd\u6c92\u6709\u6dfb\u52a0\u3002"
           }
         ]
       },
@@ -10415,28 +10405,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -10604,28 +10578,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -10678,28 +10636,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -11383,28 +11325,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -12658,28 +12584,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -13154,20 +13064,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-              },
-              {
-                "category": "New Features",
-                "text": "**Audible - Open Library on launch:** add patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
               }
             ]
           },
@@ -15125,28 +15027,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -15258,28 +15144,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -15768,28 +15638,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -18249,28 +18103,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -18756,28 +18594,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -19741,28 +19563,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -22044,16 +21850,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "2.10.0 (2026-08-14)",
-            "date": "2026-08-14",
+            "title": "2.11.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add the G Logo on Spacebar patch."
+                "text": "**Gboard:** nothing was added."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e G Logo on Spacebar Patch\u3002"
+                "text": "**Gboard:** \u4ec0\u9ebc\u90fd\u6c92\u6709\u6dfb\u52a0\u3002"
               }
             ]
           },
@@ -26834,28 +26640,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -28015,28 +27805,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -29450,28 +29224,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -30207,28 +29965,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -30696,28 +30438,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -31010,28 +30736,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -31137,20 +30847,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-              },
-              {
-                "category": "New Features",
-                "text": "**Audible - Open Library on launch:** add patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
               }
             ]
           },
@@ -32896,28 +32598,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -33729,28 +33415,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -34786,28 +34456,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -39323,28 +38977,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -41798,28 +41436,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -42205,6 +41827,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "currency.converter.moneta",
+      "name": "Moneta",
+      "repos": [
+        "arandomhooman/hoomans-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "arandomhooman/hoomans-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/arandomhooman/hoomans-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=arandomhooman/hoomans-morphe-patches",
+          "source": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/arandomhooman.png?size=96",
+          "latestChanges": {
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "add Moneta Unlock Plus patch"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "currency-converter-moneta-arandomhooman-hoomans-morphe-patches",
+            "releaseTag": "app-currency-converter-moneta-arandomhooman-hoomans-morphe-patches",
+            "assetName": "moneta-arandomhooman-hoomans-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock Plus",
+              "description": "Unlocks Moneta Plus features, including the full asset catalog, more than five selected assets, five-minute rate updates, camera price scanning, and extended historical charts. Purchases, restore purchases, and server account state are unchanged. This is the arm64 build."
+            }
+          ],
+          "versions": [
+            "1.2.2"
+          ]
+        }
+      ],
+      "patches": [
+        "Unlock Plus"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock Plus",
+          "description": "Unlocks Moneta Plus features, including the full asset catalog, more than five selected assets, five-minute rate updates, camera price scanning, and extended historical charts. Purchases, restore purchases, and server account state are unchanged. This is the arm64 build."
+        }
+      ],
+      "versions": [
+        "1.2.2"
+      ],
+      "iconColor": "#4BBA17",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.realbyteapps.moneymanagerfree",
       "name": "Money Manager",
       "repos": [
@@ -42220,28 +41900,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -42295,28 +41959,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -50264,28 +49912,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -50431,28 +50063,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -50522,20 +50138,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-              },
-              {
-                "category": "New Features",
-                "text": "**Audible - Open Library on launch:** add patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
               }
             ]
           },
@@ -50817,20 +50425,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-              },
-              {
-                "category": "New Features",
-                "text": "**Audible - Open Library on launch:** add patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
               }
             ]
           },
@@ -51793,28 +51393,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -53103,28 +52687,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -53620,28 +53188,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -54936,20 +54488,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Projectivy - Disable tracking:** pin the crashlytics URL builder for the host redirect"
-              },
-              {
-                "category": "New Features",
-                "text": "**Audible - Open Library on launch:** add patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Showly - Unlock premium:** force Trakt VIP to skip the paywall"
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
               }
             ]
           },
@@ -55468,28 +55012,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -56163,28 +55691,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -57742,28 +57254,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -58778,7 +58274,8 @@
       "name": "Symfonium",
       "repos": [
         "arandomhooman/hoomans-morphe-patches",
-        "binarymend/morphe-patches"
+        "binarymend/morphe-patches",
+        "hxreborn/morphe-patches"
       ],
       "sources": [
         {
@@ -58790,28 +58287,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -58870,13 +58351,54 @@
           "versions": [
             "14.0.0"
           ]
+        },
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.5.1 (2026-08-15)",
+            "date": "2026-08-15",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**Symfonium - Unlock premium:** force the native key check that halts playback"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "app-symfonik-music-player-hxreborn-morphe-patches",
+            "releaseTag": "app-app-symfonik-music-player-hxreborn-morphe-patches",
+            "assetName": "symfonium-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks all premium features."
+            }
+          ],
+          "versions": [
+            "14.0.0",
+            "14.1.0"
+          ]
         }
       ],
       "patches": [
+        "Unlock premium",
         "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
+        },
         {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
@@ -60240,28 +59762,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -61894,28 +61400,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -62364,28 +61854,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -63628,28 +63102,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -63949,28 +63407,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -64925,28 +64367,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -65800,28 +65226,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -66171,28 +65581,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/arandomhooman/hoomans-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/arandomhooman.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-08-13)",
-            "date": "2026-08-13",
+            "title": "1.45.0 (2026-08-15)",
+            "date": "2026-08-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide DirectChat message-bubble ad in Unlock Premium"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported app regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve reported patch regressions"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve Symfonium playback and Poweramp settings crashes"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "add DirectChat unlock premium patch"
+                "text": "add Moneta Unlock Plus patch"
               }
             ]
           },
@@ -68859,8 +68253,8 @@
         "Save to watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -69313,11 +68707,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
