@@ -11,12 +11,19 @@ Personal use, on hardware I own. These are not affiliated with ReVanced.
 | 💊 Patch | 🖥️ App | 📦 Package | 📱 Builds | 🏷️ Versions | 📝 Description |
 | --- | --- | --- | --- | --- | --- |
 | `Disable ads` | ZEE5 | `com.graymatrix.did` | Android TV + mobile | any | Removes pre-roll, mid-roll and post-roll video ads, on both on-demand content and live channels. |
+| `Disable ads` | SonyLIV | `com.sonyliv` | Android TV | any | Removes pre-roll and mid-roll video ads from on-demand content. Live channels using server-stitched ads are **not** covered — see below. |
 
-Verified on Android TV **5.82.7** and mobile **39.55.9**. One patch covers both —
-no need to pick.
+Both patches are version-less and match by shape rather than by name, so they
+should survive point releases. Manager and the CLI only offer the patch whose
+package matches the APK you pick, so the shared name is not ambiguous in practice.
+
+| App | Verified on |
+| --- | --- |
+| ZEE5 | Android TV **5.82.7**, mobile **39.55.9** — one patch covers both |
+| SonyLIV | Android TV **6.25.1** on real hardware. **6.27.3** applies cleanly and is ad-free on an Android TV emulator, but has not run on a real device. No mobile support yet. |
 
 <details>
-<summary><b>How <code>Disable ads</code> works</b></summary>
+<summary><b>How ZEE5 <code>Disable ads</code> works</b></summary>
 
 ZEE5 serves ads down two independent paths, both driven by Google IMA:
 
@@ -61,6 +68,56 @@ match the IMA SDK's own `getAdTagUrl()`.
 Either way the change governs only whether ads are attached to playback;
 entitlement, DRM licensing and which content is playable are enforced elsewhere
 and are untouched.
+
+</details>
+
+<details>
+<summary><b>How SonyLIV <code>Disable ads</code> works</b></summary>
+
+SonyLIV runs **four** ad paths, and the server picks which one applies in the
+`/videourl` response rather than the client deciding:
+
+- **CSAI** — Google IMA v3, ad tag URL assembled on-device from remote config,
+  keyed by the user's *ad cluster*.
+- **Google DAI** — `com.sonyplayer.ads.DAIAdsManager`, entered only when the
+  response carries a non-empty `daiAssetKey`.
+- **AWS MediaTailor SSAI** — used for live; ads are stitched into the manifest
+  upstream, and the `videoURL` the server returns *is* the stitched stream.
+- **Display/banner** — negligible on TV.
+
+The first two are client-gated and are what this patch removes. Two hooks, because
+neither covers the other's path:
+
+**The ad gate.** A static `boolean isAdEnabled(AssetMetadata)` decides whether ads
+are attached at all. Stock, it already returns false in three shipping cases: the
+user is in a GDPR country, the `isAllAdsDisabled` remote kill switch is set, or the
+user is a subscriber whose account ad cluster is not in the content's
+`adClusterId` list. Forcing it false puts the app into a state it already builds
+and exercises — the same argument as the ZEE5 hook.
+
+**Google DAI.** The gate does *not* cover it: `DAIAdsManager` is constructed purely
+on `daiAssetKey` being non-empty, with no reference to the gate. The patch makes
+that accessor return the **empty string**, which drops playback onto the branch
+that plays the plain content URL. Empty rather than null is deliberate — the field
+is declared `@NotNull`, and returning null produced a burst of caught
+`NullPointerException`s off the playback path. Every consumer gates on
+`length() > 0`, so `""` reads as "no DAI asset" while honouring the contract.
+
+Neither hook can be matched by name. R8 renames the class holding the gate between
+two consecutive TV releases (`kz.k` in 6.25.1, `c10.m` in 6.27.3), so the gate is
+matched by *shape* — static, returns boolean, takes one `AssetMetadata` — plus the
+`"gdpr_country"` string constant in its body, which is what narrows roughly a dozen
+signature matches down to one. The DAI accessor is worse: `ContentDetails` keeps
+its class name and its **fields** through R8, but its Kotlin getters do not —
+`getDaiAssetKey()` is really `h()`. jadx prints the pretty name because it
+reconstructs it from `@Metadata`, which is a trap. It is therefore matched by the
+`daiAssetKey` field it reads, with a size guard so it cannot hit `hashCode` or
+`copy`, which read the same field.
+
+**What this does not fix.** Live channels served through MediaTailor keep their
+ads: the stitched manifest is what the server hands over and there is no clean URL
+to fall back to. Nothing on-device can undo that. As with ZEE5, the change governs
+only whether ads are attached to playback — entitlement and DRM are untouched.
 
 </details>
 

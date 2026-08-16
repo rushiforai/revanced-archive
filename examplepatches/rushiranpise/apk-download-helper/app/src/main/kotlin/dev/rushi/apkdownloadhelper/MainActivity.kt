@@ -1,9 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import android.Manifest
 import android.app.Activity
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Context
+import android.widget.Toast
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
@@ -12,21 +14,30 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import android.webkit.JavascriptInterface
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -41,18 +52,28 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FolderOpen
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.OpenInBrowser
+import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -65,12 +86,17 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,6 +107,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -111,15 +138,14 @@ import java.util.zip.ZipOutputStream
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.random.Random
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -129,16 +155,25 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-private const val AURORA_AUTH_URL = "https://auroraoss.com/api/auth"
-private const val TAG = "ApkDownloadHelper"
-private const val PREFS_NAME = "helper_settings"
-private const val TEMP_CLEANUP_DELAY_MS = 5 * 60 * 1000L
-private const val TEMP_CLEANUP_MAX_AGE_MS = 6 * 60 * 60 * 1000L
-private val DOWNLOAD_FILE_KIND_ORDER = listOf("apk", "apkm", "apks", "xapk")
-private val APK_COMBO_FILE_KIND_ORDER = listOf("apk", "xapk", "apks")
-private val DOWNLOAD_FILE_KIND_SET = DOWNLOAD_FILE_KIND_ORDER.toSet()
-private val SPLIT_ARCHIVE_FILE_KINDS = setOf("apkm", "apks", "xapk")
-private val DOWNLOAD_FILE_KIND_REGEX = Regex("""apkm|apks|xapk|apk""", RegexOption.IGNORE_CASE)
+internal const val AURORA_AUTH_URL = "https://auroraoss.com/api/auth"
+internal const val TAG = "ApkDownloadHelper"
+internal val DOWNLOAD_FILE_KIND_ORDER = listOf("apk", "apkm", "apks", "xapk")
+internal val APK_COMBO_FILE_KIND_ORDER = listOf("apk", "xapk", "apks")
+internal val DOWNLOAD_FILE_KIND_SET = DOWNLOAD_FILE_KIND_ORDER.toSet()
+internal val SPLIT_ARCHIVE_FILE_KINDS = setOf("apkm", "apks", "xapk")
+internal val DOWNLOAD_FILE_KIND_REGEX = Regex("""apkm|apks|xapk|apk""", RegexOption.IGNORE_CASE)
+internal val gson = Gson()
+
+// Morphe Manager installs to test against: release first, debug as fallback.
+private val MORPHE_MANAGER_PACKAGES = listOf(
+    "app.morphe.manager",
+    "app.morphe.manager.debug"
+)
+
+// Where to point the user when Morphe Manager is not installed at all.
+private const val MORPHE_MANAGER_SITE_URL =
+    "https://morphe.software/"
+
 private val APK_PICKER_MIME_TYPES = arrayOf(
     "application/vnd.android.package-archive",
     "application/zip",
@@ -150,7 +185,6 @@ class MainActivity : ComponentActivity() {
     private val browserUserAgent =
         "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE}; ${Build.MODEL}) AppleWebKit/537.36 " +
             "(KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
-    private val gson = Gson()
     private val client = OkHttpClient.Builder()
         .followRedirects(true)
         .followSslRedirects(true)
@@ -161,6 +195,7 @@ class MainActivity : ComponentActivity() {
                     .build()
             )
         }
+        .addInterceptor(httpLoggingInterceptor("Web"))
         .build()
     private val apkPureClient = OkHttpClient.Builder()
         .followRedirects(true)
@@ -172,12 +207,8 @@ class MainActivity : ComponentActivity() {
                     .build()
             )
         }
+        .addInterceptor(httpLoggingInterceptor("APKPure"))
         .build()
-
-    private val playHttpClient by lazy {
-        PlayHttpClient(Cache(File(cacheDir, "play-cache"), 64L * 1024L * 1024L))
-    }
-    private var playAuthData: AuthData? = null
 
     private val apkPureApi = Retrofit.Builder()
         .client(apkPureClient)
@@ -193,12 +224,45 @@ class MainActivity : ComponentActivity() {
         .build()
         .create(AptoideApi::class.java)
 
+    private val parsers: Map<DownloadSource, ApkSourceParser> by lazy {
+        val playHttpClient = PlayHttpClient(Cache(File(cacheDir, "play-cache"), 64L * 1024L * 1024L))
+        val parserContext = SourceParserContext(
+            fetcher = OkHttpSourceTextFetcher(client),
+            apkPureApi = apkPureApi,
+            aptoideApi = aptoideApi,
+            playHttpClient = playHttpClient,
+            appContext = this
+        )
+        listOf(
+            ApkMirrorParser(parserContext),
+            UptodownParser(parserContext),
+            ApkPureParser(parserContext),
+            ApkComboParser(parserContext),
+            AptoideParser(parserContext),
+            EvoziParser(parserContext),
+            Mi9Parser(),
+            ApkDownloaderPagesParser(),
+            AuroraParser(parserContext)
+        ).associateBy { it.source }
+    }
+
     private var request by mutableStateOf<HelperRequest?>(null)
     private var uiState by mutableStateOf<UiState>(UiState.Idle)
     private var helperSettings by mutableStateOf(HelperSettings())
     private var installedPackageRefreshToken by mutableIntStateOf(0)
     private val requestLogs = mutableStateListOf<RequestLogEntry>()
     private val logTimeFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
+    private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
+    private var pendingDownload: PendingDownload? = null
+    // Non-null while the in-app captcha browser is open for a candidate whose
+    // source gates the file behind a challenge a plain HTTP client cannot pass.
+    private var captchaBrowser by mutableStateOf<DownloadCandidate?>(null)
+    private var fastModeActive = false
+    private var fastModeQueue: MutableList<DownloadSource>? = null
+    private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { _ -> startPendingDownload() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -208,31 +272,60 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             cleanupTemporaryDownloads(helperSettings)
         }
+        lifecycleScope.launch {
+            DownloadJobManager.events.collect(::handleDownloadEvent)
+        }
+        if (deliverPendingResultIfPresent(request)) return
 
         setContent {
             HelperTheme {
-                HelperScreen(
-                    request = request,
-                    state = uiState,
-                    settings = helperSettings,
-                    logs = requestLogs,
-                    installedPackageRefreshToken = installedPackageRefreshToken,
-                    onSettingsChange = ::updateHelperSettings,
-                    onRefresh = ::loadCandidates,
-                    onResolve = ::resolveCandidates,
-                    onDownload = ::downloadAndReturn,
-                    onPickDownloadedFile = ::returnPickedFile,
-                    onUseInstalledApp = ::returnInstalledApp,
-                    onClearLogs = { requestLogs.clear() },
-                    onCancel = {
-                        setResult(Activity.RESULT_CANCELED)
-                        finish()
-                    }
-                )
+                val captcha = captchaBrowser
+                if (captcha != null) {
+                    CaptchaBrowserScreen(
+                        candidate = captcha,
+                        onClose = ::closeCaptchaBrowser,
+                        onUrlCaptured = ::onCaptchaUrlCaptured
+                    )
+                } else {
+                    HelperScreen(
+                        request = request,
+                        state = uiState,
+                        settings = helperSettings,
+                        logs = requestLogs,
+                        installedPackageRefreshToken = installedPackageRefreshToken,
+                        onSettingsChange = ::updateHelperSettings,
+                        onRefresh = ::loadCandidates,
+                        onResolve = ::resolveCandidates,
+                        onDownload = ::downloadAndReturn,
+                        onPickDownloadedFile = ::returnPickedFile,
+                        onUseInstalledApp = ::returnInstalledApp,
+                        onVersionHistory = ::loadVersionHistory,
+                        onDownloadVersion = ::downloadVersion,
+                        onOpenHistoryEntry = ::openHistoryEntry,
+                        onShareHistoryEntry = ::shareHistoryEntry,
+                        onClearHistory = { DownloadHistoryStore.clear(applicationContext) },
+                        onClearLogs = { requestLogs.clear() },
+                        onCancel = {
+                            appendLog("Query canceled by user.", LogLevel.Warning)
+                            setResult(Activity.RESULT_CANCELED)
+                            finish()
+                        },
+                        onCancelDownload = ::cancelDownload,
+                        onCancelFastMode = ::cancelFastMode,
+                        onUseFastModeMismatch = { fastModeChoose(FastModeChoice.USE) },
+                        onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
+                        onOpenMorphe = ::openMorpheManager,
+                        onSolveCaptcha = ::openCaptchaBrowser
+                    )
+                }
             }
         }
 
-        if (request != null) loadCandidates()
+        val activeRequest = request
+        if (activeRequest != null) {
+            loadCandidates()
+            startFastModeIfEnabled(activeRequest)
+        }
     }
 
     override fun onResume() {
@@ -245,8 +338,12 @@ class MainActivity : ComponentActivity() {
         setIntent(intent)
         request = HelperRequest.from(intent)
         startRequestLog(request)
-        if (request != null) {
-            loadCandidates()
+        val activeRequest = request
+        if (activeRequest != null) {
+            if (!deliverPendingResultIfPresent(activeRequest)) {
+                loadCandidates()
+                startFastModeIfEnabled(activeRequest)
+            }
         } else {
             uiState = UiState.Idle
         }
@@ -277,15 +374,18 @@ class MainActivity : ComponentActivity() {
             updateResolveState(
                 source = source,
                 option = option,
-                state = resolved.errorMessage
+                state = resolved.notFoundMessage
                     ?.takeIf { resolved.candidates.isEmpty() }
-                    ?.let { message ->
-                        ResolveState.Error(
-                            message = message,
-                            fallbackCandidate = resolved.fallbackCandidate
-                        )
-                    }
-                    ?: ResolveState.Done(resolved.candidates)
+                    ?.let { ResolveState.Done(emptyList()) }
+                    ?: resolved.errorMessage
+                        ?.takeIf { resolved.candidates.isEmpty() }
+                        ?.let { message ->
+                            ResolveState.Error(
+                                message = message,
+                                fallbackCandidate = resolved.fallbackCandidate
+                            )
+                        }
+                        ?: ResolveState.Done(resolved.candidates)
             )
         }
     }
@@ -300,6 +400,91 @@ class MainActivity : ComponentActivity() {
         uiState = UiState.Ready(current.withResolveState(source, option, state))
     }
 
+    private fun loadVersionHistory(source: DownloadSource) {
+        val activeRequest = request ?: return
+        helperSettings.networkPolicy.blockReason(this)?.let { message ->
+            appendLog(message, LogLevel.Warning)
+            updateHistoryState(source, VersionHistoryState.Error(message))
+            return
+        }
+        updateHistoryState(source, VersionHistoryState.Loading)
+        appendLog("Loading ${source.label} version history.")
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                runCatching { resolveVersionHistory(activeRequest, source) }
+            }
+            result
+                .onSuccess { candidates ->
+                    appendLog("${source.label} version history loaded: ${candidates.size} versions.")
+                    updateHistoryState(source, VersionHistoryState.Done(candidates))
+                }
+                .onFailure { error ->
+                    val message = sourceFailureMessage(source, error)
+                    appendLog(message, LogLevel.Error)
+                    updateHistoryState(source, VersionHistoryState.Error(message))
+                }
+        }
+    }
+
+    private fun updateHistoryState(source: DownloadSource, state: VersionHistoryState) {
+        val activeRequest = request ?: return
+        val current = (uiState as? UiState.Ready)?.result ?: initialCandidateResult(activeRequest)
+        uiState = UiState.Ready(current.withHistoryState(source, state))
+    }
+
+    private fun downloadVersion(candidate: DownloadCandidate) {
+        val activeRequest = request ?: return
+        // Capture the current result before Loading replaces it, so a failed
+        // resolution can restore the history list with this row flipped to
+        // "Open link" instead of wiping back to a fresh screen.
+        val currentResult = (uiState as? UiState.Ready)?.result
+            ?: initialCandidateResult(activeRequest)
+        appendLog("Resolving ${candidate.versionDisplay} from ${candidate.source.label} for download...")
+        uiState = UiState.Loading
+        lifecycleScope.launch {
+            val resolved = withContext(Dispatchers.IO) {
+                runCatching { resolveHistoryCandidate(activeRequest, candidate) }
+            }
+            resolved
+                .onSuccess { direct ->
+                    if (direct == null) {
+                        // No direct download exists for this version. Keep the
+                        // history list usable by flipping this row to an
+                        // "Open link" action instead of erroring the whole screen.
+                        val message =
+                            "No direct download was available for ${candidate.versionDisplay} " +
+                                "on ${candidate.source.label}. Open the version page manually."
+                        appendLog(message, LogLevel.Warning)
+                        uiState = UiState.Ready(
+                            currentResult.markHistoryCandidateNoDirectDownload(
+                                source = candidate.source,
+                                candidateKey = candidate.identityKey()
+                            )
+                        )
+                    } else {
+                        downloadAndReturn(direct)
+                    }
+                }
+                .onFailure { error ->
+                    val message = downloadFailureMessage(candidate, error)
+                    appendLog(message, LogLevel.Error)
+                    uiState = UiState.Error(message)
+                }
+        }
+    }
+
+    private suspend fun resolveVersionHistory(
+        request: HelperRequest,
+        source: DownloadSource
+    ): List<DownloadCandidate> =
+        parsers[source]?.resolveHistory(request).orEmpty()
+
+    private suspend fun resolveHistoryCandidate(
+        request: HelperRequest,
+        candidate: DownloadCandidate
+    ): DownloadCandidate? =
+        parsers[candidate.source]?.resolveHistoryCandidate(request, candidate)
+
     private fun startRequestLog(request: HelperRequest?) {
         requestLogs.clear()
         if (request == null) {
@@ -310,7 +495,23 @@ class MainActivity : ComponentActivity() {
                     "version ${request.versionName ?: "any compatible"}, " +
                     "build ${request.versionCodeSummary ?: "any"}, format ${request.requestedFormatLabel}."
             )
+            logQueryIntentExtras()
         }
+    }
+
+    private fun logQueryIntentExtras() {
+        val extras = intent.extras ?: return
+        val dump = extras.keySet().sorted().joinToString(", ") { key ->
+            val value = when (val raw = extras.get(key)) {
+                null -> "null"
+                is Array<*> -> raw.joinToString("|")
+                is LongArray -> raw.joinToString("|")
+                is IntArray -> raw.joinToString("|")
+                else -> raw.toString()
+            }
+            "$key=$value"
+        }
+        if (logcatLoggingEnabled) Log.i(TAG, "Query intent extras: $dump")
     }
 
     private fun logResolveOutcome(
@@ -319,6 +520,9 @@ class MainActivity : ComponentActivity() {
         outcome: ResolveOutcome
     ) {
         when {
+            outcome.notFoundMessage != null -> {
+                appendLog("${source.label} ${option.labelForLogs}: ${outcome.notFoundMessage}.", LogLevel.Warning)
+            }
             outcome.errorMessage != null && outcome.candidates.isEmpty() -> {
                 appendLog("${source.label} ${option.labelForLogs} failed: ${outcome.errorMessage}", LogLevel.Error)
             }
@@ -339,6 +543,13 @@ class MainActivity : ComponentActivity() {
         requestLogs += RequestLogEntry(timestamp, level, message)
         while (requestLogs.size > 200) {
             requestLogs.removeAt(0)
+        }
+        if (logcatLoggingEnabled) {
+            when (level) {
+                LogLevel.Info -> Log.i(TAG, message)
+                LogLevel.Warning -> Log.w(TAG, message)
+                LogLevel.Error -> Log.e(TAG, message)
+            }
         }
     }
 
@@ -370,7 +581,19 @@ class MainActivity : ComponentActivity() {
         option: CandidateOption
     ): ResolveOutcome {
         val lookup = runCatching { findSourceCandidates(request, source, option) }
-            .onFailure { Log.w(TAG, "${source.label} ${option.name.lowercase(Locale.US)} lookup failed", it) }
+            .onFailure { error ->
+                if (error !is SourceAppNotFoundException) {
+                    Log.w(TAG, "${source.label} ${option.name.lowercase(Locale.US)} lookup failed", error)
+                }
+            }
+        lookup.exceptionOrNull()
+            ?.takeIf { it is SourceAppNotFoundException }
+            ?.let {
+                return ResolveOutcome(
+                    candidates = emptyList(),
+                    notFoundMessage = "no listing for ${request.packageName}"
+                )
+            }
         lookup.exceptionOrNull()?.let { error ->
             return ResolveOutcome(
                 candidates = emptyList(),
@@ -398,27 +621,8 @@ class MainActivity : ComponentActivity() {
         request: HelperRequest,
         source: DownloadSource,
         option: CandidateOption
-    ): List<DownloadCandidate> = when (source) {
-        DownloadSource.APK_MIRROR -> when (option) {
-            CandidateOption.REQUESTED -> findApkMirrorRequested(request)
-            CandidateOption.LATEST -> findApkMirrorLatest(request)
-            CandidateOption.MANUAL -> emptyList()
-        }
-        DownloadSource.UPTODOWN -> findUptodown(request, option)
-        DownloadSource.APK_PURE -> findApkPure(request, option)
-        DownloadSource.APK_COMBO -> findApkCombo(request, option)
-        DownloadSource.APTOIDE -> when (option) {
-            CandidateOption.REQUESTED -> listOfNotNull(aptoideRequestedCandidate(request))
-            CandidateOption.LATEST -> listOfNotNull(aptoideLatestCandidate(request))
-            CandidateOption.MANUAL -> emptyList()
-        }
-        DownloadSource.AURORA -> when (option) {
-            CandidateOption.LATEST -> findAurora(request)
-            CandidateOption.REQUESTED,
-            CandidateOption.MANUAL -> emptyList()
-        }
-        DownloadSource.PLAY -> emptyList()
-    }
+    ): List<DownloadCandidate> =
+        parsers[source]?.findCandidates(request, option).orEmpty()
 
     private fun recommendedCandidatesForSource(
         request: HelperRequest,
@@ -431,8 +635,8 @@ class MainActivity : ComponentActivity() {
 
         return buildList {
             addAll(candidates.filter(request::isRequestedMatch))
-            if (source == DownloadSource.APK_MIRROR && none { it.option == CandidateOption.REQUESTED }) {
-                add(apkMirrorRequested(request))
+            if (none { it.option == CandidateOption.REQUESTED }) {
+                parsers[source]?.requestedFallbackCandidate(request)?.let(::add)
             }
         }
             .distinctBy(DownloadCandidate::identityKey)
@@ -450,8 +654,8 @@ class MainActivity : ComponentActivity() {
 
         return buildList {
             addAll(candidates.filter { it.option == CandidateOption.LATEST })
-            if (source == DownloadSource.APK_MIRROR && none { it.option == CandidateOption.LATEST }) {
-                add(apkMirrorLatest(request))
+            if (none { it.option == CandidateOption.LATEST }) {
+                parsers[source]?.latestFallbackCandidate(request)?.let(::add)
             }
             if (none { it.option == CandidateOption.LATEST }) {
                 latestWebFallback(request, source)?.let(::add)
@@ -509,97 +713,6 @@ class MainActivity : ComponentActivity() {
         return "https://www.google.com/search?q=${URLEncoder.encode(query, "UTF-8")}"
     }
 
-    private fun apkMirrorRequested(request: HelperRequest) = DownloadCandidate(
-        source = DownloadSource.APK_MIRROR,
-        name = request.appName,
-        packageName = request.packageName,
-        versionName = request.versionName,
-        versionCode = request.versionCode ?: request.versionCodes.singleOrNull(),
-        url = request.sourceHintUrlsFor(DownloadSource.APK_MIRROR).firstOrNull() ?: request.fallbackWebUrl,
-        fileKind = request.requestedFormatLabel,
-        option = CandidateOption.REQUESTED,
-        directDownload = false,
-        versionStatus = VersionStatus.REQUESTED,
-        formatMatches = true
-    )
-
-    private fun apkMirrorLatest(request: HelperRequest): DownloadCandidate =
-        apkMirrorLatestWebCandidate(request, runCatching {
-            resolveApkMirrorLatestInfo(request, apkMirrorPackageSearchUrl(request.packageName))
-        }.getOrNull())
-
-    private fun findApkMirrorLatest(request: HelperRequest): List<DownloadCandidate> {
-        val latestInfo = resolveApkMirrorLatestInfo(
-            request = request,
-            searchUrl = apkMirrorPackageSearchUrl(request.packageName)
-        )
-        val latestReleaseUrl = latestInfo
-            ?.openUrl
-            ?.takeIf(::apkMirrorLooksLikeReleaseUrl)
-        val directCandidates = latestReleaseUrl?.let { releaseUrl ->
-            apkMirrorCandidatesFromReleaseUrl(
-                request = request,
-                releaseUrl = releaseUrl,
-                versionName = latestInfo.versionName ?: apkMirrorVersionFromReleaseUrl(releaseUrl),
-                option = CandidateOption.LATEST
-            )
-        }
-
-        return directCandidates.orEmpty()
-            .ifEmpty { listOf(apkMirrorLatestWebCandidate(request, latestInfo)) }
-    }
-
-    private fun apkMirrorLatestWebCandidate(
-        request: HelperRequest,
-        latestInfo: ApkMirrorLatestInfo?
-    ): DownloadCandidate {
-        val searchUrl = apkMirrorPackageSearchUrl(request.packageName)
-        return DownloadCandidate(
-            source = DownloadSource.APK_MIRROR,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = latestInfo?.versionName,
-            versionCode = null,
-            url = latestInfo?.openUrl ?: searchUrl,
-            fileKind = "web",
-            option = CandidateOption.LATEST,
-            directDownload = false,
-            versionStatus = VersionStatus.LATEST,
-            formatMatches = true
-        )
-    }
-
-    private fun findApkMirrorRequested(request: HelperRequest): List<DownloadCandidate> {
-        if (!request.hasKnownVersionRequest) return emptyList()
-
-        val searchDoc = fetchDocument(apkMirrorPackageSearchUrl(request.packageName))
-        val appPageUrl = resolveApkMirrorAppPage(
-            searchDoc = searchDoc,
-            request = request
-        ) ?: return emptyList()
-        val appDoc = fetchDocument(appPageUrl)
-        val requested = apkMirrorRequestedReleaseUrl(
-            request = request,
-            appPageUrl = appPageUrl,
-            appDoc = appDoc
-        )?.let { releaseUrl ->
-            apkMirrorCandidatesFromReleaseUrl(
-                request = request,
-                releaseUrl = releaseUrl,
-                versionName = request.requestedVersionNames.firstOrNull()
-                    ?: apkMirrorVersionFromReleaseUrl(releaseUrl),
-                option = CandidateOption.REQUESTED
-            )
-        }
-
-        return requested.orEmpty()
-    }
-
-    private fun apkMirrorPackageSearchUrl(packageName: String): String {
-        val query = URLEncoder.encode(packageName, "UTF-8")
-        return "https://www.apkmirror.com/?post_type=app_release&searchtype=app&s=$query"
-    }
-
     private fun manualCandidates(request: HelperRequest): List<DownloadCandidate> =
         manualSourceUrls(request).map { (source, url) ->
             DownloadCandidate(
@@ -637,13 +750,11 @@ class MainActivity : ComponentActivity() {
             }
 
     private fun manualSourceUrls(request: HelperRequest): List<Pair<DownloadSource, String>> =
-        listOf(
-            DownloadSource.APK_MIRROR to apkMirrorPackageSearchUrl(request.packageName),
-            DownloadSource.UPTODOWN to uptodownSearchUrl(request.packageName),
-            DownloadSource.APK_PURE to apkPureInfoUrl(request.packageName),
-            DownloadSource.APK_COMBO to apkComboSearchUrl(request.packageName),
-            DownloadSource.APTOIDE to aptoideSearchUrl(request.packageName)
-        )
+        parsers.values
+            .mapNotNull { parser ->
+                parser.searchUrl(request.packageName)?.let { parser.source to it }
+            }
+            .sortedBy { it.first.ordinal }
 
     private fun playStoreCandidate(request: HelperRequest) = DownloadCandidate(
         source = DownloadSource.PLAY,
@@ -659,1845 +770,6 @@ class MainActivity : ComponentActivity() {
         formatMatches = true
     )
 
-    private fun resolveApkMirrorLatestInfo(
-        request: HelperRequest,
-        searchUrl: String
-    ): ApkMirrorLatestInfo? {
-        val searchDoc = fetchDocument(searchUrl)
-        val appPageUrl = resolveApkMirrorAppPage(
-            searchDoc = searchDoc,
-            request = request
-        ) ?: return ApkMirrorLatestInfo(
-            versionName = null,
-            openUrl = searchUrl
-        )
-        val searchVersion = apkMirrorSearchVersionForApp(searchDoc, appPageUrl)
-            ?: apkMirrorVersions(searchDoc.html()).firstOrNull()
-        val appDoc = fetchDocument(appPageUrl)
-        val uploadsDoc = runCatching { fetchDocument(apkMirrorUploadsUrl(appPageUrl), referer = appPageUrl) }
-            .getOrNull()
-        val latestReleaseUrl = apkMirrorLatestReleaseUrl(
-            (
-                uploadsDoc?.let { apkMirrorReleaseLinks(it, appPageUrl) }.orEmpty() +
-                    apkMirrorReleaseLinks(appDoc, appPageUrl)
-                ).distinct()
-        )
-        val latestVersion = latestReleaseUrl?.let(::apkMirrorVersionFromReleaseUrl)
-            ?: searchVersion
-            ?: apkMirrorVersions(appDoc.html()).firstOrNull()
-
-        return ApkMirrorLatestInfo(
-            versionName = latestVersion,
-            openUrl = latestReleaseUrl ?: appPageUrl
-        )
-    }
-
-    private fun resolveApkMirrorAppPage(searchDoc: Document, request: HelperRequest): String? {
-        for (candidate in apkMirrorAppPageCandidates(searchDoc, request)) {
-            val candidateDoc = runCatching { fetchDocument(candidate) }.getOrNull() ?: continue
-            if (candidateDoc.apkMirrorMatchesPackage(request.packageName)) return candidate
-        }
-
-        return null
-    }
-
-    private fun apkMirrorAppPageCandidates(searchDoc: Document, request: HelperRequest): List<String> {
-        val expectedSlugs = apkMirrorExpectedAppSlugs(request)
-        return searchDoc.select("a[href]")
-            .asSequence()
-            .mapNotNull { apkMirrorAbsoluteUrl(it.attr("href")) }
-            .filter { url ->
-                runCatching {
-                    java.net.URI(url).path.matches(Regex("""/apk/[^/]+/[^/]+/?"""))
-                }.getOrDefault(false)
-            }
-            .distinct()
-            .sortedBy { url -> apkMirrorAppSlugScore(url, expectedSlugs) }
-            .take(20)
-            .toList()
-    }
-
-    private fun apkMirrorExpectedAppSlugs(request: HelperRequest): Set<String> =
-        buildSet {
-            add(request.appName.slugForUrl())
-            val packageParts = request.packageName.split(".")
-            packageParts.takeLast(2)
-                .joinToString("-")
-                .slugForUrl()
-                .takeIf(String::isNotBlank)
-                ?.let(::add)
-            packageParts.takeLast(3)
-                .joinToString("-")
-                .slugForUrl()
-                .takeIf(String::isNotBlank)
-                ?.let(::add)
-        }
-
-    private fun apkMirrorAppSlugScore(url: String, expectedSlugs: Set<String>): Int {
-        val appSlug = runCatching {
-            java.net.URI(url).path.trim('/').split('/').getOrNull(2).orEmpty()
-        }.getOrDefault("")
-        return when {
-            appSlug in expectedSlugs -> 0
-            expectedSlugs.any { appSlug.endsWith(it) } -> 1
-            expectedSlugs.any { appSlug.contains(it) } -> 2
-            else -> 3
-        }
-    }
-
-    private fun apkMirrorSearchVersionForApp(searchDoc: Document, appPageUrl: String): String? {
-        val appPath = runCatching { java.net.URI(appPageUrl).path.trimEnd('/') }.getOrNull()
-            ?: return null
-        val row = searchDoc.select("div.appRow")
-            .firstOrNull { row ->
-                row.select("a[href]")
-                    .asSequence()
-                    .map { it.absUrl("href") }
-                    .any { url ->
-                        runCatching { java.net.URI(url).path.trimEnd('/') == appPath }
-                            .getOrDefault(false)
-                    }
-            }
-
-        return row
-            ?.select("img[alt]")
-            ?.asSequence()
-            ?.map { it.attr("alt") }
-            ?.mapNotNull { alt -> Regex("""\b(\d+(?:\.\d+)+(?:[.\w-]*)?)\b""").findAll(alt).lastOrNull()?.value }
-            ?.firstOrNull()
-    }
-
-    private fun apkMirrorVersions(html: String): List<String> =
-        Regex(
-            """Version:\s*</span>\s*<span[^>]*class=["'][^"']*infoSlide-value[^"']*["'][^>]*>\s*([^<]+?)\s*</span>""",
-            RegexOption.IGNORE_CASE
-        )
-            .findAll(html)
-            .mapNotNull { match -> match.groupValues.getOrNull(1)?.trim()?.takeIf(String::isNotBlank) }
-            .filterNot { it.contains("alpha", ignoreCase = true) || it.contains("beta", ignoreCase = true) }
-            .distinct()
-            .toList()
-
-    private fun apkMirrorReleaseLinks(doc: Document, appPageUrl: String? = null): List<String> {
-        val appPath = appPageUrl
-            ?.let { url -> runCatching { java.net.URI(url).path.trimEnd('/') }.getOrNull() }
-
-        return doc.select("a[href]")
-            .asSequence()
-            .mapNotNull { link -> apkMirrorAbsoluteUrl(link.attr("href")) }
-            .filter { url ->
-                runCatching {
-                    val path = java.net.URI(url).path
-                    path.startsWith("/apk/") &&
-                        path.trimEnd('/').endsWith("-release") &&
-                        (appPath == null || path.startsWith("$appPath/"))
-                }.getOrDefault(false)
-            }
-            .distinct()
-            .toList()
-    }
-
-    private fun apkMirrorLatestReleaseUrl(releaseLinks: List<String>): String? =
-        releaseLinks
-            .filterNot { it.contains("alpha", ignoreCase = true) || it.contains("beta", ignoreCase = true) }
-            .ifEmpty { releaseLinks }
-            .maxWithOrNull { left, right ->
-                compareVersionNames(
-                    apkMirrorVersionFromReleaseUrl(left),
-                    apkMirrorVersionFromReleaseUrl(right)
-                )
-            }
-
-    private fun apkMirrorRequestedReleaseUrl(
-        request: HelperRequest,
-        appPageUrl: String,
-        appDoc: Document
-    ): String? {
-        val requestedVersions = request.requestedVersionNames
-        if (requestedVersions.isEmpty()) return null
-
-        request.sourceHintUrlsFor(DownloadSource.APK_MIRROR)
-            .asSequence()
-            .mapNotNull(::apkMirrorAbsoluteUrl)
-            .firstOrNull { url ->
-                apkMirrorLooksLikeReleaseUrl(url) &&
-                    requestedVersions.any { version -> apkMirrorReleaseUrlMatchesVersion(url, version) }
-            }
-            ?.let { return it }
-
-        apkMirrorReleaseLinks(appDoc, appPageUrl)
-            .firstOrNull { url ->
-                requestedVersions.any { version -> apkMirrorReleaseUrlMatchesVersion(url, version) }
-            }
-            ?.let { return it }
-
-        val category = appPageUrl.trimEnd('/').substringAfterLast('/').takeIf(String::isNotBlank)
-            ?: return null
-        val uploadsUrl = "https://www.apkmirror.com/uploads/?appcategory=$category"
-        for (page in 1..5) {
-            val pageUrl = if (page == 1) {
-                uploadsUrl
-            } else {
-                "https://www.apkmirror.com/uploads/page/$page/?appcategory=$category"
-            }
-            val doc = runCatching { fetchDocument(pageUrl, referer = appPageUrl) }
-                .onFailure { Log.w(TAG, "APKMirror uploads page resolve failed: $pageUrl", it) }
-                .getOrNull()
-                ?: continue
-
-            apkMirrorReleaseLinks(doc)
-                .firstOrNull { url ->
-                    requestedVersions.any { version -> apkMirrorReleaseUrlMatchesVersion(url, version) }
-                }
-                ?.let { return it }
-        }
-
-        return null
-    }
-
-    private fun apkMirrorUploadsUrl(appPageUrl: String): String {
-        val category = runCatching {
-            Uri.parse(appPageUrl).path
-                ?.trim('/')
-                ?.substringAfterLast('/')
-                ?.takeIf(String::isNotBlank)
-        }.getOrNull()
-            ?: appPageUrl.substringBefore('#').substringBefore('?').trimEnd('/').substringAfterLast('/')
-        return "https://www.apkmirror.com/uploads/?appcategory=$category"
-    }
-
-    private fun apkMirrorCandidatesFromReleaseUrl(
-        request: HelperRequest,
-        releaseUrl: String,
-        versionName: String?,
-        option: CandidateOption
-    ): List<DownloadCandidate> {
-        val directCandidates = runCatching {
-            apkMirrorDirectCandidatesFromReleaseUrl(
-                request = request,
-                releaseUrl = releaseUrl,
-                versionName = versionName,
-                option = option
-            )
-        }
-            .onFailure { Log.w(TAG, "APKMirror direct resolve failed: $releaseUrl", it) }
-        val directFailureMessage = directCandidates.exceptionOrNull()
-            ?.let { sourceFailureMessage(DownloadSource.APK_MIRROR, it) }
-        val resolvedDirectCandidates = directCandidates.getOrDefault(emptyList())
-
-        return resolvedDirectCandidates.ifEmpty {
-            listOf(
-                apkMirrorReleaseFallbackCandidate(
-                    request = request,
-                    releaseUrl = releaseUrl,
-                    versionName = versionName,
-                    option = option,
-                    note = directFailureMessage
-                )
-            )
-        }
-    }
-
-    private fun apkMirrorDirectCandidatesFromReleaseUrl(
-        request: HelperRequest,
-        releaseUrl: String,
-        versionName: String?,
-        option: CandidateOption
-    ): List<DownloadCandidate> {
-        val releaseDoc = fetchDocument(releaseUrl)
-        if (releaseDoc.isCloudflareChallenge()) return emptyList()
-
-        val variants = apkMirrorVariants(releaseDoc)
-        val selectedVariants = if (variants.isEmpty()) {
-            listOf(null)
-        } else {
-            apkMirrorSelectableVariants(request, variants)
-        }
-        if (selectedVariants.isEmpty()) return emptyList()
-
-        return selectedVariants
-            .mapNotNull { variant ->
-                apkMirrorDirectCandidateFromReleaseUrl(
-                    request = request,
-                    releaseUrl = releaseUrl,
-                    versionName = versionName,
-                    option = option,
-                    variant = variant
-                )
-            }
-            .distinctBy(DownloadCandidate::identityKey)
-    }
-
-    private fun apkMirrorDirectCandidateFromReleaseUrl(
-        request: HelperRequest,
-        releaseUrl: String,
-        versionName: String?,
-        option: CandidateOption,
-        variant: ApkMirrorVariant?
-    ): DownloadCandidate? {
-        val variantPageUrl = variant?.url ?: releaseUrl
-        val variantDoc = if (variant == null) {
-            fetchDocument(releaseUrl)
-        } else {
-            fetchDocument(variantPageUrl, referer = releaseUrl)
-        }
-        if (variantDoc.isCloudflareChallenge()) return null
-
-        val isBundle = variant?.isBundle ?: apkMirrorPageLooksBundle(variantDoc)
-        val downloadButtonUrl = apkMirrorDownloadButtonUrl(variantDoc, isBundle) ?: return null
-        val downloadDoc = fetchDocument(downloadButtonUrl, referer = variantPageUrl)
-        if (downloadDoc.isCloudflareChallenge()) return null
-
-        val finalUrl = apkMirrorFinalDownloadUrl(downloadDoc) ?: return null
-        val resolvedVersion = versionName
-            ?: apkMirrorVersionFromReleaseUrl(releaseUrl)
-        val fileKind = variant?.fileKind ?: if (isBundle) "apkm" else fileKindFromUrl(finalUrl)
-        if (!request.acceptsFormat(fileKind)) return null
-        val variantLabel = variant?.displayLabel()
-        val variantFileSuffix = variantLabel.variantFileSuffix()
-
-        return DownloadCandidate(
-            source = DownloadSource.APK_MIRROR,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = resolvedVersion,
-            versionCode = null,
-            url = finalUrl,
-            fileKind = fileKind,
-            option = option,
-            directDownload = true,
-            versionStatus = request.versionStatus(resolvedVersion, null),
-            formatMatches = request.acceptsFormat(fileKind),
-            variantLabel = variantLabel,
-            files = listOf(
-                CandidateDownloadFile(
-                    url = finalUrl,
-                    fileName = "${request.packageName}-${resolvedVersion ?: option.name.lowercase(Locale.US)}-apkmirror$variantFileSuffix.$fileKind"
-                        .sanitizeFileName(),
-                    referer = downloadButtonUrl
-                )
-            )
-        )
-    }
-
-    private fun apkMirrorReleaseFallbackCandidate(
-        request: HelperRequest,
-        releaseUrl: String,
-        versionName: String?,
-        option: CandidateOption,
-        note: String? = null
-    ) = DownloadCandidate(
-        source = DownloadSource.APK_MIRROR,
-        name = request.appName,
-        packageName = request.packageName,
-        versionName = versionName ?: apkMirrorVersionFromReleaseUrl(releaseUrl),
-        versionCode = null,
-        url = releaseUrl,
-        fileKind = "web",
-        option = option,
-        directDownload = false,
-        versionStatus = request.versionStatus(versionName ?: apkMirrorVersionFromReleaseUrl(releaseUrl), null),
-        formatMatches = true,
-        note = note
-    )
-
-    private fun apkMirrorVariants(releaseDoc: Document): List<ApkMirrorVariant> =
-        releaseDoc.select("div.table-row.headerFont")
-            .mapNotNull(::apkMirrorVariantFromRow)
-
-    private fun apkMirrorSelectableVariants(
-        request: HelperRequest,
-        variants: List<ApkMirrorVariant>
-    ): List<ApkMirrorVariant> {
-        val wantedKinds = apkMirrorWantedVariantKinds(request)
-        for (kind in wantedKinds) {
-            val typedVariants = variants.filter {
-                it.fileKind == kind &&
-                    request.acceptsFormat(it.fileKind)
-            }
-            typedVariants.filter { apkMirrorDpiMatches(it.dpi) }
-                .takeIf(List<ApkMirrorVariant>::isNotEmpty)
-                ?.let { return it }
-            typedVariants.takeIf(List<ApkMirrorVariant>::isNotEmpty)
-                ?.let { return it }
-        }
-
-        val acceptedVariants = variants.filter { request.acceptsFormat(it.fileKind) }
-        return acceptedVariants.filter { apkMirrorDpiMatches(it.dpi) }
-            .takeIf(List<ApkMirrorVariant>::isNotEmpty)
-            ?: acceptedVariants
-    }
-
-    private fun apkMirrorVariantFromRow(row: Element): ApkMirrorVariant? {
-        val url = row.selectFirst("div.table-cell:nth-child(1) a[href]")
-            ?.attr("href")
-            ?.let(::apkMirrorAbsoluteUrl)
-            ?: return null
-        val type = row.selectFirst("div.table-cell:nth-child(1) span.apkm-badge")
-            ?.text()
-            ?.trim()
-            ?.uppercase(Locale.US)
-            ?.takeIf(String::isNotBlank)
-            ?: "APK"
-        val fileKind = apkMirrorVariantFileKind(type)
-        val cells = row.select("div.table-cell")
-        val arch = cells.getOrNull(1)?.text()?.trim()?.takeIf(String::isNotBlank)
-        val dpi = cells.getOrNull(3)?.text()?.trim()?.takeIf(String::isNotBlank)
-
-        return ApkMirrorVariant(
-            url = url,
-            type = type,
-            fileKind = fileKind,
-            arch = arch,
-            dpi = dpi,
-            isBundle = fileKind != "apk"
-        )
-    }
-
-    private fun apkMirrorWantedVariantKinds(request: HelperRequest): List<String> {
-        val requestedKinds = request.requestedFileKinds
-        return DOWNLOAD_FILE_KIND_ORDER
-            .filter { it in requestedKinds }
-            .ifEmpty { DOWNLOAD_FILE_KIND_ORDER }
-    }
-
-    private fun apkMirrorVariantFileKind(type: String): String {
-        val normalized = type.lowercase(Locale.US)
-        return when {
-            "apks" in normalized -> "apks"
-            "xapk" in normalized -> "xapk"
-            "apkm" in normalized || "bundle" in normalized -> "apkm"
-            else -> "apk"
-        }
-    }
-
-    private fun ApkMirrorVariant.displayLabel(): String? {
-        val archLabel = arch?.archDisplayLabel()
-        val dpiLabel = dpi
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.takeUnless { it.equals("nodpi", ignoreCase = true) || it.equals("anydpi", ignoreCase = true) }
-        return listOfNotNull(archLabel, dpiLabel)
-            .joinToString(" / ")
-            .takeIf(String::isNotBlank)
-    }
-
-    private fun apkMirrorDpiMatches(dpi: String?): Boolean {
-        val normalized = dpi?.lowercase(Locale.US)?.takeIf(String::isNotBlank) ?: return true
-        return normalized == "nodpi" || normalized == "anydpi"
-    }
-
-    private fun apkMirrorDownloadButtonUrl(doc: Document, isBundle: Boolean): String? {
-        val urls = (
-            doc.select("a.downloadButton[href]").map { it.attr("href") } +
-                doc.select("a[href*=/download/?key][href]").map { it.attr("href") }
-            )
-            .mapNotNull(::apkMirrorAbsoluteUrl)
-            .distinct()
-
-        return if (isBundle) {
-            urls.firstOrNull { !it.contains("forcebaseapk", ignoreCase = true) } ?: urls.firstOrNull()
-        } else {
-            urls.firstOrNull { it.contains("forcebaseapk", ignoreCase = true) } ?: urls.firstOrNull()
-        }
-    }
-
-    private fun apkMirrorFinalDownloadUrl(doc: Document): String? =
-        doc.selectFirst("a#download-link[href]")
-            ?.attr("href")
-            ?.let(::apkMirrorAbsoluteUrl)
-            ?: doc.select("a[href]")
-                .asSequence()
-                .map { it.attr("href") }
-                .firstOrNull { href ->
-                    href.contains("download.php", ignoreCase = true) ||
-                        href.contains("/download/?key=", ignoreCase = true)
-                }
-                ?.let(::apkMirrorAbsoluteUrl)
-
-    private fun apkMirrorPageLooksBundle(doc: Document): Boolean =
-        doc.select("span.apkm-badge, .apkm-badge")
-            .any { it.text().contains("bundle", ignoreCase = true) }
-
-    private fun apkMirrorVersionFromReleaseUrl(url: String): String? {
-        val slug = runCatching {
-            java.net.URI(url).path.trimEnd('/').substringAfterLast('/').removeSuffix("-release")
-        }.getOrNull() ?: return null
-        return Regex("""\d+(?:[-.]\d+)+(?:[-.](?:alpha|beta|rc)\d*)?""", RegexOption.IGNORE_CASE)
-            .findAll(slug)
-            .lastOrNull()
-            ?.value
-            ?.replace("-", ".")
-    }
-
-    private fun apkMirrorReleaseUrlMatchesVersion(url: String, version: String): Boolean =
-        apkMirrorLooksLikeReleaseUrl(url) &&
-            (
-                apkMirrorVersionFromReleaseUrl(url).versionNameEquals(version) ||
-                    runCatching { java.net.URI(url).path.lowercase(Locale.US) }
-                        .getOrDefault(url.lowercase(Locale.US))
-                        .contains(version.apkMirrorVersionSlug())
-                )
-
-    private fun apkMirrorLooksLikeReleaseUrl(url: String): Boolean =
-        runCatching {
-            val path = java.net.URI(url).path
-            path.startsWith("/apk/") && path.trimEnd('/').endsWith("-release")
-        }.getOrDefault(false)
-
-    private fun apkMirrorAbsoluteUrl(url: String): String? {
-        val normalized = url.substringBefore("#").trim().replace("&amp;", "&")
-        if (normalized.isBlank()) return null
-        return when {
-            normalized.startsWith("http://", ignoreCase = true) ||
-                normalized.startsWith("https://", ignoreCase = true) -> normalized
-            normalized.startsWith("//") -> "https:$normalized"
-            normalized.startsWith("/") -> "https://www.apkmirror.com$normalized"
-            else -> "https://www.apkmirror.com/$normalized"
-        }.normalizedHttpUrlOrNull()
-    }
-
-    private fun Document.isCloudflareChallenge(): Boolean =
-        title().contains("Just a moment", ignoreCase = true) ||
-            text().contains("Enable JavaScript and cookies to continue", ignoreCase = true)
-
-    private fun Document.apkMirrorMatchesPackage(packageName: String): Boolean {
-        val hasPackageId = select("[id]").any { it.id() == packageName }
-        val hasPlayPackage = select("a[href]")
-            .asSequence()
-            .map { it.absUrl("href").ifBlank { it.attr("href") } }
-            .any { url ->
-                url.contains("play.google.com", ignoreCase = true) &&
-                    runCatching { Uri.parse(url).getQueryParameter("id") == packageName }
-                        .getOrDefault(false)
-            }
-        val tablePackage = parseInfoTableValue(this, "Package Name") == packageName
-        return hasPackageId || hasPlayPackage || tablePackage
-    }
-
-    private fun findAurora(request: HelperRequest): List<DownloadCandidate> {
-        val auth = playAuth()
-        val app = AppDetailsHelper(auth)
-            .using(playHttpClient)
-            .getAppByPackageName(request.packageName)
-
-        if (app.packageName != request.packageName || app.versionCode <= 0L) return emptyList()
-
-        val playFiles = getPlayInstallFiles(app)
-        val files = playFiles
-            .mapIndexedNotNull { index, file ->
-                val url = file.url.normalizedHttpUrlOrNull()
-                if (url == null) {
-                    Log.w(TAG, "Aurora returned invalid download URL for ${request.packageName}: ${file.url}")
-                    return@mapIndexedNotNull null
-                }
-                CandidateDownloadFile(
-                    url = url,
-                    fileName = playFileName(file, index),
-                    size = file.size
-                )
-            }
-
-        if (files.size != playFiles.size) return emptyList()
-        if (files.isEmpty()) return emptyList()
-
-        val fileKind = if (files.size > 1) "apks" else "apk"
-        return listOf(
-            DownloadCandidate(
-                source = DownloadSource.AURORA,
-                name = app.displayName.ifBlank { request.appName },
-                packageName = app.packageName,
-                versionName = app.versionName,
-                versionCode = app.versionCode,
-                url = playStoreUrl(app.packageName),
-                fileKind = fileKind,
-                option = CandidateOption.LATEST,
-                directDownload = true,
-                versionStatus = VersionStatus.LATEST,
-                formatMatches = request.acceptsFormat(fileKind),
-                files = files
-            )
-        )
-    }
-
-    private fun playAuth(): AuthData {
-        playAuthData?.let { return it }
-
-        val properties = NativeDeviceInfoProvider(this).getNativeDeviceProperties()
-        val response = playHttpClient.postAuth(AURORA_AUTH_URL, gson.toJson(properties).toByteArray())
-        check(response.isSuccessful) { "Aurora auth failed: HTTP ${response.code}" }
-
-        return gson.fromJson(String(response.responseBytes), AuthData::class.java).also {
-            playAuthData = it
-        }
-    }
-
-    private fun getPlayInstallFiles(app: App): List<PlayFile> =
-        PurchaseHelper(playAuth())
-            .using(playHttpClient)
-            .purchase(app.packageName, app.versionCode, app.offerType)
-            .filter { it.type == PlayFile.Type.BASE || it.type == PlayFile.Type.SPLIT }
-
-    private fun playFileName(file: PlayFile, index: Int): String =
-        when (file.type) {
-            PlayFile.Type.BASE -> "base.apk"
-            PlayFile.Type.SPLIT -> "split_$index.apk"
-            else -> "file_$index.apk"
-        }
-
-    private fun findApkCombo(request: HelperRequest, option: CandidateOption): List<DownloadCandidate> =
-        when (option) {
-            CandidateOption.REQUESTED -> apkComboRequestedCandidates(request)
-            CandidateOption.LATEST -> apkComboLatestCandidates(request)
-            CandidateOption.MANUAL -> emptyList()
-        }
-
-    private fun apkComboLatestCandidates(request: HelperRequest): List<DownloadCandidate> =
-        apkComboDownloadPageUrls(request)
-            .firstNotNullOfOrNull { pageUrl ->
-                runCatching {
-                    apkComboCandidatesFromPage(
-                        request = request,
-                        pageUrl = pageUrl,
-                        option = CandidateOption.LATEST
-                    ).takeIf(List<DownloadCandidate>::isNotEmpty)
-                }.getOrNull()
-            }
-            .orEmpty()
-
-    private fun apkComboRequestedCandidates(request: HelperRequest): List<DownloadCandidate> {
-        val latestPageUrl = apkComboDownloadPageUrls(request).first()
-        return request.requestedVersionNames.firstNotNullOfOrNull { requestedVersion ->
-            runCatching {
-                apkComboVersionedPageUrls(request, requestedVersion)
-                    .firstNotNullOfOrNull { pageUrl ->
-                        apkComboCandidatesFromPage(
-                            request = request,
-                            pageUrl = pageUrl,
-                            option = CandidateOption.REQUESTED
-                        ).filter(request::isRequestedMatch)
-                            .takeIf(List<DownloadCandidate>::isNotEmpty)
-                    }
-                    ?: apkComboOldVersionPageUrl(request, latestPageUrl, requestedVersion)
-                        ?.let { oldPageUrl ->
-                            apkComboCandidatesFromPage(
-                                request = request,
-                                pageUrl = oldPageUrl,
-                                option = CandidateOption.REQUESTED
-                            ).filter(request::isRequestedMatch)
-                                .takeIf(List<DownloadCandidate>::isNotEmpty)
-                        }
-            }.getOrNull()
-        }.orEmpty()
-    }
-
-    private fun apkComboDownloadPageUrls(request: HelperRequest): List<String> {
-        val defaultUrl = "https://apkcombo.com/${request.appName.slugForUrl()}/${request.packageName}/download/apk"
-        val packageSearchUrl = "${apkComboSearchUrl(request.packageName)}/download/apk"
-        val hintedUrls = request.sourceHintUrlsFor(DownloadSource.APK_COMBO).mapNotNull { hint ->
-            val normalized = hint.substringBefore("?").substringBefore("#").trimEnd('/')
-            when {
-                normalized.contains("/download/", ignoreCase = true) -> normalized
-                normalized.contains("/${request.packageName}", ignoreCase = true) -> "$normalized/download/apk"
-                else -> null
-            }
-        }
-
-        return (listOf(packageSearchUrl) + hintedUrls + defaultUrl).distinct()
-    }
-
-    private fun apkComboSearchUrl(packageName: String): String =
-        "https://apkcombo.com/search/$packageName"
-
-    private fun apkComboVersionedPageUrls(request: HelperRequest, versionName: String): List<String> {
-        val suffixes = apkComboWantedSuffixes(request)
-        val searchBase = "https://apkcombo.com/search/${request.packageName}/download"
-        val defaultBase = "https://apkcombo.com/${request.appName.slugForUrl()}/${request.packageName}/download"
-        val hintedBases = request.sourceHintUrlsFor(DownloadSource.APK_COMBO).mapNotNull { hint ->
-            val normalized = hint.substringBefore("?").substringBefore("#").trimEnd('/')
-            when {
-                normalized.contains("/download/", ignoreCase = true) -> normalized.substringBeforeLast("/download")
-                normalized.contains("/${request.packageName}", ignoreCase = true) -> normalized
-                else -> null
-            }?.trimEnd('/')?.let { "$it/download" }
-        }
-
-        return (listOf(searchBase) + hintedBases + defaultBase)
-            .flatMap { base -> suffixes.map { suffix -> "$base/phone-$versionName-$suffix" } }
-            .distinct()
-    }
-
-    private fun apkComboWantedSuffixes(request: HelperRequest): List<String> {
-        val requestedKinds = request.requestedFileKinds
-        return APK_COMBO_FILE_KIND_ORDER
-            .filter { it in requestedKinds }
-            .ifEmpty { APK_COMBO_FILE_KIND_ORDER }
-    }
-
-    private fun apkComboOldVersionPageUrl(
-        request: HelperRequest,
-        latestPageUrl: String,
-        requestedVersion: String
-    ): String? {
-        val latestDoc = fetchDocument(latestPageUrl)
-        val visibleOldVersion = latestDoc.select("a.ver-item[href]")
-            .firstOrNull { item ->
-                val itemVersion = apkComboVersionFromText(item.text()) ?: item.text()
-                itemVersion.versionNameEquals(requestedVersion)
-            }
-            ?.absUrl("href")
-        if (!visibleOldVersion.isNullOrBlank()) return visibleOldVersion
-
-        val oldVersionsUrl = apkComboOldVersionsUrl(request, latestPageUrl)
-        val oldVersionsDoc = fetchDocument(oldVersionsUrl)
-        return oldVersionsDoc.select("a.ver-item[href]")
-            .firstOrNull { item ->
-                val itemVersion = apkComboVersionFromText(item.text()) ?: item.text()
-                itemVersion.versionNameEquals(requestedVersion)
-            }
-            ?.absUrl("href")
-    }
-
-    private fun apkComboOldVersionsUrl(request: HelperRequest, latestPageUrl: String): String {
-        val uri = runCatching { java.net.URI(latestPageUrl) }.getOrNull()
-        val segments = uri?.path
-            ?.trim('/')
-            ?.split('/')
-            .orEmpty()
-        val packageIndex = segments.indexOf(request.packageName)
-        if (uri != null && packageIndex >= 0) {
-            val appPath = segments.take(packageIndex + 1).joinToString("/")
-            return "${uri.scheme}://${uri.host}/$appPath/old-versions/"
-        }
-
-        return "https://apkcombo.com/${request.appName.slugForUrl()}/${request.packageName}/old-versions/"
-    }
-
-    private fun apkComboCandidatesFromPage(
-        request: HelperRequest,
-        pageUrl: String,
-        option: CandidateOption
-    ): List<DownloadCandidate> {
-        val doc = fetchDocument(pageUrl)
-        if (!apkComboPageMatchesPackage(doc, pageUrl, request.packageName)) return emptyList()
-
-        val checkIn = fetchText("https://apkcombo.com/checkin", referer = pageUrl).trim()
-        val versionName = apkComboVersion(doc, pageUrl) ?: request.versionName.takeIf { option == CandidateOption.REQUESTED }
-
-        return doc.select("a.variant[href]")
-            .mapNotNull { variant ->
-                apkComboCandidateFromVariant(
-                    request = request,
-                    pageUrl = pageUrl,
-                    option = option,
-                    versionName = versionName,
-                    checkIn = checkIn,
-                    variant = variant
-                )
-            }
-            .distinctBy(DownloadCandidate::identityKey)
-    }
-
-    private fun apkComboCandidateFromVariant(
-        request: HelperRequest,
-        pageUrl: String,
-        option: CandidateOption,
-        versionName: String?,
-        checkIn: String,
-        variant: Element
-    ): DownloadCandidate? {
-        val href = variant.absUrl("href").ifBlank { "https://apkcombo.com${variant.attr("href")}" }
-        val downloadUrl = (if (checkIn.isNotBlank()) "$href&$checkIn" else href)
-            .normalizedHttpUrlOrNull()
-            ?: return null
-        val versionCode = apkComboVersionCode(href)
-        val fileKind = fileKindFromUrl(href)
-        if (!request.acceptsFormat(fileKind)) return null
-        val variantLabel = apkComboVariantLabel(variant)
-        val fileName = "${request.packageName}-${versionName ?: "latest"}-apkcombo${variantLabel.variantFileSuffix()}.$fileKind"
-            .sanitizeFileName()
-
-        return DownloadCandidate(
-            source = DownloadSource.APK_COMBO,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = versionName,
-            versionCode = versionCode,
-            url = downloadUrl,
-            fileKind = fileKind,
-            option = option,
-            directDownload = true,
-            versionStatus = request.versionStatus(versionName, versionCode),
-            formatMatches = request.acceptsFormat(fileKind),
-            variantLabel = variantLabel,
-            files = listOf(
-                CandidateDownloadFile(
-                    url = downloadUrl,
-                    fileName = fileName,
-                    referer = pageUrl
-                )
-            )
-        )
-    }
-
-    private fun apkComboVariantLabel(variant: Element): String? =
-        listOf(
-            variant.attr("data-arch"),
-            variant.attr("data-abi"),
-            variant.attr("data-cpu"),
-            variant.attr("title"),
-            variant.text()
-        )
-            .firstOrNull { it.isNotBlank() }
-            ?.replace(Regex("""\s+"""), " ")
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.archDisplayLabel()
-
-    private fun apkComboPageMatchesPackage(doc: Document, pageUrl: String, packageName: String): Boolean {
-        if (pageUrl.contains("/search/$packageName/", ignoreCase = true) ||
-            pageUrl.contains("/$packageName/", ignoreCase = true)
-        ) {
-            return true
-        }
-
-        val canonicalPackage = doc.selectFirst("link[rel=canonical]")
-            ?.absUrl("href")
-            ?.let { url -> runCatching { java.net.URI(url).path.trim('/').split('/').lastOrNull() }.getOrNull() }
-        return canonicalPackage == packageName || doc.html().contains(packageName)
-    }
-
-    private fun apkComboVersion(doc: Document, pageUrl: String): String? {
-        Regex("""phone-(.+?)-(?:apk|xapk|apks|apkm)(?:[/?#]|$)""", RegexOption.IGNORE_CASE)
-            .find(pageUrl)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        val html = doc.html()
-        Regex("\"softwareVersion\"\\s*:\\s*\"([^\"]+)\"")
-            .find(html)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        val description = doc.selectFirst("meta[name=description]")?.attr("content").orEmpty()
-        Regex("""Version:\s*([^-]+?)\s*-""")
-            .find(description)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        Regex("""Version:\s*(.*?)(?=\s+-\s+[A-Za-z0-9_.]+)""")
-            .find(html)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.replace(Regex("<[^>]+>"), "")
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        Regex("""Version</[^>]+>\s*<[^>]+>([^<]+)""")
-            .find(html)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        Regex("""phone-([0-9][^-]+)-apk""")
-            .find(html)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.trim()
-            ?.takeIf(String::isNotBlank)
-            ?.let { return it }
-
-        return doc.selectFirst("h1.title")
-            ?.text()
-            ?.let(::apkComboVersionFromText)
-    }
-
-    private fun apkComboVersionFromText(text: String): String? =
-        Regex("""\b(\d+(?:[._-]\d+)+(?:[-.][A-Za-z0-9]+)?)\b""")
-            .find(text)
-            ?.value
-            ?.replace("_", ".")
-
-    private fun apkComboVersionCode(url: String): Long? {
-        val decoded = URLDecoder.decode(url, StandardCharsets.UTF_8.name())
-        Regex("""/(\d{1,12})[._-][A-Fa-f0-9]{8,}""")
-            .find(decoded)
-            ?.groupValues
-            ?.getOrNull(1)
-            ?.toLongOrNull()
-            ?.let { return it }
-
-        return decoded
-            .split("/")
-            .firstOrNull { it.all(Char::isDigit) && it.length >= 4 }
-            ?.toLongOrNull()
-    }
-
-    private fun findUptodown(request: HelperRequest, option: CandidateOption): List<DownloadCandidate> {
-        return uptodownDetailUrls(request)
-            .firstNotNullOfOrNull { detailUrl ->
-                runCatching {
-                    when (option) {
-                        CandidateOption.REQUESTED -> uptodownRequestedCandidatesFromDetailUrl(request, detailUrl)
-                        CandidateOption.LATEST -> uptodownCandidatesFromDetailUrl(request, detailUrl)
-                        CandidateOption.MANUAL -> emptyList()
-                    }
-                }
-                    .onFailure { Log.w(TAG, "Uptodown ${option.name.lowercase(Locale.US)} resolve failed", it) }
-                    .getOrNull()
-                    ?.takeIf(List<DownloadCandidate>::isNotEmpty)
-            }
-            .orEmpty()
-    }
-
-    private fun uptodownDetailUrls(request: HelperRequest): List<String> {
-        val defaultUrl = "https://${request.appName.slugForUrl()}.en.uptodown.com/android"
-        val hintedUrls = request.sourceHintUrlsFor(DownloadSource.UPTODOWN)
-            .mapNotNull { hint ->
-                val normalized = hint.substringBefore("?").substringBefore("#").trimEnd('/')
-                when {
-                    normalized.contains("/android/search", ignoreCase = true) -> null
-                    normalized.endsWith("/download", ignoreCase = true) -> normalized.removeSuffix("/download")
-                    normalized.contains("uptodown.com", ignoreCase = true) -> normalized
-                    else -> null
-                }
-            }
-        val searchResolvedUrls = runCatching {
-            resolveUptodownSearchUrls(uptodownSearchUrl(request.packageName))
-        }
-            .onFailure { Log.w(TAG, "Uptodown search resolve failed", it) }
-            .getOrDefault(emptyList())
-        val siteSearchUrls = if (searchResolvedUrls.isEmpty()) {
-            runCatching { resolveUptodownPackageSiteUrls(request.packageName) }
-                .onFailure { Log.w(TAG, "Uptodown package search resolve failed", it) }
-                .getOrDefault(emptyList())
-        } else {
-            emptyList()
-        }
-
-        return (hintedUrls + searchResolvedUrls + siteSearchUrls + defaultUrl).distinct()
-    }
-
-    private fun uptodownSearchUrl(packageName: String): String =
-        "https://en.uptodown.com/android/search?query=${URLEncoder.encode(packageName, "UTF-8")}"
-
-    private fun resolveUptodownSearchUrls(searchUrl: String): List<String> {
-        val doc = fetchDocument(searchUrl)
-        return doc.select("a[href]")
-            .asSequence()
-            .map { it.absUrl("href") }
-            .filter { url ->
-                url.matches(Regex("""https://[a-z0-9-]+\.en\.uptodown\.com/android/?"""))
-            }
-            .distinct()
-            .take(20)
-            .toList()
-    }
-
-    private fun resolveUptodownPackageSiteUrls(packageName: String): List<String> {
-        val query = URLEncoder.encode("site:uptodown.com/android/download \"$packageName\"", "UTF-8")
-        val doc = fetchDocument("https://www.bing.com/search?q=$query")
-        return Regex("""https://[a-z0-9-]+\.en\.uptodown\.com/android/download""")
-            .findAll(doc.html())
-            .map { it.value.removeSuffix("/download") }
-            .distinct()
-            .take(10)
-            .toList()
-    }
-
-    private fun uptodownCandidatesFromDetailUrl(
-        request: HelperRequest,
-        detailUrl: String
-    ): List<DownloadCandidate> {
-        val downloadPageUrl = "${detailUrl.trimEnd('/')}/download"
-        val doc = fetchDocument(downloadPageUrl)
-        val packageName = uptodownPackageName(doc)
-
-        if (packageName != request.packageName) return emptyList()
-
-        val versionsDoc = runCatching { fetchDocument("${detailUrl.trimEnd('/')}/versions", referer = downloadPageUrl) }
-            .getOrNull()
-        val versionName = versionsDoc?.selectFirst(".version")?.text()?.trim()?.takeIf(String::isNotBlank)
-            ?: doc.selectFirst(".detail .info .version")?.text()?.trim()?.takeIf(String::isNotBlank)
-            ?: Regex("""Information about .+? ([\w.-]+)""")
-                .find(doc.text())
-                ?.groupValues
-                ?.getOrNull(1)
-        val fileKind = parseInfoTableValue(doc, "File type")?.lowercase(Locale.US) ?: "apk"
-        val externalUrl = doc.selectFirst("#detail-download-button[data-url-ext]")?.attr("data-url-ext")
-            ?.normalizedHttpUrlOrNull()
-            ?: uptodownDownloadUrlFromPage(doc)
-        val normalizedDetailUrl = detailUrl.trimEnd('/')
-        val dataCode = versionsDoc?.let(::uptodownDataCode) ?: uptodownDataCode(doc)
-        dataCode
-            ?.let { code ->
-                uptodownSelectableVariants(
-                    request = request,
-                    detailUrl = normalizedDetailUrl,
-                    dataCode = code,
-                    pageDoc = doc,
-                    versionPageUrl = downloadPageUrl
-                )
-            }
-            .orEmpty()
-            .mapNotNull { variant ->
-                uptodownCandidateFromVersionVariant(
-                    request = request,
-                    detailUrl = normalizedDetailUrl,
-                    versionPageUrl = downloadPageUrl,
-                    versionName = versionName,
-                    option = CandidateOption.LATEST,
-                    variant = variant
-                )
-            }
-            .distinctBy(DownloadCandidate::identityKey)
-            .takeIf(List<DownloadCandidate>::isNotEmpty)
-            ?.let { return it }
-
-        return listOf(
-            DownloadCandidate(
-            source = DownloadSource.UPTODOWN,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = versionName,
-            versionCode = null,
-            url = externalUrl?.takeIf(String::isNotBlank) ?: downloadPageUrl,
-            fileKind = fileKind,
-            option = CandidateOption.LATEST,
-            directDownload = !externalUrl.isNullOrBlank(),
-            versionStatus = request.versionStatus(versionName, null),
-            formatMatches = request.acceptsFormat(fileKind),
-            files = externalUrl
-                ?.takeIf(String::isNotBlank)
-                ?.let {
-                    listOf(
-                        CandidateDownloadFile(
-                            url = it,
-                            fileName = "${request.packageName}-${versionName ?: "latest"}-uptodown.$fileKind"
-                                .sanitizeFileName(),
-                            referer = downloadPageUrl
-                        )
-                    )
-                }
-                .orEmpty()
-            )
-        )
-    }
-
-    private fun uptodownRequestedCandidatesFromDetailUrl(
-        request: HelperRequest,
-        detailUrl: String
-    ): List<DownloadCandidate> {
-        if (request.versionName == null && request.compatibleVersionNames.isEmpty()) return emptyList()
-
-        val normalizedDetailUrl = detailUrl.trimEnd('/')
-        val downloadPageUrl = "$normalizedDetailUrl/download"
-        val downloadDoc = fetchDocument(downloadPageUrl)
-        if (uptodownPackageName(downloadDoc) != request.packageName) return emptyList()
-
-        val versionsDoc = fetchDocument("$normalizedDetailUrl/versions", referer = downloadPageUrl)
-        val dataCode = uptodownDataCode(versionsDoc)
-            ?: uptodownDataCode(downloadDoc)
-            ?: return emptyList()
-        val entry = uptodownRequestedVersionEntry(
-            request = request,
-            detailUrl = normalizedDetailUrl,
-            dataCode = dataCode
-        ) ?: return emptyList()
-
-        return uptodownCandidatesFromVersionEntry(
-            request = request,
-            detailUrl = normalizedDetailUrl,
-            dataCode = dataCode,
-            entry = entry
-        )
-    }
-
-    private fun uptodownRequestedVersionEntry(
-        request: HelperRequest,
-        detailUrl: String,
-        dataCode: String
-    ): UptodownVersionEntry? {
-        for (page in 1..20) {
-            val entries = runCatching {
-                gson.fromJson(
-                    fetchText("$detailUrl/apps/$dataCode/versions/$page", referer = "$detailUrl/versions"),
-                    UptodownVersionResponse::class.java
-                ).data
-            }.getOrDefault(emptyList())
-
-            if (entries.isEmpty()) break
-
-            entries
-                .firstOrNull { entry ->
-                    val versionName = entry.version?.trim()?.takeIf(String::isNotBlank)
-                    versionName != null && request.matchesRequestedVersion(versionName, null)
-                }
-                ?.let { return it }
-        }
-
-        return null
-    }
-
-    private fun uptodownCandidatesFromVersionEntry(
-        request: HelperRequest,
-        detailUrl: String,
-        dataCode: String,
-        entry: UptodownVersionEntry
-    ): List<DownloadCandidate> {
-        val versionName = entry.version?.trim()?.takeIf(String::isNotBlank) ?: return emptyList()
-        val versionPageUrl = uptodownVersionPageUrl(entry) ?: return emptyList()
-        val pageDoc = fetchDocument(versionPageUrl, referer = "$detailUrl/versions")
-        val variants = uptodownSelectableVariants(
-            request = request,
-            detailUrl = detailUrl,
-            dataCode = dataCode,
-            pageDoc = pageDoc,
-            versionPageUrl = versionPageUrl
-        )
-
-        variants
-            .mapNotNull { variant ->
-                uptodownCandidateFromVersionVariant(
-                    request = request,
-                    detailUrl = detailUrl,
-                    versionPageUrl = versionPageUrl,
-                    versionName = versionName,
-                    option = CandidateOption.REQUESTED,
-                    variant = variant
-                )
-            }
-            .distinctBy(DownloadCandidate::identityKey)
-            .takeIf(List<DownloadCandidate>::isNotEmpty)
-            ?.let { return it }
-
-        val fileKind = (
-            entry.kindFile
-                ?: entry.titleKindFile
-                ?: parseInfoTableValue(pageDoc, "File type")
-                ?: "apk"
-            )
-            .lowercase(Locale.US)
-        val directUrl = uptodownDownloadUrlFromPage(pageDoc)
-
-        return listOf(
-            DownloadCandidate(
-            source = DownloadSource.UPTODOWN,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = versionName,
-            versionCode = null,
-            url = directUrl ?: versionPageUrl,
-            fileKind = fileKind,
-            option = CandidateOption.REQUESTED,
-            directDownload = directUrl != null,
-            versionStatus = request.versionStatus(versionName, null),
-            formatMatches = request.acceptsFormat(fileKind),
-            files = directUrl
-                ?.let {
-                    listOf(
-                        CandidateDownloadFile(
-                            url = it,
-                            fileName = "${request.packageName}-$versionName-uptodown.$fileKind"
-                                .sanitizeFileName(),
-                            referer = versionPageUrl
-                        )
-                    )
-                }
-                .orEmpty()
-            )
-        )
-    }
-
-    private fun uptodownCandidateFromVersionVariant(
-        request: HelperRequest,
-        detailUrl: String,
-        versionPageUrl: String,
-        versionName: String?,
-        option: CandidateOption,
-        variant: UptodownVariantFile
-    ): DownloadCandidate? {
-        val tokenDoc = fetchDocument("$detailUrl/download/${variant.fileId}-x", referer = versionPageUrl)
-        val fileKind = variant.fileKind.lowercase(Locale.US)
-        val directUrl = uptodownDownloadUrlFromPage(tokenDoc) ?: return null
-        val variantLabel = variant.displayLabel()
-        val variantFileSuffix = variantLabel.variantFileSuffix()
-
-        return DownloadCandidate(
-            source = DownloadSource.UPTODOWN,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = versionName,
-            versionCode = null,
-            url = directUrl,
-            fileKind = fileKind,
-            option = option,
-            directDownload = true,
-            versionStatus = request.versionStatus(versionName, null),
-            formatMatches = request.acceptsFormat(fileKind),
-            variantLabel = variantLabel,
-            files = listOf(
-                CandidateDownloadFile(
-                    url = directUrl,
-                    fileName = "${request.packageName}-${versionName ?: option.name.lowercase(Locale.US)}-uptodown$variantFileSuffix.$fileKind"
-                        .sanitizeFileName(),
-                    referer = versionPageUrl
-                )
-            )
-        )
-    }
-
-    private fun uptodownSelectableVariants(
-        request: HelperRequest,
-        detailUrl: String,
-        dataCode: String,
-        pageDoc: Document,
-        versionPageUrl: String
-    ): List<UptodownVariantFile> {
-        val dataVersion = pageDoc.selectFirst(".button.variants[data-version]")
-            ?.attr("data-version")
-            ?.takeIf(String::isNotBlank)
-            ?: return emptyList()
-        val appHostUrl = detailUrl.substringBeforeLast("/")
-        val content = runCatching {
-            gson.fromJson(
-                fetchText("$appHostUrl/app/$dataCode/version/$dataVersion/files", referer = versionPageUrl),
-                UptodownVariantResponse::class.java
-            ).content
-        }.getOrNull()
-            ?.takeIf(String::isNotBlank)
-            ?: return emptyList()
-        val variants = uptodownVariantFiles(Jsoup.parse(content, detailUrl))
-
-        return variants.filter { request.acceptsFormat(it.fileKind) }
-            .takeIf(List<UptodownVariantFile>::isNotEmpty)
-            ?: variants
-    }
-
-    private fun uptodownVariantFiles(doc: Document): List<UptodownVariantFile> {
-        val content = doc.selectFirst(".content") ?: return emptyList()
-        var archLabel: String? = null
-        return content.children().mapNotNull { child ->
-            if (!child.hasClass("variant")) {
-                archLabel = child.text().trim().takeIf(String::isNotBlank)
-                null
-            } else {
-                uptodownVariantFile(child, archLabel)
-            }
-        }
-    }
-
-    private fun uptodownVariantFile(element: Element, archLabel: String?): UptodownVariantFile? {
-        val fileId = element.selectFirst(".v-report[data-file-id]")
-            ?.attr("data-file-id")
-            ?.takeIf(String::isNotBlank)
-            ?: return null
-        val fileKind = element.selectFirst(".v-file span")
-            ?.text()
-            ?.lowercase(Locale.US)
-            ?.takeIf(String::isNotBlank)
-            ?: "apk"
-
-        return UptodownVariantFile(
-            fileId = fileId,
-            fileKind = fileKind,
-            archLabel = archLabel
-        )
-    }
-
-    private fun UptodownVariantFile.displayLabel(): String? =
-        archLabel?.archDisplayLabel()
-
-    private fun String.archDisplayLabel(): String =
-        if (isUniversalArchLabel()) {
-            "Universal"
-        } else {
-            trim()
-        }
-
-    private fun String.isUniversalArchLabel(): Boolean {
-        val normalizedLabel = lowercase(Locale.US)
-        return "all architectures" in normalizedLabel ||
-            "universal" in normalizedLabel ||
-            normalizedLabel == "all" ||
-            normalizedLabel == "noarch"
-    }
-
-    private fun uptodownPackageName(doc: Document): String? {
-        val playUrl = doc.selectFirst("#gplay-url[data-url]")
-            ?.attr("data-url")
-            ?.takeIf(String::isNotBlank)
-        val playPackage = playUrl
-            ?.let { runCatching { Uri.parse(it).getQueryParameter("id") }.getOrNull() }
-            ?.takeIf(String::isNotBlank)
-            ?: playUrl
-                ?.substringAfter("id=", "")
-                ?.substringBefore("&")
-                ?.takeIf(String::isNotBlank)
-
-        return playPackage ?: parseInfoTableValue(doc, "Package Name")
-    }
-
-    private fun uptodownDataCode(doc: Document): String? =
-        doc.selectFirst("#detail-app-name[data-code]")
-            ?.attr("data-code")
-            ?.takeIf(String::isNotBlank)
-
-    private fun uptodownVersionPageUrl(entry: UptodownVersionEntry): String? {
-        val versionUrl = entry.versionUrl ?: return null
-        val baseUrl = versionUrl.url?.trim()?.trimEnd('/')?.takeIf(String::isNotBlank) ?: return null
-        val extraUrl = versionUrl.extraUrl?.trim('/')?.takeIf(String::isNotBlank) ?: "download"
-        val versionId = versionUrl.versionId ?: entry.fileId ?: return null
-        return "$baseUrl/$extraUrl/$versionId"
-    }
-
-    private fun uptodownDownloadUrlFromPage(doc: Document): String? {
-        val dataUrl = doc.selectFirst("#detail-download-button[data-url]")
-            ?.attr("data-url")
-            ?.takeIf(String::isNotBlank)
-            ?: return null
-        val normalized = dataUrl.trim()
-        return if (normalized.startsWith("http", ignoreCase = true)) {
-            normalized.normalizedHttpUrlOrNull()
-        } else {
-            "https://dw.uptodown.com/dwn/${normalized.trimStart('/')}".normalizedHttpUrlOrNull()
-        }
-    }
-
-    private suspend fun findApkPure(request: HelperRequest, option: CandidateOption): List<DownloadCandidate> =
-        when (option) {
-            CandidateOption.REQUESTED -> listOfNotNull(apkPureRequestedCandidate(request))
-            CandidateOption.LATEST -> apkPureLatestCandidates(request)
-            CandidateOption.MANUAL -> emptyList()
-        }
-
-    private suspend fun apkPureLatestCandidates(request: HelperRequest): List<DownloadCandidate> {
-        val response = apkPureApi.getAppUpdate(
-            header = gson.toJson(ApkPureDeviceHeader()),
-            request = ApkPureUpdateRequest(
-                app_info_for_update = listOf(
-                    ApkPureAppInfo(package_name = request.packageName, version_code = 0L)
-                )
-            )
-        )
-
-        val apiLatestCandidates = response.app_update_response
-            .filter { it.package_name == request.packageName }
-            .mapNotNull { item ->
-                val url = item.asset.url.replace("http://", "https://").normalizedHttpUrlOrNull()
-                    ?: return@mapNotNull null
-                val fileKind = if (url.contains("/XAPK", ignoreCase = true)) "xapk" else "apk"
-
-                DownloadCandidate(
-                    source = DownloadSource.APK_PURE,
-                    name = item.label.ifBlank { request.appName },
-                    packageName = item.package_name,
-                    versionName = item.version_name,
-                    versionCode = item.version_code,
-                    url = url,
-                    fileKind = fileKind,
-                    option = CandidateOption.LATEST,
-                    directDownload = true,
-                    versionStatus = request.versionStatus(item.version_name, item.version_code),
-                    formatMatches = request.acceptsFormat(fileKind),
-                    files = listOf(
-                        CandidateDownloadFile(
-                            url = url,
-                            fileName = "${item.package_name}-${item.version_name}-apkpure.$fileKind"
-                                .sanitizeFileName()
-                        )
-                    )
-                )
-            }
-
-        val appPageUrl = runCatching { apkPureAppPageUrl(request) }
-            .onFailure { Log.w(TAG, "APKPure app page resolve failed", it) }
-            .getOrNull()
-        val webLatestCandidate = if (apiLatestCandidates.isEmpty()) {
-            appPageUrl?.let { url ->
-                runCatching {
-                    apkPureCandidateFromDownloadPage(
-                        request = request,
-                        appPageUrl = url,
-                        downloadPageUrl = "$url/downloading/",
-                        versionName = null,
-                        versionCode = null,
-                        option = CandidateOption.LATEST
-                    )
-                }
-                    .onFailure { Log.w(TAG, "APKPure latest web resolve failed", it) }
-                    .getOrNull()
-            }
-        } else {
-            null
-        }
-
-        return apiLatestCandidates + listOfNotNull(webLatestCandidate)
-    }
-
-    private fun apkPureRequestedCandidate(request: HelperRequest): DownloadCandidate? {
-        val appPageUrl = runCatching { apkPureAppPageUrl(request) }
-            .onFailure { Log.w(TAG, "APKPure app page resolve failed", it) }
-            .getOrNull()
-            ?: return null
-
-        return runCatching { apkPureRequestedCandidate(request, appPageUrl) }
-            .onFailure { Log.w(TAG, "APKPure requested version resolve failed", it) }
-            .getOrNull()
-    }
-
-    private fun apkPureInfoUrl(packageName: String): String =
-        "https://apkpure.com/apk-info/$packageName"
-
-    private fun apkPureAppPageUrl(request: HelperRequest): String? {
-        val doc = fetchDocument(apkPureInfoUrl(request.packageName))
-        return doc.selectFirst("link[rel=canonical]")
-            ?.absUrl("href")
-            ?.takeIf { url -> apkPureUrlMatchesPackage(url, request.packageName) }
-            ?.trimEnd('/')
-    }
-
-    private fun apkPureUrlMatchesPackage(url: String, packageName: String): Boolean =
-        runCatching {
-            java.net.URI(url).path.trim('/').split('/').lastOrNull() == packageName
-        }.getOrDefault(false)
-
-    private fun apkPureRequestedCandidate(request: HelperRequest, appPageUrl: String): DownloadCandidate? {
-        if (!request.hasRequestedVersionRequest) return null
-
-        val doc = fetchDocument(apkPureInfoUrl(request.packageName))
-        val item = doc.select(".version-item")
-            .firstOrNull { element ->
-                val versionName = element.attr("data-dt-version").takeIf(String::isNotBlank)
-                    ?: sourceVersionFromText(element.text())
-                val versionCode = element.attr("data-dt-version_code").toLongOrNull()
-                element.attr("data-dt-package_name").equals(request.packageName, ignoreCase = true) &&
-                    request.matchesRequestedVersion(versionName, versionCode)
-            }
-        if (item == null) {
-            return apkPureRequestedCandidateFromVersionsPage(request, appPageUrl)
-        }
-
-        val versionName = item.attr("data-dt-version").takeIf(String::isNotBlank)
-            ?.withoutTrailingVersionCode()
-            ?: request.requestedVersionName
-        val versionCode = item.attr("data-dt-version_code").toLongOrNull()
-            ?: item.attr("data-dt-versioncode").toLongOrNull()
-            ?: item.attr("data-dt-version").trailingVersionCode()
-        val versionPageUrl = item.selectFirst("a.go-version-btn[href], a.dt-version-name-link[href]")
-            ?.absUrl("href")
-            ?.normalizedHttpUrlOrNull()
-            ?: "$appPageUrl/download/${URLEncoder.encode(versionName.orEmpty(), "UTF-8")}"
-        val fileKind = fileKindFromTags(
-            tags = item.select(".tag").map { it.text() },
-            request = request
-        )
-
-        apkPureCandidateFromDownloadPage(
-            request = request,
-            appPageUrl = appPageUrl,
-            downloadPageUrl = apkPureDownloadingUrl(appPageUrl, versionName),
-            versionName = versionName,
-            versionCode = versionCode,
-            option = CandidateOption.REQUESTED
-        )?.let { return it }
-
-        return DownloadCandidate(
-            source = DownloadSource.APK_PURE,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = versionName,
-            versionCode = versionCode,
-            url = versionPageUrl,
-            fileKind = fileKind,
-            option = CandidateOption.REQUESTED,
-            directDownload = false,
-            versionStatus = request.versionStatus(versionName, versionCode),
-            formatMatches = request.acceptsFormat(fileKind)
-        )
-    }
-
-    private fun apkPureRequestedCandidateFromVersionsPage(
-        request: HelperRequest,
-        appPageUrl: String
-    ): DownloadCandidate? {
-        val versionsDoc = fetchDocument("$appPageUrl/versions", referer = appPageUrl)
-        val entry = apkPureVersionEntries(versionsDoc, request)
-            .firstOrNull { request.matchesRequestedVersion(it.versionName, it.versionCode) }
-            ?: return null
-
-        apkPureCandidateFromDownloadPage(
-            request = request,
-            appPageUrl = appPageUrl,
-            downloadPageUrl = entry.downloadPageUrl,
-            versionName = entry.versionName,
-            versionCode = entry.versionCode,
-            option = CandidateOption.REQUESTED
-        )?.let { return it }
-
-        return DownloadCandidate(
-            source = DownloadSource.APK_PURE,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = entry.versionName,
-            versionCode = entry.versionCode,
-            url = entry.downloadPageUrl,
-            fileKind = entry.fileKind,
-            option = CandidateOption.REQUESTED,
-            directDownload = false,
-            versionStatus = request.versionStatus(entry.versionName, entry.versionCode),
-            formatMatches = request.acceptsFormat(entry.fileKind)
-        )
-    }
-
-    private fun apkPureVersionEntries(doc: Document, request: HelperRequest): List<ApkPureVersionEntry> =
-        doc.select(".ver_download_link[data-dt-version]")
-            .mapNotNull { item ->
-                val rawVersion = item.attr("data-dt-version").takeIf(String::isNotBlank)
-                    ?: sourceVersionFromText(item.text())
-                val versionName = rawVersion
-                    ?.withoutTrailingVersionCode()
-                    ?.takeIf(String::isNotBlank)
-                val versionCode = item.attr("data-dt-versioncode").toLongOrNull()
-                    ?: item.attr("data-dt-version_code").toLongOrNull()
-                    ?: rawVersion?.trailingVersionCode()
-                val downloadPageUrl = item
-                    .selectFirst("a.dt-version-name-link[href], a[href*=/download/][href]")
-                    ?.absUrl("href")
-                    ?.normalizedHttpUrlOrNull()
-                    ?: return@mapNotNull null
-                val tags = buildList {
-                    addAll(item.select("[data-tag]").map { it.attr("data-tag") })
-                    addAll(item.select(".tag, .apk-type-tag-list *").map { it.text() })
-                    apkPureFileKindFromApkId(item.attr("data-dt-apkid"))?.let(::add)
-                }
-                val fileKind = fileKindFromTags(tags, request).takeUnless { it == "web" }
-                    ?: fileKindFromUrl(downloadPageUrl)
-
-                ApkPureVersionEntry(
-                    versionName = versionName,
-                    versionCode = versionCode,
-                    downloadPageUrl = downloadPageUrl,
-                    fileKind = fileKind
-                )
-            }
-
-    private fun apkPureFileKindFromApkId(apkId: String): String? =
-        apkId.substringAfter("b/", "")
-            .substringBefore("/")
-            .lowercase(Locale.US)
-            .takeIf { it in DOWNLOAD_FILE_KIND_SET }
-
-    private fun apkPureDownloadingUrl(appPageUrl: String, versionName: String?): String =
-        if (versionName.isNullOrBlank()) {
-            "$appPageUrl/downloading/"
-        } else {
-            "$appPageUrl/downloading/${Uri.encode(versionName)}"
-        }
-
-    private fun apkPureCandidateFromDownloadPage(
-        request: HelperRequest,
-        appPageUrl: String,
-        downloadPageUrl: String,
-        versionName: String?,
-        versionCode: Long?,
-        option: CandidateOption
-    ): DownloadCandidate? {
-        val doc = fetchDocument(downloadPageUrl, referer = appPageUrl)
-        if (!apkPureDownloadPageIsValid(doc)) return null
-
-        val downloadUrl = doc.selectFirst("a#download_link[href]")
-            ?.absUrl("href")
-            ?.replace("http://", "https://")
-            ?.normalizedHttpUrlOrNull()
-            ?: return null
-        val resolvedVersion = versionName
-            ?: Regex("""["']softwareVersion["']\s*:\s*["']([^"']+)["']""")
-                .find(doc.html())
-                ?.groupValues
-                ?.getOrNull(1)
-            ?: sourceVersionFromText(doc.select("h1, h2").joinToString(" ") { it.text() })
-        val fileKind = fileKindFromUrl(downloadUrl)
-
-        return DownloadCandidate(
-            source = DownloadSource.APK_PURE,
-            name = request.appName,
-            packageName = request.packageName,
-            versionName = resolvedVersion,
-            versionCode = versionCode,
-            url = downloadUrl,
-            fileKind = fileKind,
-            option = option,
-            directDownload = true,
-            versionStatus = request.versionStatus(resolvedVersion, versionCode),
-            formatMatches = request.acceptsFormat(fileKind),
-            files = listOf(
-                CandidateDownloadFile(
-                    url = downloadUrl,
-                    fileName = "${request.packageName}-${resolvedVersion ?: option.name.lowercase(Locale.US)}-apkpure.$fileKind"
-                        .sanitizeFileName(),
-                    referer = downloadPageUrl
-                )
-            )
-        )
-    }
-
-    private fun apkPureDownloadPageIsValid(doc: Document): Boolean {
-        if (doc.title().equals("Error", ignoreCase = true)) return false
-        if (doc.text().contains("Oopps! The page can't be found", ignoreCase = true)) return false
-        return true
-    }
-
-    private suspend fun aptoideLatestCandidate(request: HelperRequest): DownloadCandidate? {
-        val historyLatest = runCatching { aptoideLatestVersionHistoryCandidate(request) }.getOrNull()
-        val appPageUrl = resolveAptoideAppPageUrl(request) ?: return null
-        val webLatest = aptoideCandidateFromWebAppPage(request, appPageUrl, CandidateOption.LATEST)
-
-        val versionsUrl = appPageUrl.trimEnd('/').removeSuffix("/app") + "/versions"
-        val version = aptoideVersionsFromPage(versionsUrl, request.packageName).firstOrNull()
-        val versionsLatest = version?.let {
-            val app = aptoideApi.getAppById(it.id).nodes.meta.data
-                .takeIf { app -> app.packageName == request.packageName }
-                ?: return@let null
-            aptoideCandidateFromApp(request, app, CandidateOption.LATEST)
-        }
-
-        return listOfNotNull(historyLatest, webLatest, versionsLatest)
-            .maxWithOrNull { left, right -> compareVersionNames(left.versionName, right.versionName) }
-    }
-
-    private suspend fun aptoideLatestVersionHistoryCandidate(request: HelperRequest): DownloadCandidate? {
-        val app = aptoideApi.listAppVersionsByPackage(request.packageName).list
-            .filter { it.packageName == request.packageName }
-            .maxWithOrNull { left, right ->
-                compareVersionNames(left.file.vername, right.file.vername)
-            }
-            ?.let { version -> aptoideApi.getAppById(version.id).nodes.meta.data }
-            ?.takeIf { it.packageName == request.packageName }
-            ?: return null
-        return aptoideCandidateFromApp(request, app, CandidateOption.LATEST)
-    }
-
-    private suspend fun aptoideRequestedCandidate(request: HelperRequest): DownloadCandidate? {
-        val requestedTerm = request.versionName ?: request.versionCodeSummary ?: return null
-        val queries = listOf(
-            "${request.packageName} $requestedTerm",
-            "${request.appName} $requestedTerm",
-            request.packageName
-        ).distinct()
-
-        return queries.firstNotNullOfOrNull { query ->
-            val response = aptoideApi.searchApps(
-                AptoideSearchRequest(
-                    query = query,
-                    limit = "25"
-                )
-            )
-            response.datalist.list
-                .asSequence()
-                .filter { it.packageName == request.packageName }
-                .filter { app ->
-                    request.matchesRequestedVersion(app.file.vername, app.file.vercode.toLongOrNull())
-                }
-                .mapNotNull { app ->
-                    aptoideCandidateFromApp(
-                        request = request,
-                        app = app,
-                        option = CandidateOption.REQUESTED
-                    )
-                }
-                .firstOrNull()
-        } ?: aptoideVersionHistoryCandidate(request)
-    }
-
-    private suspend fun aptoideVersionHistoryCandidate(request: HelperRequest): DownloadCandidate? {
-        val appPageUrl = runCatching { resolveAptoideAppPageUrl(request) }.getOrNull()
-        val appId = appPageUrl?.let { url ->
-            runCatching { aptoideAppFromPage(url)?.id }.getOrNull()
-        }
-
-        val versions = buildList {
-            addAll(runCatching { aptoideApi.listAppVersionsByPackage(request.packageName).list }
-                .getOrDefault(emptyList()))
-            appId?.let { id ->
-                addAll(runCatching { aptoideApi.listAppVersionsById(id).list }
-                    .getOrDefault(emptyList()))
-            }
-        }
-
-        val requestedVersions = versions
-            .filter { it.packageName == request.packageName }
-            .filter { app -> request.matchesRequestedVersion(app.file.vername, app.file.vercode.toLongOrNull()) }
-            .distinctBy(AptoideApp::id)
-
-        for (version in requestedVersions) {
-            val app = runCatching { aptoideApi.getAppById(version.id).nodes.meta.data }
-                .getOrNull()
-                ?.takeIf { it.packageName == request.packageName }
-                ?.takeIf { request.matchesRequestedVersion(it.file.vername, it.file.vercode.toLongOrNull()) }
-                ?: continue
-
-            aptoideCandidateFromApp(
-                    request = request,
-                    app = app,
-                    option = CandidateOption.REQUESTED
-            )?.let { return it }
-        }
-
-        val requestedWebVersions = appPageUrl
-            ?.let { url ->
-                val versionsUrl = url.trimEnd('/').removeSuffix("/app") + "/versions"
-                runCatching { aptoideVersionsFromPage(versionsUrl, request.packageName) }
-                    .getOrDefault(emptyList())
-            }
-            .orEmpty()
-            .filter { version ->
-                request.matchesRequestedVersion(version.vername, version.vercode.takeIf { it > 0L })
-            }
-            .distinctBy(AptoideVersionItem::id)
-
-        for (version in requestedWebVersions) {
-            val app = runCatching { aptoideApi.getAppById(version.id).nodes.meta.data }
-                .getOrNull()
-                ?.takeIf { it.packageName == request.packageName }
-                ?.takeIf { request.matchesRequestedVersion(it.file.vername, it.file.vercode.toLongOrNull()) }
-                ?: continue
-
-            aptoideCandidateFromApp(
-                request = request,
-                app = app,
-                option = CandidateOption.REQUESTED
-            )?.let { return it }
-        }
-
-        return null
-    }
-
-    private suspend fun resolveAptoideAppPageUrl(request: HelperRequest): String? {
-        runCatching {
-            aptoideApi.getAppByPackage(request.packageName).nodes.meta.data
-                .takeIf { it.packageName == request.packageName }
-                ?.let(::aptoideAppPageUrl)
-        }.getOrNull()?.let { return it }
-
-        val response = aptoideApi.searchApps(AptoideSearchRequest(query = request.packageName))
-        return response.datalist.list
-            .firstOrNull { it.packageName == request.packageName }
-            ?.let(::aptoideAppPageUrl)
-    }
-
-    private fun aptoideAppPageUrl(app: AptoideApp): String? =
-        listOf(app.urls.w, app.urls.m)
-            .firstNotNullOfOrNull(String::normalizedHttpUrlOrNull)
-            ?.let { url ->
-                val uri = Uri.parse(url)
-                "${uri.scheme}://${uri.authority}/app"
-            }
-
-    private fun aptoideCandidateFromWebAppPage(
-        request: HelperRequest,
-        appPageUrl: String,
-        option: CandidateOption
-    ): DownloadCandidate? {
-        val app = aptoideAppFromPage(appPageUrl)
-            ?.takeIf { it.packageName == request.packageName }
-            ?: return null
-        return aptoideCandidateFromApp(request, app, option)
-    }
-
-    private fun aptoideAppFromPage(appPageUrl: String): AptoideApp? {
-        val json = fetchDocument(appPageUrl)
-            .selectFirst("script#__NEXT_DATA__")
-            ?.data()
-            ?.takeIf(String::isNotBlank)
-            ?: return null
-        return runCatching {
-            gson.fromJson(json, AptoideNextData::class.java).props.pageProps.app
-        }.getOrNull()
-    }
-
-    private fun aptoideVersionsFromPage(versionsUrl: String, packageName: String): List<AptoideVersionItem> {
-        val json = fetchDocument(versionsUrl)
-            .selectFirst("script#__NEXT_DATA__")
-            ?.data()
-            ?.takeIf(String::isNotBlank)
-            ?: return emptyList()
-        return runCatching {
-            val page = gson.fromJson(json, AptoideNextData::class.java).props.pageProps
-            if (page.packageName.isNotBlank() && page.packageName != packageName) {
-                emptyList()
-            } else {
-                page.versions
-            }
-        }.getOrDefault(emptyList())
-    }
-
-    private fun aptoideCandidateFromApp(
-        request: HelperRequest,
-        app: AptoideApp,
-        option: CandidateOption
-    ): DownloadCandidate? {
-        val url = listOf(app.file.path, app.file.pathAlt, app.urls.w, app.urls.m)
-            .firstNotNullOfOrNull(String::normalizedHttpUrlOrNull)
-            ?: return null
-        val directDownload = listOf(app.file.path, app.file.pathAlt)
-            .any { it.normalizedHttpUrlOrNull() == url }
-        val fileKind = "apk"
-        val versionCode = app.file.vercode.toLongOrNull()
-
-        return DownloadCandidate(
-            source = DownloadSource.APTOIDE,
-            name = app.name.ifBlank { request.appName },
-            packageName = app.packageName,
-            versionName = app.file.vername,
-            versionCode = versionCode,
-            url = url,
-            fileKind = fileKind,
-            option = option,
-            directDownload = directDownload,
-            versionStatus = request.versionStatus(app.file.vername, versionCode),
-            formatMatches = request.acceptsFormat(fileKind),
-            files = if (directDownload) {
-                listOf(
-                    CandidateDownloadFile(
-                        url = url,
-                        fileName = "${app.packageName}-${app.file.vername}-aptoide.apk"
-                            .sanitizeFileName()
-                    )
-                )
-            } else {
-                emptyList()
-            }
-        )
-    }
-
-    private fun aptoideSearchUrl(packageName: String): String =
-        "https://en.aptoide.com/search?query=${URLEncoder.encode(packageName, "UTF-8")}"
-
-    private fun fetchDocument(url: String, referer: String? = null): Document =
-        Jsoup.parse(fetchText(url, referer), url)
-
-    private fun fetchText(url: String, referer: String? = null): String {
-        val builder = Request.Builder().url(url)
-        referer?.let { builder.header("Referer", it) }
-        client.newCall(builder.build()).execute().use { response ->
-            check(response.isSuccessful) { "HTTP ${response.code}" }
-            return response.body.string()
-        }
-    }
-
     private fun downloadAndReturn(candidate: DownloadCandidate) {
         val activeRequest = request ?: return
         val settings = helperSettings
@@ -2510,49 +782,573 @@ class MainActivity : ComponentActivity() {
             "Downloading ${candidate.source.label} ${candidate.option.labelForLogs} " +
                 "${candidate.versionDisplay} (${candidate.fileKind.uppercase(Locale.US)})."
         )
-        uiState = UiState.Downloading(candidate, 0)
+        uiState = if (fastModeActive) {
+            UiState.FastMode(
+                FastModeProgress(
+                    sourceLabel = candidate.source.label,
+                    detail = "Downloading from ${candidate.source.label}…",
+                    percent = 0
+                )
+            )
+        } else {
+            UiState.Downloading(candidate, 0)
+        }
+        pendingDownload = PendingDownload(activeRequest, candidate, settings)
+        if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            startPendingDownload()
+        }
+    }
 
+    private fun startPendingDownload() {
+        val pending = pendingDownload ?: return
+        pendingDownload = null
+        DownloadJobManager.start(
+            DownloadJobManager.DownloadJob(
+                request = pending.request,
+                candidate = pending.candidate,
+                settings = pending.settings,
+                requestIntentExtras = intent.getExtras()
+            )
+        )
+        startForegroundService(
+            Intent(this, DownloadService::class.java).setAction(ACTION_START_DOWNLOAD)
+        )
+    }
+
+    private fun cancelDownload() {
+        appendLog("Cancelling download…", LogLevel.Warning)
+        runCatching {
+            startService(
+                Intent(this, DownloadService::class.java).setAction(ACTION_CANCEL_DOWNLOAD)
+            )
+        }.onFailure {
+            appendLog("Could not cancel the download.", LogLevel.Error)
+        }
+    }
+
+    // ---- In-app captcha browser: let the user solve a captcha in a real
+    // browser and capture the download URL it produces ----
+
+    private fun openCaptchaBrowser(candidate: DownloadCandidate) {
+        if (candidate.source == DownloadSource.AURORA || candidate.source == DownloadSource.PLAY) return
+        appendLog(
+            "Opening in-app browser for ${candidate.source.label} to solve the captcha.",
+            LogLevel.Info
+        )
+        captchaBrowser = candidate
+    }
+
+    private fun closeCaptchaBrowser() {
+        captchaBrowser = null
+    }
+
+    private fun onCaptchaUrlCaptured(url: String) {
+        val candidate = captchaBrowser ?: return
+        captchaBrowser = null
+        val fileKind = fileKindFromUrl(url)
+        appendLog(
+            "Captured download link from ${candidate.source.label} in the in-app browser " +
+                "($fileKind): $url",
+            LogLevel.Info
+        )
+        downloadAndReturn(
+            candidate.copy(
+                url = url,
+                fileKind = fileKind,
+                directDownload = true,
+                note = null
+            )
+        )
+    }
+
+    private fun openMorpheManager() {
+        // Prefer the release build of Morphe Manager, then the debug build.
+        val launchIntent = MORPHE_MANAGER_PACKAGES
+            .asSequence()
+            .mapNotNull { packageName -> packageManager.getLaunchIntentForPackage(packageName) }
+            .firstOrNull()
+        if (launchIntent != null) {
+            appendLog("Opening Morphe Manager (${launchIntent.component?.packageName ?: "Morphe Manager"}).")
+            runCatching {
+                startActivity(launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }.onFailure {
+                appendLog("Could not open Morphe Manager.", LogLevel.Error)
+            }
+        } else {
+            appendLog("Morphe Manager is not installed — opening morphe.software.", LogLevel.Warning)
+            val releases = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(MORPHE_MANAGER_SITE_URL)
+            ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            runCatching { startActivity(releases) }
+                .onFailure {
+                    appendLog("Could not open Morphe Manager releases page.", LogLevel.Error)
+                }
+        }
+    }
+
+    // ---- Fast Mode: auto-find the exact requested version and return it ----
+
+    private fun startFastModeIfEnabled(request: HelperRequest) {
+        if (!helperSettings.fastMode) return
+        if (!request.hasRequestedVersionRequest) return
+        if (fastModeActive) return
+        fastModeActive = true
+        fastModeQueue = DownloadSource.entries
+            .filter { it !in NON_FAST_MODE_SOURCES }
+            .toMutableList()
+        appendLog("Fast Mode: auto-searching sources for the exact requested version.", LogLevel.Info)
+        uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
         lifecycleScope.launch {
+            fastModeNext(request)
+        }
+    }
+
+    private fun cancelFastMode() {
+        appendLog("Fast Mode cancelled — taking over manually.", LogLevel.Warning)
+        fastModeActive = false
+        fastModeQueue = null
+        // Unblock a pending "use this version?" question so the loop exits.
+        fastModeDecision?.complete(null)
+        fastModeDecision = null
+        // If a fast-mode download is in flight, stop it too; its Cancelled
+        // event also restores the source list.
+        if (DownloadJobManager.activeJob != null) {
+            cancelDownload()
+        }
+        val activeRequest = request
+        uiState = if (activeRequest != null) {
+            UiState.Ready(initialCandidateResult(activeRequest))
+        } else {
+            UiState.Idle
+        }
+    }
+
+    private fun fastModeChoose(choice: FastModeChoice) {
+        fastModeDecision?.complete(choice)
+    }
+
+    private suspend fun fastModeNext(request: HelperRequest) {
+        val queue = fastModeQueue ?: return
+        while (queue.isNotEmpty()) {
+            // The user may have cancelled while a source was resolving.
+            if (!fastModeActive) return
+            val source = queue.removeAt(0)
+            appendLog("Fast Mode: checking ${source.label} for ${request.requestedVersionLabel}...")
+            uiState = UiState.FastMode(
+                FastModeProgress(sourceLabel = source.label, detail = "Checking ${source.label}…")
+            )
             val result = withContext(Dispatchers.IO) {
-                runCatching {
-                    val downloadsDir = temporaryDownloadsDir().apply { mkdirs() }
-                    val files = candidate.files.ifEmpty {
-                        listOf(
-                            CandidateDownloadFile(
-                                url = candidate.url,
-                                fileName = "${candidate.packageName}-${candidate.versionName ?: "latest"}.${candidate.fileKind}"
-                                    .sanitizeFileName()
+                runCatching { fastModeFindCandidate(request, source) }
+                    .getOrDefault(FastModeFindResult.None)
+            }
+            if (!fastModeActive) return
+            when (result) {
+                is FastModeFindResult.Exact -> {
+                    val candidate = result.candidate
+                    appendLog(
+                        "Fast Mode: found ${candidate.versionDisplay} on ${source.label} " +
+                            "(${candidate.fileKind.uppercase(Locale.US)}) — downloading.",
+                        LogLevel.Info
+                    )
+                    uiState = UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = source.label,
+                            detail = "Found ${candidate.versionDisplay} — downloading…",
+                            percent = 0
+                        )
+                    )
+                    downloadAndReturn(candidate)
+                    return
+                }
+                is FastModeFindResult.VersionMismatch -> {
+                    val candidate = result.candidate
+                    appendLog(
+                        "Fast Mode: ${source.label} has ${candidate.versionDisplay} — " +
+                            "build differs from requested ${request.versionCodeSummary ?: "version"}. Asking the user.",
+                        LogLevel.Warning
+                    )
+                    val decisionGate = CompletableDeferred<FastModeChoice?>()
+                    fastModeDecision = decisionGate
+                    uiState = UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = source.label,
+                            detail = "Version code mismatch",
+                            awaitingDecision = true,
+                            mismatchDetail = "Requested build ${request.versionCodeSummary ?: "?"} — " +
+                                "${source.label} has ${candidate.versionDisplay}."
+                        )
+                    )
+                    val decision = decisionGate.await()
+                    if (!fastModeActive || decision == null) return
+                    if (decision == FastModeChoice.USE) {
+                        appendLog(
+                            "Fast Mode: using ${candidate.versionDisplay} from ${source.label} " +
+                                "despite the code mismatch.",
+                            LogLevel.Info
+                        )
+                        uiState = UiState.FastMode(
+                            FastModeProgress(
+                                sourceLabel = source.label,
+                                detail = "Found ${candidate.versionDisplay} — downloading…",
+                                percent = 0
                             )
                         )
+                        downloadAndReturn(candidate)
+                        return
                     }
-
-                    val file = if (files.size == 1) {
-                        downloadSingleFile(candidate, files.single(), downloadsDir)
-                    } else {
-                        downloadSplitArchive(candidate, files, downloadsDir)
-                    }
-                    validateDownloadedArtifact(activeRequest, candidate, file)
-                    file
+                    appendLog("Fast Mode: user skipped ${source.label} — trying the next source.", LogLevel.Info)
+                    continue
+                }
+                FastModeFindResult.None -> {
+                    appendLog("Fast Mode: no exact match on ${source.label}.", LogLevel.Info)
                 }
             }
+        }
+        fastModeActive = false
+        fastModeQueue = null
+        appendLog("Fast Mode: no source had the exact version. Use the sources below.", LogLevel.Warning)
+        val activeRequest = request
+        uiState = if (activeRequest != null) {
+            UiState.FastMode(
+                FastModeProgress(
+                    detail = "No source had the exact version ${request.requestedVersionLabel}.",
+                    done = true,
+                    succeeded = false,
+                    result = initialCandidateResult(activeRequest)
+                )
+            )
+        } else {
+            UiState.Idle
+        }
+    }
 
-            result
-                .onSuccess { file ->
-                    appendLog("Download validated: ${file.name} (${file.length()} bytes).")
-                    runCatching {
-                        returnDownloadedFile(activeRequest, candidate, file, settings)
-                    }.onFailure { error ->
-                        val message = (error.message ?: "Could not return downloaded APK to Morphe.")
-                            .withManualModeHint()
-                        appendLog(message, LogLevel.Error)
-                        uiState = UiState.Error(message)
+    private suspend fun fastModeFindCandidate(
+        request: HelperRequest,
+        source: DownloadSource
+    ): FastModeFindResult {
+        val outcome = resolveSourceSection(request, source, CandidateOption.REQUESTED)
+        val exact = outcome.candidates.firstOrNull { candidate ->
+            // Format differences are fine, but the exact version name AND
+            // version code are both required. A candidate that reports a code
+            // outside the request is surfaced as a mismatch the user can
+            // accept or skip — never silently downloaded.
+            candidate.directDownload &&
+                request.matchesRequestedVersionStrict(candidate.versionName, candidate.versionCode)
+        }
+        if (exact != null) return FastModeFindResult.Exact(exact)
+
+        // The version name exists on this source but with a different build —
+        // hand it to the loop so it can ask the user before proceeding.
+        val mismatch = outcome.candidates.firstOrNull { candidate ->
+            candidate.directDownload &&
+                request.requestedVersionName != null &&
+                candidate.versionName != null &&
+                candidate.versionName.versionNameEquals(request.requestedVersionName) &&
+                candidate.versionCode != null &&
+                !request.matchesRequestedVersionStrict(candidate.versionName, candidate.versionCode)
+        }
+        return if (mismatch != null) {
+            FastModeFindResult.VersionMismatch(mismatch)
+        } else {
+            FastModeFindResult.None
+        }
+    }
+
+    private fun handleDownloadEvent(event: DownloadJobManager.Event?) {
+        when (event) {
+            null -> Unit
+            is DownloadJobManager.Event.Progress -> {
+                uiState = if (fastModeActive) {
+                    UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = event.candidate.source.label,
+                            detail = "Downloading from ${event.candidate.source.label}…",
+                            percent = event.percent
+                        )
+                    )
+                } else {
+                    UiState.Downloading(event.candidate, event.percent)
+                }
+            }
+            is DownloadJobManager.Event.Completed -> {
+                // StateFlow replays its last value to every new collector, so a
+                // freshly created activity can receive the Completed event of a
+                // previous request session (after the old activity finished
+                // handing the file to Morphe). Only act when the result belongs
+                // to the current request; otherwise discard it so the old file
+                // is never handed to a different request.
+                if (event.result.belongsTo(request)) {
+                    appendLog("Download validated: ${event.result.fileName}.")
+                    if (!deliverResult(event.result)) {
+                        appendLog(
+                            "Download is ready; ${event.result.callerPackage} can request it again to receive the file.",
+                            LogLevel.Warning
+                        )
+                        // Opened standalone with no caller to return to — keep the
+                        // Fast Mode card showing the result and the source list
+                        // reachable beneath it.
+                        val wasFastMode = fastModeActive
+                        fastModeActive = false
+                        fastModeQueue = null
+                        val activeRequest = request
+                        uiState = if (wasFastMode) {
+                            UiState.FastMode(
+                                FastModeProgress(
+                                    sourceLabel = event.result.sourceName,
+                                    detail = "Download ready: ${event.result.fileName}. " +
+                                        "Request it again from Morphe to receive it.",
+                                    done = true,
+                                    succeeded = true,
+                                    result = activeRequest?.let { initialCandidateResult(it) }
+                                )
+                            )
+                        } else if (activeRequest != null) {
+                            UiState.Ready(initialCandidateResult(activeRequest))
+                        } else {
+                            UiState.Idle
+                        }
                     }
                 }
-                .onFailure { error ->
-                    val message = downloadFailureMessage(candidate, error)
+                // The event has been observed (or discarded) — clear it so a
+                // future activity recreation cannot replay it into a new
+                // request session.
+                DownloadJobManager.clearEvent()
+            }
+            is DownloadJobManager.Event.Failed -> {
+                appendLog(event.message, LogLevel.Error)
+                if (fastModeActive) {
+                    val activeRequest = request
+                    if (activeRequest != null && !fastModeQueue.isNullOrEmpty()) {
+                        appendLog(
+                            "Fast Mode: ${event.candidate.source.label} did not work — trying the next source.",
+                            LogLevel.Warning
+                        )
+                        lifecycleScope.launch { fastModeNext(activeRequest) }
+                    } else {
+                        fastModeActive = false
+                        fastModeQueue = null
+                        uiState = if (activeRequest != null) {
+                            UiState.FastMode(
+                                FastModeProgress(
+                                    sourceLabel = event.candidate.source.label,
+                                    detail = "Fast Mode failed: ${event.message.lineSequence().firstOrNull().orEmpty().take(160)}",
+                                    done = true,
+                                    succeeded = false,
+                                    result = initialCandidateResult(activeRequest)
+                                )
+                            )
+                        } else {
+                            UiState.Error(event.message)
+                        }
+                    }
+                } else {
+                    uiState = UiState.Error(event.message)
+                }
+            }
+            is DownloadJobManager.Event.ValidationMismatch -> {
+                // The download itself succeeded; only the version code differs
+                // from the request (the parser couldn't know it up front). The
+                // file is kept. Fast Mode asks the user; manual mode keeps the
+                // old hard-fail behavior.
+                val activeRequest = request
+                // Only the activity that owns this request may act on the
+                // event. A stale instance (no request, or a different request)
+                // must ignore it — and must NOT clear it first, or the owner's
+                // collector would never see it (StateFlow conflates: a clear
+                // before the owner processes the event swallows it).
+                if (activeRequest == null || event.candidate.packageName != activeRequest.packageName) return
+                if (fastModeActive) {
+                    appendLog(
+                        "Fast Mode: ${event.candidate.source.label} downloaded " +
+                            "${event.candidate.versionDisplay} — build differs from requested " +
+                            "${activeRequest.versionCodeSummary ?: "version"}. Asking the user.",
+                        LogLevel.Warning
+                    )
+                    val decisionGate = CompletableDeferred<FastModeChoice?>()
+                    fastModeDecision = decisionGate
+                    uiState = UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = event.candidate.source.label,
+                            detail = "Version code mismatch",
+                            awaitingDecision = true,
+                            mismatchDetail = "Requested build ${activeRequest.versionCodeSummary ?: "?"} — " +
+                                "${event.candidate.source.label} downloaded " +
+                                "${event.candidate.versionDisplay}, found build " +
+                                "${event.foundVersionCode ?: "unknown"}."
+                        )
+                    )
+                    lifecycleScope.launch {
+                        val decision = decisionGate.await()
+                        DownloadJobManager.clearEvent()
+                        if (!fastModeActive || decision == null) {
+                            event.file.delete()
+                            return@launch
+                        }
+                        if (decision == FastModeChoice.USE) {
+                            appendLog(
+                                "Fast Mode: using downloaded ${event.candidate.versionDisplay} from " +
+                                    "${event.candidate.source.label} despite the code mismatch.",
+                                LogLevel.Info
+                            )
+                            runCatching {
+                                returnPreparedFile(activeRequest, event.candidate, event.file, helperSettings)
+                            }.onFailure { error ->
+                                appendLog(error.message ?: "Could not return the file.", LogLevel.Error)
+                                event.file.delete()
+                            }
+                            fastModeActive = false
+                            fastModeQueue = null
+                            uiState = UiState.Ready(initialCandidateResult(activeRequest))
+                        } else {
+                            event.file.delete()
+                            appendLog(
+                                "Fast Mode: user skipped ${event.candidate.source.label} — " +
+                                    "trying the next source.",
+                                LogLevel.Info
+                            )
+                            fastModeNext(activeRequest)
+                        }
+                    }
+                } else {
+                    DownloadJobManager.clearEvent()
+                    event.file.delete()
+                    val message = "Downloaded version code does not match the request " +
+                        "(found ${event.foundVersionCode ?: "unknown"})."
                     appendLog(message, LogLevel.Error)
                     uiState = UiState.Error(message)
                 }
+            }
+            is DownloadJobManager.Event.Cancelled -> {
+                appendLog("Download cancelled.", LogLevel.Warning)
+                fastModeActive = false
+                fastModeQueue = null
+                val activeRequest = request
+                uiState = if (activeRequest != null) {
+                    UiState.Ready(initialCandidateResult(activeRequest))
+                } else {
+                    UiState.Idle
+                }
+            }
+        }
+    }
+
+    private fun deliverPendingResultIfPresent(request: HelperRequest?): Boolean {
+        if (request == null) return false
+        val pending = DownloadJobManager.readPendingResult(applicationContext) ?: return false
+        // The stored result belongs to a previous request session. A new request
+        // for a different app (or for a different version of the same app)
+        // invalidates it — drop the pending file and its stale "return to
+        // Morphe" notification so the old APK can never be handed back for the
+        // new request (e.g. when the old completion notification is tapped
+        // while the new request is on screen).
+        if (!pending.belongsTo(request)) {
+            DownloadJobManager.clearPendingResult(applicationContext)
+            cancelCompletionNotification()
+            return false
+        }
+        return deliverResult(pending)
+    }
+
+    private fun cancelCompletionNotification() {
+        runCatching {
+            NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID_DONE)
+        }
+    }
+
+    private fun deliverResult(pending: PendingDownloadResult): Boolean {
+        if (getCallingActivity() == null) return false
+        val uri = Uri.parse(pending.uri)
+        val result = Intent().apply {
+            data = uri
+            clipData = ClipData.newUri(contentResolver, pending.fileName, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            putExtra(DownloadHelperContract.EXTRA_RESULT_PACKAGE_NAME, pending.packageName)
+            putExtra(DownloadHelperContract.EXTRA_RESULT_VERSION_NAME, pending.versionName)
+            putExtra(DownloadHelperContract.EXTRA_RESULT_SOURCE_NAME, pending.sourceName)
+            putExtra(DownloadHelperContract.EXTRA_RESULT_FILE_NAME, pending.fileName)
+        }
+        setResult(Activity.RESULT_OK, result)
+        appendLog("Returned ${pending.fileName} to ${pending.callerPackage}.")
+        if (logcatLoggingEnabled) {
+            Log.i(
+                TAG,
+                "Query result: OK package=${pending.packageName}, " +
+                    "version=${pending.versionName ?: "any"}, source=${pending.sourceName}, " +
+                    "file=${pending.fileName}, uri=${pending.uri}"
+            )
+        }
+        DownloadJobManager.clearPendingResult(applicationContext)
+        cancelCompletionNotification()
+        finish()
+        return true
+    }
+
+    private fun shareHistoryEntry(entry: DownloadHistoryEntry) {
+        val uri = Uri.parse(entry.uri)
+        val share = Intent(Intent.ACTION_SEND).apply {
+            type = fileNameMimeType(entry.fileName)
+            putExtra(Intent.EXTRA_STREAM, uri)
+            clipData = ClipData.newUri(contentResolver, entry.fileName, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        runCatching {
+            startActivity(Intent.createChooser(share, "Share ${entry.fileName}"))
+        }.onFailure {
+            appendLog("Could not share ${entry.fileName}.", LogLevel.Warning)
+        }
+    }
+
+    private fun openHistoryEntry(entry: DownloadHistoryEntry) {
+        val uri = Uri.parse(entry.uri)
+        val open = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, fileNameMimeType(entry.fileName))
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        runCatching {
+            startActivity(open)
+        }.onFailure {
+            appendLog("Could not open ${entry.fileName}.", LogLevel.Warning)
+        }
+    }
+
+    private fun returnPreparedFile(
+        request: HelperRequest,
+        candidate: DownloadCandidate,
+        file: File,
+        settings: HelperSettings
+    ) {
+        val uri = when (settings.downloadLocation) {
+            DownloadLocation.TEMPORARY -> FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.files", file)
+            DownloadLocation.DOWNLOADS -> copyToDownloads(file)
+        }
+        val pending = PendingDownloadResult(
+            uri = uri.toString(),
+            fileName = file.name,
+            packageName = candidate.packageName,
+            versionName = candidate.versionName,
+            sourceName = candidate.source.label,
+            requestPackage = request.packageName,
+            callerPackage = request.callerPackage
+        )
+        DownloadJobManager.persistPendingResult(pending, applicationContext)
+        recordHandOff(request, candidate, file, uri)
+        if (
+            settings.downloadLocation == DownloadLocation.DOWNLOADS ||
+            settings.deleteTemporaryAfterHandoff
+        ) {
+            scheduleTemporaryDelete(file)
+        }
+        if (!deliverResult(pending)) {
+            appendLog(
+                "File is ready; ${request.callerPackage} can request it again to receive it.",
+                LogLevel.Warning
+            )
         }
     }
 
@@ -2572,7 +1368,7 @@ class MainActivity : ComponentActivity() {
             val result = withContext(Dispatchers.IO) {
                 runCatching {
                     val file = copyPickedFileToTemporary(candidate, uri)
-                    validateDownloadedArtifact(activeRequest, candidate, file)
+                    validateDownloadedArtifact(this@MainActivity, activeRequest, candidate, file)
                     file
                 }
             }
@@ -2581,7 +1377,7 @@ class MainActivity : ComponentActivity() {
                 .onSuccess { file ->
                     appendLog("Selected file validated: ${file.name} (${file.length()} bytes).")
                     runCatching {
-                        returnDownloadedFile(activeRequest, candidate, file, settings)
+                        returnPreparedFile(activeRequest, candidate, file, settings)
                     }.onFailure { error ->
                         val message = (error.message ?: "Could not return selected APK to Morphe.")
                             .withManualModeHint()
@@ -2590,6 +1386,11 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 .onFailure { error ->
+                    // A code-mismatch keeps the file (so Fast Mode can ask); the
+                    // picked-file flow has no ask, so clean it up here.
+                    if (error is VersionCodeMismatchException) {
+                        error.file.delete()
+                    }
                     val message = (error.message ?: "Selected file could not be used.")
                         .withManualModeHint()
                     appendLog(message, LogLevel.Error)
@@ -2615,6 +1416,14 @@ class MainActivity : ComponentActivity() {
 
         setResult(Activity.RESULT_OK, result)
         appendLog("Returned installed ${candidate.packageName} to ${activeRequest.callerPackage}.")
+        if (logcatLoggingEnabled) {
+            Log.i(
+                TAG,
+                "Query result: OK package=${candidate.packageName}, " +
+                    "version=${candidate.versionName ?: "any"}, source=${candidate.source.label}, " +
+                    "useInstalledApp=true"
+            )
+        }
         finish()
     }
 
@@ -2651,333 +1460,31 @@ class MainActivity : ComponentActivity() {
             }
             ?.takeIf(String::isNotBlank)
 
-    private fun downloadSingleFile(
-        candidate: DownloadCandidate,
-        downloadFile: CandidateDownloadFile,
-        downloadsDir: File
-    ): File {
-        val outputName = if (candidate.source == DownloadSource.AURORA) {
-            "${candidate.packageName}-${candidate.versionName ?: "latest"}-aurora.apk"
-        } else {
-            downloadFile.fileName
-        }
-        val outputFile = File(downloadsDir, outputName.sanitizeFileName())
-        executeDownload(downloadFile) { total, input ->
-            outputFile.outputStream().use { output ->
-                val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                var copied = 0L
-                while (true) {
-                    val read = input.read(buffer)
-                    if (read < 0) break
-                    output.write(buffer, 0, read)
-                    copied += read
-                    updateDownloadProgress(candidate, copied, total)
-                }
-            }
-        }
-        return outputFile
-    }
 
-    private fun downloadSplitArchive(
-        candidate: DownloadCandidate,
-        files: List<CandidateDownloadFile>,
-        downloadsDir: File
-    ): File {
-        val outputFile = File(
-            downloadsDir,
-            "${candidate.packageName}-${candidate.versionName ?: "latest"}-${candidate.source.label}.apks"
-                .sanitizeFileName()
-        )
-        val knownTotal = files.mapNotNull { it.size }.sum().takeIf { it > 0L }
-        var copied = 0L
-
-        ZipOutputStream(outputFile.outputStream()).use { zip ->
-            files.forEachIndexed { index, file ->
-                executeDownload(file) { _, input ->
-                    zip.putNextEntry(ZipEntry(file.fileName.ifBlank { "split_$index.apk" }.sanitizeFileName()))
-                    val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                    while (true) {
-                        val read = input.read(buffer)
-                        if (read < 0) break
-                        zip.write(buffer, 0, read)
-                        copied += read
-                        knownTotal?.let { updateDownloadProgress(candidate, copied, it) }
-                    }
-                    zip.closeEntry()
-                }
-            }
-        }
-
-        return outputFile
-    }
-
-    private fun executeDownload(
-        file: CandidateDownloadFile,
-        copy: (total: Long, input: java.io.InputStream) -> Unit
-    ) {
-        val url = file.url.normalizedHttpUrlOrNull()
-            ?: error("Source returned an invalid download URL.".withManualModeHint())
-        val builder = Request.Builder().url(url)
-        file.referer?.let { builder.header("Referer", it) }
-
-        downloadClientFor(url).newCall(builder.build()).execute().use { response ->
-            check(response.isSuccessful) { "HTTP ${response.code}" }
-            val total = file.size ?: response.body.contentLength().coerceAtLeast(0L)
-            val contentType = response.body.contentType()?.toString()
-            response.body.byteStream().use { input ->
-                validateApkLikeStream(input, contentType).use { validated ->
-                    copy(total, validated)
-                }
-            }
-        }
-    }
-
-    private fun downloadClientFor(url: String): OkHttpClient =
-        if (url.contains("apkpure", ignoreCase = true)) apkPureClient else client
-
-    private fun updateDownloadProgress(candidate: DownloadCandidate, copied: Long, total: Long) {
-        if (total <= 0L) return
-        val percent = ((copied * 100f) / total).roundToInt().coerceIn(0, 100)
-        runOnUiThread {
-            uiState = UiState.Downloading(candidate, percent)
-        }
-    }
-
-    private fun returnDownloadedFile(
-        request: HelperRequest,
-        candidate: DownloadCandidate,
-        file: File,
-        settings: HelperSettings
-    ) {
-        val uri = when (settings.downloadLocation) {
-            DownloadLocation.TEMPORARY -> FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.files", file)
-            DownloadLocation.DOWNLOADS -> copyToDownloads(file)
-        }
-        grantUriPermission(request.callerPackage, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-        val result = Intent().apply {
-            data = uri
-            clipData = ClipData.newUri(contentResolver, file.name, uri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            putExtra(DownloadHelperContract.EXTRA_RESULT_PACKAGE_NAME, candidate.packageName)
-            putExtra(DownloadHelperContract.EXTRA_RESULT_VERSION_NAME, candidate.versionName)
-            putExtra(DownloadHelperContract.EXTRA_RESULT_SOURCE_NAME, candidate.source.label)
-            putExtra(DownloadHelperContract.EXTRA_RESULT_FILE_NAME, file.name)
-        }
-
-        setResult(Activity.RESULT_OK, result)
-        appendLog("Returned ${file.name} to ${request.callerPackage}.")
-        if (
-            settings.downloadLocation == DownloadLocation.DOWNLOADS ||
-            settings.deleteTemporaryAfterHandoff
-        ) {
-            scheduleTemporaryDelete(file)
-        }
-        finish()
-    }
-
-    private fun temporaryDownloadsDir(): File = File(cacheDir, "downloads")
-
-    private fun copyToDownloads(file: File): Uri {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val values = ContentValues().apply {
-                put(MediaStore.Downloads.DISPLAY_NAME, file.name)
-                put(MediaStore.Downloads.MIME_TYPE, file.mimeType())
-                put(MediaStore.Downloads.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/APK Download Helper")
-                put(MediaStore.Downloads.IS_PENDING, 1)
-            }
-            val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
-                ?: error("Could not create a Downloads entry.")
-
-            try {
-                contentResolver.openOutputStream(uri)?.use { output ->
-                    file.inputStream().use { input -> input.copyTo(output) }
-                } ?: error("Could not write to Downloads.")
-
-                values.clear()
-                values.put(MediaStore.Downloads.IS_PENDING, 0)
-                contentResolver.update(uri, values, null, null)
-                uri
-            } catch (error: Throwable) {
-                contentResolver.delete(uri, null, null)
-                throw error
-            }
-        } else {
-            val downloadsDir = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                "APK Download Helper"
-            ).apply { mkdirs() }
-            val output = downloadsDir.uniqueChild(file.name)
-            file.copyTo(output, overwrite = false)
-            FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.files", output)
-        }
-    }
-
-    private fun cleanupTemporaryDownloads(settings: HelperSettings) {
-        if (!settings.deleteTemporaryAfterHandoff) return
-        val cutoff = System.currentTimeMillis() - TEMP_CLEANUP_MAX_AGE_MS
-        temporaryDownloadsDir()
-            .listFiles()
-            ?.filter { it.isFile && it.lastModified() < cutoff }
-            ?.forEach { file -> runCatching { file.delete() } }
-    }
-
-    private fun scheduleTemporaryDelete(file: File) {
-        Thread {
-            Thread.sleep(TEMP_CLEANUP_DELAY_MS)
-            runCatching { file.delete() }
-        }.apply {
-            name = "apk-helper-temp-cleanup"
-            isDaemon = true
-            start()
-        }
-    }
-
-    private fun validateDownloadedArtifact(
-        request: HelperRequest,
-        candidate: DownloadCandidate,
-        file: File
-    ) {
-        val shouldValidateMetadata = candidate.fileKind.lowercase(Locale.US) in setOf("apk", "apks", "apkm", "xapk") ||
-            file.extension.lowercase(Locale.US) in setOf("apk", "apks", "apkm", "xapk")
-        val metadata = readDownloadedApkMetadata(file) ?: run {
-            check(!shouldValidateMetadata) {
-                file.delete()
-                "Downloaded file could not be read as an APK.".withManualModeHint()
-            }
-            return
-        }
-        val mismatches = buildList {
-            if (metadata.packageName != request.packageName) {
-                add("Package: requested ${request.packageName}, found ${metadata.packageName}")
-            }
-
-            if (candidate.option == CandidateOption.REQUESTED) {
-                val requestedNames = request.knownVersionNames
-                if (
-                    requestedNames.isNotEmpty() &&
-                    requestedNames.none { metadata.versionName.versionNameEquals(it) }
-                ) {
-                    add(
-                        "Version: requested ${requestedNames.joinToString()}, " +
-                            "found ${metadata.versionName ?: "unknown"}"
-                    )
-                }
-
-                val requestedCodes = request.requestedVersionCodes +
-                    request.compatibleVersionCodes.filter { it > 0L }
-                if (
-                    requestedCodes.isNotEmpty() &&
-                    metadata.versionCode !in requestedCodes
-                ) {
-                    add(
-                        "Version code: requested ${requestedCodes.joinToString()}, " +
-                            "found ${metadata.versionCode ?: "unknown"}"
-                    )
-                }
-            }
-        }
-
-        check(mismatches.isEmpty()) {
-            file.delete()
-            "Downloaded file does not match Morphe request.\n${mismatches.joinToString("\n")}"
-                .withManualModeHint()
-        }
-    }
 }
 
-private data class HelperSettings(
-    val downloadLocation: DownloadLocation = DownloadLocation.TEMPORARY,
-    val networkPolicy: NetworkPolicy = NetworkPolicy.WIFI_AND_MOBILE,
-    val deleteTemporaryAfterHandoff: Boolean = true
-)
+private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
 
-private enum class DownloadLocation(
-    val title: String,
-    val description: String
-) {
-    TEMPORARY(
-        title = "Hand off only",
-        description = "Keep the file in Helper's cache, send it to Morphe, then clean it up later."
-    ),
-    DOWNLOADS(
-        title = "Keep a copy",
-        description = "Save a visible copy in Downloads/APK Download Helper after the file checks out."
-    )
-}
+private fun formatHistoryTimestamp(timestamp: Long): String =
+    synchronized(historyTimeFormat) { historyTimeFormat.format(Date(timestamp)) }
 
-private enum class NetworkPolicy(
-    val title: String,
-    val description: String
-) {
-    WIFI_ONLY(
-        title = "Wi-Fi only",
-        description = "Use Wi-Fi for source checks and downloads."
-    ),
-    MOBILE_DATA_ONLY(
-        title = "Mobile data only",
-        description = "Use cellular data and pause when Wi-Fi is active."
-    ),
-    WIFI_AND_MOBILE(
-        title = "Wi-Fi or mobile data",
-        description = "Use whichever connection Android is already using."
-    );
-
-    fun blockReason(context: Context): String? {
-        val connectivity = context.getSystemService(ConnectivityManager::class.java)
-            ?: return "Network status is unavailable. Change Helper settings or try Manual mode."
-        val activeNetwork = connectivity.activeNetwork
-            ?: return "No active network is available. Connect to an allowed network or use Manual mode."
-        val capabilities = connectivity.getNetworkCapabilities(activeNetwork)
-            ?: return "Network status is unavailable. Change Helper settings or try Manual mode."
-        if (!capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-            return "The active network has no internet access. Connect to another network or use Manual mode."
-        }
-
-        return when (this) {
-            WIFI_ONLY -> if (connectivity.isActiveNetworkMetered) {
-                "Helper is set to Wi-Fi only. Connect to Wi-Fi or change Helper settings."
-            } else {
-                null
-            }
-            MOBILE_DATA_ONLY -> if (!capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                "Helper is set to mobile data only. Switch to mobile data or change Helper settings."
-            } else {
-                null
-            }
-            WIFI_AND_MOBILE -> null
-        }
+private fun fileNameMimeType(fileName: String): String =
+    when (fileName.substringAfterLast('.', "").lowercase(Locale.US)) {
+        "apk" -> "application/vnd.android.package-archive"
+        "apks",
+        "apkm",
+        "xapk" -> "application/zip"
+        else -> "application/octet-stream"
     }
+
+private fun Context.isHistoryUriUsable(uriString: String): Boolean {
+    val uri = runCatching { Uri.parse(uriString) }.getOrNull() ?: return false
+    return runCatching {
+        contentResolver.openInputStream(uri)?.use { } != null
+    }.getOrDefault(false)
 }
 
-private fun Context.loadHelperSettings(): HelperSettings {
-    val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    return HelperSettings(
-        downloadLocation = enumValueOrDefault(
-            prefs.getString("download_location", null),
-            DownloadLocation.TEMPORARY
-        ),
-        networkPolicy = enumValueOrDefault(
-            prefs.getString("network_policy", null),
-            NetworkPolicy.WIFI_AND_MOBILE
-        ),
-        deleteTemporaryAfterHandoff = prefs.getBoolean("delete_temporary_after_handoff", true)
-    )
-}
-
-private fun Context.saveHelperSettings(settings: HelperSettings) {
-    getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        .edit()
-        .putString("download_location", settings.downloadLocation.name)
-        .putString("network_policy", settings.networkPolicy.name)
-        .putBoolean("delete_temporary_after_handoff", settings.deleteTemporaryAfterHandoff)
-        .apply()
-}
-
-private inline fun <reified T : Enum<T>> enumValueOrDefault(name: String?, fallback: T): T =
-    name?.let { runCatching { enumValueOf<T>(it) }.getOrNull() } ?: fallback
-
-private fun File.mimeType(): String = when (extension.lowercase(Locale.US)) {
+internal fun File.mimeType(): String = when (extension.lowercase(Locale.US)) {
     "apk" -> "application/vnd.android.package-archive"
     "apks",
     "apkm",
@@ -2985,7 +1492,7 @@ private fun File.mimeType(): String = when (extension.lowercase(Locale.US)) {
     else -> "application/octet-stream"
 }
 
-private fun File.uniqueChild(fileName: String): File {
+internal fun File.uniqueChild(fileName: String): File {
     val safeName = fileName.sanitizeFileName()
     val base = safeName.substringBeforeLast('.', safeName)
     val extension = safeName.substringAfterLast('.', "")
@@ -3011,6 +1518,8 @@ private object HelperDefaults {
     val ItemSpacing = 12.dp
     val IconSizeSmall = 20.dp
     val ButtonHeight = 52.dp
+    val ActionShowWidth = 88.dp
+    val ActionClearWidth = 96.dp
 }
 
 @Composable
@@ -3127,6 +1636,182 @@ private fun HelperOutlinedButton(
     }
 }
 
+// ---- In-app captcha browser: a real WebView that passes Cloudflare-style
+// challenges, captures the download URL the page produces, and hands it to the
+// normal download pipeline. Any source that gates its file behind a captcha can
+// opt in by setting DownloadCandidate.captchaUrl.
+
+@Composable
+private fun CaptchaBrowserScreen(
+    candidate: DownloadCandidate,
+    onClose: () -> Unit,
+    onUrlCaptured: (String) -> Unit
+) {
+    val context = LocalContext.current
+    var progress by remember { mutableIntStateOf(0) }
+    val bridge = remember {
+        CaptchaCaptureBridge { url ->
+            Handler(Looper.getMainLooper()).post {
+                onUrlCaptured(url)
+            }
+        }
+    }
+    val webView = remember {
+        WebView(context).apply {
+            settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+            settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+            addJavascriptInterface(bridge, CAPTCHA_BRIDGE_NAME)
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    val url = request?.url?.toString() ?: return false
+                    if (url.looksLikeApkDownload()) {
+                        onUrlCaptured(url)
+                        return true
+                    }
+                    return false
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    view?.evaluateJavascript(CAPTCHA_CAPTURE_JS, null)
+                }
+            }
+            setDownloadListener { url, _, _, _, _ ->
+                // Authoritative signal: the page started a real download.
+                onUrlCaptured(url)
+            }
+        }
+    }
+    DisposableEffect(webView) {
+        onDispose {
+            webView.stopLoading()
+            webView.destroy()
+        }
+    }
+    LaunchedEffect(candidate.captchaUrl ?: candidate.url) {
+        webView.loadUrl(candidate.captchaUrl ?: candidate.url)
+    }
+    BackHandler {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            onClose()
+        }
+    }
+
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(horizontal = HelperDefaults.ContentPadding, vertical = HelperDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Solve captcha — ${candidate.source.label}",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = candidate.versionDisplay,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                HelperOutlinedButton(
+                    text = "Close",
+                    onClick = onClose,
+                    icon = Icons.Outlined.Close,
+                    modifier = Modifier.widthIn(min = 96.dp)
+                )
+            }
+            InfoCard(
+                "Solve the captcha in the browser. When the page starts the download, " +
+                    "the file is captured and returned to Morphe automatically."
+            )
+            if (progress > 0 && progress < 100) {
+                LinearProgressIndicator(
+                    progress = { progress / 100f },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            AndroidView(
+                factory = { webView },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .clip(RoundedCornerShape(HelperDefaults.SectionCornerRadius))
+            )
+        }
+    }
+}
+
+/** Posts captured URLs from the WebView's JS bridge back to Kotlin. */
+private class CaptchaCaptureBridge(
+    private val onUrl: (String) -> Unit
+) {
+    @JavascriptInterface
+    fun capture(url: String) {
+        onUrl(url)
+    }
+}
+
+private const val CAPTCHA_BRIDGE_NAME = "Android"
+
+/**
+ * Injected into every page the captcha browser finishes loading. Captures
+ * clicks on download-looking links and window.open calls that the download
+ * listener would not see (e.g. links opened in a new tab).
+ */
+private const val CAPTCHA_CAPTURE_JS = """
+(function () {
+  var re = /\.(apk|apks|apkm|xapk)(\?|#|$)/i;
+  function looksLike(u) {
+    if (!u) return false;
+    try { u = decodeURIComponent(u); } catch (e) {}
+    return re.test(u) || /filename[^.]*\.(apk|apks|apkm|xapk)/i.test(u);
+  }
+  
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    while (el && el !== document && !(el.tagName === 'A' && el.href)) el = el.parentNode;
+    if (el && el.tagName === 'A' && looksLike(el.href)) {
+      window.Android && window.Android.capture(el.href);
+    }
+  }, true);
+  var origOpen = window.open;
+  window.open = function (u) {
+    if (u && looksLike(u)) { window.Android && window.Android.capture(u); return null; }
+    return origOpen ? origOpen.apply(window, arguments) : null;
+  };
+})();
+"""
+
+/** True for URLs that point at an APK-family file (extension or filename hint). */
+private fun String.looksLikeApkDownload(): Boolean {
+    val decoded = Uri.decode(this).lowercase(Locale.US)
+    return Regex("""\.(apk|apks|apkm|xapk)(\?|#|$)""").containsMatchIn(decoded) ||
+        Regex("""filename[^.]*\.(apk|apks|apkm|xapk)""").containsMatchIn(decoded)
+}
+
 @Composable
 private fun HelperScreen(
     request: HelperRequest?,
@@ -3140,12 +1825,27 @@ private fun HelperScreen(
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate, Uri?) -> Unit,
     onUseInstalledApp: (DownloadCandidate) -> Unit,
+    onVersionHistory: (DownloadSource) -> Unit,
+    onDownloadVersion: (DownloadCandidate) -> Unit,
+    onOpenHistoryEntry: (DownloadHistoryEntry) -> Unit,
+    onShareHistoryEntry: (DownloadHistoryEntry) -> Unit,
+    onClearHistory: () -> Unit,
     onClearLogs: () -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
+    onCancelDownload: () -> Unit,
+    onCancelFastMode: () -> Unit,
+    onUseFastModeMismatch: () -> Unit,
+    onSkipFastModeMismatch: () -> Unit,
+    onOpenMorphe: () -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit
 ) {
-    var showLogs by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
+    val context = LocalContext.current
+    var historyEntries by remember { mutableStateOf<List<DownloadHistoryEntry>>(emptyList()) }
+    val refreshHistory = {
+        historyEntries = DownloadHistoryStore.entries(context)
+    }
     val filePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         val candidate = pendingFilePick
         pendingFilePick = null
@@ -3167,6 +1867,16 @@ private fun HelperScreen(
             HelperSettingsScreen(
                 settings = settings,
                 onSettingsChange = onSettingsChange,
+                logs = logs,
+                onClearLogs = onClearLogs,
+                healthEntries = (state as? UiState.Ready)?.result?.sourceHealth().orEmpty(),
+                historyEntries = historyEntries,
+                onOpenHistoryEntry = onOpenHistoryEntry,
+                onShareHistoryEntry = onShareHistoryEntry,
+                onClearHistory = {
+                    onClearHistory()
+                    refreshHistory()
+                },
                 onBack = { showSettings = false }
             )
             return@Surface
@@ -3186,62 +1896,61 @@ private fun HelperScreen(
                     horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "APK Download Helper",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.weight(1f)
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.Bottom,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "Helper",
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.titleSmall,
+                            maxLines = 1
+                        )
+                    }
+                    HelperBoltButton(
+                        fastMode = settings.fastMode,
+                        onClick = {
+                            val enabled = !settings.fastMode
+                            onSettingsChange(settings.copy(fastMode = enabled))
+                            Toast.makeText(
+                                context,
+                                if (enabled) "Fast Mode on" else "Fast Mode off",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     )
                     HelperOutlinedButton(
                         text = "Settings",
-                        onClick = { showSettings = true },
+                        onClick = {
+                            refreshHistory()
+                            showSettings = true
+                        },
                         icon = Icons.Outlined.Settings,
-                        modifier = Modifier.widthIn(min = 132.dp)
+                        modifier = Modifier.widthIn(min = 120.dp)
                     )
                 }
             }
 
             if (request == null) {
-                item { EmptyLaunchState() }
+                item { EmptyLaunchState(onOpenMorphe) }
                 return@LazyColumn
             }
 
             item {
-                AppInfoCard(request)
-            }
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
-                ) {
-                    HelperOutlinedButton(
-                        text = if (showLogs) "Hide logs" else "Logs",
-                        onClick = { showLogs = !showLogs },
-                        modifier = Modifier.weight(1f)
-                    )
-                    HelperOutlinedButton(
-                        text = "Refresh",
-                        onClick = onRefresh,
-                        icon = Icons.Outlined.Refresh,
-                        modifier = Modifier.weight(1f)
-                    )
-                    HelperOutlinedButton(
-                        text = "Cancel",
-                        onClick = onCancel,
-                        modifier = Modifier.weight(1f)
-                    )
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    SectionTitle("App info")
+                    AppInfoCard(request)
                 }
             }
-            if (showLogs) {
-                item {
-                    RequestLogsCard(
-                        logs = logs,
-                        onClearLogs = onClearLogs
-                    )
-                }
-            }
-
             when (state) {
                 UiState.Idle,
                 UiState.Loading -> item { LoadingState() }
@@ -3255,16 +1964,243 @@ private fun HelperScreen(
                             onDownload = onDownload,
                             onPickDownloadedFile = openDownloadedFilePicker,
                             onUseInstalledApp = onUseInstalledApp,
+                            onSolveCaptcha = onSolveCaptcha,
+                            onVersionHistory = onVersionHistory,
+                            onDownloadVersion = onDownloadVersion,
+                            onRefresh = onRefresh,
+                            onCancel = onCancel,
                             installedPackageRefreshToken = installedPackageRefreshToken
                         )
                     }
                 }
 
                 is UiState.CheckingPickedFile -> item { CheckingPickedFileState(state) }
-                is UiState.Downloading -> item { DownloadingState(state) }
+                is UiState.Downloading -> item { DownloadingState(state, onCancelDownload) }
                 is UiState.Error -> item {
                     ErrorState(message = state.message, onRefresh = onRefresh, onCancel = onCancel)
                 }
+
+                is UiState.FastMode -> {
+                    item {
+                        FastModeCard(
+                            progress = state.progress,
+                            onCancel = onCancelFastMode,
+                            onUseMismatch = onUseFastModeMismatch,
+                            onSkipMismatch = onSkipFastModeMismatch
+                        )
+                    }
+                    state.progress.result?.let { result ->
+                        item {
+                            SourceTabs(
+                                request = request,
+                                result = result,
+                                onResolve = onResolve,
+                                onDownload = onDownload,
+                                onPickDownloadedFile = openDownloadedFilePicker,
+                                onUseInstalledApp = onUseInstalledApp,
+                                onSolveCaptcha = onSolveCaptcha,
+                                onVersionHistory = onVersionHistory,
+                                onDownloadVersion = onDownloadVersion,
+                                onRefresh = onRefresh,
+                                onCancel = onCancel,
+                                installedPackageRefreshToken = installedPackageRefreshToken
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
+    val hasFailures = entries.any { it.status == SourceHealthStatus.Failed }
+    val hasActivity = entries.any { it.status == SourceHealthStatus.Checking }
+    var expanded by remember(hasFailures) { mutableStateOf(hasFailures) }
+    val failedCount = entries.count { it.status == SourceHealthStatus.Failed }
+    val okCount = entries.count { it.status == SourceHealthStatus.Ok }
+
+    val summary = when {
+        hasActivity -> "Checking sources..."
+        failedCount > 0 && okCount > 0 -> "$failedCount source${if (failedCount == 1) "" else "s"} had problems, $okCount OK"
+        failedCount > 0 -> "$failedCount source${if (failedCount == 1) "" else "s"} had problems"
+        okCount > 0 -> "$okCount source${if (okCount == 1) "" else "s"} available"
+        else -> "Sources not checked yet"
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Text(
+                    text = "Source health",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = summary,
+                    color = if (hasFailures) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            HelperOutlinedButton(
+                text = if (expanded) "Hide" else "Show",
+                onClick = { expanded = !expanded },
+                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
+            )
+        }
+
+        if (expanded) {
+            if (entries.isEmpty()) {
+                InfoCard("No sources checked yet. Resolve candidates on the main screen to see per-source health here.")
+            } else {
+                entries.forEach { entry ->
+                    SourceHealthRow(entry)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SourceHealthRow(entry: SourceHealthEntry) {
+    val (dotColor, statusText) = when (entry.status) {
+        SourceHealthStatus.Ok -> Color(0xFF66BB6A) to "Available"
+        SourceHealthStatus.Checking -> Color(0xFFFFD166) to "Checking..."
+        SourceHealthStatus.Failed -> MaterialTheme.colorScheme.error to (entry.message ?: "Failed")
+        SourceHealthStatus.NoResult -> MaterialTheme.colorScheme.onSurfaceVariant to "No matching candidates"
+        SourceHealthStatus.NotChecked -> MaterialTheme.colorScheme.outline to "Not checked"
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall),
+        verticalAlignment = Alignment.Top
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(top = 5.dp)
+                .size(8.dp)
+                .clip(RoundedCornerShape(50))
+                .background(dotColor)
+        )
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Text(
+                text = entry.source.label,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = statusText,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = if (entry.status == SourceHealthStatus.Failed) 3 else 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
+
+@Composable
+private fun HistoryEntryCard(
+    entry: DownloadHistoryEntry,
+    usable: Boolean,
+    onOpen: () -> Unit,
+    onShare: () -> Unit
+) {
+    HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HelperDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                verticalAlignment = Alignment.Top
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text(
+                        text = entry.appName,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = entry.packageName,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Text(
+                    text = formatHistoryTimestamp(entry.timestamp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Text(
+                text = buildString {
+                    entry.versionName?.let { append(it).append(" · ") }
+                    append(entry.sourceName)
+                    append(" · ")
+                    append(entry.fileName)
+                    if (!entry.fileKind.equals("web", ignoreCase = true)) {
+                        append(" · ")
+                        append(entry.fileKind.uppercase(Locale.US))
+                    }
+                },
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            if (usable) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                ) {
+                    HelperButton(
+                        text = "Share",
+                        onClick = onShare,
+                        icon = Icons.Outlined.Share,
+                        modifier = Modifier.weight(1f)
+                    )
+                    HelperOutlinedButton(
+                        text = "Open",
+                        onClick = onOpen,
+                        icon = Icons.Outlined.FolderOpen,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            } else {
+                Text(
+                    text = "File no longer available (temporary hand-off files are cleaned up after Morphe copies them).",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }
@@ -3274,8 +2210,16 @@ private fun HelperScreen(
 private fun HelperSettingsScreen(
     settings: HelperSettings,
     onSettingsChange: (HelperSettings) -> Unit,
+    logs: List<RequestLogEntry>,
+    onClearLogs: () -> Unit,
+    healthEntries: List<SourceHealthEntry>,
+    historyEntries: List<DownloadHistoryEntry>,
+    onOpenHistoryEntry: (DownloadHistoryEntry) -> Unit,
+    onShareHistoryEntry: (DownloadHistoryEntry) -> Unit,
+    onClearHistory: () -> Unit,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val swipeThresholdPx = with(LocalDensity.current) { 72.dp.toPx() }
     LazyColumn(
         modifier = Modifier
@@ -3335,6 +2279,26 @@ private fun HelperSettingsScreen(
                 onSettingsChange = onSettingsChange
             )
         }
+
+        item {
+            SourceHealthCard(healthEntries)
+        }
+
+        item {
+            DownloadHistorySection(
+                entries = historyEntries,
+                onClear = onClearHistory,
+                onOpen = onOpenHistoryEntry,
+                onShare = onShareHistoryEntry
+            )
+        }
+
+        item {
+            RequestLogsCard(
+                logs = logs,
+                onClearLogs = onClearLogs
+            )
+        }
     }
 }
 
@@ -3343,14 +2307,14 @@ private fun HelperSettingsCard(
     settings: HelperSettings,
     onSettingsChange: (HelperSettings) -> Unit
 ) {
-    HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
-        ) {
-            SettingsGroupTitle("Save downloads")
+    val context = LocalContext.current
+    var cacheBytes by remember(context) { mutableStateOf(context.temporaryDownloadsSize()) }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        SettingsGroupCard("Save downloads") {
             DownloadLocation.entries.forEach { location ->
                 SettingsChoiceRow(
                     title = location.title,
@@ -3361,8 +2325,24 @@ private fun HelperSettingsCard(
                     }
                 )
             }
+            SettingsClearRow(
+                sizeBytes = cacheBytes,
+                onClear = {
+                    context.clearTemporaryDownloads()
+                    cacheBytes = 0L
+                }
+            )
+            SettingSwitchRow(
+                title = "Auto-clear after hand-off",
+                description = "Remove temporary APKs after handing off to Morphe, and clear old cache files on launch.",
+                checked = settings.deleteTemporaryAfterHandoff,
+                onCheckedChange = {
+                    onSettingsChange(settings.copy(deleteTemporaryAfterHandoff = it))
+                }
+            )
+        }
 
-            SettingsGroupTitle("Connection")
+        SettingsGroupCard("Connection") {
             NetworkPolicy.entries.forEach { policy ->
                 SettingsChoiceRow(
                     title = policy.title,
@@ -3373,11 +2353,28 @@ private fun HelperSettingsCard(
                     }
                 )
             }
+        }
 
-            TemporaryCleanupRow(
-                checked = settings.deleteTemporaryAfterHandoff,
+        SettingsGroupCard("Fast Mode") {
+            SettingSwitchRow(
+                title = "Fast Mode",
+                description = "Auto-find the exact requested version and version code across sources " +
+                    "(APKMirror, Uptodown, APKPure, APKCombo, Aptoide) and return it to Morphe automatically. " +
+                    "Format differences are allowed.",
+                checked = settings.fastMode,
                 onCheckedChange = {
-                    onSettingsChange(settings.copy(deleteTemporaryAfterHandoff = it))
+                    onSettingsChange(settings.copy(fastMode = it))
+                }
+            )
+        }
+
+        SettingsGroupCard("Logging") {
+            SettingSwitchRow(
+                title = "Log to Logcat",
+                description = "Write request, result, and source HTTP details to the system log (adb logcat) for debugging.",
+                checked = settings.logcatLogging,
+                onCheckedChange = {
+                    onSettingsChange(settings.copy(logcatLogging = it))
                 }
             )
         }
@@ -3385,13 +2382,19 @@ private fun HelperSettingsCard(
 }
 
 @Composable
-private fun SettingsGroupTitle(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colorScheme.onSurface
-    )
+private fun SettingsGroupCard(
+    title: String,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    // No card background: the group is just a section title followed by its
+    // individual option rows, which carry their own card styling.
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        SectionTitle(title)
+        content()
+    }
 }
 
 @Composable
@@ -3409,11 +2412,22 @@ private fun SettingsChoiceRow(
             .clip(shape)
             .clickable(onClick = onClick),
         shape = shape,
-        color = if (selected) colors.primary.copy(alpha = 0.18f) else colors.surfaceColorAtElevation(2.dp),
+        // Stay on the dark card style; the selected state is a subtle primary
+        // tint + border + check icon instead of a solid light fill that clashes
+        // with the dark theme.
+        color = if (selected) {
+            colors.primary.copy(alpha = 0.13f)
+        } else {
+            colors.surfaceColorAtElevation(2.dp)
+        },
         contentColor = colors.onSurface,
         border = BorderStroke(
             1.dp,
-            if (selected) colors.primary.copy(alpha = 0.54f) else colors.outlineVariant.copy(alpha = 0.45f)
+            if (selected) {
+                colors.primary.copy(alpha = 0.55f)
+            } else {
+                colors.outlineVariant.copy(alpha = 0.45f)
+            }
         )
     ) {
         Row(
@@ -3427,22 +2441,91 @@ private fun SettingsChoiceRow(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(title, fontWeight = FontWeight.Bold)
+                Text(
+                    title,
+                    fontWeight = FontWeight.Bold,
+                    color = if (selected) colors.primary else colors.onSurface
+                )
                 Text(
                     description,
-                    color = colors.onSurfaceVariant,
+                    color = if (selected) {
+                        colors.primary.copy(alpha = 0.78f)
+                    } else {
+                        colors.onSurfaceVariant
+                    },
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
             if (selected) {
-                HelperChip(text = "Selected", tone = ChipTone.Success)
+                Icon(
+                    imageVector = Icons.Outlined.CheckCircle,
+                    contentDescription = "Selected",
+                    tint = colors.primary
+                )
             }
         }
     }
 }
 
 @Composable
-private fun TemporaryCleanupRow(
+private fun SettingsClearRow(
+    sizeBytes: Long,
+    onClear: () -> Unit
+) {
+    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = shape,
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HelperDefaults.ContentPadding),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text("Clear storage, cache & downloads", fontWeight = FontWeight.Bold)
+                Text(
+                    text = if (sizeBytes > 0L) {
+                        "${sizeBytes.formatBytes()} in cache — tap Clear to remove it now."
+                    } else {
+                        "Cache is empty — nothing to clear."
+                    },
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            HelperOutlinedButton(
+                text = "Clear",
+                onClick = onClear,
+                modifier = Modifier.widthIn(min = 96.dp)
+            )
+        }
+    }
+}
+
+private fun Long.formatBytes(): String {
+    if (this <= 0L) return "0 B"
+    val units = listOf("B", "KB", "MB", "GB")
+    var value = toDouble()
+    var unit = 0
+    while (value >= 1024.0 && unit < units.lastIndex) {
+        value /= 1024.0
+        unit++
+    }
+    return if (unit == 0) "${toLong()} B" else String.format(Locale.US, "%.1f %s", value, units[unit])
+}
+
+@Composable
+private fun SettingSwitchRow(
+    title: String,
+    description: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit
 ) {
@@ -3464,9 +2547,9 @@ private fun TemporaryCleanupRow(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text("Clean up hand-off files", fontWeight = FontWeight.Bold)
+                Text(title, fontWeight = FontWeight.Bold)
                 Text(
-                    "Remove temporary APKs after Morphe gets them, and clear old cache files on launch.",
+                    description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -3480,39 +2563,219 @@ private fun TemporaryCleanupRow(
 }
 
 @Composable
-private fun EmptyLaunchState() {
-    InfoCard("Open this helper from Morphe Manager when it asks for an original APK.")
+private fun EmptyLaunchState(onOpenMorphe: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)) {
+        InfoCard("Open this helper from Morphe Manager when it asks for an original APK.")
+        HelperButton(
+            text = "Open Morphe Manager",
+            onClick = onOpenMorphe,
+            icon = Icons.Outlined.OpenInNew,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun HelperBoltButton(
+    fastMode: Boolean,
+    onClick: () -> Unit
+) {
+    val primary = MaterialTheme.colorScheme.primary
+    OutlinedButton(
+        onClick = onClick,
+        modifier = Modifier.size(HelperDefaults.ButtonHeight),
+        shape = RoundedCornerShape(HelperDefaults.ButtonCornerRadius),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if (fastMode) primary.copy(alpha = 0.28f) else Color.Transparent,
+            contentColor = if (fastMode) {
+                primary
+            } else {
+                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.9f)
+            }
+        ),
+        border = BorderStroke(
+            1.dp,
+            if (fastMode) primary.copy(alpha = 0.6f) else primary.copy(alpha = 0.32f)
+        ),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Bolt,
+            contentDescription = if (fastMode) "Fast Mode on" else "Fast Mode off",
+            modifier = Modifier.size(HelperDefaults.IconSizeSmall)
+        )
+    }
 }
 
 @Composable
 private fun AppInfoCard(request: HelperRequest) {
+    // Collapsed by default so the Sources/Variants sections stay visible on
+    // screen; tap the header to expand the request and device details.
+    var expanded by rememberSaveable(request.packageName) { mutableStateOf(false) }
+
     HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(HelperDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = "App info",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-            )
-            AppInfoRow(label = "App name", value = request.appName)
-            AppInfoRow(label = "Package name", value = request.packageName)
-            AppInfoRow(label = "Version", value = request.requestedVersionName ?: "Any compatible")
-            AppInfoRow(label = "Version code", value = request.versionCodeSummary ?: "Any")
-            AppInfoRow(label = "Format", value = request.requestedFormatLabel)
-            AppInfoRow(label = "Device ABI", value = request.abiSummary)
+            AppInfoHeader(request, expanded = expanded, onToggle = { expanded = !expanded })
 
-            if (request.stockInstallRequired) {
-                Text(
-                    text = "Root mount may require the stock app before Morphe patches it.",
-                    color = MaterialTheme.colorScheme.secondary
+            if (expanded) {
+                androidx.compose.material3.HorizontalDivider(
+                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
                 )
+
+                AppInfoSection("Request") {
+                    val versionLabel = listOfNotNull(
+                        request.requestedVersionName,
+                        request.versionCodeSummary?.let { "build $it" }
+                    ).joinToString(" · ").ifBlank { "Any compatible" }
+                    AppInfoRow(label = "Version", value = versionLabel)
+                    AppInfoRow(label = "Format", value = request.requestedFormatLabel)
+                }
+
+                val abis = request.availableAbis
+                if (abis.isNotEmpty()) {
+                    AppInfoSection("Device") {
+                        AppInfoChipRow(label = "ABI", items = abis)
+                    }
+                }
+
+                if (request.stockInstallRequired) {
+                    Text(
+                        text = "Root mount may require the stock app before Morphe patches it.",
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
         }
     }
+}
+
+@Composable
+private fun AppInfoHeader(
+    request: HelperRequest,
+    expanded: Boolean,
+    onToggle: () -> Unit
+) {
+    val context = LocalContext.current
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+    var copied by remember(request.packageName) { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(HelperDefaults.SectionCornerRadius))
+            .clickable(onClick = onToggle)
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        AppAvatar(initial = request.appName.firstOrNull()?.uppercaseChar() ?: '?')
+
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Text(
+                text = request.appName,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Text(
+                    text = request.packageName,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
+                )
+                Text(
+                    text = if (copied) "Copied" else "Copy",
+                    color = if (copied) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .clickable {
+                            clipboard?.setPrimaryClip(
+                                ClipData.newPlainText("package", request.packageName)
+                            )
+                            copied = true
+                        }
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+            }
+        }
+
+        Icon(
+            imageVector = if (expanded) {
+                Icons.Outlined.ExpandLess
+            } else {
+                Icons.Outlined.ExpandMore
+            },
+            contentDescription = if (expanded) "Collapse" else "Expand",
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun AppAvatar(initial: Char) {
+    val colors = listOf(
+        Color(0xFF1A73E8),
+        Color(0xFF34A853),
+        Color(0xFFFBBC04),
+        Color(0xFFEA4335),
+        Color(0xFF4285F4),
+        Color(0xFFF25C1B)
+    )
+    val color = colors[initial.code % colors.size]
+    Box(
+        modifier = Modifier
+            .size(44.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(color.copy(alpha = 0.85f)),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = initial.toString(),
+            color = Color.White,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun AppInfoSection(title: String, content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        SectionTitle(title)
+        content()
+    }
+}
+
+@Composable
+private fun SectionTitle(title: String) {
+    Text(
+        text = title,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = MaterialTheme.typography.labelMedium,
+        fontWeight = FontWeight.SemiBold
+    )
 }
 
 @Composable
@@ -3524,15 +2787,39 @@ private fun AppInfoRow(label: String, value: String) {
         Text(
             text = label,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(0.42f)
+            modifier = Modifier.weight(0.30f)
         )
         Text(
             text = value,
             fontWeight = FontWeight.Medium,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(0.58f)
+            modifier = Modifier.weight(0.70f)
         )
+    }
+}
+
+@Composable
+private fun AppInfoChipRow(label: String, items: List<String>) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Text(
+            text = label,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(0.30f)
+        )
+        FlowRow(
+            modifier = Modifier.weight(0.70f),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            items.forEach { abi ->
+                HelperChip(text = abi)
+            }
+        }
     }
 }
 
@@ -3555,63 +2842,202 @@ private fun SourceTabs(
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate) -> Unit,
     onUseInstalledApp: (DownloadCandidate) -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit,
+    onVersionHistory: (DownloadSource) -> Unit,
+    onDownloadVersion: (DownloadCandidate) -> Unit,
+    onRefresh: () -> Unit,
+    onCancel: () -> Unit,
     installedPackageRefreshToken: Int
 ) {
     val groups = result.sourceGroups
 
-    var selectedIndex by remember(groups.map { it.source }) { mutableIntStateOf(0) }
-    val safeSelectedIndex = selectedIndex.coerceIn(0, groups.lastIndex)
-    val selectedGroup = groups[safeSelectedIndex]
-    val swipeThresholdPx = with(LocalDensity.current) { 72.dp.toPx() }
+    val pagerState = rememberPagerState(initialPage = 0) { groups.size }
+    val scope = rememberCoroutineScope()
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        SourceSelector(
-            groups = groups,
-            selectedIndex = safeSelectedIndex,
-            onSelect = { selectedIndex = it }
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionTitle("Sources")
+            SourceSelector(
+                groups = groups,
+                selectedIndex = pagerState.currentPage,
+                onSelect = { index ->
+                    scope.launch {
+                        // Slide for adjacent sources (feels like a swipe), but jump
+                        // straight to distant ones instead of dragging the pager
+                        // through every source in between.
+                        if (abs(index - pagerState.currentPage) <= 1) {
+                            pagerState.animateScrollToPage(index)
+                        } else {
+                            pagerState.scrollToPage(index)
+                        }
+                    }
+                }
+            )
+        }
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .pointerInput(groups.size, safeSelectedIndex, swipeThresholdPx) {
-                    if (groups.size < 2) return@pointerInput
-                    var totalDrag = 0f
-                    detectHorizontalDragGestures(
-                        onDragStart = { totalDrag = 0f },
-                        onHorizontalDrag = { _, dragAmount ->
-                            totalDrag += dragAmount
-                        },
-                        onDragEnd = {
-                            if (abs(totalDrag) >= swipeThresholdPx) {
-                                selectedIndex = if (totalDrag < 0) {
-                                    (safeSelectedIndex + 1).coerceAtMost(groups.lastIndex)
-                                } else {
-                                    (safeSelectedIndex - 1).coerceAtLeast(0)
-                                }
-                            }
-                        },
-                        onDragCancel = { totalDrag = 0f }
-                    )
-                },
-            verticalArrangement = Arrangement.spacedBy(14.dp)
-        ) {
-            if (selectedGroup.manual.isNotEmpty()) {
-                SectionHeader("Manual")
-                selectedGroup.manual.forEach { candidate ->
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionTitle("Commands")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+            ) {
+                HelperOutlinedButton(
+                    text = "Refresh",
+                    onClick = onRefresh,
+                    icon = Icons.Outlined.Refresh,
+                    modifier = Modifier.weight(1f)
+                )
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = onCancel,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+
+        HorizontalPager(
+            state = pagerState,
+            key = { index -> groups[index].source },
+            // Only compose the current page so the pager's height matches the page on
+            // screen instead of the tallest neighbor (which left dead space on short
+            // pages). Pages are top-aligned so content never floats away from the pills.
+            beyondViewportPageCount = 0,
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier.fillMaxWidth()
+        ) { page ->
+            SourcePageContent(
+                request = request,
+                group = groups[page],
+                onResolve = onResolve,
+                onDownload = onDownload,
+                onPickDownloadedFile = onPickDownloadedFile,
+                onUseInstalledApp = onUseInstalledApp,
+                onSolveCaptcha = onSolveCaptcha,
+                onVersionHistory = onVersionHistory,
+                onDownloadVersion = onDownloadVersion,
+                installedPackageRefreshToken = installedPackageRefreshToken
+            )
+        }
+    }
+}
+
+private enum class SourceSubTab(val label: String) {
+    Manual("Manual"),
+    Recommended("Recommended"),
+    Latest("Latest"),
+    History("History")
+}
+
+/** Sources that can resolve the exact requested version from their own data. */
+private val DownloadSource.supportsRecommended: Boolean
+    get() = when (this) {
+        // Mi9 exposes a real version-history page that the in-app captcha
+        // browser opens; its recommended candidate routes there. APK
+        // Downloader stays manual-only (Cloudflare-gated with no version list).
+        DownloadSource.APK_DOWNLOADER,
+        DownloadSource.AURORA,
+        DownloadSource.PLAY -> false
+        else -> true
+    }
+
+/** Sources that expose a version history list. */
+private val DownloadSource.supportsHistory: Boolean
+    get() = when (this) {
+        // Evozi has an old-versions page but no history list; APK Downloader
+        // is Cloudflare-gated with no version list. Mi9's history tab offers a
+        // "browse the version history in the in-app browser" row. Aurora/Play
+        // never offer originals.
+        DownloadSource.EVOZI,
+        DownloadSource.APK_DOWNLOADER,
+        DownloadSource.AURORA,
+        DownloadSource.PLAY -> false
+        else -> true
+    }
+
+@Composable
+private fun SourcePageContent(
+    request: HelperRequest,
+    group: SourceCandidateGroup,
+    onResolve: (DownloadSource, CandidateOption) -> Unit,
+    onDownload: (DownloadCandidate) -> Unit,
+    onPickDownloadedFile: (DownloadCandidate) -> Unit,
+    onUseInstalledApp: (DownloadCandidate) -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit,
+    onVersionHistory: (DownloadSource) -> Unit,
+    onDownloadVersion: (DownloadCandidate) -> Unit,
+    installedPackageRefreshToken: Int
+) {
+    val subTabs = remember(group, request) {
+        buildList {
+            if (group.manual.isNotEmpty()) add(SourceSubTab.Manual)
+            if (request.hasKnownVersionRequest && group.source.supportsRecommended) {
+                add(SourceSubTab.Recommended)
+            }
+            add(SourceSubTab.Latest)
+            if (group.source.supportsHistory) {
+                add(SourceSubTab.History)
+            }
+        }
+    }
+    var selectedTab by rememberSaveable(group.source) {
+        mutableStateOf(subTabs.firstOrNull() ?: SourceSubTab.Latest)
+    }
+    val safeTab = subTabs.firstOrNull { it == selectedTab } ?: subTabs.firstOrNull()
+        ?: SourceSubTab.Latest
+
+    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionTitle("Variants")
+            SubTabRow(
+                tabs = subTabs,
+                selected = safeTab,
+                onSelect = { selectedTab = it }
+            )
+        }
+
+        when (safeTab) {
+            SourceSubTab.Manual -> {
+                InfoCard(
+                    "Manual: open the link to download this app from the source's site, " +
+                        "then tap \"Select downloaded file\" to return it to Morphe."
+                )
+                group.manual.forEach { candidate ->
                     CandidateCard(
                         request = request,
                         candidate = candidate,
                         onDownload = { onDownload(candidate) },
                         onPickDownloadedFile = { onPickDownloadedFile(candidate) },
                         onUseInstalledApp = { onUseInstalledApp(candidate) },
+                        onSolveCaptcha = { onSolveCaptcha(candidate) },
                         installedPackageRefreshToken = installedPackageRefreshToken
                     )
                 }
             }
 
-            if (request.hasKnownVersionRequest) {
-                when (selectedGroup.source) {
+            SourceSubTab.Recommended -> {
+                InfoCard(
+                    "Recommended: finds the exact version Morphe requested on this source, " +
+                        "then download it to return to Morphe."
+                )
+                CandidateResolveSection(
+                    request = request,
+                    state = group.recommended,
+                    actionText = "Find recommended",
+                    loadingText = "Checking recommended version...",
+                    emptyText = "Requested version was not found on this source. Use Manual mode for this source instead.",
+                    onResolve = {
+                        onResolve(group.source, CandidateOption.REQUESTED)
+                    },
+                    onDownload = onDownload,
+                    onPickDownloadedFile = onPickDownloadedFile,
+                    onUseInstalledApp = onUseInstalledApp,
+                    onSolveCaptcha = onSolveCaptcha,
+                    installedPackageRefreshToken = installedPackageRefreshToken
+                )
+            }
+
+            SourceSubTab.Latest -> {
+                when (group.source) {
                     DownloadSource.AURORA -> {
                         InfoCard("Aurora only provides the latest Play Store version. Use Manual mode if you need a specific version.")
                     }
@@ -3619,40 +3045,209 @@ private fun SourceTabs(
                         InfoCard("Play opens the official Play Store listing for this app. Use Manual mode if you need a specific version.")
                     }
                     else -> {
-                        SectionHeader("Recommended")
-                        CandidateResolveSection(
-                            request = request,
-                            state = selectedGroup.recommended,
-                            actionText = "Find recommended",
-                            loadingText = "Checking recommended version...",
-                            emptyText = "Requested version was not found on this source. Use Manual mode for this source instead.",
-                            onResolve = {
-                                onResolve(selectedGroup.source, CandidateOption.REQUESTED)
-                            },
-                            onDownload = onDownload,
-                            onPickDownloadedFile = onPickDownloadedFile,
-                            onUseInstalledApp = onUseInstalledApp,
-                            installedPackageRefreshToken = installedPackageRefreshToken
+                        InfoCard(
+                            "Latest: finds the newest version of this app on the source, " +
+                                "then download it to return to Morphe."
                         )
                     }
                 }
+                CandidateResolveSection(
+                    request = request,
+                    state = group.latest,
+                    actionText = "Find latest",
+                    loadingText = "Checking latest version...",
+                    emptyText = "Latest version was not found on this source. Use Manual mode for this source instead.",
+                    onResolve = {
+                        onResolve(group.source, CandidateOption.LATEST)
+                    },
+                    onDownload = onDownload,
+                    onPickDownloadedFile = onPickDownloadedFile,
+                    onUseInstalledApp = onUseInstalledApp,
+                    onSolveCaptcha = onSolveCaptcha,
+                    installedPackageRefreshToken = installedPackageRefreshToken
+                )
             }
 
-            SectionHeader("Latest")
-            CandidateResolveSection(
-                request = request,
-                state = selectedGroup.latest,
-                actionText = "Find latest",
-                loadingText = "Checking latest version...",
-                emptyText = "Latest version was not found on this source. Use Manual mode for this source instead.",
-                onResolve = {
-                    onResolve(selectedGroup.source, CandidateOption.LATEST)
-                },
-                onDownload = onDownload,
-                onPickDownloadedFile = onPickDownloadedFile,
-                onUseInstalledApp = onUseInstalledApp,
-                installedPackageRefreshToken = installedPackageRefreshToken
+            SourceSubTab.History -> {
+                InfoCard(
+                    "Version history: lists every version this source offers, " +
+                        "then download any of them to return to Morphe."
+                )
+                VersionHistorySection(
+                    state = group.history,
+                    onResolve = { onVersionHistory(group.source) },
+                    onDownloadVersion = onDownloadVersion,
+                    onSolveCaptcha = onSolveCaptcha
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SubTabRow(
+    tabs: List<SourceSubTab>,
+    selected: SourceSubTab,
+    onSelect: (SourceSubTab) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
+    ) {
+        tabs.forEach { tab ->
+            SourcePill(
+                text = tab.label,
+                selected = tab == selected,
+                onClick = { onSelect(tab) },
+                modifier = Modifier.weight(1f),
+                height = 36.dp,
+                minWidth = 0.dp,
+                textStyle = MaterialTheme.typography.labelMedium,
+                textHorizontalPadding = 8.dp
             )
+        }
+    }
+}
+
+@Composable
+private fun VersionHistorySection(
+    state: VersionHistoryState,
+    onResolve: () -> Unit,
+    onDownloadVersion: (DownloadCandidate) -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit
+) {
+    when (state) {
+        VersionHistoryState.Idle -> {
+            HelperOutlinedButton(
+                text = "Load versions",
+                onClick = onResolve,
+                icon = Icons.Outlined.Search,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        VersionHistoryState.Loading -> {
+            HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(HelperDefaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
+                    Text("Loading versions...", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+        }
+
+        is VersionHistoryState.Error -> {
+            InfoCard(state.message)
+            HelperOutlinedButton(
+                text = "Try again",
+                onClick = onResolve,
+                icon = Icons.Outlined.Refresh,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        is VersionHistoryState.Done -> {
+            if (state.candidates.isEmpty()) {
+                InfoCard("No version list was available for this source.")
+            } else {
+                state.candidates.forEach { candidate ->
+                    VersionHistoryRow(
+                        candidate = candidate,
+                        showOpenLink = candidate.identityKey() in state.noDirectDownloadKeys,
+                        onDownloadVersion = { onDownloadVersion(candidate) },
+                        onSolveCaptcha = { onSolveCaptcha(candidate) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun VersionHistoryRow(
+    candidate: DownloadCandidate,
+    showOpenLink: Boolean,
+    onDownloadVersion: () -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit
+) {
+    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
+    HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HelperDefaults.ContentPadding),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Text(
+                    text = candidate.versionDisplay,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = when {
+                        // Captcha-gated rows (e.g. Mi9's version history) are
+                        // browsed in the in-app captcha browser, not downloaded.
+                        candidate.captchaUrl != null && !candidate.directDownload ->
+                            "Browsable in the in-app browser (version history)"
+                        showOpenLink -> "No direct download — open the version page"
+                        // History rows know only the version page until the
+                        // user taps Download, which resolves the real format.
+                        // "web" is a placeholder, not an actual file type, so
+                        // don't render it as if the row just links out.
+                        candidate.fileKind.equals("web", ignoreCase = true) ->
+                            "Direct download — format resolved on download"
+                        else -> candidate.fileKind.uppercase(Locale.US)
+                    },
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            when {
+                (showOpenLink || (candidate.captchaUrl != null && !candidate.directDownload)) &&
+                    candidate.source != DownloadSource.AURORA &&
+                    candidate.source != DownloadSource.PLAY -> {
+                    HelperButton(
+                        text = "Solve captcha",
+                        onClick = { onSolveCaptcha(candidate) },
+                        icon = Icons.Outlined.VerifiedUser,
+                        modifier = Modifier.widthIn(min = 140.dp)
+                    )
+                }
+                showOpenLink -> {
+                    HelperOutlinedButton(
+                        text = "Open link",
+                        onClick = {
+                            if (candidate.source == DownloadSource.PLAY) {
+                                context.openPlayStoreListing(candidate.packageName, candidate.url)
+                            } else {
+                                uriHandler.openUri(candidate.url)
+                            }
+                        },
+                        icon = Icons.Outlined.OpenInBrowser,
+                        modifier = Modifier.widthIn(min = 120.dp)
+                    )
+                }
+                else -> {
+                    HelperButton(
+                        text = "Download",
+                        onClick = onDownloadVersion,
+                        icon = Icons.Outlined.Download,
+                        modifier = Modifier.widthIn(min = 120.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -3668,6 +3263,7 @@ private fun CandidateResolveSection(
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate) -> Unit,
     onUseInstalledApp: (DownloadCandidate) -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit,
     installedPackageRefreshToken: Int
 ) {
     when (state) {
@@ -3706,6 +3302,7 @@ private fun CandidateResolveSection(
                         onDownload = { onDownload(candidate) },
                         onPickDownloadedFile = { onPickDownloadedFile(candidate) },
                         onUseInstalledApp = { onUseInstalledApp(candidate) },
+                        onSolveCaptcha = { onSolveCaptcha(candidate) },
                         installedPackageRefreshToken = installedPackageRefreshToken
                     )
                 }
@@ -3721,6 +3318,7 @@ private fun CandidateResolveSection(
                     onDownload = { onDownload(candidate) },
                     onPickDownloadedFile = { onPickDownloadedFile(candidate) },
                     onUseInstalledApp = { onUseInstalledApp(candidate) },
+                    onSolveCaptcha = { onSolveCaptcha(candidate) },
                     installedPackageRefreshToken = installedPackageRefreshToken
                 )
             }
@@ -3740,18 +3338,28 @@ private fun SourceSelector(
     selectedIndex: Int,
     onSelect: (Int) -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
-    ) {
-        groups.forEachIndexed { index, group ->
-            SourcePill(
-                text = group.source.label,
-                selected = index == selectedIndex,
-                onClick = { onSelect(index) }
-            )
+    // Split the sources into two balanced rows; pills stretch to fill each row end to end.
+    val firstRowCount = (groups.size + 1) / 2
+    Column(verticalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)) {
+        var globalIndex = 0
+        groups.chunked(firstRowCount).forEach { rowGroups ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
+            ) {
+                rowGroups.forEach { group ->
+                    val index = globalIndex++
+                    SourcePill(
+                        text = group.source.label,
+                        selected = index == selectedIndex,
+                        onClick = { onSelect(index) },
+                        modifier = Modifier.weight(1f),
+                        minWidth = 0.dp,
+                        textStyle = MaterialTheme.typography.labelMedium,
+                        textHorizontalPadding = 8.dp
+                    )
+                }
+            }
         }
     }
 }
@@ -3761,45 +3369,39 @@ private fun SourcePill(
     text: String,
     selected: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    height: Dp = 44.dp,
+    minWidth: Dp = 92.dp,
+    textStyle: TextStyle = MaterialTheme.typography.labelLarge,
+    textHorizontalPadding: Dp = HelperDefaults.ContentPadding
 ) {
     val shape = RoundedCornerShape(50)
     val colors = MaterialTheme.colorScheme
     Surface(
         modifier = modifier
-            .height(44.dp)
-            .widthIn(min = 92.dp)
+            .height(height)
+            .widthIn(min = minWidth)
             .clip(shape)
             .clickable(onClick = onClick),
         shape = shape,
-        color = if (selected) colors.primary.copy(alpha = 0.24f) else colors.surfaceColorAtElevation(3.dp),
-        contentColor = if (selected) colors.onPrimaryContainer else colors.onSurfaceVariant,
+        color = if (selected) colors.primary else colors.surfaceColorAtElevation(3.dp),
+        contentColor = if (selected) colors.onPrimary else colors.onSurfaceVariant,
         border = BorderStroke(
             1.dp,
-            if (selected) colors.primary.copy(alpha = 0.6f) else colors.outlineVariant.copy(alpha = 0.55f)
+            if (selected) colors.primary else colors.outlineVariant.copy(alpha = 0.55f)
         )
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge,
+                style = textStyle,
                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(horizontal = HelperDefaults.ContentPadding)
+                modifier = Modifier.padding(horizontal = textHorizontalPadding)
             )
         }
     }
-}
-
-@Composable
-private fun SectionHeader(title: String) {
-    Text(
-        title,
-        style = MaterialTheme.typography.titleMedium,
-        fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colorScheme.onBackground
-    )
 }
 
 @Composable
@@ -3817,49 +3419,111 @@ private fun InfoCard(text: String) {
 }
 
 @Composable
+private fun DownloadHistorySection(
+    entries: List<DownloadHistoryEntry>,
+    onClear: () -> Unit,
+    onOpen: (DownloadHistoryEntry) -> Unit,
+    onShare: (DownloadHistoryEntry) -> Unit
+) {
+    val context = LocalContext.current
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Download history",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            HelperOutlinedButton(
+                text = "Clear",
+                onClick = onClear,
+                modifier = Modifier.width(HelperDefaults.ActionClearWidth)
+            )
+            HelperOutlinedButton(
+                text = if (expanded) "Hide" else "Show",
+                onClick = { expanded = !expanded },
+                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
+            )
+        }
+
+        if (expanded) {
+            if (entries.isEmpty()) {
+                InfoCard("No hand-offs recorded yet. Downloads and picked files you return to Morphe show up here.")
+            } else {
+                entries.forEach { entry ->
+                    val usable = remember(entry.uri) { context.isHistoryUriUsable(entry.uri) }
+                    HistoryEntryCard(
+                        entry = entry,
+                        usable = usable,
+                        onOpen = { onOpen(entry) },
+                        onShare = { onShare(entry) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun RequestLogsCard(
     logs: List<RequestLogEntry>,
     onClearLogs: () -> Unit
 ) {
-    HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
-            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Request logs",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                HelperOutlinedButton(
-                    text = "Clear",
-                    onClick = onClearLogs,
-                    modifier = Modifier.widthIn(min = 96.dp)
-                )
-            }
+            Text(
+                text = "Request logs",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            HelperOutlinedButton(
+                text = "Clear",
+                onClick = onClearLogs,
+                modifier = Modifier.width(HelperDefaults.ActionClearWidth)
+            )
+            HelperOutlinedButton(
+                text = if (expanded) "Hide" else "Show",
+                onClick = { expanded = !expanded },
+                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
+            )
+        }
 
+        if (expanded) {
             if (logs.isEmpty()) {
-                Text(
-                    text = "No logs yet.",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                InfoCard("No logs yet.")
             } else {
-                SelectionContainer {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        logs.takeLast(80).forEach { entry ->
-                            Text(
-                                text = "${entry.time} ${entry.level.badge} ${entry.message}",
-                                color = entry.level.color(),
-                                style = MaterialTheme.typography.bodySmall
-                            )
+                HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+                    SelectionContainer {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(HelperDefaults.ContentPadding),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            logs.takeLast(80).forEach { entry ->
+                                Text(
+                                    text = "${entry.time} ${entry.level.badge} ${entry.message}",
+                                    color = entry.level.color(),
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
                         }
                     }
                 }
@@ -3875,6 +3539,7 @@ private fun CandidateCard(
     onDownload: () -> Unit,
     onPickDownloadedFile: () -> Unit,
     onUseInstalledApp: () -> Unit,
+    onSolveCaptcha: (DownloadCandidate) -> Unit,
     installedPackageRefreshToken: Int
 ) {
     val context = LocalContext.current
@@ -3890,60 +3555,101 @@ private fun CandidateCard(
             context.isPackageInstalled(candidate.packageName)
         }
 
-    HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
+    // A plain web link whose only content is the Open link action (manual-mode
+    // rows, and info-less Play/Aurora listings) renders as a bare outlined
+    // button to match the idle action buttons instead of a filled card around
+    // a single button.
+    val bareLink = candidate.note == null &&
+        !hasResolvedCandidateInfo &&
+        !candidate.directDownload &&
+        (candidate.option == CandidateOption.MANUAL ||
+            candidate.source == DownloadSource.AURORA ||
+            candidate.source == DownloadSource.PLAY)
+
+    val body: @Composable ColumnScope.() -> Unit = {
+        if (candidate.option != CandidateOption.MANUAL && hasResolvedCandidateInfo) {
+            CandidateInfoChips(request, candidate)
+        }
+        if (candidate.option != CandidateOption.MANUAL && hasResolvedCandidateInfo && !match.matches) {
+            CandidateMatchBox(match)
+        }
+        candidate.note?.let { note ->
+            InfoCard(note)
+        }
+
+        if (candidate.directDownload) {
+            HelperButton(
+                text = "Download and return",
+                onClick = onDownload,
+                icon = Icons.Outlined.Download,
+                modifier = Modifier.fillMaxWidth()
+            )
+        } else {
+            // Resolved candidates (Recommended/Latest/History) from every source
+            // except Aurora and Play can fall back to the in-app captcha
+            // browser: it opens the candidate's page in a real WebView (passing
+            // any Cloudflare challenge) and captures the download URL the page
+            // produces. Manual-mode links stay plain open-link rows — their job
+            // is the external "select downloaded file" flow.
+            if (candidate.option != CandidateOption.MANUAL &&
+                candidate.source != DownloadSource.AURORA &&
+                candidate.source != DownloadSource.PLAY
+            ) {
+                HelperButton(
+                    text = "Solve captcha in app",
+                    onClick = { onSolveCaptcha(candidate) },
+                    icon = Icons.Outlined.VerifiedUser,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            HelperOutlinedButton(
+                text = "Open link",
+                onClick = {
+                    if (candidate.source == DownloadSource.PLAY) {
+                        context.openPlayStoreListing(candidate.packageName, candidate.url)
+                    } else {
+                        uriHandler.openUri(candidate.url)
+                    }
+                    hasOpenedLink = true
+                },
+                icon = Icons.Outlined.OpenInBrowser,
+                modifier = Modifier.fillMaxWidth()
+            )
+            if (candidate.source.supportsManualArtifactPicker && hasOpenedLink) {
+                HelperButton(
+                    text = "Select downloaded file",
+                    onClick = onPickDownloadedFile,
+                    icon = Icons.Outlined.FolderOpen,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            if (showUseInstalledApp) {
+                HelperButton(
+                    text = "Use installed app",
+                    onClick = onUseInstalledApp,
+                    icon = Icons.Outlined.CheckCircle,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+
+    if (bareLink) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
         ) {
-            if (candidate.option != CandidateOption.MANUAL && hasResolvedCandidateInfo) {
-                CandidateInfoChips(request, candidate)
-            }
-            if (candidate.option != CandidateOption.MANUAL && hasResolvedCandidateInfo && !match.matches) {
-                CandidateMatchBox(match)
-            }
-            candidate.note?.let { note ->
-                InfoCard(note)
-            }
-
-            if (candidate.directDownload) {
-                HelperButton(
-                    text = "Download and return",
-                    onClick = onDownload,
-                    icon = Icons.Outlined.Download,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            } else {
-                HelperOutlinedButton(
-                    text = "Open link",
-                    onClick = {
-                        if (candidate.source == DownloadSource.PLAY) {
-                            context.openPlayStoreListing(candidate.packageName, candidate.url)
-                        } else {
-                            uriHandler.openUri(candidate.url)
-                        }
-                        hasOpenedLink = true
-                    },
-                    icon = Icons.Outlined.OpenInBrowser,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                if (candidate.source.supportsManualArtifactPicker && hasOpenedLink) {
-                    HelperButton(
-                        text = "Select downloaded file",
-                        onClick = onPickDownloadedFile,
-                        icon = Icons.Outlined.FolderOpen,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-                if (showUseInstalledApp) {
-                    HelperButton(
-                        text = "Use installed app",
-                        onClick = onUseInstalledApp,
-                        icon = Icons.Outlined.CheckCircle,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+            body()
+        }
+    } else {
+        HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(HelperDefaults.ContentPadding),
+                verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+            ) {
+                body()
             }
         }
     }
@@ -4094,18 +3800,154 @@ private fun CheckingPickedFileState(state: UiState.CheckingPickedFile) {
 }
 
 @Composable
-private fun DownloadingState(state: UiState.Downloading) {
+private fun FastModeCard(
+    progress: FastModeProgress,
+    onCancel: () -> Unit,
+    onUseMismatch: () -> Unit,
+    onSkipMismatch: () -> Unit
+) {
+    HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(HelperDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text("Fast Mode", fontWeight = FontWeight.Bold)
+                    progress.sourceLabel?.let { source ->
+                        Text(
+                            text = source,
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
+                }
+                if (!progress.done && progress.percent == null && !progress.awaitingDecision) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(22.dp),
+                        strokeWidth = 2.5.dp
+                    )
+                }
+            }
+            Text(
+                text = progress.detail,
+                color = when {
+                    progress.done && !progress.succeeded -> MaterialTheme.colorScheme.error
+                    progress.done -> MaterialTheme.colorScheme.onSurface
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                style = MaterialTheme.typography.bodyMedium
+            )
+            if (progress.awaitingDecision) {
+                Surface(
+                    color = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                    shape = MaterialTheme.shapes.small
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(HelperDefaults.ContentPadding),
+                        horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Warning,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Text(
+                            text = progress.mismatchDetail ?: "Version code mismatch.",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                ) {
+                    HelperButton(
+                        text = "Use this version",
+                        onClick = onUseMismatch,
+                        modifier = Modifier.weight(1f)
+                    )
+                    HelperOutlinedButton(
+                        text = "Skip to next source",
+                        onClick = onSkipMismatch,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = onCancel,
+                    icon = Icons.Outlined.Close,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (progress.percent != null && !progress.done) {
+                LinearProgressIndicator(
+                    progress = { progress.percent / 100f },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "${progress.percent}%",
+                        fontWeight = FontWeight.Medium
+                    )
+                    HelperOutlinedButton(
+                        text = "Cancel",
+                        onClick = onCancel,
+                        icon = Icons.Outlined.Close
+                    )
+                }
+            } else if (!progress.done) {
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = onCancel,
+                    icon = Icons.Outlined.Close,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
     HelperCard {
         Column(
             modifier = Modifier.padding(HelperDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
         ) {
-        Text("Downloading from ${state.candidate.source.label}")
-        LinearProgressIndicator(
-            progress = { state.percent / 100f },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Text("${state.percent}%")
+            Text("Downloading from ${state.candidate.source.label}")
+            LinearProgressIndicator(
+                progress = { state.percent / 100f },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("${state.percent}%", fontWeight = FontWeight.Medium)
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = onCancel,
+                    icon = Icons.Outlined.Close
+                )
+            }
         }
     }
 }
@@ -4137,7 +3979,7 @@ private fun ErrorState(message: String, onRefresh: () -> Unit, onCancel: () -> U
     }
 }
 
-private data class HelperRequest(
+internal data class HelperRequest(
     val callerPackage: String,
     val packageName: String,
     val appName: String,
@@ -4232,8 +4074,11 @@ private data class HelperRequest(
     }
 
     fun acceptsFormat(fileKind: String): Boolean {
-        val kind = fileKind.lowercase(Locale.US)
-        return kind in requestedFileKinds
+        // Some parsers tag a candidate with the whole requested label (e.g.
+        // "APK/APKM/APKS/XAPK") instead of a single kind. Split on '/' so any
+        // listed kind counts as a match instead of a false "Format mismatch".
+        val kinds = fileKind.lowercase(Locale.US).split('/')
+        return kinds.any { it in requestedFileKinds }
     }
 
     fun matchesKnownVersion(candidateVersionName: String?, candidateVersionCode: Long?): Boolean =
@@ -4264,6 +4109,29 @@ private data class HelperRequest(
         return nameMatches || codeMatches
     }
 
+    /**
+     * Strict matcher used by Fast Mode, where the exact version name AND the
+     * exact version code are both required. Unlike [matchesRequestedVersion]
+     * (which accepts a name-only match), a candidate that reports a version
+     * code outside the requested set is rejected up front — so Fast Mode
+     * doesn't download a file that validation would reject anyway. When the
+     * source doesn't report a code, the name match is accepted (validation is
+     * still the backstop for the downloaded artifact).
+     */
+    fun matchesRequestedVersionStrict(candidateVersionName: String?, candidateVersionCode: Long?): Boolean {
+        if (versionName == null && requestedVersionCodes.isEmpty()) return false
+
+        val nameRequired = requestedVersionName != null
+        val nameMatches = candidateVersionName != null &&
+            candidateVersionName.versionNameEquals(requestedVersionName)
+        val codeRequired = requestedVersionCodes.isNotEmpty() && candidateVersionCode != null
+        val codeMatches = requestedVersionCodes.isEmpty() ||
+            candidateVersionCode == null ||
+            (candidateVersionCode > 0L && candidateVersionCode in requestedVersionCodes)
+
+        return (!nameRequired || nameMatches) && (!codeRequired || codeMatches)
+    }
+
     fun sourceHintUrlsFor(source: DownloadSource): List<String> {
         val needles = when (source) {
             DownloadSource.AURORA,
@@ -4273,6 +4141,9 @@ private data class HelperRequest(
             DownloadSource.APTOIDE -> listOf("aptoide.com")
             DownloadSource.APK_PURE -> listOf("apkpure.com")
             DownloadSource.UPTODOWN -> listOf("uptodown.com")
+            DownloadSource.EVOZI -> listOf("apkcube.com", "evozi.com")
+            DownloadSource.MI9 -> listOf("mi9.com")
+            DownloadSource.APK_DOWNLOADER -> listOf("apkdownloader.pages.dev")
         }
 
         return (sourceHintUrls + fallbackWebUrl).distinct().filter { url ->
@@ -4294,8 +4165,14 @@ private data class HelperRequest(
                 appName = intent.getStringExtra(DownloadHelperContract.EXTRA_APP_NAME) ?: packageName,
                 versionName = intent.getStringExtra(DownloadHelperContract.EXTRA_VERSION_NAME),
                 versionCode = if (intent.hasExtra(DownloadHelperContract.EXTRA_VERSION_CODE)) {
+                    // Callers send the version code as either an Int (am --ei, some
+                    // app stores) or a Long. getLongExtra silently returns the
+                    // default for Int extras, so try Long first and fall back to Int.
                     intent.getLongExtra(DownloadHelperContract.EXTRA_VERSION_CODE, 0L)
                         .takeIf { it > 0L }
+                        ?: intent.getIntExtra(DownloadHelperContract.EXTRA_VERSION_CODE, 0)
+                            .toLong()
+                            .takeIf { it > 0L }
                 } else {
                     null
                 },
@@ -4354,19 +4231,48 @@ private data class CandidateResult(
             }
         }
     )
+
+    fun withHistoryState(
+        source: DownloadSource,
+        state: VersionHistoryState
+    ): CandidateResult = copy(
+        sourceGroups = sourceGroups.map { group ->
+            if (group.source == source) group.copy(history = state) else group
+        }
+    )
+
+    fun markHistoryCandidateNoDirectDownload(
+        source: DownloadSource,
+        candidateKey: String
+    ): CandidateResult = copy(
+        sourceGroups = sourceGroups.map { group ->
+            if (group.source == source && group.history is VersionHistoryState.Done) {
+                val done = group.history as VersionHistoryState.Done
+                group.copy(
+                    history = done.copy(
+                        noDirectDownloadKeys = done.noDirectDownloadKeys + candidateKey
+                    )
+                )
+            } else {
+                group
+            }
+        }
+    )
 }
 
 private data class SourceCandidateGroup(
     val source: DownloadSource,
     val manual: List<DownloadCandidate>,
     val recommended: ResolveState,
-    val latest: ResolveState
+    val latest: ResolveState,
+    val history: VersionHistoryState = VersionHistoryState.Idle
 )
 
 private data class ResolveOutcome(
     val candidates: List<DownloadCandidate>,
     val errorMessage: String? = null,
-    val fallbackCandidate: DownloadCandidate? = null
+    val fallbackCandidate: DownloadCandidate? = null,
+    val notFoundMessage: String? = null
 )
 
 private sealed interface ResolveState {
@@ -4379,12 +4285,60 @@ private sealed interface ResolveState {
     ) : ResolveState
 }
 
-private data class ApkMirrorLatestInfo(
+private sealed interface VersionHistoryState {
+    data object Idle : VersionHistoryState
+    data object Loading : VersionHistoryState
+    data class Done(
+        val candidates: List<DownloadCandidate>,
+        // Identity keys of candidates whose direct download could not be
+        // resolved; those rows render an "Open link" action instead of
+        // "Download" so the user is not stuck in a resolve-then-error loop.
+        val noDirectDownloadKeys: Set<String> = emptySet()
+    ) : VersionHistoryState
+    data class Error(val message: String) : VersionHistoryState
+}
+
+private enum class SourceHealthStatus {
+    NotChecked,
+    Checking,
+    Ok,
+    NoResult,
+    Failed
+}
+
+private data class SourceHealthEntry(
+    val source: DownloadSource,
+    val status: SourceHealthStatus,
+    val message: String? = null
+)
+
+private fun CandidateResult.sourceHealth(): List<SourceHealthEntry> =
+    sourceGroups.map { group ->
+        val states = listOf(group.recommended, group.latest)
+        val failures = states.filterIsInstance<ResolveState.Error>()
+        val loadedCandidates = states.filterIsInstance<ResolveState.Done>().map { it.candidates }
+        val anyLoading = states.any { it is ResolveState.Loading }
+        when {
+            failures.isNotEmpty() -> {
+                SourceHealthEntry(
+                    source = group.source,
+                    status = SourceHealthStatus.Failed,
+                    message = failures.first().message
+                )
+            }
+            loadedCandidates.any { it.isNotEmpty() } -> SourceHealthEntry(group.source, SourceHealthStatus.Ok)
+            loadedCandidates.isNotEmpty() -> SourceHealthEntry(group.source, SourceHealthStatus.NoResult)
+            anyLoading -> SourceHealthEntry(group.source, SourceHealthStatus.Checking)
+            else -> SourceHealthEntry(group.source, SourceHealthStatus.NotChecked)
+        }
+    }
+
+internal data class ApkMirrorLatestInfo(
     val versionName: String?,
     val openUrl: String
 )
 
-private data class ApkMirrorVariant(
+internal data class ApkMirrorVariant(
     val url: String,
     val type: String,
     val fileKind: String,
@@ -4393,11 +4347,11 @@ private data class ApkMirrorVariant(
     val isBundle: Boolean
 )
 
-private data class UptodownVersionResponse(
+internal data class UptodownVersionResponse(
     val data: List<UptodownVersionEntry> = emptyList()
 )
 
-private data class UptodownVersionEntry(
+internal data class UptodownVersionEntry(
     @SerializedName("fileID")
     val fileId: Long? = null,
     val version: String? = null,
@@ -4409,7 +4363,7 @@ private data class UptodownVersionEntry(
     val versionUrl: UptodownVersionUrl? = null
 )
 
-private data class UptodownVersionUrl(
+internal data class UptodownVersionUrl(
     val url: String? = null,
     @SerializedName("extraURL")
     val extraUrl: String? = null,
@@ -4417,17 +4371,17 @@ private data class UptodownVersionUrl(
     val versionId: Long? = null
 )
 
-private data class UptodownVariantResponse(
+internal data class UptodownVariantResponse(
     val content: String? = null
 )
 
-private data class UptodownVariantFile(
+internal data class UptodownVariantFile(
     val fileId: String,
     val fileKind: String,
     val archLabel: String?
 )
 
-private data class DownloadCandidate(
+internal data class DownloadCandidate(
     val source: DownloadSource,
     val name: String,
     val packageName: String,
@@ -4441,7 +4395,12 @@ private data class DownloadCandidate(
     val formatMatches: Boolean,
     val note: String? = null,
     val variantLabel: String? = null,
-    val files: List<CandidateDownloadFile> = emptyList()
+    val files: List<CandidateDownloadFile> = emptyList(),
+    // When set, the source gates the file behind a captcha/JS challenge that
+    // only a real browser can pass. The card then offers a "Solve captcha in
+    // app" action that opens this URL in an embedded WebView and captures the
+    // download the page produces.
+    val captchaUrl: String? = null
 ) {
     val sortIndex: Int get() = source.sortIndex
     val versionDisplay: String
@@ -4499,23 +4458,23 @@ private fun DownloadCandidate.matchSummary(request: HelperRequest): CandidateMat
     )
 }
 
-private fun DownloadCandidate.identityKey(): String =
+internal fun DownloadCandidate.identityKey(): String =
     "${source.name}:$versionName:$versionCode:$fileKind:$variantLabel:$url"
 
-private data class CandidateDownloadFile(
+internal data class CandidateDownloadFile(
     val url: String,
     val fileName: String,
     val size: Long? = null,
     val referer: String? = null
 )
 
-private data class DownloadedApkMetadata(
+internal data class DownloadedApkMetadata(
     val packageName: String,
     val versionName: String?,
     val versionCode: Long?
 )
 
-private enum class DownloadSource(
+internal enum class DownloadSource(
     val label: String,
     val sortIndex: Int,
     val supportsManualArtifactPicker: Boolean = true
@@ -4525,8 +4484,11 @@ private enum class DownloadSource(
     APK_PURE("APKPure", 2),
     APK_COMBO("APKCombo", 3),
     APTOIDE("Aptoide", 4),
-    AURORA("Aurora", 5, supportsManualArtifactPicker = false),
-    PLAY("Play", 6, supportsManualArtifactPicker = false)
+    EVOZI("Evozi", 5),
+    MI9("Mi9", 6),
+    APK_DOWNLOADER("APK Downloader", 7),
+    AURORA("Aurora", 8, supportsManualArtifactPicker = false),
+    PLAY("Play", 9, supportsManualArtifactPicker = false)
 }
 
 private fun DownloadSource.searchDomain(): String? = when (this) {
@@ -4535,11 +4497,14 @@ private fun DownloadSource.searchDomain(): String? = when (this) {
     DownloadSource.APK_PURE -> "apkpure.com"
     DownloadSource.APK_COMBO -> "apkcombo.com"
     DownloadSource.APTOIDE -> "aptoide.com"
+    DownloadSource.EVOZI -> "apkcube.com"
+    DownloadSource.MI9 -> "mi9.com"
+    DownloadSource.APK_DOWNLOADER -> "apkdownloader.pages.dev"
     DownloadSource.PLAY -> "play.google.com"
     DownloadSource.AURORA -> null
 }
 
-private enum class CandidateOption {
+internal enum class CandidateOption {
     MANUAL,
     REQUESTED,
     LATEST
@@ -4552,7 +4517,7 @@ private val CandidateOption.labelForLogs: String
         CandidateOption.LATEST -> "latest"
     }
 
-private enum class VersionStatus(val label: String) {
+internal enum class VersionStatus(val label: String) {
     REQUESTED("Requested"),
     COMPATIBLE("Compatible"),
     LATEST("Latest")
@@ -4584,9 +4549,41 @@ private sealed interface UiState {
     data class CheckingPickedFile(val candidate: DownloadCandidate) : UiState
     data class Downloading(val candidate: DownloadCandidate, val percent: Int) : UiState
     data class Error(val message: String) : UiState
+    data class FastMode(val progress: FastModeProgress) : UiState
 }
 
-private object DownloadHelperContract {
+private enum class FastModeChoice { USE, NEXT }
+
+// Sources Fast Mode skips: they never offer direct downloads (Aurora/Play
+// return installed/Play versions, the downloader services are captcha-gated).
+private val NON_FAST_MODE_SOURCES = setOf(
+    DownloadSource.AURORA,
+    DownloadSource.PLAY,
+    DownloadSource.EVOZI,
+    DownloadSource.MI9,
+    DownloadSource.APK_DOWNLOADER
+)
+
+private sealed interface FastModeFindResult {
+    data class Exact(val candidate: DownloadCandidate) : FastModeFindResult
+    data class VersionMismatch(val candidate: DownloadCandidate) : FastModeFindResult
+    object None : FastModeFindResult
+}
+
+private data class FastModeProgress(
+    val sourceLabel: String? = null,
+    val detail: String = "Starting…",
+    val percent: Int? = null,
+    val done: Boolean = false,
+    val succeeded: Boolean = false,
+    // Present once Fast Mode finishes so the regular source list stays reachable.
+    val result: CandidateResult? = null,
+    // Set while Fast Mode waits for the user to accept a version-code mismatch.
+    val awaitingDecision: Boolean = false,
+    val mismatchDetail: String? = null
+)
+
+internal object DownloadHelperContract {
     const val ACTION_DOWNLOAD_ORIGINAL_APK = "app.morphe.manager.action.DOWNLOAD_ORIGINAL_APK"
     const val EXTRA_PROTOCOL_VERSION = "app.morphe.manager.extra.PROTOCOL_VERSION"
     const val EXTRA_CALLER_PACKAGE = "app.morphe.manager.extra.CALLER_PACKAGE"
@@ -4612,7 +4609,7 @@ private object DownloadHelperContract {
     const val EXTRA_RESULT_FILE_NAME = "app.morphe.manager.extra.RESULT_FILE_NAME"
 }
 
-private interface ApkPureApi {
+internal interface ApkPureApi {
     @Headers(
         "content-type: application/json",
         "ual-access-businessid: projecta"
@@ -4624,14 +4621,14 @@ private interface ApkPureApi {
     ): ApkPureUpdateResponse
 }
 
-private data class ApkPureUpdateRequest(
+internal data class ApkPureUpdateRequest(
     val app_info_for_update: List<ApkPureAppInfo>,
     val android_id: String = Random.nextLong().toString(16),
     val application_id: String = "com.apkpure.aegon",
     val cached_size: Long = -1
 )
 
-private data class ApkPureAppInfo(
+internal data class ApkPureAppInfo(
     val package_name: String,
     val version_code: Long,
     val is_system: Boolean = false,
@@ -4639,12 +4636,12 @@ private data class ApkPureAppInfo(
     val cached_size: Int = -1
 )
 
-private data class ApkPureUpdateResponse(
+internal data class ApkPureUpdateResponse(
     val retcode: Int = 0,
     val app_update_response: List<ApkPureAppUpdate> = emptyList()
 )
 
-private data class ApkPureAppUpdate(
+internal data class ApkPureAppUpdate(
     val package_name: String = "",
     val version_code: Long = 0L,
     val version_name: String = "",
@@ -4652,31 +4649,31 @@ private data class ApkPureAppUpdate(
     val asset: ApkPureAsset = ApkPureAsset()
 )
 
-private data class ApkPureAsset(
+internal data class ApkPureAsset(
     val type: String = "",
     val url: String = ""
 )
 
-private data class ApkPureVersionEntry(
+internal data class ApkPureVersionEntry(
     val versionName: String?,
     val versionCode: Long?,
     val downloadPageUrl: String,
     val fileKind: String
 )
 
-private data class ApkPureDeviceHeader(
+internal data class ApkPureDeviceHeader(
     val device_info: ApkPureDeviceInfo = ApkPureDeviceInfo()
 )
 
-private data class ApkPureDeviceInfo(
-    val abis: List<String> = Build.SUPPORTED_ABIS.toList(),
+internal data class ApkPureDeviceInfo(
+    val abis: List<String> = runCatching { Build.SUPPORTED_ABIS.toList() }.getOrDefault(emptyList()),
     val android_id: String = Random.nextLong().toString(16),
-    val os_ver: String = Build.VERSION.SDK_INT.toString(),
-    val os_ver_name: String = Build.VERSION.RELEASE,
+    val os_ver: String = runCatching { Build.VERSION.SDK_INT.toString() }.getOrDefault(""),
+    val os_ver_name: String = runCatching { Build.VERSION.RELEASE }.getOrNull() ?: "",
     val platform: Int = 1
 )
 
-private interface AptoideApi {
+internal interface AptoideApi {
     @POST("listSearchApps")
     suspend fun searchApps(@Body request: AptoideSearchRequest): AptoideSearchResponse
 
@@ -4687,13 +4684,19 @@ private interface AptoideApi {
     suspend fun getAppById(@Query("app_id") appId: Long): AptoideGetAppResponse
 
     @GET("listAppVersions")
-    suspend fun listAppVersionsByPackage(@Query("package_name") packageName: String): AptoideVersionListResponse
+    suspend fun listAppVersionsByPackage(
+        @Query("package_name") packageName: String,
+        @Query("limit") limit: Long = 100L
+    ): AptoideVersionListResponse
 
     @GET("listAppVersions")
-    suspend fun listAppVersionsById(@Query("app_id") appId: Long): AptoideVersionListResponse
+    suspend fun listAppVersionsById(
+        @Query("app_id") appId: Long,
+        @Query("limit") limit: Long = 100L
+    ): AptoideVersionListResponse
 }
 
-private data class AptoideSearchRequest(
+internal data class AptoideSearchRequest(
     val query: String = "",
     val limit: String = "10",
     val q: String? = null,
@@ -4701,52 +4704,52 @@ private data class AptoideSearchRequest(
     val store_ids: List<Long>? = listOf(15L, 711454L)
 )
 
-private data class AptoideSearchResponse(
+internal data class AptoideSearchResponse(
     val datalist: AptoideDataList = AptoideDataList()
 )
 
-private data class AptoideDataList(
+internal data class AptoideDataList(
     val list: List<AptoideApp> = emptyList()
 )
 
-private data class AptoideGetAppResponse(
+internal data class AptoideGetAppResponse(
     val nodes: AptoideNodes = AptoideNodes()
 )
 
-private data class AptoideVersionListResponse(
+internal data class AptoideVersionListResponse(
     val list: List<AptoideApp> = emptyList()
 )
 
-private data class AptoideNodes(
+internal data class AptoideNodes(
     val meta: AptoideMetaNode = AptoideMetaNode()
 )
 
-private data class AptoideMetaNode(
+internal data class AptoideMetaNode(
     val data: AptoideApp = AptoideApp()
 )
 
-private data class AptoideNextData(
+internal data class AptoideNextData(
     val props: AptoideNextProps = AptoideNextProps()
 )
 
-private data class AptoideNextProps(
+internal data class AptoideNextProps(
     val pageProps: AptoidePageProps = AptoidePageProps()
 )
 
-private data class AptoidePageProps(
+internal data class AptoidePageProps(
     val app: AptoideApp = AptoideApp(),
     val packageName: String = "",
     val versions: List<AptoideVersionItem> = emptyList()
 )
 
-private data class AptoideVersionItem(
+internal data class AptoideVersionItem(
     val id: Long = 0L,
     val name: String = "",
     val vername: String = "",
     val vercode: Long = 0L
 )
 
-private data class AptoideApp(
+internal data class AptoideApp(
     val id: Long = 0L,
     val name: String = "",
     @SerializedName("package")
@@ -4755,7 +4758,7 @@ private data class AptoideApp(
     val urls: AptoideUrls = AptoideUrls()
 )
 
-private data class AptoideFile(
+internal data class AptoideFile(
     val vername: String = "",
     val vercode: String = "0",
     val path: String = "",
@@ -4763,15 +4766,15 @@ private data class AptoideFile(
     val pathAlt: String = ""
 )
 
-private data class AptoideUrls(
+internal data class AptoideUrls(
     val w: String = "",
     val m: String = ""
 )
 
-private fun playStoreUrl(packageName: String): String =
+internal fun playStoreUrl(packageName: String): String =
     "https://play.google.com/store/apps/details?id=${URLEncoder.encode(packageName, "UTF-8")}"
 
-private fun fileKindFromTags(tags: List<String>, request: HelperRequest): String {
+internal fun fileKindFromTags(tags: List<String>, request: HelperRequest): String {
     val available = tags
         .map { it.trim().lowercase(Locale.US) }
         .filter { it in DOWNLOAD_FILE_KIND_SET }
@@ -4810,7 +4813,7 @@ private fun Context.isPackageInstalled(packageName: String): Boolean =
         }
     }.isSuccess
 
-private fun String.normalizedHttpUrlOrNull(): String? {
+internal fun String.normalizedHttpUrlOrNull(): String? {
     val normalized = trim().let { url ->
         when {
             url.startsWith("//") -> "https:$url"
@@ -4844,7 +4847,7 @@ private fun validateApkLikeStream(
     return SequenceInputStream(ByteArrayInputStream(header, 0, headerSize), input)
 }
 
-private fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadata? {
+internal fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadata? {
     if (file.extension.equals("apk", ignoreCase = true)) {
         return readApkMetadata(file)
     }
@@ -4852,24 +4855,50 @@ private fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadata
     return runCatching {
         val validationDir = File(cacheDir, "validation").apply { mkdirs() }
         ZipFile(file).use { zip ->
-            val entry = zip.entries()
+            // The base APK inside split containers is not always named "base.apk":
+            // some sources (e.g. APKPure XAPKs) name it after the package. Trying
+            // the first alphabetical .apk entry is wrong — config splits like
+            // config.ar.apk carry no manifest and fail to parse. Prefer the real
+            // base: exact base.apk, then a name matching the package (derived from
+            // the output file name), then the largest entry, and take the first
+            // entry that actually reads as an APK.
+            val packageHint = file.nameWithoutExtension
+                .substringBefore('-')
+                .lowercase(Locale.US)
+            val apkEntries = zip.entries()
                 .asSequence()
                 .filter { !it.isDirectory && it.name.endsWith(".apk", ignoreCase = true) }
                 .sortedWith(
-                    compareBy<java.util.zip.ZipEntry> {
-                        !it.name.substringAfterLast('/').equals("base.apk", ignoreCase = true)
-                    }.thenBy { it.name }
+                    compareBy<java.util.zip.ZipEntry> { entry ->
+                        val name = entry.name.substringAfterLast('/').lowercase(Locale.US)
+                        when {
+                            name == "base.apk" -> 0
+                            packageHint.isNotEmpty() && name.contains(packageHint) -> 1
+                            name.contains("base") -> 2
+                            else -> 3
+                        }
+                    }
+                        .thenByDescending { it.size }
+                        .thenBy { it.name }
                 )
-                .firstOrNull()
-                ?: return@runCatching null
-            val extracted = File(
-                validationDir,
-                "${file.nameWithoutExtension}-${entry.name.hashCode()}.apk".sanitizeFileName()
-            )
-            zip.getInputStream(entry).use { input ->
-                extracted.outputStream().use { output -> input.copyTo(output) }
+                .toList()
+            var metadata: DownloadedApkMetadata? = null
+            for (entry in apkEntries) {
+                val extracted = File(
+                    validationDir,
+                    "${file.nameWithoutExtension}-${entry.name.hashCode()}.apk".sanitizeFileName()
+                )
+                zip.getInputStream(entry).use { input ->
+                    extracted.outputStream().use { output -> input.copyTo(output) }
+                }
+                val read = readApkMetadata(extracted)
+                extracted.delete()
+                if (read != null) {
+                    metadata = read
+                    break
+                }
             }
-            readApkMetadata(extracted).also { extracted.delete() }
+            metadata
         }
     }.getOrNull()
 }
@@ -4891,7 +4920,7 @@ private fun Context.readApkMetadata(file: File): DownloadedApkMetadata? {
     )
 }
 
-private fun parseInfoTableValue(doc: Document, label: String): String? =
+internal fun parseInfoTableValue(doc: Document, label: String): String? =
     doc.select("tr")
         .firstOrNull { it.select("th").text().equals(label, ignoreCase = true) }
         ?.select("td")
@@ -4900,7 +4929,7 @@ private fun parseInfoTableValue(doc: Document, label: String): String? =
         ?.trim()
         ?.takeIf(String::isNotBlank)
 
-private fun fileKindFromUrl(url: String): String {
+internal fun fileKindFromUrl(url: String): String {
     val decoded = URLDecoder.decode(url, StandardCharsets.UTF_8.name()).lowercase(Locale.US)
     val fileNameKind = Regex("""filename[^.]*\.(apk|apks|apkm|xapk)""")
         .find(decoded)
@@ -4915,7 +4944,7 @@ private fun fileKindFromUrl(url: String): String {
     }
 }
 
-private fun String.slugForUrl(): String =
+internal fun String.slugForUrl(): String =
     lowercase(Locale.US)
         .replace("&", " and ")
         .replace("'", "")
@@ -4923,7 +4952,7 @@ private fun String.slugForUrl(): String =
         .trim('-')
         .ifBlank { "app" }
 
-private fun String.apkMirrorVersionSlug(): String =
+internal fun String.apkMirrorVersionSlug(): String =
     lowercase(Locale.US)
         .replace(".", "-")
         .replace("_", "-")
@@ -4931,7 +4960,7 @@ private fun String.apkMirrorVersionSlug(): String =
         .replace(Regex("-+"), "-")
         .trim('-')
 
-private fun String?.versionNameEquals(other: String?): Boolean {
+internal fun String?.versionNameEquals(other: String?): Boolean {
     if (this == null || other == null) return false
     val left = normalizedVersionName()
     val right = other.normalizedVersionName()
@@ -4943,38 +4972,53 @@ private fun String?.versionNameEquals(other: String?): Boolean {
     return leftParts.isNotEmpty() && leftParts == rightParts
 }
 
-private fun String.withoutTrailingVersionCode(): String =
+/**
+ * A downloaded result belongs to a request only when the package matches and
+ * the file's version satisfies the request (or the request didn't pin one).
+ * Used to stop a stale result — from a previous session's pending file or a
+ * replayed [DownloadJobManager.Event.Completed] — from being handed to a
+ * different request.
+ */
+internal fun PendingDownloadResult.belongsTo(request: HelperRequest?): Boolean {
+    if (request == null) return false
+    if (requestPackage != request.packageName) return false
+    val requestedName = request.requestedVersionName ?: return true
+    val candidateName = versionName ?: return true
+    return candidateName.versionNameEquals(requestedName)
+}
+
+internal fun String.withoutTrailingVersionCode(): String =
     replace(Regex("""\s*\(\s*\d+\s*\)\s*$"""), "")
         .trim()
 
-private fun String.trailingVersionCode(): Long? =
+internal fun String.trailingVersionCode(): Long? =
     Regex("""\(\s*(\d+)\s*\)\s*$""")
         .find(this)
         ?.groupValues
         ?.getOrNull(1)
         ?.toLongOrNull()
 
-private fun String.normalizedVersionName(): String =
+internal fun String.normalizedVersionName(): String =
     withoutTrailingVersionCode()
         .lowercase(Locale.US)
         .replace(Regex("""\b(version|ver|v|release|stable|apk|xapk|apkm|apks|bundle)\b"""), " ")
         .replace(Regex("""[^\p{Alnum}]+"""), ".")
         .trim('.')
 
-private fun String.withManualModeHint(): String {
+internal fun String.withManualModeHint(): String {
     if (contains("Manual mode", ignoreCase = true)) return this
     val message = trimEnd()
     val hint = "Use Manual mode for this source instead."
     return if (message.contains('\n')) "$message\n$hint" else "$message $hint"
 }
 
-private fun sourceFailureMessage(source: DownloadSource, error: Throwable): String =
+internal fun sourceFailureMessage(source: DownloadSource, error: Throwable): String =
     sourceFailureMessage(source.label, error, action = "check")
 
-private fun downloadFailureMessage(candidate: DownloadCandidate, error: Throwable): String =
+internal fun downloadFailureMessage(candidate: DownloadCandidate, error: Throwable): String =
     sourceFailureMessage(candidate.source.label, error, action = "download")
 
-private fun sourceFailureMessage(sourceLabel: String, error: Throwable, action: String): String {
+internal fun sourceFailureMessage(sourceLabel: String, error: Throwable, action: String): String {
     val details = error.failureDetails()
     val httpCode = Regex("""\bHTTP\s+(\d{3})\b""", RegexOption.IGNORE_CASE)
         .find(details)
@@ -5011,19 +5055,19 @@ private fun sourceFailureMessage(sourceLabel: String, error: Throwable, action: 
     }
 }
 
-private fun Throwable.failureDetails(): String =
+internal fun Throwable.failureDetails(): String =
     generateSequence(this) { it.cause }
         .mapNotNull { it.message?.trim()?.takeIf(String::isNotBlank) }
         .firstOrNull()
         ?: javaClass.simpleName
 
-private fun sourceVersionFromText(text: String): String? =
+internal fun sourceVersionFromText(text: String): String? =
     Regex("""\b(v?\d+(?:[._-]\d+)+(?:[-.][A-Za-z0-9]+)?)\b""", RegexOption.IGNORE_CASE)
         .find(text)
         ?.value
         ?.trim()
 
-private fun compareVersionNames(left: String?, right: String?): Int {
+internal fun compareVersionNames(left: String?, right: String?): Int {
     if (left == right) return 0
     if (left == null) return -1
     if (right == null) return 1
@@ -5040,7 +5084,7 @@ private fun compareVersionNames(left: String?, right: String?): Int {
     return left.compareTo(right, ignoreCase = true)
 }
 
-private fun String.versionNumberParts(): List<Int> =
+internal fun String.versionNumberParts(): List<Int> =
     Regex("""\d+""")
         .findAll(this)
         .mapNotNull { it.value.toIntOrNull() }
@@ -5073,7 +5117,7 @@ private fun Collection<String>.orderedFileKinds(): List<String> {
     return knownKinds + extraKinds
 }
 
-private fun String?.variantFileSuffix(): String =
+internal fun String?.variantFileSuffix(): String =
     this
         ?.lowercase(Locale.US)
         ?.replace(Regex("""[^a-z0-9._-]+"""), "-")
@@ -5082,5 +5126,5 @@ private fun String?.variantFileSuffix(): String =
         ?.let { "-$it" }
         .orEmpty()
 
-private fun String.sanitizeFileName(): String =
+internal fun String.sanitizeFileName(): String =
     replace(Regex("[^A-Za-z0-9._-]"), "_")
