@@ -3,6 +3,9 @@ package dev.rushi.apkdownloadhelper
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import java.io.File
 
 internal const val PREFS_NAME = "helper_settings"
@@ -20,8 +23,29 @@ internal data class HelperSettings(
     val networkPolicy: NetworkPolicy = NetworkPolicy.WIFI_AND_MOBILE,
     val deleteTemporaryAfterHandoff: Boolean = true,
     val logcatLogging: Boolean = true,
-    val fastMode: Boolean = false
+    val fastMode: Boolean = false,
+    val disabledSources: Set<DownloadSource> = emptySet(),
+    val themeMode: ThemeMode = ThemeMode.DARK,
+    val dynamicColors: Boolean = true
 )
+
+internal enum class ThemeMode(
+    val title: String,
+    val description: String
+) {
+    SYSTEM(
+        title = "System",
+        description = "Follow the device's dark / light setting."
+    ),
+    DARK(
+        title = "Dark",
+        description = "Always use the dark theme."
+    ),
+    LIGHT(
+        title = "Light",
+        description = "Always use the light theme."
+    )
+}
 
 internal enum class DownloadLocation(
     val title: String,
@@ -29,7 +53,7 @@ internal enum class DownloadLocation(
 ) {
     TEMPORARY(
         title = "Store in cache",
-        description = "Keep the file in Helper's cache and hand it off to Morphe — no visible copy is left behind."
+        description = "Keep the file in Helper's cache and hand it off to Morphe  no visible copy is left behind."
     ),
     DOWNLOADS(
         title = "Store in downloads",
@@ -94,7 +118,16 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         ),
         deleteTemporaryAfterHandoff = prefs.getBoolean("delete_temporary_after_handoff", true),
         logcatLogging = prefs.getBoolean("logcat_logging", true),
-        fastMode = prefs.getBoolean("fast_mode", false)
+        fastMode = prefs.getBoolean("fast_mode", false),
+        disabledSources = prefs.getStringSet("disabled_sources", emptySet())
+            .orEmpty()
+            .mapNotNull { name -> DownloadSource.entries.firstOrNull { it.name == name } }
+            .toSet(),
+        themeMode = enumValueOrDefault(
+            prefs.getString("theme_mode", null),
+            ThemeMode.DARK
+        ),
+        dynamicColors = prefs.getBoolean("dynamic_colors", true)
     )
     logcatLoggingEnabled = settings.logcatLogging
     return settings
@@ -109,6 +142,9 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putBoolean("delete_temporary_after_handoff", settings.deleteTemporaryAfterHandoff)
         .putBoolean("logcat_logging", settings.logcatLogging)
         .putBoolean("fast_mode", settings.fastMode)
+        .putStringSet("disabled_sources", settings.disabledSources.map { it.name }.toSet())
+        .putString("theme_mode", settings.themeMode.name)
+        .putBoolean("dynamic_colors", settings.dynamicColors)
         .apply()
 }
 
@@ -127,6 +163,70 @@ internal fun Context.temporaryDownloadsSize(): Long =
 /** Deletes every temporary hand-off file and returns the freed bytes. */
 internal fun Context.clearTemporaryDownloads(): Long {
     val dir = temporaryDownloadsDir()
+    val files = dir.listFiles()?.filter { it.isFile }.orEmpty()
+    val freed = files.sumOf { it.length() }
+    files.forEach { file -> runCatching { file.delete() } }
+    return freed
+}
+
+/** Path of the visible copy folder inside Downloads. */
+internal fun downloadsCopyRelativePath(): String =
+    "${Environment.DIRECTORY_DOWNLOADS}/APK Download Helper"
+
+/** Total size of the visible copies saved to Downloads. */
+internal fun Context.downloadsCopySize(): Long {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        var total = 0L
+        contentResolver.query(
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+            arrayOf(MediaStore.Downloads.SIZE),
+            "${MediaStore.Downloads.RELATIVE_PATH} LIKE ?",
+            arrayOf("${downloadsCopyRelativePath()}/%"),
+            null
+        )?.use { cursor ->
+            val sizeIndex = cursor.getColumnIndexOrThrow(MediaStore.Downloads.SIZE)
+            while (cursor.moveToNext()) {
+                total += cursor.getLong(sizeIndex)
+            }
+        }
+        return total
+    }
+    val dir = File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        "APK Download Helper"
+    )
+    return dir.listFiles()?.filter { it.isFile }?.sumOf { it.length() } ?: 0L
+}
+
+/** Deletes every visible copy in Downloads and returns the freed bytes. */
+internal fun Context.clearDownloadsCopies(): Long {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        var freed = 0L
+        contentResolver.query(
+            MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+            arrayOf(MediaStore.Downloads._ID),
+            "${MediaStore.Downloads.RELATIVE_PATH} LIKE ?",
+            arrayOf("${downloadsCopyRelativePath()}/%"),
+            null
+        )?.use { cursor ->
+            val idIndex = cursor.getColumnIndexOrThrow(MediaStore.Downloads._ID)
+            while (cursor.moveToNext()) {
+                val id = cursor.getLong(idIndex)
+                freed += runCatching {
+                    contentResolver.delete(
+                        MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                        "${MediaStore.Downloads._ID}=?",
+                        arrayOf(id.toString())
+                    )
+                }.getOrDefault(0)
+            }
+        }
+        return freed
+    }
+    val dir = File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        "APK Download Helper"
+    )
     val files = dir.listFiles()?.filter { it.isFile }.orEmpty()
     val freed = files.sumOf { it.length() }
     files.forEach { file -> runCatching { file.delete() } }

@@ -15,6 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.IBinder
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -78,12 +79,21 @@ internal object DownloadJobManager {
         val request: HelperRequest,
         val candidate: DownloadCandidate,
         val settings: HelperSettings,
-        val requestIntentExtras: Bundle? = null
+        val requestIntentExtras: Bundle? = null,
+        val epoch: Long = 0,
+        // Only Fast Mode asks the user about a version-code mismatch; manual
+        // downloads deliver the file as before the check existed.
+        val fastMode: Boolean = false
     )
 
     sealed interface Event {
-        data class Progress(val candidate: DownloadCandidate, val percent: Int) : Event
-        data class Completed(val result: PendingDownloadResult) : Event
+        data class Progress(
+            val candidate: DownloadCandidate,
+            val percent: Int,
+            val speedBytesPerSec: Double = 0.0,
+            val etaMs: Long? = null
+        ) : Event
+        data class Completed(val result: PendingDownloadResult, val epoch: Long = 0) : Event
         data class Failed(val candidate: DownloadCandidate, val message: String) : Event
         data class Cancelled(val candidate: DownloadCandidate) : Event
         // The downloaded file is valid except for its version code (which the
@@ -100,11 +110,23 @@ internal object DownloadJobManager {
     var activeJob: DownloadJob? = null
         private set
 
+    /**
+     * Monotonic session counter, bumped on every [start]. A completion event
+     * only belongs to the request session that started it, so a replayed event
+     * from an earlier session (e.g. after activity recreation) can never hand
+     * an old file to a new request  even when package and version coincide
+     * with the new request's pin.
+     */
+    @Volatile
+    var currentEpoch: Long = 0
+        private set
+
     private val _events = MutableStateFlow<Event?>(null)
     val events: StateFlow<Event?> = _events.asStateFlow()
 
     fun start(job: DownloadJob) {
-        activeJob = job
+        currentEpoch++
+        activeJob = job.copy(epoch = currentEpoch)
         _events.value = null
     }
 
@@ -155,6 +177,11 @@ internal class DownloadService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var downloadJob: Job? = null
     private var lastPostedPercent = -1
+    private var lastPostedTime = 0L
+    private var lastProgressBytes = 0L
+    private var lastProgressTime = 0L
+    private var currentSpeedBytesPerSec = 0.0
+    private var speedSamples = 0
 
     private val browserUserAgent =
         "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE}; ${Build.MODEL}) AppleWebKit/537.36 " +
@@ -214,6 +241,16 @@ internal class DownloadService : Service() {
                     stopSelf()
                     return START_NOT_STICKY
                 }
+                // A duplicate START_DOWNLOAD (a double tap, or a stale activity
+                // instance starting the same job again) must not cancel and
+                // restart the download in flight. Two jobs racing over the same
+                // files corrupts the output and lets a zombie job's Cancelled
+                // event overwrite the real completion  leaving the app stuck
+                // at 100% with the file never returned.
+                if (downloadJob?.isActive == true) {
+                    Log.i(TAG, "Download already in progress; ignoring duplicate start.")
+                    return START_NOT_STICKY
+                }
                 startDownload(job)
                 return START_NOT_STICKY
             }
@@ -228,6 +265,11 @@ internal class DownloadService : Service() {
     private fun startDownload(job: DownloadJobManager.DownloadJob) {
         val candidate = job.candidate
         lastPostedPercent = -1
+        lastPostedTime = 0L
+        lastProgressBytes = 0L
+        lastProgressTime = 0L
+        currentSpeedBytesPerSec = 0.0
+        speedSamples = 0
         val notification = buildProgressNotification(candidate, 0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(
@@ -240,6 +282,10 @@ internal class DownloadService : Service() {
             startForeground(NOTIFICATION_ID_PROGRESS, notification)
         }
         downloadJob?.cancel()
+        // Also abort any in-flight blocking body read from the old job; a
+        // coroutine cancellation alone cannot interrupt a blocking OkHttp read,
+        // which would otherwise keep writing to the same staged file.
+        downloader.cancelCurrent()
         downloadJob = serviceScope.launch {
             try {
                 val file = runDownload(job)
@@ -283,7 +329,13 @@ internal class DownloadService : Service() {
         } else {
             downloadSplitArchive(candidate, files, downloadsDir)
         }
-        validateDownloadedArtifact(this, job.request, candidate, file)
+        validateDownloadedArtifact(
+            this,
+            job.request,
+            candidate,
+            file,
+            checkVersionCode = job.fastMode
+        )
         return file
     }
 
@@ -317,7 +369,7 @@ internal class DownloadService : Service() {
             scheduleTemporaryDelete(file)
         }
 
-        DownloadJobManager.emit(DownloadJobManager.Event.Completed(result))
+        DownloadJobManager.emit(DownloadJobManager.Event.Completed(result, job.epoch))
         notifyCompletion(job, result)
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
@@ -409,7 +461,7 @@ internal class DownloadService : Service() {
             buildProgressNotification(
                 candidate,
                 lastPostedPercent.coerceAtLeast(0),
-                "Connection issue — retrying in ${delayMs / 1000}s (attempt $attempt)"
+                "Connection issue  retrying in ${delayMs / 1000}s (attempt $attempt)"
             )
         )
     }
@@ -419,11 +471,77 @@ internal class DownloadService : Service() {
 
     private fun updateDownloadProgress(candidate: DownloadCandidate, copied: Long, total: Long) {
         if (total <= 0L) return
+        val now = SystemClock.elapsedRealtime()
+        if (lastProgressTime == 0L) {
+            lastProgressTime = now
+            lastProgressBytes = copied
+        } else {
+            val dt = now - lastProgressTime
+            if (dt >= 500L) {
+                val delta = copied - lastProgressBytes
+                if (delta > 0L) {
+                    val instantaneous = delta * 1000.0 / dt
+                    // CDN reads are bursty (large chunks arrive in a few ms), so a
+                    // raw windowed speed jumps around. Exponential moving average
+                    // settles within a couple of seconds and stays stable.
+                    currentSpeedBytesPerSec = if (speedSamples == 0) {
+                        instantaneous
+                    } else {
+                        0.3 * instantaneous + 0.7 * currentSpeedBytesPerSec
+                    }
+                    speedSamples++
+                } else if (delta == 0L && speedSamples > 0) {
+                    // A stalled window (no bytes read) should drag the average
+                    // down so the ETA reflects reality instead of the last burst.
+                    currentSpeedBytesPerSec *= 0.5
+                }
+                lastProgressBytes = copied
+                lastProgressTime = now
+            }
+        }
         val percent = ((copied * 100f) / total).roundToInt().coerceIn(0, 100)
-        DownloadJobManager.emit(DownloadJobManager.Event.Progress(candidate, percent))
-        if (percent != lastPostedPercent) {
+        val etaMs = if (currentSpeedBytesPerSec > 0.0) {
+            ((total - copied) / currentSpeedBytesPerSec * 1000.0).toLong()
+        } else null
+        DownloadJobManager.emit(
+            DownloadJobManager.Event.Progress(candidate, percent, currentSpeedBytesPerSec, etaMs)
+        )
+        // Refresh at least once a second so speed/ETA stay fresh even when
+        // percent changes slowly (big files, slow links); percent-gating alone
+        // would leave a stale ETA up for many seconds.
+        if (percent != lastPostedPercent || now - lastPostedTime >= 1000L) {
             lastPostedPercent = percent
-            notifySafe(NOTIFICATION_ID_PROGRESS, buildProgressNotification(candidate, percent))
+            lastPostedTime = now
+            val speed = formatSpeed(currentSpeedBytesPerSec)
+            val text = buildString {
+                append(percent).append('%')
+                if (speed.isNotEmpty()) append(" · ").append(speed)
+                if (etaMs != null && etaMs > 0L) {
+                    append(" · ").append(formatEta(etaMs)).append(" left")
+                }
+            }
+            notifySafe(NOTIFICATION_ID_PROGRESS, buildProgressNotification(candidate, percent, text))
+        }
+    }
+
+    private fun formatSpeed(bytesPerSec: Double): String {
+        if (bytesPerSec <= 0.0) return ""
+        val mb = bytesPerSec / (1024.0 * 1024.0)
+        if (mb >= 1.0) return String.format(Locale.US, "%.1f MB/s", mb)
+        val kb = bytesPerSec / 1024.0
+        if (kb >= 1.0) return String.format(Locale.US, "%.0f KB/s", kb)
+        return String.format(Locale.US, "%.0f B/s", bytesPerSec)
+    }
+
+    private fun formatEta(ms: Long): String {
+        val totalSec = (ms / 1000L).coerceAtLeast(1L)
+        val h = totalSec / 3600L
+        val m = (totalSec % 3600L) / 60L
+        val s = totalSec % 60L
+        return if (h > 0L) {
+            String.format(Locale.US, "%d:%02d:%02d", h, m, s)
+        } else {
+            String.format(Locale.US, "%d:%02d", m, s)
         }
     }
 
@@ -581,7 +699,8 @@ internal fun validateDownloadedArtifact(
     context: Context,
     request: HelperRequest,
     candidate: DownloadCandidate,
-    file: File
+    file: File,
+    checkVersionCode: Boolean = false
 ) {
     val shouldValidateMetadata = candidate.fileKind.lowercase(Locale.US) in setOf("apk", "apks", "apkm", "xapk") ||
         file.extension.lowercase(Locale.US) in setOf("apk", "apks", "apkm", "xapk")
@@ -611,7 +730,7 @@ internal fun validateDownloadedArtifact(
         }
     }
 
-    // Wrong package or version name: the file is unusable — delete and fail.
+    // Wrong package or version name: the file is unusable  delete and fail.
     check(hardMismatches.isEmpty()) {
         file.delete()
         "Downloaded file does not match Morphe request.\n${hardMismatches.joinToString("\n")}"
@@ -619,9 +738,10 @@ internal fun validateDownloadedArtifact(
     }
 
     // Version-code-only mismatch: the file is otherwise valid, but its build
-    // differs from the request. Keep the file so the caller (Fast Mode) can
-    // ask the user whether to use it anyway.
-    if (candidate.option == CandidateOption.REQUESTED) {
+    // differs from the request. Only enforced for Fast Mode, which keeps the
+    // file and asks the user whether to use it anyway; manual downloads
+    // deliver normally.
+    if (checkVersionCode && candidate.option == CandidateOption.REQUESTED) {
         val requestedCodes = request.requestedVersionCodes +
             request.compatibleVersionCodes.filter { it > 0L }
         if (

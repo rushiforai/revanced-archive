@@ -31,6 +31,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -39,9 +40,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -60,20 +63,38 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.CleaningServices
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.LightMode
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Smartphone
+import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.OpenInBrowser
+import androidx.compose.material.icons.outlined.NetworkCheck
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material.icons.outlined.SaveAlt
+import androidx.compose.material.icons.outlined.SdStorage
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.SignalCellularAlt
+import androidx.compose.material.icons.outlined.RadioButtonChecked
+import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -84,7 +105,11 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.Composable
@@ -96,22 +121,36 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.core.graphics.drawable.toBitmap
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.aurora.gplayapi.data.models.App
@@ -250,8 +289,6 @@ class MainActivity : ComponentActivity() {
     private var uiState by mutableStateOf<UiState>(UiState.Idle)
     private var helperSettings by mutableStateOf(HelperSettings())
     private var installedPackageRefreshToken by mutableIntStateOf(0)
-    private val requestLogs = mutableStateListOf<RequestLogEntry>()
-    private val logTimeFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
     private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
     private var pendingDownload: PendingDownload? = null
     // Non-null while the in-app captcha browser is open for a candidate whose
@@ -278,7 +315,10 @@ class MainActivity : ComponentActivity() {
         if (deliverPendingResultIfPresent(request)) return
 
         setContent {
-            HelperTheme {
+            HelperTheme(
+                themeMode = helperSettings.themeMode,
+                dynamicColors = helperSettings.dynamicColors
+            ) {
                 val captcha = captchaBrowser
                 if (captcha != null) {
                     CaptchaBrowserScreen(
@@ -291,7 +331,7 @@ class MainActivity : ComponentActivity() {
                         request = request,
                         state = uiState,
                         settings = helperSettings,
-                        logs = requestLogs,
+                        logs = AppLog.entries,
                         installedPackageRefreshToken = installedPackageRefreshToken,
                         onSettingsChange = ::updateHelperSettings,
                         onRefresh = ::loadCandidates,
@@ -304,7 +344,7 @@ class MainActivity : ComponentActivity() {
                         onOpenHistoryEntry = ::openHistoryEntry,
                         onShareHistoryEntry = ::shareHistoryEntry,
                         onClearHistory = { DownloadHistoryStore.clear(applicationContext) },
-                        onClearLogs = { requestLogs.clear() },
+                        onClearLogs = { AppLog.clear() },
                         onCancel = {
                             appendLog("Query canceled by user.", LogLevel.Warning)
                             setResult(Activity.RESULT_CANCELED)
@@ -315,7 +355,8 @@ class MainActivity : ComponentActivity() {
                         onUseFastModeMismatch = { fastModeChoose(FastModeChoice.USE) },
                         onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
                         onOpenMorphe = ::openMorpheManager,
-                        onSolveCaptcha = ::openCaptchaBrowser
+                        onSolveCaptcha = ::openCaptchaBrowser,
+                        onRequestFileTypeChange = ::changeRequestedFileType
                     )
                 }
             }
@@ -353,7 +394,10 @@ class MainActivity : ComponentActivity() {
     private fun loadCandidates() {
         val activeRequest = request ?: return
         uiState = UiState.Ready(initialCandidateResult(activeRequest))
-        appendLog("Ready. Manual links prepared for ${DownloadSource.entries.size} sources.")
+        appendLog(
+            "Ready. Manual links prepared for " +
+                "${DownloadSource.entries.count { it !in helperSettings.disabledSources }} sources."
+        )
     }
 
     private fun resolveCandidates(source: DownloadSource, option: CandidateOption) {
@@ -486,10 +530,26 @@ class MainActivity : ComponentActivity() {
         parsers[candidate.source]?.resolveHistoryCandidate(request, candidate)
 
     private fun startRequestLog(request: HelperRequest?) {
-        requestLogs.clear()
+        AppLog.clear()
         if (request == null) {
+            AppLog.setRequestSummary(null)
             appendLog("Opened without a Morphe request.", LogLevel.Warning)
         } else {
+            AppLog.setRequestSummary(
+                buildString {
+                    append("App: ${request.appName}\n")
+                    append("Package: ${request.packageName}\n")
+                    append("Version: ${request.requestedVersionName ?: "any compatible"}\n")
+                    append("Build: ${request.versionCodeSummary ?: "any"}\n")
+                    append("Format: ${request.requestedFormatLabel.ifBlank { "any" }}\n")
+                    if (request.availableAbis.isNotEmpty()) {
+                        append("ABI: ${request.abiSummary}\n")
+                    }
+                    request.sourceHintUrls.takeIf { it.isNotEmpty() }?.let { urls ->
+                        append("Source hints: ${urls.joinToString()}\n")
+                    }
+                }.trimEnd()
+            )
             appendLog(
                 "Request for ${request.appName} (${request.packageName}), " +
                     "version ${request.versionName ?: "any compatible"}, " +
@@ -539,23 +599,31 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun appendLog(message: String, level: LogLevel = LogLevel.Info) {
-        val timestamp = synchronized(logTimeFormat) { logTimeFormat.format(Date()) }
-        requestLogs += RequestLogEntry(timestamp, level, message)
-        while (requestLogs.size > 200) {
-            requestLogs.removeAt(0)
-        }
-        if (logcatLoggingEnabled) {
-            when (level) {
-                LogLevel.Info -> Log.i(TAG, message)
-                LogLevel.Warning -> Log.w(TAG, message)
-                LogLevel.Error -> Log.e(TAG, message)
-            }
-        }
+        // Single shared sink: the Logs tab and the HTTP interceptor both write
+        // here, and Logcat mirroring is handled by the sink per the setting.
+        AppLog.record(level, message)
+    }
+
+    private fun changeRequestedFileType(kind: String) {
+        val active = request ?: return
+        if (active.requestedFileType?.equals(kind, ignoreCase = true) == true) return
+        // Pin the request to a single format so resolution only looks for it.
+        request = active.copy(
+            requestedFileType = kind,
+            allowSplitArchive = false
+        )
+        appendLog("Request format narrowed to ${kind.uppercase(Locale.US)}.", LogLevel.Info)
+        loadCandidates()
     }
 
     private fun updateHelperSettings(settings: HelperSettings) {
+        val sourcesChanged = helperSettings.disabledSources != settings.disabledSources
         helperSettings = settings
         saveHelperSettings(settings)
+        // Rebuild the picker so enabled/disabled sources take effect immediately.
+        if (sourcesChanged && request != null && uiState is UiState.Ready) {
+            uiState = UiState.Ready(initialCandidateResult(request!!))
+        }
         lifecycleScope.launch(Dispatchers.IO) {
             cleanupTemporaryDownloads(settings)
         }
@@ -564,7 +632,9 @@ class MainActivity : ComponentActivity() {
     private fun initialCandidateResult(request: HelperRequest): CandidateResult {
         val manual = manualCandidates(request)
         return CandidateResult(
-            sourceGroups = DownloadSource.entries.map { source ->
+            sourceGroups = DownloadSource.entries
+                .filter { it !in helperSettings.disabledSources }
+                .map { source ->
                 SourceCandidateGroup(
                     source = source,
                     manual = manual.filter { it.source == source },
@@ -751,6 +821,7 @@ class MainActivity : ComponentActivity() {
 
     private fun manualSourceUrls(request: HelperRequest): List<Pair<DownloadSource, String>> =
         parsers.values
+            .filter { it.source !in helperSettings.disabledSources }
             .mapNotNull { parser ->
                 parser.searchUrl(request.packageName)?.let { parser.source to it }
             }
@@ -812,7 +883,8 @@ class MainActivity : ComponentActivity() {
                 request = pending.request,
                 candidate = pending.candidate,
                 settings = pending.settings,
-                requestIntentExtras = intent.getExtras()
+                requestIntentExtras = intent.getExtras(),
+                fastMode = fastModeActive
             )
         )
         startForegroundService(
@@ -880,7 +952,7 @@ class MainActivity : ComponentActivity() {
                 appendLog("Could not open Morphe Manager.", LogLevel.Error)
             }
         } else {
-            appendLog("Morphe Manager is not installed — opening morphe.software.", LogLevel.Warning)
+            appendLog("Morphe Manager is not installed  opening morphe.software.", LogLevel.Warning)
             val releases = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(MORPHE_MANAGER_SITE_URL)
@@ -901,6 +973,7 @@ class MainActivity : ComponentActivity() {
         fastModeActive = true
         fastModeQueue = DownloadSource.entries
             .filter { it !in NON_FAST_MODE_SOURCES }
+            .filter { it !in helperSettings.disabledSources }
             .toMutableList()
         appendLog("Fast Mode: auto-searching sources for the exact requested version.", LogLevel.Info)
         uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
@@ -910,7 +983,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun cancelFastMode() {
-        appendLog("Fast Mode cancelled — taking over manually.", LogLevel.Warning)
+        appendLog("Fast Mode cancelled  taking over manually.", LogLevel.Warning)
         fastModeActive = false
         fastModeQueue = null
         // Unblock a pending "use this version?" question so the loop exits.
@@ -953,13 +1026,13 @@ class MainActivity : ComponentActivity() {
                     val candidate = result.candidate
                     appendLog(
                         "Fast Mode: found ${candidate.versionDisplay} on ${source.label} " +
-                            "(${candidate.fileKind.uppercase(Locale.US)}) — downloading.",
+                            "(${candidate.fileKind.uppercase(Locale.US)})  downloading.",
                         LogLevel.Info
                     )
                     uiState = UiState.FastMode(
                         FastModeProgress(
                             sourceLabel = source.label,
-                            detail = "Found ${candidate.versionDisplay} — downloading…",
+                            detail = "Found ${candidate.versionDisplay}  downloading…",
                             percent = 0
                         )
                     )
@@ -969,7 +1042,7 @@ class MainActivity : ComponentActivity() {
                 is FastModeFindResult.VersionMismatch -> {
                     val candidate = result.candidate
                     appendLog(
-                        "Fast Mode: ${source.label} has ${candidate.versionDisplay} — " +
+                        "Fast Mode: ${source.label} has ${candidate.versionDisplay}  " +
                             "build differs from requested ${request.versionCodeSummary ?: "version"}. Asking the user.",
                         LogLevel.Warning
                     )
@@ -980,7 +1053,7 @@ class MainActivity : ComponentActivity() {
                             sourceLabel = source.label,
                             detail = "Version code mismatch",
                             awaitingDecision = true,
-                            mismatchDetail = "Requested build ${request.versionCodeSummary ?: "?"} — " +
+                            mismatchDetail = "Requested build ${request.versionCodeSummary ?: "?"}  " +
                                 "${source.label} has ${candidate.versionDisplay}."
                         )
                     )
@@ -995,14 +1068,14 @@ class MainActivity : ComponentActivity() {
                         uiState = UiState.FastMode(
                             FastModeProgress(
                                 sourceLabel = source.label,
-                                detail = "Found ${candidate.versionDisplay} — downloading…",
+                                detail = "Found ${candidate.versionDisplay}  downloading…",
                                 percent = 0
                             )
                         )
                         downloadAndReturn(candidate)
                         return
                     }
-                    appendLog("Fast Mode: user skipped ${source.label} — trying the next source.", LogLevel.Info)
+                    appendLog("Fast Mode: user skipped ${source.label}  trying the next source.", LogLevel.Info)
                     continue
                 }
                 FastModeFindResult.None -> {
@@ -1037,13 +1110,13 @@ class MainActivity : ComponentActivity() {
             // Format differences are fine, but the exact version name AND
             // version code are both required. A candidate that reports a code
             // outside the request is surfaced as a mismatch the user can
-            // accept or skip — never silently downloaded.
+            // accept or skip  never silently downloaded.
             candidate.directDownload &&
                 request.matchesRequestedVersionStrict(candidate.versionName, candidate.versionCode)
         }
         if (exact != null) return FastModeFindResult.Exact(exact)
 
-        // The version name exists on this source but with a different build —
+        // The version name exists on this source but with a different build 
         // hand it to the loop so it can ask the user before proceeding.
         val mismatch = outcome.candidates.firstOrNull { candidate ->
             candidate.directDownload &&
@@ -1069,28 +1142,39 @@ class MainActivity : ComponentActivity() {
                         FastModeProgress(
                             sourceLabel = event.candidate.source.label,
                             detail = "Downloading from ${event.candidate.source.label}…",
-                            percent = event.percent
+                            percent = event.percent,
+                            speedBytesPerSec = event.speedBytesPerSec,
+                            etaMs = event.etaMs
                         )
                     )
                 } else {
-                    UiState.Downloading(event.candidate, event.percent)
+                    UiState.Downloading(
+                        event.candidate,
+                        event.percent,
+                        event.speedBytesPerSec,
+                        event.etaMs
+                    )
                 }
             }
             is DownloadJobManager.Event.Completed -> {
                 // StateFlow replays its last value to every new collector, so a
                 // freshly created activity can receive the Completed event of a
-                // previous request session (after the old activity finished
-                // handing the file to Morphe). Only act when the result belongs
-                // to the current request; otherwise discard it so the old file
-                // is never handed to a different request.
-                if (event.result.belongsTo(request)) {
+                // previous request session. Only act when the event comes from
+                // the session currently in flight (same package, same epoch);
+                // otherwise discard it so the old file is never handed to a
+                // different request. The version is intentionally NOT checked
+                // here  the user may have deliberately downloaded a different
+                // version (e.g. the Latest tab) in this session, and that file
+                // must still be returned instead of leaving the UI stuck at
+                // 100%.
+                if (event.result.belongsToCurrentSession(request, event.epoch)) {
                     appendLog("Download validated: ${event.result.fileName}.")
                     if (!deliverResult(event.result)) {
                         appendLog(
                             "Download is ready; ${event.result.callerPackage} can request it again to receive the file.",
                             LogLevel.Warning
                         )
-                        // Opened standalone with no caller to return to — keep the
+                        // Opened standalone with no caller to return to  keep the
                         // Fast Mode card showing the result and the source list
                         // reachable beneath it.
                         val wasFastMode = fastModeActive
@@ -1114,8 +1198,26 @@ class MainActivity : ComponentActivity() {
                             UiState.Idle
                         }
                     }
+                } else {
+                    appendLog(
+                        "Ignoring download completion for a different request session " +
+                            "(epoch ${event.epoch}, current ${DownloadJobManager.currentEpoch}).",
+                        LogLevel.Warning
+                    )
+                    // The stuck-at-100% symptom is gone once a terminal event
+                    // always lands somewhere  but if the UI is still showing a
+                    // stale in-flight download, reset it so the user is never
+                    // left frozen on a progress bar.
+                    if (uiState is UiState.Downloading) {
+                        val activeRequest = request
+                        uiState = if (activeRequest != null) {
+                            UiState.Ready(initialCandidateResult(activeRequest))
+                        } else {
+                            UiState.Idle
+                        }
+                    }
                 }
-                // The event has been observed (or discarded) — clear it so a
+                // The event has been observed (or discarded)  clear it so a
                 // future activity recreation cannot replay it into a new
                 // request session.
                 DownloadJobManager.clearEvent()
@@ -1126,7 +1228,7 @@ class MainActivity : ComponentActivity() {
                     val activeRequest = request
                     if (activeRequest != null && !fastModeQueue.isNullOrEmpty()) {
                         appendLog(
-                            "Fast Mode: ${event.candidate.source.label} did not work — trying the next source.",
+                            "Fast Mode: ${event.candidate.source.label} did not work  trying the next source.",
                             LogLevel.Warning
                         )
                         lifecycleScope.launch { fastModeNext(activeRequest) }
@@ -1154,19 +1256,19 @@ class MainActivity : ComponentActivity() {
             is DownloadJobManager.Event.ValidationMismatch -> {
                 // The download itself succeeded; only the version code differs
                 // from the request (the parser couldn't know it up front). The
-                // file is kept. Fast Mode asks the user; manual mode keeps the
-                // old hard-fail behavior.
+                // file is kept. Only Fast Mode asks the user; the check itself
+                // is gated to Fast Mode, so this else branch is defensive only.
                 val activeRequest = request
                 // Only the activity that owns this request may act on the
                 // event. A stale instance (no request, or a different request)
-                // must ignore it — and must NOT clear it first, or the owner's
+                // must ignore it  and must NOT clear it first, or the owner's
                 // collector would never see it (StateFlow conflates: a clear
                 // before the owner processes the event swallows it).
                 if (activeRequest == null || event.candidate.packageName != activeRequest.packageName) return
                 if (fastModeActive) {
                     appendLog(
                         "Fast Mode: ${event.candidate.source.label} downloaded " +
-                            "${event.candidate.versionDisplay} — build differs from requested " +
+                            "${event.candidate.versionDisplay}  build differs from requested " +
                             "${activeRequest.versionCodeSummary ?: "version"}. Asking the user.",
                         LogLevel.Warning
                     )
@@ -1177,7 +1279,7 @@ class MainActivity : ComponentActivity() {
                             sourceLabel = event.candidate.source.label,
                             detail = "Version code mismatch",
                             awaitingDecision = true,
-                            mismatchDetail = "Requested build ${activeRequest.versionCodeSummary ?: "?"} — " +
+                            mismatchDetail = "Requested build ${activeRequest.versionCodeSummary ?: "?"}  " +
                                 "${event.candidate.source.label} downloaded " +
                                 "${event.candidate.versionDisplay}, found build " +
                                 "${event.foundVersionCode ?: "unknown"}."
@@ -1208,7 +1310,7 @@ class MainActivity : ComponentActivity() {
                         } else {
                             event.file.delete()
                             appendLog(
-                                "Fast Mode: user skipped ${event.candidate.source.label} — " +
+                                "Fast Mode: user skipped ${event.candidate.source.label}  " +
                                     "trying the next source.",
                                 LogLevel.Info
                             )
@@ -1243,7 +1345,7 @@ class MainActivity : ComponentActivity() {
         val pending = DownloadJobManager.readPendingResult(applicationContext) ?: return false
         // The stored result belongs to a previous request session. A new request
         // for a different app (or for a different version of the same app)
-        // invalidates it — drop the pending file and its stale "return to
+        // invalidates it  drop the pending file and its stale "return to
         // Morphe" notification so the old APK can never be handed back for the
         // new request (e.g. when the old completion notification is tapped
         // while the new request is on screen).
@@ -1518,42 +1620,87 @@ private object HelperDefaults {
     val ItemSpacing = 12.dp
     val IconSizeSmall = 20.dp
     val ButtonHeight = 52.dp
-    val ActionShowWidth = 88.dp
     val ActionClearWidth = 96.dp
 }
 
 @Composable
-private fun HelperTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = darkColorScheme(
-            primary = Color(0xFFA4C9FF),
-            onPrimary = Color(0xFF00315D),
-            primaryContainer = Color(0xFF004884),
-            onPrimaryContainer = Color(0xFFD4E3FF),
-            secondary = Color(0xFFBCC7DB),
-            onSecondary = Color(0xFF263141),
-            secondaryContainer = Color(0xFF3D4758),
-            onSecondaryContainer = Color(0xFFD8E3F8),
-            tertiary = Color(0xFFD9BDE3),
-            onTertiary = Color(0xFF3D2946),
-            tertiaryContainer = Color(0xFF543F5E),
-            onTertiaryContainer = Color(0xFFF6D9FF),
-            error = Color(0xFFFFB4AB),
-            errorContainer = Color(0xFF93000A),
-            onError = Color(0xFF690005),
-            onErrorContainer = Color(0xFFFFDAD6),
-            background = Color(0xFF0B0C10),
-            onBackground = Color(0xFFE3E2E6),
-            surface = Color(0xFF1A1C1E),
-            onSurface = Color(0xFFE3E2E6),
-            surfaceVariant = Color(0xFF43474E),
-            onSurfaceVariant = Color(0xFFC3C6CF),
-            outline = Color(0xFF8D9199),
-            outlineVariant = Color(0xFF43474E),
-        ),
-        content = content
-    )
+private fun HelperTheme(
+    themeMode: ThemeMode,
+    dynamicColors: Boolean,
+    content: @Composable () -> Unit
+) {
+    val context = LocalContext.current
+    val dark = when (themeMode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.DARK -> true
+        ThemeMode.LIGHT -> false
+    }
+    helperDarkTheme = dark
+    helperDynamicColors = dynamicColors && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colorScheme = when {
+        dynamicColors && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
+            if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        dark -> darkHelperColorScheme()
+        else -> lightHelperColorScheme()
+    }
+    MaterialTheme(colorScheme = colorScheme, content = content)
 }
+
+@Composable
+private fun darkHelperColorScheme() = darkColorScheme(
+    primary = Color(0xFFA4C9FF),
+    onPrimary = Color(0xFF00315D),
+    primaryContainer = Color(0xFF004884),
+    onPrimaryContainer = Color(0xFFD4E3FF),
+    secondary = Color(0xFFBCC7DB),
+    onSecondary = Color(0xFF263141),
+    secondaryContainer = Color(0xFF3D4758),
+    onSecondaryContainer = Color(0xFFD8E3F8),
+    tertiary = Color(0xFFD9BDE3),
+    onTertiary = Color(0xFF3D2946),
+    tertiaryContainer = Color(0xFF543F5E),
+    onTertiaryContainer = Color(0xFFF6D9FF),
+    error = Color(0xFFFFB4AB),
+    errorContainer = Color(0xFF93000A),
+    onError = Color(0xFF690005),
+    onErrorContainer = Color(0xFFFFDAD6),
+    background = Color(0xFF0B0C10),
+    onBackground = Color(0xFFE3E2E6),
+    surface = Color(0xFF1A1C1E),
+    onSurface = Color(0xFFE3E2E6),
+    surfaceVariant = Color(0xFF43474E),
+    onSurfaceVariant = Color(0xFFC3C6CF),
+    outline = Color(0xFF8D9199),
+    outlineVariant = Color(0xFF43474E),
+)
+
+@Composable
+private fun lightHelperColorScheme() = lightColorScheme(
+    primary = Color(0xFF005FAD),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFFD4E3FF),
+    onPrimaryContainer = Color(0xFF001C3A),
+    secondary = Color(0xFF3D4758),
+    onSecondary = Color(0xFFFFFFFF),
+    secondaryContainer = Color(0xFFD8E3F8),
+    onSecondaryContainer = Color(0xFF263141),
+    tertiary = Color(0xFF543F5E),
+    onTertiary = Color(0xFFFFFFFF),
+    tertiaryContainer = Color(0xFFF6D9FF),
+    onTertiaryContainer = Color(0xFF3D2946),
+    error = Color(0xFFBA1A1A),
+    errorContainer = Color(0xFFFFDAD6),
+    onError = Color(0xFFFFFFFF),
+    onErrorContainer = Color(0xFF93000A),
+    background = Color(0xFFF7F8FA),
+    onBackground = Color(0xFF1A1C1E),
+    surface = Color(0xFFEFF0F3),
+    onSurface = Color(0xFF1A1C1E),
+    surfaceVariant = Color(0xFFDEE1E8),
+    onSurfaceVariant = Color(0xFF43474E),
+    outline = Color(0xFF74777F),
+    outlineVariant = Color(0xFFC4C6CF),
+)
 
 @Composable
 private fun HelperCard(
@@ -1722,7 +1869,7 @@ private fun CaptchaBrowserScreen(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Solve captcha — ${candidate.source.label}",
+                        text = "Solve captcha  ${candidate.source.label}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -1837,10 +1984,12 @@ private fun HelperScreen(
     onUseFastModeMismatch: () -> Unit,
     onSkipFastModeMismatch: () -> Unit,
     onOpenMorphe: () -> Unit,
-    onSolveCaptcha: (DownloadCandidate) -> Unit
+    onSolveCaptcha: (DownloadCandidate) -> Unit,
+    onRequestFileTypeChange: (String) -> Unit
 ) {
     var showSettings by remember { mutableStateOf(false) }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
+    var primaryAction by remember { mutableStateOf<PrimaryAction?>(null) }
     val context = LocalContext.current
     var historyEntries by remember { mutableStateOf<List<DownloadHistoryEntry>>(emptyList()) }
     val refreshHistory = {
@@ -1857,6 +2006,12 @@ private fun HelperScreen(
     }
     BackHandler(enabled = showSettings) {
         showSettings = false
+    }
+
+    val flowVisible = request != null &&
+        (state is UiState.Ready || (state is UiState.FastMode && state.progress.result != null))
+    LaunchedEffect(flowVisible) {
+        if (!flowVisible) primaryAction = null
     }
 
     Surface(
@@ -1882,10 +2037,12 @@ private fun HelperScreen(
             return@Surface
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
+        Column(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .statusBarsPadding()
                 .navigationBarsPadding()
                 .padding(horizontal = HelperDefaults.ContentPadding, vertical = HelperDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
@@ -1928,6 +2085,26 @@ private fun HelperScreen(
                             ).show()
                         }
                     )
+                    HelperThemeButton(
+                        dark = when (settings.themeMode) {
+                            ThemeMode.DARK -> true
+                            ThemeMode.LIGHT -> false
+                            ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                        },
+                        onToggle = {
+                            val target = if (settings.themeMode == ThemeMode.LIGHT) {
+                                ThemeMode.DARK
+                            } else {
+                                ThemeMode.LIGHT
+                            }
+                            onSettingsChange(settings.copy(themeMode = target))
+                            Toast.makeText(
+                                context,
+                                if (target == ThemeMode.LIGHT) "Light theme" else "Dark theme",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
                     HelperOutlinedButton(
                         text = "Settings",
                         onClick = {
@@ -1948,7 +2125,10 @@ private fun HelperScreen(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     SectionTitle("App info")
-                    AppInfoCard(request)
+                    AppInfoCard(
+                        request = request,
+                        onFormatSelected = onRequestFileTypeChange
+                    )
                 }
             }
             when (state) {
@@ -1957,7 +2137,7 @@ private fun HelperScreen(
 
                 is UiState.Ready -> {
                     item {
-                        SourceTabs(
+                        SourcePickerFlow(
                             request = request,
                             result = state.result,
                             onResolve = onResolve,
@@ -1969,7 +2149,8 @@ private fun HelperScreen(
                             onDownloadVersion = onDownloadVersion,
                             onRefresh = onRefresh,
                             onCancel = onCancel,
-                            installedPackageRefreshToken = installedPackageRefreshToken
+                            installedPackageRefreshToken = installedPackageRefreshToken,
+                            onPrimaryActionChanged = { primaryAction = it }
                         )
                     }
                 }
@@ -1991,7 +2172,7 @@ private fun HelperScreen(
                     }
                     state.progress.result?.let { result ->
                         item {
-                            SourceTabs(
+                            SourcePickerFlow(
                                 request = request,
                                 result = result,
                                 onResolve = onResolve,
@@ -2003,12 +2184,18 @@ private fun HelperScreen(
                                 onDownloadVersion = onDownloadVersion,
                                 onRefresh = onRefresh,
                                 onCancel = onCancel,
-                                installedPackageRefreshToken = installedPackageRefreshToken
+                                installedPackageRefreshToken = installedPackageRefreshToken,
+                                onPrimaryActionChanged = { primaryAction = it }
                             )
                         }
                     }
                 }
             }
+        }
+        val action = primaryAction
+        if (action != null) {
+            SourceBottomBar(action = action, onRefresh = onRefresh, onCancel = onCancel)
+        }
         }
     }
 }
@@ -2017,7 +2204,6 @@ private fun HelperScreen(
 private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
     val hasFailures = entries.any { it.status == SourceHealthStatus.Failed }
     val hasActivity = entries.any { it.status == SourceHealthStatus.Checking }
-    var expanded by remember(hasFailures) { mutableStateOf(hasFailures) }
     val failedCount = entries.count { it.status == SourceHealthStatus.Failed }
     val okCount = entries.count { it.status == SourceHealthStatus.Ok }
 
@@ -2033,44 +2219,26 @@ private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                Text(
-                    text = "Source health",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = summary,
-                    color = if (hasFailures) {
-                        MaterialTheme.colorScheme.error
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    },
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-            HelperOutlinedButton(
-                text = if (expanded) "Hide" else "Show",
-                onClick = { expanded = !expanded },
-                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
-            )
-        }
-
-        if (expanded) {
-            if (entries.isEmpty()) {
-                InfoCard("No sources checked yet. Resolve candidates on the main screen to see per-source health here.")
+        Text(
+            text = "Source health",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = summary,
+            color = if (hasFailures) {
+                MaterialTheme.colorScheme.error
             } else {
-                entries.forEach { entry ->
-                    SourceHealthRow(entry)
-                }
+                MaterialTheme.colorScheme.onSurfaceVariant
+            },
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        if (entries.isEmpty()) {
+            InfoCard("No sources checked yet. Resolve candidates on the main screen to see per-source health here.")
+        } else {
+            entries.forEach { entry ->
+                SourceHealthRow(entry)
             }
         }
     }
@@ -2079,8 +2247,8 @@ private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
 @Composable
 private fun SourceHealthRow(entry: SourceHealthEntry) {
     val (dotColor, statusText) = when (entry.status) {
-        SourceHealthStatus.Ok -> Color(0xFF66BB6A) to "Available"
-        SourceHealthStatus.Checking -> Color(0xFFFFD166) to "Checking..."
+        SourceHealthStatus.Ok -> MaterialTheme.colorScheme.primary to "Available"
+        SourceHealthStatus.Checking -> warningAccent() to "Checking..."
         SourceHealthStatus.Failed -> MaterialTheme.colorScheme.error to (entry.message ?: "Failed")
         SourceHealthStatus.NoResult -> MaterialTheme.colorScheme.onSurfaceVariant to "No matching candidates"
         SourceHealthStatus.NotChecked -> MaterialTheme.colorScheme.outline to "Not checked"
@@ -2221,6 +2389,7 @@ private fun HelperSettingsScreen(
 ) {
     val context = LocalContext.current
     val swipeThresholdPx = with(LocalDensity.current) { 72.dp.toPx() }
+    var tab by rememberSaveable { mutableStateOf(SettingsTab.Settings) }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -2274,30 +2443,45 @@ private fun HelperSettingsScreen(
         }
 
         item {
-            HelperSettingsCard(
-                settings = settings,
-                onSettingsChange = onSettingsChange
+            SettingsTabRow(
+                selected = tab,
+                onSelect = { tab = it }
             )
         }
 
-        item {
-            SourceHealthCard(healthEntries)
+        if (tab == SettingsTab.Settings) {
+            item {
+                HelperSettingsCard(
+                    settings = settings,
+                    onSettingsChange = onSettingsChange
+                )
+            }
         }
 
-        item {
-            DownloadHistorySection(
-                entries = historyEntries,
-                onClear = onClearHistory,
-                onOpen = onOpenHistoryEntry,
-                onShare = onShareHistoryEntry
-            )
+        if (tab == SettingsTab.Health) {
+            item {
+                SourceHealthCard(healthEntries)
+            }
         }
 
-        item {
-            RequestLogsCard(
-                logs = logs,
-                onClearLogs = onClearLogs
-            )
+        if (tab == SettingsTab.History) {
+            item {
+                DownloadHistorySection(
+                    entries = historyEntries,
+                    onClear = onClearHistory,
+                    onOpen = onOpenHistoryEntry,
+                    onShare = onShareHistoryEntry
+                )
+            }
+        }
+
+        if (tab == SettingsTab.Logs) {
+            item {
+                RequestLogsCard(
+                    logs = logs,
+                    onClearLogs = onClearLogs
+                )
+            }
         }
     }
 }
@@ -2309,6 +2493,7 @@ private fun HelperSettingsCard(
 ) {
     val context = LocalContext.current
     var cacheBytes by remember(context) { mutableStateOf(context.temporaryDownloadsSize()) }
+    var downloadsBytes by remember(context) { mutableStateOf(context.downloadsCopySize()) }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -2316,7 +2501,8 @@ private fun HelperSettingsCard(
     ) {
         SettingsGroupCard("Save downloads") {
             DownloadLocation.entries.forEach { location ->
-                SettingsChoiceRow(
+                SettingsOptionCard(
+                    icon = location.icon(),
                     title = location.title,
                     description = location.description,
                     selected = settings.downloadLocation == location,
@@ -2325,14 +2511,18 @@ private fun HelperSettingsCard(
                     }
                 )
             }
-            SettingsClearRow(
-                sizeBytes = cacheBytes,
+            SettingsStorageCard(
+                cacheBytes = cacheBytes,
+                downloadsBytes = downloadsBytes,
                 onClear = {
                     context.clearTemporaryDownloads()
+                    context.clearDownloadsCopies()
                     cacheBytes = 0L
+                    downloadsBytes = 0L
                 }
             )
             SettingSwitchRow(
+                icon = Icons.Outlined.CleaningServices,
                 title = "Auto-clear after hand-off",
                 description = "Remove temporary APKs after handing off to Morphe, and clear old cache files on launch.",
                 checked = settings.deleteTemporaryAfterHandoff,
@@ -2344,7 +2534,8 @@ private fun HelperSettingsCard(
 
         SettingsGroupCard("Connection") {
             NetworkPolicy.entries.forEach { policy ->
-                SettingsChoiceRow(
+                SettingsOptionCard(
+                    icon = policy.icon(),
                     title = policy.title,
                     description = policy.description,
                     selected = settings.networkPolicy == policy,
@@ -2355,8 +2546,54 @@ private fun HelperSettingsCard(
             }
         }
 
+        SettingsGroupCard("Appearance") {
+            ThemeMode.entries.forEach { mode ->
+                SettingsOptionCard(
+                    icon = mode.icon(),
+                    title = mode.title,
+                    description = mode.description,
+                    selected = settings.themeMode == mode,
+                    onClick = {
+                        onSettingsChange(settings.copy(themeMode = mode))
+                    }
+                )
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                SettingSwitchRow(
+                    icon = Icons.Outlined.Palette,
+                    title = "Material You colors",
+                    description = "Tint the app from your wallpaper instead of the default blue accent.",
+                    checked = settings.dynamicColors,
+                    onCheckedChange = {
+                        onSettingsChange(settings.copy(dynamicColors = it))
+                    }
+                )
+            }
+        }
+
+        SettingsGroupCard("Sources") {
+            DownloadSource.entries.forEach { source ->
+                SourceToggleRow(
+                    source = source,
+                    enabled = source !in settings.disabledSources,
+                    onToggle = { on ->
+                        onSettingsChange(
+                            settings.copy(
+                                disabledSources = if (on) {
+                                    settings.disabledSources - source
+                                } else {
+                                    settings.disabledSources + source
+                                }
+                            )
+                        )
+                    }
+                )
+            }
+        }
+
         SettingsGroupCard("Fast Mode") {
             SettingSwitchRow(
+                icon = Icons.Outlined.Bolt,
                 title = "Fast Mode",
                 description = "Auto-find the exact requested version and version code across sources " +
                     "(APKMirror, Uptodown, APKPure, APKCombo, Aptoide) and return it to Morphe automatically. " +
@@ -2370,6 +2607,7 @@ private fun HelperSettingsCard(
 
         SettingsGroupCard("Logging") {
             SettingSwitchRow(
+                icon = Icons.Outlined.BugReport,
                 title = "Log to Logcat",
                 description = "Write request, result, and source HTTP details to the system log (adb logcat) for debugging.",
                 checked = settings.logcatLogging,
@@ -2397,49 +2635,72 @@ private fun SettingsGroupCard(
     }
 }
 
+private fun DownloadLocation.icon(): ImageVector = when (this) {
+    DownloadLocation.TEMPORARY -> Icons.Outlined.SdStorage
+    DownloadLocation.DOWNLOADS -> Icons.Outlined.SaveAlt
+}
+
+private fun NetworkPolicy.icon(): ImageVector = when (this) {
+    NetworkPolicy.WIFI_ONLY -> Icons.Outlined.Wifi
+    NetworkPolicy.MOBILE_DATA_ONLY -> Icons.Outlined.SignalCellularAlt
+    NetworkPolicy.WIFI_AND_MOBILE -> Icons.Outlined.NetworkCheck
+}
+
+private fun ThemeMode.icon(): ImageVector = when (this) {
+    ThemeMode.SYSTEM -> Icons.Outlined.Smartphone
+    ThemeMode.DARK -> Icons.Outlined.DarkMode
+    ThemeMode.LIGHT -> Icons.Outlined.LightMode
+}
+
 @Composable
-private fun SettingsChoiceRow(
+private fun SettingsOptionCard(
+    icon: ImageVector,
     title: String,
     description: String,
     selected: Boolean,
     onClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
-    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape)
             .clickable(onClick = onClick),
         shape = shape,
-        // Stay on the dark card style; the selected state is a subtle primary
-        // tint + border + check icon instead of a solid light fill that clashes
-        // with the dark theme.
+        // Matches the home screen's source cards: dark fill + hairline border,
+        // with the selected option getting a primary tint + border + radio dot.
         color = if (selected) {
-            colors.primary.copy(alpha = 0.13f)
+            colors.primary.copy(alpha = 0.16f)
         } else {
-            colors.surfaceColorAtElevation(2.dp)
+            sourceCardFill()
         },
         contentColor = colors.onSurface,
         border = BorderStroke(
-            1.dp,
-            if (selected) {
-                colors.primary.copy(alpha = 0.55f)
+            width = if (selected) 1.5.dp else 1.dp,
+            color = if (selected) {
+                colors.primary
             } else {
-                colors.outlineVariant.copy(alpha = 0.45f)
+                sourceCardBorder()
             }
         )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (selected) colors.primary else colors.onSurfaceVariant,
+                modifier = Modifier.size(22.dp)
+            )
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
                     title,
@@ -2453,60 +2714,111 @@ private fun SettingsChoiceRow(
                     } else {
                         colors.onSurfaceVariant
                     },
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
-            if (selected) {
-                Icon(
-                    imageVector = Icons.Outlined.CheckCircle,
-                    contentDescription = "Selected",
-                    tint = colors.primary
-                )
-            }
+            RadioDot(selected = selected)
         }
     }
 }
 
 @Composable
-private fun SettingsClearRow(
-    sizeBytes: Long,
+private fun SettingsStorageCard(
+    cacheBytes: Long,
+    downloadsBytes: Long,
     onClear: () -> Unit
 ) {
-    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = shape,
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f))
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Clear storage, cache & downloads", fontWeight = FontWeight.Bold)
-                Text(
-                    text = if (sizeBytes > 0L) {
-                        "${sizeBytes.formatBytes()} in cache — tap Clear to remove it now."
-                    } else {
-                        "Cache is empty — nothing to clear."
-                    },
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
+                Icon(
+                    imageVector = Icons.Outlined.DeleteOutline,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.size(22.dp)
+                )
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text("Clear storage, cache & downloads", fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Removes both the cache copies and the visible Downloads copies.",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                HelperOutlinedButton(
+                    text = "Clear",
+                    onClick = onClear,
+                    modifier = Modifier.widthIn(min = 96.dp)
                 )
             }
-            HelperOutlinedButton(
-                text = "Clear",
-                onClick = onClear,
-                modifier = Modifier.widthIn(min = 96.dp)
+            androidx.compose.material3.HorizontalDivider(
+                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
+            )
+            StorageInfoLine(
+                icon = Icons.Outlined.SdStorage,
+                label = "Helper cache",
+                sizeBytes = cacheBytes
+            )
+            StorageInfoLine(
+                icon = Icons.Outlined.FolderOpen,
+                label = "Downloads copy",
+                sizeBytes = downloadsBytes
             )
         }
+    }
+}
+
+@Composable
+private fun StorageInfoLine(
+    icon: ImageVector,
+    label: String,
+    sizeBytes: Long
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(18.dp)
+        )
+        Text(
+            text = label,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = sizeBytes.formatBytes(),
+            fontWeight = FontWeight.Bold,
+            color = if (sizeBytes > 0L) {
+                MaterialTheme.colorScheme.onSurface
+            } else {
+                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+            },
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -2524,39 +2836,100 @@ private fun Long.formatBytes(): String {
 
 @Composable
 private fun SettingSwitchRow(
+    icon: ImageVector,
     title: String,
     description: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit
 ) {
-    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = shape,
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f))
+        // Like the option cards: the switch card tints when the toggle is on.
+        color = if (checked) colors.primary.copy(alpha = 0.16f) else sourceCardFill(),
+        border = BorderStroke(
+            width = if (checked) 1.5.dp else 1.dp,
+            color = if (checked) colors.primary else sourceCardBorder()
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(HelperDefaults.ContentPadding),
-            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (checked) colors.primary else colors.onSurfaceVariant,
+                modifier = Modifier.size(22.dp)
+            )
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                Text(title, fontWeight = FontWeight.Bold)
+                Text(
+                    title,
+                    fontWeight = FontWeight.Bold,
+                    color = if (checked) colors.primary else colors.onSurface
+                )
                 Text(
                     description,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
+                    color = colors.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
             Switch(
                 checked = checked,
                 onCheckedChange = onCheckedChange
+            )
+        }
+    }
+}
+
+@Composable
+private fun SourceToggleRow(
+    source: DownloadSource,
+    enabled: Boolean,
+    onToggle: (Boolean) -> Unit
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = shape,
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SourceAvatar(source = source, size = 32.dp)
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(1.dp)
+            ) {
+                Text(
+                    text = source.label,
+                    fontWeight = FontWeight.Bold,
+                    color = if (enabled) colors.onSurface else colors.onSurfaceVariant.copy(alpha = 0.7f)
+                )
+                Text(
+                    text = if (enabled) "Enabled" else "Disabled",
+                    color = colors.onSurfaceVariant.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
+            Switch(
+                checked = enabled,
+                onCheckedChange = onToggle
             )
         }
     }
@@ -2608,11 +2981,34 @@ private fun HelperBoltButton(
 }
 
 @Composable
-private fun AppInfoCard(request: HelperRequest) {
-    // Collapsed by default so the Sources/Variants sections stay visible on
-    // screen; tap the header to expand the request and device details.
-    var expanded by rememberSaveable(request.packageName) { mutableStateOf(false) }
+private fun HelperThemeButton(
+    dark: Boolean,
+    onToggle: () -> Unit
+) {
+    val primary = MaterialTheme.colorScheme.primary
+    OutlinedButton(
+        onClick = onToggle,
+        modifier = Modifier.size(HelperDefaults.ButtonHeight),
+        shape = RoundedCornerShape(HelperDefaults.ButtonCornerRadius),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.9f)
+        ),
+        border = BorderStroke(1.dp, primary.copy(alpha = 0.32f)),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
+            imageVector = if (dark) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
+            contentDescription = if (dark) "Switch to light theme" else "Switch to dark theme",
+            modifier = Modifier.size(HelperDefaults.IconSizeSmall)
+        )
+    }
+}
 
+@Composable
+private fun AppInfoCard(
+    request: HelperRequest,
+    onFormatSelected: (String) -> Unit
+) {
     HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
         Column(
             modifier = Modifier
@@ -2620,33 +3016,278 @@ private fun AppInfoCard(request: HelperRequest) {
                 .padding(HelperDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            AppInfoHeader(request, expanded = expanded, onToggle = { expanded = !expanded })
+            AppInfoHeader(request, onFormatSelected)
+        }
+    }
+}
 
+@Composable
+private fun AppInfoHeader(
+    request: HelperRequest,
+    onFormatSelected: (String) -> Unit
+) {
+    val context = LocalContext.current
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+    var copied by remember(request.packageName) { mutableStateOf(false) }
+    var installed by remember(request.packageName) { mutableStateOf(false) }
+    LaunchedEffect(request.packageName) {
+        installed = withContext(Dispatchers.IO) {
+            context.isPackageInstalled(request.packageName)
+        }
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AppAvatar(
+                packageName = request.packageName,
+                initial = request.appName.firstOrNull()?.uppercaseChar() ?: '?'
+            )
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = request.appName,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    if (installed) {
+                        Icon(
+                            imageVector = Icons.Outlined.CheckCircle,
+                            contentDescription = "Installed",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = request.packageName,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Icon(
+                        imageVector = Icons.Outlined.ContentCopy,
+                        contentDescription = "Copy package",
+                        tint = if (copied) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                        modifier = Modifier
+                            .size(16.dp)
+                            .clip(RoundedCornerShape(50))
+                            .clickable {
+                                clipboard?.setPrimaryClip(
+                                    ClipData.newPlainText("package", request.packageName)
+                                )
+                                copied = true
+                            }
+                            .padding(2.dp)
+                    )
+                }
+            }
+        }
+
+        // Version + Format cards side by side, same height (the build subtext
+        // would otherwise make the Version card taller).
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            AppInfoStatCard(
+                label = "Version",
+                value = request.requestedVersionName ?: "Any",
+                subtext = request.versionCodeSummary?.let { "build $it" },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            )
+            AppInfoFormatCard(
+                kinds = request.requestedFileKinds.orderedFileKinds(),
+                onSelect = onFormatSelected,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            )
+        }
+
+        AppInfoArchCard(
+            abis = request.availableAbis
+        )
+    }
+}
+
+@Composable
+private fun AppInfoStatCard(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier,
+    subtext: String? = null
+) {
+    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    Surface(
+        modifier = modifier.clip(shape),
+        shape = shape,
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.labelSmall
+            )
+            Text(
+                text = value,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            subtext?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppInfoFormatCard(
+    kinds: List<String>,
+    onSelect: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    val current = kinds.firstOrNull() ?: "apk"
+    var expanded by rememberSaveable(kinds) { mutableStateOf(false) }
+
+    Surface(
+        modifier = modifier.clip(shape),
+        shape = shape,
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text(
+                        text = "Format",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                    Text(
+                        text = current.uppercase(Locale.US),
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                if (kinds.size > 1) {
+                    // Same +N pill + chevron affordance as the Architecture card.
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(50))
+                            .clickable { expanded = !expanded }
+                            .padding(horizontal = 2.dp, vertical = 2.dp)
+                    ) {
+                        if (!expanded) {
+                            Text(
+                                text = "+${kinds.size - 1}",
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.labelSmall,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(50))
+                                    .background(
+                                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                                    )
+                                    .padding(horizontal = 8.dp, vertical = 2.dp)
+                            )
+                        }
+                        Icon(
+                            imageVector = if (expanded) {
+                                Icons.Outlined.ExpandLess
+                            } else {
+                                Icons.Outlined.ExpandMore
+                            },
+                            contentDescription = if (expanded) "Collapse formats" else "Choose format",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+            }
+            // Plain conditional (no AnimatedVisibility): this card sits in an
+            // equal-height Row(IntrinsicSize.Min), where the expand animation's
+            // intrinsic height is measured as collapsed and clips the list.
             if (expanded) {
                 androidx.compose.material3.HorizontalDivider(
                     color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
                 )
-
-                AppInfoSection("Request") {
-                    val versionLabel = listOfNotNull(
-                        request.requestedVersionName,
-                        request.versionCodeSummary?.let { "build $it" }
-                    ).joinToString(" · ").ifBlank { "Any compatible" }
-                    AppInfoRow(label = "Version", value = versionLabel)
-                    AppInfoRow(label = "Format", value = request.requestedFormatLabel)
-                }
-
-                val abis = request.availableAbis
-                if (abis.isNotEmpty()) {
-                    AppInfoSection("Device") {
-                        AppInfoChipRow(label = "ABI", items = abis)
-                    }
-                }
-
-                if (request.stockInstallRequired) {
+                kinds.forEach { kind ->
+                    val selected = kind == current
                     Text(
-                        text = "Root mount may require the stock app before Morphe patches it.",
-                        color = MaterialTheme.colorScheme.secondary
+                        text = kind.uppercase(Locale.US),
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
+                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable {
+                                onSelect(kind)
+                                expanded = false
+                            }
+                            .padding(vertical = 6.dp)
                     )
                 }
             }
@@ -2655,115 +3296,158 @@ private fun AppInfoCard(request: HelperRequest) {
 }
 
 @Composable
-private fun AppInfoHeader(
-    request: HelperRequest,
-    expanded: Boolean,
-    onToggle: () -> Unit
-) {
-    val context = LocalContext.current
-    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
-    var copied by remember(request.packageName) { mutableStateOf(false) }
+private fun AppInfoArchCard(abis: List<String>) {
+    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val displayAbis = abis.takeIf { it.isNotEmpty() } ?: listOf("Default")
 
-    Row(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(HelperDefaults.SectionCornerRadius))
-            .clickable(onClick = onToggle)
-            .padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .clip(shape)
+            .clickable(enabled = displayAbis.size > 1) { expanded = !expanded },
+        shape = shape,
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
     ) {
-        AppAvatar(initial = request.appName.firstOrNull()?.uppercaseChar() ?: '?')
-
         Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            Text(
-                text = request.appName,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
             Row(
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = request.packageName,
+                    text = "Architecture",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f, fill = false)
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = if (copied) "Copied" else "Copy",
-                    color = if (copied) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    },
-                    style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .clickable {
-                            clipboard?.setPrimaryClip(
-                                ClipData.newPlainText("package", request.packageName)
+                if (displayAbis.size > 1 && !expanded) {
+                    Text(
+                        text = "+${displayAbis.size - 1}",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                             )
-                            copied = true
-                        }
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .padding(horizontal = 8.dp, vertical = 2.dp)
+                    )
+                }
+                Icon(
+                    imageVector = if (expanded) {
+                        Icons.Outlined.ExpandLess
+                    } else {
+                        Icons.Outlined.ExpandMore
+                    },
+                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+            AnimatedExpand(visible = expanded) {
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    displayAbis.forEach { abi ->
+                        HelperChip(text = abi)
+                    }
+                }
+            }
+            if (!expanded) {
+                Text(
+                    text = displayAbis.first(),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
-
-        Icon(
-            imageVector = if (expanded) {
-                Icons.Outlined.ExpandLess
-            } else {
-                Icons.Outlined.ExpandMore
-            },
-            contentDescription = if (expanded) "Collapse" else "Expand",
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
-        )
     }
 }
 
 @Composable
-private fun AppAvatar(initial: Char) {
-    val colors = listOf(
-        Color(0xFF1A73E8),
-        Color(0xFF34A853),
-        Color(0xFFFBBC04),
-        Color(0xFFEA4335),
-        Color(0xFF4285F4),
-        Color(0xFFF25C1B)
-    )
-    val color = colors[initial.code % colors.size]
-    Box(
-        modifier = Modifier
-            .size(44.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(color.copy(alpha = 0.85f)),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = initial.toString(),
-            color = Color.White,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
+private fun AppAvatar(packageName: String, initial: Char) {
+    val context = LocalContext.current
+    // Fetch the installed app's real icon; when the app isn't installed use the
+    // Android default app icon; the letter tile is the last-resort fallback.
+    var iconBitmap by remember(packageName) { mutableStateOf<ImageBitmap?>(null) }
+    LaunchedEffect(packageName) {
+        iconBitmap = withContext(Dispatchers.IO) {
+            val installed = runCatching {
+                context.packageManager.getApplicationIcon(packageName)
+            }.getOrNull()
+            val drawable = installed
+                ?: context.packageManager.getDefaultActivityIcon()
+            runCatching {
+                drawable.toBitmap(width = 176, height = 176).asImageBitmap()
+            }.getOrNull()
+        }
+    }
+
+    if (iconBitmap != null) {
+        Image(
+            bitmap = iconBitmap!!,
+            contentDescription = null,
+            modifier = Modifier
+                .size(44.dp)
+                .clip(RoundedCornerShape(12.dp))
         )
+    } else {
+        val colors = listOf(
+            Color(0xFF1A73E8),
+            Color(0xFF4C8DFF),
+            Color(0xFFFBBC04),
+            Color(0xFFEA4335),
+            Color(0xFF4285F4),
+            Color(0xFFF25C1B)
+        )
+        val color = colors[initial.code % colors.size]
+        Box(
+            modifier = Modifier
+                .size(44.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(color.copy(alpha = 0.85f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = initial.toString(),
+                color = Color.White,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
 
+/** Shared expand/collapse animation for every collapsible section. */
 @Composable
-private fun AppInfoSection(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+private fun AnimatedExpand(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    AnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = expandVertically(
+            animationSpec = tween(220),
+            expandFrom = Alignment.Top
+        ) + fadeIn(animationSpec = tween(220)),
+        exit = shrinkVertically(
+            animationSpec = tween(180),
+            shrinkTowards = Alignment.Top
+        ) + fadeOut(animationSpec = tween(180))
     ) {
-        SectionTitle(title)
         content()
     }
 }
@@ -2779,51 +3463,6 @@ private fun SectionTitle(title: String) {
 }
 
 @Composable
-private fun AppInfoRow(label: String, value: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        Text(
-            text = label,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(0.30f)
-        )
-        Text(
-            text = value,
-            fontWeight = FontWeight.Medium,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(0.70f)
-        )
-    }
-}
-
-@Composable
-private fun AppInfoChipRow(label: String, items: List<String>) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.Top
-    ) {
-        Text(
-            text = label,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(0.30f)
-        )
-        FlowRow(
-            modifier = Modifier.weight(0.70f),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            items.forEach { abi ->
-                HelperChip(text = abi)
-            }
-        }
-    }
-}
-
-@Composable
 private fun LoadingState() {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -2834,8 +3473,16 @@ private fun LoadingState() {
     }
 }
 
+private data class PrimaryAction(
+    val label: String,
+    val icon: ImageVector,
+    val enabled: Boolean = true,
+    val loading: Boolean = false,
+    val run: () -> Unit
+)
+
 @Composable
-private fun SourceTabs(
+private fun SourcePickerFlow(
     request: HelperRequest,
     result: CandidateResult,
     onResolve: (DownloadSource, CandidateOption) -> Unit,
@@ -2847,67 +3494,161 @@ private fun SourceTabs(
     onDownloadVersion: (DownloadCandidate) -> Unit,
     onRefresh: () -> Unit,
     onCancel: () -> Unit,
-    installedPackageRefreshToken: Int
+    installedPackageRefreshToken: Int,
+    onPrimaryActionChanged: (PrimaryAction?) -> Unit
 ) {
     val groups = result.sourceGroups
 
+    // All sources disabled: show a hint instead of crashing on an empty pager.
+    if (groups.isEmpty()) {
+        SideEffect { onPrimaryActionChanged(null) }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            InfoCard(
+                "All sources are disabled. Enable at least one source in " +
+                    "Settings → Sources to resolve or download."
+            )
+        }
+        return
+    }
+
     val pagerState = rememberPagerState(initialPage = 0) { groups.size }
     val scope = rememberCoroutineScope()
+    var showHowItWorks by remember { mutableStateOf(false) }
+    // The source cards collapse by default so the page stays focused on the
+    // selected source's content; the SelectedSourceBar below always shows
+    // what's selected.
+    var sourcesExpanded by rememberSaveable { mutableStateOf(false) }
+    // Version type per source, so switching sources keeps the chosen mode.
+    var subTabBySource by remember { mutableStateOf<Map<DownloadSource, SourceSubTab>>(emptyMap()) }
+
+    // Clamp in case a source was disabled while this screen was showing.
+    val currentGroup = groups[pagerState.currentPage.coerceIn(0, groups.lastIndex)]
+    val currentSubTab = subTabBySource[currentGroup.source]
+        ?: defaultSubTab(currentGroup, request)
+
+    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
+    val openCandidateLink: (DownloadCandidate) -> Unit = { candidate ->
+        if (candidate.source == DownloadSource.PLAY) {
+            context.openPlayStoreListing(candidate.packageName, candidate.url)
+        } else {
+            uriHandler.openUri(candidate.url)
+        }
+    }
+
+    val action = remember(currentGroup, currentSubTab) {
+        buildPrimaryAction(
+            group = currentGroup,
+            tab = currentSubTab,
+            onResolve = onResolve,
+            onDownload = onDownload,
+            onVersionHistory = onVersionHistory,
+            openLink = openCandidateLink
+        )
+    }
+    SideEffect { onPrimaryActionChanged(action) }
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Sources")
-            SourceSelector(
-                groups = groups,
-                selectedIndex = pagerState.currentPage,
-                onSelect = { index ->
-                    scope.launch {
-                        // Slide for adjacent sources (feels like a swipe), but jump
-                        // straight to distant ones instead of dragging the pager
-                        // through every source in between.
-                        if (abs(index - pagerState.currentPage) <= 1) {
-                            pagerState.animateScrollToPage(index)
-                        } else {
-                            pagerState.scrollToPage(index)
-                        }
-                    }
-                }
-            )
-        }
-
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Commands")
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                HelperOutlinedButton(
-                    text = "Refresh",
-                    onClick = onRefresh,
-                    icon = Icons.Outlined.Refresh,
-                    modifier = Modifier.weight(1f)
+                // Tapping the title toggles the source cards.
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .clickable { sourcesExpanded = !sourcesExpanded }
+                        .padding(horizontal = 4.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SectionTitle("Download source")
+                    if (!sourcesExpanded) {
+                        Text(
+                            text = "· ${groups.size}",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    Icon(
+                        imageVector = if (sourcesExpanded) {
+                            Icons.Outlined.ExpandLess
+                        } else {
+                            Icons.Outlined.ExpandMore
+                        },
+                        contentDescription = if (sourcesExpanded) "Collapse sources" else "Expand sources",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = "How it works",
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .clickable { showHowItWorks = !showHowItWorks }
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
                 )
-                HelperOutlinedButton(
-                    text = "Cancel",
-                    onClick = onCancel,
-                    modifier = Modifier.weight(1f)
+            }
+            AnimatedExpand(visible = sourcesExpanded) {
+                if (showHowItWorks) {
+                    InfoCard(
+                        "Pick a source, then a version type. The helper finds the version, " +
+                            "downloads it, validates it against Morphe's request, and returns it. " +
+                            "If a source gates the file behind a captcha, tap \"Solve captcha in app\" " +
+                            " a real browser opens and any download it produces is captured back."
+                    )
+                }
+                SourceGrid(
+                    groups = groups,
+                    selectedIndex = pagerState.currentPage,
+                    onSelect = { index ->
+                        scope.launch {
+                            // Slide for adjacent sources (feels like a swipe), but jump
+                            // straight to distant ones instead of dragging the pager
+                            // through every source in between.
+                            if (abs(index - pagerState.currentPage) <= 1) {
+                                pagerState.animateScrollToPage(index)
+                            } else {
+                                pagerState.scrollToPage(index)
+                            }
+                        }
+                        // Keep the page clean: collapse the grid after picking.
+                        sourcesExpanded = false
+                    }
                 )
             }
         }
+
+        SelectedSourceBar(source = currentGroup.source)
 
         HorizontalPager(
             state = pagerState,
             key = { index -> groups[index].source },
             // Only compose the current page so the pager's height matches the page on
             // screen instead of the tallest neighbor (which left dead space on short
-            // pages). Pages are top-aligned so content never floats away from the pills.
+            // pages). Pages are top-aligned so content never floats away from the cards.
             beyondViewportPageCount = 0,
             verticalAlignment = Alignment.Top,
             modifier = Modifier.fillMaxWidth()
         ) { page ->
+            val group = groups[page]
             SourcePageContent(
                 request = request,
-                group = groups[page],
+                group = group,
+                selectedTab = subTabBySource[group.source] ?: defaultSubTab(group, request),
+                onSelectTab = { tab ->
+                    subTabBySource = subTabBySource + (group.source to tab)
+                },
                 onResolve = onResolve,
                 onDownload = onDownload,
                 onPickDownloadedFile = onPickDownloadedFile,
@@ -2921,11 +3662,422 @@ private fun SourceTabs(
     }
 }
 
-private enum class SourceSubTab(val label: String) {
-    Manual("Manual"),
-    Recommended("Recommended"),
-    Latest("Latest"),
-    History("History")
+private fun subTabsFor(group: SourceCandidateGroup, request: HelperRequest): List<SourceSubTab> =
+    buildList {
+        if (group.manual.isNotEmpty()) add(SourceSubTab.Manual)
+        if (request.hasKnownVersionRequest && group.source.supportsRecommended) {
+            add(SourceSubTab.Recommended)
+        }
+        add(SourceSubTab.Latest)
+        if (group.source.supportsHistory) {
+            add(SourceSubTab.History)
+        }
+    }
+
+private fun defaultSubTab(group: SourceCandidateGroup, request: HelperRequest): SourceSubTab =
+    subTabsFor(group, request).firstOrNull() ?: SourceSubTab.Latest
+
+private fun buildPrimaryAction(
+    group: SourceCandidateGroup,
+    tab: SourceSubTab,
+    onResolve: (DownloadSource, CandidateOption) -> Unit,
+    onDownload: (DownloadCandidate) -> Unit,
+    onVersionHistory: (DownloadSource) -> Unit,
+    openLink: (DownloadCandidate) -> Unit
+): PrimaryAction = when (tab) {
+    SourceSubTab.Manual -> {
+        val first = group.manual.firstOrNull()
+        PrimaryAction(
+            label = if (first == null) "No manual link" else "Open source site",
+            icon = Icons.Outlined.OpenInBrowser,
+            enabled = first != null,
+            run = { first?.let(openLink) }
+        )
+    }
+
+    SourceSubTab.Recommended,
+    SourceSubTab.Latest -> {
+        val isLatest = tab == SourceSubTab.Latest
+        val state = if (isLatest) group.latest else group.recommended
+        val option = if (isLatest) CandidateOption.LATEST else CandidateOption.REQUESTED
+        val resolveLabel = if (isLatest) "Find latest version" else "Find requested version"
+        when (state) {
+            ResolveState.Loading -> PrimaryAction(
+                label = if (isLatest) "Checking latest..." else "Checking requested version...",
+                icon = Icons.Outlined.Search,
+                enabled = false,
+                loading = true,
+                run = {}
+            )
+            is ResolveState.Done -> {
+                val direct = state.candidates.firstOrNull { it.directDownload }
+                if (direct != null) {
+                    PrimaryAction(
+                        label = "Download ${direct.versionDisplay}",
+                        icon = Icons.Outlined.Download,
+                        run = { onDownload(direct) }
+                    )
+                } else {
+                    PrimaryAction(
+                        label = resolveLabel,
+                        icon = Icons.Outlined.Search,
+                        run = { onResolve(group.source, option) }
+                    )
+                }
+            }
+            else -> PrimaryAction(
+                label = resolveLabel,
+                icon = Icons.Outlined.Search,
+                run = { onResolve(group.source, option) }
+            )
+        }
+    }
+
+    SourceSubTab.History -> when (group.history) {
+        VersionHistoryState.Idle -> PrimaryAction(
+            label = "Load versions",
+            icon = Icons.Outlined.History,
+            run = { onVersionHistory(group.source) }
+        )
+        VersionHistoryState.Loading -> PrimaryAction(
+            label = "Loading versions...",
+            icon = Icons.Outlined.History,
+            enabled = false,
+            loading = true,
+            run = {}
+        )
+        else -> PrimaryAction(
+            label = "Reload versions",
+            icon = Icons.Outlined.Refresh,
+            run = { onVersionHistory(group.source) }
+        )
+    }
+}
+
+private val sourceCategories: List<Pair<String, List<DownloadSource>>> = listOf(
+    "Official" to listOf(
+        DownloadSource.PLAY,
+        DownloadSource.AURORA
+    ),
+    "Trusted mirrors" to listOf(
+        DownloadSource.APK_MIRROR,
+        DownloadSource.UPTODOWN,
+        DownloadSource.APK_PURE,
+        DownloadSource.APK_COMBO
+    ),
+    "Other sources" to listOf(
+        DownloadSource.APTOIDE,
+        DownloadSource.EVOZI,
+        DownloadSource.MI9,
+        DownloadSource.APK_DOWNLOADER
+    )
+)
+
+@Composable
+private fun SourceGrid(
+    groups: List<SourceCandidateGroup>,
+    selectedIndex: Int,
+    onSelect: (Int) -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        sourceCategories.forEach { (title, sources) ->
+            val catGroups = sources.mapNotNull { source ->
+                groups.firstOrNull { it.source == source }
+            }
+            if (catGroups.isEmpty()) return@forEach
+
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                SectionTitle(title)
+                catGroups.chunked(2).forEach { rowGroups ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        rowGroups.forEach { group ->
+                            val index = groups.indexOfFirst { it.source == group.source }
+                            SourceCard(
+                                group = group,
+                                selected = index == selectedIndex,
+                                onClick = { onSelect(index) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        if (rowGroups.size == 1) {
+                            Spacer(Modifier.weight(1f))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Tracks the active dark/light and Material You states (themeMode-aware) so
+// non-scheme helpers like the source-card fill can adapt with the rest of the
+// UI  wallpaper-tinted surfaces when dynamic colors are on.
+private var helperDarkTheme by mutableStateOf(true)
+private var helperDynamicColors by mutableStateOf(false)
+
+@Composable
+private fun sourceCardFill(): Color = when {
+    helperDynamicColors -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
+    helperDarkTheme -> Color(0xFF1C1E22)
+    else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
+}
+
+@Composable
+private fun sourceCardBorder(): Color = when {
+    helperDynamicColors -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)
+    helperDarkTheme -> Color(0xFF2A2D33)
+    else -> MaterialTheme.colorScheme.outlineVariant
+}
+
+@Composable
+private fun SourceCard(
+    group: SourceCandidateGroup,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val confirmed = group.source != DownloadSource.PLAY &&
+        ((group.latest as? ResolveState.Done)?.candidates?.isNotEmpty() == true ||
+            (group.recommended as? ResolveState.Done)?.candidates?.isNotEmpty() == true)
+
+    val shape = RoundedCornerShape(16.dp)
+    Surface(
+        modifier = modifier
+            .clip(shape)
+            .clickable(onClick = onClick),
+        shape = shape,
+        color = sourceCardFill(),
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        border = BorderStroke(
+            width = if (selected) 1.5.dp else 1.dp,
+            color = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.8f) else sourceCardBorder()
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SourceAvatar(source = group.source)
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = group.source.label,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (confirmed) {
+                    Icon(
+                        imageVector = Icons.Outlined.CheckCircle,
+                        contentDescription = "Available",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
+            RadioDot(selected = selected)
+        }
+    }
+}
+
+private data class SourceBrand(
+    val resId: Int
+)
+
+private fun DownloadSource.brand(): SourceBrand = when (this) {
+    DownloadSource.PLAY -> SourceBrand(resId = R.drawable.ic_src_play)
+    DownloadSource.APK_MIRROR -> SourceBrand(resId = R.drawable.ic_src_apkmirror)
+    DownloadSource.APK_PURE -> SourceBrand(resId = R.drawable.ic_src_apkpure)
+    DownloadSource.APK_COMBO -> SourceBrand(resId = R.drawable.ic_src_apkcombo)
+    DownloadSource.UPTODOWN -> SourceBrand(resId = R.drawable.ic_src_uptodown)
+    DownloadSource.AURORA -> SourceBrand(resId = R.drawable.ic_src_aurora)
+    DownloadSource.APTOIDE -> SourceBrand(resId = R.drawable.ic_src_aptoide)
+    DownloadSource.EVOZI -> SourceBrand(resId = R.drawable.ic_src_evozi)
+    DownloadSource.MI9 -> SourceBrand(resId = R.drawable.ic_src_mi9)
+    DownloadSource.APK_DOWNLOADER -> SourceBrand(resId = R.drawable.ic_src_apkdownloader)
+}
+
+@Composable
+private fun SourceAvatar(source: DownloadSource, size: Dp = 40.dp) {
+    // Official brand logo: square artwork, shown as-is with rounded corners.
+    Image(
+        painter = painterResource(source.brand().resId),
+        contentDescription = null,
+        modifier = Modifier
+            .size(size)
+            .clip(RoundedCornerShape(12.dp))
+    )
+}
+
+@Composable
+private fun RadioDot(selected: Boolean) {
+    Icon(
+        imageVector = if (selected) {
+            Icons.Outlined.RadioButtonChecked
+        } else {
+            Icons.Outlined.RadioButtonUnchecked
+        },
+        contentDescription = if (selected) "Selected" else null,
+        tint = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f)
+        },
+        modifier = Modifier.size(18.dp)
+    )
+}
+
+@Composable
+private fun SelectedSourceBar(source: DownloadSource) {
+    val shape = RoundedCornerShape(16.dp)
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape),
+        shape = shape,
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.10f),
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.65f))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SourceAvatar(source = source, size = 32.dp)
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(1.dp)
+            ) {
+                Text(
+                    text = "Selected source",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.labelSmall
+                )
+                Text(
+                    text = source.label,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Icon(
+                imageVector = Icons.Outlined.CheckCircle,
+                contentDescription = "Selected",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(22.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun SourceBottomBar(
+    action: PrimaryAction,
+    onRefresh: () -> Unit,
+    onCancel: () -> Unit
+) {
+    Column {
+        androidx.compose.material3.HorizontalDivider(
+            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(horizontal = HelperDefaults.ContentPadding, vertical = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SourceSquareButton(
+                icon = Icons.Outlined.Refresh,
+                contentDescription = "Refresh",
+                onClick = onRefresh
+            )
+            SourceSquareButton(
+                icon = Icons.Outlined.Close,
+                contentDescription = "Cancel",
+                onClick = onCancel
+            )
+            Button(
+                onClick = action.run,
+                enabled = action.enabled,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(HelperDefaults.ButtonHeight),
+                shape = RoundedCornerShape(HelperDefaults.ButtonCornerRadius),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.28f),
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.48f)),
+                contentPadding = PaddingValues(horizontal = HelperDefaults.ContentPadding)
+            ) {
+                if (action.loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(
+                        imageVector = action.icon,
+                        contentDescription = null,
+                        modifier = Modifier.size(HelperDefaults.IconSizeSmall)
+                    )
+                }
+                Spacer(Modifier.width(HelperDefaults.ContentPaddingSmall))
+                Text(action.label, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SourceSquareButton(
+    icon: ImageVector,
+    contentDescription: String,
+    onClick: () -> Unit
+) {
+    val primary = MaterialTheme.colorScheme.primary
+    OutlinedButton(
+        onClick = onClick,
+        modifier = Modifier.size(HelperDefaults.ButtonHeight),
+        shape = RoundedCornerShape(HelperDefaults.ButtonCornerRadius),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.9f)
+        ),
+        border = BorderStroke(1.dp, primary.copy(alpha = 0.32f)),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
+            modifier = Modifier.size(HelperDefaults.IconSizeSmall)
+        )
+    }
+}
+
+private enum class SourceSubTab(
+    val label: String,
+    val icon: ImageVector
+) {
+    Manual("Manual", Icons.Outlined.Tune),
+    Recommended("Recommended", Icons.Outlined.CheckCircle),
+    Latest("Latest", Icons.Outlined.Star),
+    History("History", Icons.Outlined.History)
 }
 
 /** Sources that can resolve the exact requested version from their own data. */
@@ -2958,6 +4110,8 @@ private val DownloadSource.supportsHistory: Boolean
 private fun SourcePageContent(
     request: HelperRequest,
     group: SourceCandidateGroup,
+    selectedTab: SourceSubTab,
+    onSelectTab: (SourceSubTab) -> Unit,
     onResolve: (DownloadSource, CandidateOption) -> Unit,
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate) -> Unit,
@@ -2967,40 +4121,24 @@ private fun SourcePageContent(
     onDownloadVersion: (DownloadCandidate) -> Unit,
     installedPackageRefreshToken: Int
 ) {
-    val subTabs = remember(group, request) {
-        buildList {
-            if (group.manual.isNotEmpty()) add(SourceSubTab.Manual)
-            if (request.hasKnownVersionRequest && group.source.supportsRecommended) {
-                add(SourceSubTab.Recommended)
-            }
-            add(SourceSubTab.Latest)
-            if (group.source.supportsHistory) {
-                add(SourceSubTab.History)
-            }
-        }
-    }
-    var selectedTab by rememberSaveable(group.source) {
-        mutableStateOf(subTabs.firstOrNull() ?: SourceSubTab.Latest)
-    }
+    val subTabs = remember(group, request) { subTabsFor(group, request) }
     val safeTab = subTabs.firstOrNull { it == selectedTab } ?: subTabs.firstOrNull()
         ?: SourceSubTab.Latest
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionTitle("Variants")
-            SubTabRow(
+            SectionTitle("Version type")
+            VersionTypeRow(
                 tabs = subTabs,
                 selected = safeTab,
-                onSelect = { selectedTab = it }
+                onSelect = onSelectTab
             )
         }
 
+        AboutModeCard(tab = safeTab)
+
         when (safeTab) {
             SourceSubTab.Manual -> {
-                InfoCard(
-                    "Manual: open the link to download this app from the source's site, " +
-                        "then tap \"Select downloaded file\" to return it to Morphe."
-                )
                 group.manual.forEach { candidate ->
                     CandidateCard(
                         request = request,
@@ -3015,19 +4153,10 @@ private fun SourcePageContent(
             }
 
             SourceSubTab.Recommended -> {
-                InfoCard(
-                    "Recommended: finds the exact version Morphe requested on this source, " +
-                        "then download it to return to Morphe."
-                )
                 CandidateResolveSection(
                     request = request,
                     state = group.recommended,
-                    actionText = "Find recommended",
-                    loadingText = "Checking recommended version...",
                     emptyText = "Requested version was not found on this source. Use Manual mode for this source instead.",
-                    onResolve = {
-                        onResolve(group.source, CandidateOption.REQUESTED)
-                    },
                     onDownload = onDownload,
                     onPickDownloadedFile = onPickDownloadedFile,
                     onUseInstalledApp = onUseInstalledApp,
@@ -3044,22 +4173,12 @@ private fun SourcePageContent(
                     DownloadSource.PLAY -> {
                         InfoCard("Play opens the official Play Store listing for this app. Use Manual mode if you need a specific version.")
                     }
-                    else -> {
-                        InfoCard(
-                            "Latest: finds the newest version of this app on the source, " +
-                                "then download it to return to Morphe."
-                        )
-                    }
+                    else -> Unit
                 }
                 CandidateResolveSection(
                     request = request,
                     state = group.latest,
-                    actionText = "Find latest",
-                    loadingText = "Checking latest version...",
                     emptyText = "Latest version was not found on this source. Use Manual mode for this source instead.",
-                    onResolve = {
-                        onResolve(group.source, CandidateOption.LATEST)
-                    },
                     onDownload = onDownload,
                     onPickDownloadedFile = onPickDownloadedFile,
                     onUseInstalledApp = onUseInstalledApp,
@@ -3069,13 +4188,8 @@ private fun SourcePageContent(
             }
 
             SourceSubTab.History -> {
-                InfoCard(
-                    "Version history: lists every version this source offers, " +
-                        "then download any of them to return to Morphe."
-                )
                 VersionHistorySection(
                     state = group.history,
-                    onResolve = { onVersionHistory(group.source) },
                     onDownloadVersion = onDownloadVersion,
                     onSolveCaptcha = onSolveCaptcha
                 )
@@ -3085,26 +4199,197 @@ private fun SourcePageContent(
 }
 
 @Composable
-private fun SubTabRow(
+private fun VersionTypeRow(
     tabs: List<SourceSubTab>,
     selected: SourceSubTab,
     onSelect: (SourceSubTab) -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         tabs.forEach { tab ->
-            SourcePill(
-                text = tab.label,
+            VersionTypeCard(
+                tab = tab,
                 selected = tab == selected,
                 onClick = { onSelect(tab) },
-                modifier = Modifier.weight(1f),
-                height = 36.dp,
-                minWidth = 0.dp,
-                textStyle = MaterialTheme.typography.labelMedium,
-                textHorizontalPadding = 8.dp
+                modifier = Modifier.weight(1f)
             )
+        }
+    }
+}
+
+@Composable
+private fun VersionTypeCard(
+    tab: SourceSubTab,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconTabCard(
+        label = tab.label,
+        icon = tab.icon,
+        selected = selected,
+        onClick = onClick,
+        modifier = modifier
+    )
+}
+
+/** Icon + label card used for tab rows (home version types and settings tabs). */
+@Composable
+private fun IconTabCard(
+    label: String,
+    icon: ImageVector,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val shape = RoundedCornerShape(16.dp)
+    Surface(
+        modifier = modifier
+            .clip(shape)
+            .clickable(onClick = onClick),
+        shape = shape,
+        color = if (selected) {
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
+        } else {
+            sourceCardFill()
+        },
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        border = BorderStroke(
+            width = if (selected) 1.5.dp else 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                sourceCardBorder()
+            }
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp, vertical = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (selected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = label,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.labelSmall,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                color = if (selected) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                }
+            )
+        }
+    }
+}
+
+private enum class SettingsTab(
+    val label: String,
+    val icon: ImageVector
+) {
+    Settings("Settings", Icons.Outlined.Tune),
+    Health("Health", Icons.Outlined.VerifiedUser),
+    History("History", Icons.Outlined.History),
+    Logs("Logs", Icons.Outlined.BugReport)
+}
+
+@Composable
+private fun SettingsTabRow(
+    selected: SettingsTab,
+    onSelect: (SettingsTab) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        SettingsTab.entries.forEach { tab ->
+            IconTabCard(
+                label = tab.label,
+                icon = tab.icon,
+                selected = tab == selected,
+                onClick = { onSelect(tab) },
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun AboutModeCard(tab: SourceSubTab) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val title = when (tab) {
+        SourceSubTab.Manual -> "About manual mode"
+        SourceSubTab.Recommended -> "About recommended mode"
+        SourceSubTab.Latest -> "About latest mode"
+        SourceSubTab.History -> "About version history"
+    }
+    val description = when (tab) {
+        SourceSubTab.Manual ->
+            "Opens the source's website so you can download the file yourself, " +
+                "then select it to return it to Morphe."
+        SourceSubTab.Recommended ->
+            "Finds the exact version Morphe requested from the selected source " +
+                "and downloads it."
+        SourceSubTab.Latest ->
+            "Finds the newest compatible version from the selected source and downloads it."
+        SourceSubTab.History ->
+            "Lists every version this source offers  pick any of them and download it."
+    }
+    HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(HelperDefaults.CompactCornerRadius))
+                    .clickable { expanded = !expanded }
+                    .padding(horizontal = HelperDefaults.ContentPadding, vertical = 14.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                Icon(
+                    imageVector = if (expanded) {
+                        Icons.Outlined.ExpandLess
+                    } else {
+                        Icons.Outlined.ExpandMore
+                    },
+                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            AnimatedExpand(visible = expanded) {
+                androidx.compose.material3.HorizontalDivider(
+                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
+                )
+                Text(
+                    text = description,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(
+                        horizontal = HelperDefaults.ContentPadding,
+                        vertical = 14.dp
+                    )
+                )
+            }
         }
     }
 }
@@ -3112,43 +4397,17 @@ private fun SubTabRow(
 @Composable
 private fun VersionHistorySection(
     state: VersionHistoryState,
-    onResolve: () -> Unit,
     onDownloadVersion: (DownloadCandidate) -> Unit,
     onSolveCaptcha: (DownloadCandidate) -> Unit
 ) {
     when (state) {
-        VersionHistoryState.Idle -> {
-            HelperOutlinedButton(
-                text = "Load versions",
-                onClick = onResolve,
-                icon = Icons.Outlined.Search,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        VersionHistoryState.Loading -> {
-            HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(HelperDefaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
-                    Text("Loading versions...", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-        }
+        // Idle and Loading are driven entirely by the bottom-bar primary
+        // action button; the content area shows results only.
+        VersionHistoryState.Idle,
+        VersionHistoryState.Loading -> Unit
 
         is VersionHistoryState.Error -> {
             InfoCard(state.message)
-            HelperOutlinedButton(
-                text = "Try again",
-                onClick = onResolve,
-                icon = Icons.Outlined.Refresh,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
 
         is VersionHistoryState.Done -> {
@@ -3201,13 +4460,13 @@ private fun VersionHistoryRow(
                         // browsed in the in-app captcha browser, not downloaded.
                         candidate.captchaUrl != null && !candidate.directDownload ->
                             "Browsable in the in-app browser (version history)"
-                        showOpenLink -> "No direct download — open the version page"
+                        showOpenLink -> "No direct download  open the version page"
                         // History rows know only the version page until the
                         // user taps Download, which resolves the real format.
                         // "web" is a placeholder, not an actual file type, so
                         // don't render it as if the row just links out.
                         candidate.fileKind.equals("web", ignoreCase = true) ->
-                            "Direct download — format resolved on download"
+                            "Direct download  format resolved on download"
                         else -> candidate.fileKind.uppercase(Locale.US)
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -3256,10 +4515,7 @@ private fun VersionHistoryRow(
 private fun CandidateResolveSection(
     request: HelperRequest,
     state: ResolveState,
-    actionText: String,
-    loadingText: String,
     emptyText: String,
-    onResolve: () -> Unit,
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate) -> Unit,
     onUseInstalledApp: (DownloadCandidate) -> Unit,
@@ -3267,29 +4523,10 @@ private fun CandidateResolveSection(
     installedPackageRefreshToken: Int
 ) {
     when (state) {
-        ResolveState.Idle -> {
-            HelperOutlinedButton(
-                text = actionText,
-                onClick = onResolve,
-                icon = Icons.Outlined.Search,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        ResolveState.Loading -> {
-            HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(HelperDefaults.ContentPadding),
-                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
-                    Text(loadingText, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-        }
+        // Idle and Loading are driven entirely by the bottom-bar primary
+        // action button; the content area shows results only.
+        ResolveState.Idle,
+        ResolveState.Loading -> Unit
 
         is ResolveState.Done -> {
             if (state.candidates.isEmpty()) {
@@ -3322,87 +4559,11 @@ private fun CandidateResolveSection(
                     installedPackageRefreshToken = installedPackageRefreshToken
                 )
             }
-            HelperOutlinedButton(
-                text = "Try again",
-                onClick = onResolve,
-                icon = Icons.Outlined.Refresh,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
 
-@Composable
-private fun SourceSelector(
-    groups: List<SourceCandidateGroup>,
-    selectedIndex: Int,
-    onSelect: (Int) -> Unit
-) {
-    // Split the sources into two balanced rows; pills stretch to fill each row end to end.
-    val firstRowCount = (groups.size + 1) / 2
-    Column(verticalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)) {
-        var globalIndex = 0
-        groups.chunked(firstRowCount).forEach { rowGroups ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
-            ) {
-                rowGroups.forEach { group ->
-                    val index = globalIndex++
-                    SourcePill(
-                        text = group.source.label,
-                        selected = index == selectedIndex,
-                        onClick = { onSelect(index) },
-                        modifier = Modifier.weight(1f),
-                        minWidth = 0.dp,
-                        textStyle = MaterialTheme.typography.labelMedium,
-                        textHorizontalPadding = 8.dp
-                    )
-                }
-            }
-        }
-    }
-}
 
-@Composable
-private fun SourcePill(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    height: Dp = 44.dp,
-    minWidth: Dp = 92.dp,
-    textStyle: TextStyle = MaterialTheme.typography.labelLarge,
-    textHorizontalPadding: Dp = HelperDefaults.ContentPadding
-) {
-    val shape = RoundedCornerShape(50)
-    val colors = MaterialTheme.colorScheme
-    Surface(
-        modifier = modifier
-            .height(height)
-            .widthIn(min = minWidth)
-            .clip(shape)
-            .clickable(onClick = onClick),
-        shape = shape,
-        color = if (selected) colors.primary else colors.surfaceColorAtElevation(3.dp),
-        contentColor = if (selected) colors.onPrimary else colors.onSurfaceVariant,
-        border = BorderStroke(
-            1.dp,
-            if (selected) colors.primary else colors.outlineVariant.copy(alpha = 0.55f)
-        )
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            Text(
-                text = text,
-                style = textStyle,
-                fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(horizontal = textHorizontalPadding)
-            )
-        }
-    }
-}
 
 @Composable
 private fun InfoCard(text: String) {
@@ -3426,7 +4587,6 @@ private fun DownloadHistorySection(
     onShare: (DownloadHistoryEntry) -> Unit
 ) {
     val context = LocalContext.current
-    var expanded by rememberSaveable { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
@@ -3447,26 +4607,19 @@ private fun DownloadHistorySection(
                 onClick = onClear,
                 modifier = Modifier.width(HelperDefaults.ActionClearWidth)
             )
-            HelperOutlinedButton(
-                text = if (expanded) "Hide" else "Show",
-                onClick = { expanded = !expanded },
-                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
-            )
         }
 
-        if (expanded) {
-            if (entries.isEmpty()) {
-                InfoCard("No hand-offs recorded yet. Downloads and picked files you return to Morphe show up here.")
-            } else {
-                entries.forEach { entry ->
-                    val usable = remember(entry.uri) { context.isHistoryUriUsable(entry.uri) }
-                    HistoryEntryCard(
-                        entry = entry,
-                        usable = usable,
-                        onOpen = { onOpen(entry) },
-                        onShare = { onShare(entry) }
-                    )
-                }
+        if (entries.isEmpty()) {
+            InfoCard("No hand-offs recorded yet. Downloads and picked files you return to Morphe show up here.")
+        } else {
+            entries.forEach { entry ->
+                val usable = remember(entry.uri) { context.isHistoryUriUsable(entry.uri) }
+                HistoryEntryCard(
+                    entry = entry,
+                    usable = usable,
+                    onOpen = { onOpen(entry) },
+                    onShare = { onShare(entry) }
+                )
             }
         }
     }
@@ -3477,7 +4630,7 @@ private fun RequestLogsCard(
     logs: List<RequestLogEntry>,
     onClearLogs: () -> Unit
 ) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
@@ -3494,36 +4647,43 @@ private fun RequestLogsCard(
                 modifier = Modifier.weight(1f)
             )
             HelperOutlinedButton(
+                text = "Share",
+                icon = Icons.Outlined.Share,
+                onClick = {
+                    val share = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_SUBJECT, "APK Download Helper logs")
+                        putExtra(Intent.EXTRA_TEXT, AppLog.exportText())
+                    }
+                    context.startActivity(Intent.createChooser(share, "Share logs"))
+                },
+                // Icon + text needs more room than the plain "Clear" button.
+                modifier = Modifier.widthIn(min = 120.dp)
+            )
+            HelperOutlinedButton(
                 text = "Clear",
                 onClick = onClearLogs,
                 modifier = Modifier.width(HelperDefaults.ActionClearWidth)
             )
-            HelperOutlinedButton(
-                text = if (expanded) "Hide" else "Show",
-                onClick = { expanded = !expanded },
-                modifier = Modifier.width(HelperDefaults.ActionShowWidth)
-            )
         }
 
-        if (expanded) {
-            if (logs.isEmpty()) {
-                InfoCard("No logs yet.")
-            } else {
-                HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
-                    SelectionContainer {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(HelperDefaults.ContentPadding),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            logs.takeLast(80).forEach { entry ->
-                                Text(
-                                    text = "${entry.time} ${entry.level.badge} ${entry.message}",
-                                    color = entry.level.color(),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
+        if (logs.isEmpty()) {
+            InfoCard("No logs yet.")
+        } else {
+            HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
+                SelectionContainer {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(HelperDefaults.ContentPadding),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        logs.takeLast(80).forEach { entry ->
+                            Text(
+                                text = "${entry.time} ${entry.level.badge} ${entry.message}",
+                                color = entry.level.color(),
+                                style = MaterialTheme.typography.bodySmall
+                            )
                         }
                     }
                 }
@@ -3549,16 +4709,18 @@ private fun CandidateCard(
         candidate.versionCode != null ||
         !candidate.fileKind.equals("web", ignoreCase = true)
     var hasOpenedLink by remember(candidate.identityKey()) { mutableStateOf(false) }
+    // Manual-mode links are opened by the bottom-bar primary action, so the
+    // "installed app" offer applies as soon as the row renders.
+    val linkConsideredOpened = hasOpenedLink || candidate.option == CandidateOption.MANUAL
     val showUseInstalledApp = candidate.source == DownloadSource.PLAY &&
-        hasOpenedLink &&
-        remember(candidate.packageName, hasOpenedLink, installedPackageRefreshToken) {
+        linkConsideredOpened &&
+        remember(candidate.packageName, linkConsideredOpened, installedPackageRefreshToken) {
             context.isPackageInstalled(candidate.packageName)
         }
 
-    // A plain web link whose only content is the Open link action (manual-mode
-    // rows, and info-less Play/Aurora listings) renders as a bare outlined
-    // button to match the idle action buttons instead of a filled card around
-    // a single button.
+    // A plain web link with no resolved metadata (manual-mode rows, and
+    // info-less Play/Aurora listings) renders as a bare action instead of a
+    // filled card around a single button.
     val bareLink = candidate.note == null &&
         !hasResolvedCandidateInfo &&
         !candidate.directDownload &&
@@ -3584,15 +4746,33 @@ private fun CandidateCard(
                 icon = Icons.Outlined.Download,
                 modifier = Modifier.fillMaxWidth()
             )
+        } else if (candidate.option == CandidateOption.MANUAL) {
+            // Manual-mode rows: the bottom-bar primary action opens the link
+            // ("Open source site"), so the card only offers the return flow.
+            if (candidate.source.supportsManualArtifactPicker) {
+                HelperButton(
+                    text = "Select downloaded file",
+                    onClick = onPickDownloadedFile,
+                    icon = Icons.Outlined.FolderOpen,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            if (showUseInstalledApp) {
+                HelperButton(
+                    text = "Use installed app",
+                    onClick = onUseInstalledApp,
+                    icon = Icons.Outlined.CheckCircle,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         } else {
             // Resolved candidates (Recommended/Latest/History) from every source
             // except Aurora and Play can fall back to the in-app captcha
             // browser: it opens the candidate's page in a real WebView (passing
             // any Cloudflare challenge) and captures the download URL the page
-            // produces. Manual-mode links stay plain open-link rows — their job
-            // is the external "select downloaded file" flow.
-            if (candidate.option != CandidateOption.MANUAL &&
-                candidate.source != DownloadSource.AURORA &&
+            // produces. The Open link action stays here because the bottom bar
+            // for these tabs shows "Find latest/requested" instead.
+            if (candidate.source != DownloadSource.AURORA &&
                 candidate.source != DownloadSource.PLAY
             ) {
                 HelperButton(
@@ -3701,16 +4881,9 @@ private fun CandidateInfoChips(request: HelperRequest, candidate: DownloadCandid
 
 @Composable
 private fun CandidateMatchBox(match: CandidateMatchSummary) {
-    val containerColor = if (match.matches) {
-        Color(0xFF12382D)
-    } else {
-        Color(0xFF432023)
-    }
-    val contentColor = if (match.matches) {
-        Color(0xFF79DEAF)
-    } else {
-        Color(0xFFFFB3AC)
-    }
+    val tone = if (match.matches) ChipTone.Success else ChipTone.Error
+    val containerColor = toneContainer(tone)
+    val contentColor = toneContent(tone)
 
     HelperCard(
         cornerRadius = HelperDefaults.CompactCornerRadius,
@@ -3736,22 +4909,9 @@ private fun CandidateMatchBox(match: CandidateMatchSummary) {
 
 @Composable
 private fun HelperChip(text: String, tone: ChipTone = ChipTone.Neutral) {
-    val colors = MaterialTheme.colorScheme
-    val containerColor = when (tone) {
-        ChipTone.Neutral -> colors.surfaceVariant.copy(alpha = 0.42f)
-        ChipTone.Success -> Color(0xFF12382D)
-        ChipTone.Error -> Color(0xFF432023)
-    }
-    val contentColor = when (tone) {
-        ChipTone.Neutral -> colors.onSurfaceVariant
-        ChipTone.Success -> Color(0xFF79DEAF)
-        ChipTone.Error -> Color(0xFFFFB3AC)
-    }
-    val borderColor = when (tone) {
-        ChipTone.Neutral -> colors.outlineVariant.copy(alpha = 0.5f)
-        ChipTone.Success -> Color(0xFF79DEAF).copy(alpha = 0.34f)
-        ChipTone.Error -> Color(0xFFFFB3AC).copy(alpha = 0.34f)
-    }
+    val containerColor = toneContainer(tone)
+    val contentColor = toneContent(tone)
+    val borderColor = toneBorder(tone)
 
     Surface(
         shape = RoundedCornerShape(50),
@@ -3775,6 +4935,31 @@ private enum class ChipTone {
     Success,
     Error
 }
+
+@Composable
+private fun toneContainer(tone: ChipTone): Color = when (tone) {
+    ChipTone.Neutral -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f)
+    ChipTone.Success -> if (helperDarkTheme) Color(0xFF12382D) else Color(0xFFC8E6C9)
+    ChipTone.Error -> if (helperDarkTheme) Color(0xFF432023) else Color(0xFFFFCDD2)
+}
+
+@Composable
+private fun toneContent(tone: ChipTone): Color = when (tone) {
+    ChipTone.Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
+    ChipTone.Success -> if (helperDarkTheme) Color(0xFF79DEAF) else Color(0xFF1B5E20)
+    ChipTone.Error -> if (helperDarkTheme) Color(0xFFFFB3AC) else Color(0xFFB71C1C)
+}
+
+@Composable
+private fun toneBorder(tone: ChipTone): Color = when (tone) {
+    ChipTone.Neutral -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+    ChipTone.Success -> toneContent(ChipTone.Success).copy(alpha = if (helperDarkTheme) 0.34f else 0.35f)
+    ChipTone.Error -> toneContent(ChipTone.Error).copy(alpha = if (helperDarkTheme) 0.34f else 0.35f)
+}
+
+@Composable
+private fun warningAccent(): Color =
+    if (helperDarkTheme) Color(0xFFFFD166) else Color(0xFF9A6700)
 
 @Composable
 private fun CheckingPickedFileState(state: UiState.CheckingPickedFile) {
@@ -3903,7 +5088,14 @@ private fun FastModeCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${progress.percent}%",
+                        text = buildString {
+                            append(progress.percent).append('%')
+                            val speed = formatTransferSpeed(progress.speedBytesPerSec)
+                            if (speed.isNotEmpty()) append("  ·  ").append(speed)
+                            if (progress.etaMs != null && progress.etaMs > 0L) {
+                                append("  ·  ").append(formatTransferEta(progress.etaMs)).append(" left")
+                            }
+                        },
                         fontWeight = FontWeight.Medium
                     )
                     HelperOutlinedButton(
@@ -3941,7 +5133,17 @@ private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("${state.percent}%", fontWeight = FontWeight.Medium)
+                Text(
+                    text = buildString {
+                        append(state.percent).append('%')
+                        val speed = formatTransferSpeed(state.speedBytesPerSec)
+                        if (speed.isNotEmpty()) append("  ·  ").append(speed)
+                        if (state.etaMs != null && state.etaMs > 0L) {
+                            append("  ·  ").append(formatTransferEta(state.etaMs)).append(" left")
+                        }
+                    },
+                    fontWeight = FontWeight.Medium
+                )
                 HelperOutlinedButton(
                     text = "Cancel",
                     onClick = onCancel,
@@ -3949,6 +5151,27 @@ private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
                 )
             }
         }
+    }
+}
+
+private fun formatTransferSpeed(bytesPerSec: Double): String {
+    if (bytesPerSec <= 0.0) return ""
+    val mb = bytesPerSec / (1024.0 * 1024.0)
+    if (mb >= 1.0) return String.format(Locale.US, "%.1f MB/s", mb)
+    val kb = bytesPerSec / 1024.0
+    if (kb >= 1.0) return String.format(Locale.US, "%.0f KB/s", kb)
+    return String.format(Locale.US, "%.0f B/s", bytesPerSec)
+}
+
+private fun formatTransferEta(ms: Long): String {
+    val totalSec = (ms / 1000L).coerceAtLeast(1L)
+    val h = totalSec / 3600L
+    val m = (totalSec % 3600L) / 60L
+    val s = totalSec % 60L
+    return if (h > 0L) {
+        String.format(Locale.US, "%d:%02d:%02d", h, m, s)
+    } else {
+        String.format(Locale.US, "%d:%02d", m, s)
     }
 }
 
@@ -4113,7 +5336,7 @@ internal data class HelperRequest(
      * Strict matcher used by Fast Mode, where the exact version name AND the
      * exact version code are both required. Unlike [matchesRequestedVersion]
      * (which accepts a name-only match), a candidate that reports a version
-     * code outside the requested set is rejected up front — so Fast Mode
+     * code outside the requested set is rejected up front  so Fast Mode
      * doesn't download a file that validation would reject anyway. When the
      * source doesn't report a code, the name match is accepted (validation is
      * still the backstop for the downloaded artifact).
@@ -4523,22 +5746,10 @@ internal enum class VersionStatus(val label: String) {
     LATEST("Latest")
 }
 
-private data class RequestLogEntry(
-    val time: String,
-    val level: LogLevel,
-    val message: String
-)
-
-private enum class LogLevel(val badge: String) {
-    Info("I"),
-    Warning("W"),
-    Error("E")
-}
-
 @Composable
 private fun LogLevel.color(): Color = when (this) {
     LogLevel.Info -> MaterialTheme.colorScheme.onSurfaceVariant
-    LogLevel.Warning -> Color(0xFFFFD166)
+    LogLevel.Warning -> warningAccent()
     LogLevel.Error -> MaterialTheme.colorScheme.error
 }
 
@@ -4547,7 +5758,12 @@ private sealed interface UiState {
     data object Loading : UiState
     data class Ready(val result: CandidateResult) : UiState
     data class CheckingPickedFile(val candidate: DownloadCandidate) : UiState
-    data class Downloading(val candidate: DownloadCandidate, val percent: Int) : UiState
+    data class Downloading(
+        val candidate: DownloadCandidate,
+        val percent: Int,
+        val speedBytesPerSec: Double = 0.0,
+        val etaMs: Long? = null
+    ) : UiState
     data class Error(val message: String) : UiState
     data class FastMode(val progress: FastModeProgress) : UiState
 }
@@ -4574,6 +5790,8 @@ private data class FastModeProgress(
     val sourceLabel: String? = null,
     val detail: String = "Starting…",
     val percent: Int? = null,
+    val speedBytesPerSec: Double = 0.0,
+    val etaMs: Long? = null,
     val done: Boolean = false,
     val succeeded: Boolean = false,
     // Present once Fast Mode finishes so the regular source list stays reachable.
@@ -4857,7 +6075,7 @@ internal fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadat
         ZipFile(file).use { zip ->
             // The base APK inside split containers is not always named "base.apk":
             // some sources (e.g. APKPure XAPKs) name it after the package. Trying
-            // the first alphabetical .apk entry is wrong — config splits like
+            // the first alphabetical .apk entry is wrong  config splits like
             // config.ar.apk carry no manifest and fail to parse. Prefer the real
             // base: exact base.apk, then a name matching the package (derived from
             // the output file name), then the largest entry, and take the first
@@ -4931,15 +6149,23 @@ internal fun parseInfoTableValue(doc: Document, label: String): String? =
 
 internal fun fileKindFromUrl(url: String): String {
     val decoded = URLDecoder.decode(url, StandardCharsets.UTF_8.name()).lowercase(Locale.US)
+    // Kind detection must be scoped to the file name (final path segment): CDN
+    // hosts and APKMirror's own download.php path embed "apkmirror", so a bare
+    // substring check for "apkm" wrongly matches and labels plain APKs as APKM
+    // bundles, which then fail validation as containers.
+    val path = runCatching { java.net.URI(decoded).path }.getOrDefault("")
+    val fileName = path.substringAfterLast('/')
+    val extension = fileName.substringAfterLast('.', "")
     val fileNameKind = Regex("""filename[^.]*\.(apk|apks|apkm|xapk)""")
         .find(decoded)
         ?.groupValues
         ?.getOrNull(1)
     return when {
+        extension in setOf("apk", "apks", "apkm", "xapk") -> extension
         fileNameKind != null -> fileNameKind
-        "xapk" in decoded -> "xapk"
-        "apks" in decoded -> "apks"
-        "apkm" in decoded -> "apkm"
+        "xapk" in fileName -> "xapk"
+        "apks" in fileName -> "apks"
+        "apkm" in fileName -> "apkm"
         else -> "apk"
     }
 }
@@ -4975,8 +6201,8 @@ internal fun String?.versionNameEquals(other: String?): Boolean {
 /**
  * A downloaded result belongs to a request only when the package matches and
  * the file's version satisfies the request (or the request didn't pin one).
- * Used to stop a stale result — from a previous session's pending file or a
- * replayed [DownloadJobManager.Event.Completed] — from being handed to a
+ * Used to stop a stale result  from a previous session's pending file or a
+ * replayed [DownloadJobManager.Event.Completed]  from being handed to a
  * different request.
  */
 internal fun PendingDownloadResult.belongsTo(request: HelperRequest?): Boolean {
@@ -4986,6 +6212,23 @@ internal fun PendingDownloadResult.belongsTo(request: HelperRequest?): Boolean {
     val candidateName = versionName ?: return true
     return candidateName.versionNameEquals(requestedName)
 }
+
+/**
+ * A live completion event belongs to the current session when the package
+ * matches the request on screen and the event was produced by the session
+ * currently in flight (see [DownloadJobManager.currentEpoch]). Unlike
+ * [belongsTo], the version is deliberately not compared: within the same
+ * session the user may have chosen a different version (Latest/History tab)
+ * and that file must still be returned to the caller instead of being
+ * silently discarded, which previously left the app frozen at 100%.
+ */
+internal fun PendingDownloadResult.belongsToCurrentSession(
+    request: HelperRequest?,
+    epoch: Long
+): Boolean =
+    request != null &&
+        requestPackage == request.packageName &&
+        epoch == DownloadJobManager.currentEpoch
 
 internal fun String.withoutTrailingVersionCode(): String =
     replace(Regex("""\s*\(\s*\d+\s*\)\s*$"""), "")
