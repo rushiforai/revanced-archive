@@ -24,6 +24,7 @@ MarcaDian/Mystery-manager
 MojiRS/revanced-rif-patches
 NL-TCH/portfolio-performance-freemium-patch
 NexAlloy/NexAlloy
+Paresh-Maheshwari/morphe-ai
 PawiX25/pepper-revanced-patches
 ReVanced/revanced-patches
 Slenderman00/revanced-patches-grindr
@@ -38,6 +39,7 @@ YT-Advanced/ReX-patches
 alim-zanibekov/ultrasandbox
 bawr/revanced-patches
 blazskufca/revanced-patch
+brosssh/morphe-mcp
 brosssh/revanced-external-bundles
 burgers1312/revanced-patches
 chsbuffer/RevancedXposed
@@ -56,6 +58,7 @@ inotia00/revanced-cli-arsclib
 inotia00/revanced-manager
 inotia00/revanced-patches
 jkennethcarino/privacy-revanced-patches
+jpa102/morphe_feature_flags
 kangrio/MicroG-Patches-Re
 kitadai31/revanced-manager-android5-7
 kitadai31/revanced-patches-android6-7
