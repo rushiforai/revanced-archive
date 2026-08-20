@@ -9,7 +9,6 @@ import android.provider.MediaStore
 import java.io.File
 
 internal const val PREFS_NAME = "helper_settings"
-internal const val TEMP_CLEANUP_MAX_AGE_MS = 6 * 60 * 60 * 1000L
 
 /**
  * Mirrors the user's Logcat preference so long-lived clients (built before
@@ -17,6 +16,13 @@ internal const val TEMP_CLEANUP_MAX_AGE_MS = 6 * 60 * 60 * 1000L
  */
 @Volatile
 internal var logcatLoggingEnabled = true
+
+/**
+ * Mirrors the user's AdGuard DNS preference so OkHttp clients (built before
+ * settings load) can route lookups per request without holding a Context.
+ */
+@Volatile
+internal var adGuardDnsEnabled = false
 
 internal data class HelperSettings(
     val downloadLocation: DownloadLocation = DownloadLocation.TEMPORARY,
@@ -26,7 +32,8 @@ internal data class HelperSettings(
     val fastMode: Boolean = false,
     val disabledSources: Set<DownloadSource> = emptySet(),
     val themeMode: ThemeMode = ThemeMode.DARK,
-    val dynamicColors: Boolean = true
+    val dynamicColors: Boolean = true,
+    val adGuardDns: Boolean = false
 )
 
 internal enum class ThemeMode(
@@ -127,14 +134,17 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             prefs.getString("theme_mode", null),
             ThemeMode.DARK
         ),
-        dynamicColors = prefs.getBoolean("dynamic_colors", true)
+        dynamicColors = prefs.getBoolean("dynamic_colors", true),
+        adGuardDns = prefs.getBoolean("adguard_dns", false)
     )
     logcatLoggingEnabled = settings.logcatLogging
+    adGuardDnsEnabled = settings.adGuardDns
     return settings
 }
 
 internal fun Context.saveHelperSettings(settings: HelperSettings) {
     logcatLoggingEnabled = settings.logcatLogging
+    adGuardDnsEnabled = settings.adGuardDns
     getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         .edit()
         .putString("download_location", settings.downloadLocation.name)
@@ -145,6 +155,7 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putStringSet("disabled_sources", settings.disabledSources.map { it.name }.toSet())
         .putString("theme_mode", settings.themeMode.name)
         .putBoolean("dynamic_colors", settings.dynamicColors)
+        .putBoolean("adguard_dns", settings.adGuardDns)
         .apply()
 }
 
@@ -233,11 +244,65 @@ internal fun Context.clearDownloadsCopies(): Long {
     return freed
 }
 
-internal fun Context.cleanupTemporaryDownloads(settings: HelperSettings) {
-    if (!settings.deleteTemporaryAfterHandoff) return
-    val cutoff = System.currentTimeMillis() - TEMP_CLEANUP_MAX_AGE_MS
+/**
+ * Cleans up handed-off and stale temporary files when auto-clear is enabled,
+ * returning the freed bytes (0 if nothing was removed).
+ *
+ * Two sources of leftovers are handled:
+ *  1. Handed-off files whose in-process deleter died with the process (they were
+ *     recorded in `pending_temp_deletes` at hand-off time).
+ *  2. Older handed-off files that predate that record: once past the same grace
+ *     period, anything in the temp dir is dropped unless it is the file the
+ *     pending hand-off result still points at (Morphe can re-request it) or an
+ *     in-progress download's `.part` staging file.
+ */
+internal fun Context.cleanupTemporaryDownloads(settings: HelperSettings): Long {
+    if (!settings.deleteTemporaryAfterHandoff) return 0L
+    var freed = 0L
+    val now = System.currentTimeMillis()
+    val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    val deleteCutoff = now - TEMP_CLEANUP_DELAY_MS
+
+    // The file the pending hand-off result still points at must survive.
+    val pendingFile = DownloadJobManager.readPendingResult(this)
+        ?.fileName
+        ?.let { name -> File(temporaryDownloadsDir(), name).canonicalPath }
+
+    // 1) Recorded handed-off deletions the in-process deleter never ran.
+    val pending = prefs.getStringSet("pending_temp_deletes", emptySet()).orEmpty()
+    if (pending.isNotEmpty()) {
+        val remaining = pending.toMutableSet()
+        pending.forEach { entry ->
+            val path = entry.substringBeforeLast('|')
+            val recordedAt = entry.substringAfterLast('|').toLongOrNull() ?: 0L
+            val file = File(path)
+            when {
+                !file.exists() -> remaining.remove(entry)
+                now - recordedAt >= TEMP_CLEANUP_DELAY_MS -> {
+                    freed += file.length()
+                    runCatching { file.delete() }
+                    remaining.remove(entry)
+                }
+            }
+        }
+        prefs.edit().putStringSet("pending_temp_deletes", remaining).apply()
+    }
+
+    // 2) Handed-off leftovers with no record: past the grace period, drop every
+    //    temp file that is not the pending re-request target or an in-flight
+    //    download's staging file.
     temporaryDownloadsDir()
         .listFiles()
-        ?.filter { it.isFile && it.lastModified() < cutoff }
-        ?.forEach { file -> runCatching { file.delete() } }
+        ?.filter {
+            it.isFile &&
+                it.lastModified() < deleteCutoff &&
+                it.name.endsWith(".part").not() &&
+                it.canonicalPath != pendingFile
+        }
+        ?.forEach { file ->
+            freed += file.length()
+            runCatching { file.delete() }
+        }
+
+    return freed
 }

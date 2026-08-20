@@ -19,8 +19,10 @@ import android.os.Looper
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
+import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -64,6 +66,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.CleaningServices
+import androidx.compose.material.icons.outlined.Dns
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DarkMode
@@ -95,6 +98,7 @@ import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material.icons.outlined.Wifi
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -142,7 +146,6 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -227,6 +230,7 @@ class MainActivity : ComponentActivity() {
     private val client = OkHttpClient.Builder()
         .followRedirects(true)
         .followSslRedirects(true)
+        .dns(AdGuardDns)
         .addInterceptor { chain ->
             chain.proceed(
                 chain.request().newBuilder()
@@ -239,6 +243,7 @@ class MainActivity : ComponentActivity() {
     private val apkPureClient = OkHttpClient.Builder()
         .followRedirects(true)
         .followSslRedirects(true)
+        .dns(AdGuardDns)
         .addInterceptor { chain ->
             chain.proceed(
                 chain.request().newBuilder()
@@ -291,9 +296,12 @@ class MainActivity : ComponentActivity() {
     private var installedPackageRefreshToken by mutableIntStateOf(0)
     private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
     private var pendingDownload: PendingDownload? = null
-    // Non-null while the in-app captcha browser is open for a candidate whose
-    // source gates the file behind a challenge a plain HTTP client cannot pass.
+    // Non-null while the in-app browser is open for a candidate whose source
+    // needs a real browser to reach the APK download.
     private var captchaBrowser by mutableStateOf<DownloadCandidate?>(null)
+    // Set when a repeat request matches previous downloads that still exist;
+    // the user picks one to reuse or chooses to download a fresh copy.
+    private var reuseOffer by mutableStateOf<List<ReuseOption>?>(null)
     private var fastModeActive = false
     private var fastModeQueue: MutableList<DownloadSource>? = null
     private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
@@ -307,12 +315,22 @@ class MainActivity : ComponentActivity() {
         request = HelperRequest.from(intent)
         startRequestLog(request)
         lifecycleScope.launch(Dispatchers.IO) {
-            cleanupTemporaryDownloads(helperSettings)
+            val freed = cleanupTemporaryDownloads(helperSettings)
+            if (freed > 0L) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Cleared ${freed.formatBytes()} of old cache",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
         lifecycleScope.launch {
             DownloadJobManager.events.collect(::handleDownloadEvent)
         }
         if (deliverPendingResultIfPresent(request)) return
+        if (request != null) offerExistingDownloadIfPresent(request!!)
 
         setContent {
             HelperTheme(
@@ -324,7 +342,7 @@ class MainActivity : ComponentActivity() {
                     CaptchaBrowserScreen(
                         candidate = captcha,
                         onClose = ::closeCaptchaBrowser,
-                        onUrlCaptured = ::onCaptchaUrlCaptured
+                        onDownloadCaptured = ::onBrowserDownloadCaptured
                     )
                 } else {
                     HelperScreen(
@@ -359,13 +377,27 @@ class MainActivity : ComponentActivity() {
                         onRequestFileTypeChange = ::changeRequestedFileType
                     )
                 }
+                val offer = reuseOffer
+                if (offer != null) {
+                    ReuseOfferDialog(
+                        options = offer,
+                        onUseExisting = ::useReuseOffer,
+                        // "Download new" (or dismissing) dismisses the offer and,
+                        // when Fast Mode is on, starts it only now  never while
+                        // the dialog is up, so it cannot download behind it.
+                        onDownloadNew = {
+                            reuseOffer = null
+                            request?.let(::startFastModeIfEnabled)
+                        }
+                    )
+                }
             }
         }
 
         val activeRequest = request
         if (activeRequest != null) {
             loadCandidates()
-            startFastModeIfEnabled(activeRequest)
+            if (reuseOffer == null) startFastModeIfEnabled(activeRequest)
         }
     }
 
@@ -382,8 +414,9 @@ class MainActivity : ComponentActivity() {
         val activeRequest = request
         if (activeRequest != null) {
             if (!deliverPendingResultIfPresent(activeRequest)) {
+                offerExistingDownloadIfPresent(activeRequest)
                 loadCandidates()
-                startFastModeIfEnabled(activeRequest)
+                if (reuseOffer == null) startFastModeIfEnabled(activeRequest)
             }
         } else {
             uiState = UiState.Idle
@@ -919,21 +952,35 @@ class MainActivity : ComponentActivity() {
         captchaBrowser = null
     }
 
-    private fun onCaptchaUrlCaptured(url: String) {
+    private fun onBrowserDownloadCaptured(capture: BrowserDownloadCapture) {
         val candidate = captchaBrowser ?: return
         captchaBrowser = null
-        val fileKind = fileKindFromUrl(url)
+        val fileKind = fileKindFromUrl(capture.downloadUrl)
+        val referer = capture.refererUrl
+            ?.takeIf(String::isNotBlank)
+            ?: candidate.captchaUrl
+            ?: candidate.url
+        val cookieHeader = capture.cookieHeader
+            ?: CookieManager.getInstance().getCookie(referer)
         appendLog(
             "Captured download link from ${candidate.source.label} in the in-app browser " +
-                "($fileKind): $url",
+                "($fileKind): ${capture.downloadUrl}",
             LogLevel.Info
         )
         downloadAndReturn(
             candidate.copy(
-                url = url,
+                url = capture.downloadUrl,
                 fileKind = fileKind,
                 directDownload = true,
-                note = null
+                note = null,
+                files = listOf(
+                    CandidateDownloadFile(
+                        url = capture.downloadUrl,
+                        fileName = capturedDownloadFileName(candidate, capture.downloadUrl, fileKind),
+                        referer = referer,
+                        cookieHeader = cookieHeader
+                    )
+                )
             )
         )
     }
@@ -1361,6 +1408,78 @@ class MainActivity : ComponentActivity() {
         runCatching {
             NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID_DONE)
         }
+    }
+
+    /**
+     * When Morphe re-requests a package and version that were already
+     * downloaded (e.g. a patch failed and the user retries, or the same
+     * version needs patching again) and the file still exists because
+     * auto-clear is off or a visible copy was saved to Downloads, offer the
+     * user the choice: reuse the existing APK or download a fresh copy.
+     * Only matches an exact package + version, so a different app or version
+     * never gets an offer.
+     */
+    private fun offerExistingDownloadIfPresent(request: HelperRequest) {
+        if (request.callerPackage.isEmpty() || request.requestedVersionName == null) return
+        val existing = DownloadHistoryStore.entries(applicationContext)
+            .filter { history ->
+                history.packageName == request.packageName &&
+                    request.matchesRequestedVersion(history.versionName, null)
+            }
+            // The same file may be recorded twice (cache copy + Downloads
+            // copy); show each distinct file once, newest record first.
+            .distinctBy { it.fileName }
+            .filter { entry -> historyFileExists(entry) }
+            .map { entry -> ReuseOption(entry, historyFileSize(entry)) }
+        if (existing.isNotEmpty()) reuseOffer = existing
+    }
+
+    private fun historyFileExists(entry: DownloadHistoryEntry): Boolean {
+        val uri = Uri.parse(entry.uri)
+        return runCatching {
+            if (entry.uri.startsWith("content://")) {
+                contentResolver.openFileDescriptor(uri, "r")?.use { true } ?: false
+            } else {
+                File(uri.path ?: return@runCatching false).exists()
+            }
+        }.getOrDefault(false)
+    }
+
+    private fun historyFileSize(entry: DownloadHistoryEntry): Long {
+        val uri = Uri.parse(entry.uri)
+        return runCatching {
+            if (entry.uri.startsWith("content://")) {
+                contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length } ?: 0L
+            } else {
+                File(uri.path ?: return@runCatching 0L).length()
+            }
+        }.getOrDefault(0L)
+    }
+
+    /** Hand the selected offered file back to Morphe instead of downloading again. */
+    private fun useReuseOffer(option: ReuseOption) {
+        reuseOffer = null
+        val request = request ?: return
+        val entry = option.entry
+        appendLog(
+            "Reusing previously downloaded ${entry.fileName} for ${request.packageName} " +
+                "instead of re-downloading.",
+            LogLevel.Info
+        )
+        if (logcatLoggingEnabled) {
+            Log.i(TAG, "Reusing cached download for ${request.packageName}: ${entry.fileName}")
+        }
+        val pending = PendingDownloadResult(
+            uri = entry.uri,
+            fileName = entry.fileName,
+            packageName = entry.packageName,
+            versionName = entry.versionName,
+            sourceName = entry.sourceName,
+            requestPackage = request.packageName,
+            callerPackage = request.callerPackage
+        )
+        DownloadJobManager.persistPendingResult(pending, applicationContext)
+        deliverResult(pending)
     }
 
     private fun deliverResult(pending: PendingDownloadResult): Boolean {
@@ -1792,14 +1911,22 @@ private fun HelperOutlinedButton(
 private fun CaptchaBrowserScreen(
     candidate: DownloadCandidate,
     onClose: () -> Unit,
-    onUrlCaptured: (String) -> Unit
+    onDownloadCaptured: (BrowserDownloadCapture) -> Unit
 ) {
     val context = LocalContext.current
     var progress by remember { mutableIntStateOf(0) }
     val bridge = remember {
         CaptchaCaptureBridge { url ->
             Handler(Looper.getMainLooper()).post {
-                onUrlCaptured(url)
+                onDownloadCaptured(
+                    BrowserDownloadCapture(
+                        downloadUrl = url,
+                        refererUrl = candidate.captchaUrl ?: candidate.url,
+                        cookieHeader = CookieManager.getInstance().getCookie(
+                            candidate.captchaUrl ?: candidate.url
+                        )
+                    )
+                )
             }
         }
     }
@@ -1810,13 +1937,40 @@ private fun CaptchaBrowserScreen(
             settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             addJavascriptInterface(bridge, CAPTCHA_BRIDGE_NAME)
             webViewClient = object : WebViewClient() {
+                override fun shouldInterceptRequest(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): WebResourceResponse? {
+                    // Apply AdGuard DNS filtering to the in-app browser: when the
+                    // setting is on, drop subresources whose host AdGuard filters
+                    // (ads/trackers answer 0.0.0.0). Any resolver failure means
+                    // "not blocked", so the page still loads.
+                    val host = request?.url?.host ?: return null
+                    if (AdGuardDns.isBlocked(host)) {
+                        Log.i(TAG, "AdGuard DNS: blocked ${request.url} in the in-app browser")
+                        return WebResourceResponse(
+                            "text/plain",
+                            "utf-8",
+                            ByteArrayInputStream(ByteArray(0))
+                        )
+                    }
+                    return null
+                }
+
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     request: WebResourceRequest?
                 ): Boolean {
                     val url = request?.url?.toString() ?: return false
                     if (url.looksLikeApkDownload()) {
-                        onUrlCaptured(url)
+                        val referer = view?.url ?: view?.originalUrl ?: candidate.captchaUrl ?: candidate.url
+                        onDownloadCaptured(
+                            BrowserDownloadCapture(
+                                downloadUrl = url,
+                                refererUrl = referer,
+                                cookieHeader = CookieManager.getInstance().getCookie(referer)
+                            )
+                        )
                         return true
                     }
                     return false
@@ -1829,7 +1983,14 @@ private fun CaptchaBrowserScreen(
             }
             setDownloadListener { url, _, _, _, _ ->
                 // Authoritative signal: the page started a real download.
-                onUrlCaptured(url)
+                val referer = candidate.captchaUrl ?: candidate.url
+                onDownloadCaptured(
+                    BrowserDownloadCapture(
+                        downloadUrl = url,
+                        refererUrl = referer,
+                        cookieHeader = CookieManager.getInstance().getCookie(referer)
+                    )
+                )
             }
         }
     }
@@ -1868,8 +2029,13 @@ private fun CaptchaBrowserScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
+                    val browserTitle = if (candidate.captchaUrl != null && !candidate.directDownload) {
+                        "Solve captcha"
+                    } else {
+                        "Open in app"
+                    }
                     Text(
-                        text = "Solve captcha  ${candidate.source.label}",
+                        text = "$browserTitle  ${candidate.source.label}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -1891,8 +2057,13 @@ private fun CaptchaBrowserScreen(
                 )
             }
             InfoCard(
-                "Solve the captcha in the browser. When the page starts the download, " +
-                    "the file is captured and returned to Morphe automatically."
+                if (candidate.captchaUrl != null && !candidate.directDownload) {
+                    "Solve the captcha in the browser. When the page starts the download, " +
+                        "the file is captured and returned to Morphe automatically." 
+                } else {
+                    "Find the download link in the web page. The app will handle the download." +
+                        "\npackage: \"${candidate.packageName}\"\nversion: \"${candidate.versionDisplay}\"."
+                }
             )
             if (progress > 0 && progress < 100) {
                 LinearProgressIndicator(
@@ -2064,13 +2235,18 @@ private fun HelperScreen(
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis,
+                            // Yield space to the version label first: the version is
+                            // the last child, so without this it gets whatever the
+                            // title leaves and clips ("v1.") when the row is tight.
+                            modifier = Modifier.weight(1f, fill = false)
                         )
                         Text(
                             text = "v${BuildConfig.VERSION_NAME}",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.titleSmall,
-                            maxLines = 1
+                            maxLines = 1,
+                            overflow = TextOverflow.Clip
                         )
                     }
                     HelperBoltButton(
@@ -2105,14 +2281,13 @@ private fun HelperScreen(
                             ).show()
                         }
                     )
-                    HelperOutlinedButton(
-                        text = "Settings",
+                    HelperHeaderIconButton(
+                        icon = Icons.Outlined.Settings,
+                        contentDescription = "Settings",
                         onClick = {
                             refreshHistory()
                             showSettings = true
-                        },
-                        icon = Icons.Outlined.Settings,
-                        modifier = Modifier.widthIn(min = 120.dp)
+                        }
                     )
                 }
             }
@@ -2412,19 +2587,12 @@ private fun HelperSettingsScreen(
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
     ) {
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
-                verticalAlignment = Alignment.CenterVertically
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ) {
-                HelperOutlinedButton(
-                    text = "Back",
-                    onClick = onBack,
-                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
-                    modifier = Modifier.widthIn(min = 112.dp)
-                )
                 Column(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     Text(
@@ -2439,6 +2607,12 @@ private fun HelperSettingsScreen(
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
+                HelperHeaderIconButton(
+                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                    contentDescription = "Back",
+                    onClick = onBack,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                )
             }
         }
 
@@ -2544,6 +2718,17 @@ private fun HelperSettingsCard(
                     }
                 )
             }
+            SettingSwitchRow(
+                icon = Icons.Outlined.Dns,
+                title = "AdGuard DNS",
+                description = "Resolve app traffic through AdGuard DNS (blocks ads and trackers on " +
+                    "download pages and in the in-app captcha browser). Falls back to the " +
+                    "system resolver whenever it fails.",
+                checked = settings.adGuardDns,
+                onCheckedChange = {
+                    onSettingsChange(settings.copy(adGuardDns = it))
+                }
+            )
         }
 
         SettingsGroupCard("Appearance") {
@@ -2975,6 +3160,124 @@ private fun HelperBoltButton(
         Icon(
             imageVector = Icons.Outlined.Bolt,
             contentDescription = if (fastMode) "Fast Mode on" else "Fast Mode off",
+            modifier = Modifier.size(HelperDefaults.IconSizeSmall)
+        )
+    }
+}
+
+/** A previously downloaded file offered for reuse, with its size on disk. */
+private data class ReuseOption(
+    val entry: DownloadHistoryEntry,
+    val sizeBytes: Long
+)
+
+@Composable
+private fun ReuseOfferDialog(
+    options: List<ReuseOption>,
+    onUseExisting: (ReuseOption) -> Unit,
+    onDownloadNew: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDownloadNew,
+        title = {
+            Text(
+                text = "Use an existing APK?",
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
+            ) {
+                Text(
+                    text = "A previous download for this exact version is still available. Pick one to return to Morphe without downloading again.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                options.forEach { option ->
+                    val entry = option.entry
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(HelperDefaults.CompactCornerRadius))
+                            .clickable { onUseExisting(option) },
+                        color = sourceCardFill(),
+                        border = BorderStroke(1.dp, sourceCardBorder())
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = entry.sourceName,
+                                    style = MaterialTheme.typography.labelLarge,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                entry.versionName?.let {
+                                    Text(
+                                        text = "· $it",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                                if (option.sizeBytes > 0L) {
+                                    Text(
+                                        text = "· ${option.sizeBytes.formatBytes()}",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                            Text(
+                                text = entry.fileName,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+                }
+                Spacer(Modifier.height(4.dp))
+                HelperButton(
+                    text = "Download new",
+                    onClick = onDownloadNew,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {}
+    )
+}
+
+@Composable
+private fun HelperHeaderIconButton(
+    icon: ImageVector,
+    contentDescription: String?,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val primary = MaterialTheme.colorScheme.primary
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier.size(HelperDefaults.ButtonHeight),
+        shape = RoundedCornerShape(HelperDefaults.ButtonCornerRadius),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.9f)
+        ),
+        border = BorderStroke(1.dp, primary.copy(alpha = 0.32f)),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
             modifier = Modifier.size(HelperDefaults.IconSizeSmall)
         )
     }
@@ -3529,13 +3832,12 @@ private fun SourcePickerFlow(
     val currentSubTab = subTabBySource[currentGroup.source]
         ?: defaultSubTab(currentGroup, request)
 
-    val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
     val openCandidateLink: (DownloadCandidate) -> Unit = { candidate ->
         if (candidate.source == DownloadSource.PLAY) {
             context.openPlayStoreListing(candidate.packageName, candidate.url)
         } else {
-            uriHandler.openUri(candidate.url)
+            onSolveCaptcha(candidate)
         }
     }
 
@@ -3599,15 +3901,21 @@ private fun SourcePickerFlow(
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 )
             }
+            // Two separate expand blocks: the "How it works" card and the source
+            // grid used to share one AnimatedExpand, and when the card toggled while
+            // the grid was already expanded, its content stayed at the container's
+            // top and the paragraph rendered over the grid (overlapping text).
+            // Keeping each in its own block means no block's content height changes
+            // mid-animation, so the layout can never go stale.
+            AnimatedExpand(visible = showHowItWorks) {
+                InfoCard(
+                    "Pick a source, then a version type. The helper finds the version, " +
+                        "downloads it, validates it against Morphe's request, and returns it. " +
+                        "If a source gates the file behind a captcha, tap \"Solve captcha in app\" " +
+                        " a real browser opens and any download it produces is captured back."
+                )
+            }
             AnimatedExpand(visible = sourcesExpanded) {
-                if (showHowItWorks) {
-                    InfoCard(
-                        "Pick a source, then a version type. The helper finds the version, " +
-                            "downloads it, validates it against Morphe's request, and returns it. " +
-                            "If a source gates the file behind a captcha, tap \"Solve captcha in app\" " +
-                            " a real browser opens and any download it produces is captured back."
-                    )
-                }
                 SourceGrid(
                     groups = groups,
                     selectedIndex = pagerState.currentPage,
@@ -4434,7 +4742,6 @@ private fun VersionHistoryRow(
     onDownloadVersion: () -> Unit,
     onSolveCaptcha: (DownloadCandidate) -> Unit
 ) {
-    val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
     HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
         Row(
@@ -4486,12 +4793,12 @@ private fun VersionHistoryRow(
                 }
                 showOpenLink -> {
                     HelperOutlinedButton(
-                        text = "Open link",
+                        text = "Open in app",
                         onClick = {
                             if (candidate.source == DownloadSource.PLAY) {
                                 context.openPlayStoreListing(candidate.packageName, candidate.url)
                             } else {
-                                uriHandler.openUri(candidate.url)
+                                onSolveCaptcha(candidate)
                             }
                         },
                         icon = Icons.Outlined.OpenInBrowser,
@@ -4703,7 +5010,6 @@ private fun CandidateCard(
     installedPackageRefreshToken: Int
 ) {
     val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
     val match = candidate.matchSummary(request)
     val hasResolvedCandidateInfo = candidate.versionName != null ||
         candidate.versionCode != null ||
@@ -4747,16 +5053,12 @@ private fun CandidateCard(
                 modifier = Modifier.fillMaxWidth()
             )
         } else if (candidate.option == CandidateOption.MANUAL) {
-            // Manual-mode rows: the bottom-bar primary action opens the link
-            // ("Open source site"), so the card only offers the return flow.
-            if (candidate.source.supportsManualArtifactPicker) {
-                HelperButton(
-                    text = "Select downloaded file",
-                    onClick = onPickDownloadedFile,
-                    icon = Icons.Outlined.FolderOpen,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            HelperButton(
+                text = "Open in app",
+                onClick = { onSolveCaptcha(candidate) },
+                icon = Icons.Outlined.OpenInBrowser,
+                modifier = Modifier.fillMaxWidth()
+            )
             if (showUseInstalledApp) {
                 HelperButton(
                     text = "Use installed app",
@@ -4770,7 +5072,7 @@ private fun CandidateCard(
             // except Aurora and Play can fall back to the in-app captcha
             // browser: it opens the candidate's page in a real WebView (passing
             // any Cloudflare challenge) and captures the download URL the page
-            // produces. The Open link action stays here because the bottom bar
+            // produces. The browser action stays here because the bottom bar
             // for these tabs shows "Find latest/requested" instead.
             if (candidate.source != DownloadSource.AURORA &&
                 candidate.source != DownloadSource.PLAY
@@ -4783,26 +5085,18 @@ private fun CandidateCard(
                 )
             }
             HelperOutlinedButton(
-                text = "Open link",
+                text = "Open in app",
                 onClick = {
                     if (candidate.source == DownloadSource.PLAY) {
                         context.openPlayStoreListing(candidate.packageName, candidate.url)
                     } else {
-                        uriHandler.openUri(candidate.url)
+                        onSolveCaptcha(candidate)
                     }
                     hasOpenedLink = true
                 },
                 icon = Icons.Outlined.OpenInBrowser,
                 modifier = Modifier.fillMaxWidth()
             )
-            if (candidate.source.supportsManualArtifactPicker && hasOpenedLink) {
-                HelperButton(
-                    text = "Select downloaded file",
-                    onClick = onPickDownloadedFile,
-                    icon = Icons.Outlined.FolderOpen,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
             if (showUseInstalledApp) {
                 HelperButton(
                     text = "Use installed app",
@@ -5688,8 +5982,29 @@ internal data class CandidateDownloadFile(
     val url: String,
     val fileName: String,
     val size: Long? = null,
-    val referer: String? = null
+    val referer: String? = null,
+    val cookieHeader: String? = null
 )
+
+private data class BrowserDownloadCapture(
+    val downloadUrl: String,
+    val refererUrl: String? = null,
+    val cookieHeader: String? = null
+)
+
+private fun capturedDownloadFileName(
+    candidate: DownloadCandidate,
+    downloadUrl: String,
+    fileKind: String
+): String {
+    val decodedUrl = runCatching { Uri.decode(downloadUrl) }.getOrDefault(downloadUrl)
+    val path = runCatching { java.net.URI(decodedUrl).path }.getOrDefault("")
+    val fileName = path.substringAfterLast('/').takeIf { it.isNotBlank() && it != "/" }
+    val extension = fileName?.substringAfterLast('.', "")?.takeIf { it.isNotBlank() } ?: fileKind
+    val baseName = fileName?.takeIf { it.contains('.') }
+        ?: "${candidate.packageName}-${candidate.versionName ?: "download"}.$extension"
+    return baseName.sanitizeFileName()
+}
 
 internal data class DownloadedApkMetadata(
     val packageName: String,
