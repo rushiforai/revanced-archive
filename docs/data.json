@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-20 00:59 UTC",
+  "generatedAt": "2026-08-21 01:05 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 680,
-  "patchCount": 2412,
-  "universalPatchCount": 166,
+  "appCount": 683,
+  "patchCount": 2448,
+  "universalPatchCount": 187,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -597,19 +597,19 @@
       "webUrl": "https://github.com/andrewliang25/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andrewliang25/morphe-patches",
       "avatarUrl": "https://github.com/andrewliang25.png?size=96",
-      "patchCount": 21,
+      "patchCount": 22,
       "appCount": 1,
       "createdAt": 1785034852052,
       "updatedAt": 1785034852052,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.6.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.7.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "fix chat-history backup sign-in via GmsCore"
+            "text": "add \"Hide Shopping tab\" patch (04b256b), closes #59"
           }
         ]
       },
@@ -617,7 +617,7 @@
         {
           "name": "LINE",
           "packageName": "jp.naver.line.android",
-          "patchCount": 21,
+          "patchCount": 22,
           "iconUrl": "",
           "iconColor": "#06C755"
         }
@@ -1624,19 +1624,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 33,
-      "appCount": 15,
+      "patchCount": 35,
+      "appCount": 16,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.13.0 (2026-08-19)",
-        "date": "2026-08-19",
+        "title": "1.14.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**vector:** add rewarded ad spoofing"
+            "text": "**injustice:** add ad removal and billing bypass"
           }
         ]
       },
@@ -1682,6 +1682,13 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#2E7D32"
+        },
+        {
+          "name": "Injustice: Gods Among Us",
+          "packageName": "com.wb.goog.injustice",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#FFC107"
         },
         {
           "name": "Into the Dead",
@@ -2530,19 +2537,19 @@
       "webUrl": "https://github.com/durgesh0505/chiggi_morphe_patches",
       "addUrl": "https://Revanced.software/add-source?github=durgesh0505/chiggi_morphe_patches",
       "avatarUrl": "https://github.com/durgesh0505.png?size=96",
-      "patchCount": 59,
-      "appCount": 11,
+      "patchCount": 68,
+      "appCount": 12,
       "createdAt": 1784836033744,
       "updatedAt": 1784836033744,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.18.0 (2026-07-23)",
-        "date": "2026-07-23",
+        "title": "1.19.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+            "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
           }
         ]
       },
@@ -2583,14 +2590,14 @@
           "iconColor": "#2E7D6F"
         },
         {
-          "name": "JioHotstar",
+          "name": "JioHotstar (Android TV)",
           "packageName": "in.startv.hotstar",
           "patchCount": 14,
           "iconUrl": "",
           "iconColor": "#1F80E0"
         },
         {
-          "name": "Jiotv+: LiveTV & OTT",
+          "name": "Jiotv+: LiveTV & OTT (Android TV)",
           "packageName": "com.jio.media.jiotvplus",
           "patchCount": 4,
           "iconUrl": "",
@@ -2604,7 +2611,7 @@
           "iconColor": "#36D4C3"
         },
         {
-          "name": "SonyLIV",
+          "name": "SonyLIV (Android TV)",
           "packageName": "com.sonyliv",
           "patchCount": 10,
           "iconUrl": "",
@@ -2618,11 +2625,18 @@
           "iconColor": "#000000"
         },
         {
-          "name": "Vi Movies and TV",
+          "name": "Vi Movies and TV (Android TV)",
           "packageName": "com.vimtv",
           "patchCount": 7,
           "iconUrl": "",
           "iconColor": "#EE1C25"
+        },
+        {
+          "name": "ZEE5 (Android TV)",
+          "packageName": "com.graymatrix.did",
+          "patchCount": 9,
+          "iconUrl": "",
+          "iconColor": "#6E1EE5"
         }
       ]
     },
@@ -4349,12 +4363,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.9.1 (2026-08-19)",
-        "date": "2026-08-19",
+        "title": "1.9.2 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+            "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
           }
         ]
       },
@@ -6254,19 +6272,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 2,
+      "patchCount": 23,
       "appCount": 0,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.18.1 (2026-08-18)",
-        "date": "2026-08-18",
+        "title": "1.21.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "make MAX Unity ad injections register-safe for any method layout"
+            "text": "**AllowScreenshots:** correct setFlags method descriptors"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**DisableRootCheck:** warn when no root-check methods are found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**DisableTelemetry:** count GameAnalytics when only NoArg variant present"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PairipBypass:** invoke superclass Application in attachBaseContext/onCreate"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PairipBypass:** warn when no license methods are found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PatchListGenerator:** avoid crash when no .mpp artifact found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**SkipConsentPopup:** pass FormError argument to onConsentFormDismissed"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**UnlockAllIaps:** overwrite receipt and transaction id parameter registers"
           }
         ]
       },
@@ -6282,19 +6328,23 @@
       "webUrl": "https://github.com/NekoGryphou/gryphous-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=NekoGryphou/gryphous-morphe-patches",
       "avatarUrl": "https://github.com/NekoGryphou.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 4,
+      "appCount": 2,
       "createdAt": 1784836023736,
       "updatedAt": 1784836023736,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.0.1 (2026-07-06)",
-        "date": "2026-07-06",
+        "title": "1.1.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "publish renamed repository metadata"
+            "category": "\u2728 New Features",
+            "text": "disable DeLonghi permission prompts"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "hide DeLonghi shared devices incident popup"
           }
         ]
       },
@@ -6305,6 +6355,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#FF5C00"
+        },
+        {
+          "name": "De'Longhi Comfort",
+          "packageName": "com.ddsx_ayla_android",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#006B52"
         }
       ]
     },
@@ -13356,12 +13413,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -13587,8 +13644,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -13596,12 +13653,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -13953,12 +14010,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -15523,12 +15584,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -16542,12 +16603,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -23460,12 +23521,8 @@
             }
           ],
           "versions": [
-            "26.26.04.935742811",
-            "26.27.05.941319029",
-            "26.28.03.942936911",
-            "26.29.02.946673643",
-            "26.30.09.950492155",
-            "26.32.06.958047303"
+            "26.32.06.958047303",
+            "26.33.02.961351034"
           ]
         }
       ],
@@ -23489,12 +23546,8 @@
         }
       ],
       "versions": [
-        "26.26.04.935742811",
-        "26.27.05.941319029",
-        "26.28.03.942936911",
-        "26.29.02.946673643",
-        "26.30.09.950492155",
-        "26.32.06.958047303"
+        "26.32.06.958047303",
+        "26.33.02.961351034"
       ],
       "iconColor": "#4285F4",
       "iconUrl": ""
@@ -24255,12 +24308,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -28103,12 +28156,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -28632,12 +28685,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/NekoGryphou/gryphous-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/NekoGryphou.png?size=96",
           "latestChanges": {
-            "title": "1.0.1 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.1.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "publish renamed repository metadata"
+                "category": "\u2728 New Features",
+                "text": "disable DeLonghi permission prompts"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "hide DeLonghi shared devices incident popup"
               }
             ]
           },
@@ -28690,12 +28747,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -29526,6 +29583,86 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.ddsx_ayla_android",
+      "name": "De'Longhi Comfort",
+      "repos": [
+        "NekoGryphou/gryphous-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "NekoGryphou/gryphous-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/NekoGryphou/gryphous-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=NekoGryphou/gryphous-morphe-patches",
+          "source": "https://raw.githubusercontent.com/NekoGryphou/gryphous-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/NekoGryphou/gryphous-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/NekoGryphou.png?size=96",
+          "latestChanges": {
+            "title": "1.1.0 (2026-08-20)",
+            "date": "2026-08-20",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "disable DeLonghi permission prompts"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "hide DeLonghi shared devices incident popup"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-ddsx-ayla-android-nekogryphou-gryphous-morphe-patches",
+            "releaseTag": "app-com-ddsx-ayla-android-nekogryphou-gryphous-morphe-patches",
+            "assetName": "de-longhi-comfort-nekogryphou-gryphous-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable login location requirement",
+              "description": "Allows login and registration without granting location permission."
+            },
+            {
+              "name": "Disable notification permission prompt",
+              "description": "Prevents De'Longhi Comfort from asking to enable notifications."
+            },
+            {
+              "name": "Hide shared-devices incident popup",
+              "description": "Prevents the GetReceivedShares-003 incident popup from appearing."
+            }
+          ],
+          "versions": [
+            "5.1.5"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable login location requirement",
+        "Disable notification permission prompt",
+        "Hide shared-devices incident popup"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable login location requirement",
+          "description": "Allows login and registration without granting location permission."
+        },
+        {
+          "name": "Disable notification permission prompt",
+          "description": "Prevents De'Longhi Comfort from asking to enable notifications."
+        },
+        {
+          "name": "Hide shared-devices incident popup",
+          "description": "Prevents the GetReceivedShares-003 incident popup from appearing."
+        }
+      ],
+      "versions": [
+        "5.1.5"
+      ],
+      "iconColor": "#006B52",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.jndapp.depth.live.wallpaper",
       "name": "Depth Wallpapers & Live Clock",
       "repos": [
@@ -29915,12 +30052,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -30017,12 +30154,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -30261,12 +30398,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -30423,12 +30560,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -31410,12 +31547,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -33281,12 +33422,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -33602,12 +33747,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -35634,12 +35779,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -37297,6 +37442,73 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.wb.goog.injustice",
+      "name": "Injustice: Gods Among Us",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**injustice:** add ad removal and billing bypass"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-wb-goog-injustice-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-wb-goog-injustice-byehi98-okish-morphe-patches",
+            "assetName": "injustice-gods-among-us-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Injustice Ads Removal",
+              "description": "Get stamina without watching ad Video."
+            },
+            {
+              "name": "Injustice Billing Bypass",
+              "description": "Bypass billing get the items in store for free."
+            }
+          ],
+          "versions": [
+            "3.5.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Injustice Ads Removal",
+        "Injustice Billing Bypass"
+      ],
+      "patchDetails": [
+        {
+          "name": "Injustice Ads Removal",
+          "description": "Get stamina without watching ad Video."
+        },
+        {
+          "name": "Injustice Billing Bypass",
+          "description": "Bypass billing get the items in store for free."
+        }
+      ],
+      "versions": [
+        "3.5.1"
+      ],
+      "iconColor": "#FFC107",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.changayaf.inmigreat",
       "name": "Inmigreat",
       "repos": [
@@ -38387,12 +38599,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -39284,12 +39496,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -39344,12 +39556,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -39652,7 +39864,7 @@
     },
     {
       "packageName": "com.jio.media.jiotvplus",
-      "name": "Jiotv+: LiveTV & OTT",
+      "name": "Jiotv+: LiveTV & OTT (Android TV)",
       "repos": [
         "durgesh0505/chiggi_morphe_patches"
       ],
@@ -39666,19 +39878,19 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
           "builder": {
             "buildId": "com-jio-media-jiotvplus-durgesh0505-chiggi-morphe-patches",
             "releaseTag": "app-com-jio-media-jiotvplus-durgesh0505-chiggi-morphe-patches",
-            "assetName": "jiotvplus-livetv-and-ott-durgesh0505-chiggi-morphe-patches.apk",
+            "assetName": "jiotvplus-livetv-and-ott-android-tv-durgesh0505-chiggi-morphe-patches.apk",
             "repo": "rushiforai/Revanced-builder",
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
@@ -40731,12 +40943,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -41838,12 +42054,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.7.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "fix chat-history backup sign-in via GmsCore"
+                "text": "add \"Hide Shopping tab\" patch (04b256b), closes #59"
               }
             ]
           },
@@ -41857,7 +42073,7 @@
           "patches": [
             {
               "name": "Disable LINE Premium",
-              "description": "Hides all LINE Yahoo Premium (LYP) surfaces \u2014 upsells, badges, the Premium settings page, and subscribe/manage flows. Doesn't unlock anything (premium is server-enforced)."
+              "description": "Hides all LINE Yahoo Premium (LYP) surfaces \u2014 upsells, badges, the Premium settings page, and subscribe/manage flows. Premium chat backup falls back to the ordinary chat-history backup. Doesn't unlock anything (premium is server-enforced)."
             },
             {
               "name": "Disable VOOM",
@@ -41906,6 +42122,10 @@
             {
               "name": "Hide premium unsend upsells",
               "description": "Removes the LYP premium-unsend upsells that survive \"Disable LINE Premium\": the \"Unsend discreetly\" button, the post-unsend promo link, and the expired-window unsend upsell. Ordinary unsend still works."
+            },
+            {
+              "name": "Hide Shopping tab",
+              "description": "Removes the Shopping tab from the main bottom navigation, covering both the Japan (Shopping / \u30b7\u30e7\u30c3\u30d4\u30f3\u30b0) and Taiwan (Discover / \u901b\u901b) variants."
             },
             {
               "name": "Hide Transfer button",
@@ -41959,6 +42179,7 @@
         "Hide LINE GIFT button",
         "Hide LINE TODAY tab",
         "Hide premium unsend upsells",
+        "Hide Shopping tab",
         "Hide Transfer button",
         "Hide VOOM tab",
         "Hide Wallet tab",
@@ -41971,7 +42192,7 @@
       "patchDetails": [
         {
           "name": "Disable LINE Premium",
-          "description": "Hides all LINE Yahoo Premium (LYP) surfaces \u2014 upsells, badges, the Premium settings page, and subscribe/manage flows. Doesn't unlock anything (premium is server-enforced)."
+          "description": "Hides all LINE Yahoo Premium (LYP) surfaces \u2014 upsells, badges, the Premium settings page, and subscribe/manage flows. Premium chat backup falls back to the ordinary chat-history backup. Doesn't unlock anything (premium is server-enforced)."
         },
         {
           "name": "Disable VOOM",
@@ -42020,6 +42241,10 @@
         {
           "name": "Hide premium unsend upsells",
           "description": "Removes the LYP premium-unsend upsells that survive \"Disable LINE Premium\": the \"Unsend discreetly\" button, the post-unsend promo link, and the expired-window unsend upsell. Ordinary unsend still works."
+        },
+        {
+          "name": "Hide Shopping tab",
+          "description": "Removes the Shopping tab from the main bottom navigation, covering both the Japan (Shopping / \u30b7\u30e7\u30c3\u30d4\u30f3\u30b0) and Taiwan (Discover / \u901b\u901b) variants."
         },
         {
           "name": "Hide Transfer button",
@@ -45393,12 +45618,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -46331,12 +46556,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -48869,12 +49094,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
@@ -51422,12 +51647,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -55607,12 +55836,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -55673,8 +55906,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -55682,12 +55915,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -55895,12 +56128,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -56967,12 +57204,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -57481,12 +57722,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -58247,16 +58492,16 @@
         "Disable modern home",
         "Disable post detail swipe",
         "Disable screenshot banner",
-        "Disable screenshot popup",
         "Disable Screenshot Popup",
+        "Disable screenshot popup",
         "Force system font",
         "Hide ads",
         "Hide Ads",
         "Hide Ask button",
         "Hide Ask button from search bar",
         "Hide awards",
-        "Hide communities shelf",
         "Hide Communities Shelf",
+        "Hide communities shelf",
         "Hide community highlights",
         "Hide community menu badge",
         "Hide navigation buttons",
@@ -58338,12 +58583,12 @@
           "description": "Disables the banner that shows up after taking a screenshot."
         },
         {
-          "name": "Disable screenshot popup",
-          "description": "Adds an option to disable the popup that appears when taking a screenshot."
-        },
-        {
           "name": "Disable Screenshot Popup",
           "description": "Suppresses the share prompt that appears after taking a screenshot."
+        },
+        {
+          "name": "Disable screenshot popup",
+          "description": "Adds an option to disable the popup that appears when taking a screenshot."
         },
         {
           "name": "Force system font",
@@ -58370,12 +58615,12 @@
           "description": "Hides the awards on Reddit posts and comments."
         },
         {
-          "name": "Hide communities shelf",
-          "description": "Adds an option to hide the related or suggested communities shelf in subreddits."
-        },
-        {
           "name": "Hide Communities Shelf",
           "description": "Hides the related or suggested communities shelf in subreddits."
+        },
+        {
+          "name": "Hide communities shelf",
+          "description": "Adds an option to hide the related or suggested communities shelf in subreddits."
         },
         {
           "name": "Hide community highlights",
@@ -58932,12 +59177,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -60902,12 +61147,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -61612,12 +61861,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -62489,7 +62738,7 @@
     },
     {
       "packageName": "com.sonyliv",
-      "name": "SonyLIV",
+      "name": "SonyLIV (Android TV)",
       "repos": [
         "durgesh0505/chiggi_morphe_patches"
       ],
@@ -62503,19 +62752,19 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
           "builder": {
             "buildId": "com-sonyliv-durgesh0505-chiggi-morphe-patches",
             "releaseTag": "app-com-sonyliv-durgesh0505-chiggi-morphe-patches",
-            "assetName": "sonyliv-durgesh0505-chiggi-morphe-patches.apk",
+            "assetName": "sonyliv-android-tv-durgesh0505-chiggi-morphe-patches.apk",
             "repo": "rushiforai/Revanced-builder",
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
@@ -64983,12 +65232,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -65117,12 +65366,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -65146,18 +65399,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -69404,12 +69657,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.1 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.9.2 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Showly - AMOLED dark theme:** keep the search bar and bottom menu tone"
+                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
               }
             ]
           },
@@ -70059,8 +70316,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -70104,11 +70361,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -70279,12 +70536,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -71550,12 +71807,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.13.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.14.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add rewarded ad spoofing"
+                "text": "**injustice:** add ad removal and billing bypass"
               }
             ]
           },
@@ -71656,7 +71913,7 @@
     },
     {
       "packageName": "com.vimtv",
-      "name": "Vi Movies and TV",
+      "name": "Vi Movies and TV (Android TV)",
       "repos": [
         "durgesh0505/chiggi_morphe_patches"
       ],
@@ -71670,19 +71927,19 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.18.0 (2026-07-23)",
-            "date": "2026-07-23",
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**jiohotstar:** spoof device id (ANDROID_ID) to resolve device-logged-out"
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
               }
             ]
           },
           "builder": {
             "buildId": "com-vimtv-durgesh0505-chiggi-morphe-patches",
             "releaseTag": "app-com-vimtv-durgesh0505-chiggi-morphe-patches",
-            "assetName": "vi-movies-and-tv-durgesh0505-chiggi-morphe-patches.apk",
+            "assetName": "vi-movies-and-tv-android-tv-durgesh0505-chiggi-morphe-patches.apk",
             "repo": "rushiforai/Revanced-builder",
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
@@ -77900,6 +78157,136 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.graymatrix.did",
+      "name": "ZEE5 (Android TV)",
+      "repos": [
+        "durgesh0505/chiggi_morphe_patches"
+      ],
+      "sources": [
+        {
+          "repo": "durgesh0505/chiggi_morphe_patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/durgesh0505/chiggi_morphe_patches",
+          "addUrl": "https://Revanced.software/add-source?github=durgesh0505/chiggi_morphe_patches",
+          "source": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/durgesh0505.png?size=96",
+          "latestChanges": {
+            "title": "1.19.0 (2026-08-20)",
+            "date": "2026-08-20",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "add ZEE5 (Android TV), tag TV apps, make TV builds phone-patch-safe"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-graymatrix-did-durgesh0505-chiggi-morphe-patches",
+            "releaseTag": "app-com-graymatrix-did-durgesh0505-chiggi-morphe-patches",
+            "assetName": "zee5-android-tv-durgesh0505-chiggi-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Auto-skip intro and recap",
+              "description": "Automatically skips the intro and recap of a show instead of waiting for you to press the Skip button. When the player reaches an intro (SKIP_INTRO_MARKER=1) or recap (SKIP_RECAP_MARKER=2) marker, it does exactly what tapping the Skip button does \u2014 sets seek-exact and seeks straight to that marker's end. Seek-exact is required: without it the seek snaps to a keyframe before the intro end, which lands back inside the marker window and loops. It only acts on intro/recap markers, never on next-episode or ad markers. Disable this if a title's markers are wrong and it skips too far."
+            },
+            {
+              "name": "Change app name",
+              "description": "Changes the app name shown under the launcher icon. Set the desired name in the patch options."
+            },
+            {
+              "name": "Disable forced upgrade",
+              "description": "Stops ZEE5 from forcing an app update. BlockerScreenInfo.isBlocked() gates the block/upgrade wall; forcing it false lets the current version keep running. This is the only hard client block screen in the app (there is no geo/VPN/tamper block)."
+            },
+            {
+              "name": "Disable nuisance popups",
+              "description": "Suppresses the ZEE5 app-rating prompt and the subscription 'Buy Plan' upsell popup on the home screen by forcing HomeActivityViewModel.canLaunchAppRating() and toShowBuyPlanPopup() to false. Both are plain boolean gates, so this only stops the dialogs from being shown; nothing else changes."
+            },
+            {
+              "name": "Faster video start",
+              "description": "Lowers the ExoPlayer start buffer (bufferForPlayback) to 1500ms by forcing DefaultPlayerConfig.defaultBuffersForPlaybackMs() to return 1500 instead of the server value (~2500ms). Playback starts after less initial buffering, so the first frame appears sooner. The player still fills the full min/max buffer in the background; only the start threshold drops. On a weak network or slow CPU this slightly raises the chance of an early re-buffer. Does not affect the DRM-license/manifest part of startup."
+            },
+            {
+              "name": "Make installable on TV",
+              "description": "Makes the ZEE5 APK install on Android TV / Chromecast with Google TV. The build marks android.software.live_tv as required, but streamer devices without a TV tuner do not have that feature, so the installer reports \"not compatible with your TV\". This marks live_tv and leanback optional so it installs everywhere; the leanback launcher entry is kept, so it still appears on the TV home screen."
+            },
+            {
+              "name": "Remove display ads",
+              "description": "Removes ZEE5 non-video display ads: the home-screen native masthead banner (HomeActivityViewModel.getNeedToShowNativeMastheadAd() forced false, so it never loads) and the on-pause display overlay (FetchPlaybackUrlUseCase.toPauseAds() forced null). No extra ad requests are made, so this makes the UI lighter rather than laggier."
+            },
+            {
+              "name": "Remove player logo",
+              "description": "Removes the ZEE5/channel logo overlaid on the video player. The logo is shown via WaterMarkViewModel's _logoVisibility LiveData; forcing updateLogoVisibility(...) to always post false keeps the logo hidden. Client render only \u2014 this does not affect any logo baked into a partner's video stream."
+            },
+            {
+              "name": "Remove video ads",
+              "description": "Blocks ZEE5 video ads (pre-roll, mid-roll and the video-start slate) client-side. The player inserts ads from an ad-tag URL supplied by MediaData (adsUrl + adTags), not from the stream, and ad-free users already receive a null adsUrl / empty adTags \u2014 a supported path. This forces MediaData.getAdsUrl() to null and getAdTags() to an empty list so no ad break is ever built, and forces FetchPlaybackUrlUseCase.toPreRollDaiSlateMedia() to null so no pre-roll slate is prepended. Content goes straight to play \u2014 fewer ad requests, so it is lighter, not laggy. Server-DAI mid-roll (if a title is DAI-only) is not affected."
+            }
+          ],
+          "versions": [
+            "5.83.2"
+          ]
+        }
+      ],
+      "patches": [
+        "Auto-skip intro and recap",
+        "Change app name",
+        "Disable forced upgrade",
+        "Disable nuisance popups",
+        "Faster video start",
+        "Make installable on TV",
+        "Remove display ads",
+        "Remove player logo",
+        "Remove video ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Auto-skip intro and recap",
+          "description": "Automatically skips the intro and recap of a show instead of waiting for you to press the Skip button. When the player reaches an intro (SKIP_INTRO_MARKER=1) or recap (SKIP_RECAP_MARKER=2) marker, it does exactly what tapping the Skip button does \u2014 sets seek-exact and seeks straight to that marker's end. Seek-exact is required: without it the seek snaps to a keyframe before the intro end, which lands back inside the marker window and loops. It only acts on intro/recap markers, never on next-episode or ad markers. Disable this if a title's markers are wrong and it skips too far."
+        },
+        {
+          "name": "Change app name",
+          "description": "Changes the app name shown under the launcher icon. Set the desired name in the patch options."
+        },
+        {
+          "name": "Disable forced upgrade",
+          "description": "Stops ZEE5 from forcing an app update. BlockerScreenInfo.isBlocked() gates the block/upgrade wall; forcing it false lets the current version keep running. This is the only hard client block screen in the app (there is no geo/VPN/tamper block)."
+        },
+        {
+          "name": "Disable nuisance popups",
+          "description": "Suppresses the ZEE5 app-rating prompt and the subscription 'Buy Plan' upsell popup on the home screen by forcing HomeActivityViewModel.canLaunchAppRating() and toShowBuyPlanPopup() to false. Both are plain boolean gates, so this only stops the dialogs from being shown; nothing else changes."
+        },
+        {
+          "name": "Faster video start",
+          "description": "Lowers the ExoPlayer start buffer (bufferForPlayback) to 1500ms by forcing DefaultPlayerConfig.defaultBuffersForPlaybackMs() to return 1500 instead of the server value (~2500ms). Playback starts after less initial buffering, so the first frame appears sooner. The player still fills the full min/max buffer in the background; only the start threshold drops. On a weak network or slow CPU this slightly raises the chance of an early re-buffer. Does not affect the DRM-license/manifest part of startup."
+        },
+        {
+          "name": "Make installable on TV",
+          "description": "Makes the ZEE5 APK install on Android TV / Chromecast with Google TV. The build marks android.software.live_tv as required, but streamer devices without a TV tuner do not have that feature, so the installer reports \"not compatible with your TV\". This marks live_tv and leanback optional so it installs everywhere; the leanback launcher entry is kept, so it still appears on the TV home screen."
+        },
+        {
+          "name": "Remove display ads",
+          "description": "Removes ZEE5 non-video display ads: the home-screen native masthead banner (HomeActivityViewModel.getNeedToShowNativeMastheadAd() forced false, so it never loads) and the on-pause display overlay (FetchPlaybackUrlUseCase.toPauseAds() forced null). No extra ad requests are made, so this makes the UI lighter rather than laggier."
+        },
+        {
+          "name": "Remove player logo",
+          "description": "Removes the ZEE5/channel logo overlaid on the video player. The logo is shown via WaterMarkViewModel's _logoVisibility LiveData; forcing updateLogoVisibility(...) to always post false keeps the logo hidden. Client render only \u2014 this does not affect any logo baked into a partner's video stream."
+        },
+        {
+          "name": "Remove video ads",
+          "description": "Blocks ZEE5 video ads (pre-roll, mid-roll and the video-start slate) client-side. The player inserts ads from an ad-tag URL supplied by MediaData (adsUrl + adTags), not from the stream, and ad-free users already receive a null adsUrl / empty adTags \u2014 a supported path. This forces MediaData.getAdsUrl() to null and getAdTags() to an empty list so no ad break is ever built, and forces FetchPlaybackUrlUseCase.toPreRollDaiSlateMedia() to null so no pre-roll slate is prepended. Content goes straight to play \u2014 fewer ad requests, so it is lighter, not laggy. Server-DAI mid-roll (if a title is DAI-only) is not affected."
+        }
+      ],
+      "versions": [
+        "5.83.2"
+      ],
+      "iconColor": "#6E1EE5",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.android.gallery3d",
       "name": "ZTE Gallery",
       "repos": [
@@ -78961,26 +79348,159 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 2,
+      "patchCount": 23,
       "latestChanges": {
-        "title": "1.18.1 (2026-08-18)",
-        "date": "2026-08-18",
+        "title": "1.21.0 (2026-08-20)",
+        "date": "2026-08-20",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "make MAX Unity ad injections register-safe for any method layout"
+            "text": "**AllowScreenshots:** correct setFlags method descriptors"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**DisableRootCheck:** warn when no root-check methods are found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**DisableTelemetry:** count GameAnalytics when only NoArg variant present"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PairipBypass:** invoke superclass Application in attachBaseContext/onCreate"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PairipBypass:** warn when no license methods are found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**PatchListGenerator:** avoid crash when no .mpp artifact found"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**SkipConsentPopup:** pass FormError argument to onConsentFormDismissed"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**UnlockAllIaps:** overwrite receipt and transaction id parameter registers"
           }
         ]
       },
       "patches": [
         {
           "name": "Ads Free Rewards",
-          "description": "",
+          "description": "Skip rewarded ads and claim rewards instantly",
+          "default": false
+        },
+        {
+          "name": "Allow Screenshots",
+          "description": "Remove the screenshot-blocking window flag",
+          "default": false
+        },
+        {
+          "name": "Block Push Ads",
+          "description": "Block push notification ads (Firebase Cloud Messaging). Also blocks legitimate notifications.",
+          "default": false
+        },
+        {
+          "name": "Bypass Google Play Services Check",
+          "description": "Always report Google Play Services as available",
+          "default": false
+        },
+        {
+          "name": "Bypass License Verification",
+          "description": "Always pass Google Play license checks",
+          "default": false
+        },
+        {
+          "name": "Custom App Resolution (Experimental)",
+          "description": "Set a custom resolution for the game",
+          "default": false
+        },
+        {
+          "name": "Disable Root Checks",
+          "description": "Disable root detection",
+          "default": false
+        },
+        {
+          "name": "Disable Telemetry",
+          "description": "Block analytics and tracking",
+          "default": false
+        },
+        {
+          "name": "Disable Update Checks",
+          "description": "Disable in-app update prompts",
+          "default": false
+        },
+        {
+          "name": "Force Landscape / Portrait",
+          "description": "Force the app to a fixed screen orientation",
+          "default": false
+        },
+        {
+          "name": "Limit Ad Tracking",
+          "description": "Neutralize the Google advertising ID: empty ID and limit ad tracking enabled",
+          "default": false
+        },
+        {
+          "name": "No Ads",
+          "description": "Remove ads",
+          "default": false
+        },
+        {
+          "name": "Pairip Bypass (Experimental)",
+          "description": "Bypass Pairip license protection",
+          "default": false
+        },
+        {
+          "name": "Remove Hardware Requirements",
+          "description": "Remove uses-feature entries so the app installs on more devices",
+          "default": false
+        },
+        {
+          "name": "Remove Permissions",
+          "description": "Remove permissions from the app manifest",
+          "default": false
+        },
+        {
+          "name": "Skip Consent Popup",
+          "description": "Skip the Google consent (GDPR) popup",
+          "default": false
+        },
+        {
+          "name": "Skip Rate-Us Prompt",
+          "description": "Skip the in-app review (rate us) prompt",
+          "default": false
+        },
+        {
+          "name": "Skip Splash Screen (Experimental)",
+          "description": "Skip or shorten splash screen delays",
+          "default": false
+        },
+        {
+          "name": "Spoof Play Integrity",
+          "description": "Force Play Integrity checks to pass",
           "default": false
         },
         {
           "name": "Spoof Play Store Install Source",
-          "description": "",
+          "description": "Make the app believe it was installed from the Play Store",
+          "default": false
+        },
+        {
+          "name": "Unlock All IAPs (Unity IAP)",
+          "description": "Unlock all in-app purchases in Unity IAP games (Experimental)",
+          "default": false
+        },
+        {
+          "name": "Unlock RevenueCat Entitlements",
+          "description": "Unlock all RevenueCat entitlements",
+          "default": false
+        },
+        {
+          "name": "Unlock Rotation",
+          "description": "Remove screenOrientation locks so the app rotates freely",
           "default": false
         }
       ]
