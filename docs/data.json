@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-21 01:05 UTC",
+  "generatedAt": "2026-08-22 01:07 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 683,
-  "patchCount": 2448,
-  "universalPatchCount": 187,
+  "appCount": 684,
+  "patchCount": 2528,
+  "universalPatchCount": 265,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -181,12 +181,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.4.4 (2026-08-16)",
-        "date": "2026-08-16",
+        "title": "1.4.6 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.2.7 (Fixes #5)"
+            "text": "Support SofaTime v1.2.9 (Fixes #7)"
           }
         ]
       },
@@ -2299,35 +2299,31 @@
       "webUrl": "https://github.com/dh6k/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=dh6k/morphe-patches",
       "avatarUrl": "https://github.com/dh6k.png?size=96",
-      "patchCount": 5,
+      "patchCount": 6,
       "appCount": 6,
       "createdAt": 1785034852274,
       "updatedAt": 1785034852274,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.2.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.3.0 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** use compatible patcher APIs"
+            "text": "**brave:** support Origin 1.94.114"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "pass list to Quetta fingerprint strings"
+            "text": "**brave:** tolerate optional Origin hooks"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**brave:** unpin stable compatibility"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**helium:** keep child processes strongly bound"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**helium:** strengthen child process survival"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**quetta:** block bundled extension installation"
+            "text": "**universal:** disable common analytics SDKs"
           }
         ]
       },
@@ -4356,27 +4352,34 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 20,
-      "appCount": 12,
+      "patchCount": 22,
+      "appCount": 13,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.9.2 (2026-08-20)",
-        "date": "2026-08-20",
+        "title": "1.10.0 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+            "category": "New Features",
+            "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+            "category": "New Features",
+            "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
           }
         ]
       },
       "apps": [
+        {
+          "name": "AlpineQuest",
+          "packageName": "psyberia.alpinequest.free",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#0057BD"
+        },
         {
           "name": "Audible",
           "packageName": "com.audible.application",
@@ -6272,47 +6275,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 23,
+      "patchCount": 100,
       "appCount": 0,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.21.0 (2026-08-20)",
-        "date": "2026-08-20",
+        "title": "1.22.0 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "**AllowScreenshots:** correct setFlags method descriptors"
+            "category": "New Features",
+            "text": "add Allow Background Activity patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**DisableRootCheck:** warn when no root-check methods are found"
+            "category": "New Features",
+            "text": "add Allow Clearing App Data patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**DisableTelemetry:** count GameAnalytics when only NoArg variant present"
+            "category": "New Features",
+            "text": "add Allow Cleartext Traffic patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PairipBypass:** invoke superclass Application in attachBaseContext/onCreate"
+            "category": "New Features",
+            "text": "add Always Allow Biometrics patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PairipBypass:** warn when no license methods are found"
+            "category": "New Features",
+            "text": "add Block Screenshot Detection patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PatchListGenerator:** avoid crash when no .mpp artifact found"
+            "category": "New Features",
+            "text": "add Bypass OkHttp Pinning patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**SkipConsentPopup:** pass FormError argument to onConsentFormDismissed"
+            "category": "New Features",
+            "text": "add Bypass VPN Detection patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**UnlockAllIaps:** overwrite receipt and transaction id parameter registers"
+            "category": "New Features",
+            "text": "add Change Version Code patch"
           }
         ]
       },
@@ -11980,6 +11983,73 @@
       "iconUrl": ""
     },
     {
+      "packageName": "psyberia.alpinequest.free",
+      "name": "AlpineQuest",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
+            "items": [
+              {
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
+              },
+              {
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "psyberia-alpinequest-free-hxreborn-morphe-patches",
+            "releaseTag": "app-psyberia-alpinequest-free-hxreborn-morphe-patches",
+            "assetName": "alpinequest-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Bypass signature check",
+              "description": "Removes the modified-version warning and restores address search and auto-routing."
+            },
+            {
+              "name": "Unlock full version",
+              "description": "Unlocks the Off-Road Explorer features gated behind activation."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "Bypass signature check",
+        "Unlock full version"
+      ],
+      "patchDetails": [
+        {
+          "name": "Bypass signature check",
+          "description": "Removes the modified-version warning and restores address search and auto-routing."
+        },
+        {
+          "name": "Unlock full version",
+          "description": "Unlocks the Off-Road Explorer features gated behind activation."
+        }
+      ],
+      "versions": [],
+      "iconColor": "#0057BD",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.amazon.mp3",
       "name": "Amazon Music",
       "repos": [
@@ -13644,8 +13714,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -13653,12 +13723,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14010,16 +14080,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -18047,28 +18117,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -18153,28 +18219,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -18191,9 +18253,7 @@
               "description": "Unlocks Brave Origin and enables feature toggle controls."
             }
           ],
-          "versions": [
-            "1.92.140"
-          ]
+          "versions": []
         }
       ],
       "patches": [
@@ -18227,28 +18287,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -31547,16 +31603,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -33422,16 +33478,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -35277,28 +35333,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -40943,16 +40995,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -51647,16 +51699,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -55836,16 +55888,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -55906,8 +55958,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -55915,12 +55967,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -56128,16 +56180,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -57204,16 +57256,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -57266,28 +57318,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -57301,7 +57349,7 @@
           "patches": [
             {
               "name": "Block Quetta bundled extension installation",
-              "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (framework does not enforce ABI). Does not remove copies already present in existing profiles."
+              "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (the framework does not enforce ABI restrictions). Does not remove copies already present in existing profiles. Takes effect immediately on clean installs."
             }
           ],
           "versions": []
@@ -57313,7 +57361,7 @@
       "patchDetails": [
         {
           "name": "Block Quetta bundled extension installation",
-          "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (framework does not enforce ABI). Does not remove copies already present in existing profiles."
+          "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (the framework does not enforce ABI restrictions). Does not remove copies already present in existing profiles. Takes effect immediately on clean installs."
         }
       ],
       "versions": [],
@@ -57336,28 +57384,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.2.0 (2026-08-12)",
-            "date": "2026-08-12",
+            "title": "1.3.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** use compatible patcher APIs"
+                "text": "**brave:** support Origin 1.94.114"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "pass list to Quetta fingerprint strings"
+                "text": "**brave:** tolerate optional Origin hooks"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** unpin stable compatibility"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**helium:** keep child processes strongly bound"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**helium:** strengthen child process survival"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**quetta:** block bundled extension installation"
+                "text": "**universal:** disable common analytics SDKs"
               }
             ]
           },
@@ -57371,7 +57415,7 @@
           "patches": [
             {
               "name": "Block Quetta bundled extension installation",
-              "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (framework does not enforce ABI). Does not remove copies already present in existing profiles."
+              "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (the framework does not enforce ABI restrictions). Does not remove copies already present in existing profiles. Takes effect immediately on clean installs."
             }
           ],
           "versions": []
@@ -57383,7 +57427,7 @@
       "patchDetails": [
         {
           "name": "Block Quetta bundled extension installation",
-          "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (framework does not enforce ABI). Does not remove copies already present in existing profiles."
+          "description": "Blocks bundled extension installation/reinstallation on arm64-v8a APKs (the framework does not enforce ABI restrictions). Does not remove copies already present in existing profiles. Takes effect immediately on clean installs."
         }
       ],
       "versions": [],
@@ -57722,16 +57766,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -58492,11 +58536,11 @@
         "Disable modern home",
         "Disable post detail swipe",
         "Disable screenshot banner",
-        "Disable Screenshot Popup",
         "Disable screenshot popup",
+        "Disable Screenshot Popup",
         "Force system font",
-        "Hide ads",
         "Hide Ads",
+        "Hide ads",
         "Hide Ask button",
         "Hide Ask button from search bar",
         "Hide awards",
@@ -58512,8 +58556,8 @@
         "Hide Promoted Posts",
         "Hide Reddit search",
         "Hide share count",
-        "Hide sidebar components",
         "Hide Sidebar Components",
+        "Hide sidebar components",
         "Hide Trending shelves",
         "Hide Trending Shelves",
         "Hide upvote scores",
@@ -58527,8 +58571,8 @@
         "Remove Subreddit Dialogs",
         "Sanitize Reddit share links",
         "Sanitize share links",
-        "Sanitize sharing links",
         "Sanitize Sharing Links",
+        "Sanitize sharing links",
         "Show view count",
         "Spoof signature",
         "Unlock Premium"
@@ -58583,24 +58627,24 @@
           "description": "Disables the banner that shows up after taking a screenshot."
         },
         {
-          "name": "Disable Screenshot Popup",
-          "description": "Suppresses the share prompt that appears after taking a screenshot."
-        },
-        {
           "name": "Disable screenshot popup",
           "description": "Adds an option to disable the popup that appears when taking a screenshot."
+        },
+        {
+          "name": "Disable Screenshot Popup",
+          "description": "Suppresses the share prompt that appears after taking a screenshot."
         },
         {
           "name": "Force system font",
           "description": "Adds an option that renders Reddit with the device system font instead of Reddit Sans / Roboto."
         },
         {
-          "name": "Hide ads",
-          "description": "Adds options to hide ads."
-        },
-        {
           "name": "Hide Ads",
           "description": "Removes promoted posts and comment ads without requiring Reddit Premium unlock."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Adds options to hide ads."
         },
         {
           "name": "Hide Ask button",
@@ -58663,12 +58707,12 @@
           "description": "Hides the share count on Reddit posts."
         },
         {
-          "name": "Hide sidebar components",
-          "description": "Adds options to hide the sidebar components."
-        },
-        {
           "name": "Hide Sidebar Components",
           "description": "Hides About, Resources, and Reddit Pro sections from the community sidebar."
+        },
+        {
+          "name": "Hide sidebar components",
+          "description": "Adds options to hide the sidebar components."
         },
         {
           "name": "Hide Trending shelves",
@@ -58723,12 +58767,12 @@
           "description": "Unshortens and removes the tracking query parameters from shared links."
         },
         {
-          "name": "Sanitize sharing links",
-          "description": "Adds an option to sanitize sharing links by removing tracking query parameters."
-        },
-        {
           "name": "Sanitize Sharing Links",
           "description": "Returns the raw permalink before UTM tracking parameters are appended to shared Reddit URLs."
+        },
+        {
+          "name": "Sanitize sharing links",
+          "description": "Adds an option to sanitize sharing links by removing tracking query parameters."
         },
         {
           "name": "Show view count",
@@ -61147,16 +61191,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -62535,12 +62579,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.4.4 (2026-08-16)",
-            "date": "2026-08-16",
+            "title": "1.4.6 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.2.7 (Fixes #5)"
+                "text": "Support SofaTime v1.2.9 (Fixes #7)"
               }
             ]
           },
@@ -62574,7 +62618,9 @@
             "1.2.3",
             "1.2.4",
             "1.2.5",
-            "1.2.7"
+            "1.2.7",
+            "1.2.8",
+            "1.2.9"
           ]
         }
       ],
@@ -62607,7 +62653,9 @@
         "1.2.3",
         "1.2.4",
         "1.2.5",
-        "1.2.7"
+        "1.2.7",
+        "1.2.8",
+        "1.2.9"
       ],
       "iconColor": "#1E1E2E",
       "iconUrl": ""
@@ -65366,16 +65414,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -65399,18 +65447,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -69657,16 +69705,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.9.2 (2026-08-20)",
-            "date": "2026-08-20",
+            "title": "1.10.0 (2026-08-21)",
+            "date": "2026-08-21",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**Perplexity - AMOLED dark theme:** keep the tinted surfaces at stock tone"
+                "category": "New Features",
+                "text": "**AlpineQuest - Bypass signature check:** restore search and auto-routing on re-signed builds"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** keep the sidebar selected row and separators"
+                "category": "New Features",
+                "text": "**AlpineQuest - Unlock full version:** unlock the Off-Road Explorer features"
               }
             ]
           },
@@ -76221,8 +76269,8 @@
         "Save to watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -76675,11 +76723,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -78702,30 +78750,26 @@
       "source": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/dh6k.png?size=96",
-      "patchCount": 2,
+      "patchCount": 3,
       "latestChanges": {
-        "title": "1.2.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.3.0 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** use compatible patcher APIs"
+            "text": "**brave:** support Origin 1.94.114"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "pass list to Quetta fingerprint strings"
+            "text": "**brave:** tolerate optional Origin hooks"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**brave:** unpin stable compatibility"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**helium:** keep child processes strongly bound"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**helium:** strengthen child process survival"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**quetta:** block bundled extension installation"
+            "text": "**universal:** disable common analytics SDKs"
           }
         ]
       },
@@ -78738,6 +78782,11 @@
         {
           "name": "Change app name",
           "description": "Changes the app name shown by Android launchers. Set the desired name in the patch options.",
+          "default": false
+        },
+        {
+          "name": "Disable analytics",
+          "description": "Disables Firebase Analytics, Crashlytics and Performance through manifest opt-outs and exact runtime setters when present. Other SDK components are disabled only when explicitly declared; custom or server-side telemetry is not covered.",
           "default": false
         }
       ]
@@ -79348,42 +79397,42 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 23,
+      "patchCount": 100,
       "latestChanges": {
-        "title": "1.21.0 (2026-08-20)",
-        "date": "2026-08-20",
+        "title": "1.22.0 (2026-08-21)",
+        "date": "2026-08-21",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "**AllowScreenshots:** correct setFlags method descriptors"
+            "category": "New Features",
+            "text": "add Allow Background Activity patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**DisableRootCheck:** warn when no root-check methods are found"
+            "category": "New Features",
+            "text": "add Allow Clearing App Data patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**DisableTelemetry:** count GameAnalytics when only NoArg variant present"
+            "category": "New Features",
+            "text": "add Allow Cleartext Traffic patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PairipBypass:** invoke superclass Application in attachBaseContext/onCreate"
+            "category": "New Features",
+            "text": "add Always Allow Biometrics patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PairipBypass:** warn when no license methods are found"
+            "category": "New Features",
+            "text": "add Block Screenshot Detection patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**PatchListGenerator:** avoid crash when no .mpp artifact found"
+            "category": "New Features",
+            "text": "add Bypass OkHttp Pinning patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**SkipConsentPopup:** pass FormError argument to onConsentFormDismissed"
+            "category": "New Features",
+            "text": "add Bypass VPN Detection patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**UnlockAllIaps:** overwrite receipt and transaction id parameter registers"
+            "category": "New Features",
+            "text": "add Change Version Code patch"
           }
         ]
       },
@@ -79394,13 +79443,38 @@
           "default": false
         },
         {
+          "name": "Allow Background Activity",
+          "description": "Makes ActivityManager.isBackgroundRestricted always return false so apps ignore background activity restrictions imposed by the system or user",
+          "default": false
+        },
+        {
+          "name": "Allow Clearing App Data",
+          "description": "Sets android:allowClearUserData so the system's Clear Data button stays available even for apps that try to disable it",
+          "default": false
+        },
+        {
+          "name": "Allow Cleartext Traffic",
+          "description": "Sets android:usesCleartextTraffic and drops any network security config so plain HTTP requests are allowed (useful for debugging through local proxies)",
+          "default": false
+        },
+        {
           "name": "Allow Screenshots",
           "description": "Remove the screenshot-blocking window flag",
           "default": false
         },
         {
+          "name": "Always Allow Biometrics",
+          "description": "Makes BiometricManager.canAuthenticate always return BIOMETRIC_SUCCESS so apps do not block biometric features on unsupported or unenrolled devices",
+          "default": false
+        },
+        {
           "name": "Block Push Ads",
           "description": "Block push notification ads (Firebase Cloud Messaging). Also blocks legitimate notifications.",
+          "default": false
+        },
+        {
+          "name": "Block Screenshot Detection",
+          "description": "Adds FLAG_SECURE to every activity window so the system blocks screenshots, screen recording and recents previews of the app",
           "default": false
         },
         {
@@ -79414,13 +79488,88 @@
           "default": false
         },
         {
+          "name": "Bypass OkHttp Pinning",
+          "description": "No-ops the certificate verification entry points of bundled OkHttp clients so certificate pinning never rejects connections",
+          "default": false
+        },
+        {
+          "name": "Bypass VPN Detection",
+          "description": "Makes NetworkCapabilities report no VPN: hasTransport always returns false and hasCapability always returns true, so apps cannot block or alter behavior on VPN",
+          "default": false
+        },
+        {
+          "name": "Change Version Code",
+          "description": "Overrides the android:versionCode declared in the manifest",
+          "default": false
+        },
+        {
+          "name": "Change Version Name",
+          "description": "Overrides the android:versionName declared in the manifest",
+          "default": false
+        },
+        {
+          "name": "Classic Back Gesture",
+          "description": "Sets android:enableOnBackInvokedCallback to false so apps that break under the Android 13+ predictive back system keep the classic back behavior",
+          "default": false
+        },
+        {
           "name": "Custom App Resolution (Experimental)",
           "description": "Set a custom resolution for the game",
           "default": false
         },
         {
+          "name": "Custom Startup Dialog",
+          "description": "Shows a customizable dialog once when the app is opened",
+          "default": false
+        },
+        {
+          "name": "Custom Startup Toast",
+          "description": "Shows a customizable toast message every time the app starts",
+          "default": false
+        },
+        {
+          "name": "Disable App Links Verification",
+          "description": "Removes android:autoVerify from intent filters so Android stops prompting to verify the app's web domains and never converts links into app opens",
+          "default": false
+        },
+        {
+          "name": "Disable Battery Optimization Prompt",
+          "description": "Removes the permission and intent filters apps use to ask for battery optimization exemptions, so the 'Ignore battery optimizations?' dialog never appears",
+          "default": false
+        },
+        {
+          "name": "Disable Crash Reporters",
+          "description": "No-ops the static init/start/register methods of bundled crash-reporting SDKs (Crashlytics, Fabric, Sentry, Bugsnag, ACRA, HockeyApp, AppCenter, Instabug, Countly)",
+          "default": false
+        },
+        {
+          "name": "Disable Facebook SDK Auto-Init",
+          "description": "Adds Facebook SDK manifest switches that stop auto-initialization, automatic app event logging and advertiser ID collection at startup",
+          "default": false
+        },
+        {
+          "name": "Disable Firebase Auto-Init",
+          "description": "Adds Firebase manifest switches that stop Analytics, Messaging, Crashlytics and Performance from initializing themselves at startup",
+          "default": false
+        },
+        {
+          "name": "Disable Heap Pointer Tagging",
+          "description": "Sets android:allowNativeHeapPointerTagging to false so older native games that break under Android 12+ tagged pointers keep running",
+          "default": false
+        },
+        {
+          "name": "Disable Permission Auto-Revoke",
+          "description": "Sets android:autoRevokePermissions to discouraged so Android stops resetting unused permissions of apps you rarely open",
+          "default": false
+        },
+        {
           "name": "Disable Root Checks",
           "description": "Disable root detection",
+          "default": false
+        },
+        {
+          "name": "Disable StrictMode",
+          "description": "No-ops StrictMode policy installs made by the app so debug builds that enable strict disk or network checks stop crashing on release-like usage",
           "default": false
         },
         {
@@ -79434,8 +79583,163 @@
           "default": false
         },
         {
+          "name": "Disable Vibration",
+          "description": "Replaces framework Vibrator.vibrate calls with no-ops so apps cannot make the device buzz",
+          "default": false
+        },
+        {
+          "name": "Empty Clipboard Report",
+          "description": "Makes ClipboardManager.hasPrimaryClip always return false so apps stop harvesting or acting on clipboard content copied from other apps",
+          "default": false
+        },
+        {
+          "name": "Enable Large Heap",
+          "description": "Sets android:largeHeap so the app gets a bigger Java heap on devices that allow it, reducing OutOfMemoryError crashes in memory-hungry games",
+          "default": false
+        },
+        {
+          "name": "Enable WebView Debugging",
+          "description": "Turns on WebView remote debugging: existing setWebContentsDebuggingEnabled calls are forced to true and it is actively enabled at startup, so WebViews can be inspected via chrome://inspect",
+          "default": false
+        },
+        {
+          "name": "Ensure Internet Permission",
+          "description": "Adds the INTERNET permission if it is missing. Useful after aggressive permission stripping or for offline builds that still need web endpoints",
+          "default": false
+        },
+        {
+          "name": "Export All Activities",
+          "description": "Marks every activity as android:exported so other apps and ADB can launch them",
+          "default": false
+        },
+        {
+          "name": "Fake Battery Whitelist",
+          "description": "Makes PowerManager.isIgnoringBatteryOptimizations always return true so apps stop nagging about battery optimization exemptions",
+          "default": false
+        },
+        {
+          "name": "Fake Bluetooth Enabled",
+          "description": "Makes BluetoothAdapter.isEnabled always return true so apps that require Bluetooth stop nagging about it being turned off",
+          "default": false
+        },
+        {
+          "name": "Fake Fingerprint Hardware",
+          "description": "Makes FingerprintManager report available hardware and enrolled fingerprints so apps unlock fingerprint-gated features on any device",
+          "default": false
+        },
+        {
+          "name": "Fake NFC Enabled",
+          "description": "Makes NfcAdapter.isEnabled always return true so apps that require NFC stop blocking features on devices without it",
+          "default": false
+        },
+        {
+          "name": "Fake Online State",
+          "description": "Makes connectivity checks report an active connection: WifiManager.isWifiEnabled, NetworkInfo.isConnected/isAvailable/isConnectedOrConnecting all return true",
+          "default": false
+        },
+        {
+          "name": "Force Extract Native Libs",
+          "description": "Sets android:extractNativeLibs so native libraries are extracted at install time. Some mod loaders, hooks and older tools only work with extracted libs",
+          "default": false
+        },
+        {
+          "name": "Force Hardware Acceleration",
+          "description": "Sets android:hardwareAccelerated so every activity renders with GPU acceleration, even when the app disables it globally",
+          "default": false
+        },
+        {
           "name": "Force Landscape / Portrait",
           "description": "Force the app to a fixed screen orientation",
+          "default": false
+        },
+        {
+          "name": "Force Left-to-Right Layout",
+          "description": "Sets android:supportsRtl to false so the app always renders left-to-right, fixing layouts that break under right-to-left system languages",
+          "default": false
+        },
+        {
+          "name": "Force Notifications Enabled",
+          "description": "Makes NotificationManager.areNotificationsEnabled always return true so apps that refuse to run when notifications are blocked keep working",
+          "default": false
+        },
+        {
+          "name": "Force Resizable Activity",
+          "description": "Sets android:resizeableActivity and drops the required touchscreen feature so the app can run in split-screen, free-form windows, DeX, and Chromebooks",
+          "default": false
+        },
+        {
+          "name": "Grant All-Files Access",
+          "description": "Makes Environment.isExternalStorageManager always return true so apps accept the storage permission state without the special Android 11+ prompt",
+          "default": false
+        },
+        {
+          "name": "Hide Debugger Connection",
+          "description": "Makes Debug.isDebuggerConnected and waitingForDebugger always return false so apps that refuse to run under a debugger keep working",
+          "default": false
+        },
+        {
+          "name": "Hide Emulator Radio",
+          "description": "Makes TelephonyManager.getPhoneType always report GSM so emulator detection based on a missing radio reports a normal device",
+          "default": false
+        },
+        {
+          "name": "Hide Mock Location",
+          "description": "Makes Location.isMock and Location.isFromMockProvider always return false so apps cannot detect spoofed GPS apps",
+          "default": false
+        },
+        {
+          "name": "Hide Roaming Status",
+          "description": "Makes TelephonyManager.isNetworkRoaming always return false so apps that block or warn while roaming behave as if the device is on its home network",
+          "default": false
+        },
+        {
+          "name": "Ignore GPS Disabled",
+          "description": "Makes LocationManager.isProviderEnabled always return true so apps that refuse to run without location services keep working",
+          "default": false
+        },
+        {
+          "name": "Ignore Location Services Off",
+          "description": "Makes LocationManager.isLocationEnabled always return true so apps that refuse to run when location services are disabled keep working",
+          "default": false
+        },
+        {
+          "name": "Ignore Low RAM Device",
+          "description": "Makes ActivityManager.isLowRamDevice always return false so apps stop degrading graphics or features on entry-level devices",
+          "default": false
+        },
+        {
+          "name": "Ignore Power Save Mode",
+          "description": "Makes PowerManager.isPowerSaveMode and isDeviceIdleMode always return false so apps do not throttle features or downloads while battery saver or Doze is active",
+          "default": false
+        },
+        {
+          "name": "Ignore Screen Lock",
+          "description": "Makes KeyguardManager lock-state checks report an unlocked device so apps that gate features behind a screen lock behave as if none is set",
+          "default": false
+        },
+        {
+          "name": "Ignore Touch Exploration",
+          "description": "Makes AccessibilityManager.isTouchExplorationEnabled always return false so games that disable or alter gameplay under TalkBack behave normally",
+          "default": false
+        },
+        {
+          "name": "Immersive Fullscreen",
+          "description": "Adds android:windowFullscreen to every theme so activities render edge-to-edge without the status bar",
+          "default": false
+        },
+        {
+          "name": "Keep Data on Uninstall",
+          "description": "Sets android:hasFragileUserData so Android offers to keep the app's data when uninstalling (the confirmation dialog appears on Android 10+)",
+          "default": false
+        },
+        {
+          "name": "Keep Screen On",
+          "description": "Adds android:keepScreenOn to every theme so the display stays on while any activity of the app is visible",
+          "default": false
+        },
+        {
+          "name": "Legacy External Storage",
+          "description": "Sets android:requestLegacyExternalStorage so the app keeps using the classic shared-storage model instead of scoped storage (Android 10; ignored on 11+)",
           "default": false
         },
         {
@@ -79444,8 +79748,18 @@
           "default": false
         },
         {
+          "name": "Make App Debuggable",
+          "description": "Sets android:debuggable so debuggers and profiling tools can attach",
+          "default": false
+        },
+        {
           "name": "No Ads",
           "description": "Remove ads",
+          "default": false
+        },
+        {
+          "name": "Optimize as Game",
+          "description": "Sets android:appCategory to game so Android applies game mode, battery and screenshot optimizations tuned for games",
           "default": false
         },
         {
@@ -79454,13 +79768,58 @@
           "default": false
         },
         {
+          "name": "Relax Shared Libraries",
+          "description": "Marks every <uses-library> entry as optional so missing shared libraries no longer block the app from installing on devices that lack them",
+          "default": false
+        },
+        {
+          "name": "Remove Ad Services Entries",
+          "description": "Strips Privacy Sandbox (AdServices) permissions, the ad ID permission and their config metadata from the manifest",
+          "default": false
+        },
+        {
+          "name": "Remove App Icon",
+          "description": "Replaces the launcher icon with a transparent drawable",
+          "default": false
+        },
+        {
+          "name": "Remove Backup Restrictions",
+          "description": "Sets android:allowBackup and removes data extraction / full backup rules that exclude app data from device transfers and cloud backups",
+          "default": false
+        },
+        {
           "name": "Remove Hardware Requirements",
           "description": "Remove uses-feature entries so the app installs on more devices",
           "default": false
         },
         {
+          "name": "Remove Network Security Config",
+          "description": "Removes the app's network security config so certificate pinning and cleartext restrictions fall back to platform defaults (useful for HTTPS inspection)",
+          "default": false
+        },
+        {
           "name": "Remove Permissions",
           "description": "Remove permissions from the app manifest",
+          "default": false
+        },
+        {
+          "name": "Rename App",
+          "description": "Overrides the launcher label of the app",
+          "default": false
+        },
+        {
+          "name": "Report Legacy Storage",
+          "description": "Makes Environment.isExternalStorageLegacy always return true so apps behave as if they got classic shared-storage access",
+          "default": false
+        },
+        {
+          "name": "Set Install Location",
+          "description": "Overrides the android:installLocation declared in the manifest",
+          "default": false
+        },
+        {
+          "name": "Set Profileable",
+          "description": "Adds <profileable android:shell=\"true\"/> so profilers (Android Studio, simpleperf, Perfetto) can attach to release builds for performance analysis",
           "default": false
         },
         {
@@ -79479,6 +79838,21 @@
           "default": false
         },
         {
+          "name": "Spoof Build Fingerprint",
+          "description": "Replaces every read of Build.FINGERPRINT with a custom value, useful for integrity and device checks. Leave empty to keep the original fingerprint",
+          "default": false
+        },
+        {
+          "name": "Spoof CPU Architecture",
+          "description": "Replaces reads of Build.CPU_ABI and Build.CPU_ABI2 with a custom value. Leave empty to keep the original",
+          "default": false
+        },
+        {
+          "name": "Spoof Device Model",
+          "description": "Replaces common android.os.Build fields (model, manufacturer, brand) with custom values. Leave an option empty to keep the original value",
+          "default": false
+        },
+        {
           "name": "Spoof Play Integrity",
           "description": "Force Play Integrity checks to pass",
           "default": false
@@ -79489,8 +79863,58 @@
           "default": false
         },
         {
+          "name": "Spoof SDK Level",
+          "description": "Replaces every read of Build.VERSION.SDK_INT with a custom value. WARNING: setting a level lower than the device's real API level makes apps call missing APIs and crash; only use when you know the app checks it",
+          "default": false
+        },
+        {
+          "name": "Spoof Signature Match",
+          "description": "Makes PackageManager.checkSignatures always return SIGNATURE_MATCH so apps that verify their own or another package's signature accept any build",
+          "default": false
+        },
+        {
+          "name": "Status Bar Icons",
+          "description": "Forces the status bar and navigation bar icon color in every theme. Pick white icons for dark backgrounds or dark icons for light backgrounds",
+          "default": false
+        },
+        {
+          "name": "Strip Translations",
+          "description": "Deletes all translated resources so only the default language remains, reducing APK size. Android falls back to the default strings automatically.",
+          "default": false
+        },
+        {
+          "name": "Support All Screens",
+          "description": "Removes compatible-screens restrictions and marks every screen size supported so the app installs on devices it would otherwise reject",
+          "default": false
+        },
+        {
+          "name": "Transparent System Bars",
+          "description": "Forces the status bar and navigation bar to render transparent in every theme so app content draws edge-to-edge behind them",
+          "default": false
+        },
+        {
+          "name": "Treat Network as Unmetered",
+          "description": "Makes ConnectivityManager.isActiveNetworkMetered always return false so apps lift download restrictions and quality caps on mobile data",
+          "default": false
+        },
+        {
+          "name": "Treat Screen as On",
+          "description": "Makes PowerManager.isInteractive always return true so apps keep playing audio or progressing instead of pausing while the screen is off",
+          "default": false
+        },
+        {
+          "name": "Trust User Certificates",
+          "description": "No-ops the check methods of app-bundled X509TrustManager implementations so custom certificate validation (including pinning reimplemented by hand) accepts anything",
+          "default": false
+        },
+        {
           "name": "Unlock All IAPs (Unity IAP)",
           "description": "Unlock all in-app purchases in Unity IAP games (Experimental)",
+          "default": false
+        },
+        {
+          "name": "Unlock Max Aspect Ratio",
+          "description": "Removes maxAspectRatio limits from the application, activities and metadata so the app fills tall edge-to-edge screens instead of letterboxing",
           "default": false
         },
         {
@@ -79501,6 +79925,16 @@
         {
           "name": "Unlock Rotation",
           "description": "Remove screenOrientation locks so the app rotates freely",
+          "default": false
+        },
+        {
+          "name": "Unmark Test Only",
+          "description": "Removes android:testOnly from the manifest so builds marked as test-only can be installed and launched like normal apps",
+          "default": false
+        },
+        {
+          "name": "VM Safe Mode",
+          "description": "Sets android:vmSafeMode so the app runs with AOT/JIT optimizations disabled, which can stabilize apps that crash from compiler optimizations on some devices",
           "default": false
         }
       ]
