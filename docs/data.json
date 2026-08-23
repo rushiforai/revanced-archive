@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-22 01:07 UTC",
+  "generatedAt": "2026-08-23 01:05 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 684,
-  "patchCount": 2528,
-  "universalPatchCount": 265,
+  "patchCount": 2549,
+  "universalPatchCount": 285,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -4476,19 +4476,19 @@
       "webUrl": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
       "addUrl": "https://Revanced.software/add-source?github=icysymmetra/tiktok-patches-for-morphe",
       "avatarUrl": "https://github.com/icysymmetra.png?size=96",
-      "patchCount": 29,
+      "patchCount": 30,
       "appCount": 1,
       "createdAt": 1784836037034,
       "updatedAt": 1784836037034,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "0.7.0-dev.5",
+        "title": "0.7.0",
         "date": "",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**clear-display:** preserve state across feed transitions"
+            "text": "**tiktok:** preserve swipe-lock playback speed"
           }
         ]
       },
@@ -4496,7 +4496,7 @@
         {
           "name": "com.zhiliaoapp.musically",
           "packageName": "com.zhiliaoapp.musically",
-          "patchCount": 29,
+          "patchCount": 30,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -5970,24 +5970,36 @@
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.0.4 (2026-08-09)",
-        "date": "2026-08-09",
+        "title": "1.1.0 (2026-08-22)",
+        "date": "2026-08-22",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Add missing Russian translation for the live-stream error message"
+            "text": "Crash when opening the bottom sheet after the theme colors moved out of the library"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Correct string keys for the button countdown timer text"
+            "text": "Drop the redundant clamp from the Yandex VoT poll delay"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Remove unused strings and show summaries for VoT/live voices switches"
+            "text": "Improve the Yandex VoT player button placement and countdown text"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Register the add-on listeners only once"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
             "text": "Resolve IDE warnings"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Rework Yandex VoT timing, stop handling and new-video invalidation"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Verify the Morphe Patches host API before patching"
           }
         ]
       },
@@ -6275,47 +6287,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 100,
+      "patchCount": 120,
       "appCount": 0,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.22.0 (2026-08-21)",
-        "date": "2026-08-21",
+        "title": "1.24.0 (2026-08-22)",
+        "date": "2026-08-22",
         "items": [
           {
             "category": "New Features",
-            "text": "add Allow Background Activity patch"
+            "text": "add Disable Animations patch"
           },
           {
             "category": "New Features",
-            "text": "add Allow Clearing App Data patch"
+            "text": "add Spoof Airplane Mode patch"
           },
           {
             "category": "New Features",
-            "text": "add Allow Cleartext Traffic patch"
+            "text": "add Spoof Android ID patch"
           },
           {
             "category": "New Features",
-            "text": "add Always Allow Biometrics patch"
+            "text": "add Spoof Bluetooth Enabled patch"
           },
           {
             "category": "New Features",
-            "text": "add Block Screenshot Detection patch"
+            "text": "add Spoof Bluetooth Identity patch"
           },
           {
             "category": "New Features",
-            "text": "add Bypass OkHttp Pinning patch"
+            "text": "add Spoof Build Extras patch"
           },
           {
             "category": "New Features",
-            "text": "add Bypass VPN Detection patch"
+            "text": "add Spoof Data State patch"
           },
           {
             "category": "New Features",
-            "text": "add Change Version Code patch"
+            "text": "add Spoof Last Known Location patch"
           }
         ]
       },
@@ -9979,12 +9991,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.2 (2026-08-18)",
-        "date": "2026-08-18",
+        "title": "1.12.3 (2026-08-22)",
+        "date": "2026-08-22",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** support common cell migration in 19.31"
+            "text": "**wildberries:** support version 7.7.6003-rustore"
           }
         ]
       },
@@ -14821,12 +14833,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.2 (2026-08-18)",
-            "date": "2026-08-18",
+            "title": "1.12.3 (2026-08-22)",
+            "date": "2026-08-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support common cell migration in 19.31"
+                "text": "**wildberries:** support version 7.7.6003-rustore"
               }
             ]
           },
@@ -27069,12 +27081,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/icysymmetra/tiktok-patches-for-morphe/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/icysymmetra.png?size=96",
           "latestChanges": {
-            "title": "0.7.0-dev.5",
+            "title": "0.7.0",
             "date": "",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**clear-display:** preserve state across feed transitions"
+                "text": "**tiktok:** preserve swipe-lock playback speed"
               }
             ]
           },
@@ -27096,7 +27108,7 @@
             },
             {
               "name": "Custom offline videos limit",
-              "description": "Adds a custom entry to TikTok's offline videos menu with a configurable limit of up to 500 videos."
+              "description": "Adds a custom entry to TikTok's offline videos menu with a configurable limit from 1 to 1000 videos."
             },
             {
               "name": "Diagnostic tools",
@@ -27109,6 +27121,10 @@
             {
               "name": "Disable long-press quick share",
               "description": "Keeps long-pressing Share from opening TikTok's quick-share interaction."
+            },
+            {
+              "name": "Disable long-press repost",
+              "description": "Keeps holding Like from opening TikTok's repost action."
             },
             {
               "name": "Disable screen capture detection",
@@ -27246,6 +27262,7 @@
         "Diagnostic tools",
         "Disable login requirement",
         "Disable long-press quick share",
+        "Disable long-press repost",
         "Disable screen capture detection",
         "Downloads",
         "Enable Live search",
@@ -27286,7 +27303,7 @@
         },
         {
           "name": "Custom offline videos limit",
-          "description": "Adds a custom entry to TikTok's offline videos menu with a configurable limit of up to 500 videos."
+          "description": "Adds a custom entry to TikTok's offline videos menu with a configurable limit from 1 to 1000 videos."
         },
         {
           "name": "Diagnostic tools",
@@ -27299,6 +27316,10 @@
         {
           "name": "Disable long-press quick share",
           "description": "Keeps long-pressing Share from opening TikTok's quick-share interaction."
+        },
+        {
+          "name": "Disable long-press repost",
+          "description": "Keeps holding Like from opening TikTok's repost action."
         },
         {
           "name": "Disable screen capture detection",
@@ -50726,12 +50747,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.2 (2026-08-18)",
-            "date": "2026-08-18",
+            "title": "1.12.3 (2026-08-22)",
+            "date": "2026-08-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support common cell migration in 19.31"
+                "text": "**wildberries:** support version 7.7.6003-rustore"
               }
             ]
           },
@@ -56304,8 +56325,8 @@
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
         "Spoof signature",
-        "Unlock Custom Time Picker",
         "Unlock custom time picker",
+        "Unlock Custom Time Picker",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
@@ -56330,12 +56351,12 @@
           "description": "Restores push notifications by spoofing the original app signature."
         },
         {
-          "name": "Unlock Custom Time Picker",
-          "description": "Unlocks the custom scheduled send date/time picker for all users."
-        },
-        {
           "name": "Unlock custom time picker",
           "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
+        },
+        {
+          "name": "Unlock Custom Time Picker",
+          "description": "Unlocks the custom scheduled send date/time picker for all users."
         },
         {
           "name": "Unlock Unlimited Plan",
@@ -58536,16 +58557,16 @@
         "Disable modern home",
         "Disable post detail swipe",
         "Disable screenshot banner",
-        "Disable screenshot popup",
         "Disable Screenshot Popup",
+        "Disable screenshot popup",
         "Force system font",
-        "Hide Ads",
         "Hide ads",
+        "Hide Ads",
         "Hide Ask button",
         "Hide Ask button from search bar",
         "Hide awards",
-        "Hide Communities Shelf",
         "Hide communities shelf",
+        "Hide Communities Shelf",
         "Hide community highlights",
         "Hide community menu badge",
         "Hide navigation buttons",
@@ -58558,8 +58579,8 @@
         "Hide share count",
         "Hide Sidebar Components",
         "Hide sidebar components",
-        "Hide Trending shelves",
         "Hide Trending Shelves",
+        "Hide Trending shelves",
         "Hide upvote scores",
         "Hide user community badges",
         "Hide user flairs",
@@ -58571,8 +58592,8 @@
         "Remove Subreddit Dialogs",
         "Sanitize Reddit share links",
         "Sanitize share links",
-        "Sanitize Sharing Links",
         "Sanitize sharing links",
+        "Sanitize Sharing Links",
         "Show view count",
         "Spoof signature",
         "Unlock Premium"
@@ -58627,24 +58648,24 @@
           "description": "Disables the banner that shows up after taking a screenshot."
         },
         {
-          "name": "Disable screenshot popup",
-          "description": "Adds an option to disable the popup that appears when taking a screenshot."
-        },
-        {
           "name": "Disable Screenshot Popup",
           "description": "Suppresses the share prompt that appears after taking a screenshot."
+        },
+        {
+          "name": "Disable screenshot popup",
+          "description": "Adds an option to disable the popup that appears when taking a screenshot."
         },
         {
           "name": "Force system font",
           "description": "Adds an option that renders Reddit with the device system font instead of Reddit Sans / Roboto."
         },
         {
-          "name": "Hide Ads",
-          "description": "Removes promoted posts and comment ads without requiring Reddit Premium unlock."
-        },
-        {
           "name": "Hide ads",
           "description": "Adds options to hide ads."
+        },
+        {
+          "name": "Hide Ads",
+          "description": "Removes promoted posts and comment ads without requiring Reddit Premium unlock."
         },
         {
           "name": "Hide Ask button",
@@ -58659,12 +58680,12 @@
           "description": "Hides the awards on Reddit posts and comments."
         },
         {
-          "name": "Hide Communities Shelf",
-          "description": "Hides the related or suggested communities shelf in subreddits."
-        },
-        {
           "name": "Hide communities shelf",
           "description": "Adds an option to hide the related or suggested communities shelf in subreddits."
+        },
+        {
+          "name": "Hide Communities Shelf",
+          "description": "Hides the related or suggested communities shelf in subreddits."
         },
         {
           "name": "Hide community highlights",
@@ -58715,12 +58736,12 @@
           "description": "Adds options to hide the sidebar components."
         },
         {
-          "name": "Hide Trending shelves",
-          "description": "Adds an option to hide the Trending shelves from feed and search suggestions."
-        },
-        {
           "name": "Hide Trending Shelves",
           "description": "Removes Trending Today from the feed and trending searches from the search screen."
+        },
+        {
+          "name": "Hide Trending shelves",
+          "description": "Adds an option to hide the Trending shelves from feed and search suggestions."
         },
         {
           "name": "Hide upvote scores",
@@ -58767,12 +58788,12 @@
           "description": "Unshortens and removes the tracking query parameters from shared links."
         },
         {
-          "name": "Sanitize Sharing Links",
-          "description": "Returns the raw permalink before UTM tracking parameters are appended to shared Reddit URLs."
-        },
-        {
           "name": "Sanitize sharing links",
           "description": "Adds an option to sanitize sharing links by removing tracking query parameters."
+        },
+        {
+          "name": "Sanitize Sharing Links",
+          "description": "Returns the raw permalink before UTM tracking parameters are appended to shared Reddit URLs."
         },
         {
           "name": "Show view count",
@@ -66795,12 +66816,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.2 (2026-08-18)",
-            "date": "2026-08-18",
+            "title": "1.12.3 (2026-08-22)",
+            "date": "2026-08-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support common cell migration in 19.31"
+                "text": "**wildberries:** support version 7.7.6003-rustore"
               }
             ]
           },
@@ -73469,12 +73490,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.2 (2026-08-18)",
-            "date": "2026-08-18",
+            "title": "1.12.3 (2026-08-22)",
+            "date": "2026-08-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support common cell migration in 19.31"
+                "text": "**wildberries:** support version 7.7.6003-rustore"
               }
             ]
           },
@@ -73499,7 +73520,9 @@
             "7.7.4003",
             "7.7.4003-rustore",
             "7.7.5003",
-            "7.7.5003-rustore"
+            "7.7.5003-rustore",
+            "7.7.6003",
+            "7.7.6003-rustore"
           ]
         }
       ],
@@ -73520,7 +73543,9 @@
         "7.7.4003",
         "7.7.4003-rustore",
         "7.7.5003",
-        "7.7.5003-rustore"
+        "7.7.5003-rustore",
+        "7.7.6003",
+        "7.7.6003-rustore"
       ],
       "iconColor": "#A73AFD",
       "iconUrl": ""
@@ -75098,24 +75123,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/MarcaDian/morphe-patches-yavot/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MarcaDian.png?size=96",
           "latestChanges": {
-            "title": "1.0.4 (2026-08-09)",
-            "date": "2026-08-09",
+            "title": "1.1.0 (2026-08-22)",
+            "date": "2026-08-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Add missing Russian translation for the live-stream error message"
+                "text": "Crash when opening the bottom sheet after the theme colors moved out of the library"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Correct string keys for the button countdown timer text"
+                "text": "Drop the redundant clamp from the Yandex VoT poll delay"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Remove unused strings and show summaries for VoT/live voices switches"
+                "text": "Improve the Yandex VoT player button placement and countdown text"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Register the add-on listeners only once"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
                 "text": "Resolve IDE warnings"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Rework Yandex VoT timing, stop handling and new-video invalidation"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Verify the Morphe Patches host API before patching"
               }
             ]
           },
@@ -79397,42 +79434,42 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 100,
+      "patchCount": 120,
       "latestChanges": {
-        "title": "1.22.0 (2026-08-21)",
-        "date": "2026-08-21",
+        "title": "1.24.0 (2026-08-22)",
+        "date": "2026-08-22",
         "items": [
           {
             "category": "New Features",
-            "text": "add Allow Background Activity patch"
+            "text": "add Disable Animations patch"
           },
           {
             "category": "New Features",
-            "text": "add Allow Clearing App Data patch"
+            "text": "add Spoof Airplane Mode patch"
           },
           {
             "category": "New Features",
-            "text": "add Allow Cleartext Traffic patch"
+            "text": "add Spoof Android ID patch"
           },
           {
             "category": "New Features",
-            "text": "add Always Allow Biometrics patch"
+            "text": "add Spoof Bluetooth Enabled patch"
           },
           {
             "category": "New Features",
-            "text": "add Block Screenshot Detection patch"
+            "text": "add Spoof Bluetooth Identity patch"
           },
           {
             "category": "New Features",
-            "text": "add Bypass OkHttp Pinning patch"
+            "text": "add Spoof Build Extras patch"
           },
           {
             "category": "New Features",
-            "text": "add Bypass VPN Detection patch"
+            "text": "add Spoof Data State patch"
           },
           {
             "category": "New Features",
-            "text": "add Change Version Code patch"
+            "text": "add Spoof Last Known Location patch"
           }
         ]
       },
@@ -79475,6 +79512,11 @@
         {
           "name": "Block Screenshot Detection",
           "description": "Adds FLAG_SECURE to every activity window so the system blocks screenshots, screen recording and recents previews of the app",
+          "default": false
+        },
+        {
+          "name": "Bypass Emulator Detection",
+          "description": "Spoofs android.os.Build identity (model, device, manufacturer, hardware, fingerprint, serial) and the ro.kernel.qemu property so apps and games that refuse to run, crash or match you with emulator lobbies cannot tell they are on an emulator. Does not hide root or a debugger connection.",
           "default": false
         },
         {
@@ -79525,6 +79567,11 @@
         {
           "name": "Custom Startup Toast",
           "description": "Shows a customizable toast message every time the app starts",
+          "default": false
+        },
+        {
+          "name": "Disable Animations",
+          "description": "Forces Settings.Global window/transition/animator scale values to 0 so the app runs without UI animations (faster, less motion).",
           "default": false
         },
         {
@@ -79838,6 +79885,31 @@
           "default": false
         },
         {
+          "name": "Spoof Airplane Mode",
+          "description": "Forces Settings.Global AIRPLANE_MODE_ON reads to 0 (off) so apps that change behavior in airplane mode see a normal connection state.",
+          "default": false
+        },
+        {
+          "name": "Spoof Android ID",
+          "description": "Replaces Settings.Secure.ANDROID_ID reads with a fixed value so the patched app cannot be tracked across reinstalls or matched to a specific device.",
+          "default": false
+        },
+        {
+          "name": "Spoof Bluetooth Enabled",
+          "description": "Forces Settings.Global BLUETOOTH_ON reads to 0 (off) so apps that behave differently when Bluetooth is enabled cannot tell it is on.",
+          "default": false
+        },
+        {
+          "name": "Spoof Bluetooth Identity",
+          "description": "Reports chosen values from BluetoothAdapter.getName() and getAddress() so apps cannot read the real Bluetooth device name or MAC address.",
+          "default": false
+        },
+        {
+          "name": "Spoof Build Extras",
+          "description": "Spoofs the remaining android.os.Build identity fields not covered by Bypass Emulator Detection (BOOTLOADER, RADIO, USER, HOST, getRadioVersion, and Build.VERSION RELEASE/INCREMENTAL/SECURITY_PATCH/CODENAME) with values from a real Pixel 6, so apps cannot fingerprint the device through these fields.",
+          "default": false
+        },
+        {
           "name": "Spoof Build Fingerprint",
           "description": "Replaces every read of Build.FINGERPRINT with a custom value, useful for integrity and device checks. Leave empty to keep the original fingerprint",
           "default": false
@@ -79848,8 +79920,38 @@
           "default": false
         },
         {
+          "name": "Spoof Data State",
+          "description": "Reports an active data connection from TelephonyManager.getDataState() (DATA_CONNECTED) and getDataActivity() (DATA_ACTIVITY_INOUT) so apps that change behavior based on mobile data state see a live connection.",
+          "default": false
+        },
+        {
+          "name": "Spoof Developer Options",
+          "description": "Forces Settings.Global/Settings.Secure getters for developer options, USB debugging and wireless debugging to report disabled (0), so apps that refuse to run or crash when they detect debugging cannot tell it is on.",
+          "default": false
+        },
+        {
           "name": "Spoof Device Model",
           "description": "Replaces common android.os.Build fields (model, manufacturer, brand) with custom values. Leave an option empty to keep the original value",
+          "default": false
+        },
+        {
+          "name": "Spoof Last Known Location",
+          "description": "Forces LocationManager.getLastKnownLocation() to return null so apps cannot read the device's last cached GPS/network position.",
+          "default": false
+        },
+        {
+          "name": "Spoof Locale",
+          "description": "Forces Locale.getDefault() to return a chosen BCP-47 language tag (e.g. en-US) so region- or language-locked apps see the locale you pick.",
+          "default": false
+        },
+        {
+          "name": "Spoof Location Provider",
+          "description": "Forces LocationManager.getBestProvider() to report \"gps\" and isProviderEnabled() to report true, so location-dependent apps believe a GPS provider is always available and enabled.",
+          "default": false
+        },
+        {
+          "name": "Spoof Phone Number",
+          "description": "Reports an empty string from TelephonyManager.getLine1Number() and getLine2Number() so apps cannot read the device's phone number.",
           "default": false
         },
         {
@@ -79863,13 +79965,48 @@
           "default": false
         },
         {
+          "name": "Spoof Ringer Mode",
+          "description": "Forces AudioManager.getRingerMode() to report RINGER_MODE_NORMAL (2) so apps cannot detect silent or vibrate mode.",
+          "default": false
+        },
+        {
           "name": "Spoof SDK Level",
           "description": "Replaces every read of Build.VERSION.SDK_INT with a custom value. WARNING: setting a level lower than the device's real API level makes apps call missing APIs and crash; only use when you know the app checks it",
           "default": false
         },
         {
+          "name": "Spoof Sensor List",
+          "description": "Forces SensorManager.getSensorList() to return an empty list so apps cannot enumerate the device's sensors for fingerprinting or capability checks.",
+          "default": false
+        },
+        {
           "name": "Spoof Signature Match",
           "description": "Makes PackageManager.checkSignatures always return SIGNATURE_MATCH so apps that verify their own or another package's signature accept any build",
+          "default": false
+        },
+        {
+          "name": "Spoof SIM Country",
+          "description": "Reports a chosen ISO country (e.g. us) from TelephonyManager.getSimCountryIso() and getNetworkCountryIso() to bypass region locks and geo-restrictions.",
+          "default": false
+        },
+        {
+          "name": "Spoof SIM Operator",
+          "description": "Reports a chosen MCC+MNC from TelephonyManager.getSimOperator() and getNetworkOperator() so apps cannot read the real mobile network operator.",
+          "default": false
+        },
+        {
+          "name": "Spoof SIM Operator Name",
+          "description": "Reports a chosen carrier name from TelephonyManager.getSimOperatorName() and getNetworkOperatorName() so apps cannot read the real carrier display name.",
+          "default": false
+        },
+        {
+          "name": "Spoof Voice Mail",
+          "description": "Reports empty strings from TelephonyManager.getVoiceMailNumber() and getVoiceMailAlphaTag() so apps cannot read the voicemail number or tag.",
+          "default": false
+        },
+        {
+          "name": "Spoof WiFi Enabled",
+          "description": "Forces WifiManager.isWifiEnabled() to report true and getWifiState() to report WIFI_STATE_ENABLED (3) so apps cannot tell Wi-Fi is off.",
           "default": false
         },
         {
@@ -80653,12 +80790,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.2 (2026-08-18)",
-        "date": "2026-08-18",
+        "title": "1.12.3 (2026-08-22)",
+        "date": "2026-08-22",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** support common cell migration in 19.31"
+            "text": "**wildberries:** support version 7.7.6003-rustore"
           }
         ]
       },
