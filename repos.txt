@@ -10,6 +10,7 @@ Aunali321/revanced-downloader-plugins
 Aunali321/revanced-web-patcher-backend
 BakasuraRCE/bakasura-patches
 D4NZ-jpg/revanced-patches
+Deadly-Bytes/redflagdeals-revanced-patches
 Faith001/revanced-molten-glass
 Graywizard888/Enhancify
 HZbutcoding/sn-patching
