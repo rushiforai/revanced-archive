@@ -40,6 +40,7 @@ YT-Advanced/ReX-patches
 alim-zanibekov/ultrasandbox
 bawr/revanced-patches
 blazskufca/revanced-patch
+bluecxt/instagram-revanced-patches
 brosssh/morphe-mcp
 brosssh/revanced-external-bundles
 burgers1312/revanced-patches
@@ -53,6 +54,7 @@ exconvinced/revanced-web-app
 eyalm2000/tidal-debug-menu
 forsyth47/revanced-patches
 fromhgbwithluv/ReX-patches
+gitlab.com/gltieo/revanced-patches
 hoo-dles/jadx-morphe
 indrastorms/Dropped-Patches
 inotia00/revanced-cli-arsclib
@@ -70,6 +72,7 @@ lluni/custom-revanced-patches
 loan-mgt/moovit-patch
 prevanced/prevanced-manager
 roflsunriz/chmate-revanced
+roflsunriz/imgur-revanced
 rufusin/revanced-patches
 rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
