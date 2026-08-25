@@ -1,0 +1,716 @@
+<title>Inside the YouTube APK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+
+<style>
+  :root {
+    --ground: #F2F4F6;
+    --surface: #FFFFFF;
+    --ink: #131A21;
+    --muted: #5A6773;
+    --rule: #D9DFE5;
+    --l1: #0C6E68;
+    --mark: #B8860B;
+    --mark-wash: #F6E7B8;
+    --code-bg: #1B2027;
+    --code-ink: #DCE3EA;
+    --good: #1C6B3C;
+    --open: #8A5A00;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0E1317;
+      --surface: #151B21;
+      --ink: #E6ECF1;
+      --muted: #94A2AE;
+      --rule: #242D36;
+      --l1: #57C6BC;
+      --mark: #E9B949;
+      --mark-wash: #3A3016;
+      --code-bg: #0A0E12;
+      --code-ink: #D5DDE5;
+      --good: #6FCF97;
+      --open: #E9B949;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0E1317;
+    --surface: #151B21;
+    --ink: #E6ECF1;
+    --muted: #94A2AE;
+    --rule: #242D36;
+    --l1: #57C6BC;
+    --mark: #E9B949;
+    --mark-wash: #3A3016;
+    --code-bg: #0A0E12;
+    --code-ink: #D5DDE5;
+    --good: #6FCF97;
+    --open: #E9B949;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 74ch;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  header.masthead { display: flex; flex-direction: column; gap: 1rem; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h1 {
+    font-family: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* The page's own device: an L2 line with its L1 line underneath. */
+  .subline {
+    font-family: "Newsreader", Georgia, serif;
+    font-style: italic;
+    color: var(--l1);
+    font-size: 1.15rem;
+    line-height: 1.45;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  section { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  h2 {
+    font-family: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  h2 .num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--mark);
+    letter-spacing: 0.08em;
+    flex: none;
+  }
+
+  h3 {
+    font-family: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0.6rem 0 0;
+    letter-spacing: -0.005em;
+  }
+
+  p { margin: 0; max-width: 68ch; }
+
+  a { color: var(--l1); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.82em;
+    background: color-mix(in srgb, var(--muted) 14%, transparent);
+    padding: 0.1em 0.34em;
+    border-radius: 3px;
+  }
+
+  pre {
+    margin: 0;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 1rem 1.1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+  pre .c { color: #7E8B99; }
+  pre .k { color: #E9B949; }
+  pre .s { color: #7FD1C6; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .status { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.75rem; }
+
+  .status .card { gap: 0.35rem; }
+
+  .status dt {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .status dd {
+    margin: 0;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .status dd small { display: block; font-family: "Newsreader", serif; font-weight: 400; font-size: 0.85rem; color: var(--muted); }
+
+  figure { margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  figure .frame {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.1rem;
+    overflow-x: auto;
+  }
+
+  figure svg { display: block; max-width: 100%; height: auto; margin: 0 auto; color: var(--ink); }
+
+  figcaption { font-size: 0.9rem; color: var(--muted); max-width: 66ch; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  th, td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-family: "Bricolage Grotesque", sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+  td code { font-size: 0.78em; }
+  .tablewrap { overflow-x: auto; }
+
+  ul, ol { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; max-width: 68ch; }
+
+  .tag {
+    display: inline-block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.14em 0.5em;
+    border-radius: 3px;
+    border: 1px solid currentColor;
+  }
+  .tag.verified { color: var(--good); }
+  .tag.open { color: var(--open); }
+
+  mark { background: var(--mark-wash); color: var(--ink); padding: 0 0.15em; }
+
+  hr { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+  footer { color: var(--muted); font-size: 0.85rem; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a { transition: color 120ms ease; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Field notes · updated as we work</div>
+    <h1>Inside the YouTube APK</h1>
+    <p class="subline">How we read an app whose source we don't have, and where two subtitle lines are going to come from.</p>
+  </header>
+
+  <dl class="status">
+    <div class="card">
+      <dt>Running on the phone</dt>
+      <dd>20.40.45<small>already ReVanced-patched, own package</small></dd>
+    </div>
+    <div class="card">
+      <dt>Version we patch</dt>
+      <dd>20.40.45<small>stock, Google-signed, from APKMirror</small></dd>
+    </div>
+    <div class="card">
+      <dt>Second subtitle line</dt>
+      <dd>Solved<small>YouTube translates it for us, after retries</small></dd>
+    </div>
+    <div class="card">
+      <dt>Running in the app</dt>
+      <dd>Better captions<small>two languages, styled and placed</small></dd>
+    </div>
+  </dl>
+
+  <section>
+    <h2><span class="num">00</span> What we are building</h2>
+    <p>Two subtitle lines on screen at once while a video plays. The top line is the language you are learning, the way the speaker said it. The bottom line is the same sentence in German. Everything below is the machinery needed to put that second line on the screen of an app we do not have the source code to.</p>
+    <p>The rest of this page is the pipeline, in the order we walk it: get the app, read the app, find the exact spot to change, change it, run it, watch it.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">01</span> Getting the app</h2>
+    <p class="subline">An APK is a ZIP file. That is the whole trick to opening it.</p>
+    <p>Android ships apps as APK files, and an APK is a ZIP archive with a fixed layout: compiled code, compiled resources, a manifest, and assets. Google no longer ships YouTube as one file. It ships an <em>app bundle</em>, which the Play Store splits per device, so the phone holds several pieces:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>File on the phone</th><th>What is in it</th></tr></thead>
+        <tbody>
+          <tr><td><code>base.apk</code></td><td>All the Java/Kotlin code and the shared resources. 54 MB. This is the one we patch.</td></tr>
+          <tr><td><code>split_config.arm64_v8a.apk</code></td><td>Native libraries compiled for the phone's CPU.</td></tr>
+          <tr><td><code>split_config.xxhdpi.apk</code></td><td>Images at the phone's screen density.</td></tr>
+          <tr><td><code>split_config.en.apk</code></td><td>English strings.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The phone carries both a stock and a patched YouTube, side by side, because a patched build gets its own package name and cannot overwrite the original:</p>
+    <pre><code>app.revanced.android.youtube    20.40.45   enabled    <span class="c">← the patched one, in use</span>
+com.google.android.youtube      20.46.37   disabled   <span class="c">← stock, kept but switched off</span>
+app.revanced.android.gms        0.3.13.2   enabled    <span class="c">← microG, so it can sign in</span></code></pre>
+    <p>Pulling either one off the phone is a two-step affair, and it is the most honest source there is: it is exactly the binary that runs.</p>
+    <pre><code><span class="c"># where Android keeps the installed pieces</span>
+adb shell pm path com.google.android.youtube
+adb pull /data/app/~~7WXU.../base.apk yt-20.46.37-base.apk</code></pre>
+    <p>For patching we need a <em>stock</em> build of the exact version ReVanced supports, so that one comes from APKMirror instead. Whatever the source, the first thing to do is check who signed it — a genuine build carries Google's certificate, and the same fingerprint appears on the app that came off the phone:</p>
+    <pre><code>apksigner verify --print-certs yt-20.40.45-base.apk
+  certificate DN: CN=Android, O=Google Inc., L=Mountain View
+  SHA-256 digest: <span class="s">5aad2bee6db95d17e05a08d7d1e64c10a1511879154483916b6ae6c7fd9cb0c6</span></code></pre>
+    <p>Inside that ZIP, the code is not one file either:</p>
+    <pre><code>classes.dex   7.9 MB     resources.arsc  1.9 MB   <span class="c">compiled resource table</span>
+classes2.dex  7.4 MB     res/…                    <span class="c">layouts, drawables</span>
+classes3.dex  7.6 MB     assets/…                 <span class="c">fonts, models, data</span>
+classes4.dex  7.9 MB
+classes5.dex  7.8 MB     <span class="c">6012 files, 45 MB of bytecode in total</span>
+classes6.dex  6.2 MB
+classes7.dex  0.6 MB</code></pre>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> Turning the app back into code</h2>
+    <p class="subline">Three tools, three different levels of "readable".</p>
+    <p>A <code>.dex</code> file is Dalvik bytecode: the instructions Android's runtime executes, not the Java that was written. Nobody reads dex directly. We convert it twice over, because the two results are good at different things.</p>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 720 300" role="img" aria-label="An APK pulled from the phone is unzipped into dex files and resources; baksmali turns dex into smali, jadx turns dex into Java, apktool turns the resource table back into XML.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="currentColor"></polygon>
+            </marker>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="14" y="120" width="104" height="52" rx="5"></rect>
+            <rect x="176" y="120" width="104" height="52" rx="5"></rect>
+            <rect x="338" y="36" width="112" height="46" rx="5"></rect>
+            <rect x="338" y="120" width="112" height="46" rx="5"></rect>
+            <rect x="338" y="206" width="112" height="46" rx="5"></rect>
+            <rect x="530" y="36" width="176" height="46" rx="5"></rect>
+            <rect x="530" y="120" width="176" height="46" rx="5"></rect>
+            <rect x="530" y="206" width="176" height="46" rx="5"></rect>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor" text-anchor="middle">
+            <text x="66" y="142">phone</text>
+            <text x="66" y="158">adb pull</text>
+            <text x="228" y="142">base.apk</text>
+            <text x="228" y="158">(a ZIP)</text>
+            <text x="394" y="55">classes*.dex</text>
+            <text x="394" y="70">bytecode</text>
+            <text x="394" y="139">classes*.dex</text>
+            <text x="394" y="154">bytecode</text>
+            <text x="394" y="225">resources.arsc</text>
+            <text x="394" y="240">res/</text>
+            <text x="618" y="55">smali</text>
+            <text x="618" y="70">exact, patchable</text>
+            <text x="618" y="139">Java</text>
+            <text x="618" y="154">readable, lossy</text>
+            <text x="618" y="225">XML layouts</text>
+            <text x="618" y="240">ids and strings</text>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar)">
+            <line x1="118" y1="146" x2="170" y2="146"></line>
+            <line x1="280" y1="140" x2="332" y2="66"></line>
+            <line x1="280" y1="146" x2="332" y2="146"></line>
+            <line x1="280" y1="152" x2="332" y2="226"></line>
+            <line x1="450" y1="59" x2="524" y2="59"></line>
+            <line x1="450" y1="143" x2="524" y2="143"></line>
+            <line x1="450" y1="229" x2="524" y2="229"></line>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" text-anchor="middle">
+            <text x="487" y="50">baksmali</text>
+            <text x="487" y="134">jadx</text>
+            <text x="487" y="220">apktool</text>
+            <text x="145" y="138">54 MB</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>One archive, three ways out of it. We read the Java, but we edit the smali, because smali maps one-to-one onto what the runtime executes and Java does not.</figcaption>
+    </figure>
+
+    <h3>jadx: dex back to Java</h3>
+    <p>jadx guesses the Java that would compile to this bytecode. It is the version you read to understand what a method does. It is a reconstruction, so it can be wrong in the details, and it will not always compile.</p>
+
+    <h3>baksmali (inside apktool): dex to smali</h3>
+    <p>Smali is a text form of the bytecode itself, one line per instruction, registers and all. Ugly, exact, and reversible: you can edit smali and assemble it back into a working dex. Every ReVanced patch is ultimately an edit at this level.</p>
+    <p>It reads better than "assembly" suggests. This is a whole method, copied out of 20.40.45:</p>
+    <pre><code>.method public final y()Z
+    const-string v0, <span class="s">"DISABLE_CAPTIONS_OPTION"</span>
+    invoke-virtual {p0}, …/SubtitleTrack;-&gt;g()Ljava/lang/String;
+    move-result-object v1
+    invoke-virtual {v0, v1}, Ljava/lang/String;-&gt;equals(Ljava/lang/Object;)Z
+    move-result v0
+    return v0
+.end method</code></pre>
+    <p>Which is nothing more than:</p>
+    <pre><code><span class="k">public final boolean</span> y() {
+    <span class="k">return</span> <span class="s">"DISABLE_CAPTIONS_OPTION"</span>.equals(g());
+}</code></pre>
+    <p>The vocabulary is small. <code>p0…pN</code> are the parameters, and in an instance method <code>p0</code> is <code>this</code>; <code>v0…vN</code> are locals; types are single letters, <code>Z</code> for boolean, <code>I</code> for int, <code>V</code> for void, <code>L…;</code> for an object. A call's return value lands in a hidden slot, which is why every <code>invoke</code> is followed by a <code>move-result</code>. Unlike JVM bytecode, which pushes and pops a stack, Dalvik is register-based: each instruction names the registers it touches.</p>
+    <p>Keep that method in mind — it is the one the next two sections take apart.</p>
+
+    <h3>apktool: the resources</h3>
+    <p>Layouts and strings are compiled too. apktool turns <code>resources.arsc</code> and the binary XML back into readable XML, which is how a patch can add a view to the player's layout, or read the numeric id behind a name like <code>youtube_controls_bottom_ui_container</code>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> Why the code looks like nonsense</h2>
+    <p class="subline">Class <code>pc</code>, method <code>a</code>, field <code>b</code>. On purpose.</p>
+    <p>Google runs the app through R8, which shrinks and obfuscates: every class, method and field that is not part of a public interface gets renamed to something short and meaningless. It makes the download smaller and the app harder to read, and both are the point. There is no mapping file for us.</p>
+    <p>So a name is worthless to us, and worse than worthless across versions: <em>the names are reassigned on every release</em>. A patch that says "call into class <code>pc</code>" works for exactly one build of the app and silently targets something else in the next.</p>
+    <p>Three things do survive obfuscation, and they are what everything else is built on:</p>
+    <ul>
+      <li><strong>String literals.</strong> A method that logs <code>"DISABLE_CAPTIONS_OPTION"</code> still contains that text after obfuscation. Strings are data, not names.</li>
+      <li><strong>Resource names.</strong> <code>accessibility_captions_button_name</code> lives in the resource table and the code refers to it by a stable numeric id.</li>
+      <li><strong>Shape.</strong> The instruction sequence, the return type, the parameter types, whether the method is public and final. Renaming does not change what the code does.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> Fingerprints: finding a method without knowing its name</h2>
+    <p class="subline">Describe the method well enough that only one in the whole app matches.</p>
+    <p>This is ReVanced's central idea. Instead of naming a target, a patch <em>describes</em> it, and the patcher searches all 45 MB of bytecode for the one method that fits. Here is a real one from the existing "Disable auto captions" patch:</p>
+    <pre><code><span class="k">internal val</span> BytecodePatchContext.subtitleTrackMethod
+    <span class="k">by</span> gettingFirstMethodDeclaratively(<span class="s">"DISABLE_CAPTIONS_OPTION"</span>) {
+    accessFlags(AccessFlags.PUBLIC, AccessFlags.FINAL)
+    returnType(<span class="s">"Z"</span>)          <span class="c">// returns a boolean</span>
+    parameterTypes()          <span class="c">// takes no arguments</span>
+}</code></pre>
+    <p>Read it as a sentence: <em>the public final method that takes nothing, returns a boolean, and mentions the string DISABLE_CAPTIONS_OPTION</em>. That description survives the app being rebuilt and renamed, which is why ReVanced can support six YouTube versions from one source tree.</p>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 700 250" role="img" aria-label="One fingerprint description matches a short-named class in the installed version and whatever the same code is called in the version being patched.">
+          <defs>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="currentColor"></polygon>
+            </marker>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="16" y="86" width="250" height="78" rx="5" stroke="var(--mark)" stroke-width="1.6"></rect>
+            <rect x="436" y="24" width="248" height="78" rx="5"></rect>
+            <rect x="436" y="148" width="248" height="78" rx="5"></rect>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor">
+            <text x="32" y="112">the description</text>
+            <text x="32" y="132" fill="var(--muted)">contains the string</text>
+            <text x="32" y="152" fill="var(--l1)">"AUTO_TRANSLATE_CAPTIONS_OPTION"</text>
+            <text x="452" y="50">20.40.45 · what we patch</text>
+            <text x="452" y="70" fill="var(--muted)">class amcl</text>
+            <text x="452" y="88" fill="var(--muted)">also holds "&amp;tlang="</text>
+            <text x="452" y="174">20.46.37 · six releases later</text>
+            <text x="452" y="194" fill="var(--muted)">class amhn</text>
+            <text x="452" y="212" fill="var(--muted)">same code, new name</text>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar2)">
+            <line x1="266" y1="112" x2="430" y2="66"></line>
+            <line x1="266" y1="138" x2="430" y2="186"></line>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)" text-anchor="middle">
+            <text x="350" y="78">finds</text>
+            <text x="350" y="176">finds</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>Measured, not assumed: the class holding YouTube's own caption translation is <code>amcl</code> in 20.40.45 and <code>amhn</code> in 20.46.37. A patch never writes either name down — it describes the code, and the patcher finds whatever it is called in the build in front of it.</figcaption>
+    </figure>
+    <p>When a fingerprint stops matching after a YouTube update, that is the maintenance work: open the new version in jadx, find where the string moved, and widen or correct the description.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04b</span> What the real app looks like inside</h2>
+    <p class="subline">Disassembled 45 MB of YouTube 20.46.37 and went looking for the subtitle machinery.</p>
+    <p>Obfuscation is not uniform. Library code that has to keep working through reflection, serialization or the Android framework keeps its class name, while its methods are renamed anyway. The subtitle model is exactly that case:</p>
+    <pre><code><span class="c">// class name intact, every method renamed to a single letter</span>
+com/google/android/libraries/youtube/player/subtitles/model/SubtitleTrack
+    public abstract a() : String     public abstract p() : boolean
+    public abstract b() : int        public abstract q() : boolean
+    …                                public static  s(String) : SubtitleTrack
+
+com/google/android/libraries/youtube/player/subtitles/ui/SubtitleWindowView
+    <span class="c">// the view that draws the caption box on screen</span></code></pre>
+    <p>And the caption plumbing is all there, under short names:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>What it is</th><th>Gives it away</th><th>In 20.40.45</th><th>In 20.46.37</th></tr></thead>
+        <tbody>
+          <tr><td>Builds the URL for a translated caption track</td><td><code>"&amp;tlang="</code>, <code>"AUTO_TRANSLATE_CAPTIONS_OPTION"</code></td><td><code>amcl</code></td><td><code>amhn</code></td></tr>
+          <tr><td>Parses the srv3 caption format</td><td><code>"/timedtext/body/p"</code></td><td><code>aigv</code></td><td><code>akgi</code></td></tr>
+          <tr><td>One caption track: language, name, flags</td><td><code>"DISABLE_CAPTIONS_OPTION"</code></td><td colspan="2"><code>SubtitleTrack</code>, moved <code>classes2</code> → <code>classes5</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The drift is uneven, and that is the interesting part. Both classes that changed internally were also renamed, and <code>SubtitleTrack</code> moved to a different dex file — while inside it, <code>y()</code> is byte-for-byte identical in both builds, string constant and all. R8's naming is stable as long as the code feeding it barely changes, so names survive in the quiet corners and move exactly where the code moved.</p>
+    <p>Which is worse than uniform chaos. A patch pinned to names would keep working on the untouched methods and silently point at the wrong code on the changed ones. Matching on strings and shape avoids having to know which case you are in.</p>
+    <p>Two things follow. First, the app already fetches and translates captions through the same endpoint we tested from the laptop, which is a good sign for the approach. Second, it does all of that for exactly one track at a time, and the entire pipeline from track selection to the view assumes one. That is why the plan draws our own overlay instead of trying to make YouTube's renderer show two.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> What a patch actually is</h2>
+    <p class="subline">A small edit at patch time, and a normal Java class doing the real work at runtime.</p>
+    <p>A ReVanced patch has two halves, and confusing them is the main source of confusion when reading the repository.</p>
+    <ul>
+      <li><strong>The patch</strong> is Kotlin that runs on this laptop, once, while building the modified APK. It finds methods by fingerprint and splices instructions into them.</li>
+      <li><strong>The extension</strong> is plain Java that gets compiled into a dex and merged into the APK. It runs on the phone, inside YouTube, with all the normal Android APIs available. Our subtitle logic lives here.</li>
+    </ul>
+    <p>The bytecode the patch inserts is almost always the same shape: a single call out to the extension. This is the real insertion from the auto-captions patch, in smali:</p>
+    <pre><code>invoke-static {}, Lapp/revanced/extension/youtube/patches/<span class="k">DisableAutoCaptionsPatch</span>;-&gt;disableAutoCaptions()Z
+move-result v0
+if-eqz v0, :auto_captions_enabled
+const/4 v0, 0x1
+return v0
+:auto_captions_enabled
+nop</code></pre>
+    <p>In words: at the top of YouTube's own method, ask our class a question; if it says yes, return early with <code>true</code>; otherwise fall through into YouTube's original code, untouched. Every hook we write for dual subtitles is that pattern — hand a value to our code, or let our code decide.</p>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 720 236" role="img" aria-label="The patcher takes the original APK and the patch bundle, matches fingerprints, injects calls, merges the extension dex, then the result is signed and installed.">
+          <defs>
+            <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="currentColor"></polygon>
+            </marker>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="14" y="26" width="132" height="46" rx="5"></rect>
+            <rect x="14" y="146" width="132" height="46" rx="5"></rect>
+            <rect x="212" y="60" width="212" height="106" rx="6" stroke="var(--mark)" stroke-width="1.6"></rect>
+            <rect x="488" y="60" width="120" height="46" rx="5"></rect>
+            <rect x="488" y="130" width="120" height="46" rx="5"></rect>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor" text-anchor="middle">
+            <text x="80" y="46">base.apk</text>
+            <text x="80" y="62" fill="var(--muted)">20.40.45</text>
+            <text x="80" y="166">patches.rvp</text>
+            <text x="80" y="182" fill="var(--muted)">our bundle</text>
+            <text x="318" y="82">ReVanced Patcher</text>
+            <text x="548" y="80">patched apk</text>
+            <text x="548" y="96" fill="var(--muted)">signed</text>
+            <text x="548" y="150">emulator</text>
+            <text x="548" y="166" fill="var(--muted)">adb install</text>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--muted)" text-anchor="start">
+            <text x="234" y="106">1 · match fingerprints</text>
+            <text x="234" y="126">2 · inject invoke-static</text>
+            <text x="234" y="146">3 · merge extension dex</text>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar3)">
+            <line x1="146" y1="52" x2="206" y2="92"></line>
+            <line x1="146" y1="168" x2="206" y2="134"></line>
+            <line x1="424" y1="96" x2="482" y2="84"></line>
+            <line x1="548" y1="108" x2="548" y2="126"></line>
+          </g>
+        </svg>
+      </div>
+      <figcaption>The patcher never sees Java source of the app. It edits the compiled bytecode in place and adds ours alongside it.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> Where the two lines come from</h2>
+    <p class="subline">YouTube already has both, including the translation. It just doesn't show them together.</p>
+    <p>This was the open question, and it is now answered by experiment. YouTube's own app fetches captions from an internal API called InnerTube. We can call it the same way, from inside the patched app, with no login:</p>
+    <ul>
+      <li>Ask <code>/youtubei/v1/player</code> for a video id as the Android client. Back comes the list of caption tracks, each with a signed URL, plus the list of languages YouTube is willing to translate into.</li>
+      <li>Fetch a track as <code>json3</code>: every cue with a start time, a duration, and <mark>per-word timings</mark> inside it.</li>
+      <li>Fetch the same track again with <code>&amp;tlang=de</code>: YouTube's own translation. The first attempts answer <code>429 Too Many Requests</code>; retried, it turns into a <code>200</code> with real German, and then stays instant. On a fresh video that was five refusals over about forty seconds, then success.</li>
+      <li>The translated track comes back <strong>index-aligned</strong> with the original: same number of cues, identical start times. Pairing line one with line two is a zip over two arrays.</li>
+    </ul>
+    <p>That removes an entire subsystem from the plan. No translation service, no API key, no on-device model.</p>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 720 300" role="img" aria-label="Hooks report the video id and playback time to the extension, which fetches the caption track and its translation and draws two lines over the player.">
+          <defs>
+            <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="currentColor"></polygon>
+            </marker>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="14" y="30" width="150" height="90" rx="6"></rect>
+            <rect x="14" y="176" width="150" height="90" rx="6" stroke="var(--l1)" stroke-width="1.6"></rect>
+            <rect x="256" y="94" width="164" height="108" rx="6" stroke="var(--mark)" stroke-width="1.6"></rect>
+            <rect x="516" y="30" width="190" height="72" rx="6"></rect>
+            <rect x="516" y="150" width="190" height="72" rx="6"></rect>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor" text-anchor="middle">
+            <text x="89" y="60">YouTube player</text>
+            <text x="89" y="80" fill="var(--muted)">video id</text>
+            <text x="89" y="98" fill="var(--muted)">time, 1×/s</text>
+            <text x="89" y="206">overlay</text>
+            <text x="89" y="226" fill="var(--muted)">line 1 · learned</text>
+            <text x="89" y="244" fill="var(--l1)">line 2 · German</text>
+            <text x="338" y="120">our extension</text>
+            <text x="338" y="142" fill="var(--muted)">clock, interpolated</text>
+            <text x="338" y="162" fill="var(--muted)">cue store, cached</text>
+            <text x="611" y="58">/youtubei/v1/player</text>
+            <text x="611" y="78" fill="var(--muted)">track list</text>
+            <text x="611" y="178">/api/timedtext</text>
+            <text x="611" y="198" fill="var(--muted)">json3 · &amp;tlang=de</text>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar4)">
+            <line x1="164" y1="86" x2="250" y2="122"></line>
+            <line x1="338" y1="202" x2="164" y2="216"></line>
+            <line x1="420" y1="130" x2="510" y2="80"></line>
+            <line x1="420" y1="164" x2="510" y2="182"></line>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">
+            <text x="176" y="100">hooks</text>
+            <text x="186" y="196">draws</text>
+            <text x="436" y="98">1</text>
+            <text x="436" y="196">2 · retry on 429</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>The app tells us which video and roughly where we are; everything else we fetch and draw ourselves, on top of the player.</figcaption>
+    </figure>
+
+    <p>One wrinkle worth knowing about: the position hook fires only <strong>once per second</strong>, which is far too coarse for subtitles. Between ticks we advance our own clock by the wall clock times the playback speed, and resync on every tick, every seek and every pause.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span> Which version, and why it matters</h2>
+    <p class="subline">A patch is written against one build of the app, not against "YouTube".</p>
+    <p>ReVanced declares compatibility with six builds: 20.14.43, 20.21.37, 20.26.46, 20.31.42, 20.37.48 and <strong>20.40.45</strong>. We take 20.40.45, the newest of them, which is also the build already patched and running on the phone. Its stock APK is 169 MB, carries Google's signature, and ships all four CPU architectures including <code>x86_64</code> — so it installs on the emulator without any ARM translation.</p>
+    <p>How far behind is that? Here is the whole supported set with the day each build shipped:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Build</th><th>Released</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><code>20.14.43</code></td><td>13 Apr 2025</td><td></td></tr>
+          <tr><td><code>20.21.37</code></td><td>2 Jun 2025</td><td></td></tr>
+          <tr><td><code>20.26.46</code></td><td>16 Jul 2025</td><td></td></tr>
+          <tr><td><code>20.31.42</code></td><td>14 Aug 2025</td><td></td></tr>
+          <tr><td><code>20.37.48</code></td><td>23 Sep 2025</td><td></td></tr>
+          <tr><td><code>20.40.45</code></td><td>9 Oct 2025</td><td>our target, and the phone's patched build</td></tr>
+          <tr><td><code>20.46.37</code></td><td>20 Nov 2025</td><td>stock, disabled on the phone</td></tr>
+          <tr><td><code>21.34.243</code></td><td>21 Aug 2026</td><td>what the store hands out today</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>So the newest build ReVanced supports is about ten months old, and the six versions were all added to the repository on one day, 7 February 2026, with nothing added since — even though the development branch is still getting commits, the most recent four days ago. The gap is softer than it looks, because the patch source already contains explicit handling for 21.02 through 21.08, but those versions are not declared supported. Carrying the patch forward to a 21.x build is work we would be doing ourselves.</p>
+    <p>The practical consequence for anyone running a patched build: automatic updates have to stay off. The patched app has its own package name (<code>app.revanced.android.youtube</code>), so it sits beside the stock one rather than replacing it, and the stock one gets disabled.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span> The loop, once code exists</h2>
+    <p class="subline">Edit, build, patch, install, watch the log. Minutes, not seconds.</p>
+    <pre><code><span class="c"># 1. build our patch bundle</span>
+./gradlew :patches:buildAndroid
+
+<span class="c"># 2. apply it to the stock APK and install on the emulator</span>
+java -jar revanced-cli-6.0.0-all.jar patch \
+  -p patches.rvp --exclusive -e <span class="s">"Dual subtitles"</span> \
+  -i emulator-5554 yt-20.40.45.apk -o yt-patched.apk
+
+<span class="c"># 3. watch our own logging</span>
+adb logcat | grep revanced</code></pre>
+    <p>Testing happens on the emulator, not the phone. The local x86_64 images translate ARM code, so the ARM-only YouTube build installs and runs there — verified: the emulator reports <code>x86_64,arm64-v8a</code> and ships the translation library. The phone gets the finished APK.</p>
+    <p>Because that loop costs minutes, as much logic as possible gets built and tested outside the patched app first, in a throwaway app where a rebuild is seconds.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08b</span> Making an obfuscated method callable</h2>
+    <p class="subline">When the name changes every release, derive it instead of writing it down.</p>
+    <p>Styling YouTube's own captions means calling setters on its caption view. The view keeps its class name, being library code, but its setters are called <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> and <code>e</code>, and nothing says which does what. Worse, those letters are reassigned when the app is rebuilt, so writing today's answer into the patch guarantees a wrong call later.</p>
+    <p>The app answers the question itself. It applies caption styles from an object that mirrors Android's own <code>CaptionStyle</code>, and the method that does it loads one field and passes it straight to one setter:</p>
+    <pre><code>iget v0, v0, Lamcv;-&gt;e:I               <span class="c">// foregroundColor</span>
+invoke-virtual {p1, v0}, …SubtitleWindowView;-&gt;d(I)V
+
+iget v0, v0, Lamcv;-&gt;a:I               <span class="c">// backgroundColor</span>
+invoke-virtual {p1, v0}, …SubtitleWindowView;-&gt;c(I)V</code></pre>
+    <p>So the patch walks that method, notes which style field was loaded before each call, and comes out with the mapping. Then it adds a method to the view with a name of its own choosing, which cannot drift because we picked it:</p>
+    <pre><code>.method public final patch_applyCaptionStyle(IIIIF)V
+    invoke-virtual { p0, p1 }, …-&gt;d(I)V      <span class="c">// text colour</span>
+    invoke-virtual { p0, p2 }, …-&gt;c(I)V      <span class="c">// background</span>
+    invoke-virtual { p0, p3 }, …-&gt;a(I)V      <span class="c">// edge colour</span>
+    invoke-virtual { p0, p4 }, …-&gt;b(I)V      <span class="c">// edge type</span>
+    invoke-virtual { p0, p5 }, …-&gt;e(F)V      <span class="c">// text scale</span>
+    return-void
+.end method</code></pre>
+    <p>The extension then calls <code>patch_applyCaptionStyle</code> by name. The generated bytecode was checked against the mapping worked out by hand from the disassembly, and the two agree.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">09</span> Where we are</h2>
+    <div class="card">
+      <p><span class="tag verified">Verified</span> The patch builds, applies to stock 20.40.45, installs on the emulator, and draws its overlay over the player. The settings entry and the player button both work.</p>
+      <p><span class="tag verified">Verified</span> Timing is good enough for subtitles. Measured against the player: 2x advances at 2.0x, 0.25x at 0.24x, pausing freezes the estimate, a seek resyncs it, and the estimate stays under a second from the last reported position.</p>
+      <p><span class="tag verified">Verified</span> Caption tracks, word timings and YouTube's own translation are all reachable, and the two tracks align cue for cue.</p>
+      <p><span class="tag verified">Verified</span> Both languages render in step with the video, chosen from YouTube's own captions menu, with each line placed on its own and dragged where it belongs.</p>
+      <p><span class="tag verified">Verified</span> The video can be shrunk to free a band beneath it, so the captions cover nothing, and setting the band back to zero restores the picture.</p>
+      <p><span class="tag open">Open</span> Pinching to zoom the video fights the reserved band, since both are the same transform.</p>
+      <p><span class="tag open">Open</span> Shorts, and the public README's wording.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">10</span> What the loop actually costs</h2>
+    <p class="subline">Two minutes from edit to running app, and where they go.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Step</th><th>Time</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Gradle, extension changed</td><td>26–32 s</td><td>Recompiles one module; the first build was 2 min 51 s</td></tr>
+          <tr><td>Applying the patches</td><td>~75 s</td><td>Recompiles eight dex files and the resources of a 170 MB app, then signs it</td></tr>
+          <tr><td>Installing</td><td>12–15 s</td><td>Pushing the rebuilt APK</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The patch step dominates and does not shrink: reusing the CLI's temporary directory made it slower, not faster (98 s against 75 s), and cutting the number of patches barely moved it. What does help is not going around the loop at all — keeping the logic testable outside the patched app, and making behaviour a setting so tuning it needs no rebuild.</p>
+    <p>Debugging inside the app is ordinary Android work once the debugging patch is included: turn on <em>Debug logging</em> in ReVanced settings, then read <code>adb logcat | grep revanced</code>. That is how the player button was tracked down — it logged that it initialised and became visible while apparently not being on screen, and a log of its measured bounds showed it had been there all along, at 828,450 to 954,608, which is exactly the icon that had been mistaken for one of YouTube's own.</p>
+  </section>
+
+  <hr>
+
+  <footer>
+    Living document. Facts marked verified were measured on 2026-08-23 against two disassembled builds — stock 20.40.45 from APKMirror and stock 20.46.37 pulled off the phone — and against YouTube's caption API from this network. Patch code quoted from the ReVanced patches repository at v6.1.0.
+  </footer>
+
+</div>

@@ -1,0 +1,7 @@
+{
+  "version": "0.2.0",
+  "created_at": "2026-08-24T08:10:42",
+  "description": "Discover非表示時の起動先をPosts（All）へ変更し、Discoverの起動時通信を遮断したリリースです。",
+  "download_url": "https://github.com/roflsunriz/imgur-revanced/releases/download/v0.2.0/patches-0.2.0.rvp",
+  "signature_download_url": null
+}
