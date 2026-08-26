@@ -43,6 +43,8 @@ import okhttp3.Request
 internal const val ACTION_START_DOWNLOAD = "dev.rushi.apkdownloadhelper.action.START_DOWNLOAD"
 internal const val ACTION_CANCEL_DOWNLOAD = "dev.rushi.apkdownloadhelper.action.CANCEL_DOWNLOAD"
 internal const val ACTION_RETRY_DOWNLOAD = "dev.rushi.apkdownloadhelper.action.RETRY_DOWNLOAD"
+internal const val ACTION_SCAN_PROCEED = "dev.rushi.apkdownloadhelper.action.SCAN_PROCEED"
+internal const val ACTION_SCAN_CANCEL = "dev.rushi.apkdownloadhelper.action.SCAN_CANCEL"
 
 private const val CHANNEL_PROGRESS = "download_progress"
 private const val CHANNEL_DONE = "download_done"
@@ -104,6 +106,42 @@ internal object DownloadJobManager {
             val file: File,
             val foundVersionCode: Long?
         ) : Event
+        /** Short-lived status shown after download hits 100 % but before completion. */
+        data class PostDownloadStatus(
+            val candidate: DownloadCandidate,
+            val status: String
+        ) : Event
+        /** VirusTotal scan is in progress. */
+        data class Scanning(
+            val candidate: DownloadCandidate,
+            val status: String
+        ) : Event
+        /** VirusTotal scan completed with results. */
+        data class ScanComplete(
+            val candidate: DownloadCandidate,
+            val result: VirusTotalScanner.ScanResult
+        ) : Event
+        /** The download finished and the UI must ask whether to scan (ASK mode). */
+        data class ScanAsk(val candidate: DownloadCandidate) : Event
+    }
+
+    /**
+     * A downloaded file paused for a user decision about VirusTotal scanning.
+     * [PendingScan.Ask] = the download finished and the UI is asking
+     * "scan or skip?" (Scan mode ASK). [PendingScan.Decided] = a scan has run
+     * and the UI is showing the result, asking "proceed or cancel?".
+     */
+    sealed interface PendingScan {
+        data class Ask(val file: File) : PendingScan
+        data class Decided(val file: File) : PendingScan
+    }
+
+    @Volatile
+    var pendingScan: PendingScan? = null
+        private set
+
+    fun setPendingScan(pending: PendingScan?) {
+        this.pendingScan = pending
     }
 
     @Volatile
@@ -176,6 +214,9 @@ internal object DownloadJobManager {
 internal class DownloadService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var downloadJob: Job? = null
+    // Verdict of the last scan, carried from scanAndHandoff into handleSuccess
+    // so the hand-off gets recorded with its VirusTotal outcome.
+    private var lastScanVerdict: ScanVerdict? = null
     private var lastPostedPercent = -1
     private var lastPostedTime = 0L
     private var lastProgressBytes = 0L
@@ -230,6 +271,45 @@ internal class DownloadService : Service() {
                 cancelDownload()
                 return START_NOT_STICKY
             }
+            ACTION_SCAN_PROCEED -> {
+                val job = DownloadJobManager.activeJob
+                val pending = DownloadJobManager.pendingScan
+                if (job != null && pending != null) {
+                    DownloadJobManager.setPendingScan(null)
+                    serviceScope.launch {
+                        when (pending) {
+                            // User said "Scan" at the ask prompt: run the scan.
+                            is DownloadJobManager.PendingScan.Ask -> scanAndHandoff(job, pending.file)
+                            // User said "Proceed" after seeing the result: hand off.
+                            is DownloadJobManager.PendingScan.Decided -> handleSuccess(job, pending.file)
+                        }
+                    }
+                }
+                return START_NOT_STICKY
+            }
+            ACTION_SCAN_CANCEL -> {
+                val job = DownloadJobManager.activeJob
+                val pending = DownloadJobManager.pendingScan
+                DownloadJobManager.setPendingScan(null)
+                if (job != null && pending != null) {
+                    serviceScope.launch {
+                        when (pending) {
+                            // User chose to skip scanning: hand off directly.
+                            is DownloadJobManager.PendingScan.Ask -> handleSuccess(job, pending.file)
+                            // User chose not to hand off after seeing the result.
+                            is DownloadJobManager.PendingScan.Decided -> {
+                                DownloadJobManager.emit(DownloadJobManager.Event.Cancelled(job.candidate))
+                                stopForeground(STOP_FOREGROUND_REMOVE)
+                                stopSelf()
+                            }
+                        }
+                    }
+                } else {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
+                return START_NOT_STICKY
+            }
             ACTION_RETRY_DOWNLOAD -> {
                 val job = DownloadJobManager.activeJob ?: run {
                     stopSelf()
@@ -266,6 +346,7 @@ internal class DownloadService : Service() {
 
     private fun startDownload(job: DownloadJobManager.DownloadJob) {
         val candidate = job.candidate
+        lastScanVerdict = null
         lastPostedPercent = -1
         lastPostedTime = 0L
         lastProgressBytes = 0L
@@ -291,7 +372,36 @@ internal class DownloadService : Service() {
         downloadJob = serviceScope.launch {
             try {
                 val file = runDownload(job)
-                handleSuccess(job, file)
+                // Check if VirusTotal scanning is needed before handoff.
+                val settings = job.settings
+                if (settings.virusTotalEnabled && settings.virusTotalApiKey.isNotBlank()) {
+                    when (settings.virusTotalScanMode) {
+                        VirusTotalScanMode.ALWAYS -> {
+                            scanAndHandoff(job, file)
+                        }
+                        VirusTotalScanMode.ASK -> {
+                            // Emit event, store file, wait for user decision.
+                            DownloadJobManager.setPendingScan(DownloadJobManager.PendingScan.Ask(file))
+                            DownloadJobManager.emit(
+                                DownloadJobManager.Event.ScanAsk(job.candidate)
+                            )
+                            notifySafe(
+                                NOTIFICATION_ID_PROGRESS,
+                                buildProgressNotification(
+                                    job.candidate,
+                                    100,
+                                    "Scan with VirusTotal?"
+                                )
+                            )
+                            // Don't call handleSuccess yet — wait for SCAN_PROCEED or SCAN_CANCEL.
+                        }
+                        VirusTotalScanMode.NEVER -> {
+                            handleSuccess(job, file)
+                        }
+                    }
+                } else {
+                    handleSuccess(job, file)
+                }
             } catch (error: Throwable) {
                 if (error is CancellationException || error.message == "Canceled") {
                     handleCancelled(job)
@@ -331,6 +441,7 @@ internal class DownloadService : Service() {
         } else {
             downloadSplitArchive(candidate, files, downloadsDir)
         }
+        emitPostDownloadStatus(candidate, "Validating downloaded file…")
         validateDownloadedArtifact(
             this,
             job.request,
@@ -346,12 +457,14 @@ internal class DownloadService : Service() {
         val candidate = job.candidate
         val settings = job.settings
 
+        emitPostDownloadStatus(candidate, "Copying to Downloads…")
         val uri = when (settings.downloadLocation) {
             DownloadLocation.TEMPORARY -> FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.files", file)
             DownloadLocation.DOWNLOADS -> copyToDownloads(file)
         }
         grantUriPermission(request.callerPackage, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
+        emitPostDownloadStatus(candidate, "Handing off to Morphe…")
         val result = PendingDownloadResult(
             uri = uri.toString(),
             fileName = file.name,
@@ -362,7 +475,8 @@ internal class DownloadService : Service() {
             callerPackage = request.callerPackage
         )
         DownloadJobManager.persistPendingResult(result, applicationContext)
-        recordHandOff(request, candidate, file, uri)
+        recordHandOff(request, candidate, file, uri, lastScanVerdict)
+        lastScanVerdict = null
 
         if (
             settings.downloadLocation == DownloadLocation.DOWNLOADS ||
@@ -375,6 +489,82 @@ internal class DownloadService : Service() {
         notifyCompletion(job, result)
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
+    }
+
+    private suspend fun scanAndHandoff(job: DownloadJobManager.DownloadJob, file: File) {
+        val candidate = job.candidate
+        val settings = job.settings
+        val apiKey = settings.virusTotalApiKey
+
+        DownloadJobManager.emit(
+            DownloadJobManager.Event.Scanning(candidate, "Uploading to VirusTotal…")
+        )
+
+        val scanResult = VirusTotalScanner.scanDownloadedFile(
+            file,
+            apiKey,
+            onProgress = { status ->
+                DownloadJobManager.emit(
+                    DownloadJobManager.Event.Scanning(candidate, status)
+                )
+                // Keep the progress notification in sync with the card: without
+                // this it stays on the last download text ("100% · …") for the
+                // whole scan, which can be a minute+ for a bundle.
+                notifySafe(
+                    NOTIFICATION_ID_PROGRESS,
+                    buildProgressNotification(candidate, 100, status)
+                )
+            },
+            // Abort promptly when the user cancels: the scanner checks this
+            // between per-APK lookups and during rate-limit pauses, so a
+            // cancel lands within a second instead of after a 12s sleep.
+            // [downloadJob] is this job; cancel() flips its isActive false.
+            checkCancelled = { downloadJob?.isActive != true }
+        )
+
+        DownloadJobManager.emit(
+            DownloadJobManager.Event.ScanComplete(candidate, scanResult)
+        )
+
+        // Always pause for the user: show the result and let them proceed or
+        // cancel. "Always scan" means the scan runs without asking, not that
+        // the result is skipped — the user must see it before the file leaves
+        // the app.
+        lastScanVerdict = when (scanResult) {
+            is VirusTotalScanner.ScanResult.Clean -> ScanVerdict(
+                label = if (scanResult.scannedFiles != null) {
+                    "Clean · 0/${scanResult.totalEngines} engines · ${scanResult.scannedFiles} APKs"
+                } else {
+                    "Clean · 0/${scanResult.totalEngines} engines"
+                },
+                malicious = false,
+                sha256 = scanResult.sha256,
+                scannedFiles = scanResult.scannedFiles,
+                result = scanResult
+            )
+            is VirusTotalScanner.ScanResult.Malicious -> ScanVerdict(
+                label = if (scanResult.scannedFiles != null) {
+                    "Malicious · ${scanResult.detections}/${scanResult.totalEngines} engines · ${scanResult.fileName}"
+                } else {
+                    "Malicious · ${scanResult.detections}/${scanResult.totalEngines} engines"
+                },
+                malicious = true,
+                sha256 = scanResult.sha256,
+                scannedFiles = scanResult.scannedFiles,
+                result = scanResult
+            )
+            is VirusTotalScanner.ScanResult.Error -> ScanVerdict(
+                label = "Scan failed · ${scanResult.message.take(48)}",
+                malicious = false,
+                failed = true,
+                result = scanResult
+            )
+        }
+        DownloadJobManager.setPendingScan(DownloadJobManager.PendingScan.Decided(file))
+        notifySafe(
+            NOTIFICATION_ID_PROGRESS,
+            buildProgressNotification(candidate, 100, "Scan complete — open the app to continue")
+        )
     }
 
     private fun handleFailure(job: DownloadJobManager.DownloadJob, error: Throwable) {
@@ -390,6 +580,14 @@ internal class DownloadService : Service() {
         DownloadJobManager.emit(DownloadJobManager.Event.Cancelled(job.candidate))
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
+    }
+
+    private fun emitPostDownloadStatus(candidate: DownloadCandidate, status: String) {
+        DownloadJobManager.emit(DownloadJobManager.Event.PostDownloadStatus(candidate, status))
+        notifySafe(
+            NOTIFICATION_ID_PROGRESS,
+            buildProgressNotification(candidate, 100, status)
+        )
     }
 
     private fun cancelDownload() {

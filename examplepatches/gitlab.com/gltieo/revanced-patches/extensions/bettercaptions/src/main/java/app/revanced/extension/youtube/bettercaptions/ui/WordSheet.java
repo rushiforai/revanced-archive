@@ -1,7 +1,5 @@
 package app.revanced.extension.youtube.bettercaptions.ui;
 
-import static app.revanced.extension.youtube.videoplayer.PlayerControlButton.getDialogBackgroundColor;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,15 +11,18 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
+import androidx.annotation.Nullable;
+
 import app.revanced.extension.shared.ui.Dim;
-import app.revanced.extension.shared.ui.SheetBottomDialog;
+import app.revanced.extension.youtube.bettercaptions.BetterCaptionsSettings;
+import app.revanced.extension.youtube.bettercaptions.CaptionLanguages;
+import app.revanced.extension.youtube.bettercaptions.Playback;
 import app.revanced.extension.youtube.bettercaptions.requests.WordLookup;
 
 /**
@@ -33,8 +34,6 @@ import app.revanced.extension.youtube.bettercaptions.requests.WordLookup;
  */
 public final class WordSheet {
 
-    private static final int ANIMATION_DURATION = 300;
-
     /**
      * Grey enough to read as a label beside the text it belongs to, on either theme.
      */
@@ -42,9 +41,6 @@ public final class WordSheet {
 
     public static void show(Context context, String word, String languageCode) {
         try {
-            SheetBottomDialog.DraggableLinearLayout layout =
-                    SheetBottomDialog.createMainLayout(context, getDialogBackgroundColor());
-
             LinearLayout page = new LinearLayout(context);
             page.setOrientation(LinearLayout.VERTICAL);
             page.setPadding(Dim.dp20, Dim.dp8, Dim.dp20, Dim.dp20);
@@ -53,23 +49,32 @@ public final class WordSheet {
             TextView loading = paragraph(context, "Looking it up…", 14, true);
             page.addView(loading);
 
-            ScrollView scroller = new ScrollView(context);
+            SheetScrollView scroller = new SheetScrollView(context);
             scroller.addView(page);
             scroller.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    Dim.pctHeight(55)));
-            layout.addView(scroller);
+                    Dim.pctHeight(60)));
 
-            SheetBottomDialog.SlideDialog dialog =
-                    SheetBottomDialog.createSlideDialog(context, layout, ANIMATION_DURATION);
+            BottomSheet dialog = new BottomSheet(context);
+            dialog.setSheetContent(scroller);
+
+            // A word is looked up to be read, not glanced at, so the video waits.
+            final boolean wasPlaying = Playback.pause();
+            dialog.setOnDismissListener(closed -> {
+                if (wasPlaying) Playback.play();
+            });
             dialog.show();
 
+            final String secondLanguage = BetterCaptionsSettings.LANGUAGE.get();
             Utils.runOnBackgroundThread(() -> {
                 WordLookup.Entry entry = WordLookup.look(word, languageCode);
+                final String inSecondLanguage =
+                        WordLookup.translate(word, languageCode, secondLanguage);
+
                 Utils.runOnMainThreadNowOrLater(() -> {
                     try {
                         page.removeView(loading);
-                        fill(context, page, word, entry);
+                        fill(context, page, word, languageCode, entry, inSecondLanguage);
                     } catch (Exception ex) {
                         Logger.printException(() -> "Could not show the entry", ex);
                     }
@@ -81,13 +86,22 @@ public final class WordSheet {
     }
 
     private static void fill(Context context, LinearLayout page, String word,
-                             WordLookup.Entry entry) {
+                             String languageCode, WordLookup.Entry entry,
+                             @Nullable String inSecondLanguage) {
+        page.addView(paragraph(context, entry.isEmpty() || entry.language.isEmpty()
+                ? CaptionLanguages.name(languageCode)
+                : entry.language, 13, true));
+
+        // The word in the language the second line is read in, which is what someone
+        // learning the first one wants first.
+        if (inSecondLanguage != null) {
+            page.addView(inOtherLanguage(context, inSecondLanguage));
+        }
+
         if (entry.isEmpty()) {
             page.addView(paragraph(context, "Wiktionary has no entry for this word in that "
                     + "language.", 14, true));
         } else {
-            page.addView(paragraph(context, entry.language, 13, true));
-
             for (WordLookup.PartOfSpeech part : entry.partsOfSpeech) {
                 page.addView(partHeading(context, part.name));
 
@@ -96,9 +110,55 @@ public final class WordSheet {
                     page.addView(sense(context, number++, sense));
                 }
             }
+
+            // A form belongs to the word it is a form of, sometimes to more than one.
+            for (WordLookup.FormOf form : entry.formsOf) {
+                page.addView(paragraph(context, plain(form.note), 14, true));
+                page.addView(lemmaHeading(context, form.lemma));
+
+                for (WordLookup.PartOfSpeech part : form.partsOfSpeech) {
+                    page.addView(partHeading(context, part.name));
+
+                    int number = 1;
+                    for (WordLookup.Sense sense : part.senses) {
+                        page.addView(sense(context, number++, sense));
+                    }
+                }
+            }
         }
 
         page.addView(wiktionaryLink(context, word));
+    }
+
+    /**
+     * The word in the second caption language, given the room a dictionary gives its
+     * headline translation.
+     */
+    private static View inOtherLanguage(Context context, String translation) {
+        LinearLayout card = new LinearLayout(context);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(Dim.dp12, Dim.dp10, Dim.dp12, Dim.dp10);
+
+        GradientDrawable background = new GradientDrawable();
+        background.setCornerRadius(Dim.dp12);
+        background.setColor(withAlpha(Utils.getAppForegroundColor(), 0x14));
+        card.setBackground(background);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, Dim.dp12, 0, Dim.dp4);
+        card.setLayoutParams(params);
+
+        card.addView(paragraph(context,
+                CaptionLanguages.name(BetterCaptionsSettings.LANGUAGE.get()), 12, true));
+
+        TextView text = new TextView(context);
+        text.setText(translation);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        text.setTextColor(Utils.getAppForegroundColor());
+        card.addView(text);
+        return card;
     }
 
     private static TextView headword(Context context, String word) {
@@ -107,6 +167,17 @@ public final class WordSheet {
         view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
         view.setTextColor(Utils.getAppForegroundColor());
         view.setPadding(0, Dim.dp8, 0, Dim.dp2);
+        return view;
+    }
+
+    /**
+     * The word the meanings under it belong to, when the word that was tapped is a form
+     * of it.
+     */
+    private static TextView lemmaHeading(Context context, String lemma) {
+        TextView view = headword(context, lemma);
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        view.setPadding(0, Dim.dp4, 0, 0);
         return view;
     }
 
@@ -248,6 +319,24 @@ public final class WordSheet {
 
     private static int withAlpha(int color, int alpha) {
         return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    /**
+     * The page of the entry, which tells the sheet whether it is scrolled to the top so
+     * that a drag there closes the sheet instead of scrolling.
+     */
+    private static final class SheetScrollView extends android.widget.ScrollView
+            implements BottomSheet.Content {
+
+        SheetScrollView(Context context) {
+            super(context);
+            setVerticalScrollBarEnabled(false);
+        }
+
+        @Override
+        public boolean isScrolledToTop() {
+            return getScrollY() == 0;
+        }
     }
 
     private WordSheet() {

@@ -58,9 +58,27 @@ public final class BetterCaptionsSettings {
             new EnumSetting<>("revanced_better_captions_second_slot", CaptionSlot.BOTTOM_SECOND);
 
     /**
+     * Whether the two lines have been put back under the video once.
+     *
+     * While the video was made to keep clear of the captions, the second line was moved
+     * to the opposite edge for the room to be used, which left the arrangement split
+     * between the top and the bottom. That feature is gone, so the arrangement is put
+     * back together once.
+     */
+    private static final BooleanSetting SLOTS_SETTLED =
+            new BooleanSetting("revanced_better_captions_slots_settled", Boolean.FALSE);
+
+    /**
      * Loads this class, and with it every setting above.
      */
     public static void load() {
+        if (SLOTS_SETTLED.get()) return;
+
+        SLOTS_SETTLED.save(Boolean.TRUE);
+        if (SLOT.get().isTop() || SECOND_SLOT.get().isTop()) {
+            SLOT.save(CaptionSlot.BOTTOM_FIRST);
+            SECOND_SLOT.save(CaptionSlot.BOTTOM_SECOND);
+        }
     }
 
     private BetterCaptionsSettings() {

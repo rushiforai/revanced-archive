@@ -72,6 +72,26 @@ internal val BytecodePatchContext.captionsButtonStateMethod by gettingFirstMetho
 }
 
 /**
+ * A method of the class that holds the caption tracks of the video and picks between
+ * them, found by the two words it builds its menu out of.
+ *
+ * Only used to reach the object: the extension is handed it and finds the list of tracks
+ * and the way one is chosen on it by their shapes, since their names do not survive
+ * obfuscation.
+ */
+internal val BytecodePatchContext.subtitlesManagerMethod by gettingFirstMethodDeclaratively {
+    returnType("V")
+    parameterTypes(
+        "Lcom/google/android/libraries/youtube/innertube/model/player/PlayerResponseModel;",
+        "L",
+    )
+    instructions(
+        ResourceType.STRING("turn_off_subtitles"),
+        ResourceType.STRING("auto_translate_subtitles"),
+    )
+}
+
+/**
  * The method that lays out the overlays covering the player, resolved inside the class
  * found by [app.revanced.patches.youtube.shared.getLayoutConstructorMethodMatch].
  *

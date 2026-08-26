@@ -37,6 +37,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,6 +65,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.CleaningServices
@@ -97,6 +100,10 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.HelpOutline
+import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -110,6 +117,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -118,6 +126,7 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -302,6 +311,7 @@ class MainActivity : ComponentActivity() {
     // Set when a repeat request matches previous downloads that still exist;
     // the user picks one to reuse or chooses to download a fresh copy.
     private var reuseOffer by mutableStateOf<List<ReuseOption>?>(null)
+    private var selectedPagerPage by mutableIntStateOf(0)
     private var fastModeActive = false
     private var fastModeQueue: MutableList<DownloadSource>? = null
     private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
@@ -337,6 +347,9 @@ class MainActivity : ComponentActivity() {
                 themeMode = helperSettings.themeMode,
                 dynamicColors = helperSettings.dynamicColors
             ) {
+                // Ping every web source at launch so the Settings Health tab
+                // reflects current reachability instead of the last resolve.
+                LaunchedEffect(Unit) { SourceHealthChecker.refresh() }
                 val captcha = captchaBrowser
                 if (captcha != null) {
                     CaptchaBrowserScreen(
@@ -351,6 +364,8 @@ class MainActivity : ComponentActivity() {
                         settings = helperSettings,
                         logs = AppLog.entries,
                         installedPackageRefreshToken = installedPackageRefreshToken,
+                        selectedPagerPage = selectedPagerPage,
+                        onPagerPageChanged = { selectedPagerPage = it },
                         onSettingsChange = ::updateHelperSettings,
                         onRefresh = ::loadCandidates,
                         onResolve = ::resolveCandidates,
@@ -374,7 +389,9 @@ class MainActivity : ComponentActivity() {
                         onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
                         onOpenMorphe = ::openMorpheManager,
                         onSolveCaptcha = ::openCaptchaBrowser,
-                        onRequestFileTypeChange = ::changeRequestedFileType
+                        onRequestFileTypeChange = ::changeRequestedFileType,
+                        onProceedAfterScan = ::proceedAfterScan,
+                        onCancelAfterScan = ::cancelAfterScan
                     )
                 }
                 val offer = reuseOffer
@@ -1053,6 +1070,20 @@ class MainActivity : ComponentActivity() {
         fastModeDecision?.complete(choice)
     }
 
+    private fun proceedAfterScan() {
+        startService(
+            Intent(this, DownloadService::class.java).setAction(ACTION_SCAN_PROCEED)
+        )
+        uiState = UiState.Loading
+    }
+
+    private fun cancelAfterScan() {
+        startService(
+            Intent(this, DownloadService::class.java).setAction(ACTION_SCAN_CANCEL)
+        )
+        uiState = UiState.Loading
+    }
+
     private suspend fun fastModeNext(request: HelperRequest) {
         val queue = fastModeQueue ?: return
         while (queue.isNotEmpty()) {
@@ -1202,6 +1233,54 @@ class MainActivity : ComponentActivity() {
                         event.etaMs
                     )
                 }
+            }
+            is DownloadJobManager.Event.PostDownloadStatus -> {
+                uiState = if (fastModeActive) {
+                    UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = event.candidate.source.label,
+                            detail = event.status,
+                            percent = 100
+                        )
+                    )
+                } else {
+                    UiState.Downloading(
+                        event.candidate,
+                        percent = 100,
+                        statusMessage = event.status
+                    )
+                }
+            }
+            is DownloadJobManager.Event.Scanning -> {
+                uiState = if (fastModeActive) {
+                    UiState.FastMode(
+                        FastModeProgress(
+                            sourceLabel = event.candidate.source.label,
+                            detail = event.status,
+                            percent = 100
+                        )
+                    )
+                } else {
+                    UiState.Downloading(
+                        event.candidate,
+                        percent = 100,
+                        statusMessage = event.status
+                    )
+                }
+            }
+            is DownloadJobManager.Event.ScanAsk -> {
+                uiState = UiState.ScanAsk(event.candidate)
+            }
+            is DownloadJobManager.Event.ScanComplete -> {
+                val scanResult = event.result
+                val isMalicious = scanResult is VirusTotalScanner.ScanResult.Malicious
+                val detail = scanResultDetail(scanResult)
+                uiState = UiState.ScanResult(
+                    candidate = event.candidate,
+                    scanResult = scanResult,
+                    detail = detail,
+                    isMalicious = isMalicious
+                )
             }
             is DownloadJobManager.Event.Completed -> {
                 // StateFlow replays its last value to every new collector, so a
@@ -2137,6 +2216,8 @@ private fun HelperScreen(
     settings: HelperSettings,
     logs: List<RequestLogEntry>,
     installedPackageRefreshToken: Int,
+    selectedPagerPage: Int,
+    onPagerPageChanged: (Int) -> Unit,
     onSettingsChange: (HelperSettings) -> Unit,
     onRefresh: () -> Unit,
     onResolve: (DownloadSource, CandidateOption) -> Unit,
@@ -2156,7 +2237,9 @@ private fun HelperScreen(
     onSkipFastModeMismatch: () -> Unit,
     onOpenMorphe: () -> Unit,
     onSolveCaptcha: (DownloadCandidate) -> Unit,
-    onRequestFileTypeChange: (String) -> Unit
+    onRequestFileTypeChange: (String) -> Unit,
+    onProceedAfterScan: () -> Unit,
+    onCancelAfterScan: () -> Unit
 ) {
     var showSettings by remember { mutableStateOf(false) }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
@@ -2195,7 +2278,6 @@ private fun HelperScreen(
                 onSettingsChange = onSettingsChange,
                 logs = logs,
                 onClearLogs = onClearLogs,
-                healthEntries = (state as? UiState.Ready)?.result?.sourceHealth().orEmpty(),
                 historyEntries = historyEntries,
                 onOpenHistoryEntry = onOpenHistoryEntry,
                 onShareHistoryEntry = onShareHistoryEntry,
@@ -2292,6 +2374,16 @@ private fun HelperScreen(
                 }
             }
 
+            item {
+                // At-a-glance VirusTotal quota right under the header (next to
+                // the Fast Mode toggle area) so usage is visible without opening
+                // Settings. Hidden when VirusTotal is disabled or no API key is
+                // configured.
+                HomeQuotaCard(
+                    apiKey = if (settings.virusTotalEnabled) settings.virusTotalApiKey else ""
+                )
+            }
+
             if (request == null) {
                 item { EmptyLaunchState(onOpenMorphe) }
                 return@LazyColumn
@@ -2315,6 +2407,8 @@ private fun HelperScreen(
                         SourcePickerFlow(
                             request = request,
                             result = state.result,
+                            selectedPagerPage = selectedPagerPage,
+                            onPagerPageChanged = onPagerPageChanged,
                             onResolve = onResolve,
                             onDownload = onDownload,
                             onPickDownloadedFile = openDownloadedFilePicker,
@@ -2332,6 +2426,22 @@ private fun HelperScreen(
 
                 is UiState.CheckingPickedFile -> item { CheckingPickedFileState(state) }
                 is UiState.Downloading -> item { DownloadingState(state, onCancelDownload) }
+                is UiState.ScanAsk -> item {
+                    ScanAskCard(
+                        candidate = state.candidate,
+                        onScan = onProceedAfterScan,
+                        onSkip = onCancelAfterScan
+                    )
+                }
+                is UiState.ScanResult -> item {
+                    ScanResultCard(
+                        scanResult = state.scanResult,
+                        detail = state.detail,
+                        isMalicious = state.isMalicious,
+                        onProceed = onProceedAfterScan,
+                        onCancel = onCancelAfterScan
+                    )
+                }
                 is UiState.Error -> item {
                     ErrorState(message = state.message, onRefresh = onRefresh, onCancel = onCancel)
                 }
@@ -2350,6 +2460,8 @@ private fun HelperScreen(
                             SourcePickerFlow(
                                 request = request,
                                 result = result,
+                                selectedPagerPage = selectedPagerPage,
+                                onPagerPageChanged = onPagerPageChanged,
                                 onResolve = onResolve,
                                 onDownload = onDownload,
                                 onPickDownloadedFile = openDownloadedFilePicker,
@@ -2376,32 +2488,51 @@ private fun HelperScreen(
 }
 
 @Composable
-private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
-    val hasFailures = entries.any { it.status == SourceHealthStatus.Failed }
-    val hasActivity = entries.any { it.status == SourceHealthStatus.Checking }
-    val failedCount = entries.count { it.status == SourceHealthStatus.Failed }
-    val okCount = entries.count { it.status == SourceHealthStatus.Ok }
+private fun SourceHealthCard() {
+    val checks by SourceHealthChecker.checks.collectAsState()
+    val checking by SourceHealthChecker.checking.collectAsState()
+    val webChecks = checks.filter { it.status != SourceHealthChecker.Status.Skipped }
 
+    val goodCount = webChecks.count { it.status == SourceHealthChecker.Status.Good }
+    val blockedCount = webChecks.count { it.status == SourceHealthChecker.Status.CaptchaBlocked }
+    val unreachableCount = webChecks.count { it.status == SourceHealthChecker.Status.Unreachable }
+    val hasProblems = blockedCount > 0 || unreachableCount > 0
+
+    val summaryParts = mutableListOf<String>()
+    if (goodCount > 0) summaryParts.add("$goodCount available")
+    if (blockedCount > 0) summaryParts.add("$blockedCount captcha-blocked")
+    if (unreachableCount > 0) summaryParts.add("$unreachableCount unreachable")
     val summary = when {
-        hasActivity -> "Checking sources..."
-        failedCount > 0 && okCount > 0 -> "$failedCount source${if (failedCount == 1) "" else "s"} had problems, $okCount OK"
-        failedCount > 0 -> "$failedCount source${if (failedCount == 1) "" else "s"} had problems"
-        okCount > 0 -> "$okCount source${if (okCount == 1) "" else "s"} available"
-        else -> "Sources not checked yet"
+        checking -> "Checking sources…"
+        webChecks.isEmpty() -> "Sources not checked yet"
+        else -> summaryParts.ifEmpty { listOf("No sources available") }.joinToString(" · ")
     }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
     ) {
-        Text(
-            text = "Source health",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Source health",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            HelperOutlinedButton(
+                text = if (checking) "Checking…" else "Re-check",
+                onClick = { SourceHealthChecker.refresh() },
+                icon = if (checking) null else Icons.Outlined.Refresh,
+                modifier = Modifier.width(HelperDefaults.ActionClearWidth + 28.dp)
+            )
+        }
         Text(
             text = summary,
-            color = if (hasFailures) {
+            color = if (hasProblems) {
                 MaterialTheme.colorScheme.error
             } else {
                 MaterialTheme.colorScheme.onSurfaceVariant
@@ -2409,24 +2540,26 @@ private fun SourceHealthCard(entries: List<SourceHealthEntry>) {
             style = MaterialTheme.typography.bodySmall
         )
 
-        if (entries.isEmpty()) {
-            InfoCard("No sources checked yet. Resolve candidates on the main screen to see per-source health here.")
+        if (webChecks.isEmpty()) {
+            InfoCard("No sources checked yet — the check runs automatically when the app opens.")
         } else {
-            entries.forEach { entry ->
-                SourceHealthRow(entry)
+            webChecks.forEach { check ->
+                SourceHealthRow(check)
             }
         }
     }
 }
 
 @Composable
-private fun SourceHealthRow(entry: SourceHealthEntry) {
-    val (dotColor, statusText) = when (entry.status) {
-        SourceHealthStatus.Ok -> MaterialTheme.colorScheme.primary to "Available"
-        SourceHealthStatus.Checking -> warningAccent() to "Checking..."
-        SourceHealthStatus.Failed -> MaterialTheme.colorScheme.error to (entry.message ?: "Failed")
-        SourceHealthStatus.NoResult -> MaterialTheme.colorScheme.onSurfaceVariant to "No matching candidates"
-        SourceHealthStatus.NotChecked -> MaterialTheme.colorScheme.outline to "Not checked"
+private fun SourceHealthRow(check: SourceHealthChecker.Check) {
+    val (dotColor, statusText) = when (check.status) {
+        SourceHealthChecker.Status.Good -> MaterialTheme.colorScheme.primary to "Available"
+        SourceHealthChecker.Status.Checking -> warningAccent() to "Checking…"
+        SourceHealthChecker.Status.CaptchaBlocked ->
+            MaterialTheme.colorScheme.error to (check.message ?: "Blocked by a captcha challenge")
+        SourceHealthChecker.Status.Unreachable ->
+            MaterialTheme.colorScheme.error to (check.message ?: "Unreachable")
+        SourceHealthChecker.Status.Skipped -> MaterialTheme.colorScheme.outline to "Not checked"
     }
 
     Row(
@@ -2446,7 +2579,7 @@ private fun SourceHealthRow(entry: SourceHealthEntry) {
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = entry.source.label,
+                text = check.source.label,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -2454,7 +2587,7 @@ private fun SourceHealthRow(entry: SourceHealthEntry) {
                 text = statusText,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
-                maxLines = if (entry.status == SourceHealthStatus.Failed) 3 else 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
         }
@@ -2468,6 +2601,8 @@ private fun HistoryEntryCard(
     onOpen: () -> Unit,
     onShare: () -> Unit
 ) {
+    val context = LocalContext.current
+    var showScanResult by remember { mutableStateOf(false) }
     HelperCard(cornerRadius = HelperDefaults.CompactCornerRadius) {
         Column(
             modifier = Modifier
@@ -2520,6 +2655,75 @@ private fun HistoryEntryCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            entry.scanVerdict?.let { verdict ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .then(if (verdict.result != null) {
+                            Modifier.clickable { showScanResult = true }
+                        } else {
+                            Modifier
+                        })
+                        .padding(vertical = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Icon(
+                        imageVector = when {
+                            verdict.malicious -> Icons.Outlined.Warning
+                            verdict.failed -> Icons.Outlined.HelpOutline
+                            else -> Icons.Outlined.CheckCircle
+                        },
+                        contentDescription = null,
+                        tint = when {
+                            verdict.malicious -> MaterialTheme.colorScheme.error
+                            verdict.failed -> MaterialTheme.colorScheme.onSurfaceVariant
+                            else -> MaterialTheme.colorScheme.primary
+                        },
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Text(
+                        text = verdict.label,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = when {
+                            verdict.malicious -> MaterialTheme.colorScheme.error
+                            verdict.failed -> MaterialTheme.colorScheme.onSurfaceVariant
+                            else -> MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f)
+                    )
+                    verdict.result?.let { result ->
+                        Surface(
+                            shape = RoundedCornerShape(50),
+                            color = if (result.cached) {
+                                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+                            } else {
+                                MaterialTheme.colorScheme.surfaceVariant
+                            }
+                        ) {
+                            Text(
+                                text = if (result.cached) "Cached" else "Fresh",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (result.cached) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp)
+                            )
+                        }
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                            contentDescription = "View scan details",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
+            }
             if (usable) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -2537,8 +2741,7 @@ private fun HistoryEntryCard(
                         icon = Icons.Outlined.FolderOpen,
                         modifier = Modifier.weight(1f)
                     )
-                }
-            } else {
+                }                } else {
                 Text(
                     text = "File no longer available (temporary hand-off files are cleaned up after Morphe copies them).",
                     color = MaterialTheme.colorScheme.error,
@@ -2546,6 +2749,36 @@ private fun HistoryEntryCard(
                 )
             }
         }
+    }
+
+    val savedResult = entry.scanVerdict?.result
+    if (showScanResult && savedResult != null) {
+        AlertDialog(
+            onDismissRequest = { showScanResult = false },
+            confirmButton = {},
+            text = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    ScanResultCard(
+                        scanResult = savedResult,
+                        detail = scanResultDetail(savedResult),
+                        isMalicious = savedResult is VirusTotalScanner.ScanResult.Malicious,
+                        onProceed = {},
+                        onCancel = {},
+                        readOnly = true
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    HelperButton(
+                        text = "Close",
+                        onClick = { showScanResult = false },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        )
     }
 }
 
@@ -2555,7 +2788,6 @@ private fun HelperSettingsScreen(
     onSettingsChange: (HelperSettings) -> Unit,
     logs: List<RequestLogEntry>,
     onClearLogs: () -> Unit,
-    healthEntries: List<SourceHealthEntry>,
     historyEntries: List<DownloadHistoryEntry>,
     onOpenHistoryEntry: (DownloadHistoryEntry) -> Unit,
     onShareHistoryEntry: (DownloadHistoryEntry) -> Unit,
@@ -2634,7 +2866,7 @@ private fun HelperSettingsScreen(
 
         if (tab == SettingsTab.Health) {
             item {
-                SourceHealthCard(healthEntries)
+                SourceHealthCard()
             }
         }
 
@@ -2729,6 +2961,83 @@ private fun HelperSettingsCard(
                     onSettingsChange(settings.copy(adGuardDns = it))
                 }
             )
+        }
+
+        SettingsGroupCard("Security") {
+            SettingSwitchRow(
+                icon = Icons.Outlined.Shield,
+                title = "VirusTotal scanning",
+                description = "Scan downloaded files with VirusTotal before returning them to Morphe.",
+                checked = settings.virusTotalEnabled,
+                onCheckedChange = {
+                    onSettingsChange(settings.copy(virusTotalEnabled = it))
+                }
+            )
+            if (settings.virusTotalEnabled) {
+                VirusTotalScanMode.entries.forEach { mode ->
+                    SettingsOptionCard(
+                        icon = when (mode) {
+                            VirusTotalScanMode.NEVER -> Icons.Outlined.Block
+                            VirusTotalScanMode.ASK -> Icons.Outlined.HelpOutline
+                            VirusTotalScanMode.ALWAYS -> Icons.Outlined.CheckCircle
+                        },
+                        title = mode.title,
+                        description = mode.description,
+                        selected = settings.virusTotalScanMode == mode,
+                        onClick = {
+                            onSettingsChange(settings.copy(virusTotalScanMode = mode))
+                        }
+                    )
+                }
+                SettingTextFieldRow(
+                    icon = Icons.Outlined.Key,
+                    title = "API key",
+                    description = "Get your free key at virustotal.com",
+                    value = settings.virusTotalApiKey,
+                    onValueChange = {
+                        onSettingsChange(settings.copy(virusTotalApiKey = it))
+                    }
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(HelperDefaults.CompactCornerRadius))
+                        .clickable {
+                            val open = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://docs.virustotal.com/docs/please-give-me-an-api-key")
+                            ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+                            runCatching { context.startActivity(open) }
+                                .onFailure {
+                                    Toast.makeText(
+                                        context,
+                                        "No browser available",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
+                        .padding(vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = "How to get a free API key",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Icon(
+                        imageVector = Icons.Outlined.OpenInNew,
+                        contentDescription = "Open VirusTotal API key guide",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+                if (settings.virusTotalApiKey.isNotBlank()) {
+                    VirusTotalQuotaRow(apiKey = settings.virusTotalApiKey)
+                }
+            }
         }
 
         SettingsGroupCard("Appearance") {
@@ -3076,6 +3385,298 @@ private fun SettingSwitchRow(
 }
 
 @Composable
+private fun SettingTextFieldRow(
+    icon: ImageVector,
+    title: String,
+    description: String,
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = shape,
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = colors.onSurfaceVariant,
+                    modifier = Modifier.size(22.dp)
+                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        title,
+                        fontWeight = FontWeight.Bold,
+                        color = colors.onSurface
+                    )
+                    Text(
+                        description,
+                        color = colors.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+            OutlinedTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                    color = colors.onSurface
+                ),
+                placeholder = {
+                    Text("Enter API key", color = colors.onSurfaceVariant.copy(alpha = 0.5f))
+                }
+            )
+        }
+    }
+}
+
+/**
+ * Compact at-a-glance quota card for the home screen header area. Shows the
+ * daily bucket (the one most likely to run out) with a warning tint as it
+ * fills, plus the hourly number. Returns nothing when no API key is set.
+ */
+@Composable
+private fun HomeQuotaCard(apiKey: String) {
+    if (apiKey.isBlank()) return
+    val colors = MaterialTheme.colorScheme
+    var quota by remember { mutableStateOf<VirusTotalScanner.QuotaUsage?>(null) }
+    var failed by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val load: () -> Unit = {
+        scope.launch {
+            failed = false
+            quota = withContext(Dispatchers.IO) { VirusTotalScanner.fetchQuotaUsage(apiKey) }
+            if (quota == null) failed = true
+        }
+    }
+    LaunchedEffect(apiKey) { load() }
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.NetworkCheck,
+                    contentDescription = null,
+                    tint = colors.primary,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    text = "VirusTotal quota",
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = colors.onSurface,
+                    modifier = Modifier.weight(1f)
+                )
+                val current = quota
+                if (current == null && !failed) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.Refresh,
+                        contentDescription = "Refresh quota",
+                        tint = colors.primary,
+                        modifier = Modifier
+                            .size(18.dp)
+                            .clip(RoundedCornerShape(50))
+                            .clickable { load() }
+                            .padding(2.dp)
+                    )
+                }
+            }
+            val current = quota
+            when {
+                current != null -> {
+                    val ratio = current.dailyUsed.toFloat() / current.dailyAllowed
+                    val barColor = when {
+                        ratio >= 0.9f -> colors.error
+                        ratio >= 0.7f -> Color(0xFFE0A030)
+                        else -> colors.primary
+                    }
+                    LinearProgressIndicator(
+                        progress = { ratio.coerceIn(0f, 1f) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(4.dp)
+                            .clip(RoundedCornerShape(2.dp)),
+                        color = barColor,
+                        trackColor = colors.surfaceVariant
+                    )
+                    Text(
+                        text = "${current.dailyUsed} of ${current.dailyAllowed} today · " +
+                            "${current.hourlyUsed}/${current.hourlyAllowed} hourly",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = colors.onSurfaceVariant
+                    )
+                }
+                failed -> Text(
+                    text = "VirusTotal quota unavailable — check your API key in Settings.",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = colors.error
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun VirusTotalQuotaRow(apiKey: String) {
+    val colors = MaterialTheme.colorScheme
+    var quota by remember { mutableStateOf<VirusTotalScanner.QuotaUsage?>(null) }
+    var loading by remember { mutableStateOf(false) }
+    var failed by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val load: () -> Unit = {
+        scope.launch {
+            loading = true
+            failed = false
+            quota = withContext(Dispatchers.IO) { VirusTotalScanner.fetchQuotaUsage(apiKey) }
+            if (quota == null) failed = true
+            loading = false
+        }
+    }
+    LaunchedEffect(apiKey) { load() }
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CardCornerRadius),
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.NetworkCheck,
+                    contentDescription = null,
+                    tint = colors.onSurfaceVariant,
+                    modifier = Modifier.size(22.dp)
+                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        "Quota usage",
+                        fontWeight = FontWeight.Bold,
+                        color = colors.onSurface
+                    )
+                    Text(
+                        "Free tier: 240/hour · 500/day · 15,500/month",
+                        color = colors.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                if (loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.Refresh,
+                        contentDescription = "Refresh quota",
+                        tint = colors.primary,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(RoundedCornerShape(50))
+                            .clickable { load() }
+                            .padding(2.dp)
+                    )
+                }
+            }
+            val current = quota
+            when {
+                current != null -> {
+                    QuotaBar("Per hour", current.hourlyUsed, current.hourlyAllowed)
+                    QuotaBar("Per day", current.dailyUsed, current.dailyAllowed)
+                    QuotaBar("Per month", current.monthlyUsed, current.monthlyAllowed)
+                }
+                failed -> Text(
+                    text = "Couldn't load quota — check your API key.",
+                    color = colors.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun QuotaBar(label: String, used: Int, allowed: Int) {
+    val colors = MaterialTheme.colorScheme
+    val ratio = if (allowed > 0) used.toFloat() / allowed else 0f
+    val barColor = when {
+        ratio >= 0.9f -> colors.error
+        ratio >= 0.7f -> Color(0xFFE0A030)
+        else -> colors.primary
+    }
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = "$used / $allowed",
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium,
+                color = if (ratio >= 0.7f) barColor else colors.onSurface
+            )
+        }
+        LinearProgressIndicator(
+            progress = { ratio.coerceIn(0f, 1f) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(4.dp)
+                .clip(RoundedCornerShape(2.dp)),
+            color = barColor,
+            trackColor = colors.surfaceVariant
+        )
+    }
+}
+
+@Composable
 private fun SourceToggleRow(
     source: DownloadSource,
     enabled: Boolean,
@@ -3201,6 +3802,7 @@ private fun ReuseOfferDialog(
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(HelperDefaults.CompactCornerRadius))
                             .clickable { onUseExisting(option) },
+                        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
                         color = sourceCardFill(),
                         border = BorderStroke(1.dp, sourceCardBorder())
                     ) {
@@ -3241,6 +3843,39 @@ private fun ReuseOfferDialog(
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
+                            entry.scanVerdict?.let { verdict ->
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                                    modifier = Modifier.padding(top = 3.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = when {
+                                            verdict.malicious -> Icons.Outlined.Warning
+                                            verdict.failed -> Icons.Outlined.HelpOutline
+                                            else -> Icons.Outlined.CheckCircle
+                                        },
+                                        contentDescription = null,
+                                        tint = when {
+                                            verdict.malicious -> MaterialTheme.colorScheme.error
+                                            verdict.failed -> MaterialTheme.colorScheme.onSurfaceVariant
+                                            else -> MaterialTheme.colorScheme.primary
+                                        },
+                                        modifier = Modifier.size(13.dp)
+                                    )
+                                    Text(
+                                        text = verdict.label,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Medium,
+                                        color = when {
+                                            verdict.malicious -> MaterialTheme.colorScheme.error
+                                            else -> MaterialTheme.colorScheme.onSurfaceVariant
+                                        },
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
                         }
                     }
                 }
@@ -3788,6 +4423,8 @@ private data class PrimaryAction(
 private fun SourcePickerFlow(
     request: HelperRequest,
     result: CandidateResult,
+    selectedPagerPage: Int,
+    onPagerPageChanged: (Int) -> Unit,
     onResolve: (DownloadSource, CandidateOption) -> Unit,
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate) -> Unit,
@@ -3817,7 +4454,9 @@ private fun SourcePickerFlow(
         return
     }
 
-    val pagerState = rememberPagerState(initialPage = 0) { groups.size }
+    val initialPage = selectedPagerPage.coerceIn(0, (groups.size - 1).coerceAtLeast(0))
+    val pagerState = rememberPagerState(initialPage = initialPage) { groups.size }
+    LaunchedEffect(pagerState.currentPage) { onPagerPageChanged(pagerState.currentPage) }
     val scope = rememberCoroutineScope()
     var showHowItWorks by remember { mutableStateOf(false) }
     // The source cards collapse by default so the page stays focused on the
@@ -4886,6 +5525,12 @@ private fun InfoCard(text: String) {
     }
 }
 
+private enum class HistoryFilter(val label: String) {
+    All("All"),
+    Scanned("Scanned"),
+    Flagged("Flagged")
+}
+
 @Composable
 private fun DownloadHistorySection(
     entries: List<DownloadHistoryEntry>,
@@ -4894,6 +5539,14 @@ private fun DownloadHistorySection(
     onShare: (DownloadHistoryEntry) -> Unit
 ) {
     val context = LocalContext.current
+    var filter by rememberSaveable { mutableStateOf(HistoryFilter.All) }
+    val filtered = entries.filter { entry ->
+        when (filter) {
+            HistoryFilter.All -> true
+            HistoryFilter.Scanned -> entry.scanVerdict != null
+            HistoryFilter.Flagged -> entry.scanVerdict?.malicious == true
+        }
+    }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
@@ -4916,10 +5569,71 @@ private fun DownloadHistorySection(
             )
         }
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            HistoryFilter.entries.forEach { f ->
+                val count = when (f) {
+                    HistoryFilter.All -> entries.size
+                    HistoryFilter.Scanned -> entries.count { it.scanVerdict != null }
+                    HistoryFilter.Flagged -> entries.count { it.scanVerdict?.malicious == true }
+                }
+                val selected = f == filter
+                Surface(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(50))
+                        .clickable { filter = f },
+                    // Passing the shape to the Surface (not just clipping) makes
+                    // the border follow the rounded outline; without it the
+                    // border is drawn as a rectangle and cut at the rounded
+                    // ends, which reads as a clipped border.
+                    shape = RoundedCornerShape(50),
+                    color = if (selected) {
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
+                    } else {
+                        sourceCardFill()
+                    },
+                    border = BorderStroke(
+                        width = if (selected) 1.5.dp else 1.dp,
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            sourceCardBorder()
+                        }
+                    )
+                ) {
+                    Text(
+                        text = "${f.label} · $count",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 9.dp)
+                    )
+                }
+            }
+        }
+
         if (entries.isEmpty()) {
             InfoCard("No hand-offs recorded yet. Downloads and picked files you return to Morphe show up here.")
+        } else if (filtered.isEmpty()) {
+            InfoCard(
+                when (filter) {
+                    HistoryFilter.All -> "No hand-offs recorded yet."
+                    HistoryFilter.Scanned -> "None of these downloads were scanned by VirusTotal."
+                    HistoryFilter.Flagged -> "No flagged downloads — everything came back clean."
+                }
+            )
         } else {
-            entries.forEach { entry ->
+            filtered.forEach { entry ->
                 val usable = remember(entry.uri) { context.isHistoryUriUsable(entry.uri) }
                 HistoryEntryCard(
                     entry = entry,
@@ -5417,7 +6131,9 @@ private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
             modifier = Modifier.padding(HelperDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
         ) {
-            Text("Downloading from ${state.candidate.source.label}")
+            Text(
+                text = state.statusMessage ?: "Downloading from ${state.candidate.source.label}"
+            )
             LinearProgressIndicator(
                 progress = { state.percent / 100f },
                 modifier = Modifier.fillMaxWidth()
@@ -5446,6 +6162,470 @@ private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
             }
         }
     }
+}
+
+@Composable
+private fun ScanAskCard(
+    candidate: DownloadCandidate,
+    onScan: () -> Unit,
+    onSkip: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CardCornerRadius),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+    ) {
+        Column(
+            modifier = Modifier.padding(HelperDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Shield,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = "Scan with VirusTotal?",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Text(
+                text = "Check ${candidate.name} with VirusTotal before returning it to Morphe.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                HelperButton(
+                    text = "Scan",
+                    onClick = onScan,
+                    modifier = Modifier.weight(1f)
+                )
+                HelperOutlinedButton(
+                    text = "Skip",
+                    onClick = onSkip,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+    }
+}
+
+private fun scanResultDetail(scanResult: VirusTotalScanner.ScanResult): String = when (scanResult) {
+    is VirusTotalScanner.ScanResult.Clean ->
+        if (scanResult.scannedFiles != null) {
+            "All ${scanResult.scannedFiles} APKs in the bundle are clean — " +
+                "0 of ${scanResult.totalEngines} engines flagged them"
+        } else {
+            "0 of ${scanResult.totalEngines} antivirus engines flagged this file"
+        }
+    is VirusTotalScanner.ScanResult.Malicious ->
+        if (scanResult.scannedFiles != null) {
+            "${scanResult.flaggedFiles ?: 1} of ${scanResult.scannedFiles} APKs in the " +
+                "bundle flagged — ${scanResult.detections} of ${scanResult.totalEngines} engines"
+        } else {
+            "${scanResult.detections} of ${scanResult.totalEngines} antivirus engines flagged this file"
+        }
+    is VirusTotalScanner.ScanResult.Error ->
+        "Scan error: ${scanResult.message}"
+}
+
+private fun openVirusTotalPage(context: Context, sha256: String) {
+    val open = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("https://www.virustotal.com/gui/file/$sha256")
+    ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+    runCatching { context.startActivity(open) }
+        .onFailure {
+            Toast.makeText(context, "No browser available", Toast.LENGTH_SHORT).show()
+        }
+}
+
+@Composable
+private fun ScanResultCard(
+    scanResult: VirusTotalScanner.ScanResult,
+    detail: String,
+    isMalicious: Boolean,
+    onProceed: () -> Unit,
+    onCancel: () -> Unit,
+    readOnly: Boolean = false
+) {
+    val colors = MaterialTheme.colorScheme
+    val context = LocalContext.current
+    val isError = scanResult is VirusTotalScanner.ScanResult.Error
+    val containerColor = if (isMalicious) {
+        MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.15f)
+    } else if (scanResult is VirusTotalScanner.ScanResult.Clean) {
+        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.15f)
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant
+    }
+    val borderColor = if (isMalicious) {
+        MaterialTheme.colorScheme.error.copy(alpha = 0.5f)
+    } else if (scanResult is VirusTotalScanner.ScanResult.Clean) {
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+    } else {
+        MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+    }
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CardCornerRadius),
+        color = containerColor,
+        border = BorderStroke(1.dp, borderColor)
+    ) {
+        Column(
+            modifier = Modifier.padding(HelperDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(
+                    imageVector = when {
+                        isMalicious || isError -> Icons.Outlined.Warning
+                        else -> Icons.Outlined.CheckCircle
+                    },
+                    contentDescription = null,
+                    tint = when {
+                        isMalicious || isError -> MaterialTheme.colorScheme.error
+                        else -> MaterialTheme.colorScheme.primary
+                    },
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = when {
+                        isMalicious -> "VirusTotal — Threats detected"
+                        isError -> "VirusTotal — Scan error"
+                        else -> "VirusTotal — Clean"
+                    },
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+                if (!isError) {
+                    Surface(
+                        shape = RoundedCornerShape(50),
+                        color = if (scanResult.cached) {
+                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant
+                        }
+                    ) {
+                        Text(
+                            text = if (scanResult.cached) "Cached report" else "Fresh scan",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (scanResult.cached) {
+                                MaterialTheme.colorScheme.onPrimaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+            }
+            Text(
+                text = detail,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            if (scanResult is VirusTotalScanner.ScanResult.Malicious) {
+                scanResult.suggestedThreatLabel?.let { label ->
+                    Text(
+                        text = "Detected as: $label",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+                if (scanResult.engines.isNotEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        scanResult.engines.take(8).forEach { hit ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = hit.engine,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.weight(0.38f)
+                                )
+                                Text(
+                                    text = hit.result,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.error,
+                                    modifier = Modifier.weight(0.62f)
+                                )
+                            }
+                        }
+                        if (scanResult.engines.size > 8) {
+                            Text(
+                                text = "+${scanResult.engines.size - 8} more engines",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+            if (isMalicious) {
+                Text(
+                    text = "This file was flagged by antivirus engines. " +
+                        "Only proceed if you trust the source.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            } else if (isError) {
+                Text(
+                    text = "The scan did not complete (network or VirusTotal queue). " +
+                        "You can still proceed, or cancel to keep the file out of Morphe.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            if (scanResult.apkResults.isNotEmpty()) {
+                androidx.compose.material3.HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    color = colors.outline.copy(alpha = 0.3f)
+                )
+                Text(
+                    text = "APK details",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+                scanResult.apkResults.forEach { apk ->
+                    val apkVerdictColor = when {
+                        apk.failed -> colors.onSurfaceVariant
+                        apk.detections > 0 -> colors.error
+                        else -> colors.primary
+                    }
+                    val apkIcon = when {
+                        apk.failed -> Icons.Outlined.HelpOutline
+                        apk.detections > 0 -> Icons.Outlined.Warning
+                        else -> Icons.Outlined.CheckCircle
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = apkIcon,
+                            contentDescription = null,
+                            tint = apkVerdictColor,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Text(
+                            text = apk.name,
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Text(
+                            text = "${apk.detections}/${apk.totalEngines}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = apkVerdictColor
+                        )
+                        if (apk.sha256 != null) {
+                            Icon(
+                                imageVector = Icons.Outlined.OpenInNew,
+                                contentDescription = "Open ${apk.name} in VirusTotal",
+                                tint = colors.primary,
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clip(RoundedCornerShape(50))
+                                    .clickable { openVirusTotalPage(context, apk.sha256) }
+                                    .padding(2.dp)
+                            )
+                        }
+                    }
+                    if (apk.detections > 0 && apk.engines.isNotEmpty()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 22.dp),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            apk.engines.take(3).forEach { hit ->
+                                Text(
+                                    text = "${hit.engine} → ${hit.result}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = colors.error,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                            if (apk.engines.size > 3) {
+                                Text(
+                                    text = "+${apk.engines.size - 3} more engines",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = colors.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            ScanMetaRows(scanResult)
+            if (!readOnly) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    HelperButton(
+                        text = "Proceed",
+                        onClick = onProceed,
+                        modifier = Modifier.weight(1f)
+                    )
+                    HelperOutlinedButton(
+                        text = "Cancel",
+                        onClick = onCancel,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ScanMetaRows(scanResult: VirusTotalScanner.ScanResult) {
+    if (scanResult is VirusTotalScanner.ScanResult.Error) return
+    val context = LocalContext.current
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+    var hashCopied by remember { mutableStateOf(false) }
+    val sha256 = scanResult.sha256
+    val rows = buildList {
+        scanResult.typeDescription?.let { add("Type" to it) }
+        scanResult.sizeBytes?.let { add("Size" to it.formatBytes()) }
+        scanResult.timesSubmitted?.let { add("Times submitted" to it.toString()) }
+        scanResult.firstSubmissionDate?.let { add("First seen" to formatScanDate(it)) }
+        scanResult.lastAnalysisDate?.let { add("Last analyzed" to formatScanDate(it)) }
+        if (scanResult is VirusTotalScanner.ScanResult.Malicious) {
+            if (scanResult.scannedFiles != null && scanResult.fileName.isNotBlank()) {
+                add("Flagged APK" to scanResult.fileName)
+            }
+        }
+        scanResult.scannedFiles?.let { add("APKs scanned" to it.toString()) }
+        scanResult.bundleName?.let { add("Bundle" to it) }
+        if (scanResult is VirusTotalScanner.ScanResult.Clean) {
+            if (scanResult.votesHarmless > 0 || scanResult.votesMalicious > 0) {
+                add("Community votes" to "${scanResult.votesHarmless} harmless / ${scanResult.votesMalicious} malicious")
+            }
+            scanResult.reputation?.let { add("Reputation" to it.toString()) }
+        }
+    }
+    if (rows.isEmpty() && sha256 == null) return
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        sha256?.let { hash ->
+            // Tap to copy the full hash.
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable {
+                        clipboard?.setPrimaryClip(ClipData.newPlainText("SHA-256", hash))
+                        hashCopied = true
+                        Toast.makeText(context, "SHA-256 copied", Toast.LENGTH_SHORT).show()
+                    }
+                    .padding(vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "SHA-256",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(0.38f)
+                )
+                Text(
+                    text = hash.take(16) + "…",
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(0.5f)
+                )
+                Icon(
+                    imageVector = if (hashCopied) Icons.Outlined.CheckCircle else Icons.Outlined.ContentCopy,
+                    contentDescription = "Copy SHA-256",
+                    tint = if (hashCopied) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    modifier = Modifier.size(16.dp)
+                )
+            }
+            // Jump to the full report on virustotal.com.
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { openVirusTotalPage(context, hash) }
+                    .padding(vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Open in VirusTotal",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(0.38f)
+                )
+                Spacer(modifier = Modifier.weight(0.5f))
+                Icon(
+                    imageVector = Icons.Outlined.OpenInNew,
+                    contentDescription = "Open in VirusTotal",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(16.dp)
+                )
+            }
+        }
+        rows.forEach { (label, value) ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(0.38f)
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(0.62f)
+                )
+            }
+        }
+    }
+}
+
+private fun formatScanDate(epochSeconds: Long): String {
+    val date = java.util.Date(epochSeconds * 1000L)
+    return java.text.SimpleDateFormat("MMM d, yyyy", Locale.US).format(date)
 }
 
 private fun formatTransferSpeed(bytesPerSec: Double): String {
@@ -5815,40 +6995,7 @@ private sealed interface VersionHistoryState {
     data class Error(val message: String) : VersionHistoryState
 }
 
-private enum class SourceHealthStatus {
-    NotChecked,
-    Checking,
-    Ok,
-    NoResult,
-    Failed
-}
 
-private data class SourceHealthEntry(
-    val source: DownloadSource,
-    val status: SourceHealthStatus,
-    val message: String? = null
-)
-
-private fun CandidateResult.sourceHealth(): List<SourceHealthEntry> =
-    sourceGroups.map { group ->
-        val states = listOf(group.recommended, group.latest)
-        val failures = states.filterIsInstance<ResolveState.Error>()
-        val loadedCandidates = states.filterIsInstance<ResolveState.Done>().map { it.candidates }
-        val anyLoading = states.any { it is ResolveState.Loading }
-        when {
-            failures.isNotEmpty() -> {
-                SourceHealthEntry(
-                    source = group.source,
-                    status = SourceHealthStatus.Failed,
-                    message = failures.first().message
-                )
-            }
-            loadedCandidates.any { it.isNotEmpty() } -> SourceHealthEntry(group.source, SourceHealthStatus.Ok)
-            loadedCandidates.isNotEmpty() -> SourceHealthEntry(group.source, SourceHealthStatus.NoResult)
-            anyLoading -> SourceHealthEntry(group.source, SourceHealthStatus.Checking)
-            else -> SourceHealthEntry(group.source, SourceHealthStatus.NotChecked)
-        }
-    }
 
 internal data class ApkMirrorLatestInfo(
     val versionName: String?,
@@ -6029,7 +7176,7 @@ internal enum class DownloadSource(
     PLAY("Play", 9, supportsManualArtifactPicker = false)
 }
 
-private fun DownloadSource.searchDomain(): String? = when (this) {
+internal fun DownloadSource.searchDomain(): String? = when (this) {
     DownloadSource.APK_MIRROR -> "apkmirror.com"
     DownloadSource.UPTODOWN -> "uptodown.com"
     DownloadSource.APK_PURE -> "apkpure.com"
@@ -6077,10 +7224,18 @@ private sealed interface UiState {
         val candidate: DownloadCandidate,
         val percent: Int,
         val speedBytesPerSec: Double = 0.0,
-        val etaMs: Long? = null
+        val etaMs: Long? = null,
+        val statusMessage: String? = null
     ) : UiState
     data class Error(val message: String) : UiState
     data class FastMode(val progress: FastModeProgress) : UiState
+    data class ScanResult(
+        val candidate: DownloadCandidate,
+        val scanResult: VirusTotalScanner.ScanResult,
+        val detail: String,
+        val isMalicious: Boolean
+    ) : UiState
+    data class ScanAsk(val candidate: DownloadCandidate) : UiState
 }
 
 private enum class FastModeChoice { USE, NEXT }

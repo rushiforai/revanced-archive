@@ -1,6 +1,6 @@
 {
   "download_url": "https://gitlab.com/gltieo/revanced-patches/-/releases/permalink/latest/downloads/patches.rvp",
-  "created_at": "2026-08-25T01:00:00",
+  "created_at": "2026-08-25T21:00:00",
   "description": "My patches for the YouTube app. Contains: BetterCaptions: Change style of the captions and also add a second caption in a different language, e.g. for language learning.",
-  "version": "1.4.0"
+  "version": "1.7.8"
 }

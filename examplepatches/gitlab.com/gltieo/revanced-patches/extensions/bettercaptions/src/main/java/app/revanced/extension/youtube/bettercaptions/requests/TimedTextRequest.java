@@ -57,7 +57,7 @@ public final class TimedTextRequest {
         public final long endMs;
         public final String text;
 
-        Cue(long startMs, long endMs, String text) {
+        public Cue(long startMs, long endMs, String text) {
             this.startMs = startMs;
             this.endMs = endMs;
             this.text = text;

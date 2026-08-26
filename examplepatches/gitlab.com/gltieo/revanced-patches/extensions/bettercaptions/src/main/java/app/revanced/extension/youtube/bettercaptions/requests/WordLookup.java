@@ -85,19 +85,44 @@ public final class WordLookup {
     /**
      * What Wiktionary has on a word in one language.
      */
+    /**
+     * A word this one is a form of, with what that word means: "vive" is a form of both
+     * vivir and vivar, and only one of them is what was being said.
+     */
+    public static final class FormOf {
+        /** As Wiktionary puts it: "feminine singular of grabado". */
+        public final String note;
+        public final String lemma;
+        public final List<PartOfSpeech> partsOfSpeech;
+
+        FormOf(String note, String lemma, List<PartOfSpeech> partsOfSpeech) {
+            this.note = note;
+            this.lemma = lemma;
+            this.partsOfSpeech = partsOfSpeech;
+        }
+    }
+
     public static final class Entry {
         public final String word;
         public final String language;
+        /** What the word means itself, which a word that is only a form of another has none of. */
         public final List<PartOfSpeech> partsOfSpeech;
+        public final List<FormOf> formsOf;
 
         Entry(String word, String language, List<PartOfSpeech> partsOfSpeech) {
+            this(word, language, partsOfSpeech, Collections.emptyList());
+        }
+
+        Entry(String word, String language, List<PartOfSpeech> partsOfSpeech,
+              List<FormOf> formsOf) {
             this.word = word;
             this.language = language;
             this.partsOfSpeech = partsOfSpeech;
+            this.formsOf = formsOf;
         }
 
         public boolean isEmpty() {
-            return partsOfSpeech.isEmpty();
+            return partsOfSpeech.isEmpty() && formsOf.isEmpty();
         }
     }
 
@@ -118,10 +143,84 @@ public final class WordLookup {
         if (entry == null && !word.equals(word.toLowerCase())) {
             entry = fetch(word.toLowerCase(), languageCode);
         }
+        if (entry != null) entry = throughToTheWordsThemselves(entry, languageCode);
         if (entry == null) entry = new Entry(word, languageCode, Collections.emptyList());
 
         looked.put(key, entry);
         return entry;
+    }
+
+    /**
+     * Follows a word that is a form of others to those words.
+     *
+     * "grabada" says nothing but "feminine singular of grabado", which is no use to
+     * someone reading a caption; what they want is what grabado means. A form can belong
+     * to more than one word, and which one was meant is the reader's to tell, so each is
+     * looked up and shown.
+     */
+    private static Entry throughToTheWordsThemselves(Entry entry, String languageCode) {
+        List<PartOfSpeech> itsOwn = new ArrayList<>();
+        List<FormOf> formsOf = new ArrayList<>();
+        List<String> followed = new ArrayList<>();
+
+        for (PartOfSpeech part : entry.partsOfSpeech) {
+            boolean underAForm = false;
+
+            for (Sense sense : part.senses) {
+                final String lemma = formOfLink(sense.definition);
+                if (lemma == null) {
+                    // Under a "form of" heading the senses that follow say which form it
+                    // is rather than what the word means, so they belong to that word.
+                    if (!underAForm && !itsOwn.contains(part)) itsOwn.add(part);
+                    continue;
+                }
+                underAForm = true;
+
+                if (lemma.equalsIgnoreCase(entry.word) || followed.contains(lemma)) continue;
+                if (followed.size() >= LEMMAS_AT_MOST) continue;
+                followed.add(lemma);
+
+                Entry itself = fetch(lemma, languageCode);
+                if (itself == null || itself.partsOfSpeech.isEmpty()) continue;
+
+                formsOf.add(new FormOf(sense.definition, lemma, itself.partsOfSpeech));
+            }
+        }
+
+        if (formsOf.isEmpty()) return entry;
+        return new Entry(entry.word, entry.language, itsOwn, formsOf);
+    }
+
+    /**
+     * How many words a form is followed to. Beyond a couple the sheet is a list of
+     * everything the letters could have been rather than an answer.
+     */
+    private static final int LEMMAS_AT_MOST = 3;
+
+    /**
+     * Wiktionary marks a definition that only names another word, and links the word it
+     * names.
+     */
+    @Nullable
+    private static String formOfLink(String definitionHtml) {
+        final int marker = definitionHtml.indexOf("form-of-definition-link");
+        if (marker < 0) return null;
+
+        final int link = definitionHtml.indexOf("/wiki/", marker);
+        if (link < 0) return null;
+
+        final int end = definitionHtml.indexOf('"', link);
+        if (end < 0) return null;
+
+        String target = definitionHtml.substring(link + "/wiki/".length(), end);
+        final int section = target.indexOf('#');
+        if (section >= 0) target = target.substring(0, section);
+
+        try {
+            return java.net.URLDecoder.decode(target, StandardCharsets.UTF_8.name());
+        } catch (Exception ex) {
+            return target;
+        }
     }
 
     @Nullable
@@ -243,6 +342,64 @@ public final class WordLookup {
             return PAGE_URL + word;
         }
     }
+
+    /**
+     * What a word is in another language, from MyMemory, which answers a word in one
+     * language with the word in another without being asked for a key.
+     *
+     * Wiktionary explains a word in English and no further; someone reading captions in
+     * a third language wants it in theirs, which is what the second caption line is set
+     * to.
+     */
+    @Nullable
+    public static String translate(String word, String fromLanguage, String toLanguage) {
+        if (word.isEmpty() || fromLanguage.isEmpty() || toLanguage.isEmpty()) return null;
+        if (primary(fromLanguage).equals(primary(toLanguage))) return null;
+
+        final String key = word + "|" + fromLanguage + ">" + toLanguage;
+        String kept = translated.get(key);
+        if (kept != null) return kept.isEmpty() ? null : kept;
+
+        String answer = "";
+        try {
+            final String url = TRANSLATE_URL
+                    + "?q=" + URLEncoder.encode(word, StandardCharsets.UTF_8.name())
+                    + "&langpair=" + primary(fromLanguage) + "%7C" + primary(toLanguage);
+
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setConnectTimeout(HTTP_TIMEOUT_MILLISECONDS);
+            connection.setReadTimeout(HTTP_TIMEOUT_MILLISECONDS);
+
+            if (connection.getResponseCode() == 200) {
+                JSONObject data = Requester.parseJSONObject(connection)
+                        .optJSONObject("responseData");
+                if (data != null) answer = data.optString("translatedText", "").trim();
+            }
+        } catch (Exception ex) {
+            Logger.printDebug(() -> "Could not translate " + word + ": " + ex);
+        }
+
+        // A word it cannot translate comes back as the word itself, or as a scrap of
+        // punctuation, neither of which says anything.
+        if (answer.equalsIgnoreCase(word) || !hasLetters(answer)) answer = "";
+
+        translated.put(key, answer);
+        return answer.isEmpty() ? null : answer;
+    }
+
+    private static boolean hasLetters(String text) {
+        for (int index = 0; index < text.length(); index++) {
+            if (Character.isLetter(text.charAt(index))) return true;
+        }
+        return false;
+    }
+
+    private static final String TRANSLATE_URL = "https://api.mymemory.translated.net/get";
+
+    private static final Map<String, String> translated =
+            Collections.synchronizedMap(Utils.createSizeRestrictedMap(100));
 
     private WordLookup() {
     }

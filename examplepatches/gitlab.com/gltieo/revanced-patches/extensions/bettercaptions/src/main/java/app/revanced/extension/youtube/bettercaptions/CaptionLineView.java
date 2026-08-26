@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.ResourceType;
+import app.revanced.extension.shared.Utils;
 import app.revanced.extension.shared.ui.Dim;
 
 /**
@@ -49,6 +51,12 @@ public final class CaptionLineView extends TextView {
         void tapped(String word);
     }
 
+    /**
+     * How many lines a caption may take before it is shrunk to fit rather than growing
+     * further.
+     */
+    private static final int LINES_AT_MOST = 4;
+
     private static final int CORNER_RADIUS_DIP = 4;
     private static final int PADDING_HORIZONTAL_DIP = 8;
     static final int PADDING_VERTICAL_DIP = 3;
@@ -76,11 +84,9 @@ public final class CaptionLineView extends TextView {
 
         setGravity(Gravity.CENTER);
         setShadowLayer(3, 0, 0, Color.BLACK);
-        // A caption that ran past its room was drawn over the line beside it. The room
-        // is two lines, so the text is fitted into two lines, shrinking where a long
-        // sentence would otherwise need a third.
-        setMaxLines(CaptionLayout.LINES_PER_CAPTION);
-        setEllipsize(android.text.TextUtils.TruncateAt.END);
+        // A caption keeps two lines and takes more only when it needs them, rather than
+        // losing its end: cutting a word in half is worse than a line of text more.
+        setMaxLines(LINES_AT_MOST);
         setPadding(
                 dip(PADDING_HORIZONTAL_DIP), dip(PADDING_VERTICAL_DIP),
                 dip(PADDING_HORIZONTAL_DIP), dip(PADDING_VERTICAL_DIP));
@@ -244,6 +250,7 @@ public final class CaptionLineView extends TextView {
                 return true;
         }
     }
+
 
     /**
      * @return The word drawn under the given point, without the punctuation around it, or

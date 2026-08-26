@@ -160,6 +160,7 @@ val betterCaptionsPatch = bytecodePatch(
 
         announceTheAppsOwnCaptions()
         followTheAppsCaptionState()
+        handOverTheSubtitleTracks()
 
         // Report the playback position. This fires about once per second,
         // so the extension estimates the position in between.
@@ -215,6 +216,32 @@ private fun BytecodePatchContext.followTheAppsCaptionState() {
         hooked.addInstruction(
             0,
             "invoke-static { p1 }, $EXTENSION_CLASS_DESCRIPTOR->onCaptionsEnabled(Z)V",
+        )
+
+        owner.methods.remove(original)
+        owner.methods.add(hooked)
+    }
+}
+
+/**
+ * Hands the extension the object the app picks caption tracks with.
+ *
+ * The captions menu the patch draws replaces the app's own list of tracks, so turning
+ * captions on there has to reach the app as well: its own captions button reads from it,
+ * and the next video starts the way it was left.
+ */
+private fun BytecodePatchContext.handOverTheSubtitleTracks() {
+    subtitlesManagerMethod.let { manager ->
+        val owner = firstClassDef { type == manager.definingClass }
+        val original = owner.methods.first {
+            it.name == manager.name && it.parameterTypes == manager.parameterTypes
+        }
+        val hooked = original.toMutable()
+
+        hooked.addInstruction(
+            0,
+            "invoke-static { p0 }, " +
+                    "$EXTENSION_MENU_CLASS_DESCRIPTOR->rememberSubtitleTracks(Ljava/lang/Object;)V",
         )
 
         owner.methods.remove(original)

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.ResourceType;
 import app.revanced.extension.shared.Utils;
 import app.revanced.extension.shared.ui.Dim;
 import app.revanced.extension.youtube.bettercaptions.ui.WordSheet;
@@ -39,7 +40,16 @@ import app.revanced.extension.youtube.shared.VideoState;
 @SuppressWarnings("unused")
 public final class BetterCaptionsOverlay {
 
-    private static final int REFRESH_INTERVAL_MILLISECONDS = 100;
+    private static final int REFRESH_INTERVAL_MILLISECONDS = 50;
+
+    /**
+     * How far ahead of the position the app reports the lines are read.
+     *
+     * What the app reports is where the player has decoded to, and the frame with those
+     * words in it reaches the screen a moment later; a caption timed to the report is
+     * therefore behind the picture by that moment plus however long ago the report was.
+     */
+    private static final long LEAD_MILLISECONDS = 250;
 
     /**
      * Space between two lines sharing an edge, and between a line and its edge. In dp
@@ -75,6 +85,12 @@ public final class BetterCaptionsOverlay {
     private static long reportedVideoTime = -1;
     private static long reportedAtRealTime;
 
+    /**
+     * Where the captions stood when the video last moved, which is where they stay while
+     * it is not moving.
+     */
+    private static long heldTime = -1;
+
     @Nullable
     private static String lastSpokenText;
     @Nullable
@@ -101,6 +117,7 @@ public final class BetterCaptionsOverlay {
      */
     public static void initialize(ViewGroup playerOverlays) {
         try {
+            BetterCaptionsSettings.load();
             Context context = playerOverlays.getContext();
 
             FrameLayout overlay = new FrameLayout(context);
@@ -176,6 +193,7 @@ public final class BetterCaptionsOverlay {
         }
     }
 
+
     /**
      * Injection point. Called as YouTube builds the view it draws its own captions into,
      * which is when the first caption of a video arrives rather than when the player is
@@ -201,6 +219,9 @@ public final class BetterCaptionsOverlay {
     public static void setVideoTime(long videoTime) {
         reportedVideoTime = videoTime;
         reportedAtRealTime = SystemClock.elapsedRealtime();
+        // A report while the video stands still is where it stands: a seek, or the
+        // player settling after being paused.
+        if (VideoState.getCurrent() != VideoState.PLAYING) heldTime = videoTime;
     }
 
     /**
@@ -274,15 +295,21 @@ public final class BetterCaptionsOverlay {
 
         // Anything but playing means the picture is standing still: paused, ended, or
         // waiting for the video to load. The captions stand still with it, rather than
-        // running on and arriving ahead of what is being said.
-        if (VideoState.getCurrent() != VideoState.PLAYING) return reportedVideoTime;
+        // running on and arriving ahead of what is being said, and they stand where they
+        // were rather than at the last report, which is up to a second behind the frame
+        // on screen and would drop the caption back to the one before.
+        if (VideoState.getCurrent() != VideoState.PLAYING) {
+            return heldTime >= 0 ? heldTime : reportedVideoTime;
+        }
 
         final long elapsed = SystemClock.elapsedRealtime() - reportedAtRealTime;
         final long estimate = reportedVideoTime
                 + (long) (elapsed * VideoInformation.getPlaybackSpeed());
 
         final long videoLength = VideoInformation.getVideoLength();
-        return videoLength > 0 ? Math.min(estimate, videoLength) : estimate;
+        final long time = videoLength > 0 ? Math.min(estimate, videoLength) : estimate;
+        heldTime = time;
+        return time;
     }
 
     private static void refresh() {
@@ -310,7 +337,7 @@ public final class BetterCaptionsOverlay {
         final String videoId = VideoInformation.getVideoId();
         if (!videoId.isEmpty()) CaptionLines.ensureLoaded(videoId);
 
-        final long time = getEstimatedVideoTime();
+        final long time = getEstimatedVideoTime() + LEAD_MILLISECONDS;
         final String spokenText = CaptionLines.upperLineAt(time);
         final String secondText = CaptionLines.lowerLineAt(time);
 
@@ -366,16 +393,121 @@ public final class BetterCaptionsOverlay {
                                       CaptionLineView spoken, CaptionLineView second) {
         if (overlay.getVisibility() != View.VISIBLE) return;
 
+        // While the player's buttons are on screen the captions fade out of the way, so
+        // that the buttons under them can be read and pressed. Whether the video is
+        // paused makes no difference: it is the buttons that are in the way.
+        fadeBehindTheButtons(overlay);
+
         final int margin = Dim.dp(CaptionLayout.EDGE_MARGIN_DIP);
 
+        // Where the app would draw its own captions, which it moves out of the way of its
+        // buttons itself. Following it needs no measuring of bars and no guessing at how
+        // tall they are on a given screen.
+        final Rect theirs = appCaptionArea(overlay);
         for (boolean top : new boolean[]{true, false}) {
             CaptionLineView[] rows = rowsOn(top, spoken, second);
             if (rows == null) continue;
 
             final int height = stack(rows);
-            final int stackTop = top ? margin : overlay.getHeight() - margin - height;
+            final int atTheEdge = top ? margin : overlay.getHeight() - margin - height;
+
+            // What the player has drawn over its own picture at that edge, which is
+            // what a caption has to stay clear of while the buttons are up.
+            final int clearance = glideTo(overlay, top, CaptionLayout.clearanceAt(overlay, top));
+
+            int stackTop = top ? margin + clearance
+                    : overlay.getHeight() - margin - clearance - height;
+            if (theirs != null && clearance == 0) {
+                // How far the app keeps its own captions from the foot of the player,
+                // which is what its buttons take there. A line at the head keeps the
+                // same distance from its own edge.
+                // Nothing is covering that edge, so the captions sit where the app puts
+                // its own, which is a little in from the edge rather than against it.
+                final int inset = Math.max(margin, overlay.getHeight() - theirs.bottom);
+                stackTop = top ? inset : overlay.getHeight() - inset - height;
+            }
+
+            stackTop = Math.max(margin,
+                    Math.min(stackTop, overlay.getHeight() - margin - height));
             place(overlay, rows, stackTop);
         }
+    }
+
+    /**
+     * How far the lines are standing clear of the player's buttons at this moment.
+     *
+     * They glide to where they belong rather than jumping there, since the buttons
+     * themselves fade in and out and a caption that snapped would be the one thing on the
+     * player that moves at once. Eased a fifth of the way each frame, which is about a
+     * fifth of a second.
+     */
+    /**
+     * Where each stack is standing at this moment, on its way to where it belongs.
+     */
+    private static final float[] standing = {Float.NaN, Float.NaN};
+
+    /**
+     * Eases a stack to where it belongs rather than moving it there at once, since the
+     * app's buttons fade in and out and a caption that jumped would be the one thing on
+     * the player that does not.
+     */
+    private static int glideTo(FrameLayout overlay, boolean top, int wanted) {
+        final int which = top ? 0 : 1;
+        if (Float.isNaN(standing[which])) standing[which] = wanted;
+
+        standing[which] += (wanted - standing[which]) * 0.2f;
+        if (Math.abs(wanted - standing[which]) < 1f) {
+            standing[which] = wanted;
+        } else {
+            // Positions are settled as a frame is drawn, so the glide needs the next
+            // frame asking for itself while there is still somewhere to go.
+            overlay.postInvalidateOnAnimation();
+        }
+        return Math.round(standing[which]);
+    }
+
+    /**
+     * @return Where the app draws its own captions, in the overlay's own coordinates, or
+     *         null while it has none.
+     */
+    @Nullable
+    private static Rect appCaptionArea(FrameLayout overlay) {
+        Rect area = null;
+        int[] place = new int[2];
+        int[] overlayPlace = new int[2];
+        overlay.getLocationOnScreen(overlayPlace);
+
+        for (WeakReference<View> reference : originalCaptions) {
+            View view = reference.get();
+            if (view == null || view.getHeight() == 0 || view.getWidth() == 0) continue;
+
+            view.getLocationOnScreen(place);
+            Rect drawn = new Rect(
+                    place[0] - overlayPlace[0], place[1] - overlayPlace[1],
+                    place[0] - overlayPlace[0] + view.getWidth(),
+                    place[1] - overlayPlace[1] + view.getHeight());
+
+            if (area == null) area = drawn;
+            else area.union(drawn);
+        }
+        return area;
+    }
+
+    /**
+     * How solid the captions are drawn at this moment, eased the way their place is.
+     */
+    private static float solidity = 1f;
+
+    private static void fadeBehindTheButtons(FrameLayout overlay) {
+        final float wanted = CaptionLayout.controlsShowing(overlay) ? 0f : 1f;
+
+        solidity += (wanted - solidity) * 0.2f;
+        if (Math.abs(wanted - solidity) < 0.01f) {
+            solidity = wanted;
+        } else {
+            overlay.postInvalidateOnAnimation();
+        }
+        if (overlay.getAlpha() != solidity) overlay.setAlpha(solidity);
     }
 
     /**
@@ -426,10 +558,17 @@ public final class BetterCaptionsOverlay {
     /**
      * The room one caption keeps, whatever it happens to say right now.
      */
+    /**
+     * @return The room one line takes, which is the room its words take.
+     *
+     * A line used to keep two lines of room whatever it said, so that the video, which
+     * was made smaller for the captions, did not change size as a caption wrapped.
+     * Nothing is made smaller for them any more, so a caption of one line sits where one
+     * line sits: keeping two moved every caption half a line further up the picture, and
+     * two of them a whole line, which is a lot of picture on a phone.
+     */
     private static int slotHeight(CaptionLineView line) {
-        // The same arithmetic the watch page was answered with, so what was asked for
-        // and what is drawn agree.
-        return CaptionLayout.slotHeight(line.textSizeSp());
+        return line.getHeight();
     }
 
     /**
@@ -453,8 +592,18 @@ public final class BetterCaptionsOverlay {
     }
 
     private static void centre(FrameLayout overlay, CaptionLineView line) {
+        // A caption never runs to the edges of the picture: it is set in from them the
+        // way the app sets its own, and wraps within what is left.
+        final int room = overlay.getWidth() - 2 * Dim.dp(SIDE_MARGIN_DIP);
+        if (room > 0 && line.getMaxWidth() != room) line.setMaxWidth(room);
+
         line.setX(Math.max(0, (overlay.getWidth() - line.getWidth()) / 2f));
     }
+
+    /**
+     * How far a caption stays from the sides of the picture.
+     */
+    private static final int SIDE_MARGIN_DIP = 24;
 
     /**
      * Keeps YouTube's captions out of the way while this draws its own, and hands them
@@ -489,7 +638,9 @@ public final class BetterCaptionsOverlay {
     }
 
     private static void setOriginalCaptionsVisible(boolean visible) {
-        final int wanted = visible ? View.VISIBLE : View.GONE;
+        // Out of sight rather than out of the layout: the app moves its caption window
+        // for its own buttons, and that is where these lines belong too, on any screen.
+        final int wanted = visible ? View.VISIBLE : View.INVISIBLE;
 
         for (Iterator<WeakReference<View>> known = originalCaptions.iterator(); known.hasNext(); ) {
             View view = known.next().get();
