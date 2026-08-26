@@ -2,7 +2,7 @@
 
 An auto-generated, continuously updated index of every GitHub repository that publishes a [Revanced](https://revanced.app) (`.rvp`) patch bundle.
 
-![Repos tracked](https://img.shields.io/badge/repos%20tracked-82-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-08-25%2001:01%20UTC-555)
+![Repos tracked](https://img.shields.io/badge/repos%20tracked-83-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-08-26%2001:03%20UTC-555)
 
 ---
 
@@ -18,7 +18,7 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 
 ---
 
-## 📋 Tracked Repositories (82)
+## 📋 Tracked Repositories (83)
 
 | # | Repository | Link |
 |---|------------|------|
@@ -88,22 +88,23 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 | 64 | `ReVanced/revanced-patches` | [🔗 Open](https://github.com/ReVanced/revanced-patches) |
 | 65 | `roflsunriz/chmate-revanced` | [🔗 Open](https://github.com/roflsunriz/chmate-revanced) |
 | 66 | `roflsunriz/imgur-revanced` | [🔗 Open](https://github.com/roflsunriz/imgur-revanced) |
-| 67 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
-| 68 | `rushiranpise/apk-download-helper` | [🔗 Open](https://github.com/rushiranpise/apk-download-helper) |
-| 69 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
-| 70 | `simnple/revanced-patches` | [🔗 Open](https://github.com/simnple/revanced-patches) |
-| 71 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
-| 72 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
-| 73 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
-| 74 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
-| 75 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
-| 76 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
-| 77 | `vasyl91/Expose-like-status-in-MediaSession` | [🔗 Open](https://github.com/vasyl91/Expose-like-status-in-MediaSession) |
-| 78 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
-| 79 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
-| 80 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
-| 81 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
-| 82 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
+| 67 | `roflsunriz/nicomanga-revanced` | [🔗 Open](https://github.com/roflsunriz/nicomanga-revanced) |
+| 68 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
+| 69 | `rushiranpise/apk-download-helper` | [🔗 Open](https://github.com/rushiranpise/apk-download-helper) |
+| 70 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
+| 71 | `simnple/revanced-patches` | [🔗 Open](https://github.com/simnple/revanced-patches) |
+| 72 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
+| 73 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
+| 74 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
+| 75 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
+| 76 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
+| 77 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
+| 78 | `vasyl91/Expose-like-status-in-MediaSession` | [🔗 Open](https://github.com/vasyl91/Expose-like-status-in-MediaSession) |
+| 79 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
+| 80 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
+| 81 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
+| 82 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
+| 83 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
 
 ---
 
@@ -112,4 +113,4 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 This README is regenerated automatically by GitHub Actions whenever `repos.txt` changes.
 To add a repo manually, append it to `custom_repos.txt`. To remove one permanently, add it to `ignore_repos.txt`.
 
-*Last generated: 2026-08-25 01:01 UTC*
+*Last generated: 2026-08-26 01:03 UTC*

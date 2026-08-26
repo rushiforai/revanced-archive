@@ -73,6 +73,7 @@ loan-mgt/moovit-patch
 prevanced/prevanced-manager
 roflsunriz/chmate-revanced
 roflsunriz/imgur-revanced
+roflsunriz/nicomanga-revanced
 rufusin/revanced-patches
 rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
