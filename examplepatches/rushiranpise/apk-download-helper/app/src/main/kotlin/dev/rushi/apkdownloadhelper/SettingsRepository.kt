@@ -10,6 +10,10 @@ import java.io.File
 
 internal const val PREFS_NAME = "helper_settings"
 
+/** Dedicated prefs for the VirusTotal rate limiter's trailing call log. */
+internal const val RATE_LIMITER_PREFS = "rate_limiter"
+private const val KEY_CALL_TIMESTAMPS = "call_timestamps"
+
 /**
  * Mirrors the user's Logcat preference so long-lived clients (built before
  * settings load) can check it per request without holding a Context.
@@ -36,7 +40,9 @@ internal data class HelperSettings(
     val adGuardDns: Boolean = false,
     val virusTotalEnabled: Boolean = false,
     val virusTotalApiKey: String = "",
-    val virusTotalScanMode: VirusTotalScanMode = VirusTotalScanMode.ASK
+    val virusTotalScanMode: VirusTotalScanMode = VirusTotalScanMode.ASK,
+    // Source opened by default when Helper launches (null = first enabled source).
+    val preferredSource: DownloadSource? = null
 )
 
 internal enum class VirusTotalScanMode(
@@ -162,7 +168,9 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         virusTotalScanMode = enumValueOrDefault(
             prefs.getString("virus_total_scan_mode", null),
             VirusTotalScanMode.ASK
-        )
+        ),
+        preferredSource = prefs.getString("preferred_source", null)
+            ?.let { name -> DownloadSource.entries.firstOrNull { it.name == name } }
     )
     logcatLoggingEnabled = settings.logcatLogging
     adGuardDnsEnabled = settings.adGuardDns
@@ -186,11 +194,33 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putBoolean("virus_total_enabled", settings.virusTotalEnabled)
         .putString("virus_total_api_key", settings.virusTotalApiKey)
         .putString("virus_total_scan_mode", settings.virusTotalScanMode.name)
+        .putString("preferred_source", settings.preferredSource?.name)
         .apply()
 }
 
 private inline fun <reified T : Enum<T>> enumValueOrDefault(name: String?, fallback: T): T =
     name?.let { runCatching { enumValueOf<T>(it) }.getOrNull() } ?: fallback
+
+/**
+ * Rehydrate the VirusTotal rate limiter's per-minute call log from storage so
+ * the "N of 4" bar is accurate after a process restart, and install the sink
+ * that persists each future call. Call once at process start from any component
+ * with a Context.
+ */
+internal fun Context.restoreAndPersistRateLimiter() {
+    val prefs = getSharedPreferences(RATE_LIMITER_PREFS, Context.MODE_PRIVATE)
+    val saved = prefs.getString(KEY_CALL_TIMESTAMPS, null)
+        ?.split(',')
+        ?.mapNotNull { it.trim().toLongOrNull() }
+        .orEmpty()
+    VirusTotalScanner.rateLimiter.restoreCallTimestamps(saved)
+    VirusTotalScanner.rateLimiter.onCallRecorded = { timestamps ->
+        getSharedPreferences(RATE_LIMITER_PREFS, Context.MODE_PRIVATE)
+            .edit()
+            .putString(KEY_CALL_TIMESTAMPS, timestamps.joinToString(","))
+            .apply()
+    }
+}
 
 internal fun Context.temporaryDownloadsDir(): File = File(cacheDir, "downloads")
 

@@ -66,7 +66,10 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Bolt
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.CleaningServices
 import androidx.compose.material.icons.outlined.Dns
@@ -109,6 +112,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -138,6 +143,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -191,6 +200,7 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.Cache
@@ -315,12 +325,29 @@ class MainActivity : ComponentActivity() {
     private var fastModeActive = false
     private var fastModeQueue: MutableList<DownloadSource>? = null
     private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
+
+    /**
+     * The effective disabled-source set.  If the user disables *every*
+     * source, Play Store is forced back on so the app always has at least
+     * one fallback source available.
+     */
+    private val effectiveDisabledSources: Set<DownloadSource>
+        get() {
+            val disabled = helperSettings.disabledSources
+            return if (disabled.size >= DownloadSource.entries.size) {
+                // All sources disabled – keep Play Store as the sole fallback.
+                disabled - DownloadSource.PLAY
+            } else {
+                disabled
+            }
+        }
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { _ -> startPendingDownload() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        restoreAndPersistRateLimiter()
         helperSettings = loadHelperSettings()
         request = HelperRequest.from(intent)
         startRequestLog(request)
@@ -362,6 +389,11 @@ class MainActivity : ComponentActivity() {
                         request = request,
                         state = uiState,
                         settings = helperSettings,
+                        virusTotalApiKey = if (helperSettings.virusTotalEnabled) {
+                            helperSettings.virusTotalApiKey
+                        } else {
+                            ""
+                        },
                         logs = AppLog.entries,
                         installedPackageRefreshToken = installedPackageRefreshToken,
                         selectedPagerPage = selectedPagerPage,
@@ -384,6 +416,7 @@ class MainActivity : ComponentActivity() {
                             finish()
                         },
                         onCancelDownload = ::cancelDownload,
+                        onSkipScanWait = { VirusTotalScanner.rateLimiter.requestSkip() },
                         onCancelFastMode = ::cancelFastMode,
                         onUseFastModeMismatch = { fastModeChoose(FastModeChoice.USE) },
                         onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
@@ -391,7 +424,8 @@ class MainActivity : ComponentActivity() {
                         onSolveCaptcha = ::openCaptchaBrowser,
                         onRequestFileTypeChange = ::changeRequestedFileType,
                         onProceedAfterScan = ::proceedAfterScan,
-                        onCancelAfterScan = ::cancelAfterScan
+                        onCancelAfterScan = ::cancelAfterScan,
+                        onSkipScan = ::skipScanAndHandoff
                     )
                 }
                 val offer = reuseOffer
@@ -446,7 +480,7 @@ class MainActivity : ComponentActivity() {
         uiState = UiState.Ready(initialCandidateResult(activeRequest))
         appendLog(
             "Ready. Manual links prepared for " +
-                "${DownloadSource.entries.count { it !in helperSettings.disabledSources }} sources."
+                "${DownloadSource.entries.count { it !in effectiveDisabledSources }} sources."
         )
     }
 
@@ -681,10 +715,17 @@ class MainActivity : ComponentActivity() {
 
     private fun initialCandidateResult(request: HelperRequest): CandidateResult {
         val manual = manualCandidates(request)
+        val enabled = DownloadSource.entries
+            .filter { it !in effectiveDisabledSources }
+        // Put the user's preferred source first so the picker's pager opens on
+        // it (page 0) instead of always the first enabled source. Falls back to
+        // the default order when no preference is set or it's disabled.
+        val ordered = helperSettings.preferredSource
+            ?.takeIf { it in enabled }
+            ?.let { preferred -> listOf(preferred) + enabled.filterNot { it == preferred } }
+            ?: enabled
         return CandidateResult(
-            sourceGroups = DownloadSource.entries
-                .filter { it !in helperSettings.disabledSources }
-                .map { source ->
+            sourceGroups = ordered.map { source ->
                 SourceCandidateGroup(
                     source = source,
                     manual = manual.filter { it.source == source },
@@ -871,7 +912,7 @@ class MainActivity : ComponentActivity() {
 
     private fun manualSourceUrls(request: HelperRequest): List<Pair<DownloadSource, String>> =
         parsers.values
-            .filter { it.source !in helperSettings.disabledSources }
+            .filter { it.source !in effectiveDisabledSources }
             .mapNotNull { parser ->
                 parser.searchUrl(request.packageName)?.let { parser.source to it }
             }
@@ -1037,7 +1078,7 @@ class MainActivity : ComponentActivity() {
         fastModeActive = true
         fastModeQueue = DownloadSource.entries
             .filter { it !in NON_FAST_MODE_SOURCES }
-            .filter { it !in helperSettings.disabledSources }
+            .filter { it !in effectiveDisabledSources }
             .toMutableList()
         appendLog("Fast Mode: auto-searching sources for the exact requested version.", LogLevel.Info)
         uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
@@ -1080,6 +1121,14 @@ class MainActivity : ComponentActivity() {
     private fun cancelAfterScan() {
         startService(
             Intent(this, DownloadService::class.java).setAction(ACTION_SCAN_CANCEL)
+        )
+        uiState = UiState.Loading
+    }
+
+    private fun skipScanAndHandoff() {
+        appendLog("User skipped the VirusTotal scan — handing off unverified.", LogLevel.Warning)
+        startService(
+            Intent(this, DownloadService::class.java).setAction(ACTION_SCAN_SKIP)
         )
         uiState = UiState.Loading
     }
@@ -1252,18 +1301,21 @@ class MainActivity : ComponentActivity() {
                 }
             }
             is DownloadJobManager.Event.Scanning -> {
+                val pct = event.percent ?: 100
                 uiState = if (fastModeActive) {
                     UiState.FastMode(
                         FastModeProgress(
                             sourceLabel = event.candidate.source.label,
                             detail = event.status,
-                            percent = 100
+                            percent = pct,
+                            etaMs = event.etaMs
                         )
                     )
                 } else {
                     UiState.Downloading(
                         event.candidate,
-                        percent = 100,
+                        percent = pct,
+                        etaMs = event.etaMs,
                         statusMessage = event.status
                     )
                 }
@@ -2220,6 +2272,10 @@ private fun HelperScreen(
     onPagerPageChanged: (Int) -> Unit,
     onSettingsChange: (HelperSettings) -> Unit,
     onRefresh: () -> Unit,
+    // VirusTotal API key, threaded into the scan-flow cards (ask, progress,
+    // result) so quota is shown where scanning actually happens instead of
+    // cluttering the home screen. Empty when VirusTotal is disabled.
+    virusTotalApiKey: String,
     onResolve: (DownloadSource, CandidateOption) -> Unit,
     onDownload: (DownloadCandidate) -> Unit,
     onPickDownloadedFile: (DownloadCandidate, Uri?) -> Unit,
@@ -2232,6 +2288,7 @@ private fun HelperScreen(
     onClearLogs: () -> Unit,
     onCancel: () -> Unit,
     onCancelDownload: () -> Unit,
+    onSkipScanWait: () -> Unit,
     onCancelFastMode: () -> Unit,
     onUseFastModeMismatch: () -> Unit,
     onSkipFastModeMismatch: () -> Unit,
@@ -2239,7 +2296,8 @@ private fun HelperScreen(
     onSolveCaptcha: (DownloadCandidate) -> Unit,
     onRequestFileTypeChange: (String) -> Unit,
     onProceedAfterScan: () -> Unit,
-    onCancelAfterScan: () -> Unit
+    onCancelAfterScan: () -> Unit,
+    onSkipScan: () -> Unit
 ) {
     var showSettings by remember { mutableStateOf(false) }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
@@ -2374,16 +2432,6 @@ private fun HelperScreen(
                 }
             }
 
-            item {
-                // At-a-glance VirusTotal quota right under the header (next to
-                // the Fast Mode toggle area) so usage is visible without opening
-                // Settings. Hidden when VirusTotal is disabled or no API key is
-                // configured.
-                HomeQuotaCard(
-                    apiKey = if (settings.virusTotalEnabled) settings.virusTotalApiKey else ""
-                )
-            }
-
             if (request == null) {
                 item { EmptyLaunchState(onOpenMorphe) }
                 return@LazyColumn
@@ -2425,22 +2473,40 @@ private fun HelperScreen(
                 }
 
                 is UiState.CheckingPickedFile -> item { CheckingPickedFileState(state) }
-                is UiState.Downloading -> item { DownloadingState(state, onCancelDownload) }
-                is UiState.ScanAsk -> item {
-                    ScanAskCard(
-                        candidate = state.candidate,
-                        onScan = onProceedAfterScan,
-                        onSkip = onCancelAfterScan
-                    )
+                is UiState.Downloading -> {
+                    item {
+                        DownloadingState(
+                            state = state,
+                            onCancel = onCancelDownload,
+                            onSkipWait = onSkipScanWait,
+                            onSkipScan = onSkipScan
+                        )
+                    }
+                    if (isScanStatus(state.statusMessage)) {
+                        item { VirusTotalQuotaCard(virusTotalApiKey) }
+                    }
                 }
-                is UiState.ScanResult -> item {
-                    ScanResultCard(
-                        scanResult = state.scanResult,
-                        detail = state.detail,
-                        isMalicious = state.isMalicious,
-                        onProceed = onProceedAfterScan,
-                        onCancel = onCancelAfterScan
-                    )
+                is UiState.ScanAsk -> {
+                    item {
+                        ScanAskCard(
+                            candidate = state.candidate,
+                            onScan = onProceedAfterScan,
+                            onSkip = onCancelAfterScan
+                        )
+                    }
+                    item { VirusTotalQuotaCard(virusTotalApiKey) }
+                }
+                is UiState.ScanResult -> {
+                    item {
+                        ScanResultCard(
+                            scanResult = state.scanResult,
+                            detail = state.detail,
+                            isMalicious = state.isMalicious,
+                            onProceed = onProceedAfterScan,
+                            onCancel = onCancelAfterScan
+                        )
+                    }
+                    item { VirusTotalQuotaCard(virusTotalApiKey) }
                 }
                 is UiState.Error -> item {
                     ErrorState(message = state.message, onRefresh = onRefresh, onCancel = onCancel)
@@ -2451,9 +2517,14 @@ private fun HelperScreen(
                         FastModeCard(
                             progress = state.progress,
                             onCancel = onCancelFastMode,
+                            onSkipWait = onSkipScanWait,
                             onUseMismatch = onUseFastModeMismatch,
-                            onSkipMismatch = onSkipFastModeMismatch
+                            onSkipMismatch = onSkipFastModeMismatch,
+                            onSkipScan = onSkipScan
                         )
+                    }
+                    if (isScanStatus(state.progress.detail)) {
+                        item { VirusTotalQuotaCard(virusTotalApiKey) }
                     }
                     state.progress.result?.let { result ->
                         item {
@@ -2899,6 +2970,7 @@ private fun HelperSettingsCard(
 ) {
     val context = LocalContext.current
     var cacheBytes by remember(context) { mutableStateOf(context.temporaryDownloadsSize()) }
+    var defaultSourceExpanded by remember { mutableStateOf(false) }
     var downloadsBytes by remember(context) { mutableStateOf(context.downloadsCopySize()) }
 
     Column(
@@ -3035,7 +3107,7 @@ private fun HelperSettingsCard(
                     )
                 }
                 if (settings.virusTotalApiKey.isNotBlank()) {
-                    VirusTotalQuotaRow(apiKey = settings.virusTotalApiKey)
+                    VirusTotalQuotaCard(apiKey = settings.virusTotalApiKey)
                 }
             }
         }
@@ -3066,6 +3138,64 @@ private fun HelperSettingsCard(
         }
 
         SettingsGroupCard("Sources") {
+            // Preferred source: one compact row + dropdown instead of a long
+            // radio list, so choosing the default doesn't dominate the screen.
+            Box {
+                SettingsDropdownCard(
+                    icon = Icons.Outlined.Star,
+                    title = "Default source",
+                    value = settings.preferredSource?.label
+                        ?: "Automatic (first enabled source)",
+                    onClick = { defaultSourceExpanded = true }
+                )
+                DropdownMenu(
+                    expanded = defaultSourceExpanded,
+                    onDismissRequest = { defaultSourceExpanded = false },
+                    modifier = Modifier.fillMaxWidth(0.85f)
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Automatic (first enabled source)") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.AutoAwesome,
+                                contentDescription = null
+                            )
+                        },
+                        trailingIcon = {
+                            if (settings.preferredSource == null) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Check,
+                                    contentDescription = null
+                                )
+                            }
+                        },
+                        onClick = {
+                            onSettingsChange(settings.copy(preferredSource = null))
+                            defaultSourceExpanded = false
+                        }
+                    )
+                    sourceCategories.forEach { (title, catSources) ->
+                        val visibleSources = catSources.filter { src ->
+                            val disabled = settings.disabledSources
+                            src !in disabled ||
+                                (disabled.size >= DownloadSource.entries.size && src == DownloadSource.PLAY)
+                        }
+                        if (visibleSources.isNotEmpty()) {
+                            SourceMenuHeader(title)
+                            visibleSources.forEach { src ->
+                                SourceMenuItem(
+                                    source = src,
+                                    selected = settings.preferredSource == src,
+                                    onClick = {
+                                        onSettingsChange(settings.copy(preferredSource = src))
+                                        defaultSourceExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
             DownloadSource.entries.forEach { source ->
                 SourceToggleRow(
                     source = source,
@@ -3152,7 +3282,8 @@ private fun SettingsOptionCard(
     title: String,
     description: String,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    enabled: Boolean = true
 ) {
     val colors = MaterialTheme.colorScheme
     val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
@@ -3160,7 +3291,7 @@ private fun SettingsOptionCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape)
-            .clickable(onClick = onClick),
+            .clickable(enabled = enabled, onClick = onClick),
         shape = shape,
         // Matches the home screen's source cards: dark fill + hairline border,
         // with the selected option getting a primary tint + border + radio dot.
@@ -3212,6 +3343,67 @@ private fun SettingsOptionCard(
                 )
             }
             RadioDot(selected = selected)
+        }
+    }
+}
+
+/**
+ * Compact dropdown trigger in the same card language as [SettingsOptionCard],
+ * but showing the current value on the right and a chevron instead of a radio
+ * dot. Tap opens the anchored [DropdownMenu].
+ */
+@Composable
+private fun SettingsDropdownCard(
+    icon: ImageVector,
+    title: String,
+    value: String,
+    onClick: () -> Unit
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(HelperDefaults.CardCornerRadius)
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .clickable(onClick = onClick),
+        shape = shape,
+        color = sourceCardFill(),
+        contentColor = colors.onSurface,
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = colors.onSurfaceVariant,
+                modifier = Modifier.size(22.dp)
+            )
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Text(
+                    title,
+                    fontWeight = FontWeight.Bold,
+                    color = colors.onSurface
+                )
+                Text(
+                    value,
+                    color = colors.primary,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Icon(
+                imageVector = Icons.Outlined.ArrowDropDown,
+                contentDescription = "Change default source",
+                tint = colors.onSurfaceVariant
+            )
         }
     }
 }
@@ -3446,116 +3638,23 @@ private fun SettingTextFieldRow(
 }
 
 /**
- * Compact at-a-glance quota card for the home screen header area. Shows the
- * daily bucket (the one most likely to run out) with a warning tint as it
- * fills, plus the hourly number. Returns nothing when no API key is set.
+ * Detailed VirusTotal quota card shared by the Settings screen and the
+ * scan-flow screens. Shows the live per-minute bucket (tracked client-side
+ * against the 4/min free tier) plus the hourly/daily/monthly buckets reported
+ * by the API. Returns nothing when no API key is set.
  */
 @Composable
-private fun HomeQuotaCard(apiKey: String) {
+private fun VirusTotalQuotaCard(apiKey: String) {
     if (apiKey.isBlank()) return
-    val colors = MaterialTheme.colorScheme
-    var quota by remember { mutableStateOf<VirusTotalScanner.QuotaUsage?>(null) }
-    var failed by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-    val load: () -> Unit = {
-        scope.launch {
-            failed = false
-            quota = withContext(Dispatchers.IO) { VirusTotalScanner.fetchQuotaUsage(apiKey) }
-            if (quota == null) failed = true
-        }
-    }
-    LaunchedEffect(apiKey) { load() }
-
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
-        color = sourceCardFill(),
-        border = BorderStroke(1.dp, sourceCardBorder())
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 10.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.NetworkCheck,
-                    contentDescription = null,
-                    tint = colors.primary,
-                    modifier = Modifier.size(18.dp)
-                )
-                Text(
-                    text = "VirusTotal quota",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = colors.onSurface,
-                    modifier = Modifier.weight(1f)
-                )
-                val current = quota
-                if (current == null && !failed) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Outlined.Refresh,
-                        contentDescription = "Refresh quota",
-                        tint = colors.primary,
-                        modifier = Modifier
-                            .size(18.dp)
-                            .clip(RoundedCornerShape(50))
-                            .clickable { load() }
-                            .padding(2.dp)
-                    )
-                }
-            }
-            val current = quota
-            when {
-                current != null -> {
-                    val ratio = current.dailyUsed.toFloat() / current.dailyAllowed
-                    val barColor = when {
-                        ratio >= 0.9f -> colors.error
-                        ratio >= 0.7f -> Color(0xFFE0A030)
-                        else -> colors.primary
-                    }
-                    LinearProgressIndicator(
-                        progress = { ratio.coerceIn(0f, 1f) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(4.dp)
-                            .clip(RoundedCornerShape(2.dp)),
-                        color = barColor,
-                        trackColor = colors.surfaceVariant
-                    )
-                    Text(
-                        text = "${current.dailyUsed} of ${current.dailyAllowed} today · " +
-                            "${current.hourlyUsed}/${current.hourlyAllowed} hourly",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = colors.onSurfaceVariant
-                    )
-                }
-                failed -> Text(
-                    text = "VirusTotal quota unavailable — check your API key in Settings.",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = colors.error
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun VirusTotalQuotaRow(apiKey: String) {
     val colors = MaterialTheme.colorScheme
     var quota by remember { mutableStateOf<VirusTotalScanner.QuotaUsage?>(null) }
     var loading by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
+    var minuteUsed by remember { mutableIntStateOf(0) }
+    var rollingUsed by remember { mutableIntStateOf(0) }
+    // Seconds until the wall-clock minute boundary ticks over and the per-minute
+    // count resets to 0. Ceiled so it reads 60 right after a rollover.
+    var secsToRollover by remember { mutableIntStateOf(60) }
     val scope = rememberCoroutineScope()
     val load: () -> Unit = {
         scope.launch {
@@ -3566,7 +3665,18 @@ private fun VirusTotalQuotaRow(apiKey: String) {
             loading = false
         }
     }
-    LaunchedEffect(apiKey) { load() }
+    LaunchedEffect(apiKey) {
+        load()
+        // The per-minute count is tracked locally in the rate limiter, so tick
+        // it once a second to keep the bar honest while a scan is running.
+        while (true) {
+            minuteUsed = VirusTotalScanner.rateLimiter.callsInCurrentMinute()
+            rollingUsed = VirusTotalScanner.rateLimiter.callsInLastMinute()
+            secsToRollover =
+                ((60_000L - System.currentTimeMillis() % 60_000L + 999L) / 1000L).toInt()
+            delay(1000)
+        }
+    }
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
@@ -3585,21 +3695,16 @@ private fun VirusTotalQuotaRow(apiKey: String) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.NetworkCheck,
+                    imageVector = Icons.Outlined.Shield,
                     contentDescription = null,
                     tint = colors.onSurfaceVariant,
                     modifier = Modifier.size(22.dp)
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        "Quota usage",
+                        "VirusTotal quota",
                         fontWeight = FontWeight.Bold,
                         color = colors.onSurface
-                    )
-                    Text(
-                        "Free tier: 240/hour · 500/day · 15,500/month",
-                        color = colors.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodySmall
                     )
                 }
                 if (loading) {
@@ -3620,6 +3725,17 @@ private fun VirusTotalQuotaRow(apiKey: String) {
                     )
                 }
             }
+            // Per minute is always available locally, even while the API quota
+            // is still loading. The wall-clock minute count resets at each
+            // minute boundary; the rolling 60s count is what the API actually
+            // enforces, so show both and flash when either nears the cap.
+            QuotaBar(
+                "Per minute",
+                minuteUsed,
+                VirusTotalScanner.MINUTE_LOOKUP_LIMIT,
+                flash = maxOf(minuteUsed, rollingUsed) >= VirusTotalScanner.MINUTE_LOOKUP_LIMIT - 1,
+                caption = "rolling 60s: $rollingUsed / ${VirusTotalScanner.MINUTE_LOOKUP_LIMIT} · resets in ${secsToRollover}s"
+            )
             val current = quota
             when {
                 current != null -> {
@@ -3638,13 +3754,41 @@ private fun VirusTotalQuotaRow(apiKey: String) {
 }
 
 @Composable
-private fun QuotaBar(label: String, used: Int, allowed: Int) {
+private fun QuotaBar(
+    label: String,
+    used: Int,
+    allowed: Int,
+    // Pulsing amber flash used for the per-minute bar when it nears the cap.
+    flash: Boolean = false,
+    // Optional second line under the bar, e.g. the rolling 60s count next to
+    // the wall-clock minute count.
+    caption: String? = null
+) {
     val colors = MaterialTheme.colorScheme
     val ratio = if (allowed > 0) used.toFloat() / allowed else 0f
-    val barColor = when {
+    val baseColor = when {
         ratio >= 0.9f -> colors.error
         ratio >= 0.7f -> Color(0xFFE0A030)
         else -> colors.primary
+    }
+    // When near the cap, pulse the bar between amber and a dim amber so the
+    // mid-scan warning is visible even without looking at the number.
+    val barColor = if (flash) {
+        val transition = rememberInfiniteTransition(label = "quota-flash-$label")
+        val amber = Color(0xFFE0A030)
+        amber.copy(
+            alpha = transition.animateFloat(
+                initialValue = 1f,
+                targetValue = 0.3f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(600),
+                    repeatMode = RepeatMode.Reverse
+                ),
+                label = "quota-alpha-$label"
+            ).value
+        )
+    } else {
+        baseColor
     }
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(
@@ -3673,6 +3817,13 @@ private fun QuotaBar(label: String, used: Int, allowed: Int) {
             color = barColor,
             trackColor = colors.surfaceVariant
         )
+        if (caption != null) {
+            Text(
+                text = caption,
+                style = MaterialTheme.typography.labelSmall,
+                color = colors.onSurfaceVariant
+            )
+        }
     }
 }
 
@@ -4493,6 +4644,7 @@ private fun SourcePickerFlow(
     SideEffect { onPrimaryActionChanged(action) }
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        SelectedSourceBar(source = currentGroup.source)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -4554,29 +4706,42 @@ private fun SourcePickerFlow(
                         " a real browser opens and any download it produces is captured back."
                 )
             }
-            AnimatedExpand(visible = sourcesExpanded) {
-                SourceGrid(
-                    groups = groups,
-                    selectedIndex = pagerState.currentPage,
-                    onSelect = { index ->
-                        scope.launch {
-                            // Slide for adjacent sources (feels like a swipe), but jump
-                            // straight to distant ones instead of dragging the pager
-                            // through every source in between.
-                            if (abs(index - pagerState.currentPage) <= 1) {
-                                pagerState.animateScrollToPage(index)
-                            } else {
-                                pagerState.scrollToPage(index)
+            Box {
+                DropdownMenu(
+                    expanded = sourcesExpanded,
+                    onDismissRequest = { sourcesExpanded = false },
+                    modifier = Modifier.fillMaxWidth(0.85f)
+                ) {
+                    sourceCategories.forEach { (title, catSources) ->
+                        val visibleSources = catSources.filter { src ->
+                            groups.any { it.source == src }
+                        }
+                        if (visibleSources.isNotEmpty()) {
+                            SourceMenuHeader(title)
+                            visibleSources.forEach { src ->
+                                val index = groups.indexOfFirst { it.source == src }
+                                if (index >= 0) {
+                                    SourceMenuItem(
+                                        source = src,
+                                        selected = index == pagerState.currentPage,
+                                        onClick = {
+                                            scope.launch {
+                                                if (abs(index - pagerState.currentPage) <= 1) {
+                                                    pagerState.animateScrollToPage(index)
+                                                } else {
+                                                    pagerState.scrollToPage(index)
+                                                }
+                                            }
+                                            sourcesExpanded = false
+                                        }
+                                    )
+                                }
                             }
                         }
-                        // Keep the page clean: collapse the grid after picking.
-                        sourcesExpanded = false
                     }
-                )
+                }
             }
         }
-
-        SelectedSourceBar(source = currentGroup.source)
 
         HorizontalPager(
             state = pagerState,
@@ -4757,6 +4922,42 @@ private fun SourceGrid(
             }
         }
     }
+}
+
+/** Reusable dropdown item: source brand icon + label + optional check. */
+@Composable
+private fun SourceMenuItem(
+    source: DownloadSource,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    DropdownMenuItem(
+        text = { Text(source.label) },
+        leadingIcon = { SourceAvatar(source = source, size = 24.dp) },
+        trailingIcon = {
+            if (selected) {
+                Icon(
+                    imageVector = Icons.Outlined.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        },
+        onClick = onClick
+    )
+}
+
+/** Section header inside a dropdown menu (Official / Trusted mirrors / Other). */
+@Composable
+private fun SourceMenuHeader(title: String) {
+    Text(
+        text = title,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
 }
 
 // Tracks the active dark/light and Material You states (themeMode-aware) so
@@ -5996,8 +6197,10 @@ private fun CheckingPickedFileState(state: UiState.CheckingPickedFile) {
 private fun FastModeCard(
     progress: FastModeProgress,
     onCancel: () -> Unit,
+    onSkipWait: () -> Unit,
     onUseMismatch: () -> Unit,
-    onSkipMismatch: () -> Unit
+    onSkipMismatch: () -> Unit,
+    onSkipScan: () -> Unit
 ) {
     HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
         Column(
@@ -6112,6 +6315,18 @@ private fun FastModeCard(
                         icon = Icons.Outlined.Close
                     )
                 }
+                SkipWaitButton(
+                    active = isRateLimitWait(progress.detail),
+                    onSkipWait = onSkipWait
+                )
+                if (isScanStatus(progress.detail)) {
+                    HelperButton(
+                        text = "Skip scan & hand off",
+                        onClick = onSkipScan,
+                        icon = Icons.Outlined.Shield,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             } else if (!progress.done) {
                 HelperOutlinedButton(
                     text = "Cancel",
@@ -6124,16 +6339,119 @@ private fun FastModeCard(
     }
 }
 
+// True when the scan is paused on the app's own pacing gap ("Waiting Ns for
+// rate limit…") — the only wait the Skip button can meaningfully cut short.
+// Match the pause anywhere in the status: the bundle scanner prefixes inner
+// APK statuses with "APK 2 of 4 (split_1.apk): …", so a plain prefix check
+// would never see the "Waiting Ns for rate limit…" inside.
+//
+// A genuine 429 ("Rate limit hit — retrying in Ns…") is deliberately NOT
+// matched: skipping it is futile (the server keeps rejecting until the 60s
+// window clears) and its countdown comes from the window, not the gap, so the
+// Skip button would show a wrong number. That wait auto-retries instead.
+private fun isRateLimitWait(status: String): Boolean =
+    status.contains("waiting", ignoreCase = true) &&
+        status.contains("rate limit", ignoreCase = true)
+
+/** True when a status message belongs to the VirusTotal scan phase (as opposed
+ *  to the download phase that reuses the same card). */
+private fun isScanStatus(status: String?): Boolean =
+    status?.let {
+        it.startsWith("APK ") || it.startsWith("Extract") ||
+            it.startsWith("Opening") || it.startsWith("Upload") ||
+            it.startsWith("Waiting") || it.startsWith("Aggregat") ||
+            it.startsWith("Scanning") || it.startsWith("Checking VirusTotal") ||
+            it.startsWith("Queued") || it.startsWith("VirusTotal engines")
+    } == true
+
+/**
+ * "Skip wait" with a live countdown of the seconds left in the current
+ * rate-limit pause. While the scan status shows a wait, this re-reads the
+ * shared limiter's remaining gap each second and shows "Skip wait · 12s";
+ * once the pause ends the button disappears. Tapping skips the wait early.
+ */
 @Composable
-private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
+private fun SkipWaitButton(active: Boolean, onSkipWait: () -> Unit) {
+    var secondsLeft by remember { mutableIntStateOf(0) }
+    // Flips when the user taps: hides the button immediately so the tap gives
+    // visible feedback even though the parent's "Waiting…" status (and hence
+    // `active`) stays true until the scan's next network result arrives.
+    var skipped by remember { mutableStateOf(false) }
+    LaunchedEffect(active) {
+        if (!active) {
+            skipped = false
+            return@LaunchedEffect
+        }
+        while (!skipped) {
+            // Re-read from the limiter each tick so the countdown stays honest
+            // even if the status message lags a second behind the real pause.
+            secondsLeft = ((VirusTotalScanner.rateLimiter.millisUntilNextSlot() + 999) / 1000).toInt()
+            if (secondsLeft <= 0) break
+            delay(1000)
+        }
+    }
+    if (active && !skipped) {
+        HelperOutlinedButton(
+            text = if (secondsLeft > 0) "Skip wait · ${secondsLeft}s" else "Skip wait",
+            onClick = {
+                skipped = true
+                onSkipWait()
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+private fun scanPhaseSplit(status: String): Pair<String, String> {
+    val apk = Regex("""APK (\d+) of (\d+) \(([^)]+)\):? ?(.*)""").find(status)
+    if (apk != null) {
+        val (_, _, name, rest) = apk.destructured
+        val phase = "Scanning APK ${apk.groupValues[1]} of ${apk.groupValues[2]}"
+        return phase to rest.ifBlank { name }
+    }
+    val extract = Regex("""Extract(ing|ed) ([^:]+)""").find(status)
+    if (extract != null) {
+        val action = extract.groupValues[1]  // ing | ed
+        val body = extract.groupValues[2]
+        return "Extract$action ${body.take(30)}" to (status.removePrefix(extract.value).trim())
+    }
+    // Everything else: first clause is the phase (before "·"/":"), rest is detail.
+    val sep = status.indexOfFirst { it == '·' || it == ':' }
+    return if (sep > 0 && sep < status.length - 1) {
+        (status.substring(0, sep).trim().replaceFirstChar { it.uppercase() }) to
+            status.substring(sep + 1).trim()
+    } else {
+        status to ""
+    }
+}
+
+@Composable
+private fun DownloadingState(
+    state: UiState.Downloading,
+    onCancel: () -> Unit,
+    onSkipWait: () -> Unit,
+    onSkipScan: () -> Unit
+) {
     HelperCard {
         Column(
             modifier = Modifier.padding(HelperDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
         ) {
+            val statusText = state.statusMessage ?: "Downloading from ${state.candidate.source.label}"
+            val isScan = isScanStatus(statusText)
+            val (phase, detail) = if (isScan) scanPhaseSplit(statusText) else (statusText to "")
             Text(
-                text = state.statusMessage ?: "Downloading from ${state.candidate.source.label}"
+                text = phase,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyLarge
             )
+            if (detail.isNotBlank()) {
+                Text(
+                    text = detail,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
             LinearProgressIndicator(
                 progress = { state.percent / 100f },
                 modifier = Modifier.fillMaxWidth()
@@ -6158,6 +6476,23 @@ private fun DownloadingState(state: UiState.Downloading, onCancel: () -> Unit) {
                     text = "Cancel",
                     onClick = onCancel,
                     icon = Icons.Outlined.Close
+                )
+            }
+            SkipWaitButton(
+                active = isRateLimitWait(statusText),
+                onSkipWait = onSkipWait
+            )
+            if (isScan) {
+                HelperButton(
+                    text = "Skip scan & hand off",
+                    onClick = onSkipScan,
+                    icon = Icons.Outlined.Shield,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "Hand the downloaded file to Morphe now without waiting for VirusTotal.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
@@ -6289,7 +6624,7 @@ private fun ScanResultCard(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Icon(
                     imageVector = when {
@@ -6329,7 +6664,7 @@ private fun ScanResultCard(
                             } else {
                                 MaterialTheme.colorScheme.onSurfaceVariant
                             },
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp)
                         )
                     }
                 }
@@ -6438,8 +6773,31 @@ private fun ScanResultCard(
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f)
                         )
+                        // Distinguish a cached report (VirusTotal already had it) from a
+                        // fresh upload so users can tell why an APK's scan was instant.
+                        if (!apk.failed) {
+                            androidx.compose.material3.Surface(
+                                shape = RoundedCornerShape(50),
+                                color = if (apk.cached) {
+                                    MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+                                } else {
+                                    MaterialTheme.colorScheme.surfaceVariant
+                                }
+                            ) {
+                                Text(
+                                    text = if (apk.cached) "cached" else "fresh",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = if (apk.cached) {
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    },
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp)
+                                )
+                            }
+                        }
                         Text(
-                            text = "${apk.detections}/${apk.totalEngines}",
+                            text = if (apk.failed) "failed" else "${apk.detections}/${apk.totalEngines}",
                             style = MaterialTheme.typography.bodySmall,
                             color = apkVerdictColor
                         )

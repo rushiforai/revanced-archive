@@ -45,6 +45,7 @@ internal const val ACTION_CANCEL_DOWNLOAD = "dev.rushi.apkdownloadhelper.action.
 internal const val ACTION_RETRY_DOWNLOAD = "dev.rushi.apkdownloadhelper.action.RETRY_DOWNLOAD"
 internal const val ACTION_SCAN_PROCEED = "dev.rushi.apkdownloadhelper.action.SCAN_PROCEED"
 internal const val ACTION_SCAN_CANCEL = "dev.rushi.apkdownloadhelper.action.SCAN_CANCEL"
+internal const val ACTION_SCAN_SKIP = "dev.rushi.apkdownloadhelper.action.SCAN_SKIP"
 
 private const val CHANNEL_PROGRESS = "download_progress"
 private const val CHANNEL_DONE = "download_done"
@@ -111,10 +112,14 @@ internal object DownloadJobManager {
             val candidate: DownloadCandidate,
             val status: String
         ) : Event
-        /** VirusTotal scan is in progress. */
+        /** VirusTotal scan is in progress. [percent] is 0..100, null when unknown. */
         data class Scanning(
             val candidate: DownloadCandidate,
-            val status: String
+            /** Human status, e.g. "Extracting 2 of 4…" or "Checking VirusTotal…". */
+            val status: String,
+            val percent: Int? = null,
+            /** Estimated ms until the scan finishes, when knowable (null otherwise). */
+            val etaMs: Long? = null
         ) : Event
         /** VirusTotal scan completed with results. */
         data class ScanComplete(
@@ -217,6 +222,13 @@ internal class DownloadService : Service() {
     // Verdict of the last scan, carried from scanAndHandoff into handleSuccess
     // so the hand-off gets recorded with its VirusTotal outcome.
     private var lastScanVerdict: ScanVerdict? = null
+    // Set while a VirusTotal scan is running so the user can abort just the scan
+    // and hand the already-downloaded file off to Morphe without a verdict.
+    // [skipScanRequested] is flipped by ACTION_SCAN_SKIP; the scanner aborts via
+    // its checkCancelled lambda, and the CancellationException handler checks it
+    // to route to a hand-off instead of a plain cancel.
+    @Volatile private var skipScanRequested = false
+    @Volatile private var skipScanFile: File? = null
     private var lastPostedPercent = -1
     private var lastPostedTime = 0L
     private var lastProgressBytes = 0L
@@ -262,6 +274,7 @@ internal class DownloadService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        restoreAndPersistRateLimiter()
         createNotificationChannels()
     }
 
@@ -310,6 +323,37 @@ internal class DownloadService : Service() {
                 }
                 return START_NOT_STICKY
             }
+            ACTION_SCAN_SKIP -> {
+                // Opt out of the VirusTotal scan and hand the downloaded file
+                // straight to Morphe. Covers every stage: the ASK prompt, the
+                // result card, and a scan still in progress (ALWAYS mode).
+                val job = DownloadJobManager.activeJob
+                val pending = DownloadJobManager.pendingScan
+                if (job != null && pending != null) {
+                    // Prompt or result already shown: hand off without a scan.
+                    DownloadJobManager.setPendingScan(null)
+                    serviceScope.launch {
+                        when (pending) {
+                            is DownloadJobManager.PendingScan.Ask -> handleSuccess(job, pending.file)
+                            is DownloadJobManager.PendingScan.Decided -> {
+                                // User is done waiting for the verdict — hand off anyway.
+                                val f = skipScanFile ?: pending.file
+                                lastScanVerdict = skippedVerdict()
+                                handleSuccess(job, f)
+                            }
+                        }
+                    }
+                } else if (job != null && skipScanFile != null) {
+                    // Mid-scan in ALWAYS mode: abort the scan, hand off the file.
+                    skipScanRequested = true
+                    lastScanVerdict = skippedVerdict()
+                    downloadJob?.cancel()
+                } else {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
+                return START_NOT_STICKY
+            }
             ACTION_RETRY_DOWNLOAD -> {
                 val job = DownloadJobManager.activeJob ?: run {
                     stopSelf()
@@ -347,6 +391,8 @@ internal class DownloadService : Service() {
     private fun startDownload(job: DownloadJobManager.DownloadJob) {
         val candidate = job.candidate
         lastScanVerdict = null
+        skipScanRequested = false
+        skipScanFile = null
         lastPostedPercent = -1
         lastPostedTime = 0L
         lastProgressBytes = 0L
@@ -404,7 +450,21 @@ internal class DownloadService : Service() {
                 }
             } catch (error: Throwable) {
                 if (error is CancellationException || error.message == "Canceled") {
-                    handleCancelled(job)
+                    if (skipScanRequested) {
+                        // User skipped the scan: hand the downloaded file off
+                        // instead of aborting the whole request.
+                        val f = skipScanFile
+                        skipScanRequested = false
+                        skipScanFile = null
+                        lastScanVerdict = skippedVerdict()
+                        if (f != null) {
+                            handleSuccess(job, f)
+                        } else {
+                            handleCancelled(job)
+                        }
+                    } else {
+                        handleCancelled(job)
+                    }
                 } else if (error is VersionCodeMismatchException) {
                     // Keep the file; the UI decides whether to use it anyway.
                     DownloadJobManager.emit(
@@ -495,31 +555,73 @@ internal class DownloadService : Service() {
         val candidate = job.candidate
         val settings = job.settings
         val apiKey = settings.virusTotalApiKey
+        // Track the file so a mid-scan ACTION_SCAN_SKIP can still hand it off.
+        skipScanFile = file
+        skipScanRequested = false
 
         DownloadJobManager.emit(
-            DownloadJobManager.Event.Scanning(candidate, "Uploading to VirusTotal…")
+            DownloadJobManager.Event.Scanning(candidate, "Scanning…")
         )
 
+        // Capture the latest human status so the percent callback can pair a
+        // real 0-100% bar with the right label (e.g. "APK 3 of 4 (split_1.apk):
+        // Waiting for analysis… · 82%").
+        var scanStatus = "Scanning…"
+
+        // Rate-based remaining-time estimator. Scans are paced by the VT quota
+        // (≈16s/APK), so percent doesn't advance linearly — a windowed rate is
+        // steadier than an instant one. We smooth over the last few ticks.
+        val scanStartNanos = System.nanoTime()
+        var lastEtaPercent = 0
+        var lastEtaNanos = scanStartNanos
         val scanResult = VirusTotalScanner.scanDownloadedFile(
             file,
             apiKey,
             onProgress = { status ->
+                scanStatus = status
                 DownloadJobManager.emit(
                     DownloadJobManager.Event.Scanning(candidate, status)
                 )
-                // Keep the progress notification in sync with the card: without
-                // this it stays on the last download text ("100% · …") for the
-                // whole scan, which can be a minute+ for a bundle.
-                notifySafe(
-                    NOTIFICATION_ID_PROGRESS,
-                    buildProgressNotification(candidate, 100, status)
-                )
             },
-            // Abort promptly when the user cancels: the scanner checks this
-            // between per-APK lookups and during rate-limit pauses, so a
-            // cancel lands within a second instead of after a 12s sleep.
-            // [downloadJob] is this job; cancel() flips its isActive false.
-            checkCancelled = { downloadJob?.isActive != true }
+            onPercent = { pct ->
+                run {
+                    val now = System.nanoTime()
+                    val elapsedSinceLast = now - lastEtaNanos
+                    val elapsedTotal = now - scanStartNanos
+                    var eta: Long? = null
+                    if (pct > 0 && pct < 100) {
+                        // Progress per nanosecond since the last tick → remaining.
+                        val progressed = pct - lastEtaPercent
+                        if (progressed > 0) {
+                            val ratePctPerMs = progressed.toDouble() / (elapsedSinceLast / 1_000_000.0)
+                            // Recompute from the total elapsed for a smoother estimate.
+                            val overallRate = pct.toDouble() / (elapsedTotal / 1_000_000.0)
+                            val effectiveRate = maxOf(ratePctPerMs, overallRate)
+                            if (effectiveRate > 0) {
+                                eta = ((100 - pct) / effectiveRate).toLong()
+                            }
+                        }
+                        lastEtaPercent = pct
+                        lastEtaNanos = now
+                    }
+                    // Drive a real 0-100% bar through the scan phases (extraction,
+                    // per-APK hashing, report checks, upload, analysis poll) instead
+                    // of sitting on a static 100% from the download.
+                    DownloadJobManager.emit(
+                        DownloadJobManager.Event.Scanning(candidate, scanStatus, percent = pct, etaMs = eta)
+                    )
+                    notifySafe(
+                        NOTIFICATION_ID_PROGRESS,
+                        buildProgressNotification(candidate, pct, scanStatus)
+                    )
+                }
+            },
+            // Abort promptly when the user cancels OR skips the scan: the
+            // scanner checks this between per-APK lookups and during rate-limit
+            // pauses, so a cancel lands within a second instead of after a 12s
+            // sleep. [downloadJob] is this job; cancel() flips its isActive false;
+            // ACTION_SCAN_SKIP flips skipScanRequested.
+            checkCancelled = { downloadJob?.isActive != true || skipScanRequested }
         )
 
         DownloadJobManager.emit(
@@ -581,6 +683,10 @@ internal class DownloadService : Service() {
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
+
+    /** A history verdict for a scan the user chose to skip (handed off unverified). */
+    private fun skippedVerdict(): ScanVerdict =
+        ScanVerdict(label = "Scan skipped — handed off unverified", scannedFiles = 0)
 
     private fun emitPostDownloadStatus(candidate: DownloadCandidate, status: String) {
         DownloadJobManager.emit(DownloadJobManager.Event.PostDownloadStatus(candidate, status))
