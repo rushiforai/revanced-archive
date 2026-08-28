@@ -431,6 +431,7 @@ internal object VirusTotalScanner {
                     // never sits on a stale message during the whole extraction pass.
                     onProgress?.invoke("Extracting $total APKs from ${file.name}…")
                     onPercent?.invoke(5)
+                    Log.d(TAG, "Starting extraction of $total APKs from ${file.name}")
                     apkNames.forEachIndexed { index, name ->
                         if (checkCancelled()) throw CancellationException("Scan cancelled")
                         val safeName = name.substringAfterLast('/').replace(Regex("[^A-Za-z0-9._-]"), "_")
@@ -445,6 +446,7 @@ internal object VirusTotalScanner {
                             "Extracted ${index + 1}/$total (${name})" +
                                 " in ${(System.currentTimeMillis() - extractStart) / 1000}s — next: scan…"
                         )
+                        Log.d(TAG, "Extracted ${index + 1}/$total ($name) — starting scan")
                         innerResults.add(
                             // Each APK occupies a slice from 5 to 100% weighted by
                             // its index, so the bar marches as the scan advances.
@@ -881,9 +883,8 @@ internal object VirusTotalScanner {
         var lastStatus = ""
         repeat(maxAttempts) { attempt ->
             if (checkCancelled()) throw CancellationException("Scan cancelled")
-            // Pace each poll through the shared limiter too: analysis polls
-            // count against the same 4/min quota.
-            pace(onProgress, checkCancelled)
+            // Analysis polls (GET /analyses/{id}) are read-only status checks
+            // and do NOT consume VT's 4/min quota — no pace() here.
             Thread.sleep(3000)
 
             val request = Request.Builder()
