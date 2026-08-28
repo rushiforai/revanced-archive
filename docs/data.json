@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27 06:55 UTC",
+  "generatedAt": "2026-08-28 08:45 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 702,
-  "patchCount": 2784,
-  "universalPatchCount": 443,
+  "appCount": 705,
+  "patchCount": 2825,
+  "universalPatchCount": 478,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -181,12 +181,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.4.6 (2026-08-21)",
-        "date": "2026-08-21",
+        "title": "1.4.7 (2026-08-27)",
+        "date": "2026-08-27",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.2.9 (Fixes #7)"
+            "text": "Support SofaTime v1.2.10 (Fixes #8)"
           }
         ]
       },
@@ -3950,8 +3950,8 @@
       "webUrl": "https://github.com/hoo-dles/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
-      "patchCount": 77,
-      "appCount": 53,
+      "patchCount": 79,
+      "appCount": 55,
       "createdAt": 1784836036710,
       "updatedAt": 1784836036710,
       "createdDate": "2026-07-23",
@@ -3991,6 +3991,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#13AA52"
+        },
+        {
+          "name": "Bunpo",
+          "packageName": "com.bunpoapp",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FDFDFD"
         },
         {
           "name": "Busuu",
@@ -4096,6 +4103,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#F8485E"
+        },
+        {
+          "name": "Lingodeer",
+          "packageName": "com.lingodeer",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#38D06C"
         },
         {
           "name": "Lingory",
@@ -4478,47 +4492,54 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 33,
-      "appCount": 17,
+      "patchCount": 36,
+      "appCount": 18,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.0 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.13.0 (2026-08-27)",
+        "date": "2026-08-27",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+            "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
           },
           {
             "category": "New Features",
-            "text": "**Photo Editor Pro:** add Hide ads patch"
+            "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
           },
           {
             "category": "New Features",
-            "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+            "text": "**Kick - AMOLED dark theme:** support the Android TV app"
           },
           {
             "category": "New Features",
-            "text": "**Photo Editor Pro:** add Show AI progress patch"
+            "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
           },
           {
             "category": "New Features",
-            "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+            "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
           },
           {
             "category": "New Features",
-            "text": "**Photo Editor Pro:** add Spoof signature patch"
-          },
-          {
-            "category": "New Features",
-            "text": "**Photo Editor Pro:** add Unlock premium patch"
+            "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
           }
         ]
       },
       "apps": [
+        {
+          "name": "All-In-One Calculator",
+          "packageName": "all.in.one.calculator",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#455A64"
+        },
         {
           "name": "AlpineQuest",
           "packageName": "psyberia.alpinequest.free",
@@ -4578,7 +4599,7 @@
         {
           "name": "Photo Editor Pro",
           "packageName": "photo.editor.photoeditor.photoeditorpro",
-          "patchCount": 6,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": "#FA2A80"
         },
@@ -4920,23 +4941,23 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 36,
+      "patchCount": 37,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "3.5.0 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "3.6.0 (2026-08-27)",
+        "date": "2026-08-27",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Top Toolbar Item Count patch, which lets you customize how many items appear in the Gboard top toolbar."
+            "text": "**Gboard:** add the Floating Web Search patch, which opens a floating web page directly from Gboard so you can quickly search for the information you need."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Top Toolbar Item Count Patch\uff0c\u53ef\u81ea\u8a02 Gboard \u9802\u7aef\u5de5\u5177\u5217\u9805\u76ee\u6578\u91cf\u3002"
+            "text": "**Gboard:** \u65b0\u589e Floating Web Search Patch\uff0c\u53ef\u76f4\u63a5\u5f9e Gboard \u958b\u555f\u61f8\u6d6e\u7db2\u9801\uff0c\u5feb\u901f\u641c\u5c0b\u9700\u8981\u7684\u8cc7\u8a0a\u3002"
           }
         ]
       },
@@ -4944,7 +4965,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 36,
+          "patchCount": 37,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -6496,27 +6517,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 276,
+      "patchCount": 311,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.29.1 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.32.0 (2026-08-27)",
+        "date": "2026-08-27",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cover Genre.isSpokenWord fallback in Unlock Playback Speed for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake ADB Enabled patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "expand Disable Bandcamp Tracker to cover stats pipeline for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake Auto Rotate On patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "harden Show Search Result Scores patch for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake Auto Time patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Auto Time Zone patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Available Processors patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Bluetooth Bonded Devices Empty patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Brightness Auto Mode patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Cell Info Empty patch"
           }
         ]
       },
@@ -11129,7 +11170,7 @@
             }
           ],
           "versions": [
-            "4.13.1"
+            "4.13.2"
           ]
         },
         {
@@ -11211,7 +11252,7 @@
         }
       ],
       "versions": [
-        "4.13.1",
+        "4.13.2",
         "4.14.68"
       ],
       "iconColor": "#67B279",
@@ -12226,6 +12267,97 @@
       "iconUrl": ""
     },
     {
+      "packageName": "all.in.one.calculator",
+      "name": "All-In-One Calculator",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
+              },
+              {
+                "category": "New Features",
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
+              },
+              {
+                "category": "New Features",
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "all-in-one-calculator-hxreborn-morphe-patches",
+            "releaseTag": "app-all-in-one-calculator-hxreborn-morphe-patches",
+            "assetName": "all-in-one-calculator-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Remove pairip protection",
+              "description": "Removes the Play Integrity protection that crashes a patched install on startup and sends it to Google Play. Background receivers the protection virtualized stop running."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Grants the pro entitlement, which removes the ads and the paywalled tools."
+            }
+          ],
+          "versions": [
+            "3.4.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Remove pairip protection",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Remove pairip protection",
+          "description": "Removes the Play Integrity protection that crashes a patched install on startup and sends it to Google Play. Background receivers the protection virtualized stop running."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Grants the pro entitlement, which removes the ads and the paywalled tools."
+        }
+      ],
+      "versions": [
+        "3.4.0"
+      ],
+      "iconColor": "#455A64",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.alltrails.alltrails",
       "name": "AllTrails",
       "repos": [
@@ -12363,36 +12495,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -14494,36 +14626,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -18786,6 +18918,68 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.bunpoapp",
+      "name": "Bunpo",
+      "repos": [
+        "hoo-dles/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hoo-dles/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hoo-dles/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hoo-dles.png?size=96",
+          "latestChanges": {
+            "title": "1.38.2 (2026-07-06)",
+            "date": "2026-07-06",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**CamScanner:** Fix crash on first scan after app installation"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "Update signature spoofing code"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-bunpoapp-hoo-dles-morphe-patches",
+            "releaseTag": "app-com-bunpoapp-hoo-dles-morphe-patches",
+            "assetName": "bunpo-hoo-dles-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Platinum",
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
+            }
+          ],
+          "versions": [
+            "3.21.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Platinum"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Platinum",
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
+        }
+      ],
+      "versions": [
+        "3.21.0"
+      ],
+      "iconColor": "#FDFDFD",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.busuu.android.enc",
       "name": "Busuu",
       "repos": [
@@ -19152,7 +19346,7 @@
           "patches": [
             {
               "name": "Enable Plus",
-              "description": "Enable Plus membership (not all features are available). There is a strict version requirement for this patch."
+              "description": "Enable Plus membership (not all features are available). Requirements: strict apk version"
             }
           ],
           "versions": [
@@ -19166,7 +19360,7 @@
       "patchDetails": [
         {
           "name": "Enable Plus",
-          "description": "Enable Plus membership (not all features are available). There is a strict version requirement for this patch."
+          "description": "Enable Plus membership (not all features are available). Requirements: strict apk version"
         }
       ],
       "versions": [
@@ -22503,20 +22697,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.32.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cover Genre.isSpokenWord fallback in Unlock Playback Speed for Bandcamp"
+                "category": "New Features",
+                "text": "add Fake ADB Enabled patch"
               },
               {
-                "category": "Bug Fixes",
-                "text": "expand Disable Bandcamp Tracker to cover stats pipeline for Bandcamp"
+                "category": "New Features",
+                "text": "add Fake Auto Rotate On patch"
               },
               {
-                "category": "Bug Fixes",
-                "text": "harden Show Search Result Scores patch for Bandcamp"
+                "category": "New Features",
+                "text": "add Fake Auto Time patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Auto Time Zone patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Available Processors patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Bluetooth Bonded Devices Empty patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Brightness Auto Mode patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Cell Info Empty patch"
               }
             ]
           },
@@ -24333,16 +24547,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "3.5.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "3.6.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Top Toolbar Item Count patch, which lets you customize how many items appear in the Gboard top toolbar."
+                "text": "**Gboard:** add the Floating Web Search patch, which opens a floating web page directly from Gboard so you can quickly search for the information you need."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Top Toolbar Item Count Patch\uff0c\u53ef\u81ea\u8a02 Gboard \u9802\u7aef\u5de5\u5177\u5217\u9805\u76ee\u6578\u91cf\u3002"
+                "text": "**Gboard:** \u65b0\u589e Floating Web Search Patch\uff0c\u53ef\u76f4\u63a5\u5f9e Gboard \u958b\u555f\u61f8\u6d6e\u7db2\u9801\uff0c\u5feb\u901f\u641c\u5c0b\u9700\u8981\u7684\u8cc7\u8a0a\u3002"
               }
             ]
           },
@@ -24421,6 +24635,10 @@
             {
               "name": "English QWERTY Up-Flick Uppercase",
               "description": "\u82f1\u6587 QWERTY \u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\nFlick up on the English QWERTY keyboard to toggle uppercase and lowercase."
+            },
+            {
+              "name": "Floating Web Search",
+              "description": "\u76f4\u63a5\u5f9e Gboard \u958b\u555f\u61f8\u6d6e\u7db2\u9801\uff0c\u5feb\u901f\u641c\u5c0b\u9700\u8981\u7684\u8cc7\u8a0a\u3002\nOpen a floating web page directly from Gboard to quickly search for the information you need."
             },
             {
               "name": "G Logo on Spacebar",
@@ -24622,6 +24840,7 @@
         "Enable Undo feature",
         "Enable voice typing in incognito",
         "English QWERTY Up-Flick Uppercase",
+        "Floating Web Search",
         "G Logo on Spacebar",
         "Grammar Checker",
         "Hyperspeed Typing Animation",
@@ -24757,6 +24976,10 @@
         {
           "name": "English QWERTY Up-Flick Uppercase",
           "description": "\u82f1\u6587 QWERTY \u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\nFlick up on the English QWERTY keyboard to toggle uppercase and lowercase."
+        },
+        {
+          "name": "Floating Web Search",
+          "description": "\u76f4\u63a5\u5f9e Gboard \u958b\u555f\u61f8\u6d6e\u7db2\u9801\uff0c\u5feb\u901f\u641c\u5c0b\u9700\u8981\u7684\u8cc7\u8a0a\u3002\nOpen a floating web page directly from Gboard to quickly search for the information you need."
         },
         {
           "name": "G Logo on Spacebar",
@@ -29669,36 +29892,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -32292,36 +32515,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -34209,36 +34432,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -34314,7 +34537,7 @@
             }
           ],
           "versions": [
-            "226.16092.20260302"
+            "236.17398.20260827"
           ]
         }
       ],
@@ -34328,7 +34551,7 @@
         }
       ],
       "versions": [
-        "226.16092.20260302"
+        "236.17398.20260827"
       ],
       "iconColor": "#00985F",
       "iconUrl": ""
@@ -36231,11 +36454,11 @@
           "patches": [
             {
               "name": "Enable Premium",
-              "description": "Enables app features locked behind the subscription paywall."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a"
             }
           ],
           "versions": [
-            "7.10.20"
+            "7.11.0"
           ]
         }
       ],
@@ -36245,11 +36468,11 @@
       "patchDetails": [
         {
           "name": "Enable Premium",
-          "description": "Enables app features locked behind the subscription paywall."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a"
         }
       ],
       "versions": [
-        "7.10.20"
+        "7.11.0"
       ],
       "iconColor": "#FFFFFF",
       "iconUrl": ""
@@ -37445,11 +37668,11 @@
           "patches": [
             {
               "name": "Enable Prime membership",
-              "description": "Enables app features locked behind the subscription paywall."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a"
             }
           ],
           "versions": [
-            "14.0.6"
+            "14.0.11"
           ]
         }
       ],
@@ -37459,11 +37682,11 @@
       "patchDetails": [
         {
           "name": "Enable Prime membership",
-          "description": "Enables app features locked behind the subscription paywall."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a"
         }
       ],
       "versions": [
-        "14.0.6"
+        "14.0.11"
       ],
       "iconColor": "#0B649B",
       "iconUrl": ""
@@ -41788,36 +42011,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -42863,15 +43086,15 @@
           "patches": [
             {
               "name": "Bypass login",
-              "description": "Allows app use without login. BUT breaks many features. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+              "description": "Allows app use without login. BUT breaks many features. Requirements: arm64-v8a, strict apk version"
             },
             {
               "name": "Unlock premium features",
-              "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
             }
           ],
           "versions": [
-            "11.4.5"
+            "11.5.01"
           ]
         }
       ],
@@ -42882,15 +43105,15 @@
       "patchDetails": [
         {
           "name": "Bypass login",
-          "description": "Allows app use without login. BUT breaks many features. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+          "description": "Allows app use without login. BUT breaks many features. Requirements: arm64-v8a, strict apk version"
         },
         {
           "name": "Unlock premium features",
-          "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
         }
       ],
       "versions": [
-        "11.4.5"
+        "11.5.01"
       ],
       "iconColor": "#001D35",
       "iconUrl": ""
@@ -43238,7 +43461,7 @@
           "patches": [
             {
               "name": "Enable Pro",
-              "description": "Enables app features locked behind the subscription paywall."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: strict apk version"
             }
           ],
           "versions": [
@@ -43257,13 +43480,75 @@
         },
         {
           "name": "Enable Pro",
-          "description": "Enables app features locked behind the subscription paywall."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: strict apk version"
         }
       ],
       "versions": [
         "8.4.4"
       ],
       "iconColor": "#F8485E",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.lingodeer",
+      "name": "Lingodeer",
+      "repos": [
+        "hoo-dles/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hoo-dles/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hoo-dles/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hoo-dles.png?size=96",
+          "latestChanges": {
+            "title": "1.38.2 (2026-07-06)",
+            "date": "2026-07-06",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**CamScanner:** Fix crash on first scan after app installation"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "Update signature spoofing code"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-lingodeer-hoo-dles-morphe-patches",
+            "releaseTag": "app-com-lingodeer-hoo-dles-morphe-patches",
+            "assetName": "lingodeer-hoo-dles-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium (ROOT)",
+              "description": "Enables app features locked behind the subscription paywall."
+            }
+          ],
+          "versions": [
+            "2.99.412"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium (ROOT)"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium (ROOT)",
+          "description": "Enables app features locked behind the subscription paywall."
+        }
+      ],
+      "versions": [
+        "2.99.412"
+      ],
+      "iconColor": "#38D06C",
       "iconUrl": ""
     },
     {
@@ -43305,11 +43590,11 @@
           "patches": [
             {
               "name": "Block Permissions Request",
-              "description": "Blocks the request of notification permissions on load of app."
+              "description": "Blocks the request of notification permissions on load of app. Requirements: arm64-v8a, strict apk version"
             },
             {
               "name": "Enable Premium",
-              "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
             }
           ],
           "versions": [
@@ -43324,11 +43609,11 @@
       "patchDetails": [
         {
           "name": "Block Permissions Request",
-          "description": "Blocks the request of notification permissions on load of app."
+          "description": "Blocks the request of notification permissions on load of app. Requirements: arm64-v8a, strict apk version"
         },
         {
           "name": "Enable Premium",
-          "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch and only arm64-v8a devices are supported."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
         }
       ],
       "versions": [
@@ -44259,8 +44544,8 @@
           },
           "patches": [
             {
-              "name": "Enable Premium",
-              "description": "REQUIRES ROOT MOUNT INSTALL! Enables app features locked behind the subscription paywall."
+              "name": "Enable Premium (ROOT)",
+              "description": "Enables app features locked behind the subscription paywall. Requirements: root mount"
             }
           ],
           "versions": [
@@ -44269,12 +44554,12 @@
         }
       ],
       "patches": [
-        "Enable Premium"
+        "Enable Premium (ROOT)"
       ],
       "patchDetails": [
         {
-          "name": "Enable Premium",
-          "description": "REQUIRES ROOT MOUNT INSTALL! Enables app features locked behind the subscription paywall."
+          "name": "Enable Premium (ROOT)",
+          "description": "Enables app features locked behind the subscription paywall. Requirements: root mount"
         }
       ],
       "versions": [
@@ -44321,8 +44606,8 @@
           },
           "patches": [
             {
-              "name": "Enable Premium",
-              "description": "REQUIRES ROOT MOUNT INSTALL! Enables app features locked behind the subscription paywall."
+              "name": "Enable Premium (ROOT)",
+              "description": "Enables app features locked behind the subscription paywall. Requirements: root mount"
             }
           ],
           "versions": [
@@ -44331,12 +44616,12 @@
         }
       ],
       "patches": [
-        "Enable Premium"
+        "Enable Premium (ROOT)"
       ],
       "patchDetails": [
         {
-          "name": "Enable Premium",
-          "description": "REQUIRES ROOT MOUNT INSTALL! Enables app features locked behind the subscription paywall."
+          "name": "Enable Premium (ROOT)",
+          "description": "Enables app features locked behind the subscription paywall. Requirements: root mount"
         }
       ],
       "versions": [
@@ -49786,7 +50071,7 @@
             }
           ],
           "versions": [
-            "1.16.15",
+            "1.16.23",
             "1.16.7"
           ]
         }
@@ -49802,6 +50087,7 @@
       ],
       "versions": [
         "1.16.15",
+        "1.16.23",
         "1.16.7"
       ],
       "iconColor": "#9FCDFB",
@@ -49982,36 +50268,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -53116,36 +53402,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -53338,36 +53624,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -53385,7 +53671,7 @@
             },
             {
               "name": "Inspect AI requests",
-              "description": "Tails every AI request live and keeps the log, so you can watch your photo fly to China or the US."
+              "description": "Shows the network calls an AI tool makes, such as HTTP requests and Firebase uploads, and keeps a log, so you can watch your photo fly to China or the US."
             },
             {
               "name": "Show AI progress",
@@ -53396,8 +53682,12 @@
               "description": "Shortens the AI tool wait by polling for the result more often and uploading the photo in larger chunks."
             },
             {
+              "name": "Spoof iOS platform",
+              "description": "Reports the AI requests as coming from the iOS app, so the server does not ask for a Play Integrity token. Required for the AI tools on any device that passes Play Integrity."
+            },
+            {
               "name": "Spoof signature",
-              "description": "Restores the AI tools and stops the app killing itself by spoofing the original app signature."
+              "description": "Spoofs the original app signature and disables the pairip client-side license check. Required: the app does not start without it."
             },
             {
               "name": "Unlock premium",
@@ -53414,6 +53704,7 @@
         "Inspect AI requests",
         "Show AI progress",
         "Speed up AI tools",
+        "Spoof iOS platform",
         "Spoof signature",
         "Unlock premium"
       ],
@@ -53424,7 +53715,7 @@
         },
         {
           "name": "Inspect AI requests",
-          "description": "Tails every AI request live and keeps the log, so you can watch your photo fly to China or the US."
+          "description": "Shows the network calls an AI tool makes, such as HTTP requests and Firebase uploads, and keeps a log, so you can watch your photo fly to China or the US."
         },
         {
           "name": "Show AI progress",
@@ -53435,8 +53726,12 @@
           "description": "Shortens the AI tool wait by polling for the result more often and uploading the photo in larger chunks."
         },
         {
+          "name": "Spoof iOS platform",
+          "description": "Reports the AI requests as coming from the iOS app, so the server does not ask for a Play Integrity token. Required for the AI tools on any device that passes Play Integrity."
+        },
+        {
           "name": "Spoof signature",
-          "description": "Restores the AI tools and stops the app killing itself by spoofing the original app signature."
+          "description": "Spoofs the original app signature and disables the pairip client-side license check. Required: the app does not start without it."
         },
         {
           "name": "Unlock premium",
@@ -57602,36 +57897,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -57912,36 +58207,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -59001,36 +59296,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -59531,36 +59826,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -60374,30 +60669,30 @@
         "Disable screenshot popup",
         "Disable Screenshot Popup",
         "Force system font",
-        "Hide ads",
         "Hide Ads",
+        "Hide ads",
         "Hide Answers Tab",
         "Hide Ask button",
         "Hide Ask button from search bar",
         "Hide awards",
         "Hide Chat Tab",
-        "Hide communities shelf",
         "Hide Communities Shelf",
+        "Hide communities shelf",
         "Hide community highlights",
         "Hide community menu badge",
         "Hide Games Tab",
-        "Hide Navigation Buttons",
         "Hide navigation buttons",
+        "Hide Navigation Buttons",
         "Hide permanent ban banner",
         "Hide post view counts",
         "Hide prominent search bar",
         "Hide Promoted Posts",
         "Hide Reddit search",
         "Hide share count",
-        "Hide Sidebar Components",
         "Hide sidebar components",
-        "Hide Trending shelves",
+        "Hide Sidebar Components",
         "Hide Trending Shelves",
+        "Hide Trending shelves",
         "Hide upvote scores",
         "Hide user community badges",
         "Hide user flairs",
@@ -60479,12 +60774,12 @@
           "description": "Adds an option that renders Reddit with the device system font instead of Reddit Sans / Roboto."
         },
         {
-          "name": "Hide ads",
-          "description": "Adds options to hide ads."
-        },
-        {
           "name": "Hide Ads",
           "description": "Removes promoted posts and comment ads without requiring Reddit Premium unlock."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Adds options to hide ads."
         },
         {
           "name": "Hide Answers Tab",
@@ -60507,12 +60802,12 @@
           "description": "Removes the Chat button from the bottom navigation bar."
         },
         {
-          "name": "Hide communities shelf",
-          "description": "Adds an option to hide the related or suggested communities shelf in subreddits."
-        },
-        {
           "name": "Hide Communities Shelf",
           "description": "Hides the related or suggested communities shelf in subreddits."
+        },
+        {
+          "name": "Hide communities shelf",
+          "description": "Adds an option to hide the related or suggested communities shelf in subreddits."
         },
         {
           "name": "Hide community highlights",
@@ -60527,12 +60822,12 @@
           "description": "Removes the Games tab from the bottom navigation bar."
         },
         {
-          "name": "Hide Navigation Buttons",
-          "description": "Removes the Create Post button from the bottom navigation bar."
-        },
-        {
           "name": "Hide navigation buttons",
           "description": "Adds options to hide buttons in the navigation bar."
+        },
+        {
+          "name": "Hide Navigation Buttons",
+          "description": "Removes the Create Post button from the bottom navigation bar."
         },
         {
           "name": "Hide permanent ban banner",
@@ -60559,20 +60854,20 @@
           "description": "Hides the share count on Reddit posts."
         },
         {
-          "name": "Hide Sidebar Components",
-          "description": "Hides About, Resources, and Reddit Pro sections from the community sidebar."
-        },
-        {
           "name": "Hide sidebar components",
           "description": "Adds options to hide the sidebar components."
         },
         {
-          "name": "Hide Trending shelves",
-          "description": "Adds an option to hide the Trending shelves from feed and search suggestions."
+          "name": "Hide Sidebar Components",
+          "description": "Hides About, Resources, and Reddit Pro sections from the community sidebar."
         },
         {
           "name": "Hide Trending Shelves",
           "description": "Removes Trending Today from the feed and trending searches from the search screen."
+        },
+        {
+          "name": "Hide Trending shelves",
+          "description": "Adds an option to hide the Trending shelves from feed and search suggestions."
         },
         {
           "name": "Hide upvote scores",
@@ -61547,36 +61842,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -63195,36 +63490,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -64619,12 +64914,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.4.6 (2026-08-21)",
-            "date": "2026-08-21",
+            "title": "1.4.7 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.2.9 (Fixes #7)"
+                "text": "Support SofaTime v1.2.10 (Fixes #8)"
               }
             ]
           },
@@ -64654,6 +64949,7 @@
             }
           ],
           "versions": [
+            "1.2.10",
             "1.2.2",
             "1.2.3",
             "1.2.4",
@@ -64689,6 +64985,7 @@
         }
       ],
       "versions": [
+        "1.2.10",
         "1.2.2",
         "1.2.3",
         "1.2.4",
@@ -64788,7 +65085,7 @@
             }
           ],
           "versions": [
-            "3.5.16"
+            "3.5.19"
           ]
         }
       ],
@@ -64818,7 +65115,7 @@
       ],
       "versions": [
         "3.4.10",
-        "3.5.16",
+        "3.5.19",
         "3.5.7b"
       ],
       "iconColor": "#039BE5",
@@ -65240,7 +65537,7 @@
             }
           ],
           "versions": [
-            "2026.04.27-release"
+            "2026.08.26-release"
           ]
         },
         {
@@ -65317,8 +65614,8 @@
         }
       ],
       "versions": [
-        "2026.04.27-release",
-        "2026.07.23-release"
+        "2026.07.23-release",
+        "2026.08.26-release"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -67512,36 +67809,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -67566,18 +67863,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -72000,36 +72297,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.13.0 (2026-08-27)",
+            "date": "2026-08-27",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Kick - AMOLED dark theme:** support older builds that have no React Native bundle"
+                "text": "**Photo Editor Pro - Inspect AI requests:** apply by default and let the runtime toggle decide"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Photo Editor Pro:** align the panel summaries with the patch descriptions"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Hide ads patch"
+                "text": "**All-In-One Calculator:** add Unlock premium and Remove pairip protection"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Inspect AI requests patch"
+                "text": "**Kick - AMOLED dark theme:** support the Android TV app"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Show AI progress patch"
+                "text": "**Photo Editor Pro - Inspect AI requests:** log the response body of each AI request"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Speed up AI tools patch"
+                "text": "**Photo Editor Pro - Spoof iOS platform:** restore the AI tools on certified devices"
               },
               {
                 "category": "New Features",
-                "text": "**Photo Editor Pro:** add Spoof signature patch"
-              },
-              {
-                "category": "New Features",
-                "text": "**Photo Editor Pro:** add Unlock premium patch"
+                "text": "**Photo Editor Pro:** list the always-on patches in the settings panel"
               }
             ]
           },
@@ -72980,7 +73277,7 @@
           "patches": [
             {
               "name": "Enable Premium",
-              "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch."
+              "description": "Enables app features locked behind the subscription paywall. Requirements: strict apk version"
             }
           ],
           "versions": [
@@ -72994,7 +73291,7 @@
       "patchDetails": [
         {
           "name": "Enable Premium",
-          "description": "Enables app features locked behind the subscription paywall. There is a strict version requirement for this patch."
+          "description": "Enables app features locked behind the subscription paywall. Requirements: strict apk version"
         }
       ],
       "versions": [
@@ -78628,8 +78925,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -79139,12 +79436,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -81840,22 +82137,42 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 268,
+      "patchCount": 303,
       "latestChanges": {
-        "title": "1.29.1 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.32.0 (2026-08-27)",
+        "date": "2026-08-27",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cover Genre.isSpokenWord fallback in Unlock Playback Speed for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake ADB Enabled patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "expand Disable Bandcamp Tracker to cover stats pipeline for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake Auto Rotate On patch"
           },
           {
-            "category": "Bug Fixes",
-            "text": "harden Show Search Result Scores patch for Bandcamp"
+            "category": "New Features",
+            "text": "add Fake Auto Time patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Auto Time Zone patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Available Processors patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Bluetooth Bonded Devices Empty patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Brightness Auto Mode patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Cell Info Empty patch"
           }
         ]
       },
@@ -82013,6 +82330,11 @@
         {
           "name": "Bypass Package Suspended",
           "description": "Makes PackageManager.isPackageSuspended() report false so apps that refuse to run while suspended keep working.",
+          "default": false
+        },
+        {
+          "name": "Bypass Permission Check",
+          "description": "Forces permission checks to report granted so permission-gated features skip dialogs",
           "default": false
         },
         {
@@ -82461,8 +82783,38 @@
           "default": false
         },
         {
+          "name": "Fake ADB Enabled",
+          "description": "Reports a chosen ADB state through Settings.Global so apps that restrict features based on developer options stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Auto Rotate On",
+          "description": "Reports a chosen auto-rotation state through Settings.System so apps that restrict features based on rotation lock stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Auto Time",
+          "description": "Reports automatic date & time as enabled through Settings.Global so apps that flag manual time as suspicious stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Auto Time Zone",
+          "description": "Reports automatic time zone as enabled through Settings.Global so apps that flag manual time zone as suspicious stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Available Processors",
+          "description": "Reports a chosen CPU count through Runtime.availableProcessors() so apps that check core count see a high-end device.",
+          "default": false
+        },
+        {
           "name": "Fake Battery Whitelist",
           "description": "Makes PowerManager.isIgnoringBatteryOptimizations always return true so apps stop nagging about battery optimization exemptions",
+          "default": false
+        },
+        {
+          "name": "Fake Bluetooth Bonded Devices Empty",
+          "description": "Makes BluetoothAdapter.getBondedDevices() return an empty set so apps cannot fingerprint paired Bluetooth devices.",
           "default": false
         },
         {
@@ -82471,8 +82823,48 @@
           "default": false
         },
         {
+          "name": "Fake Brightness Auto Mode",
+          "description": "Reports a chosen brightness mode through Settings.System so apps that restrict features based on brightness mode stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Cell Info Empty",
+          "description": "Makes TelephonyManager.getAllCellInfo() return an empty list so apps cannot fingerprint nearby cell towers.",
+          "default": false
+        },
+        {
+          "name": "Fake Device Idle Mode",
+          "description": "Makes PowerManager.isDeviceIdleMode() report a chosen state so apps that gate features behind device idle checks stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Doze Always On",
+          "description": "Reports a chosen always-on display state through Settings.Secure so apps that restrict features based on doze settings stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake DTMF Tone Enabled",
+          "description": "Reports a chosen DTMF tone state through Settings.System so apps that check dialer tone settings stop doing so.",
+          "default": false
+        },
+        {
           "name": "Fake Fingerprint Hardware",
           "description": "Makes FingerprintManager report available hardware and enrolled fingerprints so apps unlock fingerprint-gated features on any device",
+          "default": false
+        },
+        {
+          "name": "Fake Font Scale",
+          "description": "Reports a chosen font scale through Settings.System so apps that restrict features based on font size stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Location Accuracy",
+          "description": "Reports a chosen location accuracy through Location.getAccuracy() so apps that restrict features based on low accuracy stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Memory Class",
+          "description": "Reports a chosen memory class through ActivityManager.getMemoryClass() so apps that check available heap see a high value.",
           "default": false
         },
         {
@@ -82481,8 +82873,43 @@
           "default": false
         },
         {
+          "name": "Fake Notification Policy Access",
+          "description": "Makes NotificationManager.isNotificationPolicyAccessGranted() report a chosen state so apps that gate features behind DND policy access stop doing so.",
+          "default": false
+        },
+        {
           "name": "Fake Online State",
           "description": "Makes connectivity checks report an active connection: WifiManager.isWifiEnabled, NetworkInfo.isConnected/isAvailable/isConnectedOrConnecting all return true",
+          "default": false
+        },
+        {
+          "name": "Fake Play Store Install Source",
+          "description": "Makes PackageManager.getInstallerPackageName() report a chosen store so apps that warn about sideloading or gate Play-only features stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Screen Timeout",
+          "description": "Reports a chosen screen timeout through Settings.System so apps that restrict features based on screen timeout stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Stay On While Plugged",
+          "description": "Reports a chosen stay-on-while-plugged state through Settings.Global so apps that restrict features based on this setting stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Storage Available",
+          "description": "Reports a chosen amount of free storage through StatFs so apps that refuse to run or nag when storage is low stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Vibrate When Ringing",
+          "description": "Reports a chosen vibrate-when-ringing state through Settings.System so apps that check ringer vibration behavior stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake WiFi Scan Results Empty",
+          "description": "Makes WifiManager.getScanResults() return an empty list so apps cannot fingerprint nearby WiFi networks.",
           "default": false
         },
         {
@@ -82506,8 +82933,18 @@
           "default": false
         },
         {
+          "name": "Force Battery Temperature",
+          "description": "Reports a chosen battery temperature through BatteryManager.getIntProperty for the temperature property, so apps that throttle or warn on a hot device stop doing so.",
+          "default": false
+        },
+        {
           "name": "Force Can Install Packages",
           "description": "Makes PackageManager.canRequestPackageInstalls() report true so sideload/unknown-source install prompts are treated as already granted.",
+          "default": false
+        },
+        {
+          "name": "Force Charging Status",
+          "description": "Reports a chosen charging status through BatteryManager.getIntProperty for the status property, so apps that gate features behind a charging state stop doing so.",
           "default": false
         },
         {
@@ -82536,6 +82973,11 @@
           "default": false
         },
         {
+          "name": "Force Has System Feature",
+          "description": "Makes PackageManager.hasSystemFeature always return true so feature-gated installs pass runtime checks",
+          "default": false
+        },
+        {
           "name": "Force Idle Call State",
           "description": "Makes TelephonyManager.getCallState() report CALL_STATE_IDLE (0) so apps that react to active calls behave as if none are in progress.",
           "default": false
@@ -82552,7 +82994,7 @@
         },
         {
           "name": "Force Max Brightness",
-          "description": "Forces the system screen brightness setting to maximum (255) so apps that read it cannot dim or restrict the screen.",
+          "description": "Forces the system screen brightness setting to a chosen value (default 255) so apps that read it cannot dim or restrict the screen.",
           "default": false
         },
         {
@@ -82666,6 +83108,11 @@
           "default": false
         },
         {
+          "name": "Hide Accessibility Services",
+          "description": "Makes AccessibilityManager return empty lists so apps cannot detect TalkBack or automation services",
+          "default": false
+        },
+        {
           "name": "Hide Accessibility Usage",
           "description": "Makes AccessibilityManager.isEnabled() report false so apps cannot tell an accessibility service is running.",
           "default": false
@@ -82681,8 +83128,18 @@
           "default": false
         },
         {
+          "name": "Hide Clipboard Description",
+          "description": "Makes ClipboardManager.getPrimaryClipDescription return null to block MIME and type harvesting",
+          "default": false
+        },
+        {
           "name": "Hide Debugger Connection",
           "description": "Makes Debug.isDebuggerConnected and waitingForDebugger always return false so apps that refuse to run under a debugger keep working",
+          "default": false
+        },
+        {
+          "name": "Hide Default Sensor",
+          "description": "Makes SensorManager.getDefaultSensor return null so sensor fingerprint and VR gates see no hardware",
           "default": false
         },
         {
@@ -82706,8 +83163,23 @@
           "default": false
         },
         {
+          "name": "Hide Nfc Adapter",
+          "description": "Makes NfcAdapter.getDefaultAdapter return null so NFC probes fail uniformly",
+          "default": false
+        },
+        {
           "name": "Hide Roaming Status",
           "description": "Makes TelephonyManager.isNetworkRoaming always return false so apps that block or warn while roaming behave as if the device is on its home network",
+          "default": false
+        },
+        {
+          "name": "Hide Storage Volumes",
+          "description": "Makes StorageManager return empty lists so volume enumeration for fingerprint sees nothing",
+          "default": false
+        },
+        {
+          "name": "Hide Usage Stats",
+          "description": "Makes UsageStatsManager return empty lists so app usage fingerprinting sees nothing",
           "default": false
         },
         {
@@ -82772,7 +83244,7 @@
         },
         {
           "name": "No Ads (Experimental)",
-          "description": "Block supported ads. All available ad-format options are enabled by default, including interstitial, banner, app-open, MREC, and rewarded ads. Disable Block Rewarded when using Ads Free Rewards. Currently includes AppLovin MAX, AdMob, Unity Ads, ironSource/LevelPlay, Huawei Ads Kit, VK MyTarget (including RuStore), Yandex, Vungle, Meta Audience Network, and Pangle. Experimental: coverage is not guaranteed for every APK or ad SDK.",
+          "description": "Block supported ads. Choose which formats to block below. For rewarded ads that gate progress, use Ads Free Rewards instead \u2014 it grants the reward without showing the ad. Covers AppLovin MAX, AdMob, Unity Ads, ironSource/LevelPlay, Huawei Ads Kit, VK MyTarget (RuStore), Yandex, Vungle, Meta Audience Network, Pangle, StartApp, MoPub and InMobi where detected. Experimental: some apps use custom mediation or obfuscated ad wrappers not yet fingerprinted \u2014 try enabling more categories or report the APK.",
           "default": false
         },
         {
@@ -82922,7 +83394,7 @@
         },
         {
           "name": "Spoof Battery Level",
-          "description": "Reports a full battery (100%) through BatteryManager.getIntProperty for the capacity property, so apps that restrict features on low battery stop doing so.",
+          "description": "Reports a chosen battery level through BatteryManager.getIntProperty for the capacity property, so apps that restrict features on low battery stop doing so.",
           "default": false
         },
         {
@@ -82941,8 +83413,13 @@
           "default": false
         },
         {
+          "name": "Spoof Bluetooth Profile State",
+          "description": "Forces BluetoothAdapter.getProfileConnectionState to report connected so headset and A2DP gates proceed",
+          "default": false
+        },
+        {
           "name": "Spoof BSSID",
-          "description": "Reports a constant value from WifiInfo.getBSSID() so apps cannot read the real access point MAC address.",
+          "description": "Reports a chosen value from WifiInfo.getBSSID() so apps cannot read the real access point MAC address.",
           "default": false
         },
         {
@@ -82981,13 +83458,18 @@
           "default": false
         },
         {
+          "name": "Spoof Fixed Location",
+          "description": "Returns fixed GPS coordinates for all location requests instead of the real device location. Useful for region-locked apps like rajiko that require a specific location.",
+          "default": false
+        },
+        {
           "name": "Spoof Group ID Level 1",
           "description": "Reports a constant value from TelephonyManager.getGroupIdLevel1() so apps cannot read the real SIM GID1.",
           "default": false
         },
         {
           "name": "Spoof IMEI",
-          "description": "Reports a fake IMEI through TelephonyManager.getDeviceId()/getImei() so apps that fingerprint the device by IMEI see a constant value.",
+          "description": "Reports a chosen IMEI through TelephonyManager.getDeviceId()/getImei() so apps that fingerprint the device by IMEI see a constant value.",
           "default": false
         },
         {
@@ -83012,12 +83494,17 @@
         },
         {
           "name": "Spoof MAC Address",
-          "description": "Reports a constant MAC address through WifiInfo.getMacAddress() so apps cannot fingerprint the device by its Wi-Fi MAC.",
+          "description": "Reports a chosen MAC address through WifiInfo.getMacAddress() so apps cannot fingerprint the device by its Wi-Fi MAC.",
           "default": false
         },
         {
           "name": "Spoof NAI",
           "description": "Reports an empty string from TelephonyManager.getNai() so apps cannot read the Network Access Identifier.",
+          "default": false
+        },
+        {
+          "name": "Spoof Network Operator Name",
+          "description": "Reports a chosen operator name through TelephonyManager.getNetworkOperatorName() so apps that check the carrier name see a generic value.",
           "default": false
         },
         {
@@ -83032,7 +83519,7 @@
         },
         {
           "name": "Spoof Phone Number",
-          "description": "Reports an empty string from TelephonyManager.getLine1Number() and getLine2Number() so apps cannot read the device's phone number.",
+          "description": "Reports a chosen phone number from TelephonyManager.getLine1Number() and getLine2Number() so apps cannot read the device's phone number.",
           "default": false
         },
         {
@@ -83082,7 +83569,7 @@
         },
         {
           "name": "Spoof SIM Serial Number",
-          "description": "Reports a fake SIM serial number through TelephonyManager.getSimSerialNumber() so apps that fingerprint by ICCID see a constant value.",
+          "description": "Reports a chosen SIM serial number (ICCID) through TelephonyManager.getSimSerialNumber() so apps that fingerprint by ICCID see a constant value.",
           "default": false
         },
         {
@@ -83092,7 +83579,7 @@
         },
         {
           "name": "Spoof Subscriber ID",
-          "description": "Reports a fake subscriber id (IMSI) through TelephonyManager.getSubscriberId() so apps that fingerprint by IMSI see a constant value.",
+          "description": "Reports a chosen subscriber id (IMSI) through TelephonyManager.getSubscriberId() so apps that fingerprint by IMSI see a constant value.",
           "default": false
         },
         {
@@ -83102,7 +83589,12 @@
         },
         {
           "name": "Spoof Time Zone",
-          "description": "Forces TimeZone.getDefault().getID() to return UTC so region- or time-zone-locked apps see a constant zone.",
+          "description": "Forces TimeZone.getDefault() to return a fixed timezone so region-locked apps see a constant zone (e.g. Europe/London for All4).",
+          "default": false
+        },
+        {
+          "name": "Spoof UiMode Night State",
+          "description": "Forces UiModeManager to report TYPE_NORMAL and night mode off so car/TV/night gates never trigger",
           "default": false
         },
         {
@@ -83122,12 +83614,12 @@
         },
         {
           "name": "Spoof WiFi RSSI",
-          "description": "Reports a fixed signal strength (-50 dBm) from WifiInfo.getRssi() so apps cannot read the real Wi-Fi signal level.",
+          "description": "Reports a chosen signal strength from WifiInfo.getRssi() so apps cannot read the real Wi-Fi signal level.",
           "default": false
         },
         {
           "name": "Spoof WiFi SSID",
-          "description": "Reports a constant value from WifiInfo.getSSID() so apps cannot read the real connected network name.",
+          "description": "Reports a chosen value from WifiInfo.getSSID() so apps cannot read the real connected network name.",
           "default": false
         },
         {
