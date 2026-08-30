@@ -1,3 +1,40 @@
+# [1.2.0](https://github.com/brosssh/revanced-external-bundles/compare/v1.1.3...v1.2.0) (2026-08-30)
+
+
+### Bug Fixes
+
+* update container retention action ([#38](https://github.com/brosssh/revanced-external-bundles/issues/38)) ([1b44ff5](https://github.com/brosssh/revanced-external-bundles/commit/1b44ff56b7dcf60421c6bb31c470f2021c5443c9))
+
+
+### Features
+
+* add multi-host Git support, tracked sources and source-aware bundle API v3 ([#35](https://github.com/brosssh/revanced-external-bundles/issues/35)) ([0a46527](https://github.com/brosssh/revanced-external-bundles/commit/0a465278c69e45c170b0531cd7cb37f47ceb5336))
+* support multiple patcher runtimes with isolated workers ([#39](https://github.com/brosssh/revanced-external-bundles/issues/39)) [skip ci] ([ec59662](https://github.com/brosssh/revanced-external-bundles/commit/ec596624817d623e62b0693f55d08ee2b0f3c298))
+* update patcher dependencies and refresh scheduling ([2b37d79](https://github.com/brosssh/revanced-external-bundles/commit/2b37d794c8649764936a1794250b5023f4a6890e))
+* update patcher dependencies and refresh scheduling ([#34](https://github.com/brosssh/revanced-external-bundles/issues/34)) ([8a4826c](https://github.com/brosssh/revanced-external-bundles/commit/8a4826c5b890130daa071b4b2bf4412da1dfcd2d))
+
+# [1.2.0-dev.3](https://github.com/brosssh/revanced-external-bundles/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2026-08-28)
+
+
+### Features
+
+* add multi-host Git support, tracked sources and source-aware bundle API v3 ([#35](https://github.com/brosssh/revanced-external-bundles/issues/35)) ([0a46527](https://github.com/brosssh/revanced-external-bundles/commit/0a465278c69e45c170b0531cd7cb37f47ceb5336))
+
+# [1.2.0-dev.2](https://github.com/brosssh/revanced-external-bundles/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2026-08-28)
+
+
+### Bug Fixes
+
+* update container retention action ([#38](https://github.com/brosssh/revanced-external-bundles/issues/38)) ([1b44ff5](https://github.com/brosssh/revanced-external-bundles/commit/1b44ff56b7dcf60421c6bb31c470f2021c5443c9))
+
+# [1.2.0-dev.1](https://github.com/brosssh/revanced-external-bundles/compare/v1.1.3...v1.2.0-dev.1) (2026-08-28)
+
+
+### Features
+
+* update patcher dependencies and refresh scheduling ([2b37d79](https://github.com/brosssh/revanced-external-bundles/commit/2b37d794c8649764936a1794250b5023f4a6890e))
+* update patcher dependencies and refresh scheduling ([#34](https://github.com/brosssh/revanced-external-bundles/issues/34)) ([8a4826c](https://github.com/brosssh/revanced-external-bundles/commit/8a4826c5b890130daa071b4b2bf4412da1dfcd2d))
+
 ## [1.1.3](https://github.com/brosssh/revanced-external-bundles/compare/v1.1.2...v1.1.3) (2026-04-02)
 
 

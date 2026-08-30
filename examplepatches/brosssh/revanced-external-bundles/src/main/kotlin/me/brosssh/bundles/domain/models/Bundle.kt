@@ -1,12 +1,13 @@
 package me.brosssh.bundles.domain.models
 
-import me.brosssh.bundles.integrations.github.GithubClient
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.expectSuccess
+import io.ktor.client.request.get
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.io.File
-import java.util.*
-import app.morphe.patcher.patch.loadPatchesFromJar as loadMorpheBundle
-import app.revanced.patcher.patch.loadPatchesFromJar as loadReVancedBundle
+import me.brosssh.bundles.workers.PatchExtractionResult
+import me.brosssh.bundles.workers.PatchWorkerManager
 
 sealed class Bundle(
     val version: String,
@@ -16,35 +17,29 @@ sealed class Bundle(
     val signatureDownloadUrl: String?,
     val sourceFk: Int
 ) : KoinComponent {
-    protected val githubClient: GithubClient by inject()
-    protected val processDir =
-        File(System.getProperty("java.io.tmpdir"))
-            .resolve("bundles")
-            .apply { mkdirs() }
+    protected val httpClient: HttpClient by inject()
+    private val patchWorkerManager: PatchWorkerManager by inject()
 
-    protected suspend fun downloadBundleFile() =
-        File(processDir, UUID.randomUUID().toString()).apply {
-            githubClient.downloadFile(downloadUrl, this)
-        }
+    private suspend fun downloadBundleBytes() =
+        httpClient.get(downloadUrl) {
+            expectSuccess = true
+        }.body<ByteArray>()
 
-    private var _patches: Set<Patch>? = null
+    private var _patchExtraction: PatchExtractionResult? = null
 
-    suspend fun patches(): Set<Patch> {
-        _patches?.let { return it }
+    suspend fun patches(cachedRuntime: String? = null): PatchExtractionResult {
+        _patchExtraction?.let { return it }
 
-        with(downloadBundleFile()) {
-            val loaded = try {
-                loadPatchesFromBundle(this)
-            } finally {
-                runCatching { delete() }
-            }
-            _patches = loaded
-            return loaded
-        }
+        val extraction = patchWorkerManager.loadPatches(
+            bundleType = bundleType,
+            bundleBytes = downloadBundleBytes(),
+            cachedRuntime = cachedRuntime
+        )
+        _patchExtraction = extraction
+        return extraction
     }
 
     abstract val bundleType: BundleType
-    protected abstract suspend fun loadPatchesFromBundle(bundleFile: File): Set<Patch>
 
     companion object {
         fun create(
@@ -109,9 +104,6 @@ class ReVancedV3Bundle(
     sourceFk
 ) {
     override val bundleType = BundleType.REVANCED_V3
-
-    override suspend fun loadPatchesFromBundle(bundleFile: File) =
-        emptySet<Patch>()
 }
 
 class ReVancedV4Bundle(
@@ -130,11 +122,6 @@ class ReVancedV4Bundle(
     sourceFk
 ) {
     override val bundleType = BundleType.REVANCED_V4
-
-    override suspend fun loadPatchesFromBundle(bundleFile: File) =
-        loadReVancedBundle(setOf(bundleFile))
-            .map { ReVancedPatchAdapter(it) }
-            .toSet()
 }
 
 class MorpheV1Bundle(
@@ -153,11 +140,6 @@ class MorpheV1Bundle(
     sourceFk
 ) {
     override val bundleType = BundleType.MORPHE_V1
-
-    override suspend fun loadPatchesFromBundle(bundleFile: File) =
-        loadMorpheBundle(setOf(bundleFile))
-            .map { MorphePatchAdapter(it) }
-            .toSet()
 }
 
 data class BundleMetadata(

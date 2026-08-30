@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.patcher.runtimes)
     application
     `maven-publish`
     signing
@@ -86,10 +87,10 @@ dependencies {
     implementation(libs.postgresql)
 
     implementation(libs.dotenv)
-    implementation(libs.revanced.patcher)
-    implementation(libs.morphe.patcher)
+    implementation(libs.tomlj)
     implementation(libs.logback)
     implementation(libs.apksig)
+    implementation(libs.semver4j)
 
     testImplementation(libs.kotlin.test)
 }
@@ -97,8 +98,26 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+val validateSources by tasks.registering(JavaExec::class) {
+    group = "verification"
+    description = "Validate the tracked sources manifest (src/main/resources/sources.toml)"
+    dependsOn(tasks.named("classes"))
+    javaLauncher.set(javaToolchains.launcherFor(java.toolchain))
+    mainClass.set("me.brosssh.bundles.db.SourceManifestSync")
+    classpath = sourceSets.main.get().runtimeClasspath
+}
+
+tasks.named("check") {
+    dependsOn(validateSources)
+}
+
 kotlin {
     jvmToolchain(21)
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xskip-prerelease-check")
+    }
 }
 
 application {

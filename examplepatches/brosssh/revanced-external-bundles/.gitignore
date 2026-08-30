@@ -1,4 +1,4 @@
-.gradle
+.gradle**
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
@@ -15,6 +15,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+local.properties
 
 ### Kotlin ###
 .kotlin
@@ -44,6 +45,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-/docs/
+/docs/*
+!/docs/patcher-runtimes.md
 .idea
 .env

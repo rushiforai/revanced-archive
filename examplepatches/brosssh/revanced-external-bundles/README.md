@@ -46,6 +46,20 @@ The API will be available at `http://localhost:8080` by default.
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
+### Adding or disabling a bundle source
+
+Bundle sources are tracked in [`src/main/resources/sources.toml`](src/main/resources/sources.toml). Add a canonical repository URL to that file, or set `enabled = false` to pause refreshes while preserving its cached bundles and patches. Removing an entry also soft-disables it at the next backend start; source data is never deleted automatically.
+
+Copy the [source update pull request template](.github/PULL_REQUEST_TEMPLATE/source-update.md) into the pull request description and complete it before submitting.
+
+Validate manifest changes before opening a pull request:
+
+```shell
+./gradlew validateSources
+```
+
+Patcher runtime compatibility is configured in [`patcher-runtimes.toml`](src/main/resources/patcher-runtimes.toml) using SemVer ranges powered by [semver4j](https://github.com/semver4j/semver4j). See the [runtime guide](docs/patcher-runtimes.md) for details.
+
 ## 📜 License
 
 ReVanced External Bundles is licensed under the AGPLv3 license. Please see the [LICENSE](LICENSE) file for more information.
