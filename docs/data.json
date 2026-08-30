@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29 05:21 UTC",
+  "generatedAt": "2026-08-30 03:15 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 705,
-  "patchCount": 2856,
-  "universalPatchCount": 507,
+  "appCount": 707,
+  "patchCount": 2859,
+  "universalPatchCount": 508,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -68,16 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.30.1 (2026-08-28)",
-        "date": "2026-08-28",
+        "title": "1.30.3 (2026-08-29)",
+        "date": "2026-08-29",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-          },
-          {
-            "category": "Features",
-            "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+            "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
           }
         ]
       },
@@ -1648,27 +1644,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 49,
-      "appCount": 21,
+      "patchCount": 50,
+      "appCount": 22,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.19.1 (2026-08-29)",
+        "title": "1.20.0 (2026-08-29)",
         "date": "2026-08-29",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**rodeosafari:** add support for version 4.24.0"
+            "category": "\u2728 New Features",
+            "text": "**fancypants:** add premium unlock patch"
           }
         ]
       },
@@ -1707,6 +1695,13 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF6F00"
+        },
+        {
+          "name": "Fancy Pants Adventures",
+          "packageName": "com.overthetopgames.fancypants",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FF9800"
         },
         {
           "name": "FreeJobAlert",
@@ -3969,23 +3964,47 @@
       "webUrl": "https://github.com/hoo-dles/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
-      "patchCount": 79,
-      "appCount": 55,
+      "patchCount": 80,
+      "appCount": 56,
       "createdAt": 1784836036710,
       "updatedAt": 1784836036710,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.38.2 (2026-07-06)",
-        "date": "2026-07-06",
+        "title": "1.42.1-dev.1 (2026-08-28)",
+        "date": "2026-08-28",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**CamScanner:** Fix crash on first scan after app installation"
+            "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
           },
           {
             "category": "Bug Fixes",
-            "text": "Update signature spoofing code"
+            "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+          },
+          {
+            "category": "Features",
+            "text": "**Bunpo:** Add Enable Platinum patch"
+          },
+          {
+            "category": "Features",
+            "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+          },
+          {
+            "category": "Features",
+            "text": "**Lightroom:** Update patches to support 11.5.01"
+          },
+          {
+            "category": "Features",
+            "text": "**Lingodeer:** Add Enable Premium patch"
+          },
+          {
+            "category": "Features",
+            "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+          },
+          {
+            "category": "Features",
+            "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
           }
         ]
       },
@@ -4010,6 +4029,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#13AA52"
+        },
+        {
+          "name": "Bend",
+          "packageName": "com.bowerydigital.bend",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#1674A8"
         },
         {
           "name": "Bunpo",
@@ -6536,23 +6562,27 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 340,
+      "patchCount": 341,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.35.1 (2026-08-28)",
-        "date": "2026-08-28",
+        "title": "1.36.0 (2026-08-29)",
+        "date": "2026-08-29",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "reduce free iap heap usage"
+            "text": "free iap polish"
           },
           {
             "category": "Bug Fixes",
-            "text": "unlimited currency hotfix"
+            "text": "unlim currency v2"
+          },
+          {
+            "category": "New Features",
+            "text": "add unlock premium patch"
           }
         ]
       },
@@ -11070,20 +11100,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -11146,16 +11168,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -12376,16 +12422,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -15508,16 +15578,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -17019,6 +17113,92 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.bowerydigital.bend",
+      "name": "Bend",
+      "repos": [
+        "hoo-dles/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hoo-dles/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hoo-dles/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hoo-dles.png?size=96",
+          "latestChanges": {
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-bowerydigital-bend-hoo-dles-morphe-patches",
+            "releaseTag": "app-com-bowerydigital-bend-hoo-dles-morphe-patches",
+            "assetName": "bend-hoo-dles-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
+            }
+          ],
+          "versions": [
+            "7.6.6"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Enables app features locked behind the subscription paywall. Requirements: arm64-v8a, strict apk version"
+        }
+      ],
+      "versions": [
+        "7.6.6"
+      ],
+      "iconColor": "#1674A8",
+      "iconUrl": ""
+    },
+    {
       "packageName": "it.mirko.beta",
       "name": "Beta Maniac",
       "repos": [
@@ -17120,20 +17300,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -18942,16 +19114,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -19005,16 +19201,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -19332,16 +19552,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -19824,16 +20068,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -22156,16 +22424,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -22314,16 +22578,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -22651,16 +22939,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -22714,16 +22998,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.36.0 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "reduce free iap heap usage"
+                "text": "free iap polish"
               },
               {
                 "category": "Bug Fixes",
-                "text": "unlimited currency hotfix"
+                "text": "unlim currency v2"
+              },
+              {
+                "category": "New Features",
+                "text": "add unlock premium patch"
               }
             ]
           },
@@ -22935,16 +23223,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -22964,6 +23248,7 @@
           "versions": [
             "16.12.0",
             "16.17.0",
+            "16.19.0",
             "16.8.0"
           ]
         }
@@ -22980,6 +23265,7 @@
       "versions": [
         "16.12.0",
         "16.17.0",
+        "16.19.0",
         "16.8.0"
       ],
       "iconColor": "",
@@ -23143,16 +23429,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -23263,16 +23545,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -23669,16 +23975,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -23833,16 +24135,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -24113,16 +24439,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -25516,16 +25866,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -25799,16 +26145,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -26367,16 +26709,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -27338,16 +27676,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -27482,16 +27816,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -30017,16 +30347,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -31077,20 +31431,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -31328,20 +31674,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -31584,20 +31922,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -31988,16 +32318,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -33226,6 +33580,64 @@
         "125.0"
       ],
       "iconColor": "#5F7C8A",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.overthetopgames.fancypants",
+      "name": "Fancy Pants Adventures",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.20.0 (2026-08-29)",
+            "date": "2026-08-29",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-overthetopgames-fancypants-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-overthetopgames-fancypants-byehi98-okish-morphe-patches",
+            "assetName": "fancy-pants-adventures-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Fancy Pants Unlock Premium",
+              "description": "Unlocks premium, wardrobe, world 1 and world 2 by forcing OTTBilling.isPurchased to always return true."
+            }
+          ],
+          "versions": [
+            "1.0.30"
+          ]
+        }
+      ],
+      "patches": [
+        "Fancy Pants Unlock Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Fancy Pants Unlock Premium",
+          "description": "Unlocks premium, wardrobe, world 1 and world 2 by forcing OTTBilling.isPurchased to always return true."
+        }
+      ],
+      "versions": [
+        "1.0.30"
+      ],
+      "iconColor": "#FF9800",
       "iconUrl": ""
     },
     {
@@ -34570,16 +34982,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -34837,20 +35273,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -35416,16 +35844,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -36133,20 +36585,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -36507,16 +36951,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -36939,20 +37407,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -37731,16 +38191,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -37851,16 +38335,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -38619,20 +39127,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -39810,20 +40310,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -40707,20 +41199,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -43214,16 +43698,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -43589,16 +44097,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -43656,16 +44188,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -43718,16 +44274,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -44255,16 +44835,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -44673,16 +45277,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -44735,16 +45363,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -45794,16 +46446,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -45856,16 +46532,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -46708,16 +47408,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -46856,16 +47580,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -46918,20 +47666,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -47993,20 +48733,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -48776,16 +49508,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -48838,16 +49594,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -50211,16 +50991,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -50238,7 +51042,7 @@
             }
           ],
           "versions": [
-            "1.16.23",
+            "1.16.24",
             "1.16.7"
           ]
         }
@@ -50254,7 +51058,7 @@
       ],
       "versions": [
         "1.16.15",
-        "1.16.23",
+        "1.16.24",
         "1.16.7"
       ],
       "iconColor": "#9FCDFB",
@@ -50362,16 +51166,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -50607,16 +51435,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -51909,20 +52761,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -52861,16 +53705,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -55722,20 +56590,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -57566,16 +58426,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -58685,16 +59569,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -59331,16 +60239,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -60849,11 +61781,11 @@
         "Disable modern home",
         "Disable post detail swipe",
         "Disable screenshot banner",
-        "Disable Screenshot Popup",
         "Disable screenshot popup",
+        "Disable Screenshot Popup",
         "Force system font",
-        "Hide ads",
         "Hide Ads",
+        "Hide ads",
         "Hide Answers Tab",
         "Hide Ask button",
         "Hide Ask button from search bar",
@@ -60864,8 +61796,8 @@
         "Hide community highlights",
         "Hide community menu badge",
         "Hide Games Tab",
-        "Hide Navigation Buttons",
         "Hide navigation buttons",
+        "Hide Navigation Buttons",
         "Hide permanent ban banner",
         "Hide post view counts",
         "Hide prominent search bar",
@@ -60945,24 +61877,24 @@
           "description": "Disables the banner that shows up after taking a screenshot."
         },
         {
-          "name": "Disable Screenshot Popup",
-          "description": "Suppresses the share prompt that appears after taking a screenshot."
-        },
-        {
           "name": "Disable screenshot popup",
           "description": "Adds an option to disable the popup that appears when taking a screenshot."
+        },
+        {
+          "name": "Disable Screenshot Popup",
+          "description": "Suppresses the share prompt that appears after taking a screenshot."
         },
         {
           "name": "Force system font",
           "description": "Adds an option that renders Reddit with the device system font instead of Reddit Sans / Roboto."
         },
         {
-          "name": "Hide ads",
-          "description": "Adds options to hide ads."
-        },
-        {
           "name": "Hide Ads",
           "description": "Removes promoted posts and comment ads without requiring Reddit Premium unlock."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Adds options to hide ads."
         },
         {
           "name": "Hide Answers Tab",
@@ -61005,12 +61937,12 @@
           "description": "Removes the Games tab from the bottom navigation bar."
         },
         {
-          "name": "Hide Navigation Buttons",
-          "description": "Removes the Create Post button from the bottom navigation bar."
-        },
-        {
           "name": "Hide navigation buttons",
           "description": "Adds options to hide buttons in the navigation bar."
+        },
+        {
+          "name": "Hide Navigation Buttons",
+          "description": "Removes the Create Post button from the bottom navigation bar."
         },
         {
           "name": "Hide permanent ban banner",
@@ -61561,20 +62493,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -61639,16 +62563,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -63644,16 +64592,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -64093,16 +65065,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -64378,16 +65374,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -64441,20 +65461,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -64633,16 +65645,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -65047,16 +66083,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -65255,16 +66315,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -65703,16 +66787,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -67805,16 +68913,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -67876,20 +69008,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -70352,20 +71476,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -73193,8 +74309,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -73238,11 +74354,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -73413,20 +74529,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -73479,16 +74587,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -73748,16 +74880,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -73839,16 +74967,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.30.3 (2026-08-29)",
+            "date": "2026-08-29",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** PTS-align live sports slate for smooth playback (#91) (#139)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** prefer HBO's ad-free FALLBACK stream (clean SSAI fix, #125) (#137)"
+                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
               }
             ]
           },
@@ -74685,20 +75809,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.19.1 (2026-08-29)",
+            "title": "1.20.0 (2026-08-29)",
             "date": "2026-08-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**doodlejump:** add resurrection bypass for Doodle Jump 3.11.40"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**hillclimb:** update rewarded video patch for HCR 1.71.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**rodeosafari:** add support for version 4.24.0"
+                "category": "\u2728 New Features",
+                "text": "**fancypants:** add premium unlock patch"
               }
             ]
           },
@@ -74751,16 +75867,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -75777,16 +76917,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -76466,16 +77630,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -76912,16 +78100,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -76974,16 +78186,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -77045,16 +78281,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -77107,16 +78367,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.38.2 (2026-07-06)",
-            "date": "2026-07-06",
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**CamScanner:** Fix crash on first scan after app installation"
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
               },
               {
                 "category": "Bug Fixes",
-                "text": "Update signature spoofing code"
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
               }
             ]
           },
@@ -81907,16 +83191,40 @@
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.38.2 (2026-07-06)",
-        "date": "2026-07-06",
+        "title": "1.42.1-dev.1 (2026-08-28)",
+        "date": "2026-08-28",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**CamScanner:** Fix crash on first scan after app installation"
+            "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
           },
           {
             "category": "Bug Fixes",
-            "text": "Update signature spoofing code"
+            "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+          },
+          {
+            "category": "Features",
+            "text": "**Bunpo:** Add Enable Platinum patch"
+          },
+          {
+            "category": "Features",
+            "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+          },
+          {
+            "category": "Features",
+            "text": "**Lightroom:** Update patches to support 11.5.01"
+          },
+          {
+            "category": "Features",
+            "text": "**Lingodeer:** Add Enable Premium patch"
+          },
+          {
+            "category": "Features",
+            "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+          },
+          {
+            "category": "Features",
+            "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
           }
         ]
       },
@@ -82378,18 +83686,22 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 332,
+      "patchCount": 333,
       "latestChanges": {
-        "title": "1.35.1 (2026-08-28)",
-        "date": "2026-08-28",
+        "title": "1.36.0 (2026-08-29)",
+        "date": "2026-08-29",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "reduce free iap heap usage"
+            "text": "free iap polish"
           },
           {
             "category": "Bug Fixes",
-            "text": "unlimited currency hotfix"
+            "text": "unlim currency v2"
+          },
+          {
+            "category": "New Features",
+            "text": "add unlock premium patch"
           }
         ]
       },
@@ -83366,7 +84678,7 @@
         },
         {
           "name": "Free In-app Purchases (Experimental)",
-          "description": "Makes Unity in-app purchases appear successful without paying. Supports Unity IAP and Google Play Billing. Use for offline games only \u2014 online verification may still block.",
+          "description": "Spoofs in-app purchases to appear successful. Covers Google Play Billing, Unity IAP, Xsolla, and common receipt verification. Server-side verification may still block in online games.",
           "default": false
         },
         {
@@ -84021,7 +85333,7 @@
         },
         {
           "name": "Unlimited Currencies",
-          "description": "Makes currency checks return a huge amount so you never run out. Covers PlayerPrefs, SharedPreferences and common Unity fields.",
+          "description": "Spoofs currency checks so you never run out. Covers PlayerPrefs, SharedPreferences and common Unity fields. WARNING: Only works on Mono-based Unity games and traditional Java/Android games. IL2CPP games (check for libil2cpp.so in the APK) store currencies in native memory \u2014 this patch cannot reach them.",
           "default": false
         },
         {
@@ -84032,6 +85344,11 @@
         {
           "name": "Unlock Notification Channels",
           "description": "Makes all notification channels blockable and their importance unlocked so greyed-out toggles become interactable.",
+          "default": false
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks premium features, subscriptions, and ownership checks. Makes isPremium/isOwned/isVip/hasReceipt return true, and forces SharedPreferences purchase keys to true.",
           "default": false
         },
         {
