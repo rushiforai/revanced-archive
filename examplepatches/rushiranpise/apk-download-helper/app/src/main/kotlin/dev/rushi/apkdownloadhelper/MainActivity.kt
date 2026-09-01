@@ -32,16 +32,23 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
+import androidx.core.view.WindowCompat
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -59,6 +66,9 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -68,6 +78,13 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Explore
+import androidx.compose.material.icons.outlined.Extension
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.SortByAlpha
+import androidx.compose.material.icons.outlined.ViewList
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -96,11 +113,14 @@ import androidx.compose.material.icons.outlined.SdStorage
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SignalCellularAlt
+import androidx.compose.material.icons.outlined.Storefront
 import androidx.compose.material.icons.outlined.RadioButtonChecked
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.TrendingUp
+import androidx.compose.material.icons.outlined.Verified
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material.icons.outlined.Shield
@@ -134,6 +154,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -155,7 +176,10 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asImageBitmap
@@ -164,12 +188,15 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
@@ -243,6 +270,11 @@ private val APK_PICKER_MIME_TYPES = arrayOf(
 )
 
 class MainActivity : ComponentActivity() {
+    /** APKMirror declares `Crawl-delay: 3`; stay below ~1 request/2.5s. */
+    companion object {
+        const val APKMIRROR_REQUEST_GAP_MS = 2500L
+    }
+
     private val browserUserAgent =
         "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE}; ${Build.MODEL}) AppleWebKit/537.36 " +
             "(KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
@@ -290,7 +322,12 @@ class MainActivity : ComponentActivity() {
     private val parsers: Map<DownloadSource, ApkSourceParser> by lazy {
         val playHttpClient = PlayHttpClient(Cache(File(cacheDir, "play-cache"), 64L * 1024L * 1024L))
         val parserContext = SourceParserContext(
-            fetcher = OkHttpSourceTextFetcher(client),
+            fetcher = OkHttpSourceTextFetcher(
+                client,
+                // APKMirror declares `Crawl-delay: 3` and answers 429 to denser
+                // probe runs, so give it a slower pace than the app-wide default.
+                hostGapsMillis = mapOf("www.apkmirror.com" to APKMIRROR_REQUEST_GAP_MS)
+            ),
             apkPureApi = apkPureApi,
             aptoideApi = aptoideApi,
             playHttpClient = playHttpClient,
@@ -325,6 +362,10 @@ class MainActivity : ComponentActivity() {
     private var fastModeActive = false
     private var fastModeQueue: MutableList<DownloadSource>? = null
     private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
+    // ALWAYS_ASK: which version the user picked for the current request.
+    private var fastModeVersionDecision: CompletableDeferred<FastModePolicy?>? = null
+    // Effective policy for the current run (chosen interactively for ALWAYS_ASK).
+    private var fastModeRunPolicy = FastModePolicy.REQUESTED
 
     /**
      * The effective disabled-source set.  If the user disables *every*
@@ -420,6 +461,7 @@ class MainActivity : ComponentActivity() {
                         onCancelFastMode = ::cancelFastMode,
                         onUseFastModeMismatch = { fastModeChoose(FastModeChoice.USE) },
                         onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
+                        onChooseVersion = ::fastModeChooseVersion,
                         onOpenMorphe = ::openMorpheManager,
                         onSolveCaptcha = ::openCaptchaBrowser,
                         onRequestFileTypeChange = ::changeRequestedFileType,
@@ -1069,20 +1111,68 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // ---- Fast Mode: auto-find the exact requested version and return it ----
+    // ---- Fast Mode: auto-find a version and return it ----
 
     private fun startFastModeIfEnabled(request: HelperRequest) {
         if (!helperSettings.fastMode) return
-        if (!request.hasRequestedVersionRequest) return
         if (fastModeActive) return
+        // REQUESTED mode needs a concrete version to match against; LATEST and
+        // ALWAYS_ASK can resolve the newest version even with no request fields.
+        val policy = helperSettings.fastModePolicy
+        if (policy == FastModePolicy.REQUESTED && !request.hasRequestedVersionRequest) return
         fastModeActive = true
+        fastModeRunPolicy = if (policy == FastModePolicy.ALWAYS_ASK) FastModePolicy.REQUESTED else policy
+        // Walk whatever the user has enabled globally; sources that cannot
+        // deliver a direct APK (Play/Aurora links, captcha-gated services)
+        // simply resolve to nothing and the walk moves on.
         fastModeQueue = DownloadSource.entries
-            .filter { it !in NON_FAST_MODE_SOURCES }
             .filter { it !in effectiveDisabledSources }
             .toMutableList()
-        appendLog("Fast Mode: auto-searching sources for the exact requested version.", LogLevel.Info)
-        uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
-        lifecycleScope.launch {
+        if (policy == FastModePolicy.ALWAYS_ASK) {
+            appendLog("Fast Mode: asking which version to fetch.", LogLevel.Info)
+            val gate = CompletableDeferred<FastModePolicy?>()
+            fastModeVersionDecision = gate
+            uiState = UiState.FastMode(
+                FastModeProgress(
+                    detail = "Auto-searching sources…",
+                    awaitingVersionChoice = true,
+                    versionChoiceRequested = request.requestedVersionLabel,
+                    versionChoiceDetail =
+                    "Retrieve the requested version or fetch the latest available version?"
+                )
+            )
+            // Ask first, resolve later: the run stays parked on the gate and
+            // only starts searching sources after the user picks, so the
+            // prompt appears instantly instead of waiting on a background scan.
+            lifecycleScope.launch {
+                val chosen = gate.await()
+                fastModeVersionDecision = null
+                if (!fastModeActive || chosen == null) return@launch
+                fastModeRunPolicy = chosen
+                appendLog("Fast Mode: resolving ${chosen.name.lowercase(Locale.US)} version.", LogLevel.Info)
+                uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
+                fastModeRun(request, chosen)
+            }
+        } else {
+            appendLog(
+                "Fast Mode: auto-searching sources for the ${policy.name.lowercase(Locale.US)} version.",
+                LogLevel.Info
+            )
+            uiState = UiState.FastMode(FastModeProgress(detail = "Auto-searching sources…"))
+            lifecycleScope.launch {
+                fastModeRun(request, policy)
+            }
+        }
+    }
+
+    private fun fastModeChooseVersion(policy: FastModePolicy) {
+        fastModeVersionDecision?.complete(policy)
+    }
+
+    private suspend fun fastModeRun(request: HelperRequest, policy: FastModePolicy) {
+        if (policy == FastModePolicy.LATEST) {
+            fastModeNextLatest(request)
+        } else {
             fastModeNext(request)
         }
     }
@@ -1228,6 +1318,82 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private suspend fun fastModeNextLatest(request: HelperRequest) {
+        val queue = fastModeQueue ?: return
+        while (queue.isNotEmpty()) {
+            if (!fastModeActive) return
+            val source = queue.removeAt(0)
+            appendLog("Fast Mode: fetching latest from ${source.label}...", LogLevel.Info)
+            uiState = UiState.FastMode(
+                FastModeProgress(sourceLabel = source.label, detail = "Checking ${source.label}…")
+            )
+            val candidates = withContext(Dispatchers.IO) {
+                runCatching {
+                    resolveSourceSection(request, source, CandidateOption.LATEST).candidates
+                }.getOrDefault(emptyList())
+            }
+            if (!fastModeActive) return
+            val best = fastModeLatestCandidate(request, candidates)
+            if (best != null) {
+                appendLog(
+                    "Fast Mode: latest ${best.versionDisplay} on ${source.label} " +
+                        "(${best.fileKind.uppercase(Locale.US)})  downloading.",
+                    LogLevel.Info
+                )
+                uiState = UiState.FastMode(
+                    FastModeProgress(
+                        sourceLabel = source.label,
+                        detail = "Found latest ${best.versionDisplay}  downloading…",
+                        percent = 0
+                    )
+                )
+                downloadAndReturn(best)
+                return
+            }
+            appendLog("Fast Mode: no newer latest on ${source.label}.", LogLevel.Info)
+        }
+        fastModeActive = false
+        fastModeQueue = null
+        appendLog("Fast Mode: no source offered a newer version than requested. Use the sources below.", LogLevel.Warning)
+        val activeRequest = request
+        uiState = if (activeRequest != null) {
+            UiState.FastMode(
+                FastModeProgress(
+                    detail = "No source offered a newer version than ${request.requestedVersionLabel}.",
+                    done = true,
+                    succeeded = false,
+                    result = initialCandidateResult(activeRequest)
+                )
+            )
+        } else {
+            UiState.Idle
+        }
+    }
+
+    /**
+     * The newest direct-download candidate a source resolved for [option] LATEST.
+     * Keeps the version strictly newer than the request when a requested version
+     * name is known (so "latest" is only reported when it actually is newer); with
+     * no requested version, returns the newest candidate regardless.
+     */
+    private fun fastModeLatestCandidate(
+        request: HelperRequest,
+        candidates: List<DownloadCandidate>
+    ): DownloadCandidate? {
+        val requested = request.requestedVersionName
+        val newer = candidates
+            .filter { it.directDownload && it.versionName != null }
+            .filter { candidate ->
+                requested == null || compareVersionNames(candidate.versionName, requested) > 0
+            }
+        return newer.maxWithOrNull(
+            Comparator<DownloadCandidate> { a, b ->
+                val byVersion = compareVersionNames(b.versionName, a.versionName)
+                if (byVersion != 0) byVersion else a.sortIndex.compareTo(b.sortIndex)
+            }
+        )
+    }
+
     private suspend fun fastModeFindCandidate(
         request: HelperRequest,
         source: DownloadSource
@@ -1308,7 +1474,8 @@ class MainActivity : ComponentActivity() {
                             sourceLabel = event.candidate.source.label,
                             detail = event.status,
                             percent = pct,
-                            etaMs = event.etaMs
+                            etaMs = event.etaMs,
+                            shaVerified = event.shaVerified
                         )
                     )
                 } else {
@@ -1331,7 +1498,8 @@ class MainActivity : ComponentActivity() {
                     candidate = event.candidate,
                     scanResult = scanResult,
                     detail = detail,
-                    isMalicious = isMalicious
+                    isMalicious = isMalicious,
+                    shaVerified = event.shaVerified
                 )
             }
             is DownloadJobManager.Event.Completed -> {
@@ -1893,6 +2061,27 @@ private fun HelperTheme(
         dark -> darkHelperColorScheme()
         else -> lightHelperColorScheme()
     }
+    // Keep the system bars in sync with the active theme. On Android 15+ (which
+    // enforces edge-to-edge) the appearance flags decide whether the transparent
+    // nav bar renders with light or dark icons; without them some devices default
+    // to a light nav bar even in dark mode. Below Android 15 the bar colors still
+    // apply, so paint them explicitly to match the theme and avoid OEM defaults.
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as? Activity)?.window ?: return@SideEffect
+            WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = !dark
+                isAppearanceLightNavigationBars = !dark
+            }
+            @Suppress("DEPRECATION")
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                val barColor = (if (dark) Color(0xFF0B0C10) else Color(0xFFF7F8FA)).toArgb()
+                window.statusBarColor = barColor
+                window.navigationBarColor = barColor
+            }
+        }
+    }
     MaterialTheme(colorScheme = colorScheme, content = content)
 }
 
@@ -2292,6 +2481,7 @@ private fun HelperScreen(
     onCancelFastMode: () -> Unit,
     onUseFastModeMismatch: () -> Unit,
     onSkipFastModeMismatch: () -> Unit,
+    onChooseVersion: (FastModePolicy) -> Unit,
     onOpenMorphe: () -> Unit,
     onSolveCaptcha: (DownloadCandidate) -> Unit,
     onRequestFileTypeChange: (String) -> Unit,
@@ -2300,6 +2490,7 @@ private fun HelperScreen(
     onSkipScan: () -> Unit
 ) {
     var showSettings by remember { mutableStateOf(false) }
+    var showAppBrowser by remember { mutableStateOf(false) }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
     var primaryAction by remember { mutableStateOf<PrimaryAction?>(null) }
     val context = LocalContext.current
@@ -2316,8 +2507,9 @@ private fun HelperScreen(
         pendingFilePick = candidate
         filePickerLauncher.launch(APK_PICKER_MIME_TYPES)
     }
-    BackHandler(enabled = showSettings) {
+    BackHandler(enabled = showSettings || showAppBrowser) {
         showSettings = false
+        showAppBrowser = false
     }
 
     val flowVisible = request != null &&
@@ -2330,6 +2522,11 @@ private fun HelperScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
+        if (showAppBrowser) {
+            AppBrowserScreen(onBack = { showAppBrowser = false })
+            return@Surface
+        }
+
         if (showSettings) {
             HelperSettingsScreen(
                 settings = settings,
@@ -2433,7 +2630,12 @@ private fun HelperScreen(
             }
 
             if (request == null) {
-                item { EmptyLaunchState(onOpenMorphe) }
+                item {
+                    EmptyLaunchState(
+                        onOpenMorphe = onOpenMorphe,
+                        onFindApps = { showAppBrowser = true }
+                    )
+                }
                 return@LazyColumn
             }
 
@@ -2503,7 +2705,8 @@ private fun HelperScreen(
                             detail = state.detail,
                             isMalicious = state.isMalicious,
                             onProceed = onProceedAfterScan,
-                            onCancel = onCancelAfterScan
+                            onCancel = onCancelAfterScan,
+                            shaVerified = state.shaVerified
                         )
                     }
                     item { VirusTotalQuotaCard(virusTotalApiKey) }
@@ -2520,7 +2723,8 @@ private fun HelperScreen(
                             onSkipWait = onSkipScanWait,
                             onUseMismatch = onUseFastModeMismatch,
                             onSkipMismatch = onSkipFastModeMismatch,
-                            onSkipScan = onSkipScan
+                            onSkipScan = onSkipScan,
+                            onChooseVersion = onChooseVersion
                         )
                     }
                     if (isScanStatus(state.progress.detail)) {
@@ -3219,14 +3423,36 @@ private fun HelperSettingsCard(
             SettingSwitchRow(
                 icon = Icons.Outlined.Bolt,
                 title = "Fast Mode",
-                description = "Auto-find the exact requested version and version code across sources " +
-                    "(APKMirror, Uptodown, APKPure, APKCombo, Aptoide) and return it to Morphe automatically. " +
+                description = "Auto-fetch a version across sources and return it to Morphe automatically. " +
                     "Format differences are allowed.",
                 checked = settings.fastMode,
                 onCheckedChange = {
                     onSettingsChange(settings.copy(fastMode = it))
                 }
             )
+            if (settings.fastMode) {
+                Text(
+                    text = "Which version to fetch",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+                FastModePolicy.entries.forEach { policy ->
+                    SettingsOptionCard(
+                        icon = when (policy) {
+                            FastModePolicy.REQUESTED -> Icons.Outlined.Tune
+                            FastModePolicy.LATEST -> Icons.Outlined.TrendingUp
+                            FastModePolicy.ALWAYS_ASK -> Icons.Outlined.HelpOutline
+                        },
+                        title = policy.title,
+                        description = policy.description,
+                        selected = settings.fastModePolicy == policy,
+                        onClick = {
+                            onSettingsChange(settings.copy(fastModePolicy = policy))
+                        }
+                    )
+                }
+            }
         }
 
         SettingsGroupCard("Logging") {
@@ -3873,7 +4099,10 @@ private fun SourceToggleRow(
 }
 
 @Composable
-private fun EmptyLaunchState(onOpenMorphe: () -> Unit) {
+private fun EmptyLaunchState(
+    onOpenMorphe: () -> Unit,
+    onFindApps: () -> Unit
+) {
     Column(verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)) {
         InfoCard("Open this helper from Morphe Manager when it asks for an original APK.")
         HelperButton(
@@ -3882,6 +4111,846 @@ private fun EmptyLaunchState(onOpenMorphe: () -> Unit) {
             icon = Icons.Outlined.OpenInNew,
             modifier = Modifier.fillMaxWidth()
         )
+        HelperOutlinedButton(
+            text = "Find New Apps",
+            onClick = onFindApps,
+            icon = Icons.Outlined.Explore,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+/** Which slice of the archive list to show. */
+private enum class AppListTab(val label: String, val icon: ImageVector) {
+    All("All", Icons.Outlined.ViewList),
+    // Icon-only (heart) so the neighbouring labels keep more room.
+    Favourites("", Icons.Outlined.FavoriteBorder),
+    Installed("Installed", Icons.Outlined.CheckCircle),
+    NotInstalled("Not installed", Icons.Outlined.Block)
+}
+
+/** How the archive list is ordered. */
+private enum class AppSort(val label: String, val icon: ImageVector, val rotation: Float = 0f) {
+    AZ("A–Z", Icons.Outlined.SortByAlpha),
+    // Same glyph flipped 180° so it reads descending (mirror of A–Z).
+    ZA("Z–A", Icons.Outlined.SortByAlpha, 180f),
+    Sources("Sources", Icons.Outlined.Extension)
+}
+
+/** Compact icon+label pill used for the archive tabs and sort options. */
+@Composable
+private fun CompactPill(
+    label: String,
+    icon: ImageVector,
+    selected: Boolean,
+    onClick: () -> Unit,
+    iconRotation: Float = 0f
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(50)
+    Surface(
+        modifier = Modifier.clip(shape).clickable(onClick = onClick),
+        shape = shape,
+        color = if (selected) colors.primary.copy(alpha = 0.16f) else sourceCardFill(),
+        contentColor = colors.onSurface,
+        border = BorderStroke(
+            width = if (selected) 1.5.dp else 1.dp,
+            color = if (selected) colors.primary else sourceCardBorder()
+        )
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label.ifBlank { null },
+                tint = if (selected) colors.primary else colors.onSurfaceVariant,
+                modifier = Modifier
+                    .size(14.dp)
+                    .rotate(iconRotation)
+            )
+            if (label.isNotBlank()) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Persisted favourites for the "Find New Apps" browser. Survives app
+ * launches so a pinned app stays pinned even as the live index grows.
+ */
+private object MorpheFavourites {
+    private const val PREFS = "morphe_favourites"
+    private const val KEY = "packages"
+
+    fun load(context: Context): Set<String> =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .getStringSet(KEY, emptySet())
+            .orEmpty()
+
+    /** Toggles [packageName] and returns the new set. */
+    fun toggle(context: Context, packageName: String): Set<String> {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val current = prefs.getStringSet(KEY, emptySet()).orEmpty().toMutableSet()
+        if (!current.add(packageName)) current.remove(packageName)
+        prefs.edit().putStringSet(KEY, current).apply()
+        return current
+    }
+}
+
+/** Sticky disclaimer pinned above the archive list. */
+@Composable
+private fun AppDisclaimerBanner() {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
+        color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.22f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.35f))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Top
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Warning,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier.size(18.dp)
+            )
+            Text(
+                text = "Patch index maintained by the community. Use at your own risk. " +
+                    "Community bundles are maintained by their respective authors and are not " +
+                    "individually verified. Morphe and the developer of this app are not " +
+                    "responsible for third-party patches.",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+/**
+ * "Find New Apps" browser: fetches the Morphe archive index live on every
+ * open (never cached), offers a searchable list of all patched apps, and a
+ * per-app detail view with its versions, patches, and source repos.
+ */
+@Composable
+private fun AppBrowserScreen(
+    onBack: () -> Unit
+) {
+    var apps by remember { mutableStateOf<List<ArchiveApp>?>(null) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var query by remember { mutableStateOf("") }
+    var selected by remember { mutableStateOf<ArchiveApp?>(null) }
+    var loadKey by remember { mutableIntStateOf(0) }
+    var tab by remember { mutableStateOf(AppListTab.All) }
+    var sort by remember { mutableStateOf(AppSort.AZ) }
+    val context = LocalContext.current
+    var favourites by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var installedPackages by remember { mutableStateOf<Set<String>>(emptySet()) }
+    LaunchedEffect(Unit) {
+        favourites = MorpheFavourites.load(context)
+        installedPackages = withContext(Dispatchers.IO) {
+            context.packageManager.getInstalledApplications(0)
+                .mapNotNull { it.packageName.takeIf(String::isNotBlank) }
+                .toSet()
+        }
+    }
+
+    LaunchedEffect(loadKey) {
+        apps = null
+        error = null
+        try {
+            apps = MorpheArchive.fetchApps().sortedBy { it.name.lowercase(Locale.US) }
+        } catch (e: Exception) {
+            error = e.message ?: "Failed to load the app index"
+        }
+    }
+
+    // System back (including the TalkBack back gesture) should first leave the
+    // app detail back to the list; only from the list does it close the browser.
+    BackHandler(enabled = selected != null) {
+        selected = null
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(
+                horizontal = HelperDefaults.ContentPadding,
+                vertical = HelperDefaults.ContentPadding
+            ),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                Text(
+                    text = "Find New Apps",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                val current = selected
+                Text(
+                    text = when {
+                        current != null -> current.name
+                        apps != null -> "${apps!!.size} apps with patches"
+                        else -> "Morphe patch archive"
+                    },
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            HelperHeaderIconButton(
+                icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                contentDescription = "Back",
+                onClick = {
+                    if (selected != null) selected = null else onBack()
+                },
+                modifier = Modifier.align(Alignment.CenterStart)
+            )
+            if (selected == null) {
+                HelperHeaderIconButton(
+                    icon = Icons.Outlined.Refresh,
+                    contentDescription = "Refresh",
+                    onClick = { loadKey++ },
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                )
+            }
+        }
+
+        val current = selected
+        if (current != null) {
+            AppDetailView(
+                app = current,
+                onBack = { selected = null },
+                modifier = Modifier.weight(1f)
+            )
+        } else {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                placeholder = {
+                    Text(
+                        "Search apps or packages",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Search,
+                        contentDescription = null
+                    )
+                }
+            )
+
+            val loaded = apps
+            when {
+                error != null -> {
+                    InfoCard(error!!)
+                    HelperButton(
+                        text = "Retry",
+                        onClick = { loadKey++ },
+                        icon = Icons.Outlined.Refresh,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                loaded == null -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 2.dp
+                        )
+                        Spacer(Modifier.width(HelperDefaults.ContentPaddingSmall))
+                        Text(
+                            "Loading app index…",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+                else -> {
+                    AppDisclaimerBanner()
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        AppListTab.entries.forEach { t ->
+                            CompactPill(
+                                label = t.label,
+                                icon = t.icon,
+                                selected = tab == t,
+                                onClick = { tab = t }
+                            )
+                        }
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+                    ) {
+                        AppSort.entries.forEach { s ->
+                            CompactPill(
+                                label = s.label,
+                                icon = s.icon,
+                                selected = sort == s,
+                                onClick = { sort = s },
+                                iconRotation = s.rotation
+                            )
+                        }
+                    }
+                    val filtered = loaded
+                        .filter { app ->
+                            query.isBlank() ||
+                                app.name.contains(query, ignoreCase = true) ||
+                                app.packageName.contains(query, ignoreCase = true)
+                        }
+                        .filter { app ->
+                            when (tab) {
+                                AppListTab.All -> true
+                                AppListTab.Favourites -> app.packageName in favourites
+                                AppListTab.Installed -> app.packageName in installedPackages
+                                AppListTab.NotInstalled -> app.packageName !in installedPackages
+                            }
+                        }
+                        .let { apps ->
+                            when (sort) {
+                                AppSort.AZ -> apps.sortedBy { it.name.lowercase(Locale.US) }
+                                AppSort.ZA -> apps.sortedByDescending { it.name.lowercase(Locale.US) }
+                                AppSort.Sources -> apps.sortedByDescending { it.sourceCount }
+                            }
+                        }
+                    if (filtered.isEmpty()) {
+                        InfoCard(
+                            when (tab) {
+                                AppListTab.Favourites ->
+                                    "No favourites yet. Tap the heart on any app to pin it here."
+                                AppListTab.Installed -> "No patched apps in the index are installed."
+                                AppListTab.NotInstalled ->
+                                    "Every app in the index is installed on this device."
+                                AppListTab.All -> "No apps match \"$query\"."
+                            }
+                        )
+                    } else {
+                        val listState = rememberLazyListState()
+                        Row(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                        ) {
+                            LazyColumn(
+                                state = listState,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight(),
+                                verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                            ) {
+                                items(filtered, key = { it.packageName }) { app ->
+                                    AppBrowserRow(
+                                        app = app,
+                                        favourite = app.packageName in favourites,
+                                        onToggleFavourite = {
+                                            favourites = MorpheFavourites.toggle(context, app.packageName)
+                                        },
+                                        onClick = { selected = app }
+                                    )
+                                }
+                            }
+                            LazyListScrollbar(
+                                listState = listState,
+                                modifier = Modifier.fillMaxHeight()
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppBrowserRow(
+    app: ArchiveApp,
+    favourite: Boolean,
+    onToggleFavourite: () -> Unit,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(HelperDefaults.CompactCornerRadius))
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 12.dp, end = 6.dp, top = 10.dp, bottom = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AppAvatar(
+                packageName = app.packageName,
+                initial = app.name.firstOrNull()?.uppercaseChar() ?: '?'
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = app.name,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = app.packageName,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    text = app.sourceCount.toString(),
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = if (app.sourceCount == 1) "source" else "sources",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Icon(
+                imageVector = if (favourite) {
+                    Icons.Filled.Favorite
+                } else {
+                    Icons.Outlined.FavoriteBorder
+                },
+                contentDescription = if (favourite) "Remove from favourites" else "Add to favourites",
+                tint = if (favourite) {
+                    MaterialTheme.colorScheme.error
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(50))
+                    .clickable(onClick = onToggleFavourite)
+                    .padding(6.dp)
+            )
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+/**
+ * Small async image loader for source avatars: fetches the URL off the main
+ * thread and falls back to a letter tile while loading / on failure.
+ */
+@Composable
+private fun AsyncAvatar(
+    url: String?,
+    fallbackText: String,
+    size: Dp = 20.dp,
+    cornerRadius: Dp = 6.dp
+) {
+    var bitmap by remember(url) { mutableStateOf<ImageBitmap?>(null) }
+    LaunchedEffect(url) {
+        bitmap = if (url == null) {
+            null
+        } else {
+            withContext(Dispatchers.IO) {
+                runCatching {
+                    val request = Request.Builder()
+                        .url(url)
+                        .header(
+                            "User-Agent",
+                            "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Mobile Safari/537.36"
+                        )
+                        .build()
+                    MorpheArchive.http.newCall(request).execute().use { response ->
+                        if (!response.isSuccessful) return@use null
+                        response.body?.bytes()?.let { bytes ->
+                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        }?.asImageBitmap()
+                    }
+                }.getOrNull()
+            }
+        }
+    }
+    if (bitmap != null) {
+        Image(
+            bitmap = bitmap!!,
+            contentDescription = null,
+            modifier = Modifier
+                .size(size)
+                .clip(RoundedCornerShape(cornerRadius))
+        )
+    } else {
+        Box(
+            modifier = Modifier
+                .size(size)
+                .clip(RoundedCornerShape(cornerRadius))
+                .background(MaterialTheme.colorScheme.primaryContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = fallbackText,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+/**
+ * Opens a Morphe "add-source" deep link. The manager's intent filter for
+ * https://morphe.software/add-source has no autoVerify, and on Android 12+
+ * unverified https apps are hidden from the implicit resolver (so the browser
+ * would win). Pinning the package restores the direct handoff to Morphe.
+ */
+private fun openAddSource(context: Context, addUrl: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(addUrl))
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val manager = MORPHE_MANAGER_PACKAGES.firstOrNull { pkg ->
+        runCatching {
+            context.packageManager.queryIntentActivities(intent.setPackage(pkg), 0).isNotEmpty()
+        }.getOrDefault(false)
+    }
+    if (manager != null) intent.setPackage(manager)
+    runCatching { context.startActivity(intent) }
+}
+
+@Composable
+private fun AppDetailView(
+    app: ArchiveApp,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val openUrl: (String) -> Unit = { url ->
+        runCatching {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+    ) {
+        item {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(HelperDefaults.CardCornerRadius),
+                color = sourceCardFill(),
+                border = BorderStroke(1.dp, sourceCardBorder())
+            ) {
+                Row(
+                    modifier = Modifier.padding(HelperDefaults.ContentPadding),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AppAvatar(
+                        packageName = app.packageName,
+                        initial = app.name.firstOrNull()?.uppercaseChar() ?: '?'
+                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = app.name,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = app.packageName,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = buildString {
+                                append("${app.sourceCount} ")
+                                append(if (app.sourceCount == 1) "source" else "sources")
+                                if (app.versions.isNotEmpty()) {
+                                    append(" · ${app.versions.size} ")
+                                    append(if (app.versions.size == 1) "version" else "versions")
+                                }
+                            },
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    // Open the Play Store listing, same as the Play source's
+                    // action, so users can see the official page for the app.
+                    Icon(
+                        imageVector = Icons.Outlined.Storefront,
+                        contentDescription = "Open in Play Store",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable {
+                                context.openPlayStoreListing(app.packageName, playStoreUrl(app.packageName))
+                            }
+                            .padding(10.dp)
+                    )
+                }
+            }
+        }
+        if (app.versions.isNotEmpty()) {
+            item {
+                SectionTitle("Versions")
+                Text(
+                    text = app.versions.joinToString(),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+        if (app.sources.isEmpty()) {
+            item { InfoCard("No patch sources listed for this app.") }
+        } else {
+            item {
+                SectionTitle("Sources")
+            }
+            items(app.sources, key = { it.repo }) { source ->
+                AppSourceCard(
+                    source = source,
+                    onOpenUrl = openUrl,
+                    onAddToMorphe = { openAddSource(context, it) }
+                )
+            }
+        }
+    }
+}
+
+/**
+ * One patch source with its own collapsible patch list (collapsed by default)
+ * so patches are clearly attributed to the repo that ships them. The
+ * Add-to-Morphe / Open-repo actions stay visible whether or not it's expanded.
+ */
+@Composable
+private fun AppSourceCard(
+    source: ArchiveSource,
+    onOpenUrl: (String) -> Unit,
+    onAddToMorphe: (String) -> Unit
+) {
+    var expanded by remember(source.repo) { mutableStateOf(false) }
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius),
+        color = sourceCardFill(),
+        border = BorderStroke(1.dp, sourceCardBorder())
+    ) {
+        Column(
+            modifier = Modifier.padding(vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded }
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AsyncAvatar(
+                    url = MorpheArchive.avatarUrlFor(source),
+                    fallbackText = source.repo.firstOrNull()?.uppercaseChar()?.toString() ?: "?",
+                    size = 28.dp,
+                    cornerRadius = 8.dp
+                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = source.repo,
+                        fontWeight = FontWeight.Bold,
+                        color = colors.onSurface,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "${source.patches.size} " +
+                            (if (source.patches.size == 1) "patch" else "patches"),
+                        color = colors.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                Icon(
+                    imageVector = if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                    contentDescription = if (expanded) "Collapse patches" else "Expand patches",
+                    tint = colors.onSurfaceVariant
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ContentPaddingSmall)
+            ) {
+                source.addUrl?.takeIf { it.isNotBlank() }?.let { addUrl ->
+                    SourceActionButton(
+                        text = "Add to Morphe",
+                        icon = Icons.Outlined.Add,
+                        outlined = false,
+                        onClick = { onAddToMorphe(addUrl) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                source.webUrl?.takeIf { it.isNotBlank() }?.let { webUrl ->
+                    SourceActionButton(
+                        text = "Open repo",
+                        icon = Icons.Outlined.OpenInNew,
+                        outlined = true,
+                        onClick = { onOpenUrl(webUrl) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+            AnimatedExpand(visible = expanded) {
+                Column(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (source.patches.isEmpty()) {
+                        Text(
+                            "No patches listed for this source.",
+                            color = colors.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    } else {
+                        val longList = source.patches.size > 5
+                        val patchesScroll = rememberScrollState()
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .heightIn(max = if (longList) 240.dp else Dp.Unspecified)
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .then(
+                                            if (longList) Modifier.verticalScroll(patchesScroll) else Modifier
+                                        ),
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    source.patches.forEach { patch ->
+                                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                            Row(
+                                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.Extension,
+                                                    contentDescription = null,
+                                                    tint = colors.primary,
+                                                    modifier = Modifier.size(16.dp)
+                                                )
+                                                Text(
+                                                    text = patch.name,
+                                                    fontWeight = FontWeight.Bold,
+                                                    color = colors.onSurface,
+                                                    style = MaterialTheme.typography.bodySmall
+                                                )
+                                            }
+                                            patch.description?.takeIf { it.isNotBlank() }?.let { desc ->
+                                                Text(
+                                                    text = desc,
+                                                    color = colors.onSurfaceVariant,
+                                                    style = MaterialTheme.typography.bodySmall
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (longList) {
+                                ScrollStateScrollbar(
+                                    scrollState = patchesScroll,
+                                    modifier = Modifier.fillMaxHeight()
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** Compact action button used in the app-detail source cards. */
+@Composable
+private fun SourceActionButton(
+    text: String,
+    icon: ImageVector,
+    outlined: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(HelperDefaults.CompactCornerRadius)
+    Surface(
+        onClick = onClick,
+        modifier = modifier.height(34.dp).clip(shape),
+        shape = shape,
+        color = if (outlined) Color.Transparent else colors.primary.copy(alpha = 0.22f),
+        contentColor = colors.onSurface,
+        border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.4f))
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (outlined) colors.onSurfaceVariant else colors.primary,
+                modifier = Modifier.size(14.dp)
+            )
+            Spacer(Modifier.width(6.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = colors.onSurface,
+                maxLines = 1
+            )
+        }
     }
 }
 
@@ -4513,6 +5582,117 @@ private fun AppAvatar(packageName: String, initial: Char) {
                 color = Color.White,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+/**
+ * Grabbable scrollbar for a [LazyColumn], rendered in a narrow gutter beside
+ * the list (never overlapping it). The thumb keeps a minimum grab size and
+ * dragging it maps finger travel proportionally across the whole list, so a
+ * long list stays navigable. Compose 1.10 dropped the built-in scrollbar API
+ * from the foundation artifact, so this is a dependency-free re-implementation.
+ */
+@Composable
+private fun LazyListScrollbar(
+    listState: LazyListState,
+    modifier: Modifier = Modifier
+) {
+    val info = listState.layoutInfo
+    val total = info.totalItemsCount
+    val visible = info.visibleItemsInfo.size
+    if (total <= 0 || visible !in 1 until total) return
+    val scope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    var dragStartY by remember { mutableFloatStateOf(0f) }
+    var dragStartIndex by remember { mutableIntStateOf(0) }
+    BoxWithConstraints(modifier = modifier.width(20.dp)) {
+        val containerPx = with(density) { maxHeight.toPx() }
+        val fraction = visible.toFloat() / total.toFloat()
+        val thumbPx = (containerPx * fraction).coerceIn(44f, containerPx)
+        val travelPx = (containerPx - thumbPx).coerceAtLeast(0f)
+        val scrollable = (total - visible).coerceAtLeast(1)
+        val pos = listState.firstVisibleItemIndex.toFloat() / scrollable.toFloat()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(total, visible, travelPx, scrollable) {
+                    detectVerticalDragGestures(
+                        onDragStart = { offset ->
+                            dragStartY = offset.y
+                            dragStartIndex = listState.firstVisibleItemIndex
+                        },
+                        onVerticalDrag = { change, _ ->
+                            val delta = change.position.y - dragStartY
+                            val target = dragStartIndex +
+                                (delta / travelPx * scrollable).toInt()
+                            scope.launch {
+                                listState.scrollToItem(target.coerceIn(0, total - 1))
+                            }
+                        }
+                    )
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .width(3.dp)
+                    .height(with(density) { thumbPx.toDp() })
+                    .offset { IntOffset(0, (travelPx * pos).toInt()) }
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.45f))
+            )
+        }
+    }
+}
+
+/** Same grabbable indicator for a plain vertical [ScrollState] (patch lists). */
+@Composable
+private fun ScrollStateScrollbar(
+    scrollState: ScrollState,
+    modifier: Modifier = Modifier
+) {
+    val maxPx = scrollState.maxValue
+    if (maxPx <= 0) return
+    val scope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    var dragStartY by remember { mutableFloatStateOf(0f) }
+    var dragStartVal by remember { mutableIntStateOf(0) }
+    BoxWithConstraints(modifier = modifier.width(20.dp)) {
+        val containerPx = with(density) { maxHeight.toPx() }
+        val thumbFraction =
+            (containerPx / (containerPx + maxPx.toFloat())).coerceIn(0.1f, 1f)
+        val thumbPx = (containerPx * thumbFraction).coerceIn(44f, containerPx)
+        val travelPx = (containerPx - thumbPx).coerceAtLeast(0f)
+        val pos = scrollState.value.toFloat() / maxPx.toFloat()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(maxPx, travelPx) {
+                    detectVerticalDragGestures(
+                        onDragStart = { offset ->
+                            dragStartY = offset.y
+                            dragStartVal = scrollState.value
+                        },
+                        onVerticalDrag = { change, _ ->
+                            val delta = change.position.y - dragStartY
+                            val target = dragStartVal + (delta / travelPx * maxPx).toInt()
+                            scope.launch {
+                                scrollState.scrollTo(target.coerceIn(0, maxPx))
+                            }
+                        }
+                    )
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .width(3.dp)
+                    .height(with(density) { thumbPx.toDp() })
+                    .offset { IntOffset(0, (travelPx * pos).toInt()) }
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.45f))
             )
         }
     }
@@ -6200,7 +7380,8 @@ private fun FastModeCard(
     onSkipWait: () -> Unit,
     onUseMismatch: () -> Unit,
     onSkipMismatch: () -> Unit,
-    onSkipScan: () -> Unit
+    onSkipScan: () -> Unit,
+    onChooseVersion: (FastModePolicy) -> Unit
 ) {
     HelperCard(cornerRadius = HelperDefaults.SectionCornerRadius) {
         Column(
@@ -6243,7 +7424,96 @@ private fun FastModeCard(
                 },
                 style = MaterialTheme.typography.bodyMedium
             )
-            if (progress.awaitingDecision) {
+            // Persist the SHA-256 verification on the card once the file's
+            // bytes matched the source-published hash (not just the transient
+            // post-download status line).
+            if (progress.shaVerified) {
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                ) {
+                    Box(
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Verified,
+                            contentDescription = "SHA-256 verified",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(15.dp)
+                        )
+                    }
+                }
+            }
+            if (progress.awaitingVersionChoice) {
+                Surface(
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    shape = MaterialTheme.shapes.small
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(HelperDefaults.ContentPadding),
+                        verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Tune,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = progress.versionChoiceDetail
+                                    ?: "Which version should Fast Mode fetch?",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                        progress.versionChoiceRequested?.let { requested ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Requested",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                )
+                                Text(
+                                    text = requested,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                ) {
+                    HelperButton(
+                        text = "Requested version",
+                        onClick = { onChooseVersion(FastModePolicy.REQUESTED) },
+                        modifier = Modifier.weight(1f)
+                    )
+                    HelperButton(
+                        text = "Latest version",
+                        onClick = { onChooseVersion(FastModePolicy.LATEST) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = onCancel,
+                    icon = Icons.Outlined.Close,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (progress.awaitingDecision) {
                 Surface(
                     color = MaterialTheme.colorScheme.errorContainer,
                     contentColor = MaterialTheme.colorScheme.onErrorContainer,
@@ -6592,7 +7862,9 @@ private fun ScanResultCard(
     isMalicious: Boolean,
     onProceed: () -> Unit,
     onCancel: () -> Unit,
-    readOnly: Boolean = false
+    readOnly: Boolean = false,
+    // True if the downloaded file's bytes matched the source-published SHA-256.
+    shaVerified: Boolean = false
 ) {
     val colors = MaterialTheme.colorScheme
     val context = LocalContext.current
@@ -6666,6 +7938,30 @@ private fun ScanResultCard(
                             },
                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp)
                         )
+                    }
+                }
+                if (shaVerified) {
+                    Surface(
+                        shape = RoundedCornerShape(50),
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Verified,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(13.dp)
+                            )
+                            Spacer(Modifier.width(3.dp))
+                            Text(
+                                text = "SHA-256 verified",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
                     }
                 }
             }
@@ -7488,7 +8784,13 @@ internal data class CandidateDownloadFile(
     val fileName: String,
     val size: Long? = null,
     val referer: String? = null,
-    val cookieHeader: String? = null
+    val cookieHeader: String? = null,
+    // The SHA-256 the source publishes for the file, when it does. When set,
+    // the downloaded bytes are checked against it before handoff, catching
+    // corrupted or wrong builds outright instead of only a package/version
+    // mismatch. (Sources that publish it: APKMirror variant page, Uptodown
+    // download page.)
+    val expectedSha256: String? = null
 )
 
 private data class BrowserDownloadCapture(
@@ -7591,22 +8893,14 @@ private sealed interface UiState {
         val candidate: DownloadCandidate,
         val scanResult: VirusTotalScanner.ScanResult,
         val detail: String,
-        val isMalicious: Boolean
+        val isMalicious: Boolean,
+        /** True if the downloaded file's bytes matched the source-published SHA-256. */
+        val shaVerified: Boolean = false
     ) : UiState
     data class ScanAsk(val candidate: DownloadCandidate) : UiState
 }
 
 private enum class FastModeChoice { USE, NEXT }
-
-// Sources Fast Mode skips: they never offer direct downloads (Aurora/Play
-// return installed/Play versions, the downloader services are captcha-gated).
-private val NON_FAST_MODE_SOURCES = setOf(
-    DownloadSource.AURORA,
-    DownloadSource.PLAY,
-    DownloadSource.EVOZI,
-    DownloadSource.MI9,
-    DownloadSource.APK_DOWNLOADER
-)
 
 private sealed interface FastModeFindResult {
     data class Exact(val candidate: DownloadCandidate) : FastModeFindResult
@@ -7626,7 +8920,16 @@ private data class FastModeProgress(
     val result: CandidateResult? = null,
     // Set while Fast Mode waits for the user to accept a version-code mismatch.
     val awaitingDecision: Boolean = false,
-    val mismatchDetail: String? = null
+    val mismatchDetail: String? = null,
+    // True while Fast Mode (ALWAYS_ASK) asks which version to fetch.
+    val awaitingVersionChoice: Boolean = false,
+    val versionChoiceDetail: String? = null,
+    // The requested version shown on the ALWAYS_ASK prompt, so the user can
+    // compare it against the newest version each source offers.
+    val versionChoiceRequested: String? = null,
+    // True once the downloaded file's bytes matched the source-published SHA-256;
+    // shown persistently on the card (not just the transient post-download status).
+    val shaVerified: Boolean = false
 )
 
 internal object DownloadHelperContract {
@@ -7988,9 +9291,20 @@ internal fun fileKindFromUrl(url: String): String {
         .find(decoded)
         ?.groupValues
         ?.getOrNull(1)
+    // Some CDNs expose a bundle only in the path segment rather than the file
+    // name (e.g. APKPure's d.apkpure.com/b/XAPK/<pkg>?versionCode=N), where the
+    // last segment is the package, not the archive. Match those segments too so
+    // an XAPK/APKS/APKM link isn't mislabelled as a plain APK (which later
+    // fails archive validation). Scoped to whole segments to avoid the
+    // apkmirror/dowload.php substring false-positives the extension check
+    // already avoids.
+    val segments = path.split('/').filter { it.isNotBlank() }
+    val segmentKinds = setOf("apks", "apkm", "xapk")
+    val segmentKind = segments.asReversed().firstOrNull { it in segmentKinds }
     return when {
         extension in setOf("apk", "apks", "apkm", "xapk") -> extension
         fileNameKind != null -> fileNameKind
+        segmentKind != null -> segmentKind
         "xapk" in fileName -> "xapk"
         "apks" in fileName -> "apks"
         "apkm" in fileName -> "apkm"
