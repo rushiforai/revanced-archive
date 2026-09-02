@@ -69,13 +69,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Add
@@ -222,7 +222,6 @@ import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
-import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlinx.coroutines.CompletableDeferred
@@ -502,6 +501,14 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        // singleTask routes a launcher-icon tap (bare MAIN intent) to this
+        // existing instance instead of creating a second task. Ignore it and
+        // keep the in-flight request on screen: only a fresh Morphe request
+        // replaces the current session.
+        if (intent.action != DownloadHelperContract.ACTION_DOWNLOAD_ORIGINAL_APK) {
+            installedPackageRefreshToken++
+            return
+        }
         request = HelperRequest.from(intent)
         startRequestLog(request)
         val activeRequest = request
@@ -1488,9 +1495,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
             is DownloadJobManager.Event.ScanAsk -> {
+                // Only the activity that owns this request may show the scan
+                // prompt. A stale instance (no request, or a different
+                // package) must ignore it  and must NOT clear it first, or
+                // the owner's collector would never see it (StateFlow
+                // conflates: a clear before the owner processes the event
+                // swallows it).
+                val activeRequest = request
+                if (activeRequest == null || event.candidate.packageName != activeRequest.packageName) return
                 uiState = UiState.ScanAsk(event.candidate)
             }
             is DownloadJobManager.Event.ScanComplete -> {
+                val activeRequest = request
+                if (activeRequest == null || event.candidate.packageName != activeRequest.packageName) return
                 val scanResult = event.result
                 val isMalicious = scanResult is VirusTotalScanner.ScanResult.Malicious
                 val detail = scanResultDetail(scanResult)
@@ -1544,16 +1561,41 @@ class MainActivity : ComponentActivity() {
                             UiState.Idle
                         }
                     }
+                    // The owner has observed the event; clear it so a future
+                    // activity recreation cannot replay it into a new request
+                    // session.
+                    DownloadJobManager.clearEvent()
+                } else if (event.epoch != DownloadJobManager.currentEpoch) {
+                    // A stale epoch belongs to an earlier session that no live
+                    // activity owns any more. Safe to drop entirely.
+                    appendLog(
+                        "Ignoring download completion for a stale request session " +
+                            "(epoch ${event.epoch}, current ${DownloadJobManager.currentEpoch}).",
+                        LogLevel.Warning
+                    )
+                    if (uiState is UiState.Downloading) {
+                        val activeRequest = request
+                        uiState = if (activeRequest != null) {
+                            UiState.Ready(initialCandidateResult(activeRequest))
+                        } else {
+                            UiState.Idle
+                        }
+                    }
+                    DownloadJobManager.clearEvent()
                 } else {
+                    // Same epoch as the current session, but this instance does
+                    // not own the request (no request, or a different package):
+                    // for example a stale activity living in a separate task
+                    // created from a bare launcher intent. Must ignore WITHOUT
+                    // clearing, or the real owner's collector would never see
+                    // the event (StateFlow conflates: a clear before the owner
+                    // processes it swallows the completion and the file is
+                    // never returned to the caller).
                     appendLog(
                         "Ignoring download completion for a different request session " +
                             "(epoch ${event.epoch}, current ${DownloadJobManager.currentEpoch}).",
                         LogLevel.Warning
                     )
-                    // The stuck-at-100% symptom is gone once a terminal event
-                    // always lands somewhere  but if the UI is still showing a
-                    // stale in-flight download, reset it so the user is never
-                    // left frozen on a progress bar.
                     if (uiState is UiState.Downloading) {
                         val activeRequest = request
                         uiState = if (activeRequest != null) {
@@ -1563,12 +1605,15 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-                // The event has been observed (or discarded)  clear it so a
-                // future activity recreation cannot replay it into a new
-                // request session.
-                DownloadJobManager.clearEvent()
             }
             is DownloadJobManager.Event.Failed -> {
+                // Only the owning activity may act on a failure. A stale
+                // instance (no request, or a different package) must ignore
+                // it  and must NOT clear it first, or the owner's collector
+                // would never see it (StateFlow conflates: a clear before
+                // the owner processes the event swallows it).
+                val failedRequest = request
+                if (failedRequest == null || event.candidate.packageName != failedRequest.packageName) return
                 appendLog(event.message, LogLevel.Error)
                 if (fastModeActive) {
                     val activeRequest = request
@@ -1673,6 +1718,13 @@ class MainActivity : ComponentActivity() {
                 }
             }
             is DownloadJobManager.Event.Cancelled -> {
+                // Only the owning activity may act on a cancellation. A stale
+                // instance (no request, or a different package) must ignore
+                // it  and must NOT clear it first, or the owner's collector
+                // would never see it (StateFlow conflates: a clear before
+                // the owner processes the event swallows it).
+                val cancelledRequest = request
+                if (cancelledRequest == null || event.candidate.packageName != cancelledRequest.packageName) return
                 appendLog("Download cancelled.", LogLevel.Warning)
                 fastModeActive = false
                 fastModeQueue = null
@@ -2073,6 +2125,14 @@ private fun HelperTheme(
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = !dark
                 isAppearanceLightNavigationBars = !dark
+            }
+            // Otherwise the system paints an opaque contrast scrim behind the
+            // bars (set by default on Android 10+), which does not follow the
+            // app background and shows as a lighter status/nav bar border in
+            // dark mode on some devices. Mirrors the PotHelper fix.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isStatusBarContrastEnforced = false
+                window.isNavigationBarContrastEnforced = false
             }
             @Suppress("DEPRECATION")
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
@@ -4260,6 +4320,11 @@ private fun AppBrowserScreen(
     val context = LocalContext.current
     var favourites by remember { mutableStateOf<Set<String>>(emptySet()) }
     var installedPackages by remember { mutableStateOf<Set<String>>(emptySet()) }
+    // Hoisted above the list/detail branch so the scroll position survives
+    // opening an app's details and coming back — remember inside the list
+    // branch would be discarded when the detail view replaces the list.
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         favourites = MorpheFavourites.load(context)
         installedPackages = withContext(Dispatchers.IO) {
@@ -4460,34 +4525,59 @@ private fun AppBrowserScreen(
                             }
                         )
                     } else {
-                        val listState = rememberLazyListState()
-                        Row(
+                        Box(
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxWidth()
                         ) {
-                            LazyColumn(
-                                state = listState,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
-                            ) {
-                                items(filtered, key = { it.packageName }) { app ->
-                                    AppBrowserRow(
-                                        app = app,
-                                        favourite = app.packageName in favourites,
-                                        onToggleFavourite = {
-                                            favourites = MorpheFavourites.toggle(context, app.packageName)
-                                        },
-                                        onClick = { selected = app }
+                            Row(modifier = Modifier.fillMaxSize()) {
+                                LazyColumn(
+                                    state = listState,
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight(),
+                                    // Keep the last row clear of the floating
+                                    // "Go to top" button.
+                                    contentPadding = PaddingValues(bottom = 64.dp),
+                                    verticalArrangement = Arrangement.spacedBy(HelperDefaults.ItemSpacing)
+                                ) {
+                                    items(filtered, key = { it.packageName }) { app ->
+                                        AppBrowserRow(
+                                            app = app,
+                                            favourite = app.packageName in favourites,
+                                            onToggleFavourite = {
+                                                favourites = MorpheFavourites.toggle(context, app.packageName)
+                                            },
+                                            onClick = { selected = app }
+                                        )
+                                    }
+                                }
+                                LazyListScrollbar(
+                                    listState = listState,
+                                    modifier = Modifier.fillMaxHeight()
+                                )
+                            }
+                            // Quick jump back to the top for long catalogs; only
+                            // shown once the user has scrolled down. A clickable
+                            // Surface is natively exposed to TalkBack via the
+                            // icon's contentDescription.
+                            if (listState.firstVisibleItemIndex > 0) {
+                                Surface(
+                                    onClick = { scope.launch { listState.animateScrollToItem(0) } },
+                                    shape = CircleShape,
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomEnd)
+                                        .padding(end = 32.dp, bottom = 20.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.KeyboardArrowUp,
+                                        contentDescription = "Go to top",
+                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        modifier = Modifier.padding(12.dp)
                                     )
                                 }
                             }
-                            LazyListScrollbar(
-                                listState = listState,
-                                modifier = Modifier.fillMaxHeight()
-                            )
                         }
                     }
                 }
@@ -5786,9 +5876,11 @@ private fun SourcePickerFlow(
     }
 
     val initialPage = selectedPagerPage.coerceIn(0, (groups.size - 1).coerceAtLeast(0))
-    val pagerState = rememberPagerState(initialPage = initialPage) { groups.size }
-    LaunchedEffect(pagerState.currentPage) { onPagerPageChanged(pagerState.currentPage) }
-    val scope = rememberCoroutineScope()
+    // Plain state instead of a HorizontalPager: swiping on the page content used
+    // to change the source, which users found accidental. Sources are now only
+    // switched via the dropdown below.
+    var currentPage by rememberSaveable { mutableIntStateOf(initialPage) }
+    SideEffect { onPagerPageChanged(currentPage) }
     var showHowItWorks by remember { mutableStateOf(false) }
     // The source cards collapse by default so the page stays focused on the
     // selected source's content; the SelectedSourceBar below always shows
@@ -5798,7 +5890,7 @@ private fun SourcePickerFlow(
     var subTabBySource by remember { mutableStateOf<Map<DownloadSource, SourceSubTab>>(emptyMap()) }
 
     // Clamp in case a source was disabled while this screen was showing.
-    val currentGroup = groups[pagerState.currentPage.coerceIn(0, groups.lastIndex)]
+    val currentGroup = groups[currentPage.coerceIn(0, groups.lastIndex)]
     val currentSubTab = subTabBySource[currentGroup.source]
         ?: defaultSubTab(currentGroup, request)
 
@@ -5903,15 +5995,9 @@ private fun SourcePickerFlow(
                                 if (index >= 0) {
                                     SourceMenuItem(
                                         source = src,
-                                        selected = index == pagerState.currentPage,
+                                        selected = index == currentPage,
                                         onClick = {
-                                            scope.launch {
-                                                if (abs(index - pagerState.currentPage) <= 1) {
-                                                    pagerState.animateScrollToPage(index)
-                                                } else {
-                                                    pagerState.scrollToPage(index)
-                                                }
-                                            }
+                                            currentPage = index
                                             sourcesExpanded = false
                                         }
                                     )
@@ -5923,34 +6009,22 @@ private fun SourcePickerFlow(
             }
         }
 
-        HorizontalPager(
-            state = pagerState,
-            key = { index -> groups[index].source },
-            // Only compose the current page so the pager's height matches the page on
-            // screen instead of the tallest neighbor (which left dead space on short
-            // pages). Pages are top-aligned so content never floats away from the cards.
-            beyondViewportPageCount = 0,
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier.fillMaxWidth()
-        ) { page ->
-            val group = groups[page]
-            SourcePageContent(
-                request = request,
-                group = group,
-                selectedTab = subTabBySource[group.source] ?: defaultSubTab(group, request),
-                onSelectTab = { tab ->
-                    subTabBySource = subTabBySource + (group.source to tab)
-                },
-                onResolve = onResolve,
-                onDownload = onDownload,
-                onPickDownloadedFile = onPickDownloadedFile,
-                onUseInstalledApp = onUseInstalledApp,
-                onSolveCaptcha = onSolveCaptcha,
-                onVersionHistory = onVersionHistory,
-                onDownloadVersion = onDownloadVersion,
-                installedPackageRefreshToken = installedPackageRefreshToken
-            )
-        }
+        SourcePageContent(
+            request = request,
+            group = currentGroup,
+            selectedTab = subTabBySource[currentGroup.source] ?: defaultSubTab(currentGroup, request),
+            onSelectTab = { tab ->
+                subTabBySource = subTabBySource + (currentGroup.source to tab)
+            },
+            onResolve = onResolve,
+            onDownload = onDownload,
+            onPickDownloadedFile = onPickDownloadedFile,
+            onUseInstalledApp = onUseInstalledApp,
+            onSolveCaptcha = onSolveCaptcha,
+            onVersionHistory = onVersionHistory,
+            onDownloadVersion = onDownloadVersion,
+            installedPackageRefreshToken = installedPackageRefreshToken
+        )
     }
 }
 
@@ -7054,7 +7128,7 @@ private fun RequestLogsCard(
                 onClick = {
                     val share = Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
-                        putExtra(Intent.EXTRA_SUBJECT, "APK Download Helper logs")
+                        putExtra(Intent.EXTRA_SUBJECT, "Helper for Morphe logs")
                         putExtra(Intent.EXTRA_TEXT, AppLog.exportText())
                     }
                     context.startActivity(Intent.createChooser(share, "Share logs"))
@@ -7945,21 +8019,15 @@ private fun ScanResultCard(
                         shape = RoundedCornerShape(50),
                         color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp)
+                        Box(
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp),
+                            contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Verified,
-                                contentDescription = null,
+                                contentDescription = "SHA-256 verified",
                                 tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(13.dp)
-                            )
-                            Spacer(Modifier.width(3.dp))
-                            Text(
-                                text = "SHA-256 verified",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                modifier = Modifier.size(15.dp)
                             )
                         }
                     }

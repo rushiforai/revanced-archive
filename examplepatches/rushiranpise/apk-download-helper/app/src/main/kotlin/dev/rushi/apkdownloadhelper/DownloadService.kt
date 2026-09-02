@@ -1059,7 +1059,7 @@ internal fun Context.copyToDownloads(file: File): Uri {
         val values = ContentValues().apply {
             put(MediaStore.Downloads.DISPLAY_NAME, file.name)
             put(MediaStore.Downloads.MIME_TYPE, file.mimeType())
-            put(MediaStore.Downloads.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/APK Download Helper")
+            put(MediaStore.Downloads.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/Helper for Morphe")
             put(MediaStore.Downloads.IS_PENDING, 1)
         }
         val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
@@ -1081,7 +1081,7 @@ internal fun Context.copyToDownloads(file: File): Uri {
     } else {
         val downloadsDir = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "APK Download Helper"
+            "Helper for Morphe"
         ).apply { mkdirs() }
         val output = downloadsDir.uniqueChild(file.name)
         file.copyTo(output, overwrite = false)
@@ -1160,6 +1160,28 @@ internal fun validateDownloadedArtifact(
             metadata.versionCode !in requestedCodes
         ) {
             throw VersionCodeMismatchException(file, metadata.versionCode)
+        }
+    }
+
+    // Fast Mode "Latest" must never hand over a file that is not actually
+    // newer than the requested version. The downloaded APK's real manifest is
+    // the ground truth here: the source page's version can be misparsed (e.g.
+    // an app slug ending in a digit leaking into the version), which would
+    // make an older build pass the "newer than requested" gate. Delete and
+    // fail loudly instead of delivering an older APK labelled "latest".
+    if (checkVersionCode && candidate.option == CandidateOption.LATEST) {
+        val requestedName = request.requestedVersionName
+        val foundName = metadata.versionName
+        if (
+            requestedName != null &&
+            foundName != null &&
+            compareVersionNames(foundName, requestedName) <= 0
+        ) {
+            file.delete()
+            throw IllegalStateException(
+                "Downloaded \"latest\" version $foundName is not newer than " +
+                    "requested $requestedName. Deleted the file."
+            )
         }
     }
 }
