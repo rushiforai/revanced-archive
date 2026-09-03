@@ -4,7 +4,6 @@ import app.morphe.extension.youtube.patches.components.PlaybackSpeedMenuFilter
 import app.morphe.extension.youtube.patches.playback.speed.CustomPlaybackSpeedPatch
 import app.morphe.extension.youtube.patches.playback.speed.CustomPlaybackSpeedPatch.customPlaybackSpeeds
 import de.robv.android.xposed.XC_MethodReplacement
-import io.github.nexalloy.invokeOriginalMethod
 import io.github.nexalloy.morphe.shared.misc.litho.filter.addLithoFilter
 import io.github.nexalloy.morphe.shared.misc.settings.preference.InputType
 import io.github.nexalloy.morphe.shared.misc.settings.preference.SwitchPreference
@@ -30,6 +29,8 @@ val CustomPlaybackSpeed = patch(
         listOf(
             SwitchPreference("morphe_custom_speed_menu"),
             // SwitchPreference("morphe_restore_old_speed_menu"),
+            SwitchPreference("morphe_enable_playback_audio_pitch_controls"),
+            SwitchPreference("morphe_playback_audio_time_stretching", summary = true),
             TextPreference(
                 "morphe_custom_playback_speeds",
                 inputType = InputType.TEXT_MULTI_LINE

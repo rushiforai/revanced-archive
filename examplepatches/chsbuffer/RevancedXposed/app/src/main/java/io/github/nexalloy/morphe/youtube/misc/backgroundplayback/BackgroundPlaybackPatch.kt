@@ -6,7 +6,9 @@ import io.github.nexalloy.morphe.shared.misc.settings.preference.SwitchPreferenc
 import io.github.nexalloy.morphe.youtube.insertLiteralOverride
 import io.github.nexalloy.morphe.youtube.misc.playservice.VersionCheck
 import io.github.nexalloy.morphe.youtube.misc.playservice.is_20_29_or_greater
+import io.github.nexalloy.morphe.youtube.misc.playservice.is_20_49_or_greater
 import io.github.nexalloy.morphe.youtube.misc.playservice.is_21_04_or_greater
+import io.github.nexalloy.morphe.youtube.misc.playservice.is_21_15_or_greater
 import io.github.nexalloy.morphe.youtube.misc.playservice.is_21_21_or_greater
 import io.github.nexalloy.morphe.youtube.misc.settings.PreferenceScreen
 import io.github.nexalloy.patch
@@ -40,15 +42,26 @@ val BackgroundPlayback = patch(
     // Enable background playback option in YouTube settings
     ::backgroundPlaybackSettingsSubFingerprint.hookMethod(returnConstant(true))
 
+    // Prevents playback from resuming if it was interrupted from the notification
+    // and the app was subsequently brought to the foreground.
+    if (is_21_15_or_greater) {
+        insertLiteralOverride(45770945L, BackgroundPlaybackPatch::isAutomaticForegroundPlaybackAllowed)
+    }
+
+    // Prevents playback from pausing when the overlay video settings is invoked.
+    if (is_20_49_or_greater) {
+        insertLiteralOverride(45741823L, BackgroundPlaybackPatch::isAutomaticPlaybackPauseInFlyout)
+    }
+
     // Force allowing background play for Shorts.
-    ShortsBackgroundPlaybackFeatureFlagFingerprint.hookMethod(returnConstant(true))
+    insertLiteralOverride(45415425, true)
 
     // Force allowing background play for videos labeled for kids.
     KidsBackgroundPlaybackPolicyControllerFingerprint.hookMethod(returnConstant(Unit))
 
     // Fix PiP buttons not working after locking/unlocking device screen.
     if (!is_21_21_or_greater) {
-        insertLiteralOverride(PIP_INPUT_CONSUMER_FEATURE_FLAG)
+        insertLiteralOverride(45638483L)
     }
 
     if (is_20_29_or_greater) {

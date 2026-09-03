@@ -73,6 +73,14 @@ android {
             }
         }
     }
+
+    packaging {
+        resources {
+            merges += "META-INF/xposed/*"
+//            excludes += "**"
+        }
+    }
+
     lint {
         checkReleaseBuilds = false
     }
@@ -145,7 +153,8 @@ dependencies {
     testImplementation(libs.jadx.core)
     testImplementation(libs.slf4j.simple)
     debugImplementation(kotlin("reflect"))
-    compileOnly(libs.xposed)
+    compileOnly(libs.libxposed.api)
+    implementation(libs.libxposed.service)
 //    implementation(project(":extensions"))
     compileOnly(project(":stub"))
     implementation(libs.androidx.javascriptengine)
@@ -282,6 +291,7 @@ abstract class CopyResourcesTask @Inject constructor() : DefaultTask() {
             "downloads/drawable" to null,
             "speedbutton/drawable" to null,
             "navigationbuttons/drawable" to null,
+            "speed/drawable" to null,
         )
 
         for ((resourcePath, excludes) in resourcePaths) {
