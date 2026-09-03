@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02 02:35 UTC",
+  "generatedAt": "2026-09-03 02:54 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 700,
-  "patchCount": 2849,
-  "universalPatchCount": 478,
+  "appCount": 702,
+  "patchCount": 2862,
+  "universalPatchCount": 479,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -181,12 +181,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.4.8 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.4.9 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.3.0 (Fixes #9)"
+            "text": "Support SofaTime v1.3.1 (Fixes #10)"
           }
         ]
       },
@@ -1854,58 +1854,54 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.12.1 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**velov:** Block data collection : better Matomo optout"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**Citymapper:** support for 11.57.1"
           },
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**velov:** Hide onboarding screen crash app after log out"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**velov:** Use multiple devices"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**Citymapper:** support for 11.57.2"
           }
         ]
       },
       "apps": [
         {
-          "name": "com.citymapper.app.release",
+          "name": "Citymapper",
           "packageName": "com.citymapper.app.release",
           "patchCount": 2,
           "iconUrl": "",
-          "iconColor": ""
+          "iconColor": "#37AA2F"
         },
         {
-          "name": "com.jcdecaux.vls.lyon",
-          "packageName": "com.jcdecaux.vls.lyon",
-          "patchCount": 8,
-          "iconUrl": "",
-          "iconColor": ""
-        },
-        {
-          "name": "ee.dustland.android.dustlandsudoku",
-          "packageName": "ee.dustland.android.dustlandsudoku",
-          "patchCount": 3,
-          "iconUrl": "",
-          "iconColor": ""
-        },
-        {
-          "name": "ee.dustland.android.minesweeper",
+          "name": "Minesweeper The Clean One",
           "packageName": "ee.dustland.android.minesweeper",
           "patchCount": 2,
           "iconUrl": "",
-          "iconColor": ""
+          "iconColor": "#3C3C3C"
         },
         {
-          "name": "ee.dustland.android.solitaire",
+          "name": "Solitaire The Clean One",
           "packageName": "ee.dustland.android.solitaire",
           "patchCount": 2,
           "iconUrl": "",
-          "iconColor": ""
+          "iconColor": "#3C3C3C"
+        },
+        {
+          "name": "Sudoku The Clean One",
+          "packageName": "ee.dustland.android.dustlandsudoku",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#3C3C3C"
+        },
+        {
+          "name": "V\u00e9lo'v",
+          "packageName": "com.jcdecaux.vls.lyon",
+          "patchCount": 8,
+          "iconUrl": "",
+          "iconColor": "#F42F34"
         }
       ]
     },
@@ -2793,19 +2789,19 @@
       "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
       "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
-      "patchCount": 78,
-      "appCount": 104,
+      "patchCount": 81,
+      "appCount": 106,
       "createdAt": 1785034851561,
       "updatedAt": 1785034851561,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.20.0 (2026-08-30)",
-        "date": "2026-08-30",
+        "title": "1.21.0 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "update & fix"
+            "text": "Update"
           }
         ]
       },
@@ -3147,6 +3143,13 @@
           "iconColor": "#023C69"
         },
         {
+          "name": "Droplert",
+          "packageName": "com.shahzaman.pricetracker",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#DE5C53"
+        },
+        {
           "name": "EOBD Facile",
           "packageName": "org.eobdfacile.android",
           "patchCount": 1,
@@ -3166,6 +3169,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#F16522"
+        },
+        {
+          "name": "Fylo \u2014 File Manager",
+          "packageName": "com.aeroloom.fylofilemanager",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#3DDC84"
         },
         {
           "name": "Gboard",
@@ -3921,12 +3931,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.1.1 (2026-07-15)",
-        "date": "2026-07-15",
+        "title": "1.1.2 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**sankaku:** add support for 4.25-rc93 (4f1d854), closes #37517 #19483"
+            "text": "**sankaku:** add support for 4.26-rc96 (dd2b334), closes #19759"
           }
         ]
       },
@@ -4578,24 +4588,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.14.0 (2026-08-30)",
-        "date": "2026-08-30",
+        "title": "1.14.1 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-          },
-          {
-            "category": "New Features",
-            "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-          },
-          {
-            "category": "New Features",
-            "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-          },
-          {
-            "category": "New Features",
-            "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+            "text": "**Proton Mail:** apply the patches on any app version"
           }
         ]
       },
@@ -5015,23 +5013,23 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 39,
+      "patchCount": 40,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "3.9.0 (2026-09-01)",
-        "date": "2026-09-01",
+        "title": "3.10.0 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Simple Calculator patch. Enter an expression directly to display both the expression and its result in Gboard's suggestion strip."
+            "text": "**Gboard:** add the Backup & Restore patch for exporting and restoring all patch settings, and for backing up, comparing, and restoring Gboard's PB/XML flag stores."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Simple Calculator Patch\uff1b\u76f4\u63a5\u8f38\u5165\u7b97\u5f0f\uff0c\u5373\u53ef\u5728 Gboard \u63a8\u85a6\u5217\u986f\u793a\u7b97\u5f0f\u8207\u8a08\u7b97\u7d50\u679c\u3002"
+            "text": "**Gboard:** \u65b0\u589e Backup & Restore Patch\uff0c\u53ef\u532f\u51fa\u8207\u9084\u539f\u6240\u6709 Patch \u8a2d\u5b9a\uff0c\u4e26\u652f\u63f4\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard \u7684 PB/XML flag store\u3002"
           }
         ]
       },
@@ -5039,7 +5037,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 39,
+          "patchCount": 40,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -9744,19 +9742,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 137,
+      "patchCount": 146,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.1.8 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.1.9 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.40.0"
+            "text": "Sync upstream Morphe patches v1.41.0"
           }
         ]
       },
@@ -9771,14 +9769,14 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 76,
+          "patchCount": 82,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
         {
           "name": "YouTube Music",
           "packageName": "com.google.android.apps.youtube.music",
-          "patchCount": 39,
+          "patchCount": 42,
           "iconUrl": "",
           "iconColor": "#FF0000"
         }
@@ -10194,12 +10192,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.7 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.12.9 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.7001-rustore"
+            "text": "**wildberries:** support version 7.7.8001-rustore"
           }
         ]
       },
@@ -11455,12 +11453,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -11583,12 +11581,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -12016,24 +12014,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -12250,24 +12236,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -13583,12 +13557,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -13641,12 +13615,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -13970,12 +13944,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -14317,24 +14291,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -14548,12 +14510,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -14643,12 +14605,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -14812,12 +14774,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15007,12 +14969,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.7 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.12.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.7001-rustore"
+                "text": "**wildberries:** support version 7.7.8001-rustore"
               }
             ]
           },
@@ -15062,7 +15024,8 @@
             "230.0",
             "230.5",
             "231.0",
-            "231.5"
+            "231.5",
+            "232.0"
           ]
         }
       ],
@@ -15115,7 +15078,8 @@
         "230.0",
         "230.5",
         "231.0",
-        "231.5"
+        "231.5",
+        "232.0"
       ],
       "iconColor": "#00AAFF",
       "iconUrl": ""
@@ -15292,12 +15256,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15350,12 +15314,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15408,12 +15372,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15466,12 +15430,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15524,12 +15488,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15582,12 +15546,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15640,12 +15604,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15698,12 +15662,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15756,12 +15720,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15872,12 +15836,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15930,12 +15894,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -15988,12 +15952,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -16046,12 +16010,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -16104,12 +16068,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -16162,12 +16126,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -17391,12 +17355,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -17851,12 +17815,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -19549,12 +19513,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -19993,12 +19957,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -20051,12 +20015,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -20109,12 +20073,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -20167,12 +20131,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -20834,12 +20798,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -20892,12 +20856,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -21002,6 +20966,130 @@
         "0.1307.0"
       ],
       "iconColor": "#0066FF",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.citymapper.app.release",
+      "name": "Citymapper",
+      "repos": [
+        "cesbar/zpatches",
+        "rushiranpise/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.1"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.2"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-citymapper-app-release-cesbar-zpatches",
+            "releaseTag": "app-com-citymapper-app-release-cesbar-zpatches",
+            "assetName": "citymapper-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Club",
+              "description": "Enable Citymapper Club subscription"
+            },
+            {
+              "name": "Google Maps API key",
+              "description": "Use a different Google Maps API key to fix modified apps"
+            }
+          ],
+          "versions": [
+            "11.57.2"
+          ]
+        },
+        {
+          "repo": "rushiranpise/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/rushiranpise/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=rushiranpise/morphe-patches",
+          "source": "https://raw.githubusercontent.com/rushiranpise/morphe-patches/refs/heads/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/rushiranpise/morphe-patches/refs/heads/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/rushiranpise.png?size=96",
+          "latestChanges": {
+            "title": "1.21.4 (2026-09-01)",
+            "date": "2026-09-01",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove drivvo"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove pixel patches"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove tradingview"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove universal patches"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-citymapper-app-release-rushiranpise-morphe-patches",
+            "releaseTag": "app-com-citymapper-app-release-rushiranpise-morphe-patches",
+            "assetName": "citymapper-rushiranpise-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock Club",
+              "description": "Unlocks Citymapper Club Membership. Note: requires a manual purchase attempt inside the app."
+            }
+          ],
+          "versions": [
+            "11.57.2"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Club",
+        "Google Maps API key",
+        "Unlock Club"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Club",
+          "description": "Enable Citymapper Club subscription"
+        },
+        {
+          "name": "Google Maps API key",
+          "description": "Use a different Google Maps API key to fix modified apps"
+        },
+        {
+          "name": "Unlock Club",
+          "description": "Unlocks Citymapper Club Membership. Note: requires a manual purchase attempt inside the app."
+        }
+      ],
+      "versions": [
+        "11.57.2"
+      ],
+      "iconColor": "#37AA2F",
       "iconUrl": ""
     },
     {
@@ -21374,12 +21462,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -22316,132 +22404,6 @@
         "16.8.0"
       ],
       "iconColor": "",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "com.citymapper.app.release",
-      "name": "com.citymapper.app.release",
-      "repos": [
-        "cesbar/zpatches",
-        "rushiranpise/morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "cesbar/zpatches",
-          "host": "github.com",
-          "webUrl": "https://github.com/cesbar/zpatches",
-          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
-          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/cesbar.png?size=96",
-          "latestChanges": {
-            "title": "1.12.0 (2026-08-12)",
-            "date": "2026-08-12",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Block data collection : better Matomo optout"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Hide onboarding screen crash app after log out"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**velov:** Use multiple devices"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-citymapper-app-release-cesbar-zpatches",
-            "releaseTag": "app-com-citymapper-app-release-cesbar-zpatches",
-            "assetName": "com-citymapper-app-release-cesbar-zpatches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Enable Club",
-              "description": "Enable Citymapper Club subscription"
-            },
-            {
-              "name": "Google Maps API key",
-              "description": "Use a different Google Maps API key to fix modified apps"
-            }
-          ],
-          "versions": []
-        },
-        {
-          "repo": "rushiranpise/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/rushiranpise/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=rushiranpise/morphe-patches",
-          "source": "https://raw.githubusercontent.com/rushiranpise/morphe-patches/refs/heads/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/rushiranpise/morphe-patches/refs/heads/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/rushiranpise.png?size=96",
-          "latestChanges": {
-            "title": "1.21.4 (2026-09-01)",
-            "date": "2026-09-01",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove drivvo"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove pixel patches"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove tradingview"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove universal patches"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-citymapper-app-release-rushiranpise-morphe-patches",
-            "releaseTag": "app-com-citymapper-app-release-rushiranpise-morphe-patches",
-            "assetName": "com-citymapper-app-release-rushiranpise-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Unlock Club",
-              "description": "Unlocks Citymapper Club Membership. Note: requires a manual purchase attempt inside the app."
-            }
-          ],
-          "versions": [
-            "11.57.2"
-          ]
-        }
-      ],
-      "patches": [
-        "Enable Club",
-        "Google Maps API key",
-        "Unlock Club"
-      ],
-      "patchDetails": [
-        {
-          "name": "Enable Club",
-          "description": "Enable Citymapper Club subscription"
-        },
-        {
-          "name": "Google Maps API key",
-          "description": "Use a different Google Maps API key to fix modified apps"
-        },
-        {
-          "name": "Unlock Club",
-          "description": "Unlocks Citymapper Club Membership. Note: requires a manual purchase attempt inside the app."
-        }
-      ],
-      "versions": [
-        "11.57.2"
-      ],
-      "iconColor": "#00A862",
       "iconUrl": ""
     },
     {
@@ -23797,12 +23759,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -23854,16 +23816,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "3.9.0 (2026-09-01)",
-            "date": "2026-09-01",
+            "title": "3.10.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Simple Calculator patch. Enter an expression directly to display both the expression and its result in Gboard's suggestion strip."
+                "text": "**Gboard:** add the Backup & Restore patch for exporting and restoring all patch settings, and for backing up, comparing, and restoring Gboard's PB/XML flag stores."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Simple Calculator Patch\uff1b\u76f4\u63a5\u8f38\u5165\u7b97\u5f0f\uff0c\u5373\u53ef\u5728 Gboard \u63a8\u85a6\u5217\u986f\u793a\u7b97\u5f0f\u8207\u8a08\u7b97\u7d50\u679c\u3002"
+                "text": "**Gboard:** \u65b0\u589e Backup & Restore Patch\uff0c\u53ef\u532f\u51fa\u8207\u9084\u539f\u6240\u6709 Patch \u8a2d\u5b9a\uff0c\u4e26\u652f\u63f4\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard \u7684 PB/XML flag store\u3002"
               }
             ]
           },
@@ -23890,6 +23852,10 @@
             {
               "name": "AI Writing Tools",
               "description": "\u555f\u7528 AI \u64b0\u5beb\u5de5\u5177\uff0c\u652f\u63f4\u6240\u6709\u8a9e\u8a00\nEnable AI writing tools with support for all languages."
+            },
+            {
+              "name": "Backup & Restore",
+              "description": "\u532f\u51fa\u6216\u9084\u539f\u5168\u90e8 Patches \u8a2d\u5b9a\uff0c\u4e26\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard PB/XML flag store\nExport or restore all Patches settings, and back up, compare, or restore the Gboard PB/XML flag store."
             },
             {
               "name": "Change emoji size",
@@ -24137,6 +24103,7 @@
         "AI Writing Tools",
         "Always incognito mode",
         "Always-incognito mode",
+        "Backup & Restore",
         "Block tracking and analytics",
         "Change emoji size",
         "Change package name",
@@ -24210,6 +24177,10 @@
         {
           "name": "Always-incognito mode",
           "description": "Always opens Gboard in incognito mode to disable typing history collection and personalization."
+        },
+        {
+          "name": "Backup & Restore",
+          "description": "\u532f\u51fa\u6216\u9084\u539f\u5168\u90e8 Patches \u8a2d\u5b9a\uff0c\u4e26\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard PB/XML flag store\nExport or restore all Patches settings, and back up, compare, or restore the Gboard PB/XML flag store."
         },
         {
           "name": "Block tracking and analytics",
@@ -24639,135 +24610,6 @@
         }
       ],
       "versions": [],
-      "iconColor": "",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "com.jcdecaux.vls.lyon",
-      "name": "com.jcdecaux.vls.lyon",
-      "repos": [
-        "cesbar/zpatches"
-      ],
-      "sources": [
-        {
-          "repo": "cesbar/zpatches",
-          "host": "github.com",
-          "webUrl": "https://github.com/cesbar/zpatches",
-          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
-          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/cesbar.png?size=96",
-          "latestChanges": {
-            "title": "1.12.0 (2026-08-12)",
-            "date": "2026-08-12",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Block data collection : better Matomo optout"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Hide onboarding screen crash app after log out"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**velov:** Use multiple devices"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-jcdecaux-vls-lyon-cesbar-zpatches",
-            "releaseTag": "app-com-jcdecaux-vls-lyon-cesbar-zpatches",
-            "assetName": "com-jcdecaux-vls-lyon-cesbar-zpatches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Block data collection",
-              "description": "Block Didomi & Matomo tracking SDKs, hide consent prompts for 3rd party & geolocation data"
-            },
-            {
-              "name": "Disable map animations",
-              "description": "Disable the map zoom-in animation"
-            },
-            {
-              "name": "Easy deeplinks configuration",
-              "description": "Allows easy configuration of deeplinks (velov.cyclocity.fr, velov.grandlyon.com) required by the app to sign-in"
-            },
-            {
-              "name": "Google Maps API key",
-              "description": "Use a different Google Maps API key to fix modified apps"
-            },
-            {
-              "name": "Hide onboarding screen",
-              "description": "Hide the onboarding \"Plan you journey\" screen"
-            },
-            {
-              "name": "No geolocalisation check",
-              "description": "Allows you to unlock a bike even if you're not near the station."
-            },
-            {
-              "name": "Spoof package signature",
-              "description": "Spoofs the package signature required for Firebase, fixes notifications"
-            },
-            {
-              "name": "Use multiple devices",
-              "description": "Fix the login error \"Access denied. This account is already in use on another device.\" by pretending to be the web client"
-            }
-          ],
-          "versions": [
-            "3.1.1"
-          ]
-        }
-      ],
-      "patches": [
-        "Block data collection",
-        "Disable map animations",
-        "Easy deeplinks configuration",
-        "Google Maps API key",
-        "Hide onboarding screen",
-        "No geolocalisation check",
-        "Spoof package signature",
-        "Use multiple devices"
-      ],
-      "patchDetails": [
-        {
-          "name": "Block data collection",
-          "description": "Block Didomi & Matomo tracking SDKs, hide consent prompts for 3rd party & geolocation data"
-        },
-        {
-          "name": "Disable map animations",
-          "description": "Disable the map zoom-in animation"
-        },
-        {
-          "name": "Easy deeplinks configuration",
-          "description": "Allows easy configuration of deeplinks (velov.cyclocity.fr, velov.grandlyon.com) required by the app to sign-in"
-        },
-        {
-          "name": "Google Maps API key",
-          "description": "Use a different Google Maps API key to fix modified apps"
-        },
-        {
-          "name": "Hide onboarding screen",
-          "description": "Hide the onboarding \"Plan you journey\" screen"
-        },
-        {
-          "name": "No geolocalisation check",
-          "description": "Allows you to unlock a bike even if you're not near the station."
-        },
-        {
-          "name": "Spoof package signature",
-          "description": "Spoofs the package signature required for Firebase, fixes notifications"
-        },
-        {
-          "name": "Use multiple devices",
-          "description": "Fix the login error \"Access denied. This account is already in use on another device.\" by pretending to be the web client"
-        }
-      ],
-      "versions": [
-        "3.1.1"
-      ],
       "iconColor": "",
       "iconUrl": ""
     },
@@ -27525,12 +27367,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27583,12 +27425,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27641,12 +27483,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27699,12 +27541,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27757,12 +27599,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27815,12 +27657,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27873,12 +27715,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27931,12 +27773,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -27989,12 +27831,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -28047,12 +27889,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -29096,24 +28938,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -29349,12 +29179,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -30175,12 +30005,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -30399,12 +30229,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -30457,12 +30287,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -30515,12 +30345,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -30708,6 +30538,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.shahzaman.pricetracker",
+      "name": "Droplert",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-shahzaman-pricetracker-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-shahzaman-pricetracker-entree3k-morning-entree-patches",
+            "assetName": "droplert-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlocks Droplert Premium"
+            }
+          ],
+          "versions": [
+            "2.2.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlocks Droplert Premium"
+        }
+      ],
+      "versions": [
+        "2.2.1"
+      ],
+      "iconColor": "#DE5C53",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.notdoppler.earntodie2",
       "name": "Earn to Die 2",
       "repos": [
@@ -30883,228 +30771,6 @@
         "5.70.0"
       ],
       "iconColor": "#1E88E5",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "ee.dustland.android.dustlandsudoku",
-      "name": "ee.dustland.android.dustlandsudoku",
-      "repos": [
-        "cesbar/zpatches"
-      ],
-      "sources": [
-        {
-          "repo": "cesbar/zpatches",
-          "host": "github.com",
-          "webUrl": "https://github.com/cesbar/zpatches",
-          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
-          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/cesbar.png?size=96",
-          "latestChanges": {
-            "title": "1.12.0 (2026-08-12)",
-            "date": "2026-08-12",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Block data collection : better Matomo optout"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Hide onboarding screen crash app after log out"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**velov:** Use multiple devices"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "ee-dustland-android-dustlandsudoku-cesbar-zpatches",
-            "releaseTag": "app-ee-dustland-android-dustlandsudoku-cesbar-zpatches",
-            "assetName": "ee-dustland-android-dustlandsudoku-cesbar-zpatches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Bypass PairIp",
-              "description": "Bypass the PairIp license check preventing app modification"
-            },
-            {
-              "name": "Disable Internet and Telemetry",
-              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-            },
-            {
-              "name": "Enable Premium",
-              "description": "Unlock all purchasables options"
-            }
-          ],
-          "versions": []
-        }
-      ],
-      "patches": [
-        "Bypass PairIp",
-        "Disable Internet and Telemetry",
-        "Enable Premium"
-      ],
-      "patchDetails": [
-        {
-          "name": "Bypass PairIp",
-          "description": "Bypass the PairIp license check preventing app modification"
-        },
-        {
-          "name": "Disable Internet and Telemetry",
-          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-        },
-        {
-          "name": "Enable Premium",
-          "description": "Unlock all purchasables options"
-        }
-      ],
-      "versions": [],
-      "iconColor": "",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "ee.dustland.android.minesweeper",
-      "name": "ee.dustland.android.minesweeper",
-      "repos": [
-        "cesbar/zpatches"
-      ],
-      "sources": [
-        {
-          "repo": "cesbar/zpatches",
-          "host": "github.com",
-          "webUrl": "https://github.com/cesbar/zpatches",
-          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
-          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/cesbar.png?size=96",
-          "latestChanges": {
-            "title": "1.12.0 (2026-08-12)",
-            "date": "2026-08-12",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Block data collection : better Matomo optout"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Hide onboarding screen crash app after log out"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**velov:** Use multiple devices"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "ee-dustland-android-minesweeper-cesbar-zpatches",
-            "releaseTag": "app-ee-dustland-android-minesweeper-cesbar-zpatches",
-            "assetName": "ee-dustland-android-minesweeper-cesbar-zpatches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Disable Internet and Telemetry",
-              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-            },
-            {
-              "name": "Enable Premium",
-              "description": "Unlock all purchasables options"
-            }
-          ],
-          "versions": []
-        }
-      ],
-      "patches": [
-        "Disable Internet and Telemetry",
-        "Enable Premium"
-      ],
-      "patchDetails": [
-        {
-          "name": "Disable Internet and Telemetry",
-          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-        },
-        {
-          "name": "Enable Premium",
-          "description": "Unlock all purchasables options"
-        }
-      ],
-      "versions": [],
-      "iconColor": "",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "ee.dustland.android.solitaire",
-      "name": "ee.dustland.android.solitaire",
-      "repos": [
-        "cesbar/zpatches"
-      ],
-      "sources": [
-        {
-          "repo": "cesbar/zpatches",
-          "host": "github.com",
-          "webUrl": "https://github.com/cesbar/zpatches",
-          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
-          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/cesbar.png?size=96",
-          "latestChanges": {
-            "title": "1.12.0 (2026-08-12)",
-            "date": "2026-08-12",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Block data collection : better Matomo optout"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**velov:** Hide onboarding screen crash app after log out"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**velov:** Use multiple devices"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "ee-dustland-android-solitaire-cesbar-zpatches",
-            "releaseTag": "app-ee-dustland-android-solitaire-cesbar-zpatches",
-            "assetName": "ee-dustland-android-solitaire-cesbar-zpatches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Disable Internet and Telemetry",
-              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-            },
-            {
-              "name": "Enable Premium",
-              "description": "Unlock all purchasables options"
-            }
-          ],
-          "versions": []
-        }
-      ],
-      "patches": [
-        "Disable Internet and Telemetry",
-        "Enable Premium"
-      ],
-      "patchDetails": [
-        {
-          "name": "Disable Internet and Telemetry",
-          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
-        },
-        {
-          "name": "Enable Premium",
-          "description": "Unlock all purchasables options"
-        }
-      ],
-      "versions": [],
-      "iconColor": "",
       "iconUrl": ""
     },
     {
@@ -31346,12 +31012,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -31702,24 +31368,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -32200,12 +31854,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -33282,12 +32936,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -33501,24 +33155,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -34042,6 +33684,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.aeroloom.fylofilemanager",
+      "name": "Fylo \u2014 File Manager",
+      "repos": [
+        "Entree3k/Morning-Entree-Patches"
+      ],
+      "sources": [
+        {
+          "repo": "Entree3k/Morning-Entree-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Entree3k/Morning-Entree-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Entree3k/Morning-Entree-Patches",
+          "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Entree3k.png?size=96",
+          "latestChanges": {
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "Update"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-aeroloom-fylofilemanager-entree3k-morning-entree-patches",
+            "releaseTag": "app-com-aeroloom-fylofilemanager-entree3k-morning-entree-patches",
+            "assetName": "fylo-file-manager-entree3k-morning-entree-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Pro",
+              "description": "Unlocks Fylo File Manager Pro"
+            }
+          ],
+          "versions": [
+            "1.9"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Pro"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Pro",
+          "description": "Unlocks Fylo File Manager Pro"
+        }
+      ],
+      "versions": [
+        "1.9"
+      ],
+      "iconColor": "#3DDC84",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.ganbaru.method",
       "name": "Ganbaru Method",
       "repos": [
@@ -34115,12 +33815,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -34610,12 +34310,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -34875,12 +34575,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -34967,12 +34667,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -36166,12 +35866,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -36415,12 +36115,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -39216,12 +38916,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -39333,12 +39033,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -41060,24 +40760,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -41819,12 +41507,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -41918,12 +41606,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -42340,12 +42028,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -42707,12 +42395,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -42835,12 +42523,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -43267,12 +42955,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -45491,6 +45179,77 @@
       "iconUrl": ""
     },
     {
+      "packageName": "ee.dustland.android.minesweeper",
+      "name": "Minesweeper The Clean One",
+      "repos": [
+        "cesbar/zpatches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.1"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.2"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ee-dustland-android-minesweeper-cesbar-zpatches",
+            "releaseTag": "app-ee-dustland-android-minesweeper-cesbar-zpatches",
+            "assetName": "minesweeper-the-clean-one-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable Internet and Telemetry",
+              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+            },
+            {
+              "name": "Enable Premium",
+              "description": "Unlock all purchasables options"
+            }
+          ],
+          "versions": [
+            "1.21.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable Internet and Telemetry",
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable Internet and Telemetry",
+          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+        },
+        {
+          "name": "Enable Premium",
+          "description": "Unlock all purchasables options"
+        }
+      ],
+      "versions": [
+        "1.21.3"
+      ],
+      "iconColor": "#3C3C3C",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.jndapp.minimal.widgets",
       "name": "Minimal Widgets",
       "repos": [
@@ -45801,12 +45560,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -48842,12 +48601,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -49134,24 +48893,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -49256,12 +49003,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -49857,12 +49604,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -50198,12 +49945,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -50303,12 +50050,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -51128,12 +50875,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.7 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.12.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.7001-rustore"
+                "text": "**wildberries:** support version 7.7.8001-rustore"
               }
             ]
           },
@@ -51340,12 +51087,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -51575,12 +51322,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -52004,12 +51751,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -52132,24 +51879,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -52198,12 +51933,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -52326,24 +52061,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -52611,12 +52334,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -53137,12 +52860,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -53195,12 +52918,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -54785,12 +54508,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -55438,12 +55161,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -55473,24 +55196,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -55755,24 +55466,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -55810,8 +55509,7 @@
             }
           ],
           "versions": [
-            "7.10.4",
-            "7.11.4"
+            "7.10.4"
           ]
         },
         {
@@ -55872,8 +55570,8 @@
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
         "Spoof signature",
-        "Unlock Custom Time Picker",
         "Unlock custom time picker",
+        "Unlock Custom Time Picker",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
@@ -55898,12 +55596,12 @@
           "description": "Restores push notifications by spoofing the original app signature."
         },
         {
-          "name": "Unlock Custom Time Picker",
-          "description": "Unlocks the custom scheduled send date/time picker for all users."
-        },
-        {
           "name": "Unlock custom time picker",
           "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
+        },
+        {
+          "name": "Unlock Custom Time Picker",
+          "description": "Unlocks the custom scheduled send date/time picker for all users."
         },
         {
           "name": "Unlock Unlimited Plan",
@@ -56498,12 +56196,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -56556,12 +56254,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -56770,24 +56468,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -57170,24 +56856,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -57315,24 +56989,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -57898,12 +57560,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.8 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.1.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.40.0"
+                "text": "Sync upstream Morphe patches v1.41.0"
               }
             ]
           },
@@ -57993,8 +57655,8 @@
             "2026.04.0",
             "2026.14.0",
             "2026.24.0",
-            "2026.32.0",
-            "2026.34.0"
+            "2026.34.0",
+            "2026.35.0"
           ]
         }
       ],
@@ -58224,7 +57886,6 @@
         "2026.14.0",
         "2026.17.0",
         "2026.24.0",
-        "2026.32.0",
         "2026.33.2",
         "2026.34.0",
         "2026.35.0"
@@ -59082,24 +58743,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -59522,12 +59171,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -59737,12 +59386,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/HellveticaStandard/HellveticaPatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/HellveticaStandard.png?size=96",
           "latestChanges": {
-            "title": "1.1.1 (2026-07-15)",
-            "date": "2026-07-15",
+            "title": "1.1.2 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**sankaku:** add support for 4.25-rc93 (4f1d854), closes #37517 #19483"
+                "text": "**sankaku:** add support for 4.26-rc96 (dd2b334), closes #19759"
               }
             ]
           },
@@ -59762,7 +59411,8 @@
           "versions": [
             "4.23",
             "4.24",
-            "4.25"
+            "4.25",
+            "4.26"
           ]
         }
       ],
@@ -59778,7 +59428,8 @@
       "versions": [
         "4.23",
         "4.24",
-        "4.25"
+        "4.25",
+        "4.26"
       ],
       "iconColor": "#1B1B2F",
       "iconUrl": ""
@@ -59799,12 +59450,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -59857,12 +59508,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -60268,12 +59919,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -60507,12 +60158,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -60699,24 +60350,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -60850,12 +60489,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -61062,12 +60701,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -61290,12 +60929,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -61355,12 +60994,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -61516,12 +61155,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -61805,12 +61444,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -62131,12 +61770,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.4.8 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.4.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.3.0 (Fixes #9)"
+                "text": "Support SofaTime v1.3.1 (Fixes #10)"
               }
             ]
           },
@@ -62174,7 +61813,8 @@
             "1.2.7",
             "1.2.8",
             "1.2.9",
-            "1.3.0"
+            "1.3.0",
+            "1.3.1"
           ]
         }
       ],
@@ -62211,7 +61851,8 @@
         "1.2.7",
         "1.2.8",
         "1.2.9",
-        "1.3.0"
+        "1.3.0",
+        "1.3.1"
       ],
       "iconColor": "#1E1E2E",
       "iconUrl": ""
@@ -62362,6 +62003,77 @@
         "3.5.7b"
       ],
       "iconColor": "#039BE5",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "ee.dustland.android.solitaire",
+      "name": "Solitaire The Clean One",
+      "repos": [
+        "cesbar/zpatches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.1"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.2"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ee-dustland-android-solitaire-cesbar-zpatches",
+            "releaseTag": "app-ee-dustland-android-solitaire-cesbar-zpatches",
+            "assetName": "solitaire-the-clean-one-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable Internet and Telemetry",
+              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+            },
+            {
+              "name": "Enable Premium",
+              "description": "Unlock all purchasables options"
+            }
+          ],
+          "versions": [
+            "1.20.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable Internet and Telemetry",
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable Internet and Telemetry",
+          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+        },
+        {
+          "name": "Enable Premium",
+          "description": "Unlock all purchasables options"
+        }
+      ],
+      "versions": [
+        "1.20.3"
+      ],
+      "iconColor": "#3C3C3C",
       "iconUrl": ""
     },
     {
@@ -63284,12 +62996,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -63412,12 +63124,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -64338,6 +64050,86 @@
       "iconUrl": ""
     },
     {
+      "packageName": "ee.dustland.android.dustlandsudoku",
+      "name": "Sudoku The Clean One",
+      "repos": [
+        "cesbar/zpatches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.1"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.2"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ee-dustland-android-dustlandsudoku-cesbar-zpatches",
+            "releaseTag": "app-ee-dustland-android-dustlandsudoku-cesbar-zpatches",
+            "assetName": "sudoku-the-clean-one-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Bypass PairIp",
+              "description": "Bypass the PairIp license check preventing app modification"
+            },
+            {
+              "name": "Disable Internet and Telemetry",
+              "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+            },
+            {
+              "name": "Enable Premium",
+              "description": "Unlock all purchasables options"
+            }
+          ],
+          "versions": [
+            "2.18.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Bypass PairIp",
+        "Disable Internet and Telemetry",
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Bypass PairIp",
+          "description": "Bypass the PairIp license check preventing app modification"
+        },
+        {
+          "name": "Disable Internet and Telemetry",
+          "description": "Disable Internet and Telemetry by removing all non-necessary permissions from the manifest"
+        },
+        {
+          "name": "Enable Premium",
+          "description": "Unlock all purchasables options"
+        }
+      ],
+      "versions": [
+        "2.18.3"
+      ],
+      "iconColor": "#3C3C3C",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.suno.android",
       "name": "Suno",
       "repos": [
@@ -64655,12 +64447,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -64948,24 +64740,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -64990,18 +64770,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -65855,12 +65635,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -66304,12 +66084,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.7 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.12.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.7001-rustore"
+                "text": "**wildberries:** support version 7.7.8001-rustore"
               }
             ]
           },
@@ -67257,12 +67037,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -67522,12 +67302,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -68219,12 +67999,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -69064,24 +68844,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.14.1 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Cx File Explorer - Dark theme:** darken the file operation progress dialog"
-              },
-              {
-                "category": "New Features",
-                "text": "**All-In-One Calculator - GmsCore support:** sign in through GmsCore"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Remove pairip protection:** drop the Play Integrity license check"
-              },
-              {
-                "category": "New Features",
-                "text": "**RateGlance - Unlock premium:** unlock alerts widgets and full rate history"
+                "text": "**Proton Mail:** apply the patches on any app version"
               }
             ]
           },
@@ -70584,12 +70352,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -71739,12 +71507,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -71915,12 +71683,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Entree3k.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.21.0 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "update & fix"
+                "text": "Update"
               }
             ]
           },
@@ -72153,6 +71921,131 @@
         "1.0.7"
       ],
       "iconColor": "#00BFFF",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.jcdecaux.vls.lyon",
+      "name": "V\u00e9lo'v",
+      "repos": [
+        "cesbar/zpatches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-02)",
+            "date": "2026-09-02",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.1"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**Citymapper:** support for 11.57.2"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-jcdecaux-vls-lyon-cesbar-zpatches",
+            "releaseTag": "app-com-jcdecaux-vls-lyon-cesbar-zpatches",
+            "assetName": "v-lo-v-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Block data collection",
+              "description": "Block Didomi & Matomo tracking SDKs, hide consent prompts for 3rd party & geolocation data"
+            },
+            {
+              "name": "Disable map animations",
+              "description": "Disable the map zoom-in animation"
+            },
+            {
+              "name": "Easy deeplinks configuration",
+              "description": "Allows easy configuration of deeplinks (velov.cyclocity.fr, velov.grandlyon.com) required by the app to sign-in"
+            },
+            {
+              "name": "Google Maps API key",
+              "description": "Use a different Google Maps API key to fix modified apps"
+            },
+            {
+              "name": "Hide onboarding screen",
+              "description": "Hide the onboarding \"Plan your journey\" screen"
+            },
+            {
+              "name": "No geolocalisation check",
+              "description": "Allows you to unlock a bike even if you're not near the station."
+            },
+            {
+              "name": "Spoof package signature",
+              "description": "Spoofs the package signature required for Firebase, fixes notifications"
+            },
+            {
+              "name": "Use multiple devices",
+              "description": "Fix the login error \"Access denied. This account is already in use on another device.\" by pretending to be the web client"
+            }
+          ],
+          "versions": [
+            "3.1.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Block data collection",
+        "Disable map animations",
+        "Easy deeplinks configuration",
+        "Google Maps API key",
+        "Hide onboarding screen",
+        "No geolocalisation check",
+        "Spoof package signature",
+        "Use multiple devices"
+      ],
+      "patchDetails": [
+        {
+          "name": "Block data collection",
+          "description": "Block Didomi & Matomo tracking SDKs, hide consent prompts for 3rd party & geolocation data"
+        },
+        {
+          "name": "Disable map animations",
+          "description": "Disable the map zoom-in animation"
+        },
+        {
+          "name": "Easy deeplinks configuration",
+          "description": "Allows easy configuration of deeplinks (velov.cyclocity.fr, velov.grandlyon.com) required by the app to sign-in"
+        },
+        {
+          "name": "Google Maps API key",
+          "description": "Use a different Google Maps API key to fix modified apps"
+        },
+        {
+          "name": "Hide onboarding screen",
+          "description": "Hide the onboarding \"Plan your journey\" screen"
+        },
+        {
+          "name": "No geolocalisation check",
+          "description": "Allows you to unlock a bike even if you're not near the station."
+        },
+        {
+          "name": "Spoof package signature",
+          "description": "Spoofs the package signature required for Firebase, fixes notifications"
+        },
+        {
+          "name": "Use multiple devices",
+          "description": "Fix the login error \"Access denied. This account is already in use on another device.\" by pretending to be the web client"
+        }
+      ],
+      "versions": [
+        "3.1.1"
+      ],
+      "iconColor": "#F42F34",
       "iconUrl": ""
     },
     {
@@ -72653,12 +72546,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.7 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.12.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.7001-rustore"
+                "text": "**wildberries:** support version 7.7.8001-rustore"
               }
             ]
           },
@@ -72687,7 +72580,9 @@
             "7.7.6003",
             "7.7.6003-rustore",
             "7.7.7001",
-            "7.7.7001-rustore"
+            "7.7.7001-rustore",
+            "7.7.8001",
+            "7.7.8001-rustore"
           ]
         }
       ],
@@ -72712,7 +72607,9 @@
         "7.7.6003",
         "7.7.6003-rustore",
         "7.7.7001",
-        "7.7.7001-rustore"
+        "7.7.7001-rustore",
+        "7.7.8001",
+        "7.7.8001-rustore"
       ],
       "iconColor": "#A73AFD",
       "iconUrl": ""
@@ -74802,12 +74699,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.8 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.1.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.40.0"
+                "text": "Sync upstream Morphe patches v1.41.0"
               }
             ]
           },
@@ -74830,6 +74727,10 @@
             {
               "name": "Ambient mode",
               "description": "Adds options to bypass power saving restrictions for Ambient mode and disable it entirely or in fullscreen."
+            },
+            {
+              "name": "App refresh rate",
+              "description": "Adds an option to change the app refresh rate."
             },
             {
               "name": "Bypass image region restrictions",
@@ -74885,7 +74786,7 @@
             },
             {
               "name": "Disable fullscreen gestures",
-              "description": "Adds options to selectively disable gestures for entering and exiting fullscreen mode."
+              "description": "Adds options to selectively disable gestures for entering and exiting fullscreen mode, and to disable pinch-to-zoom."
             },
             {
               "name": "Disable haptic feedback",
@@ -74900,12 +74801,20 @@
               "description": "Adds an option to disable panels (such as live chat) from opening automatically."
             },
             {
+              "name": "Disable playlist autoplay",
+              "description": "Adds an option to stop a playlist from automatically advancing to the next video."
+            },
+            {
               "name": "Disable QUIC protocol",
               "description": "Adds an option to disable QUIC (Quick UDP Internet Connections) network protocol."
             },
             {
               "name": "Disable rolling number animations",
               "description": "Adds an option to disable rolling number animations of video view count, user likes, and upload time."
+            },
+            {
+              "name": "Disable scrolling speed limit",
+              "description": "Adds an option to remove limits of how fast the home and subscription feed can be scrolled."
             },
             {
               "name": "Disable Shorts resuming on startup",
@@ -74917,7 +74826,7 @@
             },
             {
               "name": "Disable video codecs",
-              "description": "Adds options to disable HDR and VP9 codecs."
+              "description": "Adds options to disable or force HDR, and to disable VP9 codecs."
             },
             {
               "name": "Double tap to seek",
@@ -74938,6 +74847,10 @@
             {
               "name": "Force original audio",
               "description": "Adds an option to always use the original audio track."
+            },
+            {
+              "name": "Fullscreen video scale",
+              "description": "Adds options to stretch or zoom videos to fill the screen in fullscreen mode."
             },
             {
               "name": "GmsCore support",
@@ -75008,6 +74921,10 @@
               "description": "Adds options to change the in-app minimized player. Patching 21.28.206 and lower has more miniplayer types to choose from."
             },
             {
+              "name": "Mute button",
+              "description": "Adds an option to show a player button that mutes the video audio."
+            },
+            {
               "name": "Navigation bar",
               "description": "Adds options to hide and change the bottom navigation bar (such as the Shorts button)  and the upper navigation toolbar."
             },
@@ -75052,6 +74969,10 @@
               "description": "Adds options to customize available playback speeds, set a default playback speed, and show a speed dialog button in the video player."
             },
             {
+              "name": "PoToken provider",
+              "description": "Adds option to get PoToken using an external PoToken minter app."
+            },
+            {
               "name": "Reload video",
               "description": "Adds an option to display reload video button in the video player."
             },
@@ -75072,8 +74993,8 @@
               "description": "Removes the tracking query parameters from shared links."
             },
             {
-              "name": "Save to watch later",
-              "description": "Adds an option to display save to watch later button in the video player."
+              "name": "Save to Watch later",
+              "description": "Adds an option to display save to Watch later button in the video player."
             },
             {
               "name": "Seekbar",
@@ -75129,9 +75050,10 @@
             "20.31.42",
             "20.51.39",
             "21.04.223",
+            "21.07.247",
             "21.28.208",
-            "21.33.321",
-            "21.34.243"
+            "21.34.243",
+            "21.35.442"
           ]
         },
         {
@@ -75553,12 +75475,11 @@
         "Return YouTube Dislike",
         "Return YouTube Username",
         "Sanitize sharing links",
-        "Save to watch later",
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -75716,7 +75637,7 @@
         },
         {
           "name": "Disable fullscreen gestures",
-          "description": "Adds options to selectively disable gestures for entering and exiting fullscreen mode."
+          "description": "Adds options to selectively disable gestures for entering and exiting fullscreen mode, and to disable pinch-to-zoom."
         },
         {
           "name": "Disable haptic feedback",
@@ -75768,7 +75689,7 @@
         },
         {
           "name": "Disable video codecs",
-          "description": "Adds options to disable HDR and VP9 codecs."
+          "description": "Adds options to disable or force HDR, and to disable VP9 codecs."
         },
         {
           "name": "Double tap to seek",
@@ -76023,10 +75944,6 @@
           "description": "Removes the tracking query parameters from shared links."
         },
         {
-          "name": "Save to watch later",
-          "description": "Adds an option to display save to watch later button in the video player."
-        },
-        {
           "name": "Save to Watch later",
           "description": "Adds an option to display save to Watch later button in the video player."
         },
@@ -76039,11 +75956,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -76171,7 +76088,6 @@
         "21.28.204",
         "21.28.208",
         "21.29.366",
-        "21.33.321",
         "21.34.243",
         "21.35.442"
       ],
@@ -76783,12 +76699,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.8 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.1.9 (2026-09-02)",
+            "date": "2026-09-02",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.40.0"
+                "text": "Sync upstream Morphe patches v1.41.0"
               }
             ]
           },
@@ -76800,6 +76716,10 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "App refresh rate",
+              "description": "Adds an option to change the app refresh rate."
+            },
             {
               "name": "Bypass certificate checks",
               "description": "Bypasses certificate checks which prevent YouTube Music from working on Android Auto."
@@ -76905,6 +76825,14 @@
               "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
             },
             {
+              "name": "Play albums songs",
+              "description": "Adds an option to play the song version of album tracks instead of music videos."
+            },
+            {
+              "name": "PoToken provider",
+              "description": "Adds option to get PoToken using an external PoToken minter app."
+            },
+            {
               "name": "Remember repeat state",
               "description": "Adds an option to remember the repeat state when playing a new track or playlist."
             },
@@ -76959,9 +76887,9 @@
           ],
           "versions": [
             "9.15.51",
-            "9.31.51",
             "9.32.51",
-            "9.33.52"
+            "9.33.52",
+            "9.34.52"
           ]
         },
         {
@@ -77571,7 +77499,6 @@
         "9.22.53",
         "9.23.52",
         "9.24.51",
-        "9.31.51",
         "9.32.51",
         "9.33.52",
         "9.34.52"
@@ -78035,20 +77962,16 @@
       "avatarUrl": "https://github.com/cesbar.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.12.0 (2026-08-12)",
-        "date": "2026-08-12",
+        "title": "1.12.1 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**velov:** Block data collection : better Matomo optout"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**Citymapper:** support for 11.57.1"
           },
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**velov:** Hide onboarding screen crash app after log out"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**velov:** Use multiple devices"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**Citymapper:** support for 11.57.2"
           }
         ]
       },
@@ -78260,14 +78183,14 @@
       "source": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Entree3k/Morning-Entree-Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Entree3k.png?size=96",
-      "patchCount": 15,
+      "patchCount": 16,
       "latestChanges": {
-        "title": "1.20.0 (2026-08-30)",
-        "date": "2026-08-30",
+        "title": "1.21.0 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "update & fix"
+            "text": "Update"
           }
         ]
       },
@@ -78295,6 +78218,11 @@
         {
           "name": "Disable clipboard access",
           "description": "Blocks apps from clipboard access",
+          "default": false
+        },
+        {
+          "name": "Disable Pairip protection",
+          "description": "Neutralizes Pairip's client-side signature and license checks (including the LicenseActivity paywall/close-app enforcement) so the re-signed APK launches and stays open. Optionally guts the Pairip VM as well. Does not bypass server-side Play Integrity.",
           "default": false
         },
         {
@@ -80944,12 +80872,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.1.8 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.1.9 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.40.0"
+            "text": "Sync upstream Morphe patches v1.41.0"
           }
         ]
       },
@@ -81081,12 +81009,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.7 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.12.9 (2026-09-02)",
+        "date": "2026-09-02",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.7001-rustore"
+            "text": "**wildberries:** support version 7.7.8001-rustore"
           }
         ]
       },
