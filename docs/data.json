@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-03 02:54 UTC",
+  "generatedAt": "2026-09-04 02:39 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 702,
-  "patchCount": 2862,
-  "universalPatchCount": 479,
+  "appCount": 703,
+  "patchCount": 2867,
+  "universalPatchCount": 480,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -1514,23 +1514,19 @@
       "webUrl": "https://github.com/browzomje/browzomje-patches",
       "addUrl": "https://Revanced.software/add-source?github=browzomje/browzomje-patches",
       "avatarUrl": "https://github.com/browzomje.png?size=96",
-      "patchCount": 30,
+      "patchCount": 33,
       "appCount": 2,
       "createdAt": 1784836031836,
       "updatedAt": 1784836031836,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.9.0 (2026-08-19)",
-        "date": "2026-08-19",
+        "title": "1.10.0 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**pinterest:** make the long-press download button actually appear"
-          },
-          {
             "category": "\u2728 New Features",
-            "text": "**pinterest:** tint the long-press download button like the others"
+            "text": "**pinterest:** bypass in-app browser, system share sheet, hide comments and support 14.34.0 (closes #35, #36, #38)"
           }
         ]
       },
@@ -1545,7 +1541,7 @@
         {
           "name": "Pinterest",
           "packageName": "com.pinterest",
-          "patchCount": 25,
+          "patchCount": 28,
           "iconUrl": "",
           "iconColor": "#E60023"
         }
@@ -1847,23 +1843,19 @@
       "webUrl": "https://github.com/cesbar/zpatches",
       "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
       "avatarUrl": "https://github.com/cesbar.png?size=96",
-      "patchCount": 13,
-      "appCount": 5,
+      "patchCount": 14,
+      "appCount": 6,
       "createdAt": 1784836032428,
       "updatedAt": 1784836032428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.1 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.13.0 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.57.1"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.57.2"
+            "category": "\u2728 New Features",
+            "text": "**Undercover:** Enable Premium"
           }
         ]
       },
@@ -1895,6 +1887,13 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#3C3C3C"
+        },
+        {
+          "name": "Undercover",
+          "packageName": "com.yanstarstudio.joss.undercover",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#B2FF4B"
         },
         {
           "name": "V\u00e9lo'v",
@@ -6589,19 +6588,19 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 341,
+      "patchCount": 342,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.42.0 (2026-09-01)",
-        "date": "2026-09-01",
+        "title": "1.43.1 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
-            "category": "New Features",
-            "text": "more console logs for ad free rewards patch"
+            "category": "Bug Fixes",
+            "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
           }
         ]
       },
@@ -10192,12 +10191,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.9 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.12.11 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.8001-rustore"
+            "text": "**tbank:** support version 8.2.1"
           }
         ]
       },
@@ -14969,12 +14968,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.12.11 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.8001-rustore"
+                "text": "**tbank:** support version 8.2.1"
               }
             ]
           },
@@ -20985,16 +20984,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.12.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.2"
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
               }
             ]
           },
@@ -22141,12 +22136,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.42.0 (2026-09-01)",
-            "date": "2026-09-01",
+            "title": "1.43.1 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "New Features",
-                "text": "more console logs for ad free rewards patch"
+                "category": "Bug Fixes",
+                "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
               }
             ]
           },
@@ -23536,8 +23531,8 @@
             }
           ],
           "versions": [
-            "26.32.06.958047303",
-            "26.33.02.961351034"
+            "26.33.02.961351034",
+            "26.35.04.969485213"
           ]
         }
       ],
@@ -23561,8 +23556,8 @@
         }
       ],
       "versions": [
-        "26.32.06.958047303",
-        "26.33.02.961351034"
+        "26.33.02.961351034",
+        "26.35.04.969485213"
       ],
       "iconColor": "#4285F4",
       "iconUrl": ""
@@ -30691,16 +30686,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/browzomje/browzomje-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/browzomje.png?size=96",
           "latestChanges": {
-            "title": "1.9.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.10.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**pinterest:** make the long-press download button actually appear"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "**pinterest:** tint the long-press download button like the others"
+                "text": "**pinterest:** bypass in-app browser, system share sheet, hide comments and support 14.34.0 (closes #35, #36, #38)"
               }
             ]
           },
@@ -45194,16 +45185,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.12.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.2"
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
               }
             ]
           },
@@ -50875,12 +50862,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.12.11 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.8001-rustore"
+                "text": "**tbank:** support version 8.2.1"
               }
             ]
           },
@@ -50903,7 +50890,8 @@
             "19.29.0",
             "19.30.0",
             "19.31.0",
-            "19.32.0"
+            "19.32.0",
+            "19.33.1"
           ]
         }
       ],
@@ -50962,7 +50950,8 @@
         "19.29.0",
         "19.30.0",
         "19.31.0",
-        "19.32.0"
+        "19.32.0",
+        "19.33.1"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -53025,16 +53014,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/browzomje/browzomje-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/browzomje.png?size=96",
           "latestChanges": {
-            "title": "1.9.0 (2026-08-19)",
-            "date": "2026-08-19",
+            "title": "1.10.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**pinterest:** make the long-press download button actually appear"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "**pinterest:** tint the long-press download button like the others"
+                "text": "**pinterest:** bypass in-app browser, system share sheet, hide comments and support 14.34.0 (closes #35, #36, #38)"
               }
             ]
           },
@@ -53091,6 +53076,10 @@
               "description": "Collapses Pinterest's ad-only views, so no ad chrome is drawn even if the app builds one. Follows the \"Disable ads\" switch."
             },
             {
+              "name": "Hide comments",
+              "description": "Hides the pin comments section, the comment preview and the comments button, when the matching Morphe setting is enabled."
+            },
+            {
               "name": "Hide Create nav button",
               "description": "Hides the \"+\" (create Pin) navigation button, when enabled in Morphe settings."
             },
@@ -53135,6 +53124,10 @@
               "description": "Returns an empty Google Advertising ID and forces \"limit ad tracking\", without crashing the app."
             },
             {
+              "name": "Open links in the default browser",
+              "description": "Opens links in the phone's default browser instead of Pinterest's in-app browser, when the matching Morphe setting is enabled."
+            },
+            {
               "name": "Sanitize copied links",
               "description": "Turns the pin.it link that \"Copy link\" copies, whose slug identifies who shared it, into the plain pin link. Switchable from Morphe settings."
             },
@@ -53145,12 +53138,17 @@
             {
               "name": "Set pin as wallpaper",
               "description": "Adds a \"Set as wallpaper\" option to the pin menu, which downloads the image and sets it as the device wallpaper."
+            },
+            {
+              "name": "Use the system share sheet",
+              "description": "Opens the Android system share sheet instead of Pinterest's in-app share sheet, when the matching Morphe setting is enabled."
             }
           ],
           "versions": [
             "14.23.0",
             "14.28.0",
-            "14.32.0"
+            "14.32.0",
+            "14.34.0"
           ]
         },
         {
@@ -53290,6 +53288,7 @@
         "Download pin from long press",
         "Download video",
         "Hide ad views",
+        "Hide comments",
         "Hide Create nav button",
         "Hide greeting header buttons",
         "Hide Notifications nav button",
@@ -53302,6 +53301,7 @@
         "Morphe settings screen (label)",
         "Morphe settings screen (manifest)",
         "Neutralize advertising ID",
+        "Open links in the default browser",
         "Opt out of Google Analytics",
         "Remove Advertising ID permission",
         "Remove Promoted Pins",
@@ -53309,7 +53309,8 @@
         "Sanitize copied links",
         "Sanitize shared links",
         "Sanitize sharing links",
-        "Set pin as wallpaper"
+        "Set pin as wallpaper",
+        "Use the system share sheet"
       ],
       "patchDetails": [
         {
@@ -53385,6 +53386,10 @@
           "description": "Collapses Pinterest's ad-only views, so no ad chrome is drawn even if the app builds one. Follows the \"Disable ads\" switch."
         },
         {
+          "name": "Hide comments",
+          "description": "Hides the pin comments section, the comment preview and the comments button, when the matching Morphe setting is enabled."
+        },
+        {
           "name": "Hide Create nav button",
           "description": "Hides the \"+\" (create Pin) navigation button, when enabled in Morphe settings."
         },
@@ -53433,6 +53438,10 @@
           "description": "Returns an empty Google Advertising ID and forces \"limit ad tracking\", without crashing the app."
         },
         {
+          "name": "Open links in the default browser",
+          "description": "Opens links in the phone's default browser instead of Pinterest's in-app browser, when the matching Morphe setting is enabled."
+        },
+        {
           "name": "Opt out of Google Analytics",
           "description": "Sets the default Google Analytics consent flags to false so the Firebase Measurement SDK does not collect analytics, ad data or personalization signals."
         },
@@ -53463,6 +53472,10 @@
         {
           "name": "Set pin as wallpaper",
           "description": "Adds a \"Set as wallpaper\" option to the pin menu, which downloads the image and sets it as the device wallpaper."
+        },
+        {
+          "name": "Use the system share sheet",
+          "description": "Opens the Android system share sheet instead of Pinterest's in-app share sheet, when the matching Morphe setting is enabled."
         }
       ],
       "versions": [
@@ -53478,7 +53491,8 @@
         "14.28.0",
         "14.29.0",
         "14.30.0",
-        "14.32.0"
+        "14.32.0",
+        "14.34.0"
       ],
       "iconColor": "#E60023",
       "iconUrl": ""
@@ -55570,8 +55584,8 @@
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
         "Spoof signature",
-        "Unlock custom time picker",
         "Unlock Custom Time Picker",
+        "Unlock custom time picker",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
@@ -55596,12 +55610,12 @@
           "description": "Restores push notifications by spoofing the original app signature."
         },
         {
-          "name": "Unlock custom time picker",
-          "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
-        },
-        {
           "name": "Unlock Custom Time Picker",
           "description": "Unlocks the custom scheduled send date/time picker for all users."
+        },
+        {
+          "name": "Unlock custom time picker",
+          "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
         },
         {
           "name": "Unlock Unlimited Plan",
@@ -62021,16 +62035,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.12.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.2"
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
               }
             ]
           },
@@ -64065,16 +64075,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.12.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.2"
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
               }
             ]
           },
@@ -64770,18 +64776,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -66084,12 +66090,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.12.11 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.8001-rustore"
+                "text": "**tbank:** support version 8.2.1"
               }
             ]
           },
@@ -66114,7 +66120,8 @@
             "7.39.0",
             "7.40.1",
             "8.0.0",
-            "8.1.0"
+            "8.1.0",
+            "8.2.1"
           ]
         }
       ],
@@ -66136,7 +66143,8 @@
         "7.39.0",
         "7.40.1",
         "8.0.0",
-        "8.1.0"
+        "8.1.0",
+        "8.2.1"
       ],
       "iconColor": "#FFDD2D",
       "iconUrl": ""
@@ -70666,6 +70674,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.yanstarstudio.joss.undercover",
+      "name": "Undercover",
+      "repos": [
+        "cesbar/zpatches"
+      ],
+      "sources": [
+        {
+          "repo": "cesbar/zpatches",
+          "host": "github.com",
+          "webUrl": "https://github.com/cesbar/zpatches",
+          "addUrl": "https://Revanced.software/add-source?github=cesbar/zpatches",
+          "source": "https://raw.githubusercontent.com/cesbar/zpatches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/cesbar.png?size=96",
+          "latestChanges": {
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-yanstarstudio-joss-undercover-cesbar-zpatches",
+            "releaseTag": "app-com-yanstarstudio-joss-undercover-cesbar-zpatches",
+            "assetName": "undercover-cesbar-zpatches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Unlock Full Access Pack"
+            }
+          ],
+          "versions": [
+            "5.0.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Unlock Full Access Pack"
+        }
+      ],
+      "versions": [
+        "5.0.1"
+      ],
+      "iconColor": "#B2FF4B",
+      "iconUrl": ""
+    },
+    {
       "packageName": "sensustech.universal.tv.remote.control",
       "name": "Unimote",
       "repos": [
@@ -71939,16 +72005,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/cesbar/zpatches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/cesbar.png?size=96",
           "latestChanges": {
-            "title": "1.12.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.13.0 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Citymapper:** support for 11.57.2"
+                "category": "\u2728 New Features",
+                "text": "**Undercover:** Enable Premium"
               }
             ]
           },
@@ -72546,12 +72608,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.12.11 (2026-09-03)",
+            "date": "2026-09-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.8001-rustore"
+                "text": "**tbank:** support version 8.2.1"
               }
             ]
           },
@@ -77962,16 +78024,12 @@
       "avatarUrl": "https://github.com/cesbar.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.12.1 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.13.0 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.57.1"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Citymapper:** support for 11.57.2"
+            "category": "\u2728 New Features",
+            "text": "**Undercover:** Enable Premium"
           }
         ]
       },
@@ -78787,14 +78845,14 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 333,
+      "patchCount": 334,
       "latestChanges": {
-        "title": "1.42.0 (2026-09-01)",
-        "date": "2026-09-01",
+        "title": "1.43.1 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
-            "category": "New Features",
-            "text": "more console logs for ad free rewards patch"
+            "category": "Bug Fixes",
+            "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
           }
         ]
       },
@@ -79037,6 +79095,11 @@
         {
           "name": "Custom Startup Dialog",
           "description": "Shows a customizable dialog once when the app is opened",
+          "default": false
+        },
+        {
+          "name": "Custom Startup Sound",
+          "description": "Plays a custom sound once when the app starts.",
           "default": false
         },
         {
@@ -79540,11 +79603,6 @@
           "default": false
         },
         {
-          "name": "Fake Play Store Install Source",
-          "description": "Fakes the install source.",
-          "default": false
-        },
-        {
           "name": "Fake Pointer Location",
           "description": "Reports pointer location as disabled via Settings so apps that check it stop doing so.",
           "default": false
@@ -79572,6 +79630,11 @@
         {
           "name": "Fake Storage Available",
           "description": "Reports a chosen amount of free storage through StatFs so apps that refuse to run or nag when storage is low stop doing so.",
+          "default": false
+        },
+        {
+          "name": "Fake Store Install Source",
+          "description": "Fakes the install source.",
           "default": false
         },
         {
@@ -81009,12 +81072,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.9 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.12.11 (2026-09-03)",
+        "date": "2026-09-03",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.8001-rustore"
+            "text": "**tbank:** support version 8.2.1"
           }
         ]
       },
