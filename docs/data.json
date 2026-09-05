@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-04 02:39 UTC",
+  "generatedAt": "2026-09-05 02:40 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 703,
-  "patchCount": 2867,
+  "appCount": 705,
+  "patchCount": 2871,
   "universalPatchCount": 480,
   "hostCounts": {
     "github.com": 122,
@@ -68,12 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.30.3 (2026-08-29)",
-        "date": "2026-08-29",
+        "title": "1.30.4 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+            "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
           }
         ]
       },
@@ -619,31 +619,47 @@
       "webUrl": "https://github.com/andrewliang25/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andrewliang25/morphe-patches",
       "avatarUrl": "https://github.com/andrewliang25.png?size=96",
-      "patchCount": 23,
+      "patchCount": 24,
       "appCount": 1,
       "createdAt": 1785034852052,
       "updatedAt": 1785034852052,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.8.0 (2026-08-23)",
-        "date": "2026-08-23",
+        "title": "2.0.0 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "hide the Home tab LYP upsell under \"Disable LINE Premium\" (#71) (d4362b3), closes #70"
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "The patch fingerprints use the obfuscated class and method"
+          },
+          {
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "names of 26.14.0. These names do not exist in 26.11.0. Update LINE to 26.14.0"
+          },
+          {
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "before you patch."
+          },
+          {
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "resolve every hidepremium lookup before the first mutation"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "stop the Home tab refetch loop that \"Hide Home content feed\" starts (5eea7c3), closes #69"
+            "text": "hide the Friends sub-tab Calendar block"
           },
           {
             "category": "\u2728 New Features",
-            "text": "add \"Hide Home content feed\" patch (issue #69) (6bcb05b), closes #15"
+            "text": "hide new item badges"
+          },
+          {
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "drop support for LINE 26.11.0"
+          },
+          {
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "re-anchor all LINE patches for 26.14.0"
           }
         ]
       },
@@ -651,7 +667,7 @@
         {
           "name": "LINE",
           "packageName": "jp.naver.line.android",
-          "patchCount": 23,
+          "patchCount": 24,
           "iconUrl": "",
           "iconColor": "#06C755"
         }
@@ -1642,16 +1658,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.22.0 (2026-08-30)",
-        "date": "2026-08-30",
+        "title": "1.22.1 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**altos-adventure:** add IAP unlock patch"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**ads:** correct instant rewarded video boost name"
           },
           {
-            "category": "\u2728 New Features",
-            "text": "**altos-odyssey:** IAP-Purchase auto grant"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**billing:** prevent delayed credit in IAP bypass"
           }
         ]
       },
@@ -3665,35 +3681,19 @@
       "webUrl": "https://github.com/franticg33k/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=franticg33k/morphe-patches",
       "avatarUrl": "https://github.com/franticg33k.png?size=96",
-      "patchCount": 19,
-      "appCount": 10,
+      "patchCount": 22,
+      "appCount": 12,
       "createdAt": 1784836034684,
       "updatedAt": 1784836034684,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.3.7 (2026-08-07)",
-        "date": "2026-08-07",
+        "title": "1.3.9 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add JellyWatch TV premium unlock patch"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "fix Native Camera premium unlock for 1.1.7"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "update app name in Compatibility for Karobar"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+            "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
           }
         ]
       },
@@ -3706,8 +3706,22 @@
           "iconColor": "#1E88E5"
         },
         {
+          "name": "Bolpatra Nepal",
+          "packageName": "com.bolpatranepal.axios",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#D32F2F"
+        },
+        {
           "name": "byAir",
           "packageName": "com.byairapp.android",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#1F6FEB"
+        },
+        {
+          "name": "Fricam",
+          "packageName": "com.tgezginis.fricam",
           "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#1F6FEB"
@@ -7506,12 +7520,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.3 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.0.4 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.3.1 target"
+            "text": "add SeriesGuide v2026.4.1 target"
           }
         ]
       },
@@ -10890,16 +10904,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -12298,16 +12312,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -12360,16 +12374,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -13903,8 +13917,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -13912,12 +13926,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14049,28 +14063,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -16757,16 +16755,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -17652,6 +17650,60 @@
         "4.6.6"
       ],
       "iconColor": "#FF5A36",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.bolpatranepal.axios",
+      "name": "Bolpatra Nepal",
+      "repos": [
+        "franticg33k/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "franticg33k/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/franticg33k/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=franticg33k/morphe-patches",
+          "source": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/franticg33k.png?size=96",
+          "latestChanges": {
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-bolpatranepal-axios-franticg33k-morphe-patches",
+            "releaseTag": "app-com-bolpatranepal-axios-franticg33k-morphe-patches",
+            "assetName": "bolpatra-nepal-franticg33k-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock Premium, Skip Login & Make Free Trial Permanent",
+              "description": "Patches the Dart AOT-compiled libapp.so of Bolpatra Nepal to skip the login screen, unlock premium/paid features, and make the 7-day free trial permanent. LoginManager::isNotValidatedUser is forced to always return false, lifting the Free-plan paywall and the trial-expiry gate: the trial expiry is computed client-side from the server plan_end_date into statics (isPaid = (plan_end_date - now).inDays <= 0) that only isNotValidatedUser reads, so with it pinned to false the free trial never expires and premium features stay unlocked forever (PPMO/EGP contact redirect, hidden works tab, document download and gallery gates). The isActive() result is left honest so the app stops attaching the invalid Authorization header, and the four login redirects (notice View, document download, gallery, subscription purchase) are bypassed at the branch level so actions run straight through without sending the user to the login page. Verified on v1.1.33 (Dart 3.9.2, arm64, non-obfuscated)."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "Unlock Premium, Skip Login & Make Free Trial Permanent"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock Premium, Skip Login & Make Free Trial Permanent",
+          "description": "Patches the Dart AOT-compiled libapp.so of Bolpatra Nepal to skip the login screen, unlock premium/paid features, and make the 7-day free trial permanent. LoginManager::isNotValidatedUser is forced to always return false, lifting the Free-plan paywall and the trial-expiry gate: the trial expiry is computed client-side from the server plan_end_date into statics (isPaid = (plan_end_date - now).inDays <= 0) that only isNotValidatedUser reads, so with it pinned to false the free trial never expires and premium features stay unlocked forever (PPMO/EGP contact redirect, hidden works tab, document download and gallery gates). The isActive() result is left honest so the app stops attaching the invalid Authorization header, and the four login redirects (notice View, document download, gallery, subscription purchase) are bypassed at the branch level so actions run straight through without sending the user to the login page. Verified on v1.1.33 (Dart 3.9.2, arm64, non-obfuscated)."
+        }
+      ],
+      "versions": [],
+      "iconColor": "#D32F2F",
       "iconUrl": ""
     },
     {
@@ -18741,28 +18793,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -21562,12 +21598,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -22077,12 +22113,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -22353,12 +22389,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -22417,12 +22453,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -22884,12 +22920,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -24682,12 +24718,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -24961,12 +24997,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -25509,12 +25545,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -26474,12 +26510,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -26614,12 +26650,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -30063,16 +30099,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -30398,16 +30434,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -30606,16 +30642,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -31972,16 +32008,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -33491,16 +33527,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -33544,6 +33580,73 @@
         "1.0.0"
       ],
       "iconColor": "#1565C0",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.tgezginis.fricam",
+      "name": "Fricam",
+      "repos": [
+        "franticg33k/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "franticg33k/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/franticg33k/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=franticg33k/morphe-patches",
+          "source": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/franticg33k.png?size=96",
+          "latestChanges": {
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
+            "items": [
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-tgezginis-fricam-franticg33k-morphe-patches",
+            "releaseTag": "app-com-tgezginis-fricam-franticg33k-morphe-patches",
+            "assetName": "fricam-franticg33k-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Remove License Activity",
+              "description": "Removes the PairIP LicenseActivity from AndroidManifest.xml so the app runs without a valid Play Store license (required because the APK is re-signed during patching)."
+            },
+            {
+              "name": "Unlock Premium",
+              "description": "Unlocks all Fricam Pro features for free. Fricam's Pro state terminates in a plain SharedPreferences boolean (pro_unlocked in fricam_billing) written only by PurchaseManager.d(Z); every UI feature gate re-reads it via the static MasterProGate.K(). The patch forces the RevenueCat entitlement check and the master gate to always return true (layered P1+P2), hardens the persist path so no refresh can downgrade, and neutralizes the PairIP Play Store license check that gates the app on launch."
+            }
+          ],
+          "versions": [
+            "1.3.7"
+          ]
+        }
+      ],
+      "patches": [
+        "Remove License Activity",
+        "Unlock Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Remove License Activity",
+          "description": "Removes the PairIP LicenseActivity from AndroidManifest.xml so the app runs without a valid Play Store license (required because the APK is re-signed during patching)."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all Fricam Pro features for free. Fricam's Pro state terminates in a plain SharedPreferences boolean (pro_unlocked in fricam_billing) written only by PurchaseManager.d(Z); every UI feature gate re-reads it via the static MasterProGate.K(). The patch forces the RevenueCat entitlement check and the master gate to always return true (layered P1+P2), hardens the persist path so no refresh can downgrade, and neutralizes the PairIP Play Store license check that gates the app on launch."
+        }
+      ],
+      "versions": [
+        "1.3.7"
+      ],
+      "iconColor": "#1F6FEB",
       "iconUrl": ""
     },
     {
@@ -34786,16 +34889,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -34918,28 +35021,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -35634,16 +35721,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -37247,16 +37334,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -38451,16 +38538,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -38473,8 +38560,8 @@
           },
           "patches": [
             {
-              "name": "Into the Dead Ad Removal",
-              "description": "Removes all ads and grants rewarded-video rewards instantly: rewarded videos (legacy IronSource and LevelPlay), interstitials, launch, banner and AdMob App Open ads are all eliminated."
+              "name": "Into the Dead 2 Ad Removal & Instant Boost Rewards",
+              "description": "Removes all ads (interstitials, banners, app-open) and grants rewarded-video perk boosts instantly on tap (no ad watch) using the correct reward name PERKS_BOOST, verified against a real rewarded event."
             },
             {
               "name": "Into the Dead Billing Bypass",
@@ -38487,13 +38574,13 @@
         }
       ],
       "patches": [
-        "Into the Dead Ad Removal",
+        "Into the Dead 2 Ad Removal & Instant Boost Rewards",
         "Into the Dead Billing Bypass"
       ],
       "patchDetails": [
         {
-          "name": "Into the Dead Ad Removal",
-          "description": "Removes all ads and grants rewarded-video rewards instantly: rewarded videos (legacy IronSource and LevelPlay), interstitials, launch, banner and AdMob App Open ads are all eliminated."
+          "name": "Into the Dead 2 Ad Removal & Instant Boost Rewards",
+          "description": "Removes all ads (interstitials, banners, app-open) and grants rewarded-video perk boosts instantly on tap (no ad watch) using the correct reward name PERKS_BOOST, verified against a real rewarded event."
         },
         {
           "name": "Into the Dead Billing Bypass",
@@ -39130,28 +39217,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -39213,28 +39284,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -39296,16 +39351,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -40595,28 +40650,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -41750,24 +41789,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-08-23)",
-            "date": "2026-08-23",
+            "title": "2.0.0 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide the Home tab LYP upsell under \"Disable LINE Premium\" (#71) (d4362b3), closes #70"
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "The patch fingerprints use the obfuscated class and method"
+              },
+              {
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "names of 26.14.0. These names do not exist in 26.11.0. Update LINE to 26.14.0"
+              },
+              {
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "before you patch."
+              },
+              {
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "resolve every hidepremium lookup before the first mutation"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "stop the Home tab refetch loop that \"Hide Home content feed\" starts (5eea7c3), closes #69"
+                "text": "hide the Friends sub-tab Calendar block"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add \"Hide Home content feed\" patch (issue #69) (6bcb05b), closes #15"
+                "text": "hide new item badges"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "drop support for LINE 26.11.0"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "re-anchor all LINE patches for 26.14.0"
               }
             ]
           },
@@ -41805,7 +41860,7 @@
             },
             {
               "name": "Hide calendar buttons",
-              "description": "Removes every LINE Calendar button inside the messenger. One is in the Chats-tab header. The other four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu."
+              "description": "Removes every LINE Calendar surface inside the messenger. One is in the Chats-tab header. Four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu. The last is the Calendar block in the Friends sub-tab of the Home tab."
             },
             {
               "name": "Hide community button",
@@ -41830,6 +41885,10 @@
             {
               "name": "Hide LINE TODAY tab",
               "description": "Removes the LINE TODAY (News) tab from the main bottom navigation, in both the news-tab and news-row layouts."
+            },
+            {
+              "name": "Hide new item badges",
+              "description": "Hides the green dots and N badges that mark new items, on header buttons, tabs, menus, lists and settings rows. Unread message counts do not change."
             },
             {
               "name": "Hide premium unsend upsells",
@@ -41873,7 +41932,7 @@
             }
           ],
           "versions": [
-            "26.11.0"
+            "26.14.0"
           ]
         }
       ],
@@ -41891,6 +41950,7 @@
         "Hide Home modules",
         "Hide LINE GIFT button",
         "Hide LINE TODAY tab",
+        "Hide new item badges",
         "Hide premium unsend upsells",
         "Hide Shopping tab",
         "Hide Transfer button",
@@ -41929,7 +41989,7 @@
         },
         {
           "name": "Hide calendar buttons",
-          "description": "Removes every LINE Calendar button inside the messenger. One is in the Chats-tab header. The other four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu."
+          "description": "Removes every LINE Calendar surface inside the messenger. One is in the Chats-tab header. Four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu. The last is the Calendar block in the Friends sub-tab of the Home tab."
         },
         {
           "name": "Hide community button",
@@ -41954,6 +42014,10 @@
         {
           "name": "Hide LINE TODAY tab",
           "description": "Removes the LINE TODAY (News) tab from the main bottom navigation, in both the news-tab and news-row layouts."
+        },
+        {
+          "name": "Hide new item badges",
+          "description": "Hides the green dots and N badges that mark new items, on header buttons, tabs, menus, lists and settings rows. Unread message counts do not change."
         },
         {
           "name": "Hide premium unsend upsells",
@@ -41997,7 +42061,7 @@
         }
       ],
       "versions": [
-        "26.11.0"
+        "26.14.0"
       ],
       "iconColor": "#06C755",
       "iconUrl": ""
@@ -45408,16 +45472,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -46400,16 +46464,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -47878,28 +47942,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -47913,11 +47961,11 @@
           "patches": [
             {
               "name": "Unlock Premium",
-              "description": "Forces the premium entitlement in Native Camera. Premium status is a local 'is_premium' SharedPreferences flag read on startup behind PairIP's Play Store licensing, so this unlocks RAW DNG, 10-bit video, HLG/UHDR and the boosted-ISO seekbar."
+              "description": "Forces the premium entitlement in Native Camera. Premium status is a local 'is_premium' SharedPreferences flag (in the 'rawcam_prefs' file) read on cold start into a StateFlow. Unlocks RAW DNG, 10-bit/HLG/UHDR video, custom boosted modes and the sub-40-Mbps bitrate cap. It also neutralizes PairIP's Play Store licensing (fired from both Application.attachBaseContext and LicenseContentProvider.onCreate, so a repacked copy no longer gets bounced to the Play Store paywall at launch)."
             }
           ],
           "versions": [
-            "1.1.7"
+            "1.4"
           ]
         }
       ],
@@ -47927,11 +47975,11 @@
       "patchDetails": [
         {
           "name": "Unlock Premium",
-          "description": "Forces the premium entitlement in Native Camera. Premium status is a local 'is_premium' SharedPreferences flag read on startup behind PairIP's Play Store licensing, so this unlocks RAW DNG, 10-bit video, HLG/UHDR and the boosted-ISO seekbar."
+          "description": "Forces the premium entitlement in Native Camera. Premium status is a local 'is_premium' SharedPreferences flag (in the 'rawcam_prefs' file) read on cold start into a StateFlow. Unlocks RAW DNG, 10-bit/HLG/UHDR video, custom boosted modes and the sub-40-Mbps bitrate cap. It also neutralizes PairIP's Play Store licensing (fired from both Application.attachBaseContext and LicenseContentProvider.onCreate, so a repacked copy no longer gets bounced to the Play Store paywall at launch)."
         }
       ],
       "versions": [
-        "1.1.7"
+        "1.4"
       ],
       "iconColor": "#D0BCFF",
       "iconUrl": ""
@@ -48126,28 +48174,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -50302,16 +50334,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -53888,16 +53920,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -55085,28 +55117,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -55276,8 +55292,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -55285,12 +55301,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -55982,28 +55998,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.3.7 (2026-08-07)",
-            "date": "2026-08-07",
+            "title": "1.3.9 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add JellyWatch TV premium unlock patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix JellyWatch premium unlock for 2.0.REV-1712"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "fix Native Camera premium unlock for 1.1.7"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update app name in Compatibility for Karobar"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "update offsets and descriptions in EnablePremiumPatch for premium features"
+                "text": "fix Atlas Photo Pro unlock for 2.7.3 (structural fallback + idempotency check)"
               }
             ]
           },
@@ -58279,16 +58279,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -60038,12 +60038,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RoundSalmon4/morphe-patches-template/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RoundSalmon4.png?size=96",
           "latestChanges": {
-            "title": "1.0.3 (2026-08-26)",
-            "date": "2026-08-26",
+            "title": "1.0.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add SeriesGuide v2026.3.1 target"
+                "text": "add SeriesGuide v2026.4.1 target"
               }
             ]
           },
@@ -60064,7 +60064,8 @@
             "2026.2.2",
             "2026.3.0",
             "2026.3.1",
-            "2026.4.0"
+            "2026.4.0",
+            "2026.4.1"
           ]
         }
       ],
@@ -60081,7 +60082,8 @@
         "2026.2.2",
         "2026.3.0",
         "2026.3.1",
-        "2026.4.0"
+        "2026.4.0",
+        "2026.4.1"
       ],
       "iconColor": "#E53935",
       "iconUrl": ""
@@ -61130,16 +61132,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -64606,16 +64608,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -64776,18 +64778,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -66983,16 +66985,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -68781,16 +68783,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -69711,16 +69713,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -70050,12 +70052,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -70137,12 +70139,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.3 (2026-08-29)",
-            "date": "2026-08-29",
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**paramount:** harden ad-patch fingerprints; verify + support v16.19.0 (#142)"
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
               }
             ]
           },
@@ -70957,16 +70959,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-08-30)",
-            "date": "2026-08-30",
+            "title": "1.22.1 (2026-09-04)",
+            "date": "2026-09-04",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-adventure:** add IAP unlock patch"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**ads:** correct instant rewarded video boost name"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**altos-odyssey:** IAP-Purchase auto grant"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**billing:** prevent delayed credit in IAP bypass"
               }
             ]
           },
@@ -75540,8 +75542,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -76018,11 +76020,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -81398,12 +81400,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.3 (2026-08-26)",
-        "date": "2026-08-26",
+        "title": "1.0.4 (2026-09-04)",
+        "date": "2026-09-04",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.3.1 target"
+            "text": "add SeriesGuide v2026.4.1 target"
           }
         ]
       },
