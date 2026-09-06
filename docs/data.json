@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-05 02:40 UTC",
+  "generatedAt": "2026-09-06 02:36 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 705,
-  "patchCount": 2871,
-  "universalPatchCount": 480,
+  "appCount": 706,
+  "patchCount": 2873,
+  "universalPatchCount": 481,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -61,8 +61,8 @@
       "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
       "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
       "avatarUrl": "https://github.com/ajstrick81.png?size=96",
-      "patchCount": 32,
-      "appCount": 12,
+      "patchCount": 33,
+      "appCount": 13,
       "createdAt": 1784836028108,
       "updatedAt": 1784836028108,
       "createdDate": "2026-07-23",
@@ -103,6 +103,13 @@
           "name": "com.disney.disneyplus",
           "packageName": "com.disney.disneyplus",
           "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "com.espn.score_center",
+          "packageName": "com.espn.score_center",
+          "patchCount": 1,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -640,10 +647,6 @@
           {
             "category": "\u26a0 BREAKING CHANGES",
             "text": "before you patch."
-          },
-          {
-            "category": "\u26a0 BREAKING CHANGES",
-            "text": "Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
@@ -2406,24 +2409,28 @@
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.4.0 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.5.0 (2026-09-05)",
+        "date": "2026-09-05",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** harden keep-alive structural resolver"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** harden keep-alive without breaking apk patching"
+            "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
           },
           {
             "category": "\u2728 New Features",
-            "text": "add Helium foreground keep-alive service"
+            "text": "**universal:** broaden Disable analytics to kondratjev parity"
           },
           {
             "category": "\u2728 New Features",
-            "text": "make Helium keep-alive patch version resilient"
+            "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
           }
         ]
       },
@@ -2450,13 +2457,6 @@
           "iconColor": "#FF4500"
         },
         {
-          "name": "Helium Browser",
-          "packageName": "io.github.jqssun.helium",
-          "patchCount": 1,
-          "iconUrl": "",
-          "iconColor": ""
-        },
-        {
           "name": "Quetta Browser",
           "packageName": "net.quetta.browser",
           "patchCount": 1,
@@ -2466,6 +2466,13 @@
         {
           "name": "Quetta Browser Official",
           "packageName": "net.quetta.browser.official",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "Titanium Browser for Android",
+          "packageName": "io.github.jqssun.helium",
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": ""
@@ -6602,19 +6609,19 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 342,
+      "patchCount": 343,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.43.1 (2026-09-03)",
-        "date": "2026-09-03",
+        "title": "1.44.0 (2026-09-05)",
+        "date": "2026-09-05",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
+            "category": "New Features",
+            "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
           }
         ]
       },
@@ -18088,24 +18095,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
               }
             ]
           },
@@ -18190,24 +18201,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
               }
             ]
           },
@@ -18258,24 +18273,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
               }
             ]
           },
@@ -22172,12 +22191,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.43.1 (2026-09-03)",
-            "date": "2026-09-03",
+            "title": "1.44.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
+                "category": "New Features",
+                "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
               }
             ]
           },
@@ -22762,6 +22781,64 @@
         "2026.14.0",
         "2026.14.2",
         "2026.16.1"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.espn.score_center",
+      "name": "com.espn.score_center",
+      "repos": [
+        "ajstrick81/morphe-androidtv-patches"
+      ],
+      "sources": [
+        {
+          "repo": "ajstrick81/morphe-androidtv-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
+          "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
+          "source": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/ajstrick81.png?size=96",
+          "latestChanges": {
+            "title": "1.30.4 (2026-09-04)",
+            "date": "2026-09-04",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-espn-score-center-ajstrick81-morphe-androidtv-patches",
+            "releaseTag": "app-com-espn-score-center-ajstrick81-morphe-androidtv-patches",
+            "assetName": "com-espn-score-center-ajstrick81-morphe-androidtv-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "ESPN Android TV",
+              "description": "Suppresses ESPN VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+            }
+          ],
+          "versions": [
+            "6.11.1"
+          ]
+        }
+      ],
+      "patches": [
+        "ESPN Android TV"
+      ],
+      "patchDetails": [
+        {
+          "name": "ESPN Android TV",
+          "description": "Suppresses ESPN VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+        }
+      ],
+      "versions": [
+        "6.11.1"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -35200,72 +35277,6 @@
       "iconUrl": ""
     },
     {
-      "packageName": "io.github.jqssun.helium",
-      "name": "Helium Browser",
-      "repos": [
-        "dh6k/morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "dh6k/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/dh6k/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=dh6k/morphe-patches",
-          "source": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/dh6k.png?size=96",
-          "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "io-github-jqssun-helium-dh6k-morphe-patches",
-            "releaseTag": "app-io-github-jqssun-helium-dh6k-morphe-patches",
-            "assetName": "helium-browser-dh6k-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Keep Helium Child Processes Alive",
-              "description": "Experimental version-unpinned structural/data-flow patch: starts one main-process foreground service with persistent low-priority notification and forces child STRONG binding plus IMPORTANT/STRONG priority updates. Tolerates routine signature, register, and helper-name changes; ambiguous targets fail closed. May increase RAM, battery, and process pressure; mitigates LMK kills only."
-            }
-          ],
-          "versions": []
-        }
-      ],
-      "patches": [
-        "Keep Helium Child Processes Alive"
-      ],
-      "patchDetails": [
-        {
-          "name": "Keep Helium Child Processes Alive",
-          "description": "Experimental version-unpinned structural/data-flow patch: starts one main-process foreground service with persistent low-priority notification and forces child STRONG binding plus IMPORTANT/STRONG priority updates. Tolerates routine signature, register, and helper-name changes; ambiguous targets fail closed. May increase RAM, battery, and process pressure; mitigates LMK kills only."
-        }
-      ],
-      "versions": [],
-      "iconColor": "",
-      "iconUrl": ""
-    },
-    {
       "packageName": "com.hellochinese",
       "name": "HelloChinese",
       "repos": [
@@ -41803,10 +41814,6 @@
               {
                 "category": "\u26a0 BREAKING CHANGES",
                 "text": "before you patch."
-              },
-              {
-                "category": "\u26a0 BREAKING CHANGES",
-                "text": "Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
@@ -49428,7 +49435,7 @@
             }
           ],
           "versions": [
-            "0.8.11-beta"
+            "0.9.0-beta"
           ]
         },
         {
@@ -49487,7 +49494,7 @@
             }
           ],
           "versions": [
-            "0.8.11-beta"
+            "0.9.0-beta"
           ]
         }
       ],
@@ -49531,7 +49538,7 @@
         }
       ],
       "versions": [
-        "0.8.11-beta"
+        "0.9.0-beta"
       ],
       "iconColor": "#111827",
       "iconUrl": ""
@@ -55600,8 +55607,8 @@
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
         "Spoof signature",
-        "Unlock Custom Time Picker",
         "Unlock custom time picker",
+        "Unlock Custom Time Picker",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
@@ -55626,12 +55633,12 @@
           "description": "Restores push notifications by spoofing the original app signature."
         },
         {
-          "name": "Unlock Custom Time Picker",
-          "description": "Unlocks the custom scheduled send date/time picker for all users."
-        },
-        {
           "name": "Unlock custom time picker",
           "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
+        },
+        {
+          "name": "Unlock Custom Time Picker",
+          "description": "Unlocks the custom scheduled send date/time picker for all users."
         },
         {
           "name": "Unlock Unlimited Plan",
@@ -56540,24 +56547,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
               }
             ]
           },
@@ -56606,24 +56617,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive structural resolver"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**helium:** harden keep-alive without breaking apk patching"
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Helium foreground keep-alive service"
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "make Helium keep-alive patch version resilient"
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
               }
             ]
           },
@@ -67924,6 +67939,76 @@
       "iconUrl": ""
     },
     {
+      "packageName": "io.github.jqssun.helium",
+      "name": "Titanium Browser for Android",
+      "repos": [
+        "dh6k/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "dh6k/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/dh6k/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=dh6k/morphe-patches",
+          "source": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/dh6k.png?size=96",
+          "latestChanges": {
+            "title": "1.5.0 (2026-09-05)",
+            "date": "2026-09-05",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** broaden Disable analytics to kondratjev parity"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "io-github-jqssun-helium-dh6k-morphe-patches",
+            "releaseTag": "app-io-github-jqssun-helium-dh6k-morphe-patches",
+            "assetName": "titanium-browser-for-android-dh6k-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Keep Titanium Extensions Child Processes Alive",
+              "description": "Experimental version-unpinned structural/data-flow patch: starts one main-process foreground service with persistent low-priority notification and forces child STRONG binding plus IMPORTANT/STRONG priority updates. Tolerates routine signature, register, and helper-name changes; ambiguous targets fail closed. May increase RAM, battery, and process pressure; mitigates LMK kills only."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "Keep Titanium Extensions Child Processes Alive"
+      ],
+      "patchDetails": [
+        {
+          "name": "Keep Titanium Extensions Child Processes Alive",
+          "description": "Experimental version-unpinned structural/data-flow patch: starts one main-process foreground service with persistent low-priority notification and forces child STRONG binding plus IMPORTANT/STRONG priority updates. Tolerates routine signature, register, and helper-name changes; ambiguous targets fail closed. May increase RAM, battery, and process pressure; mitigates LMK kills only."
+        }
+      ],
+      "versions": [],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
       "packageName": "mobi.lockdown.weather",
       "name": "Today Weather",
       "repos": [
@@ -69493,8 +69578,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -69538,11 +69623,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -75542,8 +75627,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -76020,11 +76105,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -78094,24 +78179,28 @@
       "avatarUrl": "https://github.com/dh6k.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.4.0 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.5.0 (2026-09-05)",
+        "date": "2026-09-05",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** harden keep-alive structural resolver"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**helium:** harden keep-alive without breaking apk patching"
+            "text": "**brave:** tolerate Origin log-literal drift on 1.97.x (86755f2), closes #1 #5"
           },
           {
             "category": "\u2728 New Features",
-            "text": "add Helium foreground keep-alive service"
+            "text": "**universal:** broaden Disable analytics to kondratjev parity"
           },
           {
             "category": "\u2728 New Features",
-            "text": "make Helium keep-alive patch version resilient"
+            "text": "**universal:** cover Adjust v5 initSdk and Crashlytics boxed overload"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**universal:** cover screen reporting, crashlytics/perf providers and Adjust init"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**universal:** harden Disable analytics manifest scope and runtime backstop"
           }
         ]
       },
@@ -78128,7 +78217,7 @@
         },
         {
           "name": "Disable analytics",
-          "description": "Disables Firebase Analytics, Crashlytics and Performance through manifest opt-outs and exact runtime setters when present. Other SDK components are disabled only when explicitly declared; custom or server-side telemetry is not covered.",
+          "description": "Disables analytics and tracking from multiple SDKs, including AppMetrica, MyTracker, Firebase, Sentry, Google Analytics, Amplitude, Mixpanel, Adjust, AppsFlyer, Facebook, MoEngage, and comScore, through manifest opt-outs and exact runtime entry points when present. Custom or server-side telemetry is not covered.",
           "default": false
         }
       ]
@@ -78847,14 +78936,14 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 334,
+      "patchCount": 335,
       "latestChanges": {
-        "title": "1.43.1 (2026-09-03)",
-        "date": "2026-09-03",
+        "title": "1.44.0 (2026-09-05)",
+        "date": "2026-09-05",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cover React Native AsyncStorage and billing bridges in unlock premium"
+            "category": "New Features",
+            "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
           }
         ]
       },
@@ -80047,6 +80136,11 @@
         {
           "name": "Make App Debuggable",
           "description": "Sets android:debuggable so debuggers and profiling tools can attach",
+          "default": false
+        },
+        {
+          "name": "Nai64Patches Universal Overlay Patch v1.0 (Experimental)",
+          "description": "Universal in-app overlay for Android apps and games. Optional modules include System Time, FPS,\nfullscreen, app brightness, and haptic controls. Modules are excluded and disabled by default;\nselect them in Morphe settings before patching. Statistic modules show information, Activity modules\ncontrol the current Activity, and Hook modules control internal app behavior, such as disabling\nanimations, through best-effort runtime changes. A selected local image automatically replaces\nthe legacy icon; empty or invalid image input falls back to the legacy icon. This is experimental\nand may not work on all apps.\n\nThe idea and initial works of this Universal Overlay Patch are from Zanuaimi / Noobite.",
           "default": false
         },
         {
