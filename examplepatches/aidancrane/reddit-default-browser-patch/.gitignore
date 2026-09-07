@@ -1,0 +1,51 @@
+# Gradle and IDE state
+.gradle/
+.kotlin/
+**/build/
+.idea/
+.vscode/
+*.iml
+
+# Android packages and reverse-engineering output must never be published here
+*.apk
+*.apks
+*.aab
+*.xapk
+*.apkm
+*.dex
+*.smali
+jadx*/
+decompiled*/
+
+# Signing material and credentials
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+local.properties
+gradle.properties.local
+.env
+.env.*
+credentials*
+secrets*
+
+# Logs, caches, and local proof captures
+*.log
+*.png
+*.jpg
+*.jpeg
+*.webp
+work/
+dist/
+backup/
+node_modules/
+
+# Built patch bundles are release artifacts, not source-controlled binaries
+*.rvp
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# OS files
+.DS_Store
+Thumbs.db

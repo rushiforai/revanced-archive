@@ -1,0 +1,51 @@
+Reddit Default Browser patch
+Copyright (C) 2026 Aidan
+
+This project uses the structure and build conventions of ReVanced's
+revanced-patches-template and depends on ReVanced build tooling.
+
+ReVanced Patches template:
+https://github.com/ReVanced/revanced-patches-template
+Licensed under GNU General Public License version 3.
+
+A source snapshot of revanced-patches-gradle-plugin is included under
+build-logic/revanced-patches-gradle-plugin so builds do not require credentials
+for GitHub Packages:
+https://github.com/ReVanced/revanced-patches-gradle-plugin
+Snapshot commit: e810f1fab1da24b67b70234c839c6b83c62c4064
+Upstream version: 1.0.0-dev.11
+Licensed under GNU General Public License version 3. The upstream LICENSE is
+preserved in that directory.
+
+The custom patch and runtime-extension implementations in patches/src and
+extensions/extension/src were independently authored for this project against
+the public ReVanced patcher APIs. They are not copied from Reddit, ReVanced
+Extended, or another patch repository. Only minimal package/class/method
+identifiers needed to locate compatible application bytecode are present; no
+third-party method bodies, smali, decompiled source, or proprietary resources
+are distributed.
+
+License boundaries:
+
+- patches/src/** and extensions/extension/src/**: Copyright (C) 2026 Aidan;
+  MIT OR GPL-3.0-only, at the recipient's option.
+- build-logic/revanced-patches-gradle-plugin/**: upstream ReVanced;
+  GPL-3.0-only. This snapshot is unmodified except for its placement in this
+  repository; its complete upstream license is preserved in that directory.
+- settings.gradle.kts, patches/build.gradle.kts,
+  extensions/extension/build.gradle.kts, and gradle/libs.versions.toml:
+  ReVanced-template-derived build configuration; GPL-3.0-only.
+- gradlew, gradlew.bat, gradle/wrapper/gradle-wrapper.jar, and
+  gradle/wrapper/gradle-wrapper.properties: Gradle wrapper distribution;
+  Apache-2.0. The full license is in LICENSES/Apache-2.0.txt and Gradle's
+  upstream notice is preserved as GRADLE-NOTICE.
+- Original project documentation and metadata not otherwise identified: MIT.
+
+The MIT option is GPL-compatible. If these independently authored files are
+combined with GPL-covered code in a way that legally forms one program, the
+GPL's terms apply to distribution of that combination. This notice identifies
+licenses and provenance but is not legal advice.
+
+ReVanced is a trademark of its respective owners. Reddit and the Reddit logo
+are trademarks of Reddit, Inc. This project is independent and is not endorsed
+by Reddit, Inc., ReVanced, or ReVanced Extended.
