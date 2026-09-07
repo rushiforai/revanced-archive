@@ -37,6 +37,7 @@ Vernoxvernax/revanced-patches
 VinkyV/AppleMusicPatches
 XDream8/revanced-creator
 YT-Advanced/ReX-patches
+aidancrane/reddit-default-browser-patch
 alim-zanibekov/ultrasandbox
 bawr/revanced-patches
 blazskufca/revanced-patch

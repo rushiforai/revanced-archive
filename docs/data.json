@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-06 02:36 UTC",
+  "generatedAt": "2026-09-07 02:34 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 706,
-  "patchCount": 2873,
-  "universalPatchCount": 481,
+  "appCount": 707,
+  "patchCount": 2875,
+  "universalPatchCount": 490,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -1654,23 +1654,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 54,
-      "appCount": 25,
+      "patchCount": 49,
+      "appCount": 24,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.22.1 (2026-09-04)",
-        "date": "2026-09-04",
+        "title": "1.23.0 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ads:** correct instant rewarded video boost name"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**billing:** prevent delayed credit in IAP bypass"
+            "category": "\u2728 New Features",
+            "text": "**moviebox:** remove all moviebox patches"
           }
         ]
       },
@@ -1779,13 +1775,6 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#2196F3"
-        },
-        {
-          "name": "MovieBox",
-          "packageName": "com.community.oneroom",
-          "patchCount": 5,
-          "iconUrl": "",
-          "iconColor": "#E53935"
         },
         {
           "name": "Only One",
@@ -4028,8 +4017,8 @@
       "webUrl": "https://github.com/hoo-dles/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
-      "patchCount": 80,
-      "appCount": 56,
+      "patchCount": 79,
+      "appCount": 57,
       "createdAt": 1784836036710,
       "updatedAt": 1784836036710,
       "createdDate": "2026-07-23",
@@ -4088,6 +4077,13 @@
           "iconColor": "#64F67A"
         },
         {
+          "name": "ASL Bloom",
+          "packageName": "com.toleio.us",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FFCC87"
+        },
+        {
           "name": "Avocards",
           "packageName": "com.avocards",
           "patchCount": 1,
@@ -4132,7 +4128,7 @@
         {
           "name": "Daily Pocket",
           "packageName": "kr.co.yjteam.dailypay",
-          "patchCount": 2,
+          "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#F6F6F6"
         },
@@ -4174,7 +4170,7 @@
         {
           "name": "Google News",
           "packageName": "com.google.android.apps.magazines",
-          "patchCount": 2,
+          "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#4285F4"
         },
@@ -4321,7 +4317,7 @@
         {
           "name": "Podcast Addict",
           "packageName": "com.bambuna.podcastaddict",
-          "patchCount": 2,
+          "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#FD7E14"
         },
@@ -4391,7 +4387,7 @@
         {
           "name": "Solid Explorer",
           "packageName": "pl.solidexplorer2",
-          "patchCount": 2,
+          "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#039BE5"
         },
@@ -6609,19 +6605,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 343,
+      "patchCount": 350,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.44.0 (2026-09-05)",
-        "date": "2026-09-05",
+        "title": "1.45.0 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
+            "category": "Bug Fixes",
+            "text": "non-null RevenueCat entitlement construction with high-register move"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+          },
+          {
             "category": "New Features",
-            "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
+            "text": "add Disable Notification Badges patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Device Admin patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Notification Listener patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Write Settings Access patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add int getter fold and Fake Usage Access patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Report No Cameras patch"
           }
         ]
       },
@@ -7337,12 +7361,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.3.1 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.3.2 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+            "text": "**Strava - Add route export:** Patch additional methods"
           }
         ]
       },
@@ -9762,19 +9786,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 146,
+      "patchCount": 147,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.1.9 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.4.1 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.41.0"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Drop the home feed's non-post units in NSFW mode"
           }
         ]
       },
@@ -9782,7 +9806,7 @@
         {
           "name": "Reddit",
           "packageName": "com.reddit.frontpage",
-          "patchCount": 18,
+          "patchCount": 19,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
@@ -10911,16 +10935,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -12319,16 +12339,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -12381,16 +12397,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -12443,12 +12455,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -12534,12 +12546,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -13199,12 +13211,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -13772,6 +13784,92 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.toleio.us",
+      "name": "ASL Bloom",
+      "repos": [
+        "hoo-dles/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hoo-dles/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hoo-dles/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hoo-dles/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hoo-dles.png?size=96",
+          "latestChanges": {
+            "title": "1.42.1-dev.1 (2026-08-28)",
+            "date": "2026-08-28",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
+              },
+              {
+                "category": "Features",
+                "text": "**Bunpo:** Add Enable Platinum patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
+              },
+              {
+                "category": "Features",
+                "text": "**Lightroom:** Update patches to support 11.5.01"
+              },
+              {
+                "category": "Features",
+                "text": "**Lingodeer:** Add Enable Premium patch"
+              },
+              {
+                "category": "Features",
+                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
+              },
+              {
+                "category": "Features",
+                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-toleio-us-hoo-dles-morphe-patches",
+            "releaseTag": "app-com-toleio-us-hoo-dles-morphe-patches",
+            "assetName": "asl-bloom-hoo-dles-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Enable Premium",
+              "description": "Enables app features locked behind the subscription paywall."
+            }
+          ],
+          "versions": [
+            "1.36.67"
+          ]
+        }
+      ],
+      "patches": [
+        "Enable Premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Enable Premium",
+          "description": "Enables app features locked behind the subscription paywall."
+        }
+      ],
+      "versions": [
+        "1.36.67"
+      ],
+      "iconColor": "#FFCC87",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.overdevs.at4k",
       "name": "AT4K Launcher",
       "repos": [
@@ -13924,8 +14022,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -13933,12 +14031,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -16762,16 +16860,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -22191,12 +22285,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.44.0 (2026-09-05)",
-            "date": "2026-09-05",
+            "title": "1.45.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
+                "category": "Bug Fixes",
+                "text": "non-null RevenueCat entitlement construction with high-register move"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+              },
+              {
                 "category": "New Features",
-                "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
+                "text": "add Disable Notification Badges patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Device Admin patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Notification Listener patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Fake Write Settings Access patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add int getter fold and Fake Usage Access patch"
+              },
+              {
+                "category": "New Features",
+                "text": "add Report No Cameras patch"
               }
             ]
           },
@@ -22252,12 +22374,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -22646,7 +22768,7 @@
             }
           ],
           "versions": [
-            "6.92.5"
+            "6.95.4"
           ]
         }
       ],
@@ -22680,7 +22802,7 @@
         }
       ],
       "versions": [
-        "6.92.5"
+        "6.95.4"
       ],
       "iconColor": "#58CC02",
       "iconUrl": ""
@@ -22820,7 +22942,7 @@
           "patches": [
             {
               "name": "ESPN Android TV",
-              "description": "Suppresses ESPN VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+              "description": "Suppresses ESPN Android TV VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
             }
           ],
           "versions": [
@@ -22834,7 +22956,7 @@
       "patchDetails": [
         {
           "name": "ESPN Android TV",
-          "description": "Suppresses ESPN VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+          "description": "Suppresses ESPN Android TV VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
         }
       ],
       "versions": [
@@ -23509,10 +23631,6 @@
             {
               "name": "Enable custom tabs",
               "description": "Open articles using your default browser."
-            },
-            {
-              "name": "MicroG integration",
-              "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
             }
           ],
           "versions": [
@@ -23526,8 +23644,7 @@
         "GmsCore support",
         "Google News \u2014 all patches",
         "Google News \u2014 hide sponsored article cards (STUB)",
-        "Google News \u2014 remove ads (STUB)",
-        "MicroG integration"
+        "Google News \u2014 remove ads (STUB)"
       ],
       "patchDetails": [
         {
@@ -23553,10 +23670,6 @@
         {
           "name": "Google News \u2014 remove ads (STUB)",
           "description": "STUB: no-op ad-loader init methods for the news feed. Fingerprints not yet authored."
-        },
-        {
-          "name": "MicroG integration",
-          "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
         }
       ],
       "versions": [
@@ -25101,12 +25214,13 @@
             },
             {
               "name": "Skip ads",
-              "description": "Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring on both the app NetworkingKt OkHttp client and the Sky SDK addon network client, and a WebView shouldInterceptRequest wrapper. Validated v7.5.102 and v7.6.100."
+              "description": "Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring on both the app NetworkingKt OkHttp client and the Sky SDK addon network client, and a WebView shouldInterceptRequest wrapper. Validated v7.5.102, v7.6.100 and v7.8.100."
             }
           ],
           "versions": [
             "7.5.102",
-            "7.6.100"
+            "7.6.100",
+            "7.8.100"
           ]
         }
       ],
@@ -25126,12 +25240,13 @@
         },
         {
           "name": "Skip ads",
-          "description": "Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring on both the app NetworkingKt OkHttp client and the Sky SDK addon network client, and a WebView shouldInterceptRequest wrapper. Validated v7.5.102 and v7.6.100."
+          "description": "Disables ad delivery via Sky SDK surgical targets (FreeWheel DI module skip, MediaTailor SSAI layers, ad-break-started no-op), AdBlockInterceptor wiring on both the app NetworkingKt OkHttp client and the Sky SDK addon network client, and a WebView shouldInterceptRequest wrapper. Validated v7.5.102, v7.6.100 and v7.8.100."
         }
       ],
       "versions": [
         "7.5.102",
-        "7.6.100"
+        "7.6.100",
+        "7.8.100"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -28477,12 +28592,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -29170,10 +29285,6 @@
             {
               "name": "Enable Premium",
               "description": "Enables app features locked behind the subscription paywall."
-            },
-            {
-              "name": "MicroG integration",
-              "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
             }
           ],
           "versions": [
@@ -29182,17 +29293,12 @@
         }
       ],
       "patches": [
-        "Enable Premium",
-        "MicroG integration"
+        "Enable Premium"
       ],
       "patchDetails": [
         {
           "name": "Enable Premium",
           "description": "Enables app features locked behind the subscription paywall."
-        },
-        {
-          "name": "MicroG integration",
-          "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
         }
       ],
       "versions": [
@@ -30176,16 +30282,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -30511,16 +30613,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -30719,16 +30817,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -31885,12 +31979,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -32085,16 +32179,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -33604,16 +33694,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -34114,12 +34200,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -34542,12 +34628,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -34779,12 +34865,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -34966,16 +35052,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -35522,12 +35604,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -35732,16 +35814,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -36527,12 +36605,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -37345,16 +37423,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -38549,16 +38623,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -38893,12 +38963,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -39362,16 +39432,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -41399,12 +41465,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -44441,12 +44507,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -44909,12 +44975,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -45479,16 +45545,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -46458,65 +46520,9 @@
       "packageName": "com.community.oneroom",
       "name": "MovieBox",
       "repos": [
-        "byehi98/okish-morphe-patches",
         "rushiranpise/morphe-patches"
       ],
       "sources": [
-        {
-          "repo": "byehi98/okish-morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
-          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/byehi98.png?size=96",
-          "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
-            "items": [
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-community-oneroom-byehi98-okish-morphe-patches",
-            "releaseTag": "app-com-community-oneroom-byehi98-okish-morphe-patches",
-            "assetName": "moviebox-byehi98-okish-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "MovieBox Ad Removal",
-              "description": "Removes splash, banner, native, interstitial and reward video ads."
-            },
-            {
-              "name": "MovieBox Download Unlock",
-              "description": "Bypasses the server-side download access check so any resolution (including 1080p) can be downloaded on a free account."
-            },
-            {
-              "name": "MovieBox Force Update Bypass",
-              "description": "Disables forced and nag update prompts in MovieBox."
-            },
-            {
-              "name": "MovieBox Parallel Downloads",
-              "description": "Allows up to 5 simultaneous downloads in MovieBox."
-            },
-            {
-              "name": "MovieBox Premium Unlock",
-              "description": "Unlocks MovieBox Premium (VIP) by forcing the member state active at Pro level."
-            }
-          ],
-          "versions": [
-            "4.0.01.0813.02"
-          ]
-        },
         {
           "repo": "rushiranpise/morphe-patches",
           "host": "github.com",
@@ -46566,37 +46572,12 @@
         }
       ],
       "patches": [
-        "All-In-One",
-        "MovieBox Ad Removal",
-        "MovieBox Download Unlock",
-        "MovieBox Force Update Bypass",
-        "MovieBox Parallel Downloads",
-        "MovieBox Premium Unlock"
+        "All-In-One"
       ],
       "patchDetails": [
         {
           "name": "All-In-One",
           "description": "Unlocks VIP premium, removes ads and upsells, bypasses region lock and force update, unlocks HD and downloads, enables 5 parallel downloads."
-        },
-        {
-          "name": "MovieBox Ad Removal",
-          "description": "Removes splash, banner, native, interstitial and reward video ads."
-        },
-        {
-          "name": "MovieBox Download Unlock",
-          "description": "Bypasses the server-side download access check so any resolution (including 1080p) can be downloaded on a free account."
-        },
-        {
-          "name": "MovieBox Force Update Bypass",
-          "description": "Disables forced and nag update prompts in MovieBox."
-        },
-        {
-          "name": "MovieBox Parallel Downloads",
-          "description": "Allows up to 5 simultaneous downloads in MovieBox."
-        },
-        {
-          "name": "MovieBox Premium Unlock",
-          "description": "Unlocks MovieBox Premium (VIP) by forcing the member state active at Pro level."
         }
       ],
       "versions": [
@@ -47375,7 +47356,7 @@
             }
           ],
           "versions": [
-            "3.9.8"
+            "4.1.1.2"
           ]
         }
       ],
@@ -47389,7 +47370,7 @@
         }
       ],
       "versions": [
-        "3.9.8"
+        "4.1.1.2"
       ],
       "iconColor": "#428BCA",
       "iconUrl": ""
@@ -48973,12 +48954,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -49212,12 +49193,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -50341,16 +50322,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -52290,12 +52267,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -52420,12 +52397,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -53860,12 +53837,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -53927,16 +53904,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -54807,33 +54780,24 @@
             {
               "name": "Enable Premium",
               "description": "Enables app features locked behind the subscription paywall."
-            },
-            {
-              "name": "MicroG integration",
-              "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
             }
           ],
           "versions": [
-            "2026.4"
+            "2026.10.1"
           ]
         }
       ],
       "patches": [
-        "Enable Premium",
-        "MicroG integration"
+        "Enable Premium"
       ],
       "patchDetails": [
         {
           "name": "Enable Premium",
           "description": "Enables app features locked behind the subscription paywall."
-        },
-        {
-          "name": "MicroG integration",
-          "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
         }
       ],
       "versions": [
-        "2026.4"
+        "2026.10.1"
       ],
       "iconColor": "#FD7E14",
       "iconUrl": ""
@@ -57589,12 +57553,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.4.1 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.41.0"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Drop the home feed's non-post units in NSFW mode"
               }
             ]
           },
@@ -57653,6 +57617,10 @@
             {
               "name": "Hide Trending shelves",
               "description": "Adds an option to hide the Trending shelves from feed and search suggestions."
+            },
+            {
+              "name": "NSFW mode",
+              "description": "Adds an NSFW row to the navigation drawer that reduces the home feed to its 18+ posts. Turned off until it is switched on. Reddit only sends 18+ posts to accounts that have 'Show NSFW content' enabled, so the feed is empty without that account setting."
             },
             {
               "name": "Open links directly",
@@ -57723,6 +57691,7 @@
         "Hide upvote scores",
         "Hide user community badges",
         "Hide user flairs",
+        "NSFW mode",
         "Open external links directly",
         "Open links directly",
         "Open links externally",
@@ -57866,6 +57835,10 @@
         {
           "name": "Hide user flairs",
           "description": "Hides the user flairs on Reddit comments."
+        },
+        {
+          "name": "NSFW mode",
+          "description": "Adds an NSFW row to the navigation drawer that reduces the home feed to its 18+ posts. Turned off until it is switched on. Reddit only sends 18+ posts to accounts that have 'Show NSFW content' enabled, so the feed is empty without that account setting."
         },
         {
           "name": "Open external links directly",
@@ -58294,16 +58267,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -61147,16 +61116,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -61760,7 +61725,7 @@
             }
           ],
           "versions": [
-            "25.12.17"
+            "26.08.18"
           ]
         }
       ],
@@ -61779,8 +61744,8 @@
         }
       ],
       "versions": [
-        "25.12.17",
-        "26.06.23"
+        "26.06.23",
+        "26.08.18"
       ],
       "iconColor": "#374DF5",
       "iconUrl": ""
@@ -61993,21 +61958,16 @@
             {
               "name": "Enable Pro",
               "description": "Enables app features locked behind the subscription paywall."
-            },
-            {
-              "name": "MicroG integration",
-              "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
             }
           ],
           "versions": [
-            "3.5.19"
+            "3.5.20"
           ]
         }
       ],
       "patches": [
         "Disable Telemetry",
         "Enable Pro",
-        "MicroG integration",
         "Unlock Pro"
       ],
       "patchDetails": [
@@ -62020,17 +61980,13 @@
           "description": "Enables app features locked behind the subscription paywall."
         },
         {
-          "name": "MicroG integration",
-          "description": "Allows the app to work without root by using MicroG instead of Google Play Services."
-        },
-        {
           "name": "Unlock Pro",
           "description": ""
         }
       ],
       "versions": [
         "3.4.10",
-        "3.5.19",
+        "3.5.20",
         "3.5.7b"
       ],
       "iconColor": "#039BE5",
@@ -63773,12 +63729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -64623,16 +64579,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -64793,18 +64745,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -67000,16 +66952,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -68868,16 +68816,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -69578,8 +69522,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -69623,11 +69567,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -69798,16 +69742,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -70314,12 +70254,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -71044,16 +70984,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.22.1 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.23.0 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ads:** correct instant rewarded video boost name"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**billing:** prevent delayed credit in IAP bypass"
+                "category": "\u2728 New Features",
+                "text": "**moviebox:** remove all moviebox patches"
               }
             ]
           },
@@ -71304,12 +71240,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.3.2 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+                "text": "**Strava - Add route export:** Patch additional methods"
               }
             ]
           },
@@ -74848,12 +74784,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.4.1 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.41.0"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Drop the home feed's non-post units in NSFW mode"
               }
             ]
           },
@@ -76848,12 +76784,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.1.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.4.1 (2026-09-06)",
+            "date": "2026-09-06",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.41.0"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Drop the home feed's non-post units in NSFW mode"
               }
             ]
           },
@@ -78434,7 +78370,7 @@
       "source": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
-      "patchCount": 4,
+      "patchCount": 6,
       "latestChanges": {
         "title": "1.42.1-dev.1 (2026-08-28)",
         "date": "2026-08-28",
@@ -78492,6 +78428,16 @@
         {
           "name": "Hide app icon",
           "description": "Hides the app icon from the Android launcher.",
+          "default": false
+        },
+        {
+          "name": "MicroG integration",
+          "description": "Allows the app to work without root by using MicroG instead of Google Play Services.",
+          "default": false
+        },
+        {
+          "name": "Spoof signature",
+          "description": "Spoofs the package signature of the original APK.",
           "default": false
         }
       ]
@@ -78936,14 +78882,42 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 335,
+      "patchCount": 342,
       "latestChanges": {
-        "title": "1.44.0 (2026-09-05)",
-        "date": "2026-09-05",
+        "title": "1.45.0 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
+            "category": "Bug Fixes",
+            "text": "non-null RevenueCat entitlement construction with high-register move"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+          },
+          {
             "category": "New Features",
-            "text": "add Universal Overlay Patch v1.0  ( Experimental ) (#73)"
+            "text": "add Disable Notification Badges patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Device Admin patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Notification Listener patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Fake Write Settings Access patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add int getter fold and Fake Usage Access patch"
+          },
+          {
+            "category": "New Features",
+            "text": "add Report No Cameras patch"
           }
         ]
       },
@@ -79354,6 +79328,11 @@
           "default": false
         },
         {
+          "name": "Disable Notification Badges",
+          "description": "Remove launcher badge dots from notification channels.",
+          "default": false
+        },
+        {
           "name": "Disable Notification Sound",
           "description": "Mutes notification sounds.",
           "default": false
@@ -79644,6 +79623,11 @@
           "default": false
         },
         {
+          "name": "Fake Device Admin",
+          "description": "Report device admin as active.",
+          "default": false
+        },
+        {
           "name": "Fake Device Idle Mode",
           "description": "Makes PowerManager.isDeviceIdleMode() report a chosen state so apps that gate features behind device idle checks stop doing so.",
           "default": false
@@ -79681,6 +79665,11 @@
         {
           "name": "Fake NFC Enabled",
           "description": "Makes NfcAdapter.isEnabled always return true so apps that require NFC stop blocking features on devices without it",
+          "default": false
+        },
+        {
+          "name": "Fake Notification Listener",
+          "description": "Report notification-listener access as granted.",
           "default": false
         },
         {
@@ -79729,6 +79718,11 @@
           "default": false
         },
         {
+          "name": "Fake Usage Access",
+          "description": "Report usage-stats access as granted.",
+          "default": false
+        },
+        {
           "name": "Fake Vibrate When Ringing",
           "description": "Reports a chosen vibrate-when-ringing state through Settings.System so apps that check ringer vibration behavior stop doing so.",
           "default": false
@@ -79736,6 +79730,11 @@
         {
           "name": "Fake WiFi Scan Results Empty",
           "description": "Makes WifiManager.getScanResults() return an empty list so apps cannot fingerprint nearby WiFi networks.",
+          "default": false
+        },
+        {
+          "name": "Fake Write Settings Access",
+          "description": "Report system-settings write access as granted.",
           "default": false
         },
         {
@@ -80239,6 +80238,11 @@
           "default": false
         },
         {
+          "name": "Report No Cameras",
+          "description": "Report an empty camera list to apps.",
+          "default": false
+        },
+        {
           "name": "Restore Package Visibility",
           "description": "Lets old apps see all installed apps on Android 11+.",
           "default": false
@@ -80251,6 +80255,11 @@
         {
           "name": "Set Profileable",
           "description": "Adds <profileable android:shell=\"true\"/> so profilers (Android Studio, simpleperf, Perfetto) can attach to release builds for performance analysis",
+          "default": false
+        },
+        {
+          "name": "Show Status Bar",
+          "description": "Keep the status bar visible in fullscreen apps",
           "default": false
         },
         {
@@ -80559,6 +80568,11 @@
           "default": false
         },
         {
+          "name": "Tablet Mode",
+          "description": "Spoof a tablet smallest width so apps render their tablet UI.",
+          "default": false
+        },
+        {
           "name": "Transparent System Bars",
           "description": "Forces the status bar and navigation bar to render transparent in every theme so app content draws edge-to-edge behind them",
           "default": false
@@ -80601,11 +80615,6 @@
         {
           "name": "Unlock Premium",
           "description": "Unlock premium features and remove paywalls.",
-          "default": false
-        },
-        {
-          "name": "Unlock RevenueCat Entitlements",
-          "description": "Unlock premium features in apps that use RevenueCat.",
           "default": false
         },
         {
@@ -80684,12 +80693,12 @@
       "avatarUrl": "https://github.com/RookieEnough.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.3.1 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.3.2 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Google Photos:** Fix avatar OAuth scope, JSON parser, and error logging"
+            "text": "**Strava - Add route export:** Patch additional methods"
           }
         ]
       },
@@ -81031,12 +81040,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.1.9 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.4.1 (2026-09-06)",
+        "date": "2026-09-06",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.41.0"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Drop the home feed's non-post units in NSFW mode"
           }
         ]
       },
