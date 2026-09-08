@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-07 02:34 UTC",
+  "generatedAt": "2026-09-08 02:55 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 707,
-  "patchCount": 2875,
-  "universalPatchCount": 490,
+  "appCount": 710,
+  "patchCount": 2886,
+  "universalPatchCount": 489,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -61,19 +61,23 @@
       "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
       "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
       "avatarUrl": "https://github.com/ajstrick81.png?size=96",
-      "patchCount": 33,
+      "patchCount": 37,
       "appCount": 13,
       "createdAt": 1784836028108,
       "updatedAt": 1784836028108,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.30.4 (2026-09-04)",
-        "date": "2026-09-04",
+        "title": "1.34.1 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+            "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+          },
+          {
+            "category": "Features",
+            "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
           }
         ]
       },
@@ -109,7 +113,7 @@
         {
           "name": "com.espn.score_center",
           "packageName": "com.espn.score_center",
-          "patchCount": 1,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -158,7 +162,7 @@
         {
           "name": "tv.pluto.android",
           "packageName": "tv.pluto.android",
-          "patchCount": 4,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -626,43 +630,19 @@
       "webUrl": "https://github.com/andrewliang25/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andrewliang25/morphe-patches",
       "avatarUrl": "https://github.com/andrewliang25.png?size=96",
-      "patchCount": 24,
+      "patchCount": 25,
       "appCount": 1,
       "createdAt": 1785034852052,
       "updatedAt": 1785034852052,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "2.0.0 (2026-09-04)",
-        "date": "2026-09-04",
+        "title": "2.1.0 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
-            "category": "\u26a0 BREAKING CHANGES",
-            "text": "The patch fingerprints use the obfuscated class and method"
-          },
-          {
-            "category": "\u26a0 BREAKING CHANGES",
-            "text": "names of 26.14.0. These names do not exist in 26.11.0. Update LINE to 26.14.0"
-          },
-          {
-            "category": "\u26a0 BREAKING CHANGES",
-            "text": "before you patch."
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "hide the Friends sub-tab Calendar block"
-          },
-          {
             "category": "\u2728 New Features",
-            "text": "hide new item badges"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "drop support for LINE 26.11.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "re-anchor all LINE patches for 26.14.0"
+            "text": "draw the location maps through GmsCore (issue #92)"
           }
         ]
       },
@@ -670,7 +650,7 @@
         {
           "name": "LINE",
           "packageName": "jp.naver.line.android",
-          "patchCount": 24,
+          "patchCount": 25,
           "iconUrl": "",
           "iconColor": "#06C755"
         }
@@ -1654,19 +1634,23 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 49,
-      "appCount": 24,
+      "patchCount": 54,
+      "appCount": 26,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.23.0 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.24.0 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**moviebox:** remove all moviebox patches"
+            "text": "**burritobison3:** add free purchase and protection bypass"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**pop:** add Prince of Persia: The Lost Crown patches"
           }
         ]
       },
@@ -1698,6 +1682,13 @@
           "patchCount": 4,
           "iconUrl": "",
           "iconColor": "#8B4513"
+        },
+        {
+          "name": "Burrito Bison: Launcha Libre",
+          "packageName": "com.kongregate.mobile.burritobison3.google",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#E65100"
         },
         {
           "name": "Doodle Jump",
@@ -1789,6 +1780,13 @@
           "patchCount": 7,
           "iconUrl": "",
           "iconColor": "#B71C1C"
+        },
+        {
+          "name": "Prince of Persia: The Lost Crown",
+          "packageName": "com.ubisoft.princeofpersia.thelostcrown.mobile.action.adventure.platform",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#0F4C5C"
         },
         {
           "name": "Rodeo Stampede: Sky Zoo Safari",
@@ -4597,19 +4595,47 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 39,
-      "appCount": 19,
+      "patchCount": 41,
+      "appCount": 20,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.14.1 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.15.0 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Proton Mail:** apply the patches on any app version"
+            "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+          },
+          {
+            "category": "New Features",
+            "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Mail:** support 7.11.5"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Mail:** warn on an APK that is not the stock build"
+          },
+          {
+            "category": "New Features",
+            "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+          },
+          {
+            "category": "New Features",
+            "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
           }
         ]
       },
@@ -4704,6 +4730,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#2196F3"
+        },
+        {
+          "name": "Quranify",
+          "packageName": "com.mchutov.Quranify",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#141414"
         },
         {
           "name": "RateGlance",
@@ -6605,47 +6638,47 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 350,
+      "patchCount": 349,
       "appCount": 1,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.45.0 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.46.0 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "non-null RevenueCat entitlement construction with high-register move"
+            "text": "avoid param-slot collision in RevenueCat injections"
           },
           {
             "category": "Bug Fixes",
-            "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+            "text": "repair billing setup flow and cover unity native purchase bridge"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "skip ignore-style flags in premium prefs matching"
           },
           {
             "category": "New Features",
-            "text": "add Disable Notification Badges patch"
+            "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
           },
           {
             "category": "New Features",
-            "text": "add Fake Device Admin patch"
+            "text": "cover paywall flags and two-state status enums in unlock premium"
           },
           {
             "category": "New Features",
-            "text": "add Fake Notification Listener patch"
+            "text": "drop experimental suffix from featured patches"
           },
           {
             "category": "New Features",
-            "text": "add Fake Write Settings Access patch"
+            "text": "fake RevenueCat purchase callbacks in Free IAP"
           },
           {
             "category": "New Features",
-            "text": "add int getter fold and Fake Usage Access patch"
-          },
-          {
-            "category": "New Features",
-            "text": "add Report No Cameras patch"
+            "text": "star featured patches and pin them atop the patch list"
           }
         ]
       },
@@ -9793,12 +9826,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.1 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.4.2 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Drop the home feed's non-post units in NSFW mode"
+            "text": "Only treat a post's own indicator as NSFW"
           }
         ]
       },
@@ -10935,12 +10968,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -12054,12 +12091,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -12276,12 +12341,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -12339,12 +12432,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -12397,12 +12494,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -14393,12 +14494,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -16860,12 +16989,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -18633,6 +18766,77 @@
         "3.21.0"
       ],
       "iconColor": "#FDFDFD",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.kongregate.mobile.burritobison3.google",
+      "name": "Burrito Bison: Launcha Libre",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-kongregate-mobile-burritobison3-google-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-kongregate-mobile-burritobison3-google-byehi98-okish-morphe-patches",
+            "assetName": "burrito-bison-launcha-libre-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Fix app opening",
+              "description": "Required so the modified app opens without crashing \u2014 skips signature, root and emulator checks."
+            },
+            {
+              "name": "Free purchases",
+              "description": "Get paid items for free \u2014 tapping buy grants the item instantly without Google Play payment popup."
+            }
+          ],
+          "versions": [
+            "3.75"
+          ]
+        }
+      ],
+      "patches": [
+        "Fix app opening",
+        "Free purchases"
+      ],
+      "patchDetails": [
+        {
+          "name": "Fix app opening",
+          "description": "Required so the modified app opens without crashing \u2014 skips signature, root and emulator checks."
+        },
+        {
+          "name": "Free purchases",
+          "description": "Get paid items for free \u2014 tapping buy grants the item instantly without Google Play payment popup."
+        }
+      ],
+      "versions": [
+        "3.75"
+      ],
+      "iconColor": "#E65100",
       "iconUrl": ""
     },
     {
@@ -21711,12 +21915,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -22226,12 +22434,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -22285,40 +22497,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.45.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.46.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "non-null RevenueCat entitlement construction with high-register move"
+                "text": "avoid param-slot collision in RevenueCat injections"
               },
               {
                 "category": "Bug Fixes",
-                "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+                "text": "repair billing setup flow and cover unity native purchase bridge"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "skip ignore-style flags in premium prefs matching"
               },
               {
                 "category": "New Features",
-                "text": "add Disable Notification Badges patch"
+                "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
               },
               {
                 "category": "New Features",
-                "text": "add Fake Device Admin patch"
+                "text": "cover paywall flags and two-state status enums in unlock premium"
               },
               {
                 "category": "New Features",
-                "text": "add Fake Notification Listener patch"
+                "text": "drop experimental suffix from featured patches"
               },
               {
                 "category": "New Features",
-                "text": "add Fake Write Settings Access patch"
+                "text": "fake RevenueCat purchase callbacks in Free IAP"
               },
               {
                 "category": "New Features",
-                "text": "add int getter fold and Fake Usage Access patch"
-              },
-              {
-                "category": "New Features",
-                "text": "add Report No Cameras patch"
+                "text": "star featured patches and pin them atop the patch list"
               }
             ]
           },
@@ -22530,12 +22742,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -22594,12 +22810,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -22923,12 +23143,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -22941,8 +23165,20 @@
           },
           "patches": [
             {
+              "name": "Clone ESPN",
+              "description": "Installs the patched ESPN as a separate app alongside the stock one, instead of replacing it. Enable this when ESPN is a preinstalled system app that can't be uninstalled \u2014 most commonly on Amazon Fire TV, and on some Android TV boxes and Onn devices. The clone gets its own package (suffix .mod), so it shows up as a second ESPN icon and keeps its own settings. Leave OFF if you were able to uninstall the original ESPN first (a normal in-place install is cleaner). Opt-in."
+            },
+            {
+              "name": "Disable auto-updates",
+              "description": "Stops the Google Play Store from silently updating ESPN back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps."
+            },
+            {
               "name": "ESPN Android TV",
-              "description": "Suppresses ESPN Android TV VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+              "description": "Suppresses ESPN Android TV VOD/scheduled ads by forcing DMP SGAI isAdDisabled = true (that one boolean gates all six ad-scheduling sites). Live passthrough-SSAI commercial breaks can't be removed \u2014 to MASK them with a slate + mute, also select the \"ESPN live commercial-break slate\" patch. No DNS dependency."
+            },
+            {
+              "name": "ESPN live commercial-break slate",
+              "description": "Masks LIVE ESPN commercial breaks (which are passthrough SSAI and can't be removed) with a full-screen slate + mute: your own video/image clips, or the animated \"Be Right Back\" overlay with a live countdown. Includes an on-screen D-pad picker to switch styles. Leave OFF if you only want the VOD ad suppression and no on-screen slate during live breaks. Runtime opt-out: a `slate_off` marker file."
             }
           ],
           "versions": [
@@ -22951,12 +23187,27 @@
         }
       ],
       "patches": [
-        "ESPN Android TV"
+        "Clone ESPN",
+        "Disable auto-updates",
+        "ESPN Android TV",
+        "ESPN live commercial-break slate"
       ],
       "patchDetails": [
         {
+          "name": "Clone ESPN",
+          "description": "Installs the patched ESPN as a separate app alongside the stock one, instead of replacing it. Enable this when ESPN is a preinstalled system app that can't be uninstalled \u2014 most commonly on Amazon Fire TV, and on some Android TV boxes and Onn devices. The clone gets its own package (suffix .mod), so it shows up as a second ESPN icon and keeps its own settings. Leave OFF if you were able to uninstall the original ESPN first (a normal in-place install is cleaner). Opt-in."
+        },
+        {
+          "name": "Disable auto-updates",
+          "description": "Stops the Google Play Store from silently updating ESPN back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps."
+        },
+        {
           "name": "ESPN Android TV",
-          "description": "Suppresses ESPN Android TV VOD/scheduled ads (DMP SGAI isAdDisabled) and masks LIVE passthrough-SSAI commercial breaks with a full-screen \"Commercial Break\" slate + mute (the live ad can't be removed, only covered). Optional slate media is user-supplied local files; disable the live slate with a `slate_off` marker file. No DNS dependency."
+          "description": "Suppresses ESPN Android TV VOD/scheduled ads by forcing DMP SGAI isAdDisabled = true (that one boolean gates all six ad-scheduling sites). Live passthrough-SSAI commercial breaks can't be removed \u2014 to MASK them with a slate + mute, also select the \"ESPN live commercial-break slate\" patch. No DNS dependency."
+        },
+        {
+          "name": "ESPN live commercial-break slate",
+          "description": "Masks LIVE ESPN commercial breaks (which are passthrough SSAI and can't be removed) with a full-screen slate + mute: your own video/image clips, or the animated \"Be Right Back\" overlay with a live countdown. Includes an on-screen D-pad picker to switch styles. Leave OFF if you only want the VOD ad suppression and no on-screen slate during live breaks. Runtime opt-out: a `slate_off` marker file."
         }
       ],
       "versions": [
@@ -23119,12 +23370,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -24908,12 +25163,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -25187,12 +25446,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -25737,12 +26000,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -26702,12 +26969,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -26842,12 +27113,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -29161,12 +29436,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -30282,12 +30585,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -30613,12 +30920,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -30817,12 +31128,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -31566,12 +31881,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -32179,12 +32522,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -33349,12 +33696,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -33694,12 +34069,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -35052,12 +35431,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -35814,12 +36197,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -37423,12 +37810,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -38623,12 +39014,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -39432,12 +39827,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -40867,12 +41266,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -41866,36 +42293,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "2.0.0 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "2.1.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
-                "category": "\u26a0 BREAKING CHANGES",
-                "text": "The patch fingerprints use the obfuscated class and method"
-              },
-              {
-                "category": "\u26a0 BREAKING CHANGES",
-                "text": "names of 26.14.0. These names do not exist in 26.11.0. Update LINE to 26.14.0"
-              },
-              {
-                "category": "\u26a0 BREAKING CHANGES",
-                "text": "before you patch."
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "hide the Friends sub-tab Calendar block"
-              },
-              {
                 "category": "\u2728 New Features",
-                "text": "hide new item badges"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "drop support for LINE 26.11.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-anchor all LINE patches for 26.14.0"
+                "text": "draw the location maps through GmsCore (issue #92)"
               }
             ]
           },
@@ -41918,6 +42321,10 @@
             {
               "name": "Fix chat backup sign-in via GmsCore",
               "description": "Sends the Google account picker and the Drive token of chat-history backup through GmsCore. Backup and restore then work on a re-signed build. This patch needs MicroG-RE. It does not change how you sign in to a Google account. A Root Mount install does not need this patch."
+            },
+            {
+              "name": "Fix location maps via GmsCore",
+              "description": "Shows a map again on the location screens of a re-signed build. This covers the location picker, the location messages in a chat, and the location posts. The tiles come from OpenFreeMap and do not look like Google Maps. This patch needs MicroG-RE 7.0.0 or later. A Root Mount install does not need this patch."
             },
             {
               "name": "Fix push notifications",
@@ -42013,6 +42420,7 @@
         "Disable LINE Premium",
         "Disable VOOM",
         "Fix chat backup sign-in via GmsCore",
+        "Fix location maps via GmsCore",
         "Fix push notifications",
         "Hide ad views",
         "Hide attach menu extra tools",
@@ -42047,6 +42455,10 @@
         {
           "name": "Fix chat backup sign-in via GmsCore",
           "description": "Sends the Google account picker and the Drive token of chat-history backup through GmsCore. Backup and restore then work on a re-signed build. This patch needs MicroG-RE. It does not change how you sign in to a Google account. A Root Mount install does not need this patch."
+        },
+        {
+          "name": "Fix location maps via GmsCore",
+          "description": "Shows a map again on the location screens of a re-signed build. This covers the location picker, the location messages in a chat, and the location posts. The tiles come from OpenFreeMap and do not look like Google Maps. This patch needs MicroG-RE 7.0.0 or later. A Root Mount install does not need this patch."
         },
         {
           "name": "Fix push notifications",
@@ -45545,12 +45957,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -48900,12 +49316,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -50322,12 +50766,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -51884,12 +52332,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -52066,12 +52542,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -53904,12 +54408,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -55073,6 +55581,86 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.ubisoft.princeofpersia.thelostcrown.mobile.action.adventure.platform",
+      "name": "Prince of Persia: The Lost Crown",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-ubisoft-princeofpersia-thelostcrown-mobile-action-adventure-platform-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-ubisoft-princeofpersia-thelostcrown-mobile-action-adventure-platform-byehi98-okish-morphe-patches",
+            "assetName": "prince-of-persia-the-lost-crown-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Prince of Persia: Anti-tamper bypass",
+              "description": "The game has a built-in self-check that shuts it down if it detects the app was modified. This patch quietly turns that check off so the game can start."
+            },
+            {
+              "name": "Prince of Persia: Full Game Unlock Engine",
+              "description": "Adds a tiny hidden helper into the game. About 30 seconds after the game starts, it presses the game's own secret 'unlock full game' button \u2014 no purchases needed."
+            },
+            {
+              "name": "Prince of Persia: Full Game Unlock Trigger",
+              "description": "Tells the game to start that hidden helper the moment the app opens, so the unlock happens automatically."
+            }
+          ],
+          "versions": [
+            "1.1.9"
+          ]
+        }
+      ],
+      "patches": [
+        "Prince of Persia: Anti-tamper bypass",
+        "Prince of Persia: Full Game Unlock Engine",
+        "Prince of Persia: Full Game Unlock Trigger"
+      ],
+      "patchDetails": [
+        {
+          "name": "Prince of Persia: Anti-tamper bypass",
+          "description": "The game has a built-in self-check that shuts it down if it detects the app was modified. This patch quietly turns that check off so the game can start."
+        },
+        {
+          "name": "Prince of Persia: Full Game Unlock Engine",
+          "description": "Adds a tiny hidden helper into the game. About 30 seconds after the game starts, it presses the game's own secret 'unlock full game' button \u2014 no purchases needed."
+        },
+        {
+          "name": "Prince of Persia: Full Game Unlock Trigger",
+          "description": "Tells the game to start that hidden helper the moment the app opens, so the unlock happens automatically."
+        }
+      ],
+      "versions": [
+        "1.1.9"
+      ],
+      "iconColor": "#0F4C5C",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.harwin.prismatica",
       "name": "Prismatica Pro",
       "repos": [
@@ -55197,12 +55785,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -55263,8 +55879,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -55272,12 +55888,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -55467,12 +56083,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -55510,7 +56154,8 @@
             }
           ],
           "versions": [
-            "7.10.4"
+            "7.10.4",
+            "7.11.5"
           ]
         },
         {
@@ -55611,7 +56256,8 @@
       ],
       "versions": [
         "7.10.4",
-        "7.11.4"
+        "7.11.4",
+        "7.11.5"
       ],
       "iconColor": "#6D4AFF",
       "iconUrl": ""
@@ -56453,12 +57099,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -56694,6 +57368,110 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.mchutov.Quranify",
+      "name": "Quranify",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-mchutov-quranify-hxreborn-morphe-patches",
+            "releaseTag": "app-com-mchutov-quranify-hxreborn-morphe-patches",
+            "assetName": "quranify-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Bypass integrity check",
+              "description": "Loads the reciter catalogue on a patched install."
+            },
+            {
+              "name": "Remove pairip protection",
+              "description": "Removes the Play licensing check that sends a patched install to Google Play."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks downloading every surah, lyrics and tafsir, Android Auto, background playback controls, and insights."
+            }
+          ],
+          "versions": [
+            "2.2.8"
+          ]
+        }
+      ],
+      "patches": [
+        "Bypass integrity check",
+        "Remove pairip protection",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Bypass integrity check",
+          "description": "Loads the reciter catalogue on a patched install."
+        },
+        {
+          "name": "Remove pairip protection",
+          "description": "Removes the Play licensing check that sends a patched install to Google Play."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks downloading every surah, lyrics and tafsir, Android Auto, background playback controls, and insights."
+        }
+      ],
+      "versions": [
+        "2.2.8"
+      ],
+      "iconColor": "#141414",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.rainbowmeteo.weather.rainbow.ai",
       "name": "Rainbow Weather",
       "repos": [
@@ -56849,12 +57627,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -56868,7 +57674,7 @@
           "patches": [
             {
               "name": "Remove pairip protection",
-              "description": "Removes the Play Integrity license check."
+              "description": "Removes the Play licensing check that sends a patched install to Google Play."
             },
             {
               "name": "Unlock premium",
@@ -56885,7 +57691,7 @@
       "patchDetails": [
         {
           "name": "Remove pairip protection",
-          "description": "Removes the Play Integrity license check."
+          "description": "Removes the Play licensing check that sends a patched install to Google Play."
         },
         {
           "name": "Unlock premium",
@@ -56982,12 +57788,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -57553,12 +58387,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.4.2 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Drop the home feed's non-post units in NSFW mode"
+                "text": "Only treat a post's own indicator as NSFW"
               }
             ]
           },
@@ -58267,12 +59101,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -58741,12 +59579,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -60350,12 +61216,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -61116,12 +62010,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -64579,12 +65477,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -64715,12 +65617,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -66952,12 +67882,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -68816,12 +69750,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -68883,12 +69821,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.15.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail:** apply the patches on any app version"
+                "text": "**Proton Mail - Hide upgrade upselling:** hide special offer sidebar row"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Remove pairip protection:** return early from initializeLicenseCheck"
+              },
+              {
+                "category": "New Features",
+                "text": "**Photo Editor Pro:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Remove free accounts limit:** apply on 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** support 7.11.5"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail:** warn on an APK that is not the stock build"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Bypass integrity check:** load reciters without a Google Play check"
+              },
+              {
+                "category": "New Features",
+                "text": "**Quranify - Unlock premium:** unlock the premium surah downloads and insights"
               }
             ]
           },
@@ -69742,12 +70708,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -70077,12 +71047,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -70103,12 +71077,16 @@
               "description": "Stops the Google Play Store from silently updating Pluto TV back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps."
             },
             {
+              "name": "Mask live ad breaks (black screen + mute)",
+              "description": "Masks Pluto TV LIVE/linear commercial breaks, which are real broadcast time stitched into the live feed and cannot be removed (unlike VOD ads, which \"Skip ads\" deletes outright). During a live break it covers the player with a black screen and mutes the audio, then restores both the instant the show returns \u2014 so gambling, drinking, or any other live ad is blanked and silenced. Detection is driven by Pluto's own ID3 ad-state flow (ID3AdsBeaconTracker), which fires only while an ad plays, so it needs no polling and keeps working alongside \"Skip ads\". Opt-out: leave it OFF to watch live ads normally; runtime controls are marker files in the app's external files dir \u2014 `slate_off` disables it, and `pluto_slate_mode` set to `black` or `mute` picks cover-only or mute-only instead of both. Validated on-device, 5.66.0-leanback."
+            },
+            {
               "name": "Override certificate pinning",
               "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct to the manifest-rewrite ad approach."
             },
             {
               "name": "Skip ads",
-              "description": "Removes Pluto TV's on-demand (VOD) ads entirely \u2014 ad video, markers, overlays, and beacons. Two layers: (1) drops the ad <Period>s from the stitched DASH manifest at media3's parser and re-bases the content periods contiguous, so the ad VIDEO is never played (verified on-device: 2:49:58 -> 2:18:41, mid-rolls gone); (2) empties the client-side ad-break timeline (StitcherSession.adBreaks \u2014 the same data AdGuard strips via jsonprune) and no-ops pause ads and clickable-ad overlays, removing the markers/UI/beacons. Fail-open: a manifest it can't rewrite is passed through unchanged (ads remain, playback never breaks). LIVE TV ads are real broadcast time in the linear feed and are not removable. Validated on-device, 5.66.0-leanback."
+              "description": "Removes Pluto TV's on-demand (VOD) ads entirely \u2014 ad video, markers, overlays, and beacons. Two layers: (1) drops the ad <Period>s from the stitched DASH manifest at media3's parser and re-bases the content periods contiguous, so the ad VIDEO is never played (verified on-device: 2:49:58 -> 2:18:41, mid-rolls gone); (2) empties the client-side ad-break timeline (StitcherSession.adBreaks \u2014 the same data AdGuard strips via jsonprune) and no-ops pause ads and clickable-ad overlays, removing the markers/UI/beacons. Fail-open: a manifest it can't rewrite is passed through unchanged (ads remain, playback never breaks). A resume bookmark saved in the original (ad-inclusive) timeline is re-mapped into the shortened timeline so resuming a partially-watched episode no longer overshoots the end and autoplay-skips (issue #147). LIVE TV ads are real broadcast time in the linear feed and are not removable. Validated on-device, 5.66.0-leanback."
             }
           ],
           "versions": [
@@ -70119,6 +71097,7 @@
       "patches": [
         "Clone Pluto TV",
         "Disable auto-updates",
+        "Mask live ad breaks (black screen + mute)",
         "Override certificate pinning",
         "Skip ads"
       ],
@@ -70132,12 +71111,16 @@
           "description": "Stops the Google Play Store from silently updating Pluto TV back to the official version and wiping out the patch (which would bring the ads back). Works by setting the patched build's version number far ahead of anything on the Store, so it's treated as already up to date. You can still update deliberately by re-patching a newer APK in Morphe. Recommended to leave ON. Does not apply to mount-installed apps."
         },
         {
+          "name": "Mask live ad breaks (black screen + mute)",
+          "description": "Masks Pluto TV LIVE/linear commercial breaks, which are real broadcast time stitched into the live feed and cannot be removed (unlike VOD ads, which \"Skip ads\" deletes outright). During a live break it covers the player with a black screen and mutes the audio, then restores both the instant the show returns \u2014 so gambling, drinking, or any other live ad is blanked and silenced. Detection is driven by Pluto's own ID3 ad-state flow (ID3AdsBeaconTracker), which fires only while an ad plays, so it needs no polling and keeps working alongside \"Skip ads\". Opt-out: leave it OFF to watch live ads normally; runtime controls are marker files in the app's external files dir \u2014 `slate_off` disables it, and `pluto_slate_mode` set to `black` or `mute` picks cover-only or mute-only instead of both. Validated on-device, 5.66.0-leanback."
+        },
+        {
           "name": "Override certificate pinning",
           "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct to the manifest-rewrite ad approach."
         },
         {
           "name": "Skip ads",
-          "description": "Removes Pluto TV's on-demand (VOD) ads entirely \u2014 ad video, markers, overlays, and beacons. Two layers: (1) drops the ad <Period>s from the stitched DASH manifest at media3's parser and re-bases the content periods contiguous, so the ad VIDEO is never played (verified on-device: 2:49:58 -> 2:18:41, mid-rolls gone); (2) empties the client-side ad-break timeline (StitcherSession.adBreaks \u2014 the same data AdGuard strips via jsonprune) and no-ops pause ads and clickable-ad overlays, removing the markers/UI/beacons. Fail-open: a manifest it can't rewrite is passed through unchanged (ads remain, playback never breaks). LIVE TV ads are real broadcast time in the linear feed and are not removable. Validated on-device, 5.66.0-leanback."
+          "description": "Removes Pluto TV's on-demand (VOD) ads entirely \u2014 ad video, markers, overlays, and beacons. Two layers: (1) drops the ad <Period>s from the stitched DASH manifest at media3's parser and re-bases the content periods contiguous, so the ad VIDEO is never played (verified on-device: 2:49:58 -> 2:18:41, mid-rolls gone); (2) empties the client-side ad-break timeline (StitcherSession.adBreaks \u2014 the same data AdGuard strips via jsonprune) and no-ops pause ads and clickable-ad overlays, removing the markers/UI/beacons. Fail-open: a manifest it can't rewrite is passed through unchanged (ads remain, playback never breaks). A resume bookmark saved in the original (ad-inclusive) timeline is re-mapped into the shortened timeline so resuming a partially-watched episode no longer overshoots the end and autoplay-skips (issue #147). LIVE TV ads are real broadcast time in the linear feed and are not removable. Validated on-device, 5.66.0-leanback."
         }
       ],
       "versions": [
@@ -70164,12 +71147,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.30.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.34.1 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** detect VOD ads positively so un-DRM'd-content titles don't break (870e4f1), closes #144"
+                "text": "**pluto:** re-map resume bookmark into ad-stripped timeline (#147) (65efe05), closes #2"
+              },
+              {
+                "category": "Features",
+                "text": "**espn:** Clone + Disable auto-updates patches, and make the live slate optional (#158)"
               }
             ]
           },
@@ -70984,12 +71971,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.24.0 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**moviebox:** remove all moviebox patches"
+                "text": "**burritobison3:** add free purchase and protection bypass"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**pop:** add Prince of Persia: The Lost Crown patches"
               }
             ]
           },
@@ -74784,12 +75775,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.4.2 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Drop the home feed's non-post units in NSFW mode"
+                "text": "Only treat a post's own indicator as NSFW"
               }
             ]
           },
@@ -75582,8 +76573,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -76117,12 +77108,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -76784,12 +77775,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.4.2 (2026-09-07)",
+            "date": "2026-09-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Drop the home feed's non-post units in NSFW mode"
+                "text": "Only treat a post's own indicator as NSFW"
               }
             ]
           },
@@ -78882,51 +79873,46 @@
       "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
       "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 342,
+      "patchCount": 341,
       "latestChanges": {
-        "title": "1.45.0 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.46.0 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "non-null RevenueCat entitlement construction with high-register move"
+            "text": "avoid param-slot collision in RevenueCat injections"
           },
           {
             "category": "Bug Fixes",
-            "text": "slim Pairip Bypass to installer check, store spoof and StartupLauncher"
+            "text": "repair billing setup flow and cover unity native purchase bridge"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "skip ignore-style flags in premium prefs matching"
           },
           {
             "category": "New Features",
-            "text": "add Disable Notification Badges patch"
+            "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
           },
           {
             "category": "New Features",
-            "text": "add Fake Device Admin patch"
+            "text": "cover paywall flags and two-state status enums in unlock premium"
           },
           {
             "category": "New Features",
-            "text": "add Fake Notification Listener patch"
+            "text": "drop experimental suffix from featured patches"
           },
           {
             "category": "New Features",
-            "text": "add Fake Write Settings Access patch"
+            "text": "fake RevenueCat purchase callbacks in Free IAP"
           },
           {
             "category": "New Features",
-            "text": "add int getter fold and Fake Usage Access patch"
-          },
-          {
-            "category": "New Features",
-            "text": "add Report No Cameras patch"
+            "text": "star featured patches and pin them atop the patch list"
           }
         ]
       },
       "patches": [
-        {
-          "name": "Ads Free Rewards (Experimental)",
-          "description": "Get rewards without watching ads. Combine with No Ads for other formats, but keep No Ads' rewarded block off.",
-          "default": false
-        },
         {
           "name": "Allow Background Activity",
           "description": "Makes ActivityManager.isBackgroundRestricted always return false so apps ignore background activity restrictions imposed by the system or user",
@@ -79255,11 +80241,6 @@
         {
           "name": "Disable Facebook SDK Auto-Init",
           "description": "Adds Facebook SDK manifest switches that stop auto-initialization, automatic app event logging and advertiser ID collection at startup",
-          "default": false
-        },
-        {
-          "name": "Disable Firebase Auto-Init",
-          "description": "Adds Firebase manifest switches that stop Analytics, Messaging, Crashlytics and Performance from initializing themselves at startup",
           "default": false
         },
         {
@@ -79923,11 +80904,6 @@
           "default": false
         },
         {
-          "name": "Free In-app Purchases (Experimental)",
-          "description": "Get paid items for free. Best for offline games.",
-          "default": false
-        },
-        {
           "name": "GmsCore support (MicroG)",
           "description": "Use MicroG instead of Google Play Services for logins.",
           "default": false
@@ -80143,18 +81119,8 @@
           "default": false
         },
         {
-          "name": "No Ads (Experimental)",
-          "description": "Blocks ads by type. Pick what to block. For rewarded ads use Ads Free Rewards instead.",
-          "default": false
-        },
-        {
           "name": "Optimize as Game",
           "description": "Sets android:appCategory to game so Android applies game mode, battery and screenshot optimizations tuned for games",
-          "default": false
-        },
-        {
-          "name": "Pairip Bypass (Experimental)",
-          "description": "Bypass app protection so the patched app can start.",
           "default": false
         },
         {
@@ -80598,11 +81564,6 @@
           "default": false
         },
         {
-          "name": "Unlimited Currencies",
-          "description": "Get unlimited coins, gems and other currencies. Works on most games. Not supported on newer Unity games.",
-          "default": false
-        },
-        {
           "name": "Unlock Max Aspect Ratio",
           "description": "Removes maxAspectRatio limits from the application, activities and metadata so the app fills tall edge-to-edge screens instead of letterboxing",
           "default": false
@@ -80610,11 +81571,6 @@
         {
           "name": "Unlock Notification Channels",
           "description": "Makes all notification channels blockable and their importance unlocked so greyed-out toggles become interactable.",
-          "default": false
-        },
-        {
-          "name": "Unlock Premium",
-          "description": "Unlock premium features and remove paywalls.",
           "default": false
         },
         {
@@ -80630,6 +81586,36 @@
         {
           "name": "VM Safe Mode",
           "description": "Sets android:vmSafeMode so the app runs with AOT/JIT optimizations disabled, which can stabilize apps that crash from compiler optimizations on some devices",
+          "default": false
+        },
+        {
+          "name": "\u2605 Ads Free Rewards",
+          "description": "Get rewards without watching ads. Combine with No Ads for other formats, but keep No Ads' rewarded block off.",
+          "default": false
+        },
+        {
+          "name": "\u2605 Free In-app Purchases",
+          "description": "Get paid items for free. Best for offline games.",
+          "default": false
+        },
+        {
+          "name": "\u2605 No Ads",
+          "description": "Blocks ads by type. Pick what to block. For rewarded ads use Ads Free Rewards instead.",
+          "default": false
+        },
+        {
+          "name": "\u2605 Pairip Bypass",
+          "description": "Bypass app protection so the patched app can start.",
+          "default": false
+        },
+        {
+          "name": "\u2605 Unlimited Currencies",
+          "description": "Get unlimited coins, gems and other currencies. Works on most games. Not supported on newer Unity games.",
+          "default": false
+        },
+        {
+          "name": "\u2605 Unlock Premium",
+          "description": "Unlock premium features and remove paywalls.",
           "default": false
         }
       ]
@@ -81040,12 +82026,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.4.1 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.4.2 (2026-09-07)",
+        "date": "2026-09-07",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Drop the home feed's non-post units in NSFW mode"
+            "text": "Only treat a post's own indicator as NSFW"
           }
         ]
       },
