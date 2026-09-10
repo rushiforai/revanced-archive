@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-09 02:48 UTC",
+  "generatedAt": "2026-09-10 02:49 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 710,
-  "patchCount": 2880,
+  "appCount": 709,
+  "patchCount": 2877,
   "universalPatchCount": 489,
   "hostCounts": {
     "github.com": 122,
@@ -1634,23 +1634,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 54,
+      "patchCount": 55,
       "appCount": 26,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.25.0 (2026-09-08)",
-        "date": "2026-09-08",
+        "title": "1.26.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**vector:** add money mod patch"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**onlyone:** remove PairIP license bypass patch"
+            "text": "**onlyone:** enable free in-app purchases"
           }
         ]
       },
@@ -1770,7 +1766,7 @@
         {
           "name": "Only One",
           "packageName": "com.rebelbinary.onlyone",
-          "patchCount": 1,
+          "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#E2E2E2"
         },
@@ -2307,19 +2303,19 @@
       "webUrl": "https://github.com/d0nj/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=d0nj/morphe-patches",
       "avatarUrl": "https://github.com/d0nj.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 3,
+      "appCount": 2,
       "createdAt": 1785553246080,
       "updatedAt": 1785553246080,
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.1.0 (2026-07-29)",
-        "date": "2026-07-29",
+        "title": "1.0.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "add unlock premium patch for AI Audio Novel Reader"
+            "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
           }
         ]
       },
@@ -2330,6 +2326,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#6200EE"
+        },
+        {
+          "name": "Niagara Launcher",
+          "packageName": "bitpit.launcher",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#1E88E5"
         }
       ]
     },
@@ -5852,19 +5855,19 @@
       "webUrl": "https://github.com/kondratjev/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=kondratjev/morphe-patches",
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
-      "patchCount": 25,
-      "appCount": 12,
+      "patchCount": 18,
+      "appCount": 10,
       "createdAt": 1784836038162,
       "updatedAt": 1784836038162,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.20.0 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.22.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "bump some apps"
+            "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
           }
         ]
       },
@@ -5926,25 +5929,11 @@
           "iconColor": "#7C4DFF"
         },
         {
-          "name": "RuStore",
-          "packageName": "ru.vk.store",
-          "patchCount": 6,
-          "iconUrl": "",
-          "iconColor": "#0077FF"
-        },
-        {
           "name": "SoundCloud",
           "packageName": "com.soundcloud.android",
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF5500"
-        },
-        {
-          "name": "WiseMeal",
-          "packageName": "com.quvideo.wisemeal",
-          "patchCount": 1,
-          "iconUrl": "",
-          "iconColor": "#00C853"
         },
         {
           "name": "Yazio",
@@ -6525,47 +6514,47 @@
       "webUrl": "https://github.com/MorpheApp/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=MorpheApp/morphe-patches",
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
-      "patchCount": 145,
+      "patchCount": 146,
       "appCount": 3,
       "createdAt": 1784836023316,
       "updatedAt": 1784836023316,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.41.0 (2026-09-01)",
-        "date": "2026-09-01",
+        "title": "1.42.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Enable debugging - Feature flags manager:** Only use active flags as binary search candidates"
+            "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Reddit:** Preserve font weights with system and custom fonts (#2643)"
+            "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Keep search results in sync with preferences and highlight every match (#2712)"
+            "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Resolve OOM crashes and prevent duplicate dialogs"
+            "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** \"App default\" color is drawn pure black instead of the colors of the app"
+            "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Add new color tokens and Litho hooks"
+            "text": "**YouTube - Hide layout components:** Hide new type of community posts"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Morphe dialogs and settings are pure black with the \"App default\" color"
+            "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Prevent an endless activity relaunch loop"
+            "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
           }
         ]
       },
@@ -6580,7 +6569,7 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 81,
+          "patchCount": 82,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -10257,12 +10246,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.12 (2026-09-08)",
-        "date": "2026-09-08",
+        "title": "1.12.13 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** support version 19.34.0"
+            "text": "**wildberries:** support version 7.7.9003-rustore"
           }
         ]
       },
@@ -10872,16 +10861,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -11340,12 +11325,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/d0nj.png?size=96",
           "latestChanges": {
-            "title": "1.1.0 (2026-07-29)",
-            "date": "2026-07-29",
+            "title": "1.0.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "add unlock premium patch for AI Audio Novel Reader"
+                "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
               }
             ]
           },
@@ -12246,16 +12231,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -12308,16 +12289,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -14846,12 +14823,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.12 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.12.13 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support version 19.34.0"
+                "text": "**wildberries:** support version 7.7.9003-rustore"
               }
             ]
           },
@@ -16673,16 +16650,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -18336,16 +18309,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -29837,16 +29806,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -30160,16 +30125,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -30356,16 +30317,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -31714,16 +31671,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -31776,12 +31729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -33165,16 +33118,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -34537,16 +34486,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -35267,16 +35212,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -36796,16 +36737,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -37988,16 +37925,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -38765,16 +38698,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -40918,12 +40847,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -40941,7 +40870,7 @@
             }
           ],
           "versions": [
-            "20.6.1"
+            "20.8.0"
           ]
         }
       ],
@@ -40960,7 +40889,6 @@
         }
       ],
       "versions": [
-        "20.6.1",
         "20.8.0"
       ],
       "iconColor": "#00C853",
@@ -42176,12 +42104,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -42199,7 +42127,7 @@
             }
           ],
           "versions": [
-            "1.585"
+            "1.591"
           ]
         }
       ],
@@ -42219,7 +42147,7 @@
       ],
       "versions": [
         "1.551",
-        "1.585"
+        "1.591"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -43274,12 +43202,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -44631,16 +44559,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -45811,12 +45735,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -47319,10 +47243,50 @@
       "packageName": "bitpit.launcher",
       "name": "Niagara Launcher",
       "repos": [
+        "d0nj/morphe-patches",
         "Entree3k/Morning-Entree-Patches",
         "hoo-dles/morphe-patches"
       ],
       "sources": [
+        {
+          "repo": "d0nj/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/d0nj/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=d0nj/morphe-patches",
+          "source": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/d0nj.png?size=96",
+          "latestChanges": {
+            "title": "1.0.0 (2026-09-09)",
+            "date": "2026-09-09",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "bitpit-launcher-d0nj-morphe-patches",
+            "releaseTag": "app-bitpit-launcher-d0nj-morphe-patches",
+            "assetName": "niagara-launcher-d0nj-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Remove analytics",
+              "description": "Disables all telemetry in Niagara Launcher: the weekly usage-report upload (app launches, notification metadata, survey responses), retention milestone events, GDPR consent sync, Singular attribution sessions and events (advertising ID, app set ID, install referrer, FCM token) and the runtime Firebase Analytics opt-in."
+            },
+            {
+              "name": "Unlock Pro",
+              "description": "Makes the entitlement holder always report Pro in Niagara Launcher. Unlocks all Pro features and bypasses the 7-day trial prompt. Server-backed features (account sync, Stripe checkout) are not affected."
+            }
+          ],
+          "versions": [
+            "1.16.23"
+          ]
+        },
         {
           "repo": "Entree3k/Morning-Entree-Patches",
           "host": "github.com",
@@ -47425,16 +47389,27 @@
         }
       ],
       "patches": [
-        "Enable Niagara Pro"
+        "Enable Niagara Pro",
+        "Remove analytics",
+        "Unlock Pro"
       ],
       "patchDetails": [
         {
           "name": "Enable Niagara Pro",
           "description": "Unlocks Pro"
+        },
+        {
+          "name": "Remove analytics",
+          "description": "Disables all telemetry in Niagara Launcher: the weekly usage-report upload (app launches, notification metadata, survey responses), retention milestone events, GDPR consent sync, Singular attribution sessions and events (advertising ID, app set ID, install referrer, FCM token) and the runtime Firebase Analytics opt-in."
+        },
+        {
+          "name": "Unlock Pro",
+          "description": "Makes the entitlement holder always report Pro in Niagara Launcher. Unlocks all Pro features and bypasses the 7-day trial prompt. Server-backed features (account sync, Stripe checkout) are not affected."
         }
       ],
       "versions": [
         "1.16.15",
+        "1.16.23",
         "1.16.24",
         "1.16.7"
       ],
@@ -48990,16 +48965,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -49014,6 +48985,10 @@
             {
               "name": "Only One Free Store",
               "description": "Makes 'Restore Purchases' grant every store item for free (Ultimate Power, all classes, bundles and powers) \u2014 also removes ads."
+            },
+            {
+              "name": "Only One IAP billing bypass",
+              "description": "Buy any item in the shop for free. When you tap Buy, the item is added to your game right away \u2014 no Google Play payment window ever opens."
             }
           ],
           "versions": [
@@ -49022,12 +48997,17 @@
         }
       ],
       "patches": [
-        "Only One Free Store"
+        "Only One Free Store",
+        "Only One IAP billing bypass"
       ],
       "patchDetails": [
         {
           "name": "Only One Free Store",
           "description": "Makes 'Restore Purchases' grant every store item for free (Ultimate Power, all classes, bundles and powers) \u2014 also removes ads."
+        },
+        {
+          "name": "Only One IAP billing bypass",
+          "description": "Buy any item in the shop for free. When you tap Buy, the item is added to your game right away \u2014 no Google Play payment window ever opens."
         }
       ],
       "versions": [
@@ -49305,12 +49285,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -49324,11 +49304,11 @@
           "patches": [
             {
               "name": "Unlock Premium",
-              "description": "Unlocks part of Ornament Pro features."
+              "description": "Unlocks Ornament subscription features."
             }
           ],
           "versions": [
-            "4.15.1"
+            "4.18.1"
           ]
         }
       ],
@@ -49338,11 +49318,11 @@
       "patchDetails": [
         {
           "name": "Unlock Premium",
-          "description": "Unlocks part of Ornament Pro features."
+          "description": "Unlocks Ornament subscription features."
         }
       ],
       "versions": [
-        "4.15.1"
+        "4.18.1"
       ],
       "iconColor": "#6750A4",
       "iconUrl": ""
@@ -49517,12 +49497,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.12 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.12.13 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support version 19.34.0"
+                "text": "**wildberries:** support version 7.7.9003-rustore"
               }
             ]
           },
@@ -50094,12 +50074,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -51309,12 +51289,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -52439,16 +52419,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -53543,16 +53519,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -54146,8 +54118,8 @@
         "Hide upgrade upselling",
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
-        "Unlock Custom Time Picker",
         "Unlock custom time picker",
+        "Unlock Custom Time Picker",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
@@ -54168,12 +54140,12 @@
           "description": "Removes the limit for maximum free accounts logged in."
         },
         {
-          "name": "Unlock Custom Time Picker",
-          "description": "Unlocks the custom scheduled send date/time picker for all users."
-        },
-        {
           "name": "Unlock custom time picker",
           "description": "Enables picking a custom date and time when snoozing conversations and scheduling messages."
+        },
+        {
+          "name": "Unlock Custom Time Picker",
+          "description": "Unlocks the custom scheduled send date/time picker for all users."
         },
         {
           "name": "Unlock Unlimited Plan",
@@ -56042,40 +56014,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.41.0 (2026-09-01)",
-            "date": "2026-09-01",
+            "title": "1.42.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Enable debugging - Feature flags manager:** Only use active flags as binary search candidates"
+                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Reddit:** Preserve font weights with system and custom fonts (#2643)"
+                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Keep search results in sync with preferences and highlight every match (#2712)"
+                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Resolve OOM crashes and prevent duplicate dialogs"
+                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** \"App default\" color is drawn pure black instead of the colors of the app"
+                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Add new color tokens and Litho hooks"
+                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Morphe dialogs and settings are pure black with the \"App default\" color"
+                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Prevent an endless activity relaunch loop"
+                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
               }
             ]
           },
@@ -56944,16 +56916,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -57538,8 +57506,7 @@
       "packageName": "ru.vk.store",
       "name": "RuStore",
       "repos": [
-        "Jl4cTuk/morphe-patches",
-        "kondratjev/morphe-patches"
+        "Jl4cTuk/morphe-patches"
       ],
       "sources": [
         {
@@ -57648,61 +57615,6 @@
           "versions": [
             "1.108.0.2"
           ]
-        },
-        {
-          "repo": "kondratjev/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/kondratjev/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=kondratjev/morphe-patches",
-          "source": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/kondratjev.png?size=96",
-          "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
-            "items": [
-              {
-                "category": "\u2728 New Features",
-                "text": "bump some apps"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "ru-vk-store-kondratjev-morphe-patches",
-            "releaseTag": "app-ru-vk-store-kondratjev-morphe-patches",
-            "assetName": "rustore-kondratjev-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Disable ads",
-              "description": "Removes all advertisements from the app."
-            },
-            {
-              "name": "Disable analytics",
-              "description": "Disables VK-specific analytics."
-            },
-            {
-              "name": "Disable background scan",
-              "description": "Disables the periodic Kaspersky background device scan."
-            },
-            {
-              "name": "Disable gaming profile",
-              "description": "Removes the Game Profile section from the Mine screen, including the button and the usage statistics screen."
-            },
-            {
-              "name": "Disable Mine redesign",
-              "description": "Reverts the Mine screen to the classic layout, disabling the redesigned V2/V3 interface."
-            },
-            {
-              "name": "Skip update auth",
-              "description": "Removes the login requirement when updating apps."
-            }
-          ],
-          "versions": [
-            "1.108.0.2"
-          ]
         }
       ],
       "patches": [
@@ -57717,7 +57629,6 @@
         "Exclude Google Play apps from updates",
         "Restore secure-session compatibility",
         "Restrict background work to updates",
-        "Skip update auth",
         "Skip update authentication"
       ],
       "patchDetails": [
@@ -57764,10 +57675,6 @@
         {
           "name": "Restrict background work to updates",
           "description": "Keeps background workers required for update checks, downloads, patching, and installation."
-        },
-        {
-          "name": "Skip update auth",
-          "description": "Removes the login requirement when updating apps."
         },
         {
           "name": "Skip update authentication",
@@ -59745,16 +59652,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -61098,12 +61001,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -63044,16 +62947,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -63242,18 +63141,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -64544,12 +64443,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.12 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.12.13 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support version 19.34.0"
+                "text": "**wildberries:** support version 7.7.9003-rustore"
               }
             ]
           },
@@ -65401,16 +65300,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -67137,16 +67032,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -68095,16 +67986,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -69286,16 +69173,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.26.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**vector:** add money mod patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**onlyone:** remove PairIP license bypass patch"
+                "text": "**onlyone:** enable free in-app purchases"
               }
             ]
           },
@@ -70862,12 +70745,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.12 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.12.13 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**ozon:** support version 19.34.0"
+                "text": "**wildberries:** support version 7.7.9003-rustore"
               }
             ]
           },
@@ -70898,7 +70781,9 @@
             "7.7.7001",
             "7.7.7001-rustore",
             "7.7.8001",
-            "7.7.8001-rustore"
+            "7.7.8001-rustore",
+            "7.7.9003",
+            "7.7.9003-rustore"
           ]
         }
       ],
@@ -70925,7 +70810,9 @@
         "7.7.7001",
         "7.7.7001-rustore",
         "7.7.8001",
-        "7.7.8001-rustore"
+        "7.7.8001-rustore",
+        "7.7.9003",
+        "7.7.9003-rustore"
       ],
       "iconColor": "#A73AFD",
       "iconUrl": ""
@@ -71113,64 +71000,6 @@
         "51.0.1"
       ],
       "iconColor": "#9D0300",
-      "iconUrl": ""
-    },
-    {
-      "packageName": "com.quvideo.wisemeal",
-      "name": "WiseMeal",
-      "repos": [
-        "kondratjev/morphe-patches"
-      ],
-      "sources": [
-        {
-          "repo": "kondratjev/morphe-patches",
-          "host": "github.com",
-          "webUrl": "https://github.com/kondratjev/morphe-patches",
-          "addUrl": "https://Revanced.software/add-source?github=kondratjev/morphe-patches",
-          "source": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/kondratjev.png?size=96",
-          "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
-            "items": [
-              {
-                "category": "\u2728 New Features",
-                "text": "bump some apps"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "com-quvideo-wisemeal-kondratjev-morphe-patches",
-            "releaseTag": "app-com-quvideo-wisemeal-kondratjev-morphe-patches",
-            "assetName": "wisemeal-kondratjev-morphe-patches.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Unlock Premium",
-              "description": "ROOT ONLY. Unlocks all premium features."
-            }
-          ],
-          "versions": [
-            "1.3.0"
-          ]
-        }
-      ],
-      "patches": [
-        "Unlock Premium"
-      ],
-      "patchDetails": [
-        {
-          "name": "Unlock Premium",
-          "description": "ROOT ONLY. Unlocks all premium features."
-        }
-      ],
-      "versions": [
-        "1.3.0"
-      ],
-      "iconColor": "#00C853",
       "iconUrl": ""
     },
     {
@@ -71911,12 +71740,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.22.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "bump some apps"
+                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
               }
             ]
           },
@@ -71934,7 +71763,7 @@
             }
           ],
           "versions": [
-            "12.87.0"
+            "26.36.1"
           ]
         }
       ],
@@ -71948,7 +71777,7 @@
         }
       ],
       "versions": [
-        "12.87.0"
+        "26.36.1"
       ],
       "iconColor": "#00C853",
       "iconUrl": ""
@@ -72512,40 +72341,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.41.0 (2026-09-01)",
-            "date": "2026-09-01",
+            "title": "1.42.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Enable debugging - Feature flags manager:** Only use active flags as binary search candidates"
+                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Reddit:** Preserve font weights with system and custom fonts (#2643)"
+                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Keep search results in sync with preferences and highlight every match (#2712)"
+                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Resolve OOM crashes and prevent duplicate dialogs"
+                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** \"App default\" color is drawn pure black instead of the colors of the app"
+                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Add new color tokens and Litho hooks"
+                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Morphe dialogs and settings are pure black with the \"App default\" color"
+                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Prevent an endless activity relaunch loop"
+                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
               }
             ]
           },
@@ -72723,7 +72552,7 @@
             },
             {
               "name": "Hide player overlay buttons",
-              "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and the player control buttons background."
+              "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
             },
             {
               "name": "Hide related video overlay",
@@ -72767,7 +72596,7 @@
             },
             {
               "name": "Network proxy",
-              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
             },
             {
               "name": "Open channel of live avatar",
@@ -72814,6 +72643,10 @@
               "description": "Adds an option to display reload video button in the video player."
             },
             {
+              "name": "Remember live stream playback position",
+              "description": "Adds an option to remember the playback position of an ongoing live stream and resume from there when reopening that live stream."
+            },
+            {
               "name": "Remove background playback restrictions",
               "description": "Removes restrictions on background playback, including playing kids videos in the background."
             },
@@ -72835,7 +72668,7 @@
             },
             {
               "name": "Seekbar",
-              "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in livestreams, and expanding the livestream DVR duration."
+              "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in live streams, and expanding the live stream DVR duration."
             },
             {
               "name": "Settings menu filter",
@@ -72885,12 +72718,11 @@
           "versions": [
             "20.21.37",
             "20.31.42",
-            "20.51.39",
-            "21.04.223",
             "21.07.247",
+            "21.13.164",
             "21.28.208",
-            "21.34.243",
-            "21.35.442"
+            "21.35.442",
+            "21.36.45"
           ]
         },
         {
@@ -73714,6 +73546,7 @@
         "Player components",
         "PoToken provider",
         "Reload video",
+        "Remember live stream playback position",
         "Remove background playback restrictions",
         "Remove viewer discretion dialog",
         "Return YouTube Dislike",
@@ -73722,8 +73555,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -74168,6 +74001,10 @@
           "description": "Adds an option to display reload video button in the video player."
         },
         {
+          "name": "Remember live stream playback position",
+          "description": "Adds an option to remember the playback position of an ongoing live stream and resume from there when reopening that live stream."
+        },
+        {
           "name": "Remove background playback restrictions",
           "description": "Removes restrictions on background playback, including playing kids videos in the background."
         },
@@ -74200,11 +74037,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -74323,6 +74160,7 @@
         "21.04.223",
         "21.05.265",
         "21.07.247",
+        "21.13.164",
         "21.14.482",
         "21.15.282",
         "21.16.240",
@@ -74333,7 +74171,8 @@
         "21.28.208",
         "21.29.366",
         "21.34.243",
-        "21.35.442"
+        "21.35.442",
+        "21.36.45"
       ],
       "iconColor": "#FF0033",
       "iconUrl": ""
@@ -74669,40 +74508,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.41.0 (2026-09-01)",
-            "date": "2026-09-01",
+            "title": "1.42.0 (2026-09-09)",
+            "date": "2026-09-09",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Enable debugging - Feature flags manager:** Only use active flags as binary search candidates"
+                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Reddit:** Preserve font weights with system and custom fonts (#2643)"
+                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Keep search results in sync with preferences and highlight every match (#2712)"
+                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Settings:** Resolve OOM crashes and prevent duplicate dialogs"
+                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** \"App default\" color is drawn pure black instead of the colors of the app"
+                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Add new color tokens and Litho hooks"
+                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Morphe dialogs and settings are pure black with the \"App default\" color"
+                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Prevent an endless activity relaunch loop"
+                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
               }
             ]
           },
@@ -74820,7 +74659,7 @@
             },
             {
               "name": "Network proxy",
-              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
             },
             {
               "name": "Play albums songs",
@@ -74885,9 +74724,9 @@
           ],
           "versions": [
             "9.15.51",
-            "9.32.51",
             "9.33.52",
-            "9.34.52"
+            "9.34.52",
+            "9.35.54"
           ]
         },
         {
@@ -75745,7 +75584,8 @@
         "9.24.51",
         "9.32.51",
         "9.33.52",
-        "9.34.52"
+        "9.34.52",
+        "9.35.54"
       ],
       "iconColor": "#FF0000",
       "iconUrl": ""
@@ -76892,12 +76732,12 @@
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.20.0 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.22.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "bump some apps"
+            "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
           }
         ]
       },
@@ -76961,40 +76801,40 @@
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.41.0 (2026-09-01)",
-        "date": "2026-09-01",
+        "title": "1.42.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Enable debugging - Feature flags manager:** Only use active flags as binary search candidates"
+            "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Reddit:** Preserve font weights with system and custom fonts (#2643)"
+            "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Keep search results in sync with preferences and highlight every match (#2712)"
+            "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Settings:** Resolve OOM crashes and prevent duplicate dialogs"
+            "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** \"App default\" color is drawn pure black instead of the colors of the app"
+            "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Add new color tokens and Litho hooks"
+            "text": "**YouTube - Hide layout components:** Hide new type of community posts"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Morphe dialogs and settings are pure black with the \"App default\" color"
+            "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Prevent an endless activity relaunch loop"
+            "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
           }
         ]
       },
@@ -79307,12 +79147,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.12 (2026-09-08)",
-        "date": "2026-09-08",
+        "title": "1.12.13 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**ozon:** support version 19.34.0"
+            "text": "**wildberries:** support version 7.7.9003-rustore"
           }
         ]
       },
@@ -79814,19 +79654,19 @@
       "webUrl": "https://github.com/d0nj/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=d0nj/morphe-patches",
       "avatarUrl": "https://github.com/d0nj.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 3,
+      "appCount": 2,
       "createdAt": 1785553246080,
       "updatedAt": 1785553246080,
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.1.0 (2026-07-29)",
-        "date": "2026-07-29",
+        "title": "1.0.0 (2026-09-09)",
+        "date": "2026-09-09",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "add unlock premium patch for AI Audio Novel Reader"
+            "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
           }
         ]
       },
@@ -79837,6 +79677,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#6200EE"
+        },
+        {
+          "name": "Niagara Launcher",
+          "packageName": "bitpit.launcher",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#1E88E5"
         }
       ]
     },
