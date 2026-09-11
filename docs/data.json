@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-10 02:49 UTC",
+  "generatedAt": "2026-09-11 02:41 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 709,
-  "patchCount": 2877,
+  "patchCount": 2879,
   "universalPatchCount": 489,
   "hostCounts": {
     "github.com": 122,
@@ -192,12 +192,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.4.9 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "1.4.10 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.3.1 (Fixes #10)"
+            "text": "Support SofaTime v1.3.3 (Fixes #11, Fixes #12)"
           }
         ]
       },
@@ -2303,19 +2303,19 @@
       "webUrl": "https://github.com/d0nj/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=d0nj/morphe-patches",
       "avatarUrl": "https://github.com/d0nj.png?size=96",
-      "patchCount": 3,
+      "patchCount": 4,
       "appCount": 2,
       "createdAt": 1785553246080,
       "updatedAt": 1785553246080,
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.0.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.2.2 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "allow Unlock premium patch on any NovelReader version"
           }
         ]
       },
@@ -2330,7 +2330,7 @@
         {
           "name": "Niagara Launcher",
           "packageName": "bitpit.launcher",
-          "patchCount": 2,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#1E88E5"
         }
@@ -5862,12 +5862,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.22.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.23.0 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+            "text": "Bump Lifesum and fix Lyfta patches"
           }
         ]
       },
@@ -6181,12 +6181,40 @@
       "createdDate": "2026-08-06",
       "updatedDate": "2026-08-06",
       "latestChanges": {
-        "title": "1.1.0 (2026-08-08)",
-        "date": "2026-08-08",
+        "title": "1.2.0 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
-            "category": "New Features",
-            "text": "add Cube Solver patches, fix Calistree Dart unlock"
+            "category": "Bug Fixes",
+            "text": "default empty feed paths to /storage/emulated/0 in MtTools extension"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "file browser now functional - real rows + working clicks"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "force User Agreement flag to true so EULA never re-shows"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "make file-browser feed patch apply standalone with splice"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "make MT Manager tool reimplementation work on-device (08d634a), closes PKCS#12"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "prevent Purchase-VIP / account screen NPE from null native Map getter"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "remove stub-native dependencies + clear native flags on patched getters"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "status-counter feed now fires + diagnostic logging (warm-state shortcut removed)"
           }
         ]
       },
@@ -7404,12 +7432,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.3.2 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.3.3 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Strava - Add route export:** Patch additional methods"
+            "text": "**Google Photos:** Add version recommendation"
           }
         ]
       },
@@ -9796,19 +9824,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 147,
+      "patchCount": 148,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.2 (2026-09-07)",
-        "date": "2026-09-07",
+        "title": "1.4.3 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Only treat a post's own indicator as NSFW"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "Sync upstream Morphe patches v1.42.0"
           }
         ]
       },
@@ -9823,7 +9851,7 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 82,
+          "patchCount": 83,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -10246,12 +10274,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.13 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.12.14 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.9003-rustore"
+            "text": "**tbank:** support version 8.2.3"
           }
         ]
       },
@@ -11325,12 +11353,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/d0nj.png?size=96",
           "latestChanges": {
-            "title": "1.0.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.2.2 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "allow Unlock premium patch on any NovelReader version"
               }
             ]
           },
@@ -11347,9 +11375,7 @@
               "description": "Makes isPremium() always return true in AI Audio Novel Reader. Unlocks all premium features and disables the 10-hour trial countdown."
             }
           ],
-          "versions": [
-            "3.3.23"
-          ]
+          "versions": []
         }
       ],
       "patches": [
@@ -11361,9 +11387,7 @@
           "description": "Makes isPremium() always return true in AI Audio Novel Reader. Unlocks all premium features and disables the 10-hour trial countdown."
         }
       ],
-      "versions": [
-        "3.3.23"
-      ],
+      "versions": [],
       "iconColor": "#6200EE",
       "iconUrl": ""
     },
@@ -12347,12 +12371,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -12438,12 +12462,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -13031,12 +13055,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -13794,8 +13818,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -13803,12 +13827,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -14823,12 +14847,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.13 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.12.14 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.9003-rustore"
+                "text": "**tbank:** support version 8.2.3"
               }
             ]
           },
@@ -18828,12 +18852,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/logm1lo/logm1lo-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/logm1lo.png?size=96",
           "latestChanges": {
-            "title": "1.1.0 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.2.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
-                "category": "New Features",
-                "text": "add Cube Solver patches, fix Calistree Dart unlock"
+                "category": "Bug Fixes",
+                "text": "default empty feed paths to /storage/emulated/0 in MtTools extension"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "file browser now functional - real rows + working clicks"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "force User Agreement flag to true so EULA never re-shows"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "make file-browser feed patch apply standalone with splice"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "make MT Manager tool reimplementation work on-device (08d634a), closes PKCS#12"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "prevent Purchase-VIP / account screen NPE from null native Map getter"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "remove stub-native dependencies + clear native flags on patched getters"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "status-counter feed now fires + diagnostic logging (warm-state shortcut removed)"
               }
             ]
           },
@@ -18855,7 +18907,8 @@
             }
           ],
           "versions": [
-            "5.8.5"
+            "5.8.5",
+            "5.9.1"
           ]
         }
       ],
@@ -18874,7 +18927,8 @@
         }
       ],
       "versions": [
-        "5.8.5"
+        "5.8.5",
+        "5.9.1"
       ],
       "iconColor": "#4CAF50",
       "iconUrl": ""
@@ -21903,12 +21957,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -28148,12 +28202,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -28514,12 +28568,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/logm1lo/logm1lo-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/logm1lo.png?size=96",
           "latestChanges": {
-            "title": "1.1.0 (2026-08-08)",
-            "date": "2026-08-08",
+            "title": "1.2.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
-                "category": "New Features",
-                "text": "add Cube Solver patches, fix Calistree Dart unlock"
+                "category": "Bug Fixes",
+                "text": "default empty feed paths to /storage/emulated/0 in MtTools extension"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "file browser now functional - real rows + working clicks"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "force User Agreement flag to true so EULA never re-shows"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "make file-browser feed patch apply standalone with splice"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "make MT Manager tool reimplementation work on-device (08d634a), closes PKCS#12"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "prevent Purchase-VIP / account screen NPE from null native Map getter"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "remove stub-native dependencies + clear native flags on patched getters"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "status-counter feed now fires + diagnostic logging (warm-state shortcut removed)"
               }
             ]
           },
@@ -31471,12 +31553,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -31729,12 +31811,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -33600,12 +33682,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -34028,12 +34110,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -34062,7 +34144,9 @@
               "description": "Spoofs the device to enable Google Pixel exclusive features, including unlimited storage."
             }
           ],
-          "versions": []
+          "versions": [
+            "7.90.0.971743778"
+          ]
         },
         {
           "repo": "rushiranpise/morphe-patches",
@@ -34253,12 +34337,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -35014,12 +35098,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -35943,12 +36027,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -38241,12 +38325,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -40675,12 +40759,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -40847,12 +40931,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -40870,7 +40954,7 @@
             }
           ],
           "versions": [
-            "20.8.0"
+            "20.9.0"
           ]
         }
       ],
@@ -40889,7 +40973,8 @@
         }
       ],
       "versions": [
-        "20.8.0"
+        "20.8.0",
+        "20.9.0"
       ],
       "iconColor": "#00C853",
       "iconUrl": ""
@@ -42104,12 +42189,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -43202,12 +43287,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -43581,12 +43666,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -44025,12 +44110,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -45735,12 +45820,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -47257,12 +47342,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/d0nj.png?size=96",
           "latestChanges": {
-            "title": "1.0.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.2.2 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "allow Unlock premium patch on any NovelReader version"
               }
             ]
           },
@@ -47275,6 +47360,10 @@
           },
           "patches": [
             {
+              "name": "Fix home screen numbers tile",
+              "description": "Niagara's Channels feature registers a diagnostic tip whose message is a giant fingerprint of concatenated hashCode() integers of up to 30 channel items (~850 digits). Because the provider accepts every tip request, this shows up as a tile of giant numbers on the home feed whenever the channel list refreshes, which happens when apps are installed, updated or removed (for example through ADB). Makes the provider decline tip requests so the diagnostic tip is never shown."
+            },
+            {
               "name": "Remove analytics",
               "description": "Disables all telemetry in Niagara Launcher: the weekly usage-report upload (app launches, notification metadata, survey responses), retention milestone events, GDPR consent sync, Singular attribution sessions and events (advertising ID, app set ID, install referrer, FCM token) and the runtime Firebase Analytics opt-in."
             },
@@ -47283,9 +47372,7 @@
               "description": "Makes the entitlement holder always report Pro in Niagara Launcher. Unlocks all Pro features and bypasses the 7-day trial prompt. Server-backed features (account sync, Stripe checkout) are not affected."
             }
           ],
-          "versions": [
-            "1.16.23"
-          ]
+          "versions": []
         },
         {
           "repo": "Entree3k/Morning-Entree-Patches",
@@ -47390,6 +47477,7 @@
       ],
       "patches": [
         "Enable Niagara Pro",
+        "Fix home screen numbers tile",
         "Remove analytics",
         "Unlock Pro"
       ],
@@ -47397,6 +47485,10 @@
         {
           "name": "Enable Niagara Pro",
           "description": "Unlocks Pro"
+        },
+        {
+          "name": "Fix home screen numbers tile",
+          "description": "Niagara's Channels feature registers a diagnostic tip whose message is a giant fingerprint of concatenated hashCode() integers of up to 30 channel items (~850 digits). Because the provider accepts every tip request, this shows up as a tile of giant numbers on the home feed whenever the channel list refreshes, which happens when apps are installed, updated or removed (for example through ADB). Makes the provider decline tip requests so the diagnostic tip is never shown."
         },
         {
           "name": "Remove analytics",
@@ -47409,7 +47501,6 @@
       ],
       "versions": [
         "1.16.15",
-        "1.16.23",
         "1.16.24",
         "1.16.7"
       ],
@@ -47669,12 +47760,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -47896,12 +47987,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -49285,12 +49376,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -49497,12 +49588,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.13 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.12.14 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.9003-rustore"
+                "text": "**tbank:** support version 8.2.3"
               }
             ]
           },
@@ -50074,12 +50165,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -50854,12 +50945,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -50984,12 +51075,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -51289,12 +51380,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -52352,12 +52443,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -53798,8 +53889,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -53807,12 +53898,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -56150,12 +56241,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.2 (2026-09-07)",
-            "date": "2026-09-07",
+            "title": "1.4.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Only treat a post's own indicator as NSFW"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "Sync upstream Morphe patches v1.42.0"
               }
             ]
           },
@@ -60254,12 +60345,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.4.9 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "1.4.10 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.3.1 (Fixes #10)"
+                "text": "Support SofaTime v1.3.3 (Fixes #11, Fixes #12)"
               }
             ]
           },
@@ -60298,7 +60389,9 @@
             "1.2.8",
             "1.2.9",
             "1.3.0",
-            "1.3.1"
+            "1.3.1",
+            "1.3.2",
+            "1.3.3"
           ]
         }
       ],
@@ -60336,7 +60429,9 @@
         "1.2.8",
         "1.2.9",
         "1.3.0",
-        "1.3.1"
+        "1.3.1",
+        "1.3.2",
+        "1.3.3"
       ],
       "iconColor": "#1E1E2E",
       "iconUrl": ""
@@ -61001,12 +61096,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -62133,12 +62228,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -63141,18 +63236,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -64443,12 +64538,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.13 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.12.14 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.9003-rustore"
+                "text": "**tbank:** support version 8.2.3"
               }
             ]
           },
@@ -64474,7 +64569,8 @@
             "7.40.1",
             "8.0.0",
             "8.1.0",
-            "8.2.1"
+            "8.2.1",
+            "8.2.3"
           ]
         }
       ],
@@ -64497,7 +64593,8 @@
         "7.40.1",
         "8.0.0",
         "8.1.0",
-        "8.2.1"
+        "8.2.1",
+        "8.2.3"
       ],
       "iconColor": "#FFDD2D",
       "iconUrl": ""
@@ -68503,12 +68600,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -69438,12 +69535,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.2 (2026-09-06)",
-            "date": "2026-09-06",
+            "title": "1.3.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Strava - Add route export:** Patch additional methods"
+                "text": "**Google Photos:** Add version recommendation"
               }
             ]
           },
@@ -70745,12 +70842,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.13 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.12.14 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.7.9003-rustore"
+                "text": "**tbank:** support version 8.2.3"
               }
             ]
           },
@@ -71740,12 +71837,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.22.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.23.0 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+                "text": "Bump Lifesum and fix Lyfta patches"
               }
             ]
           },
@@ -72775,12 +72872,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.2 (2026-09-07)",
-            "date": "2026-09-07",
+            "title": "1.4.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Only treat a post's own indicator as NSFW"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "Sync upstream Morphe patches v1.42.0"
               }
             ]
           },
@@ -72962,7 +73059,7 @@
             },
             {
               "name": "Hide player overlay buttons",
-              "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and the player control buttons background."
+              "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
             },
             {
               "name": "Hide related video overlay",
@@ -73006,7 +73103,7 @@
             },
             {
               "name": "Network proxy",
-              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
             },
             {
               "name": "Open channel of live avatar",
@@ -73053,6 +73150,10 @@
               "description": "Adds an option to display reload video button in the video player."
             },
             {
+              "name": "Remember live stream playback position",
+              "description": "Adds an option to remember the playback position of an ongoing live stream and resume from there when reopening that live stream."
+            },
+            {
               "name": "Remove background playback restrictions",
               "description": "Removes restrictions on background playback, including playing kids videos in the background."
             },
@@ -73074,7 +73175,7 @@
             },
             {
               "name": "Seekbar",
-              "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in livestreams, and expanding the livestream DVR duration."
+              "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in live streams, and expanding the live stream DVR duration."
             },
             {
               "name": "Settings menu filter",
@@ -73124,12 +73225,11 @@
           "versions": [
             "20.21.37",
             "20.31.42",
-            "20.51.39",
-            "21.04.223",
             "21.07.247",
+            "21.13.164",
             "21.28.208",
-            "21.34.243",
-            "21.35.442"
+            "21.35.442",
+            "21.36.45"
           ]
         },
         {
@@ -73555,8 +73655,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -73878,7 +73978,7 @@
         },
         {
           "name": "Hide player overlay buttons",
-          "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and the player control buttons background."
+          "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
         },
         {
           "name": "Hide related video overlay",
@@ -73946,7 +74046,7 @@
         },
         {
           "name": "Network proxy",
-          "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+          "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
         },
         {
           "name": "Open channel of live avatar",
@@ -74030,18 +74130,18 @@
         },
         {
           "name": "Seekbar",
-          "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in livestreams, and expanding the livestream DVR duration."
+          "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in live streams, and expanding the live stream DVR duration."
         },
         {
           "name": "Seekbar components",
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -74170,7 +74270,6 @@
         "21.28.204",
         "21.28.208",
         "21.29.366",
-        "21.34.243",
         "21.35.442",
         "21.36.45"
       ],
@@ -74782,12 +74881,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.2 (2026-09-07)",
-            "date": "2026-09-07",
+            "title": "1.4.3 (2026-09-10)",
+            "date": "2026-09-10",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Only treat a post's own indicator as NSFW"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "Sync upstream Morphe patches v1.42.0"
               }
             ]
           },
@@ -74905,7 +75004,7 @@
             },
             {
               "name": "Network proxy",
-              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+              "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
             },
             {
               "name": "Play albums songs",
@@ -74970,9 +75069,9 @@
           ],
           "versions": [
             "9.15.51",
-            "9.32.51",
             "9.33.52",
-            "9.34.52"
+            "9.34.52",
+            "9.35.54"
           ]
         },
         {
@@ -75451,7 +75550,7 @@
         },
         {
           "name": "Network proxy",
-          "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy."
+          "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
         },
         {
           "name": "Play albums songs",
@@ -75582,7 +75681,6 @@
         "9.22.53",
         "9.23.52",
         "9.24.51",
-        "9.32.51",
         "9.33.52",
         "9.34.52",
         "9.35.54"
@@ -76732,12 +76830,12 @@
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.22.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.23.0 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Bump some apps (Lifesum/Lyfta/Yazio)"
+            "text": "Bump Lifesum and fix Lyfta patches"
           }
         ]
       },
@@ -78675,12 +78773,12 @@
       "avatarUrl": "https://github.com/RookieEnough.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.3.2 (2026-09-06)",
-        "date": "2026-09-06",
+        "title": "1.3.3 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Strava - Add route export:** Patch additional methods"
+            "text": "**Google Photos:** Add version recommendation"
           }
         ]
       },
@@ -79010,12 +79108,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.4.2 (2026-09-07)",
-        "date": "2026-09-07",
+        "title": "1.4.3 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Only treat a post's own indicator as NSFW"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "Sync upstream Morphe patches v1.42.0"
           }
         ]
       },
@@ -79147,12 +79245,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.13 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.12.14 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.7.9003-rustore"
+            "text": "**tbank:** support version 8.2.3"
           }
         ]
       },
@@ -79279,12 +79377,40 @@
       "createdDate": "2026-08-06",
       "updatedDate": "2026-08-06",
       "latestChanges": {
-        "title": "1.1.0 (2026-08-08)",
-        "date": "2026-08-08",
+        "title": "1.2.0 (2026-09-10)",
+        "date": "2026-09-10",
         "items": [
           {
-            "category": "New Features",
-            "text": "add Cube Solver patches, fix Calistree Dart unlock"
+            "category": "Bug Fixes",
+            "text": "default empty feed paths to /storage/emulated/0 in MtTools extension"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "file browser now functional - real rows + working clicks"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "force User Agreement flag to true so EULA never re-shows"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "make file-browser feed patch apply standalone with splice"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "make MT Manager tool reimplementation work on-device (08d634a), closes PKCS#12"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "prevent Purchase-VIP / account screen NPE from null native Map getter"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "remove stub-native dependencies + clear native flags on patched getters"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "status-counter feed now fires + diagnostic logging (warm-state shortcut removed)"
           }
         ]
       },
@@ -79654,19 +79780,19 @@
       "webUrl": "https://github.com/d0nj/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=d0nj/morphe-patches",
       "avatarUrl": "https://github.com/d0nj.png?size=96",
-      "patchCount": 3,
+      "patchCount": 4,
       "appCount": 2,
       "createdAt": 1785553246080,
       "updatedAt": 1785553246080,
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.0.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.2.2 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "d0nj Patches \u2014 Niagara Launcher (unlock Pro, remove analytics), AI Audio Novel Reader (unlock premium)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "allow Unlock premium patch on any NovelReader version"
           }
         ]
       },
@@ -79681,7 +79807,7 @@
         {
           "name": "Niagara Launcher",
           "packageName": "bitpit.launcher",
-          "patchCount": 2,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#1E88E5"
         }
