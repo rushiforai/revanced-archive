@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-11 02:41 UTC",
+  "generatedAt": "2026-09-12 02:52 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 709,
-  "patchCount": 2879,
+  "appCount": 711,
+  "patchCount": 2885,
   "universalPatchCount": 489,
   "hostCounts": {
     "github.com": 122,
@@ -2310,12 +2310,20 @@
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.2.2 (2026-09-11)",
+        "title": "1.3.1 (2026-09-11)",
         "date": "2026-09-11",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "allow Unlock premium patch on any NovelReader version"
+            "text": "merge English voices into the visible list and harden downloads"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "remove English TTS voices patch"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "use sherpa-compatible model files with embedded metadata"
           }
         ]
       },
@@ -4605,47 +4613,47 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 36,
-      "appCount": 22,
+      "patchCount": 42,
+      "appCount": 24,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.16.0 (2026-09-08)",
-        "date": "2026-09-08",
+        "title": "1.18.0 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+            "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+            "category": "New Features",
+            "text": "**AlpineQuest:** add support for 2.4.0e"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+            "category": "New Features",
+            "text": "**Audible:** add support for 26.30.05"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+            "category": "New Features",
+            "text": "**ForusApp:** add support for 3.0.15"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+            "category": "New Features",
+            "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+            "category": "New Features",
+            "text": "**Notesnook:** add support for 3.4.12"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+            "category": "New Features",
+            "text": "**Perplexity:** add support for 2.95.0"
           },
           {
-            "category": "Bug Fixes",
-            "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+            "category": "New Features",
+            "text": "**Projectivy:** add support for 4.70 and 4.71"
           }
         ]
       },
@@ -4686,6 +4694,13 @@
           "iconColor": "#5167F6"
         },
         {
+          "name": "DWG FastView",
+          "packageName": "com.gstarmc.android",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#1AACAC"
+        },
+        {
           "name": "Etsy",
           "packageName": "com.etsy.android",
           "patchCount": 1,
@@ -4705,6 +4720,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#53FC18"
+        },
+        {
+          "name": "MovieBox",
+          "packageName": "com.community.oneroom",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#30E66D"
         },
         {
           "name": "Notesnook",
@@ -4772,7 +4794,7 @@
         {
           "name": "RISE Sleep Tracker",
           "packageName": "com.risesci.nyx",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#8E58FF"
         },
@@ -6683,40 +6705,28 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.46.0 (2026-09-07)",
-        "date": "2026-09-07",
+        "title": "1.47.0 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "avoid param-slot collision in RevenueCat injections"
+            "text": "remove star prefixes from featured patch names"
           },
           {
             "category": "Bug Fixes",
-            "text": "repair billing setup flow and cover unity native purchase bridge"
+            "text": "Use mutable class only if required (#96)"
           },
           {
             "category": "Bug Fixes",
-            "text": "skip ignore-style flags in premium prefs matching"
+            "text": "use mutable method for instruction replacement in spoof fixed location"
           },
           {
             "category": "New Features",
-            "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
+            "text": "group all patches into morphe categories"
           },
           {
             "category": "New Features",
-            "text": "cover paywall flags and two-state status enums in unlock premium"
-          },
-          {
-            "category": "New Features",
-            "text": "drop experimental suffix from featured patches"
-          },
-          {
-            "category": "New Features",
-            "text": "fake RevenueCat purchase callbacks in Free IAP"
-          },
-          {
-            "category": "New Features",
-            "text": "star featured patches and pin them atop the patch list"
+            "text": "tag featured patches with morphe category"
           }
         ]
       },
@@ -7432,12 +7442,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.3.3 (2026-09-10)",
-        "date": "2026-09-10",
+        "title": "1.4.0 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Google Photos:** Add version recommendation"
+            "category": "\u2728 New Features",
+            "text": "**Pixv:** Add limited support for 6.196.0"
           }
         ]
       },
@@ -11353,12 +11363,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/d0nj.png?size=96",
           "latestChanges": {
-            "title": "1.2.2 (2026-09-11)",
+            "title": "1.3.1 (2026-09-11)",
             "date": "2026-09-11",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow Unlock premium patch on any NovelReader version"
+                "text": "merge English voices into the visible list and harden downloads"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove English TTS voices patch"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "use sherpa-compatible model files with embedded metadata"
               }
             ]
           },
@@ -11932,40 +11950,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -12173,40 +12191,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -12223,7 +12241,9 @@
               "description": "Unlocks the Off-Road Explorer features gated behind activation."
             }
           ],
-          "versions": []
+          "versions": [
+            "2.4.0e"
+          ]
         }
       ],
       "patches": [
@@ -12235,7 +12255,9 @@
           "description": "Unlocks the Off-Road Explorer features gated behind activation."
         }
       ],
-      "versions": [],
+      "versions": [
+        "2.4.0e"
+      ],
       "iconColor": "#0057BD",
       "iconUrl": ""
     },
@@ -12371,12 +12393,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -12462,12 +12484,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -13055,12 +13077,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -13818,8 +13840,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -13827,12 +13849,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14177,40 +14199,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -14231,7 +14253,9 @@
               "description": "Opens the Library tab instead of Home on launch. Applies only while signed in."
             }
           ],
-          "versions": []
+          "versions": [
+            "26.30.05"
+          ]
         }
       ],
       "patches": [
@@ -14248,7 +14272,9 @@
           "description": "Opens the Library tab instead of Home on launch. Applies only while signed in."
         }
       ],
-      "versions": [],
+      "versions": [
+        "26.30.05"
+      ],
       "iconColor": "#F8991C",
       "iconUrl": ""
     },
@@ -16588,40 +16614,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -21868,40 +21894,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Nai64.png?size=96",
           "latestChanges": {
-            "title": "1.46.0 (2026-09-07)",
-            "date": "2026-09-07",
+            "title": "1.47.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "avoid param-slot collision in RevenueCat injections"
+                "text": "remove star prefixes from featured patch names"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair billing setup flow and cover unity native purchase bridge"
+                "text": "Use mutable class only if required (#96)"
               },
               {
                 "category": "Bug Fixes",
-                "text": "skip ignore-style flags in premium prefs matching"
+                "text": "use mutable method for instruction replacement in spoof fixed location"
               },
               {
                 "category": "New Features",
-                "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
+                "text": "group all patches into morphe categories"
               },
               {
                 "category": "New Features",
-                "text": "cover paywall flags and two-state status enums in unlock premium"
-              },
-              {
-                "category": "New Features",
-                "text": "drop experimental suffix from featured patches"
-              },
-              {
-                "category": "New Features",
-                "text": "fake RevenueCat purchase callbacks in Free IAP"
-              },
-              {
-                "category": "New Features",
-                "text": "star featured patches and pin them atop the patch list"
+                "text": "tag featured patches with morphe category"
               }
             ]
           },
@@ -21957,12 +21971,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -28202,12 +28216,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -28763,40 +28777,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -30384,6 +30398,116 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.gstarmc.android",
+      "name": "DWG FastView",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
+              },
+              {
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
+              },
+              {
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
+              },
+              {
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
+              },
+              {
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
+              },
+              {
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
+              },
+              {
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-gstarmc-android-hxreborn-morphe-patches",
+            "releaseTag": "app-com-gstarmc-android-hxreborn-morphe-patches",
+            "assetName": "dwg-fastview-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Block telemetry",
+              "description": "Blocks the Umeng, ByteDance and ad network analytics endpoints."
+            },
+            {
+              "name": "Hide rating dialog",
+              "description": "Removes the prompt asking for a store review."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks the paid drawing, annotation and measurement tools, and removes ads."
+            }
+          ],
+          "versions": [
+            "5.19.4",
+            "5.19.6",
+            "5.20.0",
+            "5.21.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Block telemetry",
+        "Hide rating dialog",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Block telemetry",
+          "description": "Blocks the Umeng, ByteDance and ad network analytics endpoints."
+        },
+        {
+          "name": "Hide rating dialog",
+          "description": "Removes the prompt asking for a store review."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the paid drawing, annotation and measurement tools, and removes ads."
+        }
+      ],
+      "versions": [
+        "5.19.4",
+        "5.19.6",
+        "5.20.0",
+        "5.21.0"
+      ],
+      "iconColor": "#1AACAC",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.notdoppler.earntodie2",
       "name": "Earn to Die 2",
       "repos": [
@@ -31124,40 +31248,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -31553,12 +31677,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -32827,40 +32951,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -32877,7 +33001,9 @@
               "description": "Unlocks all premium features."
             }
           ],
-          "versions": []
+          "versions": [
+            "3.0.15"
+          ]
         }
       ],
       "patches": [
@@ -32889,7 +33015,9 @@
           "description": "Unlocks all premium features."
         }
       ],
-      "versions": [],
+      "versions": [
+        "3.0.15"
+      ],
       "iconColor": "#0772BA",
       "iconUrl": ""
     },
@@ -33682,12 +33810,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -34110,12 +34238,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -34145,7 +34273,7 @@
             }
           ],
           "versions": [
-            "7.90.0.971743778"
+            "7.80.0.929302933"
           ]
         },
         {
@@ -34244,6 +34372,7 @@
         }
       ],
       "versions": [
+        "7.80.0.929302933",
         "7.90.0.971743778"
       ],
       "iconColor": "#FC3F3C",
@@ -34337,12 +34466,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -35098,12 +35227,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -36027,12 +36156,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -38325,12 +38454,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -40205,40 +40334,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -40759,12 +40888,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -43666,12 +43795,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -44110,12 +44239,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -45553,6 +45682,96 @@
         "2.6.4"
       ],
       "iconColor": "#1E88E5",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.community.oneroom",
+      "name": "MovieBox",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
+              },
+              {
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
+              },
+              {
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
+              },
+              {
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
+              },
+              {
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
+              },
+              {
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
+              },
+              {
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-community-oneroom-hxreborn-morphe-patches",
+            "releaseTag": "app-com-community-oneroom-hxreborn-morphe-patches",
+            "assetName": "moviebox-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "All-In-One",
+              "description": "Enables video playback and downloads, removes ads and upsell prompts, and bypasses the region block. Requires Android 10 or later."
+            }
+          ],
+          "versions": [
+            "4.0.02.0828.03",
+            "4.0.02.0831.03",
+            "4.0.02.0903.02"
+          ]
+        }
+      ],
+      "patches": [
+        "All-In-One"
+      ],
+      "patchDetails": [
+        {
+          "name": "All-In-One",
+          "description": "Enables video playback and downloads, removes ads and upsell prompts, and bypasses the region block. Requires Android 10 or later."
+        }
+      ],
+      "versions": [
+        "4.0.02.0828.03",
+        "4.0.02.0831.03",
+        "4.0.02.0903.02"
+      ],
+      "iconColor": "#30E66D",
       "iconUrl": ""
     },
     {
@@ -47342,12 +47561,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/d0nj/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/d0nj.png?size=96",
           "latestChanges": {
-            "title": "1.2.2 (2026-09-11)",
+            "title": "1.3.1 (2026-09-11)",
             "date": "2026-09-11",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow Unlock premium patch on any NovelReader version"
+                "text": "merge English voices into the visible list and harden downloads"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "remove English TTS voices patch"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "use sherpa-compatible model files with embedded metadata"
               }
             ]
           },
@@ -47678,40 +47905,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -47728,7 +47955,9 @@
               "description": "Unlocks task lists, callouts, app lock, and the notebook, tag, colour and reminder limits. Requires a signed-in account. The server still enforces storage, attachment size, monographs and SMS 2FA."
             }
           ],
-          "versions": []
+          "versions": [
+            "3.4.12"
+          ]
         }
       ],
       "patches": [
@@ -47740,7 +47969,9 @@
           "description": "Unlocks task lists, callouts, app lock, and the notebook, tag, colour and reminder limits. Requires a signed-in account. The server still enforces storage, attachment size, monographs and SMS 2FA."
         }
       ],
-      "versions": [],
+      "versions": [
+        "3.4.12"
+      ],
       "iconColor": "#008837",
       "iconUrl": ""
     },
@@ -47760,12 +47991,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -47987,12 +48218,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -50536,40 +50767,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -50586,7 +50817,9 @@
               "description": "Replaces the dark theme background with pure black."
             }
           ],
-          "versions": []
+          "versions": [
+            "2.95.0"
+          ]
         }
       ],
       "patches": [
@@ -50598,7 +50831,9 @@
           "description": "Replaces the dark theme background with pure black."
         }
       ],
-      "versions": [],
+      "versions": [
+        "2.95.0"
+      ],
       "iconColor": "#20808D",
       "iconUrl": ""
     },
@@ -50734,40 +50969,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -50945,12 +51180,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -51075,12 +51310,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -52443,12 +52678,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -52470,7 +52705,8 @@
             }
           ],
           "versions": [
-            "6.141.1"
+            "6.141.1",
+            "6.196.0"
           ]
         }
       ],
@@ -52489,7 +52725,8 @@
         }
       ],
       "versions": [
-        "6.141.1"
+        "6.141.1",
+        "6.196.0"
       ],
       "iconColor": "#0096FA",
       "iconUrl": ""
@@ -53795,40 +54032,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -53849,7 +54086,10 @@
               "description": "Unlocks all premium features."
             }
           ],
-          "versions": []
+          "versions": [
+            "4.70",
+            "4.71"
+          ]
         },
         {
           "repo": "saieshshirodkar/saiesh-morphe-patches",
@@ -53889,8 +54129,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -53898,15 +54138,16 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
+        "4.70",
         "4.71"
       ],
       "iconColor": "#FFDD00",
@@ -54093,40 +54334,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -55028,40 +55269,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -55312,40 +55553,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -55514,40 +55755,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -55564,7 +55805,9 @@
               "description": "Unlocks all premium features."
             }
           ],
-          "versions": []
+          "versions": [
+            "1.14.8"
+          ]
         }
       ],
       "patches": [
@@ -55576,7 +55819,9 @@
           "description": "Unlocks all premium features."
         }
       ],
-      "versions": [],
+      "versions": [
+        "1.14.8"
+      ],
       "iconColor": "#0D192C",
       "iconUrl": ""
     },
@@ -55654,40 +55899,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -56861,40 +57106,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -56907,6 +57152,14 @@
           },
           "patches": [
             {
+              "name": "Disable telemetry",
+              "description": "Stops crash and error reports from reaching Sentry."
+            },
+            {
+              "name": "Disable usage tracking",
+              "description": "Stops app usage events from being uploaded. Local usage tracking remains enabled."
+            },
+            {
               "name": "Unlock premium",
               "description": "Unlocks the energy schedule, habit tools, smart alarm and progress insights. Requires a RISE account."
             }
@@ -56918,9 +57171,19 @@
         }
       ],
       "patches": [
+        "Disable telemetry",
+        "Disable usage tracking",
         "Unlock premium"
       ],
       "patchDetails": [
+        {
+          "name": "Disable telemetry",
+          "description": "Stops crash and error reports from reaching Sentry."
+        },
+        {
+          "name": "Disable usage tracking",
+          "description": "Stops app usage events from being uploaded. Local usage tracking remains enabled."
+        },
         {
           "name": "Unlock premium",
           "description": "Unlocks the energy schedule, habit tools, smart alarm and progress insights. Requires a RISE account."
@@ -57469,40 +57732,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -57519,7 +57782,9 @@
               "description": "Unlocks running and logging workouts, progress tracking and personal records (AI workout generation is not included)."
             }
           ],
-          "versions": []
+          "versions": [
+            "3.9"
+          ]
         }
       ],
       "patches": [
@@ -57531,7 +57796,9 @@
           "description": "Unlocks running and logging workouts, progress tracking and personal records (AI workout generation is not included)."
         }
       ],
-      "versions": [],
+      "versions": [
+        "3.9"
+      ],
       "iconColor": "#FD8700",
       "iconUrl": ""
     },
@@ -58961,40 +59228,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -62228,12 +62495,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -63178,40 +63445,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -63231,23 +63498,24 @@
           "versions": [
             "14.0.0",
             "14.0.0 TV",
-            "14.1.0"
+            "14.1.0",
+            "15.0.1"
           ]
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -63257,7 +63525,8 @@
       "versions": [
         "14.0.0",
         "14.0.0 TV",
-        "14.1.0"
+        "14.1.0",
+        "15.0.1"
       ],
       "iconColor": "#E53935",
       "iconUrl": ""
@@ -67196,40 +67465,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.16.0 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.18.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**All-In-One Calculator:** stop listing the pairip patch that only serves the unlocks"
+                "text": "**MovieBox - All-In-One:** load content on devices with a region-restricted SIM"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**AlpineQuest - Bypass signature check:** stop listing a patch that only serves the unlock"
+                "category": "New Features",
+                "text": "**AlpineQuest:** add support for 2.4.0e"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro - Spoof signature:** stop listing a patch the app cannot run without"
+                "category": "New Features",
+                "text": "**Audible:** add support for 26.30.05"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Photo Editor Pro:** stop listing the iOS spoof the AI tools cannot work without"
+                "category": "New Features",
+                "text": "**ForusApp:** add support for 3.0.15"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Proton Mail:** keep push notifications working whichever patches are selected"
+                "category": "New Features",
+                "text": "**MovieBox - All-In-One:** open titles in streaming mode regardless of region"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Quranify - Unlock premium:** pull in the integrity and pairip patches as dependencies"
+                "category": "New Features",
+                "text": "**Notesnook:** add support for 3.4.12"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**RateGlance - Unlock premium:** pull in the pairip patch as a dependency"
+                "category": "New Features",
+                "text": "**Perplexity:** add support for 2.95.0"
               },
               {
-                "category": "Bug Fixes",
-                "text": "**Remove pairip protection:** fail at patch time when the hoisted-field table does not match"
+                "category": "New Features",
+                "text": "**Projectivy:** add support for 4.70 and 4.71"
               }
             ]
           },
@@ -67863,8 +68132,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -67908,11 +68177,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -68600,12 +68869,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -69535,12 +69804,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RookieEnough/De-Vanced/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RookieEnough.png?size=96",
           "latestChanges": {
-            "title": "1.3.3 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.4.0 (2026-09-11)",
+            "date": "2026-09-11",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Google Photos:** Add version recommendation"
+                "category": "\u2728 New Features",
+                "text": "**Pixv:** Add limited support for 6.196.0"
               }
             ]
           },
@@ -76969,44 +77238,37 @@
       "avatarUrl": "https://github.com/Nai64.png?size=96",
       "patchCount": 341,
       "latestChanges": {
-        "title": "1.46.0 (2026-09-07)",
-        "date": "2026-09-07",
+        "title": "1.47.0 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "avoid param-slot collision in RevenueCat injections"
+            "text": "remove star prefixes from featured patch names"
           },
           {
             "category": "Bug Fixes",
-            "text": "repair billing setup flow and cover unity native purchase bridge"
+            "text": "Use mutable class only if required (#96)"
           },
           {
             "category": "Bug Fixes",
-            "text": "skip ignore-style flags in premium prefs matching"
+            "text": "use mutable method for instruction replacement in spoof fixed location"
           },
           {
             "category": "New Features",
-            "text": "add strategy checkboxes and Firebase cleanup to Pairip Bypass"
+            "text": "group all patches into morphe categories"
           },
           {
             "category": "New Features",
-            "text": "cover paywall flags and two-state status enums in unlock premium"
-          },
-          {
-            "category": "New Features",
-            "text": "drop experimental suffix from featured patches"
-          },
-          {
-            "category": "New Features",
-            "text": "fake RevenueCat purchase callbacks in Free IAP"
-          },
-          {
-            "category": "New Features",
-            "text": "star featured patches and pin them atop the patch list"
+            "text": "tag featured patches with morphe category"
           }
         ]
       },
       "patches": [
+        {
+          "name": "Ads Free Rewards",
+          "description": "Get rewards without watching ads. Combine with No Ads for other formats, but keep No Ads' rewarded block off.",
+          "default": false
+        },
         {
           "name": "Allow Background Activity",
           "description": "Makes ActivityManager.isBackgroundRestricted always return false so apps ignore background activity restrictions imposed by the system or user",
@@ -77998,6 +78260,11 @@
           "default": false
         },
         {
+          "name": "Free In-app Purchases",
+          "description": "Get paid items for free. Best for offline games.",
+          "default": false
+        },
+        {
           "name": "GmsCore support (MicroG)",
           "description": "Use MicroG instead of Google Play Services for logins.",
           "default": false
@@ -78213,8 +78480,18 @@
           "default": false
         },
         {
+          "name": "No Ads",
+          "description": "Blocks ads by type. Pick what to block. For rewarded ads use Ads Free Rewards instead.",
+          "default": false
+        },
+        {
           "name": "Optimize as Game",
           "description": "Sets android:appCategory to game so Android applies game mode, battery and screenshot optimizations tuned for games",
+          "default": false
+        },
+        {
+          "name": "Pairip Bypass",
+          "description": "Bypass app protection so the patched app can start.",
           "default": false
         },
         {
@@ -78658,6 +78935,11 @@
           "default": false
         },
         {
+          "name": "Unlimited Currencies",
+          "description": "Get unlimited coins, gems and other currencies. Works on most games. Not supported on newer Unity games.",
+          "default": false
+        },
+        {
           "name": "Unlock Max Aspect Ratio",
           "description": "Removes maxAspectRatio limits from the application, activities and metadata so the app fills tall edge-to-edge screens instead of letterboxing",
           "default": false
@@ -78665,6 +78947,11 @@
         {
           "name": "Unlock Notification Channels",
           "description": "Makes all notification channels blockable and their importance unlocked so greyed-out toggles become interactable.",
+          "default": false
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlock premium features and remove paywalls.",
           "default": false
         },
         {
@@ -78680,36 +78967,6 @@
         {
           "name": "VM Safe Mode",
           "description": "Sets android:vmSafeMode so the app runs with AOT/JIT optimizations disabled, which can stabilize apps that crash from compiler optimizations on some devices",
-          "default": false
-        },
-        {
-          "name": "\u2605 Ads Free Rewards",
-          "description": "Get rewards without watching ads. Combine with No Ads for other formats, but keep No Ads' rewarded block off.",
-          "default": false
-        },
-        {
-          "name": "\u2605 Free In-app Purchases",
-          "description": "Get paid items for free. Best for offline games.",
-          "default": false
-        },
-        {
-          "name": "\u2605 No Ads",
-          "description": "Blocks ads by type. Pick what to block. For rewarded ads use Ads Free Rewards instead.",
-          "default": false
-        },
-        {
-          "name": "\u2605 Pairip Bypass",
-          "description": "Bypass app protection so the patched app can start.",
-          "default": false
-        },
-        {
-          "name": "\u2605 Unlimited Currencies",
-          "description": "Get unlimited coins, gems and other currencies. Works on most games. Not supported on newer Unity games.",
-          "default": false
-        },
-        {
-          "name": "\u2605 Unlock Premium",
-          "description": "Unlock premium features and remove paywalls.",
           "default": false
         }
       ]
@@ -78773,12 +79030,12 @@
       "avatarUrl": "https://github.com/RookieEnough.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.3.3 (2026-09-10)",
-        "date": "2026-09-10",
+        "title": "1.4.0 (2026-09-11)",
+        "date": "2026-09-11",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Google Photos:** Add version recommendation"
+            "category": "\u2728 New Features",
+            "text": "**Pixv:** Add limited support for 6.196.0"
           }
         ]
       },
@@ -79787,12 +80044,20 @@
       "createdDate": "2026-08-01",
       "updatedDate": "2026-08-01",
       "latestChanges": {
-        "title": "1.2.2 (2026-09-11)",
+        "title": "1.3.1 (2026-09-11)",
         "date": "2026-09-11",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "allow Unlock premium patch on any NovelReader version"
+            "text": "merge English voices into the visible list and harden downloads"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "remove English TTS voices patch"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "use sherpa-compatible model files with embedded metadata"
           }
         ]
       },

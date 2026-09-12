@@ -2,7 +2,7 @@
 
 An auto-generated, continuously updated index of every GitHub repository that publishes a [Revanced](https://revanced.app) (`.rvp`) patch bundle.
 
-![Repos tracked](https://img.shields.io/badge/repos%20tracked-84-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-09-11%2002:40%20UTC-555)
+![Repos tracked](https://img.shields.io/badge/repos%20tracked-84-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-09-12%2002:52%20UTC-555)
 
 ---
 
@@ -114,4 +114,4 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 This README is regenerated automatically by GitHub Actions whenever `repos.txt` changes.
 To add a repo manually, append it to `custom_repos.txt`. To remove one permanently, add it to `ignore_repos.txt`.
 
-*Last generated: 2026-09-11 02:40 UTC*
+*Last generated: 2026-09-12 02:52 UTC*
