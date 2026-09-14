@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-13 02:51 UTC",
+  "generatedAt": "2026-09-14 03:04 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 712,
-  "patchCount": 2978,
+  "appCount": 713,
+  "patchCount": 2981,
   "universalPatchCount": 577,
   "hostCounts": {
     "github.com": 122,
@@ -68,16 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.35.1 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.35.3 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-          },
-          {
-            "category": "Features",
-            "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+            "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
           }
         ]
       },
@@ -1634,19 +1630,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 56,
-      "appCount": 26,
+      "patchCount": 59,
+      "appCount": 27,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.26.1 (2026-09-12)",
-        "date": "2026-09-12",
+        "title": "1.27.0 (2026-09-13)",
+        "date": "2026-09-13",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+            "category": "\u2728 New Features",
+            "text": "**admc:** add patches for ads and coins"
           }
         ]
       },
@@ -1657,6 +1653,13 @@
           "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#00A651"
+        },
+        {
+          "name": "Aliens Drive Me Crazy",
+          "packageName": "com.rebeltwins.aliensdrivemecrazy",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#7CB342"
         },
         {
           "name": "Alto's Adventure",
@@ -1923,12 +1926,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.5.1 (2026-08-31)",
-        "date": "2026-08-31",
+        "title": "1.5.2 (2026-09-13)",
+        "date": "2026-09-13",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**instagram:** support 439.0.0.37.89"
+            "text": "**bitwarden and github:** update app support"
           }
         ]
       },
@@ -4620,20 +4623,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.20.0 (2026-09-12)",
-        "date": "2026-09-12",
+        "title": "1.21.0 (2026-09-13)",
+        "date": "2026-09-13",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** report no SIM operator"
-          },
-          {
             "category": "New Features",
-            "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+            "text": "**iJiami:** warn when device architecture optimization removes native libraries"
           }
         ]
       },
@@ -4868,14 +4863,9 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.0.0 (2026-07-20)",
-        "date": "2026-07-20",
-        "items": [
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "remove example app"
-          }
-        ]
+        "title": "",
+        "date": "",
+        "items": []
       },
       "apps": []
     },
@@ -10511,20 +10501,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -10993,12 +10975,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -11837,6 +11819,82 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.rebeltwins.aliensdrivemecrazy",
+      "name": "Aliens Drive Me Crazy",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-rebeltwins-aliensdrivemecrazy-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-rebeltwins-aliensdrivemecrazy-byehi98-okish-morphe-patches",
+            "assetName": "aliens-drive-me-crazy-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Instant rewards",
+              "description": "Reward buttons (free revive, double coins) pay out instantly without playing any ad video (native libil2cpp.so patch)."
+            },
+            {
+              "name": "Remove ads",
+              "description": "Stops all interstitial/commercial-break ads between games (native libil2cpp.so patch, rewarded videos handled by the instant-rewards patch)."
+            },
+            {
+              "name": "Unlimited coins",
+              "description": "Coin save reads always return ~1.34 billion coins (native libil2cpp.so patch on Org.TotalCoins)."
+            }
+          ],
+          "versions": [
+            "3.2.7"
+          ]
+        }
+      ],
+      "patches": [
+        "Instant rewards",
+        "Remove ads",
+        "Unlimited coins"
+      ],
+      "patchDetails": [
+        {
+          "name": "Instant rewards",
+          "description": "Reward buttons (free revive, double coins) pay out instantly without playing any ad video (native libil2cpp.so patch)."
+        },
+        {
+          "name": "Remove ads",
+          "description": "Stops all interstitial/commercial-break ads between games (native libil2cpp.so patch, rewarded videos handled by the instant-rewards patch)."
+        },
+        {
+          "name": "Unlimited coins",
+          "description": "Coin save reads always return ~1.34 billion coins (native libil2cpp.so patch on Org.TotalCoins)."
+        }
+      ],
+      "versions": [
+        "3.2.7"
+      ],
+      "iconColor": "#7CB342",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.alibaba.aliexpresshd",
       "name": "AliExpress",
       "repos": [
@@ -12044,20 +12102,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -12265,20 +12315,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -12331,12 +12373,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -12389,12 +12431,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -13894,8 +13936,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -13903,12 +13945,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -14253,20 +14295,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -16648,20 +16682,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -16714,12 +16740,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -16799,12 +16825,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.5.2 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**instagram:** support 439.0.0.37.89"
+                "text": "**bitwarden and github:** update app support"
               }
             ]
           },
@@ -16822,7 +16848,7 @@
             }
           ],
           "versions": [
-            "2026.8.0"
+            "2026.8.1"
           ]
         }
       ],
@@ -16836,7 +16862,7 @@
         }
       ],
       "versions": [
-        "2026.8.0"
+        "2026.8.1"
       ],
       "iconColor": "#175DDC",
       "iconUrl": ""
@@ -18373,12 +18399,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -21327,16 +21353,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -21846,16 +21868,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -22154,16 +22172,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -22222,16 +22236,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -22254,6 +22264,7 @@
           ],
           "versions": [
             "26.12.1+rc1-2026.07.15",
+            "26.16.0+rc2-2026.09.08",
             "26.6.0+rc5-2026.04.21",
             "26.8.0+rc6-2026.05.20",
             "26.9.2+rc1-2026.06.12"
@@ -22276,6 +22287,7 @@
       ],
       "versions": [
         "26.12.1+rc1-2026.07.15",
+        "26.16.0+rc2-2026.09.08",
         "26.6.0+rc5-2026.04.21",
         "26.8.0+rc6-2026.05.20",
         "26.9.2+rc1-2026.06.12"
@@ -22555,16 +22567,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -22782,16 +22790,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -22846,12 +22850,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.5.2 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**instagram:** support 439.0.0.37.89"
+                "text": "**bitwarden and github:** update app support"
               }
             ]
           },
@@ -22881,7 +22885,7 @@
             }
           ],
           "versions": [
-            "1.273.0"
+            "1.276.0"
           ]
         },
         {
@@ -23057,7 +23061,7 @@
       ],
       "versions": [
         "1.271.1",
-        "1.273.0"
+        "1.276.0"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -24575,16 +24579,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -24858,16 +24858,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -25400,16 +25396,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -26369,16 +26361,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -26513,16 +26501,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -28804,20 +28788,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -29909,12 +29885,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -30228,12 +30204,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -30420,20 +30396,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -30510,12 +30478,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -31235,20 +31203,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -31844,12 +31804,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -32918,20 +32878,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -33275,12 +33227,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -34646,12 +34598,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -35372,12 +35324,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -36897,12 +36849,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -37260,12 +37212,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-08-31)",
-            "date": "2026-08-31",
+            "title": "1.5.2 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**instagram:** support 439.0.0.37.89"
+                "text": "**bitwarden and github:** update app support"
               }
             ]
           },
@@ -38085,12 +38037,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -38858,12 +38810,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -40281,20 +40233,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -44700,12 +44644,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -45627,20 +45571,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -47812,20 +47748,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -49174,12 +49102,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -50654,20 +50582,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -50836,20 +50756,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -52594,12 +52506,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -53703,12 +53615,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -53888,20 +53800,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -53965,8 +53869,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -53974,12 +53878,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -54170,20 +54074,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -55085,20 +54981,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -55349,20 +55237,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -55531,20 +55411,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -55655,20 +55527,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -56842,20 +56706,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -56986,12 +56842,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -57448,20 +57304,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -58924,20 +58772,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -59686,12 +59526,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -62985,12 +62825,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -63121,20 +62961,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -63160,18 +62992,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -65322,12 +65154,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -67054,12 +66886,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -67121,20 +66953,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.20.0 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.21.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "**iJiami:** disable packer checks at their call sites to close crash race at launch"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** report no SIM operator"
-              },
-              {
                 "category": "New Features",
-                "text": "**MovieBox - All-In-One:** remove password access to Laboratory under Me \u2192 Settings \u2192 About us"
+                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
               }
             ]
           },
@@ -67768,8 +67592,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -67813,11 +67637,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -67988,12 +67812,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
@@ -68311,16 +68135,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -68411,16 +68231,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.1 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.35.3 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** mute live ad breaks at stream level so audio can't survive the mask (#152)"
-              },
-              {
-                "category": "Features",
-                "text": "**pluto:** mask live commercial breaks with black screen + mute (#152)"
+                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
               }
             ]
           },
@@ -69175,12 +68991,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.26.1 (2026-09-12)",
-            "date": "2026-09-12",
+            "title": "1.27.0 (2026-09-13)",
+            "date": "2026-09-13",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**plagueinc:** unlocking genes, fixing genes unlocked in store but remains locked"
+                "category": "\u2728 New Features",
+                "text": "**admc:** add patches for ads and coins"
               }
             ]
           },
