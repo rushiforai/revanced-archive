@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-14 03:04 UTC",
+  "generatedAt": "2026-09-15 03:09 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 713,
-  "patchCount": 2981,
+  "appCount": 716,
+  "patchCount": 2984,
   "universalPatchCount": 577,
   "hostCounts": {
     "github.com": 122,
@@ -61,19 +61,35 @@
       "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
       "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
       "avatarUrl": "https://github.com/ajstrick81.png?size=96",
-      "patchCount": 37,
-      "appCount": 13,
+      "patchCount": 38,
+      "appCount": 14,
       "createdAt": 1784836028108,
       "updatedAt": 1784836028108,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.35.3 (2026-09-14)",
-        "date": "2026-09-14",
+        "title": "1.37.1 (2026-09-15)",
+        "date": "2026-09-15",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+            "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+          },
+          {
+            "category": "Features",
+            "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+          },
+          {
+            "category": "Features",
+            "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+          },
+          {
+            "category": "Features",
+            "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+          },
+          {
+            "category": "Features",
+            "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
           }
         ]
       },
@@ -137,6 +153,13 @@
         {
           "name": "com.tubitv",
           "packageName": "com.tubitv",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "com.twentyfouri.tvbridge.rte",
+          "packageName": "com.twentyfouri.tvbridge.rte",
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": ""
@@ -3678,7 +3701,7 @@
       },
       "apps": [
         {
-          "name": "Google Maps",
+          "name": "Google Maps Morphe",
           "packageName": "com.google.android.apps.maps",
           "patchCount": 1,
           "iconUrl": "",
@@ -4616,19 +4639,19 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 46,
-      "appCount": 25,
+      "patchCount": 47,
+      "appCount": 26,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.21.0 (2026-09-13)",
-        "date": "2026-09-13",
+        "title": "1.22.0 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "New Features",
-            "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+            "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
           }
         ]
       },
@@ -4807,6 +4830,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#00A88F"
+        },
+        {
+          "name": "VPN Super Unlimited Proxy",
+          "packageName": "com.free.vpn.super.hotspot.open",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#007DFF"
         }
       ]
     },
@@ -6541,47 +6571,47 @@
       "webUrl": "https://github.com/MorpheApp/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=MorpheApp/morphe-patches",
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
-      "patchCount": 146,
+      "patchCount": 147,
       "appCount": 3,
       "createdAt": 1784836023316,
       "updatedAt": 1784836023316,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.42.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.43.0 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
+            "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
+            "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
+            "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
+            "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
+            "text": "**YouTube - FlyoutUtils:** Check typo"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Hide new type of community posts"
+            "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
+            "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
+            "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
           }
         ]
       },
@@ -6589,7 +6619,7 @@
         {
           "name": "Reddit",
           "packageName": "com.reddit.frontpage",
-          "patchCount": 18,
+          "patchCount": 19,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
@@ -7292,20 +7322,60 @@
       "addUrl": "https://Revanced.software/add-source?github=quantavil/edge-morphe-patches",
       "avatarUrl": "https://github.com/quantavil.png?size=96",
       "patchCount": 5,
-      "appCount": 1,
+      "appCount": 2,
       "createdAt": 1784836040640,
       "updatedAt": 1784836040640,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "",
-        "date": "",
-        "items": []
+        "title": "1.36.1 (2026-09-14)",
+        "date": "2026-09-14",
+        "items": [
+          {
+            "category": "Bug Fixes",
+            "text": "**notifications:** invoke callback in requestDeviceToken to prevent LifetimeAssert crash on Canary"
+          },
+          {
+            "category": "Features",
+            "text": "add Edge Canary support, upgrade Edge to v152.0.4191.65 and Canary to v155.0.4269.0"
+          },
+          {
+            "category": "Features",
+            "text": "add Change package name patch with configurable target package"
+          },
+          {
+            "category": "Features",
+            "text": "upgrade Edge base to v151.0.4129.70, harden telemetry, add news notification patch"
+          },
+          {
+            "category": "Reverts",
+            "text": "downgrade conventional-changelog-conventionalcommits to 9.3.1"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "repair dependabot target, guard bodyless log methods, drop dead code"
+          },
+          {
+            "category": "Features",
+            "text": "upgrade Edge base APK to v150.0.4078.81"
+          },
+          {
+            "category": "Features",
+            "text": "remove dev branch and pre-release config"
+          }
+        ]
       },
       "apps": [
         {
           "name": "Microsoft Edge",
           "packageName": "com.microsoft.emmx",
+          "patchCount": 5,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "Microsoft Edge Canary",
+          "packageName": "com.microsoft.emmx.canary",
           "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
@@ -10273,12 +10343,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.14 (2026-09-10)",
-        "date": "2026-09-10",
+        "title": "1.12.15 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**tbank:** support version 8.2.3"
+            "text": "**avito:** support version 233.1"
           }
         ]
       },
@@ -10501,12 +10571,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -12102,12 +12172,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -12315,12 +12385,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -13936,8 +14006,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -13945,12 +14015,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14295,12 +14365,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -14941,12 +15011,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.14 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.12.15 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.2.3"
+                "text": "**avito:** support version 233.1"
               }
             ]
           },
@@ -14997,7 +15067,8 @@
             "230.5",
             "231.0",
             "231.5",
-            "232.0"
+            "232.0",
+            "233.1"
           ]
         }
       ],
@@ -15051,7 +15122,8 @@
         "230.5",
         "231.0",
         "231.5",
-        "232.0"
+        "232.0",
+        "233.1"
       ],
       "iconColor": "#00AAFF",
       "iconUrl": ""
@@ -16682,12 +16754,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -21353,12 +21425,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -21868,12 +21956,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -22172,12 +22276,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -22236,12 +22356,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -22567,12 +22703,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -22790,12 +22942,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -23423,25 +23591,22 @@
           },
           "patches": [
             {
-              "name": "Google Maps for ReVanced GmsCore",
-              "description": "Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata."
+              "name": "Google Maps for MicroG-RE-BYD",
+              "description": "Connects supported Google Maps builds to MicroG-RE-BYD, with BYD navigation audio and compatibility with devices that also have official Google Play services."
             }
           ],
-          "versions": [
-            "26.33.02.961351034",
-            "26.35.04.969485213"
-          ]
+          "versions": []
         }
       ],
       "patches": [
-        "Google Maps for ReVanced GmsCore",
+        "Google Maps for MicroG-RE-BYD",
         "GoogleMapsAdStripDirections (STUB)",
         "GoogleMapsHideSponsoredPOIs (STUB)"
       ],
       "patchDetails": [
         {
-          "name": "Google Maps for ReVanced GmsCore",
-          "description": "Routes supported Google Maps builds through ReVanced GmsCore using the patched Maps package and known Google Maps certificate spoof metadata."
+          "name": "Google Maps for MicroG-RE-BYD",
+          "description": "Connects supported Google Maps builds to MicroG-RE-BYD, with BYD navigation audio and compatibility with devices that also have official Google Play services."
         },
         {
           "name": "GoogleMapsAdStripDirections (STUB)",
@@ -23452,10 +23617,7 @@
           "description": "STUB placeholder. Real behavior authored after disassemble.yml runs on com.google.android.apps.maps."
         }
       ],
-      "versions": [
-        "26.33.02.961351034",
-        "26.35.04.969485213"
-      ],
+      "versions": [],
       "iconColor": "#4285F4",
       "iconUrl": ""
     },
@@ -24579,12 +24741,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -24858,12 +25036,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -25396,12 +25590,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -25434,6 +25644,80 @@
       ],
       "versions": [
         "10.28.5000"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.twentyfouri.tvbridge.rte",
+      "name": "com.twentyfouri.tvbridge.rte",
+      "repos": [
+        "ajstrick81/morphe-androidtv-patches"
+      ],
+      "sources": [
+        {
+          "repo": "ajstrick81/morphe-androidtv-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
+          "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
+          "source": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/ajstrick81.png?size=96",
+          "latestChanges": {
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-twentyfouri-tvbridge-rte-ajstrick81-morphe-androidtv-patches",
+            "releaseTag": "app-com-twentyfouri-tvbridge-rte-ajstrick81-morphe-androidtv-patches",
+            "assetName": "com-twentyfouri-tvbridge-rte-ajstrick81-morphe-androidtv-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Skip ads",
+              "description": "Suppresses client-side (VOD) Google IMA ads in the RT\u00c9 Player Android TV app by neutering the IMA AdsManager start and ad-event handler. Live DAI (server-stitched SSAI) is not affected \u2014 that can't be removed client-side without breaking live content."
+            }
+          ],
+          "versions": [
+            "3.160.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Skip ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Skip ads",
+          "description": "Suppresses client-side (VOD) Google IMA ads in the RT\u00c9 Player Android TV app by neutering the IMA AdsManager start and ad-event handler. Live DAI (server-stitched SSAI) is not affected \u2014 that can't be removed client-side without breaking live content."
+        }
+      ],
+      "versions": [
+        "3.160.3"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -26361,12 +26645,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -26501,12 +26801,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -28788,12 +29104,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -30396,12 +30712,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -31203,12 +31519,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -32878,12 +33194,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -40233,12 +40549,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -44021,9 +44337,42 @@
           "changelogUrl": "https://raw.githubusercontent.com/quantavil/edge-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/quantavil.png?size=96",
           "latestChanges": {
-            "title": "",
-            "date": "",
-            "items": []
+            "title": "1.36.1 (2026-09-14)",
+            "date": "2026-09-14",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**notifications:** invoke callback in requestDeviceToken to prevent LifetimeAssert crash on Canary"
+              },
+              {
+                "category": "Features",
+                "text": "add Edge Canary support, upgrade Edge to v152.0.4191.65 and Canary to v155.0.4269.0"
+              },
+              {
+                "category": "Features",
+                "text": "add Change package name patch with configurable target package"
+              },
+              {
+                "category": "Features",
+                "text": "upgrade Edge base to v151.0.4129.70, harden telemetry, add news notification patch"
+              },
+              {
+                "category": "Reverts",
+                "text": "downgrade conventional-changelog-conventionalcommits to 9.3.1"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "repair dependabot target, guard bodyless log methods, drop dead code"
+              },
+              {
+                "category": "Features",
+                "text": "upgrade Edge base APK to v150.0.4078.81"
+              },
+              {
+                "category": "Features",
+                "text": "remove dev branch and pre-release config"
+              }
+            ]
           },
           "builder": {
             "buildId": "com-microsoft-emmx-quantavil-edge-morphe-patches",
@@ -44055,7 +44404,7 @@
             }
           ],
           "versions": [
-            "151.0.4129.70"
+            "152.0.4191.65"
           ]
         }
       ],
@@ -44089,7 +44438,129 @@
         }
       ],
       "versions": [
-        "151.0.4129.70"
+        "152.0.4191.65"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.microsoft.emmx.canary",
+      "name": "Microsoft Edge Canary",
+      "repos": [
+        "quantavil/edge-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "quantavil/edge-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/quantavil/edge-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=quantavil/edge-morphe-patches",
+          "source": "https://raw.githubusercontent.com/quantavil/edge-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/quantavil/edge-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/quantavil.png?size=96",
+          "latestChanges": {
+            "title": "1.36.1 (2026-09-14)",
+            "date": "2026-09-14",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**notifications:** invoke callback in requestDeviceToken to prevent LifetimeAssert crash on Canary"
+              },
+              {
+                "category": "Features",
+                "text": "add Edge Canary support, upgrade Edge to v152.0.4191.65 and Canary to v155.0.4269.0"
+              },
+              {
+                "category": "Features",
+                "text": "add Change package name patch with configurable target package"
+              },
+              {
+                "category": "Features",
+                "text": "upgrade Edge base to v151.0.4129.70, harden telemetry, add news notification patch"
+              },
+              {
+                "category": "Reverts",
+                "text": "downgrade conventional-changelog-conventionalcommits to 9.3.1"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "repair dependabot target, guard bodyless log methods, drop dead code"
+              },
+              {
+                "category": "Features",
+                "text": "upgrade Edge base APK to v150.0.4078.81"
+              },
+              {
+                "category": "Features",
+                "text": "remove dev branch and pre-release config"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-microsoft-emmx-canary-quantavil-edge-morphe-patches",
+            "releaseTag": "app-com-microsoft-emmx-canary-quantavil-edge-morphe-patches",
+            "assetName": "microsoft-edge-canary-quantavil-edge-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Change package name",
+              "description": "Changes the application package name in AndroidManifest.xml (e.g. for media display whitelist compatibility or cloning)."
+            },
+            {
+              "name": "Copilot feature toggle",
+              "description": "Disables all Copilot and Bing Chat feature flags by forcing boolean feature evaluation methods to return false."
+            },
+            {
+              "name": "Disable news notifications",
+              "description": "Disables Bing news and weather push notifications by short-circuiting device push token registration and notification dispatch services."
+            },
+            {
+              "name": "Disable Play Store updates",
+              "description": "Disables Play Store updates by setting the version code to the maximum allowed. This patch does not work if the app is installed by mounting and may cause unexpected issues with some apps."
+            },
+            {
+              "name": "Telemetry elimination",
+              "description": "Eliminates Microsoft Edge telemetry and tracking by redirecting data collection endpoints (OneCollector, AppCenter, Adjust) to localhost and short-circuiting OneDS and Adjust tracking methods."
+            }
+          ],
+          "versions": [
+            "155.0.4269.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Change package name",
+        "Copilot feature toggle",
+        "Disable news notifications",
+        "Disable Play Store updates",
+        "Telemetry elimination"
+      ],
+      "patchDetails": [
+        {
+          "name": "Change package name",
+          "description": "Changes the application package name in AndroidManifest.xml (e.g. for media display whitelist compatibility or cloning)."
+        },
+        {
+          "name": "Copilot feature toggle",
+          "description": "Disables all Copilot and Bing Chat feature flags by forcing boolean feature evaluation methods to return false."
+        },
+        {
+          "name": "Disable news notifications",
+          "description": "Disables Bing news and weather push notifications by short-circuiting device push token registration and notification dispatch services."
+        },
+        {
+          "name": "Disable Play Store updates",
+          "description": "Disables Play Store updates by setting the version code to the maximum allowed. This patch does not work if the app is installed by mounting and may cause unexpected issues with some apps."
+        },
+        {
+          "name": "Telemetry elimination",
+          "description": "Eliminates Microsoft Edge telemetry and tracking by redirecting data collection endpoints (OneCollector, AppCenter, Adjust) to localhost and short-circuiting OneDS and Adjust tracking methods."
+        }
+      ],
+      "versions": [
+        "155.0.4269.0"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -45571,12 +46042,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -47748,12 +48219,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -49634,12 +50105,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.14 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.12.15 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.2.3"
+                "text": "**avito:** support version 233.1"
               }
             ]
           },
@@ -50582,12 +51053,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -50756,12 +51227,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -53800,12 +54271,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -53869,8 +54340,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -53878,12 +54349,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -54074,12 +54545,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -54981,12 +55452,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -55237,12 +55708,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -55411,12 +55882,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -55527,12 +55998,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -55950,40 +56421,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.42.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.43.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
+                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
+                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
+                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
+                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
+                "text": "**YouTube - FlyoutUtils:** Check typo"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
+                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
+                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
+                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
               }
             ]
           },
@@ -55995,6 +56466,10 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "App icon",
+              "description": "Adds an option to select from the Reddit app icons available in the manifest."
+            },
             {
               "name": "Custom branding name for Reddit",
               "description": "Changes the Reddit app name to the name specified in patch options."
@@ -56073,8 +56548,8 @@
             "2026.04.0",
             "2026.14.0",
             "2026.24.0",
-            "2026.34.0",
-            "2026.35.0"
+            "2026.36.0",
+            "2026.37.0"
           ]
         },
         {
@@ -56192,6 +56667,7 @@
       ],
       "patches": [
         "AdoboColorizeCommentIndentLines (STUB)",
+        "App icon",
         "Change Reddit share domain",
         "Colorize comment indent lines",
         "Custom branding name for Reddit",
@@ -56240,6 +56716,10 @@
         {
           "name": "AdoboColorizeCommentIndentLines (STUB)",
           "description": "STUB placeholder. Real behavior authored after disassemble.yml runs on com.reddit.frontpage."
+        },
+        {
+          "name": "App icon",
+          "description": "Adds an option to select from the Reddit app icons available in the manifest."
         },
         {
           "name": "Change Reddit share domain",
@@ -56423,7 +56903,9 @@
         "2026.24.0",
         "2026.33.2",
         "2026.34.0",
-        "2026.35.0"
+        "2026.35.0",
+        "2026.36.0",
+        "2026.37.0"
       ],
       "iconColor": "#FF4500",
       "iconUrl": ""
@@ -56706,12 +57188,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -57304,12 +57786,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -58772,12 +59254,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -62961,12 +63443,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -64295,12 +64777,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.14 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.12.15 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.2.3"
+                "text": "**avito:** support version 233.1"
               }
             ]
           },
@@ -66953,12 +67435,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.21.0 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "New Features",
-                "text": "**iJiami:** warn when device architecture optimization removes native libraries"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
               }
             ]
           },
@@ -68135,12 +68617,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -68231,12 +68729,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.35.3 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.37.1 (2026-09-15)",
+            "date": "2026-09-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** don't abort patching on v16 (6.24.x) \u2014 optional ad hooks (#120)"
+                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
+              },
+              {
+                "category": "Features",
+                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
+              },
+              {
+                "category": "Features",
+                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
               }
             ]
           },
@@ -69819,6 +70333,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.free.vpn.super.hotspot.open",
+      "name": "VPN Super Unlimited Proxy",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.22.0 (2026-09-14)",
+            "date": "2026-09-14",
+            "items": [
+              {
+                "category": "New Features",
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** unlock all locations and remove ads and upsells"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-free-vpn-super-hotspot-open-hxreborn-morphe-patches",
+            "releaseTag": "app-com-free-vpn-super-hotspot-open-hxreborn-morphe-patches",
+            "assetName": "vpn-super-unlimited-proxy-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks premium servers and removes ads, upgrade banners and the launch paywall."
+            }
+          ],
+          "versions": [
+            "2.32.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium servers and removes ads, upgrade banners and the launch paywall."
+        }
+      ],
+      "versions": [
+        "2.32.0"
+      ],
+      "iconColor": "#007DFF",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.vpn.free.hotspot.secure.vpnify",
       "name": "vpnify",
       "repos": [
@@ -70563,12 +71135,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.14 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.12.15 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.2.3"
+                "text": "**avito:** support version 233.1"
               }
             ]
           },
@@ -72159,40 +72731,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.42.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.43.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
+                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
+                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
+                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
+                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
+                "text": "**YouTube - FlyoutUtils:** Check typo"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
+                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
+                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
+                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
               }
             ]
           },
@@ -72254,7 +72826,7 @@
             },
             {
               "name": "Custom branding",
-              "description": "Adds options to change the app icon and app name. Branding cannot be changed for mounted (root) installations."
+              "description": "Adds options to change the app icon and app name. For mounted (root) installations the branding is applied while patching, because it cannot be changed from the app settings."
             },
             {
               "name": "Custom player overlay opacity",
@@ -72410,7 +72982,7 @@
             },
             {
               "name": "Navigation bar",
-              "description": "Adds options to hide and change the bottom navigation bar (such as the Shorts button)  and the upper navigation toolbar."
+              "description": "Adds options to hide and change the bottom navigation bar (such as the Shorts button) and the upper navigation toolbar."
             },
             {
               "name": "Network proxy",
@@ -73395,8 +73967,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -73934,12 +74506,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -74328,40 +74900,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.42.0 (2026-09-09)",
-            "date": "2026-09-09",
+            "title": "1.43.0 (2026-09-14)",
+            "date": "2026-09-14",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
+                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
+                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
+                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
+                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
+                "text": "**YouTube - FlyoutUtils:** Check typo"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Hide new type of community posts"
+                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
+                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
+                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
               }
             ]
           },
@@ -74403,7 +74975,7 @@
             },
             {
               "name": "Custom branding",
-              "description": "Adds options to change the app icon and app name. Branding cannot be changed for mounted (root) installations."
+              "description": "Adds options to change the app icon and app name. For mounted (root) installations the branding is applied while patching, because it cannot be changed from the app settings."
             },
             {
               "name": "Disable dislike redirection",
@@ -74544,9 +75116,9 @@
           ],
           "versions": [
             "9.15.51",
-            "9.33.52",
             "9.34.52",
-            "9.35.54"
+            "9.35.54",
+            "9.36.50"
           ]
         },
         {
@@ -75404,7 +75976,8 @@
         "9.24.51",
         "9.33.52",
         "9.34.52",
-        "9.35.54"
+        "9.35.54",
+        "9.36.50"
       ],
       "iconColor": "#FF0000",
       "iconUrl": ""
@@ -76620,40 +77193,40 @@
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.42.0 (2026-09-09)",
-        "date": "2026-09-09",
+        "title": "1.43.0 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**GmsCore support:** Prompt to update outdated MicroG (#2787)"
+            "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Channel whitelists:** Hide injected flyout menu buttons from other unrelated menu's  (#2808)"
+            "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Channel whitelists:** Whitelists buttons are visible in some flyouts (#2802)"
+            "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** App may crash when 'You may like' section is hidden (#2852)"
+            "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Hide guidelines in live chat"
+            "text": "**YouTube - FlyoutUtils:** Check typo"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Hide new type of community posts"
+            "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide layout components:** Resolve empty channel tabs when using \"Hide channel tab filter\" (#2747)"
+            "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Hide player overlay buttons:** Apply the control buttons background opacity to the player time bar (#2805)"
+            "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
           }
         ]
       },
@@ -79406,12 +79979,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.14 (2026-09-10)",
-        "date": "2026-09-10",
+        "title": "1.12.15 (2026-09-14)",
+        "date": "2026-09-14",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**tbank:** support version 8.2.3"
+            "text": "**avito:** support version 233.1"
           }
         ]
       },
