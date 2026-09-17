@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16 03:01 UTC",
+  "generatedAt": "2026-09-17 03:06 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
@@ -68,28 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.37.1 (2026-09-15)",
-        "date": "2026-09-15",
+        "title": "1.37.2 (2026-09-16)",
+        "date": "2026-09-16",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-          },
-          {
-            "category": "Features",
-            "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-          },
-          {
-            "category": "Features",
-            "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+            "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
           }
         ]
       },
@@ -211,12 +195,16 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.4.10 (2026-09-10)",
-        "date": "2026-09-10",
+        "title": "1.5.0 (2026-09-16)",
+        "date": "2026-09-16",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.3.3 (Fixes #11, Fixes #12)"
+            "text": "Support SofaTime v1.3.4, v1.3.5 and v1.3.6 (Fixes #13, Fixes #14, Fixes #15)"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Support SofaTime v1.3.6"
           }
         ]
       },
@@ -10377,12 +10365,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.15 (2026-09-14)",
-        "date": "2026-09-14",
+        "title": "1.12.17 (2026-09-16)",
+        "date": "2026-09-16",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** support version 233.1"
+            "text": "**wildberries:** support version 7.8.0002-rustore"
           }
         ]
       },
@@ -14206,8 +14194,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -14215,12 +14203,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -15259,12 +15247,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.15 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.12.17 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.1"
+                "text": "**wildberries:** support version 7.8.0002-rustore"
               }
             ]
           },
@@ -21944,28 +21932,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -22475,28 +22447,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -22795,28 +22751,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -22875,28 +22815,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -23222,28 +23146,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -23461,28 +23369,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -25260,28 +25152,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -25555,28 +25431,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -26117,28 +25977,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -26191,28 +26035,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -27172,28 +27000,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -27328,28 +27140,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -51549,12 +51345,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.15 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.12.17 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.1"
+                "text": "**wildberries:** support version 7.8.0002-rustore"
               }
             ]
           },
@@ -51579,7 +51375,8 @@
             "19.31.0",
             "19.32.0",
             "19.33.1",
-            "19.34.0"
+            "19.34.0",
+            "19.35.0"
           ]
         }
       ],
@@ -51640,7 +51437,8 @@
         "19.31.0",
         "19.32.0",
         "19.33.1",
-        "19.34.0"
+        "19.34.0",
+        "19.35.0"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -55984,8 +55782,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -55993,12 +55791,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -62544,12 +62342,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.4.10 (2026-09-10)",
-            "date": "2026-09-10",
+            "title": "1.5.0 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.3.3 (Fixes #11, Fixes #12)"
+                "text": "Support SofaTime v1.3.4, v1.3.5 and v1.3.6 (Fixes #13, Fixes #14, Fixes #15)"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Support SofaTime v1.3.6"
               }
             ]
           },
@@ -62590,7 +62392,10 @@
             "1.3.0",
             "1.3.1",
             "1.3.2",
-            "1.3.3"
+            "1.3.3",
+            "1.3.4",
+            "1.3.5",
+            "1.3.6"
           ]
         }
       ],
@@ -62630,7 +62435,10 @@
         "1.3.0",
         "1.3.1",
         "1.3.2",
-        "1.3.3"
+        "1.3.3",
+        "1.3.4",
+        "1.3.5",
+        "1.3.6"
       ],
       "iconColor": "#1E1E2E",
       "iconUrl": ""
@@ -65505,18 +65313,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -66816,12 +66624,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.15 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.12.17 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.1"
+                "text": "**wildberries:** support version 7.8.0002-rustore"
               }
             ]
           },
@@ -70094,8 +69902,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -70139,11 +69947,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -70645,28 +70453,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -70757,28 +70549,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.1 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.37.2 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** tighten ADVw fingerprint + add ANCHOR MAP self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** add RT\u00c9 Player Android TV ad suppression (client VOD IMA)"
-              },
-              {
-                "category": "Features",
-                "text": "**rte:** seamless VOD ad suppression \u2014 empty the ad-break schedule (#RTE) (e86b113), closes #RTE"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** atomic wildcard MASTER fallback + drift self-detection (#166)"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** wildcard ADV fallback to close getAdMetadata middle branch (#166)"
+                "text": "**primevideo:** salvage media.urls from truncated regolith pre-roll (eb49a0c), closes #14"
               }
             ]
           },
@@ -73275,12 +73051,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.15 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.12.17 (2026-09-16)",
+            "date": "2026-09-16",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.1"
+                "text": "**wildberries:** support version 7.8.0002-rustore"
               }
             ]
           },
@@ -73313,7 +73089,9 @@
             "7.7.8001",
             "7.7.8001-rustore",
             "7.7.9003",
-            "7.7.9003-rustore"
+            "7.7.9003-rustore",
+            "7.8.0002",
+            "7.8.0002-rustore"
           ]
         }
       ],
@@ -73342,7 +73120,9 @@
         "7.7.8001",
         "7.7.8001-rustore",
         "7.7.9003",
-        "7.7.9003-rustore"
+        "7.7.9003-rustore",
+        "7.8.0002",
+        "7.8.0002-rustore"
       ],
       "iconColor": "#A73AFD",
       "iconUrl": ""
@@ -76155,8 +75935,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -76694,12 +76474,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -82182,12 +81962,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.15 (2026-09-14)",
-        "date": "2026-09-14",
+        "title": "1.12.17 (2026-09-16)",
+        "date": "2026-09-16",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** support version 233.1"
+            "text": "**wildberries:** support version 7.8.0002-rustore"
           }
         ]
       },
