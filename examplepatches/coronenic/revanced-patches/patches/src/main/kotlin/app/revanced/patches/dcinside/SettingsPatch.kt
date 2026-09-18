@@ -21,7 +21,7 @@ import org.w3c.dom.Element
  * it per setting. Only the settings of patches that were actually applied therefore exist at runtime.
  */
 
-private const val PATCH_VERSION = "v1.5.0"
+private const val PATCH_VERSION = "v1.5.1"
 
 private const val EXTENSION_PACKAGE = "app.revanced.extension.dcinside.settings"
 private const val SETTINGS_ENTRY_VIEW = "$EXTENSION_PACKAGE.SettingsEntryView"

@@ -59,7 +59,7 @@ anonymous-in-anonymous). Use named nested classes.
 ## Build the dexes (no gradle needed)
 
 Requires a JDK, an Android `android.jar` (the level the **target app** compiles against, currently
-API 36 for DCInside 5.3.2) and `d8` from the build tools.
+API 36 for DCInside 5.3.6 and 5.3.2) and `d8` from the build tools.
 
 ```bash
 AJ=/path/to/android.jar
