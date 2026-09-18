@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-17 03:06 UTC",
+  "generatedAt": "2026-09-18 02:54 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 714,
-  "patchCount": 2980,
+  "appCount": 716,
+  "patchCount": 2986,
   "universalPatchCount": 577,
   "hostCounts": {
     "github.com": 122,
@@ -704,8 +704,8 @@
       "webUrl": "https://github.com/andronedev/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andronedev/morphe-patches",
       "avatarUrl": "https://github.com/andronedev.png?size=96",
-      "patchCount": 2,
-      "appCount": 1,
+      "patchCount": 5,
+      "appCount": 2,
       "createdAt": 1784836028695,
       "updatedAt": 1784836028695,
       "createdDate": "2026-07-23",
@@ -725,6 +725,13 @@
           "name": "com.thetransitapp.droid",
           "packageName": "com.thetransitapp.droid",
           "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "io.stark.admob",
+          "packageName": "io.stark.admob",
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -4085,40 +4092,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.42.1-dev.1 (2026-08-28)",
-        "date": "2026-08-28",
+        "title": "1.44.1 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-          },
-          {
-            "category": "Features",
-            "text": "**Bunpo:** Add Enable Platinum patch"
-          },
-          {
-            "category": "Features",
-            "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-          },
-          {
-            "category": "Features",
-            "text": "**Lightroom:** Update patches to support 11.5.01"
-          },
-          {
-            "category": "Features",
-            "text": "**Lingodeer:** Add Enable Premium patch"
-          },
-          {
-            "category": "Features",
-            "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-          },
-          {
-            "category": "Features",
-            "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+            "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
           }
         ]
       },
@@ -4658,35 +4637,35 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 48,
-      "appCount": 26,
+      "patchCount": 51,
+      "appCount": 27,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.23.0 (2026-09-15)",
-        "date": "2026-09-15",
+        "title": "1.24.0 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
             "category": "New Features",
-            "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+            "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
           },
           {
             "category": "New Features",
-            "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+            "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
           },
           {
             "category": "New Features",
-            "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+            "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
           },
           {
             "category": "New Features",
-            "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+            "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
           },
           {
             "category": "New Features",
-            "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+            "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
           }
         ]
       },
@@ -4799,7 +4778,7 @@
         {
           "name": "Proton Mail",
           "packageName": "ch.protonmail.android",
-          "patchCount": 6,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": "#6D4AFF"
         },
@@ -4830,6 +4809,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#0061BD"
+        },
+        {
+          "name": "Ringtone Maker",
+          "packageName": "ringtonemaker.musiccutter.customringtones.freeringtonemaker",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#243ECA"
         },
         {
           "name": "RISE Sleep Tracker",
@@ -7726,12 +7712,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.4 (2026-09-04)",
-        "date": "2026-09-04",
+        "title": "1.0.5 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.4.1 target"
+            "text": "add SeriesGuide v2026.4.2 target"
           }
         ]
       },
@@ -9715,32 +9701,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.0 (2026-08-16)",
-        "date": "2026-08-16",
+        "title": "1.5.0 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "remove temp mail, has quite good pairip, didn't figure out how to bypass it"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "use correct patcher APIs for Temp Mail patches"
+            "category": "\u2728 New Features",
+            "text": "add comprehensive BitLife premium bypass patches"
           },
           {
             "category": "\u2728 New Features",
-            "text": "add Play Integrity check bypass to Temp Mail (fixes startup redirect)"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "add Play Store redirect bypass to Temp Mail premium patch"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "I'm sorry changelog"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "placeholder fully"
+            "text": "I was just trying stuff, doesn't work so dev it is"
           }
         ]
       },
@@ -10609,28 +10579,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -11207,40 +11177,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -11258,7 +11200,7 @@
             }
           ],
           "versions": [
-            "4.13.2"
+            "4.14.1"
           ]
         },
         {
@@ -11320,7 +11262,7 @@
         }
       ],
       "versions": [
-        "4.13.2",
+        "4.14.1",
         "4.14.68"
       ],
       "iconColor": "#67B279",
@@ -12314,28 +12256,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -12397,40 +12339,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -12543,28 +12457,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -13971,40 +13885,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -14561,28 +14447,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -15380,40 +15266,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -16870,40 +16728,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -17022,28 +16852,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -18757,40 +18587,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -18911,40 +18713,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -19226,40 +19000,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -19712,40 +19458,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -22086,40 +21804,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -22932,40 +22622,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -23529,40 +23191,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -23833,40 +23467,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -29467,28 +29073,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -29559,40 +29165,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -30260,32 +29838,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/tiaruebar1024/tiaruebar-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/tiaruebar1024.png?size=96",
           "latestChanges": {
-            "title": "1.4.0 (2026-08-16)",
-            "date": "2026-08-16",
+            "title": "1.5.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove temp mail, has quite good pairip, didn't figure out how to bypass it"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "use correct patcher APIs for Temp Mail patches"
+                "category": "\u2728 New Features",
+                "text": "add comprehensive BitLife premium bypass patches"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Play Integrity check bypass to Temp Mail (fixes startup redirect)"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play Store redirect bypass to Temp Mail premium patch"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "I'm sorry changelog"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "placeholder fully"
+                "text": "I was just trying stuff, doesn't work so dev it is"
               }
             ]
           },
@@ -31123,28 +30685,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -31391,40 +30953,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -31953,28 +31487,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -33836,28 +33370,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -33910,40 +33444,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -34771,40 +34277,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -35928,40 +35406,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -37049,40 +36499,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -37100,7 +36522,7 @@
             }
           ],
           "versions": [
-            "14.0.11"
+            "14.1.0"
           ]
         }
       ],
@@ -37114,7 +36536,7 @@
         }
       ],
       "versions": [
-        "14.0.11"
+        "14.1.0"
       ],
       "iconColor": "#0B649B",
       "iconUrl": ""
@@ -37193,40 +36615,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -39392,6 +38786,78 @@
       "iconUrl": ""
     },
     {
+      "packageName": "io.stark.admob",
+      "name": "io.stark.admob",
+      "repos": [
+        "andronedev/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "andronedev/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/andronedev/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=andronedev/morphe-patches",
+          "source": "https://raw.githubusercontent.com/andronedev/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/andronedev/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/andronedev.png?size=96",
+          "latestChanges": {
+            "title": "2.2.1 (2026-04-01)",
+            "date": "2026-04-01",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "replace rawResourcePatch with native document() API for Maps key patching"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "io-stark-admob-andronedev-morphe-patches",
+            "releaseTag": "app-io-stark-admob-andronedev-morphe-patches",
+            "assetName": "io-stark-admob-andronedev-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "AdMob Credentials Screen",
+              "description": "Declare the screen where the AdMob credentials are entered."
+            },
+            {
+              "name": "Pro Unlock",
+              "description": "Unlock every pro feature in AdMobile, in every process that checks for one."
+            },
+            {
+              "name": "Serverless Sign-In",
+              "description": "Sign in with your own Google OAuth client, so the app talks to Google directly and to nobody else. No developer backend, no Firebase session, no third party holding your tokens or seeing your earnings, and no Google Sign-In that a re-signed APK cannot complete."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "AdMob Credentials Screen",
+        "Pro Unlock",
+        "Serverless Sign-In"
+      ],
+      "patchDetails": [
+        {
+          "name": "AdMob Credentials Screen",
+          "description": "Declare the screen where the AdMob credentials are entered."
+        },
+        {
+          "name": "Pro Unlock",
+          "description": "Unlock every pro feature in AdMobile, in every process that checks for one."
+        },
+        {
+          "name": "Serverless Sign-In",
+          "description": "Sign in with your own Google OAuth client, so the app talks to Google directly and to nobody else. No developer backend, no Firebase session, no third party holding your tokens or seeing your earnings, and no Google Sign-In that a re-signed APK cannot complete."
+        }
+      ],
+      "versions": [],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
       "packageName": "io.syncapps.lemmy_sync",
       "name": "io.syncapps.lemmy_sync",
       "repos": [
@@ -41369,28 +40835,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -42262,40 +41728,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -42317,7 +41755,7 @@
             }
           ],
           "versions": [
-            "11.5.01"
+            "11.5.22"
           ]
         }
       ],
@@ -42336,7 +41774,7 @@
         }
       ],
       "versions": [
-        "11.5.01"
+        "11.5.22"
       ],
       "iconColor": "#001D35",
       "iconUrl": ""
@@ -42691,40 +42129,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -42782,40 +42192,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -42868,40 +42250,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -43375,40 +42729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -43763,40 +43089,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -43849,40 +43147,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -44804,40 +44074,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -44890,40 +44132,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -45841,40 +45055,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -46060,40 +45246,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -47113,28 +46271,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -47750,40 +46908,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -47836,40 +46966,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -49112,40 +48214,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -49282,40 +48356,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -49379,28 +48425,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -49548,40 +48594,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -51707,40 +50725,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -52335,28 +51325,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -52533,28 +51523,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -55168,40 +54158,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -55697,28 +54659,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -55986,28 +54948,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -56024,6 +54986,10 @@
               "description": "Replaces the dark theme background with pure black."
             },
             {
+              "name": "Custom accent color",
+              "description": "Changes the accent color. Choose a color in the patches menu."
+            },
+            {
               "name": "Hide upgrade promotions",
               "description": "Hides the top-bar upgrade button, promotional sidebar rows and the auto-delete upgrade banner in Trash and Spam. Keeps the Empty trash and Empty spam buttons."
             },
@@ -56037,7 +55003,7 @@
             },
             {
               "name": "Scheduled Trash and Spam deletion",
-              "description": "Deletes all messages in Trash and Spam on a configurable schedule. Deleted messages cannot be recovered."
+              "description": "Deletes all messages in Trash and Spam on separate configurable schedules. Deleted messages cannot be recovered."
             },
             {
               "name": "Unlock custom time picker",
@@ -56052,6 +55018,7 @@
       ],
       "patches": [
         "AMOLED dark theme",
+        "Custom accent color",
         "Hide upgrade promotions",
         "Remove 'Sent from' signature",
         "Remove free accounts limit",
@@ -56062,6 +55029,10 @@
         {
           "name": "AMOLED dark theme",
           "description": "Replaces the dark theme background with pure black."
+        },
+        {
+          "name": "Custom accent color",
+          "description": "Changes the accent color. Choose a color in the patches menu."
         },
         {
           "name": "Hide upgrade promotions",
@@ -56077,7 +55048,7 @@
         },
         {
           "name": "Scheduled Trash and Spam deletion",
-          "description": "Deletes all messages in Trash and Spam on a configurable schedule. Deleted messages cannot be recovered."
+          "description": "Deletes all messages in Trash and Spam on separate configurable schedules. Deleted messages cannot be recovered."
         },
         {
           "name": "Unlock custom time picker",
@@ -56176,40 +55147,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -56756,40 +55699,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -56908,28 +55823,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -57180,28 +56095,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -57386,28 +56301,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -57526,28 +56441,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -58745,6 +57660,101 @@
       "iconUrl": ""
     },
     {
+      "packageName": "ringtonemaker.musiccutter.customringtones.freeringtonemaker",
+      "name": "Ringtone Maker",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
+            "items": [
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
+              },
+              {
+                "category": "New Features",
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
+              },
+              {
+                "category": "New Features",
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
+              },
+              {
+                "category": "New Features",
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ringtonemaker-musiccutter-customringtones-freeringtonemaker-hxreborn-morphe-patches",
+            "releaseTag": "app-ringtonemaker-musiccutter-customringtones-freeringtonemaker-hxreborn-morphe-patches",
+            "assetName": "ringtone-maker-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Remove rating prompts",
+              "description": "Removes the prompts asking for a rating."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks premium, removes ads and skips the upgrade screens."
+            }
+          ],
+          "versions": [
+            "1.01.90.0421",
+            "1.01.94.0602",
+            "1.01.96.0716",
+            "1.01.97.0818",
+            "1.01.98.0824",
+            "1.01.98.0831",
+            "1.01.99.0909"
+          ]
+        }
+      ],
+      "patches": [
+        "Remove rating prompts",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Remove rating prompts",
+          "description": "Removes the prompts asking for a rating."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium, removes ads and skips the upgrade screens."
+        }
+      ],
+      "versions": [
+        "1.01.90.0421",
+        "1.01.94.0602",
+        "1.01.96.0716",
+        "1.01.97.0818",
+        "1.01.98.0824",
+        "1.01.98.0831",
+        "1.01.99.0909"
+      ],
+      "iconColor": "#243ECA",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.risesci.nyx",
       "name": "RISE Sleep Tracker",
       "repos": [
@@ -58760,28 +57770,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -58990,40 +58000,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -59390,28 +58372,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -60610,12 +59592,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/RoundSalmon4/morphe-patches-template/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RoundSalmon4.png?size=96",
           "latestChanges": {
-            "title": "1.0.4 (2026-09-04)",
-            "date": "2026-09-04",
+            "title": "1.0.5 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add SeriesGuide v2026.4.1 target"
+                "text": "add SeriesGuide v2026.4.2 target"
               }
             ]
           },
@@ -60637,7 +59619,8 @@
             "2026.3.0",
             "2026.3.1",
             "2026.4.0",
-            "2026.4.1"
+            "2026.4.1",
+            "2026.4.2"
           ]
         }
       ],
@@ -60655,7 +59638,8 @@
         "2026.3.0",
         "2026.3.1",
         "2026.4.0",
-        "2026.4.1"
+        "2026.4.1",
+        "2026.4.2"
       ],
       "iconColor": "#E53935",
       "iconUrl": ""
@@ -60867,40 +59851,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -60930,28 +59886,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -61332,40 +60288,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -61621,40 +60549,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -61872,40 +60772,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -62250,40 +61122,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -62500,40 +61344,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -63032,40 +61848,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -65035,40 +63823,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -65266,28 +64026,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -69247,28 +68007,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -69902,8 +68662,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -69947,11 +68707,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -70180,40 +68940,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -71416,40 +70148,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -72200,28 +70904,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.23.0 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.24.0 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add a runtime toggle"
+                "text": "**Proton Mail - Custom accent color:** add custom accent for app and settings webview pages"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade promotions:** add a runtime toggle for the hidden promotions"
+                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on separate schedules"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Hide upgrade upselling:** hide auto-delete upgrade banner in Trash and Spam"
+                "text": "**Ringtone Maker - Remove rating prompts:** remove the rate us dialogs"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail - Scheduled Trash and Spam deletion:** delete Trash and Spam on a schedule"
+                "text": "**Ringtone Maker - Unlock premium:** unlock pro features, remove ads and skip upgrade screens"
               },
               {
                 "category": "New Features",
-                "text": "**Proton Mail:** add an in-app patches menu listing applied patches and their settings"
+                "text": "**VPN Super Unlimited Proxy - Unlock premium:** skip Android TV sign-in screen"
               }
             ]
           },
@@ -72235,7 +70939,7 @@
           "patches": [
             {
               "name": "Unlock premium",
-              "description": "Unlocks premium servers and removes ads, upgrade banners and the launch paywall."
+              "description": "Unlocks premium servers and removes ads, upgrade banners, the launch paywall and the Android TV sign-in screen."
             }
           ],
           "versions": [
@@ -72249,7 +70953,7 @@
       "patchDetails": [
         {
           "name": "Unlock premium",
-          "description": "Unlocks premium servers and removes ads, upgrade banners and the launch paywall."
+          "description": "Unlocks premium servers and removes ads, upgrade banners, the launch paywall and the Android TV sign-in screen."
         }
       ],
       "versions": [
@@ -72585,40 +71289,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -73210,40 +71886,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -73542,40 +72190,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -73628,40 +72248,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -73723,40 +72315,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -73809,40 +72373,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hoo-dles/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hoo-dles.png?size=96",
           "latestChanges": {
-            "title": "1.42.1-dev.1 (2026-08-28)",
-            "date": "2026-08-28",
+            "title": "1.44.1 (2026-09-17)",
+            "date": "2026-09-17",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-              },
-              {
-                "category": "Features",
-                "text": "**Bunpo:** Add Enable Platinum patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-              },
-              {
-                "category": "Features",
-                "text": "**Lightroom:** Update patches to support 11.5.01"
-              },
-              {
-                "category": "Features",
-                "text": "**Lingodeer:** Add Enable Premium patch"
-              },
-              {
-                "category": "Features",
-                "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-              },
-              {
-                "category": "Features",
-                "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+                "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
               }
             ]
           },
@@ -75935,8 +74471,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -76474,12 +75010,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -78726,40 +77262,12 @@
       "avatarUrl": "https://github.com/hoo-dles.png?size=96",
       "patchCount": 6,
       "latestChanges": {
-        "title": "1.42.1-dev.1 (2026-08-28)",
-        "date": "2026-08-28",
+        "title": "1.44.1 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Niagara:** Bump supported version to 1.16.24 and fix patch failure"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**Bunpo:** Bump version to 3.21.0 and fix runtime crash for older Android versions"
-          },
-          {
-            "category": "Features",
-            "text": "**Bunpo:** Add Enable Platinum patch"
-          },
-          {
-            "category": "Features",
-            "text": "**Fotmob:** Update patch to support 236.17398.20260827"
-          },
-          {
-            "category": "Features",
-            "text": "**Lightroom:** Update patches to support 11.5.01"
-          },
-          {
-            "category": "Features",
-            "text": "**Lingodeer:** Add Enable Premium patch"
-          },
-          {
-            "category": "Features",
-            "text": "**Niagara Launcher:** Update patch to support 1.16.23"
-          },
-          {
-            "category": "Features",
-            "text": "**Soundcloud:** Update patches to support 2026.08.26-release"
+            "text": "**Lightroom:** Fix pairip stripping and update patches to 11.5.22"
           }
         ]
       },
@@ -82316,12 +80824,12 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.4 (2026-09-04)",
-        "date": "2026-09-04",
+        "title": "1.0.5 (2026-09-17)",
+        "date": "2026-09-17",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.4.1 target"
+            "text": "add SeriesGuide v2026.4.2 target"
           }
         ]
       },
