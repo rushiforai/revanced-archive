@@ -7,15 +7,15 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import de.tosox.revanced.util.returnEarly
 
-internal val BytecodePatchContext.showAdsFingerprint by gettingFirstMethodDeclaratively {
-    definingClass("ManagerActivity;")
+internal val BytecodePatchContext.scheduleRefreshAdsFingerprint by gettingFirstMethodDeclaratively {
+    definingClass("/AdsViewModel;")
     accessFlags(AccessFlags.PUBLIC, AccessFlags.FINAL)
     returnType("V")
-    parameterTypes("Z")
+    parameterTypes()
     instructions(
         allOf(
             Opcode.NEW_INSTANCE(),
-            type("/ManagerActivity\$checkForInAppAdvertisement\$1;")
+            type("/AdsViewModel\$scheduleRefreshAds\$1;")
         )
     )
 }
@@ -25,10 +25,11 @@ val hideAdsPatch = bytecodePatch(
     name = "Hide Ads",
     description = "Hides ads across the app",
 ) {
-    // Tested with 15.18(252751615)(9425f68761)
+    // Tested with 16.12(262370820)(dcdf0a7f27)
     compatibleWith("mega.privacy.android.app")
 
     apply {
-        showAdsFingerprint.returnEarly()
+        // Without the refresh job no ad request is ever built, so the ads container stays empty
+        scheduleRefreshAdsFingerprint.returnEarly()
     }
 }

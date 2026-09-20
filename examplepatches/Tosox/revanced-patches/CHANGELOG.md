@@ -1,3 +1,27 @@
+# [1.9.0](https://github.com/Tosox/revanced-patches/compare/v1.8.0...v1.9.0) (2026-09-19)
+
+
+### Bug Fixes
+
+* **Mega:** Fix Hide Ads patch ([10588f0](https://github.com/Tosox/revanced-patches/commit/10588f0751d81cab2305593597239d7f31416f21))
+
+
+### Features
+
+* **Mega:** Add Skip Rewarded Ads patch ([d5bd378](https://github.com/Tosox/revanced-patches/commit/d5bd378365e716e87e06d07ce4b971bb86f058e0))
+
+# [1.9.0-dev.1](https://github.com/Tosox/revanced-patches/compare/v1.8.0...v1.9.0-dev.1) (2026-09-19)
+
+
+### Bug Fixes
+
+* **Mega:** Fix Hide Ads patch ([10588f0](https://github.com/Tosox/revanced-patches/commit/10588f0751d81cab2305593597239d7f31416f21))
+
+
+### Features
+
+* **Mega:** Add Skip Rewarded Ads patch ([d5bd378](https://github.com/Tosox/revanced-patches/commit/d5bd378365e716e87e06d07ce4b971bb86f058e0))
+
 # [1.8.0](https://github.com/Tosox/revanced-patches/compare/v1.7.3...v1.8.0) (2026-09-04)
 
 

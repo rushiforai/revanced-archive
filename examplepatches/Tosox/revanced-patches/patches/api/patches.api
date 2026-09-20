@@ -1,3 +1,7 @@
+public final class de/tosox/revanced/patches/duolingo/KeepClassicAppIconPatchKt {
+	public static final fun getKeepClassicAppIconPatch ()Lapp/revanced/patcher/patch/Patch;
+}
+
 public final class de/tosox/revanced/patches/duolingo/UnlockPremiumPatchKt {
 	public static final fun getUnlockPremiumPatch ()Lapp/revanced/patcher/patch/Patch;
 }
@@ -20,6 +24,10 @@ public final class de/tosox/revanced/patches/kicker/UnlockPurPatchKt {
 
 public final class de/tosox/revanced/patches/mega/HideAdsPatchKt {
 	public static final fun getHideAdsPatch ()Lapp/revanced/patcher/patch/Patch;
+}
+
+public final class de/tosox/revanced/patches/mega/SkipRewardedAdsPatchKt {
+	public static final fun getSkipRewardedAdsPatch ()Lapp/revanced/patcher/patch/Patch;
 }
 
 public final class de/tosox/revanced/patches/strong/UnlockProPatchKt {
