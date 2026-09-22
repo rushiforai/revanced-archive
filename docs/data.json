@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-21 03:14 UTC",
+  "generatedAt": "2026-09-22 03:12 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 720,
-  "patchCount": 2560,
+  "appCount": 722,
+  "patchCount": 2573,
   "universalPatchCount": 153,
   "hostCounts": {
     "github.com": 122,
@@ -1666,24 +1666,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.29.0 (2026-09-20)",
-        "date": "2026-09-20",
+        "title": "1.29.1 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**iap:** clarify patch descriptions for gold"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**intothedead2:** implement free IAP functionality"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**intothedead2:** provide instant ad rewards and kill ads"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
           }
         ]
       },
@@ -2715,19 +2703,19 @@
       "webUrl": "https://github.com/durgesh0505/chiggi_morphe_patches",
       "addUrl": "https://Revanced.software/add-source?github=durgesh0505/chiggi_morphe_patches",
       "avatarUrl": "https://github.com/durgesh0505.png?size=96",
-      "patchCount": 68,
-      "appCount": 12,
+      "patchCount": 71,
+      "appCount": 13,
       "createdAt": 1784836033744,
       "updatedAt": 1784836033744,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.21.2 (2026-09-08)",
-        "date": "2026-09-08",
+        "title": "1.23.1 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**googlephone:** remove Google Phone patches"
+            "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
           }
         ]
       },
@@ -2745,6 +2733,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#F5A8C0"
+        },
+        {
+          "name": "Big Hunter",
+          "packageName": "com.kakarod.bighunter",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#4CAF50"
         },
         {
           "name": "CrazyGames",
@@ -4662,47 +4657,23 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 55,
-      "appCount": 30,
+      "patchCount": 59,
+      "appCount": 32,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.26.0 (2026-09-20)",
-        "date": "2026-09-20",
+        "title": "1.27.1 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+            "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-          },
-          {
-            "category": "New Features",
-            "text": "**atvTools - Unlock premium:** hide the purchase screen"
-          },
-          {
-            "category": "New Features",
-            "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-          },
-          {
-            "category": "New Features",
-            "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-          },
-          {
-            "category": "New Features",
-            "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-          },
-          {
-            "category": "New Features",
-            "text": "**MovieBox:** support 4.0.03.0918.03"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+            "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
           }
         ]
       },
@@ -4799,6 +4770,13 @@
           "iconColor": "#30E66D"
         },
         {
+          "name": "MyMoveset",
+          "packageName": "com.soulbreakers.mymoveset",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#9F1C3B"
+        },
+        {
           "name": "Notesnook",
           "packageName": "com.streetwriters.notesnook",
           "patchCount": 1,
@@ -4860,6 +4838,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#0061BD"
+        },
+        {
+          "name": "Realme Link",
+          "packageName": "com.realme.link",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#3575C4"
         },
         {
           "name": "Ringtone Maker",
@@ -6642,47 +6627,47 @@
       "webUrl": "https://github.com/MorpheApp/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=MorpheApp/morphe-patches",
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
-      "patchCount": 147,
+      "patchCount": 150,
       "appCount": 3,
       "createdAt": 1784836023316,
       "updatedAt": 1784836023316,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.43.0 (2026-09-14)",
-        "date": "2026-09-14",
+        "title": "1.44.0 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
+            "text": "**Reddit - App icon:** Support changing icon on cloned installs"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
+            "text": "**YouTube - Channel search:** Search is scoped to a channel after leaving its page (#2997)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
+            "text": "**YouTube - Comments:** Hide new comments carousel (#3110)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
+            "text": "**YouTube - GmsCore support:** \"Play Protect certification\" screen is shown on startup (#2977)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Check typo"
+            "text": "**YouTube - Hide ads:** Hide new product cards (#3103)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
+            "text": "**YouTube - Hide layout components:** Hide Auto-dubbed label in feed (#3101)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
+            "text": "**YouTube - Hide layout components:** Hide Community button in search (#3112)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
+            "text": "**YouTube - Hide layout components:** Hide movie shelf in search results (#2933)"
           }
         ]
       },
@@ -6690,14 +6675,14 @@
         {
           "name": "Reddit",
           "packageName": "com.reddit.frontpage",
-          "patchCount": 19,
+          "patchCount": 20,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 82,
+          "patchCount": 84,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -9796,19 +9781,19 @@
       "webUrl": "https://github.com/totsiaw/proxma-patches",
       "addUrl": "https://Revanced.software/add-source?github=totsiaw/proxma-patches",
       "avatarUrl": "https://github.com/totsiaw.png?size=96",
-      "patchCount": 12,
-      "appCount": 6,
+      "patchCount": 15,
+      "appCount": 7,
       "createdAt": 1784837695610,
       "updatedAt": 1784837695610,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.8.0 (2026-07-19)",
-        "date": "2026-07-19",
+        "title": "1.12.1 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
-            "category": "New Features",
-            "text": "add mtproxy Remove ads patch"
+            "category": "Bug Fixes",
+            "text": "**netmonster:** retarget Unlock premium for 3.4.3"
           }
         ]
       },
@@ -9849,9 +9834,16 @@
           "iconColor": "#00BCD4"
         },
         {
+          "name": "OLX",
+          "packageName": "com.olx.pk",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#002F34"
+        },
+        {
           "name": "Simosa",
           "packageName": "com.jazz.jazzworld",
-          "patchCount": 2,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF6B35"
         }
@@ -10353,12 +10345,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.18 (2026-09-19)",
-        "date": "2026-09-19",
+        "title": "1.12.19 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**tbank:** support version 8.3.0"
+            "text": "**avito:** support version 233.5"
           }
         ]
       },
@@ -10589,40 +10581,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -11103,24 +11071,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -11966,24 +11922,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -12250,40 +12194,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -12463,40 +12383,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -12549,24 +12445,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -12619,24 +12503,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -13797,12 +13669,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -14086,8 +13958,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -14095,12 +13967,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14449,40 +14321,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -14535,40 +14383,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -15221,12 +15045,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.18 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "1.12.19 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.3.0"
+                "text": "**avito:** support version 233.5"
               }
             ]
           },
@@ -15278,7 +15102,8 @@
             "231.0",
             "231.5",
             "232.0",
-            "233.1"
+            "233.1",
+            "233.5"
           ]
         }
       ],
@@ -15333,7 +15158,8 @@
         "231.0",
         "231.5",
         "232.0",
-        "233.1"
+        "233.1",
+        "233.5"
       ],
       "iconColor": "#00AAFF",
       "iconUrl": ""
@@ -15996,12 +15822,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -16978,40 +16804,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -17052,7 +16854,8 @@
       "packageName": "com.kakarod.bighunter",
       "name": "Big Hunter",
       "repos": [
-        "byehi98/okish-morphe-patches"
+        "byehi98/okish-morphe-patches",
+        "durgesh0505/chiggi_morphe_patches"
       ],
       "sources": [
         {
@@ -17064,24 +16867,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -17113,13 +16904,59 @@
           "versions": [
             "3.1.1"
           ]
+        },
+        {
+          "repo": "durgesh0505/chiggi_morphe_patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/durgesh0505/chiggi_morphe_patches",
+          "addUrl": "https://Revanced.software/add-source?github=durgesh0505/chiggi_morphe_patches",
+          "source": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/durgesh0505.png?size=96",
+          "latestChanges": {
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-kakarod-bighunter-durgesh0505-chiggi-morphe-patches",
+            "releaseTag": "app-com-kakarod-bighunter-durgesh0505-chiggi-morphe-patches",
+            "assetName": "big-hunter-durgesh0505-chiggi-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Bypass license check",
+              "description": "Stops the PairIP (Google Play) license check from redirecting a re-signed build to the Play Store (\"get this game from Play\") and killing the app. Forces LicenseClient.initializeLicenseCheck() to a no-op (no Play bind, no paywall) and neuters startPaywallActivity()/startErrorDialogActivity() as defense. Nothing outside com.pairip.* reads the license state, so gameplay is unaffected. Required for the re-signed offline build to launch at all."
+            },
+            {
+              "name": "Free in-app purchases",
+              "description": "Makes every in-app purchase free and unlimited. KKJPaymentGoogle.startPurchase(key) normally opens the Google Play billing flow; this redirects it straight to the native grant applyProduct(key), skipping payment. There is no client receipt check (verifyDeveloperPayload returns true) and no server validation, so the product is granted for real \u2014 consumables (coins) can be re-bought unlimitedly. NOTE: no money changes hands and nothing is sent to Google; this only works because the grant is client-side."
+            },
+            {
+              "name": "Remove ads",
+              "description": "Suppresses AppLovin MAX / AdMob / Unity ads. Interstitial show() becomes a no-op (only releases the native processing lock via stopProcess). Rewarded showWithReward() skips the ad but still fires the native rewardCallback() so reward-gated features (revive, bonus coins, etc.) keep working, then releases the lock. getIsReadyReward() is forced true so the reward button stays available without a preloaded ad. Unity's reward is not wired to a Java callback, so its showWithReward only skips the ad."
+            }
+          ],
+          "versions": [
+            "3.1.1"
+          ]
         }
       ],
       "patches": [
         "Big Hunter Fake Purchase",
         "Big Hunter PairIP License Bypass",
         "Big Hunter Remove Ads",
-        "Big Hunter Rewards Without Ads"
+        "Big Hunter Rewards Without Ads",
+        "Bypass license check",
+        "Free in-app purchases",
+        "Remove ads"
       ],
       "patchDetails": [
         {
@@ -17137,6 +16974,18 @@
         {
           "name": "Big Hunter Rewards Without Ads",
           "description": "Rewarded video requests grant the reward immediately via the game's own native rewardCallback() without loading or showing any ad (AdMob, AppLovin, Unity Ads)."
+        },
+        {
+          "name": "Bypass license check",
+          "description": "Stops the PairIP (Google Play) license check from redirecting a re-signed build to the Play Store (\"get this game from Play\") and killing the app. Forces LicenseClient.initializeLicenseCheck() to a no-op (no Play bind, no paywall) and neuters startPaywallActivity()/startErrorDialogActivity() as defense. Nothing outside com.pairip.* reads the license state, so gameplay is unaffected. Required for the re-signed offline build to launch at all."
+        },
+        {
+          "name": "Free in-app purchases",
+          "description": "Makes every in-app purchase free and unlimited. KKJPaymentGoogle.startPurchase(key) normally opens the Google Play billing flow; this redirects it straight to the native grant applyProduct(key), skipping payment. There is no client receipt check (verifyDeveloperPayload returns true) and no server validation, so the product is granted for real \u2014 consumables (coins) can be re-bought unlimitedly. NOTE: no money changes hands and nothing is sent to Google; this only works because the grant is client-side."
+        },
+        {
+          "name": "Remove ads",
+          "description": "Suppresses AppLovin MAX / AdMob / Unity ads. Interstitial show() becomes a no-op (only releases the native processing lock via stopProcess). Rewarded showWithReward() skips the ad but still fires the native rewardCallback() so reward-gated features (revive, bonus coins, etc.) keep working, then releases the lock. getIsReadyReward() is forced true so the reward button stays available without a preloaded ad. Unity's reward is not wired to a Java callback, so its showWithReward only skips the ad."
         }
       ],
       "versions": [
@@ -18787,24 +18636,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -24405,12 +24242,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -27808,12 +27645,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -28343,12 +28180,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -28663,40 +28500,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -28887,24 +28700,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -29742,12 +29543,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -29840,24 +29641,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -30175,24 +29964,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -30383,40 +30160,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -30493,24 +30246,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -31201,40 +30942,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -31960,24 +31677,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -33078,40 +32783,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -33427,24 +33108,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -34808,24 +34477,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -35530,24 +35187,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -37031,24 +36676,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -38235,24 +37868,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -38314,24 +37935,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -38535,12 +38144,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -39201,24 +38810,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -39273,12 +38870,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -39579,12 +39176,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -40640,40 +40237,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -40950,40 +40523,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -45129,24 +44678,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -46088,40 +45625,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -46141,8 +45654,7 @@
           "versions": [
             "4.0.02.0828.03",
             "4.0.02.0831.03",
-            "4.0.02.0903.02",
-            "4.0.03.0918.03"
+            "4.0.02.0903.02"
           ]
         }
       ],
@@ -46158,8 +45670,7 @@
       "versions": [
         "4.0.02.0828.03",
         "4.0.02.0831.03",
-        "4.0.02.0903.02",
-        "4.0.03.0918.03"
+        "4.0.02.0903.02"
       ],
       "iconColor": "#30E66D",
       "iconUrl": ""
@@ -46304,12 +45815,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -46588,12 +46099,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -46955,6 +46466,77 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.soulbreakers.mymoveset",
+      "name": "MyMoveset",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-soulbreakers-mymoveset-hxreborn-morphe-patches",
+            "releaseTag": "app-com-soulbreakers-mymoveset-hxreborn-morphe-patches",
+            "assetName": "mymoveset-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable tracking",
+              "description": "Stops the install identifier from reaching Expo and usage events from reaching Google. Disables OTA updates."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks unlimited move views, goals and move cards, manual sync, earlier library updates and card customization. Disables OTA updates."
+            }
+          ],
+          "versions": [
+            "1.3.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable tracking",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable tracking",
+          "description": "Stops the install identifier from reaching Expo and usage events from reaching Google. Disables OTA updates."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks unlimited move views, goals and move cards, manual sync, earlier library updates and card customization. Disables OTA updates."
+        }
+      ],
+      "versions": [
+        "1.3.1"
+      ],
+      "iconColor": "#9F1C3B",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.myoadapt.app.android",
       "name": "MyoAdapt - Build Muscle Fast",
       "repos": [
@@ -47090,12 +46672,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -47676,12 +47258,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -47699,7 +47281,7 @@
             }
           ],
           "versions": [
-            "3.4.1"
+            "3.4.3"
           ]
         }
       ],
@@ -47718,7 +47300,6 @@
         }
       ],
       "versions": [
-        "3.4.1",
         "3.4.3"
       ],
       "iconColor": "#1565C0",
@@ -48220,40 +47801,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -48572,12 +48129,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -49583,6 +49140,73 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.olx.pk",
+      "name": "OLX",
+      "repos": [
+        "totsiaw/proxma-patches"
+      ],
+      "sources": [
+        {
+          "repo": "totsiaw/proxma-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/totsiaw/proxma-patches",
+          "addUrl": "https://Revanced.software/add-source?github=totsiaw/proxma-patches",
+          "source": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/totsiaw.png?size=96",
+          "latestChanges": {
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-olx-pk-totsiaw-proxma-patches",
+            "releaseTag": "app-com-olx-pk-totsiaw-proxma-patches",
+            "assetName": "olx-totsiaw-proxma-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Force dark mode",
+              "description": "Forces OLX into dark (night) mode regardless of the system theme, using the app's built-in -night resources via UiModeManager.setApplicationNightMode at startup."
+            },
+            {
+              "name": "Remove ads",
+              "description": "Removes native feed ads (Google GMA), the full-height ad slot, and the \"Buy with Delivery\" promo section (bar, cards and View all) from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed classes)."
+            }
+          ],
+          "versions": [
+            "18.8.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Force dark mode",
+        "Remove ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Force dark mode",
+          "description": "Forces OLX into dark (night) mode regardless of the system theme, using the app's built-in -night resources via UiModeManager.setApplicationNightMode at startup."
+        },
+        {
+          "name": "Remove ads",
+          "description": "Removes native feed ads (Google GMA), the full-height ad slot, and the \"Buy with Delivery\" promo section (bar, cards and View all) from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed classes)."
+        }
+      ],
+      "versions": [
+        "18.8.0"
+      ],
+      "iconColor": "#002F34",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.rebelbinary.onlyone",
       "name": "Only One",
       "repos": [
@@ -49598,24 +49222,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -50159,12 +49771,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.18 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "1.12.19 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.3.0"
+                "text": "**avito:** support version 233.5"
               }
             ]
           },
@@ -51223,40 +50835,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -51429,40 +51017,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -53239,24 +52803,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -54361,24 +53913,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -54558,40 +54098,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -54655,8 +54171,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -54664,12 +54180,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -54859,40 +54375,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -55726,40 +55218,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -56052,40 +55520,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -56262,40 +55706,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -56410,40 +55830,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -56484,9 +55880,53 @@
       "packageName": "com.realme.link",
       "name": "Realme Link",
       "repos": [
+        "hxreborn/morphe-patches",
         "lyyako/realme-link-patches"
       ],
       "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-realme-link-hxreborn-morphe-patches",
+            "releaseTag": "app-com-realme-link-hxreborn-morphe-patches",
+            "assetName": "realme-link-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "AMOLED dark theme",
+              "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
+            },
+            {
+              "name": "Bypass session expiry",
+              "description": "Stops the security prompt that signs the account out."
+            }
+          ],
+          "versions": [
+            "5.5.514.11421"
+          ]
+        },
         {
           "repo": "lyyako/realme-link-patches",
           "host": "github.com",
@@ -56522,15 +55962,27 @@
         }
       ],
       "patches": [
+        "AMOLED dark theme",
+        "Bypass session expiry",
         "Bypass Session Expiry"
       ],
       "patchDetails": [
+        {
+          "name": "AMOLED dark theme",
+          "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Stops the security prompt that signs the account out."
+        },
         {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
         }
       ],
-      "versions": [],
+      "versions": [
+        "5.5.514.11421"
+      ],
       "iconColor": "#927DFD",
       "iconUrl": ""
     },
@@ -56865,40 +56317,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.43.0 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.44.0 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
+                "text": "**Reddit - App icon:** Support changing icon on cloned installs"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
+                "text": "**YouTube - Channel search:** Search is scoped to a channel after leaving its page (#2997)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
+                "text": "**YouTube - Comments:** Hide new comments carousel (#3110)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
+                "text": "**YouTube - GmsCore support:** \"Play Protect certification\" screen is shown on startup (#2977)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Check typo"
+                "text": "**YouTube - Hide ads:** Hide new product cards (#3103)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
+                "text": "**YouTube - Hide layout components:** Hide Auto-dubbed label in feed (#3101)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
+                "text": "**YouTube - Hide layout components:** Hide Community button in search (#3112)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
+                "text": "**YouTube - Hide layout components:** Hide movie shelf in search results (#2933)"
               }
             ]
           },
@@ -56985,6 +56437,10 @@
             {
               "name": "Spoof signature",
               "description": "Spoofs the signature of the app to fix notification issues."
+            },
+            {
+              "name": "Start as guest",
+              "description": "Skips the forced startup login screen using Reddit's native guest browsing mode."
             }
           ],
           "versions": [
@@ -56992,8 +56448,8 @@
             "2026.04.0",
             "2026.14.0",
             "2026.24.0",
-            "2026.36.0",
-            "2026.37.0"
+            "2026.37.0",
+            "2026.38.0"
           ]
         },
         {
@@ -57160,7 +56616,8 @@
         "Sanitize share links",
         "Sanitize sharing links",
         "Show view count",
-        "Spoof signature"
+        "Spoof signature",
+        "Start as guest"
       ],
       "patchDetails": [
         {
@@ -57350,6 +56807,10 @@
         {
           "name": "Spoof signature",
           "description": "Spoofs the signature of the app to fix notification issues."
+        },
+        {
+          "name": "Start as guest",
+          "description": "Skips the forced startup login screen using Reddit's native guest browsing mode."
         }
       ],
       "versions": [
@@ -57590,40 +57051,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -57697,40 +57134,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -57865,24 +57278,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -58313,40 +57714,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -59811,40 +59188,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -59911,12 +59264,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.8.0 (2026-07-19)",
-            "date": "2026-07-19",
+            "title": "1.12.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "add mtproxy Remove ads patch"
+                "category": "Bug Fixes",
+                "text": "**netmonster:** retarget Unlock premium for 3.4.3"
               }
             ]
           },
@@ -59935,16 +59288,21 @@
             {
               "name": "Remove ads & tracking",
               "description": "Removes every ad (interstitial, banner, daily-reward) and every tracker (Mixpanel, Firebase, Facebook, AppsFlyer) \u2014 app events, network sends, ad-SDK requests (Google Ads / AppLovin / AnyMind / Prebid), SDK auto-collection, and the ipify IP leak. The app then phones home only to its own Jazz API."
+            },
+            {
+              "name": "Remove daily check-in ads",
+              "description": "Removes the SocialPlus daily check-in / in-feed ads (FeedAdsManager banner + native loaders). Separate from \"Remove ads & tracking\" to keep that patch Morphe-Manager-safe; enable this one when patching with the desktop CLI."
             }
           ],
           "versions": [
-            "3.3.2"
+            "3.3.4.2"
           ]
         }
       ],
       "patches": [
         "Bypass signature verification",
-        "Remove ads & tracking"
+        "Remove ads & tracking",
+        "Remove daily check-in ads"
       ],
       "patchDetails": [
         {
@@ -59954,10 +59312,14 @@
         {
           "name": "Remove ads & tracking",
           "description": "Removes every ad (interstitial, banner, daily-reward) and every tracker (Mixpanel, Firebase, Facebook, AppsFlyer) \u2014 app events, network sends, ad-SDK requests (Google Ads / AppLovin / AnyMind / Prebid), SDK auto-collection, and the ipify IP leak. The app then phones home only to its own Jazz API."
+        },
+        {
+          "name": "Remove daily check-in ads",
+          "description": "Removes the SocialPlus daily check-in / in-feed ads (FeedAdsManager banner + native loaders). Separate from \"Remove ads & tracking\" to keep that patch Morphe-Manager-safe; enable this one when patching with the desktop CLI."
         }
       ],
       "versions": [
-        "3.3.2"
+        "3.3.4.2"
       ],
       "iconColor": "#FF6B35",
       "iconUrl": ""
@@ -60541,24 +59903,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -61410,12 +60760,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -63779,24 +63129,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -63867,24 +63205,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -64015,40 +63341,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -64074,18 +63376,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -65381,12 +64683,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.18 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "1.12.19 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.3.0"
+                "text": "**avito:** support version 233.5"
               }
             ]
           },
@@ -66254,24 +65556,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -67920,24 +67210,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -67999,40 +67277,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -68886,24 +68140,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -70082,24 +69324,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.29.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**iap:** clarify patch descriptions for gold"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** expand IAP bypass to all purchases and subscriptions"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** implement free IAP functionality"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**intothedead2:** provide instant ad rewards and kill ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
               }
             ]
           },
@@ -70219,12 +69449,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -70913,40 +70143,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -71035,40 +70241,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.26.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.27.1 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** hide the purchase screen"
-              },
-              {
-                "category": "New Features",
-                "text": "**atvTools - Unlock premium:** unlock all features and remove ads"
-              },
-              {
-                "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**Klassik Radio+ - Unlock premium:** unlock premium channels, on-demand playback and skipping"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Mail - AMOLED dark theme:** add AMOLED to web settings and account security screens"
+                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
               }
             ]
           },
@@ -71097,8 +70279,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -71106,12 +70288,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock Premium",
-          "description": ""
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks premium, removes ads and the free session time limit."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": ""
         }
       ],
       "versions": [
@@ -71805,12 +70987,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.18 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "1.12.19 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**tbank:** support version 8.3.0"
+                "text": "**avito:** support version 233.5"
               }
             ]
           },
@@ -73289,40 +72471,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.43.0 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.44.0 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
+                "text": "**Reddit - App icon:** Support changing icon on cloned installs"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
+                "text": "**YouTube - Channel search:** Search is scoped to a channel after leaving its page (#2997)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
+                "text": "**YouTube - Comments:** Hide new comments carousel (#3110)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
+                "text": "**YouTube - GmsCore support:** \"Play Protect certification\" screen is shown on startup (#2977)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Check typo"
+                "text": "**YouTube - Hide ads:** Hide new product cards (#3103)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
+                "text": "**YouTube - Hide layout components:** Hide Auto-dubbed label in feed (#3101)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
+                "text": "**YouTube - Hide layout components:** Hide Community button in search (#3112)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
+                "text": "**YouTube - Hide layout components:** Hide movie shelf in search results (#2933)"
               }
             ]
           },
@@ -73373,6 +72555,10 @@
             {
               "name": "Change start page",
               "description": "Adds an option to set which page the app opens in instead of the homepage."
+            },
+            {
+              "name": "Channel search",
+              "description": "Adds an option to search inside the channel that is currently open instead of searching all of YouTube."
             },
             {
               "name": "Check watch history domain name resolution",
@@ -73457,6 +72643,10 @@
             {
               "name": "Exit fullscreen mode",
               "description": "Adds options to automatically exit fullscreen mode when a video reaches the end."
+            },
+            {
+              "name": "Force fullscreen landscape",
+              "description": "Adds an option to rotate the player to landscape when entering fullscreen mode on tablets and other large screen devices."
             },
             {
               "name": "Force original audio",
@@ -73666,11 +72856,11 @@
           "versions": [
             "20.21.37",
             "20.31.42",
-            "21.07.247",
             "21.13.164",
+            "21.16.256",
             "21.28.208",
-            "21.35.442",
-            "21.36.45"
+            "21.37.42",
+            "21.38.123"
           ]
         },
         {
@@ -74409,6 +73599,7 @@
         "Change player flyout menu toggles",
         "Change share sheet",
         "Change start page",
+        "Channel search",
         "Check watch history domain name resolution",
         "Cobalt downloads",
         "Copy video link",
@@ -74446,6 +73637,7 @@
         "Enable gradient loading screen",
         "Exit fullscreen mode",
         "Force Cronet SNI (YouTube arm64)",
+        "Force fullscreen landscape",
         "Force hide player buttons background",
         "Force original audio",
         "Force player buttons background",
@@ -74525,8 +73717,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -74598,6 +73790,10 @@
         {
           "name": "Change start page",
           "description": "Adds an option to set which page the app opens in instead of the homepage."
+        },
+        {
+          "name": "Channel search",
+          "description": "Adds an option to search inside the channel that is currently open instead of searching all of YouTube."
         },
         {
           "name": "Check watch history domain name resolution",
@@ -74746,6 +73942,10 @@
         {
           "name": "Force Cronet SNI (YouTube arm64)",
           "description": "Patches bundled arm64 libcronet so TLS SNI is forced to a configurable hostname in the SSLClientSocket path. URL and HTTP Host remain unchanged."
+        },
+        {
+          "name": "Force fullscreen landscape",
+          "description": "Adds an option to rotate the player to landscape when entering fullscreen mode on tablets and other large screen devices."
         },
         {
           "name": "Force hide player buttons background",
@@ -75064,12 +74264,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -75115,6 +74315,7 @@
         "21.14.482",
         "21.15.282",
         "21.16.240",
+        "21.16.256",
         "21.24.360",
         "21.25.523",
         "21.26.360",
@@ -75122,7 +74323,9 @@
         "21.28.208",
         "21.29.366",
         "21.35.442",
-        "21.36.45"
+        "21.36.45",
+        "21.37.42",
+        "21.38.123"
       ],
       "iconColor": "#FF0033",
       "iconUrl": ""
@@ -75458,40 +74661,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.43.0 (2026-09-14)",
-            "date": "2026-09-14",
+            "title": "1.44.0 (2026-09-21)",
+            "date": "2026-09-21",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
+                "text": "**Reddit - App icon:** Support changing icon on cloned installs"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
+                "text": "**YouTube - Channel search:** Search is scoped to a channel after leaving its page (#2997)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
+                "text": "**YouTube - Comments:** Hide new comments carousel (#3110)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
+                "text": "**YouTube - GmsCore support:** \"Play Protect certification\" screen is shown on startup (#2977)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Check typo"
+                "text": "**YouTube - Hide ads:** Hide new product cards (#3103)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
+                "text": "**YouTube - Hide layout components:** Hide Auto-dubbed label in feed (#3101)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
+                "text": "**YouTube - Hide layout components:** Hide Community button in search (#3112)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
+                "text": "**YouTube - Hide layout components:** Hide movie shelf in search results (#2933)"
               }
             ]
           },
@@ -75549,7 +74752,7 @@
             },
             {
               "name": "Downloads",
-              "description": "Adds support to download songs with an external downloader app using the in-app download button."
+              "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
             },
             {
               "name": "Enable debugging",
@@ -75669,14 +74872,14 @@
             },
             {
               "name": "Third-party lyrics",
-              "description": "Adds an option to show synced lyrics from LRCLIB or KuGou in the lyrics panel."
+              "description": "Adds an option to show synced lyrics with experience enhancement from 15+ providers in the lyrics panel."
             }
           ],
           "versions": [
             "9.15.51",
-            "9.34.52",
             "9.35.54",
-            "9.36.50"
+            "9.36.50",
+            "9.37.54"
           ]
         },
         {
@@ -76534,7 +75737,8 @@
         "9.24.51",
         "9.34.52",
         "9.35.54",
-        "9.36.50"
+        "9.36.50",
+        "9.37.54"
       ],
       "iconColor": "#FF0000",
       "iconUrl": ""
@@ -76555,12 +75759,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/durgesh0505/chiggi_morphe_patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/durgesh0505.png?size=96",
           "latestChanges": {
-            "title": "1.21.2 (2026-09-08)",
-            "date": "2026-09-08",
+            "title": "1.23.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**googlephone:** remove Google Phone patches"
+                "text": "**bighunter:** drive full purchase flow for free IAP (process lock)"
               }
             ]
           },
@@ -77730,40 +76934,40 @@
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.43.0 (2026-09-14)",
-        "date": "2026-09-14",
+        "title": "1.44.0 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Show the color the app draws when a color the user picked needs an overlay the app cannot register"
+            "text": "**Reddit - App icon:** Support changing icon on cloned installs"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Theme:** Use the nearest palette color when the app is not given an overlay manager (#2926)"
+            "text": "**YouTube - Channel search:** Search is scoped to a channel after leaving its page (#2997)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Change header:** Apply custom header logo to explore menu (#2910)"
+            "text": "**YouTube - Comments:** Hide new comments carousel (#3110)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Disable fullscreen gestures:** Restore pinch-to-zoom past fill on 21.36+ (#2876)"
+            "text": "**YouTube - GmsCore support:** \"Play Protect certification\" screen is shown on startup (#2977)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Check typo"
+            "text": "**YouTube - Hide ads:** Hide new product cards (#3103)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Fetch element description straight from ViewGroup instead componentHost"
+            "text": "**YouTube - Hide layout components:** Hide Auto-dubbed label in feed (#3101)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - FlyoutUtils:** Injected buttons are shown in collaborators panel (#2867)"
+            "text": "**YouTube - Hide layout components:** Hide Community button in search (#3112)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Fullscreen video scale:** Restore UI after leaving fullscreen on tablet/foldable landscape (#2874)"
+            "text": "**YouTube - Hide layout components:** Hide movie shelf in search results (#2933)"
           }
         ]
       },
@@ -78380,12 +77584,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.18 (2026-09-19)",
-        "date": "2026-09-19",
+        "title": "1.12.19 (2026-09-21)",
+        "date": "2026-09-21",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**tbank:** support version 8.3.0"
+            "text": "**avito:** support version 233.5"
           }
         ]
       },
