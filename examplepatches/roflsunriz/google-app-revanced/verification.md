@@ -1,0 +1,89 @@
+# 検証記録
+
+## 自動検証
+
+- Kotlin分類器: 広告ドメイン検出、通常Google URLの非誤検出
+- 資源変換: 広告レイアウトの幅・高さゼロ、`GONE`、広告寸法ゼロ
+- マニフェスト変換: 広告ID・AdServices権限除去、広告測定コンポーネント無効化
+- API 37互換: 非公開framework直接参照、将来の音声対話属性
+- Android拡張: 広告URL判定、資源名の誤検出防止
+- GmsCore互換: クローンパッケージ、権限・authority、GCM受信カテゴリ、spoofメタデータ、process名変換、Cloud Messaging登録対象プロセス、Google API認証ヘッダーの保持
+
+## 2026-09-01の実測
+
+- 入力 `17.50.19.ve.arm64` と `17.52.24.ve.arm64` の単一APKへReVanced CLI 6.0.0で適用しました。
+- 17.50.19は13 DEXから19 DEX、17.52.24は14 DEXから18 DEXへ再構築し、Android拡張、資源リンク、APK整列、v3署名まで成功しました。
+- 再展開したAPKで `ad_lightbox`、`duplo_ad_video`、`ads_container`、各種promoレイアウトが `0dp × 0dp` かつ `GONE` であることを確認しました。
+- `AD_ID`、AdServices、昇格通知、Ad Manager宣言が除去されていることを確認しました。
+- 元APKに含まれた主要広告配信URLが、両版のパッチ後DEXでは0件になったことを確認しました。
+- OSV-Scanner 2.5.1でGradle lockfileを監査し、修正版へ依存を統一した後の既知脆弱性が0件であることを確認しました。
+- 物理端末 SH-R80P（非root）へ `app.revanced.android.googleapp` として導入し、標準Googleアプリを無効化した状態でホーム、Googleアカウント、天気・スポーツカード、Discover、Web検索結果を表示できることを確認しました。
+- ReVanced GmsCore 0.3.13.2.250932で元パッケージ名とGoogleアプリの旧署名ローテーション証明書のspoof、`googlenow` OAuth、AuthProxyサービス接続、Phenotype接続が成立することを確認しました。
+- GmsCoreにNative Cronet実装がない環境ではGoogleアプリ内蔵Java Cronetへ切り替わり、`ReVanced`と`insurance`の検索結果が表示されることを確認しました。
+- `insurance`の検索結果で広告・スポンサー表記と空の広告枠が0件で、通常コンテンツが上端から詰めて表示されることをスクリーンショットとUI階層で確認しました。
+- Google設定一覧で「Google ReVanced」が既存項目と重ならず表示され、クリックして日本語ダークテーマの4スイッチへ遷移できることを確認しました。
+- 広告SDK通信遮断は常時ONかつ変更不可、残る3スイッチは操作可能で、Web検索広告をOFFにした状態がプロセス再起動後も保存されることを確認しました。
+- WebView再帰、プロセスクラッシュ、Spatula取得失敗、Native Cronet構築失敗、APIパッケージ拒否が成功した検索経路では0件であることを確認しました。
+- 標準Googleアプリを再有効化すれば即座に純正版へ戻せることを確認しました。ReVanced版の削除はクローンのデータを失うため、必要な場合だけ実施します。
+- 公開URLの`patches.json`をReVanced Manager 2.6.0へ登録し、「Google App ReVanced Patches」v0.2.0・2パッチとしてエラーなく読み込めることを確認しました。
+- Managerで17.52.24を選択すると2パッチが既定選択され、準備2/2・パッチ適用3/3までは完了しました。ただしAPK保存が0/2のまま47分以上進まず、CPUを消費し続ける異常状態になったためキャンセルしました。Manager経由のインストール直前画面には到達していません。CLI、CI、公開RVPの同じパッチは正常に生成・適用・実機起動できるため、Manager 2.6.0の端末内保存工程に残る環境依存問題として記録します。
+
+## `classes17.dex`長時間停滞の調査と対策
+
+- 17.52.24の入力APKは231,268,221バイト・14 DEX、パッチ後は約242MB・19 DEXです。Patcherは元DEXをそのまま追記せず、クラスと参照上限に合わせて全クラスを再配置するため、端末では19本すべての再構築が必要です。
+- ReVanced Manager 2.6.0の公式ソースと実機情報を照合し、通常実行は端末のlarge heapである512MiB、既定OFFの別プロセス実行は既定700MiBであることを確認しました。
+- 同一のRVPと17.52.24をJVM最大ヒープ700MiBで適用し、19 DEXの生成、資源再構築、整列、v3署名まで完了しました。17.50.19も同じ700MiBで16 DEXの生成から署名まで完了しました。
+- 512MiBの通常実行を数時間継続させないため、パッチ適用時に最大ヒープを確認し、640MiB未満ならManagerの別プロセス実行と700MiB以上の設定を案内して早期停止します。境界値は自動テストで固定しています。
+- パッチ適用中の一時メモリを減らすため、全メソッドを先にmutable化していた2経路を修正し、該当命令を持つメソッドだけを変換するようにしました。Compose・GmsCore探索も全メソッドの中間リストを保持しない遅延走査へ変更しました。
+- 修正版RVPをReVanced Manager 2.6.0へローカルソースとして登録し、17.52.24に修正版の2パッチだけを選択して実機適用しました。別プロセスのメモリ上限700MiBで、21:32:20の開始から21:33:16に保存工程へ入り、`classes17.dex`は21:33:54に完了、18 DEX、資源再構築、APK整列、保存まで21:34:40に完了しました。
+- 実機の別プロセスはGC中に約930MiBのRSSを使用しましたが進捗は継続し、Manager画面で準備2/2、パッチ適用3/3、保存2/2がすべて完了して「インストール」ボタンへ到達しました。利用者の承認が必要なため、インストール自体は実行していません。
+- 利用者の承認後にManager生成APKを`app.revanced.android.googleapp`として新規インストールし、Package Installerの成功結果と版`17.52.24.ve.arm64`を確認しました。初回起動ではPixel Launcherの証明書確認がReVanced GmsCore上のDynamiteモジュール初期化に失敗したため、systemアプリ・QSB権限確認後の2経路だけを限定的に信頼するよう修正し、全証明書検証は維持しました。
+- 限定修正版をManagerで再生成して更新インストールし、コールド起動が393msで完了することを確認しました。`googleapp`、`search`、`interactor`プロセスが継続稼働し、ホーム、検索欄、天気、スポーツ、Discoverカードを表示でき、`Missing DynamiteApplicationContext`、新規FATAL、ANRが0件であることを確認しました。
+- Pixel Launcher限定フィンガープリントを含む最終RVPは、17.50.19と17.52.24の両方で2パッチの適用、全DEX生成、資源再構築、整列、署名まで成功しました。
+- 作業中にmainへマージされたDependabot PR 4件を含む8コミットをfast-forwardし、ソース競合がないことを確認しました。JUnit 6.1.3更新に対して不足していたlockfileを`--write-locks`で再生成し、OSV-Scanner 2.5.1でGradle lockfile 225パッケージの既知脆弱性が0件であることを確認しました。
+
+## 音声検索と関連APIヘッダーの修正
+
+- 修正前の17.52.24では、音声検索がマイクを開いても約0.2秒で終了し、Google音声APIから`Requests from this Android client application app.revanced.android.googleapp are blocked`という`PERMISSION_DENIED`が返ることを確認しました。純正版は同じ端末で約6秒録音できたため、マイクや端末の音声認識サービスではなくクローン名のAPI認証ヘッダーが原因でした。
+- `X-Android-Package`と`X-Android-Cert`をローカル生成する経路、および静的フィールド化したヘッダーキーを使う経路をDEX全体から検出し、値を書き込む直前だけ公式Googleアプリの情報へ置換するようにしました。アプリ内部の実パッケージ名、process名、provider authorityは変更しません。
+- API証明書は版固定の新規定数にせず、入力APKで証明書ヘッダーを書き込む既存経路からSHA-1候補を抽出し、反復利用される一意の値を採用します。候補がない場合や一意に決められない場合は、誤った値で生成せずパッチ適用を失敗させます。
+- 直接生成キー、静的フィールドキー、`invoke-*/range`、証明書候補の正規化・曖昧性拒否を自動テストへ追加し、`patches:test`とAndroid用RVP生成が成功することを確認しました。
+- 最終RVPを17.50.19と17.52.24へReVanced CLI 6.0.0で適用し、両版で2パッチ、全DEX、資源再構築、APK整列、v3署名まで成功しました。17.52.24の再展開結果では、音声・Assistant経路のヘッダー値直前に公式パッケージ名と公式API証明書が設定されていました。
+- ReVanced Manager 2.6.0へ最終RVPをローカル登録し、17.52.24で準備2/2、パッチ適用3/3、保存2/2を完了しました。Managerの既存署名鍵でデータを保持した更新インストールが成功し、`lastUpdateTime`が2026-09-01 23:44:27へ更新されたことを確認しました。
+- 更新後の通常音声検索は「認識中…」へ進み、無音状態でも録音が8.8秒継続しました。修正前の即時終了とAPIパッケージ拒否は0件で、無音タイムアウト時の通常キャンセルだけを確認しました。
+- 「曲を検索」は3秒時点で「認識しています…」、9秒時点で「もう少しで完了です…」となり、録音が13.8秒以上継続しました。修正前の約0.63秒での「一致する曲はありません」という即時終了とAPIパッケージ拒否は再現しませんでした。
+- 実機確認後はマイク権限を未許可へ戻し、ManagerのローカルRVPを削除して公開`patches.json` URLを再登録しました。検証用APK、RVP、UI階層も端末から削除しました。
+
+## Cloud Messaging自動登録とDiscoverの修正
+
+- 修正前のクローン版では、GCM受信receiverのカテゴリが`com.google.android.googlequicksearchbox`のまま残り、同じ`BootstrapProvider`クラスを3プロセスへ重複宣言していたため、`:googleapp`での初期化も保証されていませんでした。
+- Googleアプリ17.52.24内蔵Firebaseの自動要求はReVanced GmsCore 0.3.13.2へ未対応のMessenger要求`what=4`を送り、GmsCoreのCloud Messagingアプリ一覧へクローン版を登録できないことを確認しました。
+- GCMカテゴリを`app.revanced.android.googleapp`へ変換し、既定・`:googleapp`・`:search`へ固有のProviderクラスを配置しました。`:googleapp`ではAPK内の`gcm_defaultSenderId`と`google_app_id`を読み、GmsCoreが対応する`com.google.android.c2dm.intent.REGISTER`を自動送信します。
+- GmsCoreから返されたトークンを値そのものは記録せず検証し、Firebase標準の`com.google.android.gms.appid`保存形式へ版と時刻付きで同期しました。Firebase初期化前の通知再試行から登録処理を分離し、45秒間のコールド起動ログで登録要求・応答が各1回、再登録0件、FATAL・ANR 0件であることを確認しました。
+- ReVanced GmsCoreの「Cloud Messaging」画面で「Google ReVanced」が「プッシュ通知を使用するアプリ」に追加され、Google ReVancedのホームで天気、スポーツ、Discover記事カードと操作ボタンが表示されることをUI階層とスクリーンショットで確認しました。
+- 最終RVPをGoogleアプリ17.50.19と17.52.24へReVanced CLI 6.0.0で適用し、両版で2パッチ、全DEX、資源再構築、整列、署名が成功しました。両成果物で固有Provider、クローン名GCMカテゴリ、直接登録、応答処理、Firebase通知ブリッジを確認しました。
+- ReVanced Manager 2.6.0へ最終RVPをローカル登録し、17.52.24で準備2/2、パッチ適用3/3、保存2/2を完了しました。既存Manager署名鍵でデータを保持した上書きインストールが成功し、`lastUpdateTime`が2026-09-02 05:44:15へ更新されました。
+
+## 目視確認項目
+
+非root端末では標準Googleアプリを無効化し、ReVanced GmsCoreとクローン版を使って次を確認します。
+
+1. Discover、画像検索、Web検索、動画表示を広告が出る条件で開きます。
+2. 広告カード、広告バッジ、動画広告、セルフプロモーションが表示されないことを確認します。
+3. 各広告の前後で余白、空カード、スクロール停止位置が残らず、隣接コンテンツが詰まることを確認します。
+4. 設定一覧末尾の「Google ReVanced」と各スイッチを確認します。
+5. Google検索、Lens、音声検索、Discover、設定など広告以外の主要機能に退行がないことを確認します。
+
+## 残る環境制約
+
+- ReVanced GmsCoreのGoogle端末登録、Cloud Messaging、デバイス認証を有効にする必要があります。
+- 初回のアカウント連携ではGmsCoreのログイン画面が開く場合があります。認証情報をログやIssueへ貼らないでください。
+- Assistant、Lensなど、端末固有権限や追加モジュールを使う機能は検索・Discover経路とは別に確認が必要です。音声検索と曲検索は上記17.52.24の実機確認を基準にします。
+
+## Dependabot 自動処理（2026-09-23）
+
+`.github/workflows/dependabot-automation.yml` を actionlint で検査し、PR 用 workflow 名（CI）と一致することを確認する。Dependabot の patch／minor かつ全 PR チェック成功の場合だけ取り込み、major・古い SHA・再失敗は残す。
+
+実際の Dependabot PR がまだない場合、動作経路は未検証として扱う。実 PR 発生後に自動化ジョブ、CI の再試行、マージ結果を確認する。
+
+大量の Dependabot PR により CI 完了より分類が遅れる場合でも、分類後の `workflow_dispatch` が現在の PR 番号と head SHA を照合して再評価する。別の作成者、古い SHA、未完了の CI はマージしない。

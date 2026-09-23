@@ -1,0 +1,118 @@
+# 更新手順
+
+## 前提
+
+- JDK 21以上
+- Android SDK
+- GitHub Packagesを読めるトークン
+- 検証対象の複数世代XAPK/APK
+- 公式配布物のSHA-256を確認したAPKEditor、JADX、ReVanced CLI
+
+## 1. 作業前確認
+
+```powershell
+git status --short --branch
+git remote -v
+git tag --sort=-version:refname
+```
+
+既存差分は戻さず、Yahoo!メールの最新XAPKと少なくとも2つの旧世代を`y!mail-apks/`へ保存します。
+
+## 2. XAPKを単一APK化
+
+```powershell
+java -jar APKEditor.jar merge -i '.\y!mail-apks\Yahoo!+Mail_VERSION.xapk' -o '.\work\ymail-VERSION-merged.apk' -f -validate-modules
+```
+
+APKEditorの公式リリースに掲載されたSHA-256とローカルファイルを照合します。`merge`はXAPK内のsplitを1ファイルへまとめるだけで、不足しているCPU ABIを追加しません。検証端末に合うXAPKバリアント（64-bit専用端末なら`config.arm64_v8a.apk`を含むもの）を取得します。
+
+単一APK化の直後とパッチ適用後の両方で、実機ABIとの一致を確認します。複数端末が接続されている場合は、対象のADB serialを必ず明示します。
+
+```powershell
+.\scripts\verify-apk-abi.ps1 -Path '.\work\ymail-VERSION-merged.apk' -DeviceSerial 'ADB_SERIAL'
+.\scripts\verify-apk-abi.ps1 -Path '.\work\ymail-VERSION-patched.apk' -DeviceSerial 'ADB_SERIAL'
+```
+
+`INSTALL_FAILED_NO_MATCHING_ABIS`になる組み合わせはパッチ対象に使用せず、正しいXAPKバリアントを取り直します。
+
+## 3. SDK・リソース差分を確認
+
+- Manifestの広告ID、Privacy Sandbox広告、Billing、Install Referrer権限
+- Google Mobile Ads、Yahoo!広告SDK、Adjust、Firebase Analytics / Crashlytics / Sessions
+- `mail_list_ad`、`message_list_ad_*`、`detail_footer_ad`
+- `drawer_banner_item`、旧`ymail_sidebar_*banner`
+- `lyp_premium_*`、`target_promotion_position`、`ymail_promotion_*dialog`
+- 販促通知文字列指紋
+
+メールの「プロモーション」分類用IDや画面は削除対象に含めません。
+
+## 4. ビルドとテスト
+
+```powershell
+$env:ANDROID_HOME = 'C:\path\to\Android\Sdk'
+$env:ORG_GRADLE_PROJECT_githubPackagesUsername = 'your-name'
+$env:ORG_GRADLE_PROJECT_githubPackagesPassword = 'your-token'
+.\gradlew.bat clean test lint :patches:buildAndroid
+.\scripts\verify-android-rvp.ps1 -Path .\patches\build\libs\patches-VERSION.rvp
+```
+
+公開前の実機検証では、同名の公開RVPと取り違えないよう、バージョンを区別して生成します（PowerShellでは`-P`引数全体を引用符で囲みます）。Managerへ追加した後は、その検証版だけを選びます。
+
+```powershell
+.\gradlew.bat clean test lint :patches:buildAndroid '-Pversion=0.1.4-dev.1'
+```
+
+## 5. 複数世代へ実適用
+
+各単一APKへ公式ReVanced CLIでRVPを適用し、`--force`なしで全世代が成功することを確認します。適用後は次を確認します。
+
+- APK署名検証が成功する
+- APK内のCPU ABIが検証端末と一致する
+- 広告関連権限が0件
+- 広告／Adjust／Billingコンポーネントの有効残存が0件
+- `BootstrapProvider`が1件
+- 対象レイアウトと埋め込み要素が`0dp, 0dp, gone`
+- 通常のメール「プロモーション」分類要素が残る
+
+## 6. Android ReVanced Managerと実機
+
+1. RVPまたは公開`patches.json`をManagerへ追加する。
+2. 最新の単一APKを選択し、パッチがエラーなく完走することを確認する。
+3. 生成APKを保存し、SHA-256と署名を確認する。
+4. 同じ署名の旧パッチ版へ上書きし、起動、メール一覧、本文、ドロワー、設定画面を確認する。
+5. 広告枠が消え、上下の内容が詰まっていることをスクリーンショットとUI階層で確認する。
+6. 広告／Adjust／広告計測ホストへの通信がないことを確認する。
+
+回帰検証では全選択・解除と単独選択・解除を録画し、広告行の高さが一時復帰しないことも確認します。未読メールの初回表示と一覧への復帰を繰り返し、間欠クラッシュは再現時刻と次のログを保存します。再現しなかったことだけで解決済みと判断しません。
+
+```powershell
+adb -s ADB_SERIAL logcat -b crash -d -v threadtime
+```
+
+ログと録画には個人情報が含まれる場合があるため、Git管理外で扱い、共有前に内容を確認します。
+
+公式版とは署名が異なるため、データ保護を確認せずアンインストールしません。
+
+## 7. リリース
+
+1. `CHANGELOG.md`へ日付付きバージョンを追加する。
+2. `gradle.properties`と`patches.json`のバージョンを一致させる。
+3. 依存関係の脆弱性監査を実行し、警告を修正する。
+4. 日本語Conventional Commitsでコミットし、`main`へプッシュする。
+5. `vVERSION`タグをプッシュする。
+6. Release ActionsがRVP、`patches.json`、CHANGELOG抜粋を公開することを確認する。
+7. 全リリースに`patches.json`があることを確認する。
+
+## ロールバック
+
+- コードは直前の正常タグから再ビルドする。
+- 端末は同一署名の直前パッチAPKへ上書きする。
+- 公式版へ戻す場合は同期・バックアップと再ログイン手段を確認し、パッチ版をアンインストールして公式ストアから再導入する。
+
+## Dependabot PR の更新
+
+前提は `.github/dependabot.yml` と PR 用 CI（Build）です。更新 PR の head SHA と `gh pr checks <PR番号>` の結果を確認してください。patch／minor は全チェック成功後に自動取り込みされます。初回 CI 失敗は failed jobs のみを 1 回再実行し、再失敗した PR は残して手動で修正します。
+
+設定を変えたときは `actionlint .github/workflows/dependabot-automation.yml` と実際の PR の Actions 結果を確認します。問題があれば呼び出し先の共通 workflow SHA を直前の検証済み値へ戻すコミットを push します。取り込まれた依存更新に問題があれば通常の revert コミットで復旧します。
+
+CI 完了より Dependabot の分類が遅れる場合は、`callback_workflow_file` が指す呼び出し側 workflow を `workflow_dispatch` し、同じ PR 番号・head SHA・全チェックを再確認する。呼び出し側のファイル名を変える際はこの入力も一緒に更新する。
