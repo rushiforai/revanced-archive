@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-22 03:12 UTC",
+  "generatedAt": "2026-09-23 03:02 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 722,
-  "patchCount": 2573,
+  "appCount": 723,
+  "patchCount": 2582,
   "universalPatchCount": 153,
   "hostCounts": {
     "github.com": 122,
@@ -195,16 +195,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.5.0 (2026-09-16)",
-        "date": "2026-09-16",
+        "title": "1.5.1 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support SofaTime v1.3.4, v1.3.5 and v1.3.6 (Fixes #13, Fixes #14, Fixes #15)"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "Support SofaTime v1.3.6"
+            "text": "Support SofaTime v1.3.7 and v1.3.8 (Fixes #16, Fixes #17)"
           }
         ]
       },
@@ -4657,23 +4653,47 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 59,
-      "appCount": 32,
+      "patchCount": 63,
+      "appCount": 34,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.27.1 (2026-09-21)",
-        "date": "2026-09-21",
+        "title": "1.28.0 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+            "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+            "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+          },
+          {
+            "category": "New Features",
+            "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+          },
+          {
+            "category": "New Features",
+            "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+          },
+          {
+            "category": "New Features",
+            "text": "**MovieBox:** support 4.0.03.0918.03"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+          },
+          {
+            "category": "New Features",
+            "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
           }
         ]
       },
@@ -4698,6 +4718,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#0057BD"
+        },
+        {
+          "name": "AtloMaps",
+          "packageName": "com.atlogis.atlomaps",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#0683DF"
         },
         {
           "name": "atvTools",
@@ -4808,6 +4835,13 @@
           "name": "Proton Mail",
           "packageName": "ch.protonmail.android",
           "patchCount": 7,
+          "iconUrl": "",
+          "iconColor": "#6D4AFF"
+        },
+        {
+          "name": "Proton Pass",
+          "packageName": "proton.android.pass",
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#6D4AFF"
         },
@@ -5179,23 +5213,39 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 40,
+      "patchCount": 42,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "3.10.0 (2026-09-02)",
-        "date": "2026-09-02",
+        "title": "3.11.0 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add the Backup & Restore patch for exporting and restoring all patch settings, and for backing up, comparing, and restoring Gboard's PB/XML flag stores."
+            "text": "**Gboard:** add the Toolbar Editing Buttons patch, which adds Select all, Copy, Cut, and Paste actions to the toolbar menu."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add the Custom Theme patch, supporting custom ZIP theme imports and a selection of beautiful themes from Rboard's official repository."
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**Gboard:** fix an issue where Custom Symbols history entries were incorrectly saved to Emoticon history."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u65b0\u589e Backup & Restore Patch\uff0c\u53ef\u532f\u51fa\u8207\u9084\u539f\u6240\u6709 Patch \u8a2d\u5b9a\uff0c\u4e26\u652f\u63f4\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard \u7684 PB/XML flag store\u3002"
+            "text": "**Gboard:** \u65b0\u589e Toolbar Editing Buttons Patch\uff0c\u5c07\u300c\u5168\u9078\u300d\u3001\u300c\u8907\u88fd\u300d\u3001\u300c\u526a\u4e0b\u300d\u8207\u300c\u8cbc\u4e0a\u300d\u64cd\u4f5c\u52a0\u5165\u5de5\u5177\u5217\u9078\u55ae\u3002"
+          },
+          {
+            "category": "\u2728 \u65b0\u529f\u80fd",
+            "text": "**Gboard:** \u65b0\u589e Custom Theme Patch\uff0c\u652f\u63f4\u532f\u5165\u81ea\u8a02 ZIP \u4e3b\u984c\uff0c\u4e5f\u80fd\u5f9e Rboard \u5b98\u65b9\u5132\u5b58\u5eab\u532f\u5165\u7cbe\u7f8e\u4e3b\u984c\u3002"
+          },
+          {
+            "category": "\ud83d\udc1b \u4fee\u5fa9",
+            "text": "**Gboard:** \u4fee\u5fa9 Custom Symbols \u6b77\u53f2\u8a18\u9304\u8aa4\u5beb\u5165 Emoticon \u6b77\u53f2\u8a18\u9304\u7684\u554f\u984c\u3002"
           }
         ]
       },
@@ -5203,7 +5253,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 40,
+          "patchCount": 42,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -9895,19 +9945,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 149,
+      "patchCount": 152,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.4 (2026-09-15)",
-        "date": "2026-09-15",
+        "title": "1.4.5 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.43.0"
+            "text": "Sync upstream Morphe patches v1.44.0"
           }
         ]
       },
@@ -9915,14 +9965,14 @@
         {
           "name": "Reddit",
           "packageName": "com.reddit.frontpage",
-          "patchCount": 20,
+          "patchCount": 21,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 83,
+          "patchCount": 85,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -10345,12 +10395,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.19 (2026-09-21)",
-        "date": "2026-09-21",
+        "title": "1.12.21 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** support version 233.5"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
           }
         ]
       },
@@ -10581,16 +10631,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -12194,16 +12268,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -12383,16 +12481,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -14153,6 +14275,92 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.atlogis.atlomaps",
+      "name": "AtloMaps",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-atlogis-atlomaps-hxreborn-morphe-patches",
+            "releaseTag": "app-com-atlogis-atlomaps-hxreborn-morphe-patches",
+            "assetName": "atlomaps-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks the custom map sources, navigation settings and backup restore. Premium map packages are not included."
+            }
+          ],
+          "versions": [
+            "1.0.6"
+          ]
+        }
+      ],
+      "patches": [
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the custom map sources, navigation settings and backup restore. Premium map packages are not included."
+        }
+      ],
+      "versions": [
+        "1.0.6"
+      ],
+      "iconColor": "#0683DF",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.atmfee",
       "name": "ATM Fee Saver",
       "repos": [
@@ -14321,16 +14529,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -14383,16 +14615,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -15045,12 +15301,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.19 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.12.21 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.5"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
               }
             ]
           },
@@ -16804,16 +17060,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -23626,16 +23906,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "3.10.0 (2026-09-02)",
-            "date": "2026-09-02",
+            "title": "3.11.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add the Backup & Restore patch for exporting and restoring all patch settings, and for backing up, comparing, and restoring Gboard's PB/XML flag stores."
+                "text": "**Gboard:** add the Toolbar Editing Buttons patch, which adds Select all, Copy, Cut, and Paste actions to the toolbar menu."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add the Custom Theme patch, supporting custom ZIP theme imports and a selection of beautiful themes from Rboard's official repository."
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**Gboard:** fix an issue where Custom Symbols history entries were incorrectly saved to Emoticon history."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u65b0\u589e Backup & Restore Patch\uff0c\u53ef\u532f\u51fa\u8207\u9084\u539f\u6240\u6709 Patch \u8a2d\u5b9a\uff0c\u4e26\u652f\u63f4\u5099\u4efd\u3001\u6bd4\u8f03\u53ca\u9084\u539f Gboard \u7684 PB/XML flag store\u3002"
+                "text": "**Gboard:** \u65b0\u589e Toolbar Editing Buttons Patch\uff0c\u5c07\u300c\u5168\u9078\u300d\u3001\u300c\u8907\u88fd\u300d\u3001\u300c\u526a\u4e0b\u300d\u8207\u300c\u8cbc\u4e0a\u300d\u64cd\u4f5c\u52a0\u5165\u5de5\u5177\u5217\u9078\u55ae\u3002"
+              },
+              {
+                "category": "\u2728 \u65b0\u529f\u80fd",
+                "text": "**Gboard:** \u65b0\u589e Custom Theme Patch\uff0c\u652f\u63f4\u532f\u5165\u81ea\u8a02 ZIP \u4e3b\u984c\uff0c\u4e5f\u80fd\u5f9e Rboard \u5b98\u65b9\u5132\u5b58\u5eab\u532f\u5165\u7cbe\u7f8e\u4e3b\u984c\u3002"
+              },
+              {
+                "category": "\ud83d\udc1b \u4fee\u5fa9",
+                "text": "**Gboard:** \u4fee\u5fa9 Custom Symbols \u6b77\u53f2\u8a18\u9304\u8aa4\u5beb\u5165 Emoticon \u6b77\u53f2\u8a18\u9304\u7684\u554f\u984c\u3002"
               }
             ]
           },
@@ -23686,6 +23982,10 @@
             {
               "name": "Custom Symbols",
               "description": "\u65b0\u589e\u7368\u7acb\u7684\u7279\u6b8a\u7b26\u865f\u5206\u9801\uff0c\u9577\u6309\u9017\u865f->\u611b\u5fc3\nAdd a dedicated custom symbols tab and replace the long-press comma entry with a heart shortcut."
+            },
+            {
+              "name": "Custom Theme",
+              "description": "\u652f\u63f4\u532f\u5165\u81ea\u8a02 ZIP \u4e3b\u984c\uff0c\u4e26\u652f\u63f4\u5f9e Rboard \u5b98\u65b9\u5132\u5b58\u5eab\u532f\u5165\u7cbe\u7f8e\u4e3b\u984c\u3002\nImport custom ZIP themes and beautiful themes from the official Rboard repository."
             },
             {
               "name": "Developer options",
@@ -23782,6 +24082,10 @@
             {
               "name": "Swipeable Custom Top Row",
               "description": "\u6ed1\u52d5\u9375\u76e4\u7b2c\u4e00\u6392\uff0c\u5728\u539f\u751f\u5217\u8207\u53ef\u81ea\u8a02\u6587\u5b57/JavaScript \u5217\u4e4b\u9593\u5207\u63db\nSwipe the keyboard top row to switch between the stock row and a customizable text/JavaScript row."
+            },
+            {
+              "name": "Toolbar Editing Buttons",
+              "description": "\u5c07\u5168\u9078\u3001\u8907\u88fd\u3001\u526a\u4e0b\u8207\u8cbc\u4e0a\u52a0\u5165\u9078\u55ae\u3002\nAdd Select All, Copy, Cut and Paste to the menu."
             },
             {
               "name": "Top Toolbar Item Count",
@@ -23913,6 +24217,7 @@
         "Clipboard Enhancements",
         "Close Proactive Suggestions",
         "Custom Symbols",
+        "Custom Theme",
         "Developer options",
         "Disable telemetry & federated learning",
         "Emojis, stickers & GIFs Tab Order",
@@ -23948,6 +24253,7 @@
         "Simple Calculator",
         "Swipeable Custom Top Row",
         "Toggle feature flags",
+        "Toolbar Editing Buttons",
         "Top Toolbar Item Count",
         "Use Bluetooth Microphone",
         "Web Clipboard",
@@ -24011,6 +24317,10 @@
         {
           "name": "Custom Symbols",
           "description": "\u65b0\u589e\u7368\u7acb\u7684\u7279\u6b8a\u7b26\u865f\u5206\u9801\uff0c\u9577\u6309\u9017\u865f->\u611b\u5fc3\nAdd a dedicated custom symbols tab and replace the long-press comma entry with a heart shortcut."
+        },
+        {
+          "name": "Custom Theme",
+          "description": "\u652f\u63f4\u532f\u5165\u81ea\u8a02 ZIP \u4e3b\u984c\uff0c\u4e26\u652f\u63f4\u5f9e Rboard \u5b98\u65b9\u5132\u5b58\u5eab\u532f\u5165\u7cbe\u7f8e\u4e3b\u984c\u3002\nImport custom ZIP themes and beautiful themes from the official Rboard repository."
         },
         {
           "name": "Developer options",
@@ -24151,6 +24461,10 @@
         {
           "name": "Toggle feature flags",
           "description": "Turn Gboard features on with individual switches. Each switch maps to a Gboard feature flag; flip it on to enable that feature. Unknown or already-default flags are skipped safely."
+        },
+        {
+          "name": "Toolbar Editing Buttons",
+          "description": "\u5c07\u5168\u9078\u3001\u8907\u88fd\u3001\u526a\u4e0b\u8207\u8cbc\u4e0a\u52a0\u5165\u9078\u55ae\u3002\nAdd Select All, Copy, Cut and Paste to the menu."
         },
         {
           "name": "Top Toolbar Item Count",
@@ -28500,16 +28814,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -30160,16 +30498,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -30942,16 +31304,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -32783,16 +33169,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -40237,16 +40647,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -40523,16 +40957,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -45625,16 +46083,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -45654,7 +46136,8 @@
           "versions": [
             "4.0.02.0828.03",
             "4.0.02.0831.03",
-            "4.0.02.0903.02"
+            "4.0.02.0903.02",
+            "4.0.03.0918.03"
           ]
         }
       ],
@@ -45670,7 +46153,8 @@
       "versions": [
         "4.0.02.0828.03",
         "4.0.02.0831.03",
-        "4.0.02.0903.02"
+        "4.0.02.0903.02",
+        "4.0.03.0918.03"
       ],
       "iconColor": "#30E66D",
       "iconUrl": ""
@@ -46481,16 +46965,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -47801,16 +48309,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -49771,12 +50303,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.19 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.12.21 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.5"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
               }
             ]
           },
@@ -49802,7 +50334,8 @@
             "19.32.0",
             "19.33.1",
             "19.34.0",
-            "19.35.0"
+            "19.35.0",
+            "19.36.0"
           ]
         }
       ],
@@ -49864,7 +50397,8 @@
         "19.32.0",
         "19.33.1",
         "19.34.0",
-        "19.35.0"
+        "19.35.0",
+        "19.36.0"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -50835,16 +51369,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -51017,16 +51575,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -54098,16 +54680,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -54171,8 +54777,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -54180,12 +54786,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -54375,16 +54981,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -54481,9 +55111,81 @@
       "packageName": "proton.android.pass",
       "name": "Proton Pass",
       "repos": [
+        "hxreborn/morphe-patches",
         "rushiranpise/morphe-patches"
       ],
       "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "proton-android-pass-hxreborn-morphe-patches",
+            "releaseTag": "app-proton-android-pass-hxreborn-morphe-patches",
+            "assetName": "proton-pass-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "AMOLED dark theme",
+              "description": "Replaces the dark theme background with pure black."
+            },
+            {
+              "name": "Hide promotional messages",
+              "description": "Hides promotional banners, offers and pop-up messages."
+            },
+            {
+              "name": "Hide upgrade promotions",
+              "description": "Hides the Upgrade buttons, upgrade prompts and the welcome offer after signing in. Plan limits still apply."
+            }
+          ],
+          "versions": [
+            "1.40.3"
+          ]
+        },
         {
           "repo": "rushiranpise/morphe-patches",
           "host": "github.com",
@@ -54525,9 +55227,24 @@
         }
       ],
       "patches": [
+        "AMOLED dark theme",
+        "Hide promotional messages",
+        "Hide upgrade promotions",
         "Unlock Unlimited Plan"
       ],
       "patchDetails": [
+        {
+          "name": "AMOLED dark theme",
+          "description": "Replaces the dark theme background with pure black."
+        },
+        {
+          "name": "Hide promotional messages",
+          "description": "Hides promotional banners, offers and pop-up messages."
+        },
+        {
+          "name": "Hide upgrade promotions",
+          "description": "Hides the Upgrade buttons, upgrade prompts and the welcome offer after signing in. Plan limits still apply."
+        },
         {
           "name": "Unlock Unlimited Plan",
           "description": "Forces Proton Pass Plus plan with all limits removed and paid features unlocked."
@@ -55218,16 +55935,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -55520,16 +56261,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -55706,16 +56471,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -55830,16 +56619,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -55893,16 +56706,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -56461,12 +57298,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.4 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.4.5 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.43.0"
+                "text": "Sync upstream Morphe patches v1.44.0"
               }
             ]
           },
@@ -56557,6 +57394,10 @@
             {
               "name": "Spoof signature",
               "description": "Spoofs the signature of the app to fix notification issues."
+            },
+            {
+              "name": "Start as guest",
+              "description": "Skips the forced startup login screen using Reddit's native guest browsing mode."
             }
           ],
           "versions": [
@@ -56564,8 +57405,8 @@
             "2026.04.0",
             "2026.14.0",
             "2026.24.0",
-            "2026.36.0",
-            "2026.37.0"
+            "2026.37.0",
+            "2026.38.0"
           ]
         }
       ],
@@ -57051,16 +57892,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -57134,16 +57999,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -57714,16 +58603,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -59188,16 +60101,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -60465,16 +61402,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/alan7383/sofatime-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/alan7383.png?size=96",
           "latestChanges": {
-            "title": "1.5.0 (2026-09-16)",
-            "date": "2026-09-16",
+            "title": "1.5.1 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support SofaTime v1.3.4, v1.3.5 and v1.3.6 (Fixes #13, Fixes #14, Fixes #15)"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "Support SofaTime v1.3.6"
+                "text": "Support SofaTime v1.3.7 and v1.3.8 (Fixes #16, Fixes #17)"
               }
             ]
           },
@@ -60518,7 +61451,9 @@
             "1.3.3",
             "1.3.4",
             "1.3.5",
-            "1.3.6"
+            "1.3.6",
+            "1.3.7",
+            "1.3.8"
           ]
         }
       ],
@@ -60561,7 +61496,9 @@
         "1.3.3",
         "1.3.4",
         "1.3.5",
-        "1.3.6"
+        "1.3.6",
+        "1.3.7",
+        "1.3.8"
       ],
       "iconColor": "#1E1E2E",
       "iconUrl": ""
@@ -63341,16 +64278,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -64683,12 +65644,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.19 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.12.21 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.5"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
               }
             ]
           },
@@ -67277,16 +68238,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -67920,8 +68905,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -67965,11 +68950,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -70143,16 +71128,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -70241,16 +71250,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.27.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.28.0 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** play streams signed with Edge-Cache cookies"
+                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** recolour icons without the desktop JDK so Manager can apply it"
+                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+              },
+              {
+                "category": "New Features",
+                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+              },
+              {
+                "category": "New Features",
+                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
+              },
+              {
+                "category": "New Features",
+                "text": "**MovieBox:** support 4.0.03.0918.03"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
+              },
+              {
+                "category": "New Features",
+                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
               }
             ]
           },
@@ -70987,12 +72020,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.19 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.12.21 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** support version 233.5"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
               }
             ]
           },
@@ -71027,7 +72060,9 @@
             "7.7.9003",
             "7.7.9003-rustore",
             "7.8.0002",
-            "7.8.0002-rustore"
+            "7.8.0002-rustore",
+            "7.8.1002",
+            "7.8.1002-rustore"
           ]
         }
       ],
@@ -71058,7 +72093,9 @@
         "7.7.9003",
         "7.7.9003-rustore",
         "7.8.0002",
-        "7.8.0002-rustore"
+        "7.8.0002-rustore",
+        "7.8.1002",
+        "7.8.1002-rustore"
       ],
       "iconColor": "#A73AFD",
       "iconUrl": ""
@@ -72913,12 +73950,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.4 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.4.5 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.43.0"
+                "text": "Sync upstream Morphe patches v1.44.0"
               }
             ]
           },
@@ -72973,6 +74010,10 @@
             {
               "name": "Change start page",
               "description": "Adds an option to set which page the app opens in instead of the homepage."
+            },
+            {
+              "name": "Channel search",
+              "description": "Adds an option to search inside the channel that is currently open instead of searching all of YouTube."
             },
             {
               "name": "Check watch history domain name resolution",
@@ -73057,6 +74098,10 @@
             {
               "name": "Exit fullscreen mode",
               "description": "Adds options to automatically exit fullscreen mode when a video reaches the end."
+            },
+            {
+              "name": "Force fullscreen landscape",
+              "description": "Adds an option to rotate the player to landscape when entering fullscreen mode on tablets and other large screen devices."
             },
             {
               "name": "Force original audio",
@@ -73266,11 +74311,11 @@
           "versions": [
             "20.21.37",
             "20.31.42",
-            "21.07.247",
             "21.13.164",
+            "21.16.256",
             "21.28.208",
-            "21.35.442",
-            "21.36.45"
+            "21.37.42",
+            "21.38.123"
           ]
         },
         {
@@ -74310,7 +75355,6 @@
         "20.51.39",
         "21.04.223",
         "21.05.265",
-        "21.07.247",
         "21.13.164",
         "21.14.482",
         "21.15.282",
@@ -74322,8 +75366,6 @@
         "21.28.204",
         "21.28.208",
         "21.29.366",
-        "21.35.442",
-        "21.36.45",
         "21.37.42",
         "21.38.123"
       ],
@@ -74935,12 +75977,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.4 (2026-09-15)",
-            "date": "2026-09-15",
+            "title": "1.4.5 (2026-09-22)",
+            "date": "2026-09-22",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.43.0"
+                "text": "Sync upstream Morphe patches v1.44.0"
               }
             ]
           },
@@ -74998,7 +76040,7 @@
             },
             {
               "name": "Downloads",
-              "description": "Adds support to download songs with an external downloader app using the in-app download button."
+              "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
             },
             {
               "name": "Enable debugging",
@@ -75118,14 +76160,14 @@
             },
             {
               "name": "Third-party lyrics",
-              "description": "Adds an option to show synced lyrics from LRCLIB or KuGou in the lyrics panel."
+              "description": "Adds an option to show synced lyrics with experience enhancement from 15+ providers in the lyrics panel."
             }
           ],
           "versions": [
             "9.15.51",
-            "9.34.52",
             "9.35.54",
-            "9.36.50"
+            "9.36.50",
+            "9.37.54"
           ]
         },
         {
@@ -75508,7 +76550,7 @@
         },
         {
           "name": "Downloads",
-          "description": "Adds support to download songs with an external downloader app using the in-app download button."
+          "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
         },
         {
           "name": "Enable debug logging",
@@ -75684,7 +76726,7 @@
         },
         {
           "name": "Third-party lyrics",
-          "description": "Adds an option to show synced lyrics from LRCLIB or KuGou in the lyrics panel."
+          "description": "Adds an option to show synced lyrics with experience enhancement from 15+ providers in the lyrics panel."
         },
         {
           "name": "Track crossfade",
@@ -75735,7 +76777,6 @@
         "9.22.53",
         "9.23.52",
         "9.24.51",
-        "9.34.52",
         "9.35.54",
         "9.36.50",
         "9.37.54"
@@ -77447,12 +78488,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.4.4 (2026-09-15)",
-        "date": "2026-09-15",
+        "title": "1.4.5 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.43.0"
+            "text": "Sync upstream Morphe patches v1.44.0"
           }
         ]
       },
@@ -77584,12 +78625,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.19 (2026-09-21)",
-        "date": "2026-09-21",
+        "title": "1.12.21 (2026-09-22)",
+        "date": "2026-09-22",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** support version 233.5"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
           }
         ]
       },

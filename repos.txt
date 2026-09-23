@@ -1,5 +1,6 @@
 4831c0/custom-revanced-patches
 Alexvbp/f1tv-patches
+Allvoid/arsound
 AmpleReVanced/revanced-api
 AmpleReVanced/revanced-cli
 AmpleReVanced/revanced-manager-compose
@@ -33,6 +34,7 @@ Slenderman00/revanced-patches-grindr
 Svznify/MorpheX
 Taknok/revanced-patches
 The412Banner/bannerhub-revanced
+ThetaBird/revanced-telemetry
 Tosox/revanced-patches
 Vernoxvernax/revanced-patches
 VinkyV/AppleMusicPatches
@@ -40,6 +42,7 @@ XDream8/revanced-creator
 YT-Advanced/ReX-patches
 aidancrane/reddit-default-browser-patch
 alim-zanibekov/ultrasandbox
+atticadayz/tiktok-mini-drama-revanced-patch
 bawr/revanced-patches
 blazskufca/revanced-patch
 bluecxt/instagram-revanced-patches
@@ -72,10 +75,14 @@ lennyRBLX/apk-patches
 liaralabs/revanced-patches
 lluni/custom-revanced-patches
 loan-mgt/moovit-patch
+permissionBRICK/youtube-home-assistant-patches
 prevanced/prevanced-manager
 roflsunriz/chmate-revanced
+roflsunriz/google-app-revanced
 roflsunriz/imgur-revanced
 roflsunriz/nicomanga-revanced
+roflsunriz/povo-2.0-revanced
+roflsunriz/ymail-revanced
 rufusin/revanced-patches
 rushiranpise/apk-download-helper
 selfmusing/RVX-Lite-Modules
