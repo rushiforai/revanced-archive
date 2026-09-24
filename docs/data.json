@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-23 03:02 UTC",
+  "generatedAt": "2026-09-24 02:52 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 723,
-  "patchCount": 2582,
-  "universalPatchCount": 153,
+  "appCount": 724,
+  "patchCount": 2585,
+  "universalPatchCount": 154,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -1655,19 +1655,23 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 70,
-      "appCount": 30,
+      "patchCount": 71,
+      "appCount": 31,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.29.1 (2026-09-21)",
-        "date": "2026-09-21",
+        "title": "1.30.0 (2026-09-23)",
+        "date": "2026-09-23",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+            "category": "\u2728 New Features",
+            "text": "**crossyroad-refactor:** consolidate free store patches"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**crossyroad:** implement free store"
           }
         ]
       },
@@ -1713,6 +1717,13 @@
           "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#E65100"
+        },
+        {
+          "name": "Crossy Road",
+          "packageName": "com.yodo1.crossyroad",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#7CB342"
         },
         {
           "name": "Dan the Man",
@@ -4653,47 +4664,35 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 63,
+      "patchCount": 65,
       "appCount": 34,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.28.0 (2026-09-22)",
-        "date": "2026-09-22",
+        "title": "1.29.0 (2026-09-23)",
+        "date": "2026-09-23",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+            "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+            "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
           },
           {
             "category": "New Features",
-            "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+            "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
           },
           {
             "category": "New Features",
-            "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-          },
-          {
-            "category": "New Features",
-            "text": "**MovieBox:** support 4.0.03.0918.03"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+            "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
           }
         ]
       },
@@ -4820,7 +4819,7 @@
         {
           "name": "Photo Editor Pro",
           "packageName": "photo.editor.photoeditor.photoeditorpro",
-          "patchCount": 5,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": "#FA2A80"
         },
@@ -7776,12 +7775,16 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.5 (2026-09-17)",
-        "date": "2026-09-17",
+        "title": "1.0.6 (2026-09-23)",
+        "date": "2026-09-23",
         "items": [
           {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "handle modify/delete conflicts and keep CI config in upstream sync"
+          },
+          {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.4.2 target"
+            "text": "add SeriesGuide v2026.4.3 target"
           }
         ]
       },
@@ -10631,40 +10634,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -11145,12 +11136,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -11996,12 +11991,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -12268,40 +12267,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -12481,40 +12468,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -12567,12 +12542,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -12625,12 +12604,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -14290,40 +14273,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -14529,40 +14500,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -14615,40 +14574,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -17060,40 +17007,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -17147,12 +17082,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -18916,12 +18855,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -28417,6 +28360,68 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.yodo1.crossyroad",
+      "name": "Crossy Road",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-yodo1-crossyroad-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-yodo1-crossyroad-byehi98-okish-morphe-patches",
+            "assetName": "crossy-road-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Free store",
+              "description": "The in-game store is free. Just tap \"Buy\" and the item is yours \u2014 no payment needed. For an ad-free game, just buy the ad-block item from the store."
+            }
+          ],
+          "versions": [
+            "7.13.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Free store"
+      ],
+      "patchDetails": [
+        {
+          "name": "Free store",
+          "description": "The in-game store is free. Just tap \"Buy\" and the item is yours \u2014 no payment needed. For an ad-free game, just buy the ad-block item from the store."
+        }
+      ],
+      "versions": [
+        "7.13.0"
+      ],
+      "iconColor": "#7CB342",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.crunchyroll.crunchyroid",
       "name": "Crunchyroll",
       "repos": [
@@ -28814,40 +28819,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -29038,12 +29031,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -29069,7 +29066,7 @@
             }
           ],
           "versions": [
-            "1.14.02"
+            "1.14.03"
           ]
         }
       ],
@@ -29093,7 +29090,7 @@
         }
       ],
       "versions": [
-        "1.14.02"
+        "1.14.03"
       ],
       "iconColor": "#1A237E",
       "iconUrl": ""
@@ -29979,12 +29976,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -30302,12 +30303,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -30498,40 +30503,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -30608,12 +30601,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -31304,40 +31301,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -32063,12 +32048,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -33169,40 +33158,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -33518,12 +33495,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -34887,12 +34868,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -35597,12 +35582,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -37086,12 +37075,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -38278,12 +38271,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -38345,12 +38342,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -39220,12 +39221,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -40647,40 +40652,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -40957,40 +40950,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -45136,12 +45117,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -46083,40 +46068,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -46965,40 +46938,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -48309,40 +48270,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -49754,12 +49703,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -49785,7 +49738,7 @@
             }
           ],
           "versions": [
-            "1.3040"
+            "1.3043"
           ]
         }
       ],
@@ -49809,7 +49762,7 @@
         }
       ],
       "versions": [
-        "1.3040"
+        "1.3043"
       ],
       "iconColor": "#E2E2E2",
       "iconUrl": ""
@@ -51369,40 +51322,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -51575,40 +51516,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -51623,6 +51552,10 @@
             {
               "name": "Hide ads",
               "description": "Adds an option to hide banner, interstitial, app-open and rewarded ads."
+            },
+            {
+              "name": "Hide share options",
+              "description": "Adds an option to hide the share buttons on the save screen and center the saved photo."
             },
             {
               "name": "Inspect AI requests",
@@ -51648,6 +51581,7 @@
       ],
       "patches": [
         "Hide ads",
+        "Hide share options",
         "Inspect AI requests",
         "Show AI progress",
         "Speed up AI tools",
@@ -51657,6 +51591,10 @@
         {
           "name": "Hide ads",
           "description": "Adds an option to hide banner, interstitial, app-open and rewarded ads."
+        },
+        {
+          "name": "Hide share options",
+          "description": "Adds an option to hide the share buttons on the save screen and center the saved photo."
         },
         {
           "name": "Inspect AI requests",
@@ -53385,12 +53323,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -54495,12 +54437,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -54680,40 +54626,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -54777,8 +54711,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -54786,12 +54720,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -54981,40 +54915,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -55124,40 +55046,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -55935,40 +55845,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -56261,40 +56159,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -56471,40 +56357,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -56619,40 +56493,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -56706,40 +56568,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -56800,8 +56650,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass session expiry",
-        "Bypass Session Expiry"
+        "Bypass Session Expiry",
+        "Bypass session expiry"
       ],
       "patchDetails": [
         {
@@ -56809,12 +56659,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass session expiry",
-          "description": "Stops the security prompt that signs the account out."
-        },
-        {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Stops the security prompt that signs the account out."
         }
       ],
       "versions": [
@@ -57892,40 +57742,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -57999,40 +57837,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -58167,12 +57993,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -58603,40 +58433,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -59815,12 +59633,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/RoundSalmon4/morphe-patches-template/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/RoundSalmon4.png?size=96",
           "latestChanges": {
-            "title": "1.0.5 (2026-09-17)",
-            "date": "2026-09-17",
+            "title": "1.0.6 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "handle modify/delete conflicts and keep CI config in upstream sync"
+              },
+              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "add SeriesGuide v2026.4.2 target"
+                "text": "add SeriesGuide v2026.4.3 target"
               }
             ]
           },
@@ -59843,7 +59665,8 @@
             "2026.3.1",
             "2026.4.0",
             "2026.4.1",
-            "2026.4.2"
+            "2026.4.2",
+            "2026.4.3"
           ]
         }
       ],
@@ -59862,7 +59685,8 @@
         "2026.3.1",
         "2026.4.0",
         "2026.4.1",
-        "2026.4.2"
+        "2026.4.2",
+        "2026.4.3"
       ],
       "iconColor": "#E53935",
       "iconUrl": ""
@@ -60101,40 +59925,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -60840,12 +60652,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -64066,12 +63882,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -64142,12 +63962,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -64278,40 +64102,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -66517,12 +66329,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -68171,12 +67987,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -68238,40 +68058,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -69125,12 +68933,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -70309,12 +70121,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.29.1 (2026-09-21)",
-            "date": "2026-09-21",
+            "title": "1.30.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**intothedead2:** Unlock that one VIP crate that was not locking."
+                "category": "\u2728 New Features",
+                "text": "**crossyroad-refactor:** consolidate free store patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**crossyroad:** implement free store"
               }
             ]
           },
@@ -71128,40 +70944,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -71250,40 +71054,28 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.29.0 (2026-09-23)",
+            "date": "2026-09-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**iJiami:** stop patched MovieBox 4.0.03 dying at launch on the ffdfe477 packer build"
+                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** keep unlocking premium when the app renames its member methods"
+                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
               },
               {
                 "category": "New Features",
-                "text": "**AtloMaps - Unlock premium:** unlock custom map sources, navigation settings and backup restore"
+                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
               },
               {
                 "category": "New Features",
-                "text": "**iJiami:** select payload methods by the strings they load and the methods they call"
-              },
-              {
-                "category": "New Features",
-                "text": "**MovieBox:** support 4.0.03.0918.03"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - AMOLED dark theme:** replace dark theme background with pure black"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide promotional messages:** hide promotional banners, offers and pop-up messages"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide Upgrade buttons and welcome offer after sign-in"
+                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
               }
             ]
           },
@@ -74743,8 +74535,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -74762,8 +74554,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -75233,11 +75025,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -75309,12 +75101,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -77639,6 +77431,49 @@
       ]
     },
     {
+      "repo": "hxreborn/morphe-patches",
+      "host": "github.com",
+      "webUrl": "https://github.com/hxreborn/morphe-patches",
+      "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+      "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+      "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+      "avatarUrl": "https://github.com/hxreborn.png?size=96",
+      "patchCount": 1,
+      "latestChanges": {
+        "title": "1.29.0 (2026-09-23)",
+        "date": "2026-09-23",
+        "items": [
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+          },
+          {
+            "category": "New Features",
+            "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+          },
+          {
+            "category": "New Features",
+            "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+          }
+        ]
+      },
+      "patches": [
+        {
+          "name": "Override certificate pinning",
+          "description": "Overrides certificate pinning, allowing to inspect traffic via a proxy.",
+          "default": false
+        }
+      ]
+    },
+    {
       "repo": "ImmortalZeus/ImmortalZeus-Morphe-Patches",
       "host": "github.com",
       "webUrl": "https://github.com/ImmortalZeus/ImmortalZeus-Morphe-Patches",
@@ -78979,12 +78814,16 @@
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.5 (2026-09-17)",
-        "date": "2026-09-17",
+        "title": "1.0.6 (2026-09-23)",
+        "date": "2026-09-23",
         "items": [
           {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "handle modify/delete conflicts and keep CI config in upstream sync"
+          },
+          {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "add SeriesGuide v2026.4.2 target"
+            "text": "add SeriesGuide v2026.4.3 target"
           }
         ]
       },
