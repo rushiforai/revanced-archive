@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-24 02:52 UTC",
+  "generatedAt": "2026-09-25 03:09 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 724,
-  "patchCount": 2585,
+  "patchCount": 2593,
   "universalPatchCount": 154,
   "hostCounts": {
     "github.com": 122,
@@ -68,12 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.37.4 (2026-09-20)",
-        "date": "2026-09-20",
+        "title": "1.37.5 (2026-09-24)",
+        "date": "2026-09-24",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+            "text": "**pluto:** lift the live ad mask when the last ad ends"
           }
         ]
       },
@@ -625,31 +625,47 @@
       "webUrl": "https://github.com/andrewliang25/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andrewliang25/morphe-patches",
       "avatarUrl": "https://github.com/andrewliang25.png?size=96",
-      "patchCount": 34,
+      "patchCount": 40,
       "appCount": 2,
       "createdAt": 1785034852052,
       "updatedAt": 1785034852052,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "3.1.0 (2026-09-19)",
-        "date": "2026-09-19",
+        "title": "3.2.0 (2026-09-25)",
+        "date": "2026-09-25",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "block the on-demand ad inserts in Reels and Stories"
+            "text": "Facebook: open profiles and settings on re-signed Facebook builds"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "remove the server-inlined ads from the Reels page"
+            "text": "Facebook: block the ads and the sponsored product banner inside a reel (23334d1, 0d930d1)"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Facebook: stop the Reels ad-break lookup instead of retrying it"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Facebook: save a photo story as a picture, and save stories with our own downloader (56d7957, 4f229a1)"
           },
           {
             "category": "\u2728 New Features",
-            "text": "open Facebook links in the external browser"
+            "text": "LINE: hide the Agent i and AI Friends buttons in LINE (0ddc176), closes #133"
           },
           {
             "category": "\u2728 New Features",
-            "text": "unlock Facebook's save option for any story"
+            "text": "LINE: hide the \"CHECK\" tips under LINE chat messages"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Facebook: add an AMOLED black theme for Facebook (799d0ae), closes #108"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "Facebook: add a download button beside every reel"
           }
         ]
       },
@@ -657,14 +673,14 @@
         {
           "name": "Facebook",
           "packageName": "com.facebook.katana",
-          "patchCount": 9,
+          "patchCount": 12,
           "iconUrl": "",
           "iconColor": "#0864FF"
         },
         {
           "name": "LINE",
           "packageName": "jp.naver.line.android",
-          "patchCount": 25,
+          "patchCount": 28,
           "iconUrl": "",
           "iconColor": "#06C755"
         }
@@ -1983,8 +1999,8 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.5.2 (2026-09-13)",
-        "date": "2026-09-13",
+        "title": "1.5.3 (2026-09-24)",
+        "date": "2026-09-24",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
@@ -2460,47 +2476,43 @@
       "webUrl": "https://github.com/dh6k/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=dh6k/morphe-patches",
       "avatarUrl": "https://github.com/dh6k.png?size=96",
-      "patchCount": 8,
+      "patchCount": 10,
       "appCount": 6,
       "createdAt": 1785034852274,
       "updatedAt": 1785034852274,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "1.6.0 (2026-09-20)",
-        "date": "2026-09-20",
+        "title": "1.7.0 (2026-09-24)",
+        "date": "2026-09-24",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+            "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+            "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** make notification toggle actually hide"
+            "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+            "text": "**brave:** route NTP wallpaper through Java ambient catalog"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** revert conditional pins that break smali parsing"
+            "text": "**brave:** use invoke-interface for Runnable callback drain"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**quetta:** force highest refresh rate with local fingerprints"
+            "text": "**brave:** add Brave Startup Performance Optimization"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**titanium:** force highest refresh rate"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**titanium:** notification options for keep-alive patch"
+            "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
           }
         ]
       },
@@ -2508,21 +2520,21 @@
         {
           "name": "Brave Beta",
           "packageName": "com.brave.browser_beta",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
         {
           "name": "Brave Browser",
           "packageName": "com.brave.browser",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
         {
           "name": "Brave Nightly",
           "packageName": "com.brave.browser_nightly",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#FF4500"
         },
@@ -14063,8 +14075,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -14072,12 +14084,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -17229,8 +17241,8 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.2 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.5.3 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
@@ -17252,7 +17264,7 @@
             }
           ],
           "versions": [
-            "2026.8.1"
+            "2026.9.0"
           ]
         }
       ],
@@ -17266,7 +17278,7 @@
         }
       ],
       "versions": [
-        "2026.8.1"
+        "2026.9.0"
       ],
       "iconColor": "#175DDC",
       "iconUrl": ""
@@ -18393,40 +18405,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -18441,18 +18449,36 @@
             {
               "name": "Brave Origin",
               "description": "Unlocks Brave Origin and enables feature toggle controls."
+            },
+            {
+              "name": "Brave Startup Performance Optimization",
+              "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+            },
+            {
+              "name": "Custom NTP wallpaper",
+              "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
             }
           ],
           "versions": []
         }
       ],
       "patches": [
-        "Brave Origin"
+        "Brave Origin",
+        "Brave Startup Performance Optimization",
+        "Custom NTP wallpaper"
       ],
       "patchDetails": [
         {
           "name": "Brave Origin",
           "description": "Unlocks Brave Origin and enables feature toggle controls."
+        },
+        {
+          "name": "Brave Startup Performance Optimization",
+          "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+        },
+        {
+          "name": "Custom NTP wallpaper",
+          "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
         }
       ],
       "versions": [],
@@ -18511,40 +18537,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -18559,18 +18581,36 @@
             {
               "name": "Brave Origin",
               "description": "Unlocks Brave Origin and enables feature toggle controls."
+            },
+            {
+              "name": "Brave Startup Performance Optimization",
+              "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+            },
+            {
+              "name": "Custom NTP wallpaper",
+              "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
             }
           ],
           "versions": []
         }
       ],
       "patches": [
-        "Brave Origin"
+        "Brave Origin",
+        "Brave Startup Performance Optimization",
+        "Custom NTP wallpaper"
       ],
       "patchDetails": [
         {
           "name": "Brave Origin",
           "description": "Unlocks Brave Origin and enables feature toggle controls."
+        },
+        {
+          "name": "Brave Startup Performance Optimization",
+          "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+        },
+        {
+          "name": "Custom NTP wallpaper",
+          "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
         }
       ],
       "versions": [
@@ -18595,40 +18635,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -18643,18 +18679,36 @@
             {
               "name": "Brave Origin",
               "description": "Unlocks Brave Origin and enables feature toggle controls."
+            },
+            {
+              "name": "Brave Startup Performance Optimization",
+              "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+            },
+            {
+              "name": "Custom NTP wallpaper",
+              "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
             }
           ],
           "versions": []
         }
       ],
       "patches": [
-        "Brave Origin"
+        "Brave Origin",
+        "Brave Startup Performance Optimization",
+        "Custom NTP wallpaper"
       ],
       "patchDetails": [
         {
           "name": "Brave Origin",
           "description": "Unlocks Brave Origin and enables feature toggle controls."
+        },
+        {
+          "name": "Brave Startup Performance Optimization",
+          "description": "Optimizes startup time and eliminates background CPU/disk overhead by disabling unused OEM carrier partner customizations. Marks PartnerBrowserCustomizations initialized without SharedPreferences/ContentResolver/ThreadPool/timeout work, drains init callbacks immediately, and forces partner homepage and incognito lockdown gates closed."
+        },
+        {
+          "name": "Custom NTP wallpaper",
+          "description": "Alpha experimental version-unpinned patch (issue #13): forces the Brave new-tab background to a custom PNG chosen at patch time. Rewrites the Java ambient wallpaper catalog (BackgroundImage drawable resource id) and makes wallpaper callbacks use it instead of native branded/URL images. IMPORTANT: crop the image to your current screen resolution first, then select that file in the patch options. Brave's New tab page settings only toggle \"Show background images\". Default off."
         }
       ],
       "versions": [],
@@ -21796,12 +21850,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -21815,7 +21869,7 @@
           "patches": [
             {
               "name": "Bundle native ad-strip hook",
-              "description": "Packages libpvhook.so into the APK's native lib dir for the in-process PRS Remote-item strip (libignite memcpy/memmove GOT/PLT import hook)."
+              "description": "Packages libpvhook.so into the APK's native lib dir for the in-process ad strip (libignite memcpy/memmove GOT/PLT import hook)."
             },
             {
               "name": "Clone Prime Video",
@@ -21827,7 +21881,7 @@
             },
             {
               "name": "Load native ad-strip hook",
-              "description": "Loads libpvhook.so at startup to blank Remote (ad) items from the PRS intraTitlePlaylist in-process (libignite memcpy/memmove GOT/PLT import hook)."
+              "description": "Loads libpvhook.so at startup to strip ads in-process: blanks Remote (ad) items in the PRS intraTitlePlaylist and empties getVideoAds ad responses (libignite memcpy/memmove GOT/PLT import hook)."
             },
             {
               "name": "Override certificate pinning",
@@ -21859,7 +21913,7 @@
       "patchDetails": [
         {
           "name": "Bundle native ad-strip hook",
-          "description": "Packages libpvhook.so into the APK's native lib dir for the in-process PRS Remote-item strip (libignite memcpy/memmove GOT/PLT import hook)."
+          "description": "Packages libpvhook.so into the APK's native lib dir for the in-process ad strip (libignite memcpy/memmove GOT/PLT import hook)."
         },
         {
           "name": "Clone Prime Video",
@@ -21871,7 +21925,7 @@
         },
         {
           "name": "Load native ad-strip hook",
-          "description": "Loads libpvhook.so at startup to blank Remote (ad) items from the PRS intraTitlePlaylist in-process (libignite memcpy/memmove GOT/PLT import hook)."
+          "description": "Loads libpvhook.so at startup to strip ads in-process: blanks Remote (ad) items in the PRS intraTitlePlaylist and empties getVideoAds ad responses (libignite memcpy/memmove GOT/PLT import hook)."
         },
         {
           "name": "Override certificate pinning",
@@ -22283,12 +22337,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -22403,12 +22457,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -22467,12 +22521,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -22770,12 +22824,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -22993,12 +23047,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -23053,8 +23107,8 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.2 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.5.3 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
@@ -23088,7 +23142,7 @@
             }
           ],
           "versions": [
-            "1.276.0"
+            "1.277.0"
           ]
         },
         {
@@ -23236,7 +23290,7 @@
       ],
       "versions": [
         "1.271.1",
-        "1.276.0"
+        "1.277.0"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -24746,12 +24800,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -25487,12 +25541,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -25545,12 +25599,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -26510,12 +26564,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -26650,12 +26704,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -31647,24 +31701,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.1.0 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "3.2.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "block the on-demand ad inserts in Reels and Stories"
+                "text": "Facebook: open profiles and settings on re-signed Facebook builds"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove the server-inlined ads from the Reels page"
+                "text": "Facebook: block the ads and the sponsored product banner inside a reel (23334d1, 0d930d1)"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Facebook: stop the Reels ad-break lookup instead of retrying it"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Facebook: save a photo story as a picture, and save stories with our own downloader (56d7957, 4f229a1)"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "open Facebook links in the external browser"
+                "text": "LINE: hide the Agent i and AI Friends buttons in LINE (0ddc176), closes #133"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "unlock Facebook's save option for any story"
+                "text": "LINE: hide the \"CHECK\" tips under LINE chat messages"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Facebook: add an AMOLED black theme for Facebook (799d0ae), closes #108"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Facebook: add a download button beside every reel"
               }
             ]
           },
@@ -31682,31 +31752,43 @@
             },
             {
               "name": "[Ad] Block background ad prefetch",
-              "description": "Stops Facebook downloading ads, ad images and the on-device ad-ranking model in the background. Saves mobile data, battery and storage whether or not you also hide the ads themselves."
+              "description": "Stops Facebook downloading ads and its ad model in the background, which saves data, battery and storage."
             },
             {
               "name": "[Ad] Disable Audience Network",
-              "description": "Stops the Facebook app acting as the ad server for other apps on your device. This is the one patch that changes how other apps behave rather than how Facebook behaves: apps that show Facebook ads fall back to their own ad sources or show nothing, and an app that makes you watch an ad for a reward may not be able to give you one."
+              "description": "Stops Facebook serving ads to other apps. Those apps then show their own ads or none, and rewarded ads can fail."
             },
             {
               "name": "[Feed] Hide sponsored posts",
-              "description": "Removes sponsored posts from the news feed. The ad is dropped before it reaches the feed list, so it leaves no gap and its impression is never logged. Covers both server-delivered ads and the ones the app ranks and inserts locally."
+              "description": "Removes sponsored posts from the news feed, with no gap left behind."
             },
             {
               "name": "[Feed] Hide suggested and promoted posts",
-              "description": "Removes feed units Facebook injects rather than units your friends and pages posted: \"Pages you may like\" and its variants, the in-feed upsell nags and surveys, and the ad-experiment slots. Paid ads are a separate patch."
+              "description": "Removes posts that Facebook adds to the feed, such as \"Pages you may like\", upsells and surveys."
+            },
+            {
+              "name": "[Fix] Restore screens on re-signed builds",
+              "description": "Makes profiles and some Settings pages open again on a re-signed build. A Root Mount install does not need this patch."
+            },
+            {
+              "name": "[General] AMOLED black theme",
+              "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first."
             },
             {
               "name": "[General] Open links in external browser",
-              "description": "A web link that you tap opens in your default browser, and not in the in-app browser of Facebook. The pages of Facebook still open in the app. Thus login and checkout still work."
+              "description": "Opens web links in your default browser instead of Facebook's in-app browser. Facebook pages still open in the app."
+            },
+            {
+              "name": "[Reels] Download any reel",
+              "description": "Adds a Download button beside every reel. Videos save at the best quality the player streams."
             },
             {
               "name": "[Reels] Hide sponsored reels",
-              "description": "Removes ads from Reels and Watch, so scrolling only shows videos from creators. Ads that play inside a video, such as mid-rolls, are not covered."
+              "description": "Removes ads from Reels and Watch, including product banners over a reel and ads inside a video."
             },
             {
               "name": "[Stories] Download any story",
-              "description": "Adds Facebook's own save option to the menu of any story, and not only to the stories that you posted. It saves the picture or the video that the story shows, with Facebook's own save code."
+              "description": "Adds Save to the menu of any story, including stories with music. Videos save at the best quality the player streams."
             },
             {
               "name": "[Stories] Hide sponsored stories",
@@ -31839,7 +31921,10 @@
         "[Ad] Disable Audience Network",
         "[Feed] Hide sponsored posts",
         "[Feed] Hide suggested and promoted posts",
+        "[Fix] Restore screens on re-signed builds",
+        "[General] AMOLED black theme",
         "[General] Open links in external browser",
+        "[Reels] Download any reel",
         "[Reels] Hide sponsored reels",
         "[Stories] Download any story",
         "[Stories] Hide sponsored stories",
@@ -31854,31 +31939,43 @@
         },
         {
           "name": "[Ad] Block background ad prefetch",
-          "description": "Stops Facebook downloading ads, ad images and the on-device ad-ranking model in the background. Saves mobile data, battery and storage whether or not you also hide the ads themselves."
+          "description": "Stops Facebook downloading ads and its ad model in the background, which saves data, battery and storage."
         },
         {
           "name": "[Ad] Disable Audience Network",
-          "description": "Stops the Facebook app acting as the ad server for other apps on your device. This is the one patch that changes how other apps behave rather than how Facebook behaves: apps that show Facebook ads fall back to their own ad sources or show nothing, and an app that makes you watch an ad for a reward may not be able to give you one."
+          "description": "Stops Facebook serving ads to other apps. Those apps then show their own ads or none, and rewarded ads can fail."
         },
         {
           "name": "[Feed] Hide sponsored posts",
-          "description": "Removes sponsored posts from the news feed. The ad is dropped before it reaches the feed list, so it leaves no gap and its impression is never logged. Covers both server-delivered ads and the ones the app ranks and inserts locally."
+          "description": "Removes sponsored posts from the news feed, with no gap left behind."
         },
         {
           "name": "[Feed] Hide suggested and promoted posts",
-          "description": "Removes feed units Facebook injects rather than units your friends and pages posted: \"Pages you may like\" and its variants, the in-feed upsell nags and surveys, and the ad-experiment slots. Paid ads are a separate patch."
+          "description": "Removes posts that Facebook adds to the feed, such as \"Pages you may like\", upsells and surveys."
+        },
+        {
+          "name": "[Fix] Restore screens on re-signed builds",
+          "description": "Makes profiles and some Settings pages open again on a re-signed build. A Root Mount install does not need this patch."
+        },
+        {
+          "name": "[General] AMOLED black theme",
+          "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first."
         },
         {
           "name": "[General] Open links in external browser",
-          "description": "A web link that you tap opens in your default browser, and not in the in-app browser of Facebook. The pages of Facebook still open in the app. Thus login and checkout still work."
+          "description": "Opens web links in your default browser instead of Facebook's in-app browser. Facebook pages still open in the app."
+        },
+        {
+          "name": "[Reels] Download any reel",
+          "description": "Adds a Download button beside every reel. Videos save at the best quality the player streams."
         },
         {
           "name": "[Reels] Hide sponsored reels",
-          "description": "Removes ads from Reels and Watch, so scrolling only shows videos from creators. Ads that play inside a video, such as mid-rolls, are not covered."
+          "description": "Removes ads from Reels and Watch, including product banners over a reel and ads inside a video."
         },
         {
           "name": "[Stories] Download any story",
-          "description": "Adds Facebook's own save option to the menu of any story, and not only to the stories that you posted. It saves the picture or the video that the story shows, with Facebook's own save code."
+          "description": "Adds Save to the menu of any story, including stories with music. Videos save at the best quality the player streams."
         },
         {
           "name": "[Stories] Hide sponsored stories",
@@ -37446,8 +37543,8 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.2 (2026-09-13)",
-            "date": "2026-09-13",
+            "title": "1.5.3 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
@@ -41676,24 +41773,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.1.0 (2026-09-19)",
-            "date": "2026-09-19",
+            "title": "3.2.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "block the on-demand ad inserts in Reels and Stories"
+                "text": "Facebook: open profiles and settings on re-signed Facebook builds"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "remove the server-inlined ads from the Reels page"
+                "text": "Facebook: block the ads and the sponsored product banner inside a reel (23334d1, 0d930d1)"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Facebook: stop the Reels ad-break lookup instead of retrying it"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Facebook: save a photo story as a picture, and save stories with our own downloader (56d7957, 4f229a1)"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "open Facebook links in the external browser"
+                "text": "LINE: hide the Agent i and AI Friends buttons in LINE (0ddc176), closes #133"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "unlock Facebook's save option for any story"
+                "text": "LINE: hide the \"CHECK\" tips under LINE chat messages"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Facebook: add an AMOLED black theme for Facebook (799d0ae), closes #108"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "Facebook: add a download button beside every reel"
               }
             ]
           },
@@ -41707,19 +41820,23 @@
           "patches": [
             {
               "name": "[Ad] Hide ad views",
-              "description": "Hides the LINE display ad views. These are the LINE Ads SDK containers in the whole app, the chat-list Smart Channel banner, and the Google AdManager ads."
+              "description": "Hides LINE display ads: the LINE Ads banners, the Smart Channel banner in the chat list and Google AdManager ads."
             },
             {
               "name": "[Ad] Remove banner ads",
               "description": "LINE no longer loads the Smart Channel banner ads. This patch makes the getBanners and getPrefetchableBanners responses null."
             },
             {
+              "name": "[Chat] Hide AI Friends button",
+              "description": "Removes the AI Friends button from the Chats tab header. The Album button shows in its place."
+            },
+            {
               "name": "[Chat] Hide attach menu extra tools",
-              "description": "Removes all the server-provided extra tools from the + attach menu in a chat room (Poll, Reservation, Schedule, Ladder shuffle, and more). The built-in tiles (camera, gallery, files, and contact) do not change."
+              "description": "Removes the server-provided tools (Poll, Schedule and more) from the + menu in a chat. Built-in tiles stay."
             },
             {
               "name": "[Chat] Hide calendar buttons",
-              "description": "Removes every LINE Calendar surface inside the messenger. One is in the Chats-tab header. Four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu. The last is the Calendar block in the Friends sub-tab of the Home tab."
+              "description": "Removes every LINE Calendar button: in the Chats tab, the chat toolbar and menus, and the Home tab."
             },
             {
               "name": "[Chat] Hide community button",
@@ -41734,24 +41851,28 @@
               "description": "Removes the LINE GIFT tile from the + attach menu in a chat room."
             },
             {
+              "name": "[Chat] Hide tips under messages",
+              "description": "Hides the \"CHECK\" tips under some messages, such as a received video."
+            },
+            {
               "name": "[Chat] Hide Transfer button",
               "description": "Removes the Transfer (LINE Pay) tile from the + attach menu in a chat room."
             },
             {
               "name": "[Chat] Keep chats unread",
-              "description": "When you open a 1:1 or group chat, LINE does not mark it read and sends no read receipt. If you use \"Mark as read\" or \"Mark all as read\", LINE marks the chat read and sends the receipt."
+              "description": "When you open a chat, LINE does not mark it read or send a read receipt. \"Mark as read\" still works."
             },
             {
               "name": "[Chat] Keep unsent messages",
-              "description": "Keeps unsent messages from 1:1 and group chats on your device instead of erasing them. This patch shows the usual \"unsent a message\" notice directly below the message that it kept. This patch does not apply to OpenChat."
+              "description": "Keeps messages that others unsend in 1:1 and group chats, with a notice below each one. OpenChat is not covered."
             },
             {
               "name": "[Fix] Restore chat backup sign-in via MicroG-RE",
-              "description": "Sends the Google account picker and the Drive token of chat-history backup through MicroG-RE. Backup and restore then work on a re-signed build. It does not change how you sign in to a Google account. A Root Mount install does not need this patch."
+              "description": "Makes Google Drive chat backup and restore work on a re-signed build, through MicroG-RE. Root Mount does not need it."
             },
             {
               "name": "[Fix] Restore location maps via MicroG-RE",
-              "description": "Shows a map again on the location screens of a re-signed build. This covers the location picker, the location messages in a chat, and the location posts. The tiles come from OpenFreeMap and do not look like Google Maps. This patch needs MicroG-RE 7.0.0 or later. A Root Mount install does not need this patch."
+              "description": "Shows maps again on a re-signed build, with OpenFreeMap tiles. It needs MicroG-RE 7.0.0 or later. Root Mount does not need it."
             },
             {
               "name": "[Fix] Restore push notifications",
@@ -41762,32 +41883,36 @@
               "description": "VOOM deep links, shares, and notifications do nothing. If you open the standalone VOOM feed, it closes. Messaging and the other tabs do not change."
             },
             {
+              "name": "[General] Hide Agent i buttons",
+              "description": "Removes the Agent i button from the Home header and from the search bar."
+            },
+            {
               "name": "[General] Hide new item badges",
               "description": "Hides the green dots and N badges that mark new items, on header buttons, tabs, menus, lists and settings rows. Unread message counts do not change."
             },
             {
               "name": "[General] Open links in external browser",
-              "description": "When you tap a web link (http or https), it opens in your default browser instead of LINE's in-app browser. LIFF mini-apps and LINE deep links do not change."
+              "description": "Opens web links in your default browser instead of LINE's in-app browser. LIFF mini-apps and LINE links stay in LINE."
             },
             {
               "name": "[General] Redirect LINE Pay",
-              "description": "Opens LINE Pay flows in the standalone LINE Pay app instead of inside LINE. The device-integrity check that fails on a re-signed build never runs. Messaging does not change."
+              "description": "Opens LINE Pay in the standalone LINE Pay app, so the integrity check that fails on a re-signed build never runs."
             },
             {
               "name": "[Home] Hide Home content feed",
-              "description": "Removes the content feed below the friends list on the Home tab. The feed shows LINE NEWS posts, official account posts, live cards, content units, and ranking units. The friends list, the service icons, and the other Home modules do not change."
+              "description": "Removes the content feed below the friends list on the Home tab: LINE NEWS, official account posts and rankings."
             },
             {
               "name": "[Home] Hide Home modules",
-              "description": "Hides clutter modules on the Home tab: the recommended stickers and content section, the real-time hot-topics (\u5373\u6642\u592f\u8a71\u984c) block, and the ad modules. A separate patch hides the content feed below the friends list."
+              "description": "Hides the recommended content, hot-topics and ad modules on the Home tab."
             },
             {
               "name": "[Premium] Disable LINE Premium",
-              "description": "Hides all LINE Yahoo Premium (LYP) surfaces: the upsells, the badges, the Premium settings page, and the subscribe and manage flows. Premium chat backup changes to the ordinary chat-history backup. This patch unlocks nothing, because the server enforces premium."
+              "description": "Hides all LINE Premium upsells, badges and pages. It unlocks nothing, because the server enforces Premium."
             },
             {
               "name": "[Premium] Hide premium unsend upsells",
-              "description": "Removes the LYP premium-unsend upsells that stay after \"Disable LINE Premium\". These are the \"Unsend discreetly\" button, the post-unsend promo link, and the expired-window unsend upsell. Ordinary unsend still works."
+              "description": "Removes the Premium unsend upsells that \"Disable LINE Premium\" leaves. Ordinary unsend still works."
             },
             {
               "name": "[Tab] Hide LINE TODAY tab",
@@ -41814,11 +41939,13 @@
       "patches": [
         "[Ad] Hide ad views",
         "[Ad] Remove banner ads",
+        "[Chat] Hide AI Friends button",
         "[Chat] Hide attach menu extra tools",
         "[Chat] Hide calendar buttons",
         "[Chat] Hide community button",
         "[Chat] Hide Events button",
         "[Chat] Hide LINE GIFT button",
+        "[Chat] Hide tips under messages",
         "[Chat] Hide Transfer button",
         "[Chat] Keep chats unread",
         "[Chat] Keep unsent messages",
@@ -41826,6 +41953,7 @@
         "[Fix] Restore location maps via MicroG-RE",
         "[Fix] Restore push notifications",
         "[General] Disable VOOM",
+        "[General] Hide Agent i buttons",
         "[General] Hide new item badges",
         "[General] Open links in external browser",
         "[General] Redirect LINE Pay",
@@ -41841,19 +41969,23 @@
       "patchDetails": [
         {
           "name": "[Ad] Hide ad views",
-          "description": "Hides the LINE display ad views. These are the LINE Ads SDK containers in the whole app, the chat-list Smart Channel banner, and the Google AdManager ads."
+          "description": "Hides LINE display ads: the LINE Ads banners, the Smart Channel banner in the chat list and Google AdManager ads."
         },
         {
           "name": "[Ad] Remove banner ads",
           "description": "LINE no longer loads the Smart Channel banner ads. This patch makes the getBanners and getPrefetchableBanners responses null."
         },
         {
+          "name": "[Chat] Hide AI Friends button",
+          "description": "Removes the AI Friends button from the Chats tab header. The Album button shows in its place."
+        },
+        {
           "name": "[Chat] Hide attach menu extra tools",
-          "description": "Removes all the server-provided extra tools from the + attach menu in a chat room (Poll, Reservation, Schedule, Ladder shuffle, and more). The built-in tiles (camera, gallery, files, and contact) do not change."
+          "description": "Removes the server-provided tools (Poll, Schedule and more) from the + menu in a chat. Built-in tiles stay."
         },
         {
           "name": "[Chat] Hide calendar buttons",
-          "description": "Removes every LINE Calendar surface inside the messenger. One is in the Chats-tab header. Four are in a chat room: the top toolbar, the + attach menu, the slide-out chat menu, and the message long-press menu. The last is the Calendar block in the Friends sub-tab of the Home tab."
+          "description": "Removes every LINE Calendar button: in the Chats tab, the chat toolbar and menus, and the Home tab."
         },
         {
           "name": "[Chat] Hide community button",
@@ -41868,24 +42000,28 @@
           "description": "Removes the LINE GIFT tile from the + attach menu in a chat room."
         },
         {
+          "name": "[Chat] Hide tips under messages",
+          "description": "Hides the \"CHECK\" tips under some messages, such as a received video."
+        },
+        {
           "name": "[Chat] Hide Transfer button",
           "description": "Removes the Transfer (LINE Pay) tile from the + attach menu in a chat room."
         },
         {
           "name": "[Chat] Keep chats unread",
-          "description": "When you open a 1:1 or group chat, LINE does not mark it read and sends no read receipt. If you use \"Mark as read\" or \"Mark all as read\", LINE marks the chat read and sends the receipt."
+          "description": "When you open a chat, LINE does not mark it read or send a read receipt. \"Mark as read\" still works."
         },
         {
           "name": "[Chat] Keep unsent messages",
-          "description": "Keeps unsent messages from 1:1 and group chats on your device instead of erasing them. This patch shows the usual \"unsent a message\" notice directly below the message that it kept. This patch does not apply to OpenChat."
+          "description": "Keeps messages that others unsend in 1:1 and group chats, with a notice below each one. OpenChat is not covered."
         },
         {
           "name": "[Fix] Restore chat backup sign-in via MicroG-RE",
-          "description": "Sends the Google account picker and the Drive token of chat-history backup through MicroG-RE. Backup and restore then work on a re-signed build. It does not change how you sign in to a Google account. A Root Mount install does not need this patch."
+          "description": "Makes Google Drive chat backup and restore work on a re-signed build, through MicroG-RE. Root Mount does not need it."
         },
         {
           "name": "[Fix] Restore location maps via MicroG-RE",
-          "description": "Shows a map again on the location screens of a re-signed build. This covers the location picker, the location messages in a chat, and the location posts. The tiles come from OpenFreeMap and do not look like Google Maps. This patch needs MicroG-RE 7.0.0 or later. A Root Mount install does not need this patch."
+          "description": "Shows maps again on a re-signed build, with OpenFreeMap tiles. It needs MicroG-RE 7.0.0 or later. Root Mount does not need it."
         },
         {
           "name": "[Fix] Restore push notifications",
@@ -41896,32 +42032,36 @@
           "description": "VOOM deep links, shares, and notifications do nothing. If you open the standalone VOOM feed, it closes. Messaging and the other tabs do not change."
         },
         {
+          "name": "[General] Hide Agent i buttons",
+          "description": "Removes the Agent i button from the Home header and from the search bar."
+        },
+        {
           "name": "[General] Hide new item badges",
           "description": "Hides the green dots and N badges that mark new items, on header buttons, tabs, menus, lists and settings rows. Unread message counts do not change."
         },
         {
           "name": "[General] Open links in external browser",
-          "description": "When you tap a web link (http or https), it opens in your default browser instead of LINE's in-app browser. LIFF mini-apps and LINE deep links do not change."
+          "description": "Opens web links in your default browser instead of LINE's in-app browser. LIFF mini-apps and LINE links stay in LINE."
         },
         {
           "name": "[General] Redirect LINE Pay",
-          "description": "Opens LINE Pay flows in the standalone LINE Pay app instead of inside LINE. The device-integrity check that fails on a re-signed build never runs. Messaging does not change."
+          "description": "Opens LINE Pay in the standalone LINE Pay app, so the integrity check that fails on a re-signed build never runs."
         },
         {
           "name": "[Home] Hide Home content feed",
-          "description": "Removes the content feed below the friends list on the Home tab. The feed shows LINE NEWS posts, official account posts, live cards, content units, and ranking units. The friends list, the service icons, and the other Home modules do not change."
+          "description": "Removes the content feed below the friends list on the Home tab: LINE NEWS, official account posts and rankings."
         },
         {
           "name": "[Home] Hide Home modules",
-          "description": "Hides clutter modules on the Home tab: the recommended stickers and content section, the real-time hot-topics (\u5373\u6642\u592f\u8a71\u984c) block, and the ad modules. A separate patch hides the content feed below the friends list."
+          "description": "Hides the recommended content, hot-topics and ad modules on the Home tab."
         },
         {
           "name": "[Premium] Disable LINE Premium",
-          "description": "Hides all LINE Yahoo Premium (LYP) surfaces: the upsells, the badges, the Premium settings page, and the subscribe and manage flows. Premium chat backup changes to the ordinary chat-history backup. This patch unlocks nothing, because the server enforces premium."
+          "description": "Hides all LINE Premium upsells, badges and pages. It unlocks nothing, because the server enforces Premium."
         },
         {
           "name": "[Premium] Hide premium unsend upsells",
-          "description": "Removes the LYP premium-unsend upsells that stay after \"Disable LINE Premium\". These are the \"Unsend discreetly\" button, the post-unsend promo link, and the expired-window unsend upsell. Ordinary unsend still works."
+          "description": "Removes the Premium unsend upsells that \"Disable LINE Premium\" leaves. Ordinary unsend still works."
         },
         {
           "name": "[Tab] Hide LINE TODAY tab",
@@ -51139,12 +51279,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -54711,8 +54851,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -54720,12 +54860,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -55919,40 +56059,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -56010,40 +56146,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -64149,18 +64281,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -67116,40 +67248,36 @@
           "changelogUrl": "https://raw.githubusercontent.com/dh6k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/dh6k.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.7.0 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+                "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+                "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** make notification toggle actually hide"
+                "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+                "text": "**brave:** route NTP wallpaper through Java ambient catalog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**titanium:** revert conditional pins that break smali parsing"
+                "text": "**brave:** use invoke-interface for Runnable callback drain"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**quetta:** force highest refresh rate with local fingerprints"
+                "text": "**brave:** add Brave Startup Performance Optimization"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**titanium:** force highest refresh rate"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**titanium:** notification options for keep-alive patch"
+                "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
               }
             ]
           },
@@ -68713,8 +68841,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -68758,11 +68886,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -69236,12 +69364,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -69332,12 +69460,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.4 (2026-09-20)",
-            "date": "2026-09-20",
+            "title": "1.37.5 (2026-09-24)",
+            "date": "2026-09-24",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**primevideo:** blank complete ad items in truncated mid-roll chunks (#120)"
+                "text": "**pluto:** lift the live ad mask when the last ad ends"
               }
             ]
           },
@@ -71104,8 +71232,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -71113,12 +71241,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks premium, removes ads and the free session time limit."
-        },
-        {
           "name": "Unlock Premium",
           "description": ""
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium, removes ads and the free session time limit."
         }
       ],
       "versions": [
@@ -77092,40 +77220,36 @@
       "avatarUrl": "https://github.com/dh6k.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.6.0 (2026-09-20)",
-        "date": "2026-09-20",
+        "title": "1.7.0 (2026-09-24)",
+        "date": "2026-09-24",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**brave:** tolerate Origin restart-callback signature drift on 1.98.x (63d88bc), closes #18 #18"
+            "text": "**brave:** avoid param-register clobber in NTP wallpaper prologue"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**build:** keep patchLocalApk providers lazy for CI configure"
+            "text": "**brave:** fit NTP catalog factory in 3 registers via R.drawable"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** make notification toggle actually hide"
+            "text": "**brave:** resolve NTP wallpaper via extension helper (2-reg invoke)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** replace crashing D() tail hook with nearest-mode head const"
+            "text": "**brave:** route NTP wallpaper through Java ambient catalog"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**titanium:** revert conditional pins that break smali parsing"
+            "text": "**brave:** use invoke-interface for Runnable callback drain"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**quetta:** force highest refresh rate with local fingerprints"
+            "text": "**brave:** add Brave Startup Performance Optimization"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**titanium:** force highest refresh rate"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**titanium:** notification options for keep-alive patch"
+            "text": "**brave:** custom NTP wallpaper patch (alpha, default off)"
           }
         ]
       },
