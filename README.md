@@ -2,7 +2,7 @@
 
 An auto-generated, continuously updated index of every GitHub repository that publishes a [Revanced](https://revanced.app) (`.rvp`) patch bundle.
 
-![Repos tracked](https://img.shields.io/badge/repos%20tracked-92-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-09-25%2003:09%20UTC-555)
+![Repos tracked](https://img.shields.io/badge/repos%20tracked-93-6366f1)![Last updated](https://img.shields.io/badge/last%20updated-2026-09-26%2003:27%20UTC-555)
 
 ---
 
@@ -18,7 +18,7 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 
 ---
 
-## 📋 Tracked Repositories (92)
+## 📋 Tracked Repositories (93)
 
 | # | Repository | Link |
 |---|------------|------|
@@ -100,20 +100,21 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 | 76 | `rufusin/revanced-patches` | [🔗 Open](https://github.com/rufusin/revanced-patches) |
 | 77 | `rushiranpise/apk-download-helper` | [🔗 Open](https://github.com/rushiranpise/apk-download-helper) |
 | 78 | `selfmusing/RVX-Lite-Modules` | [🔗 Open](https://github.com/selfmusing/RVX-Lite-Modules) |
-| 79 | `simnple/revanced-patches` | [🔗 Open](https://github.com/simnple/revanced-patches) |
-| 80 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
-| 81 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
-| 82 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
-| 83 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
-| 84 | `ThetaBird/revanced-telemetry` | [🔗 Open](https://github.com/ThetaBird/revanced-telemetry) |
-| 85 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
-| 86 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
-| 87 | `vasyl91/Expose-like-status-in-MediaSession` | [🔗 Open](https://github.com/vasyl91/Expose-like-status-in-MediaSession) |
-| 88 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
-| 89 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
-| 90 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
-| 91 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
-| 92 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
+| 79 | `SergeyBelentev/voice-over-translation-revanced` | [🔗 Open](https://github.com/SergeyBelentev/voice-over-translation-revanced) |
+| 80 | `simnple/revanced-patches` | [🔗 Open](https://github.com/simnple/revanced-patches) |
+| 81 | `Slenderman00/revanced-patches-grindr` | [🔗 Open](https://github.com/Slenderman00/revanced-patches-grindr) |
+| 82 | `Svznify/MorpheX` | [🔗 Open](https://github.com/Svznify/MorpheX) |
+| 83 | `Taknok/revanced-patches` | [🔗 Open](https://github.com/Taknok/revanced-patches) |
+| 84 | `The412Banner/bannerhub-revanced` | [🔗 Open](https://github.com/The412Banner/bannerhub-revanced) |
+| 85 | `ThetaBird/revanced-telemetry` | [🔗 Open](https://github.com/ThetaBird/revanced-telemetry) |
+| 86 | `Tosox/revanced-patches` | [🔗 Open](https://github.com/Tosox/revanced-patches) |
+| 87 | `valonsodev/jadx-revanced` | [🔗 Open](https://github.com/valonsodev/jadx-revanced) |
+| 88 | `vasyl91/Expose-like-status-in-MediaSession` | [🔗 Open](https://github.com/vasyl91/Expose-like-status-in-MediaSession) |
+| 89 | `Vernoxvernax/revanced-patches` | [🔗 Open](https://github.com/Vernoxvernax/revanced-patches) |
+| 90 | `vinceTheProgrammer/sticknodes-patches` | [🔗 Open](https://github.com/vinceTheProgrammer/sticknodes-patches) |
+| 91 | `VinkyV/AppleMusicPatches` | [🔗 Open](https://github.com/VinkyV/AppleMusicPatches) |
+| 92 | `XDream8/revanced-creator` | [🔗 Open](https://github.com/XDream8/revanced-creator) |
+| 93 | `YT-Advanced/ReX-patches` | [🔗 Open](https://github.com/YT-Advanced/ReX-patches) |
 
 ---
 
@@ -122,4 +123,4 @@ Repos are never silently removed when a source goes quiet — add an entry to [`
 This README is regenerated automatically by GitHub Actions whenever `repos.txt` changes.
 To add a repo manually, append it to `custom_repos.txt`. To remove one permanently, add it to `ignore_repos.txt`.
 
-*Last generated: 2026-09-25 03:09 UTC*
+*Last generated: 2026-09-26 03:27 UTC*

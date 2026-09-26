@@ -30,6 +30,7 @@ NexAlloy/NexAlloy
 Paresh-Maheshwari/morphe-ai
 PawiX25/pepper-revanced-patches
 ReVanced/revanced-patches
+SergeyBelentev/voice-over-translation-revanced
 Slenderman00/revanced-patches-grindr
 Svznify/MorpheX
 Taknok/revanced-patches

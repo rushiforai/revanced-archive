@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-25 03:09 UTC",
+  "generatedAt": "2026-09-26 03:27 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 724,
-  "patchCount": 2593,
+  "appCount": 729,
+  "patchCount": 2607,
   "universalPatchCount": 154,
   "hostCounts": {
     "github.com": 122,
@@ -68,12 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.37.5 (2026-09-24)",
-        "date": "2026-09-24",
+        "title": "1.37.7 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** lift the live ad mask when the last ad ends"
+            "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
           }
         ]
       },
@@ -1671,23 +1671,23 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 71,
-      "appCount": 31,
+      "patchCount": 75,
+      "appCount": 32,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.30.0 (2026-09-23)",
-        "date": "2026-09-23",
+        "title": "1.31.0 (2026-09-25)",
+        "date": "2026-09-25",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**crossyroad-refactor:** consolidate free store patches"
+            "text": "**subwaysurfers:** add ad removal and free iap patches"
           },
           {
-            "category": "\u2728 New Features",
-            "text": "**crossyroad:** implement free store"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
           }
         ]
       },
@@ -1866,6 +1866,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#1E88E5"
+        },
+        {
+          "name": "Subway Surfers",
+          "packageName": "com.kiloo.subwaysurf",
+          "patchCount": 4,
+          "iconUrl": "",
+          "iconColor": "#FFC107"
         },
         {
           "name": "Swift Backup",
@@ -4676,35 +4683,47 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 65,
-      "appCount": 34,
+      "patchCount": 75,
+      "appCount": 38,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.29.0 (2026-09-23)",
-        "date": "2026-09-23",
+        "title": "1.30.0 (2026-09-25)",
+        "date": "2026-09-25",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+            "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+            "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+            "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
           },
           {
-            "category": "New Features",
-            "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+            "category": "Bug Fixes",
+            "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
           },
           {
-            "category": "New Features",
-            "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+            "category": "Bug Fixes",
+            "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
           }
         ]
       },
@@ -4773,6 +4792,13 @@
           "iconColor": "#1AACAC"
         },
         {
+          "name": "Echogram",
+          "packageName": "com.liori.echogram",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#191E31"
+        },
+        {
           "name": "Etsy",
           "packageName": "com.etsy.android",
           "patchCount": 1,
@@ -4785,6 +4811,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#0772BA"
+        },
+        {
+          "name": "Hindu Calendar",
+          "packageName": "com.alokmandavgane.hinducalendar",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#F89532"
         },
         {
           "name": "Kick",
@@ -4927,11 +4960,25 @@
           "iconColor": "#E22728"
         },
         {
+          "name": "TeraBox",
+          "packageName": "com.dubox.drive",
+          "patchCount": 5,
+          "iconUrl": "",
+          "iconColor": "#226DF6"
+        },
+        {
           "name": "Trainline",
           "packageName": "com.thetrainline",
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#00A88F"
+        },
+        {
+          "name": "VLLO",
+          "packageName": "com.darinsoft.vimo",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#F02050"
         },
         {
           "name": "VPN Super Unlimited Proxy",
@@ -10646,28 +10693,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -11148,16 +11207,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -12003,16 +12062,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -12279,28 +12338,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -12480,28 +12551,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -12554,16 +12637,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -12616,16 +12699,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -14075,8 +14158,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -14084,12 +14167,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -14285,28 +14368,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -14512,28 +14607,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -14586,28 +14693,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -17019,28 +17138,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -17094,16 +17225,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -18909,16 +19040,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -21850,12 +21981,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -22337,12 +22468,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -22457,12 +22588,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -22521,12 +22652,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -22824,12 +22955,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -23047,12 +23178,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -24800,12 +24931,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -25541,12 +25672,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -25599,12 +25730,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -26564,12 +26695,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -26704,12 +26835,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -28429,16 +28560,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -28873,28 +29004,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -29085,16 +29228,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -30030,16 +30173,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -30357,16 +30500,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -30557,28 +30700,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -30655,16 +30810,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -30811,6 +30966,92 @@
         "5.70.0"
       ],
       "iconColor": "#1E88E5",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.liori.echogram",
+      "name": "Echogram",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-liori-echogram-hxreborn-morphe-patches",
+            "releaseTag": "app-com-liori-echogram-hxreborn-morphe-patches",
+            "assetName": "echogram-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks all premium features."
+            }
+          ],
+          "versions": [
+            "1.0.7.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
+        }
+      ],
+      "versions": [
+        "1.0.7.0"
+      ],
+      "iconColor": "#191E31",
       "iconUrl": ""
     },
     {
@@ -31355,28 +31596,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -32145,16 +32398,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -33255,28 +33508,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -33592,16 +33857,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -34965,16 +35230,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -35679,16 +35944,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -35743,6 +36008,101 @@
         "1.71.1"
       ],
       "iconColor": "#2E7D32",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.alokmandavgane.hinducalendar",
+      "name": "Hindu Calendar",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-alokmandavgane-hinducalendar-hxreborn-morphe-patches",
+            "releaseTag": "app-com-alokmandavgane-hinducalendar-hxreborn-morphe-patches",
+            "assetName": "hindu-calendar-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable tracking",
+              "description": "Stops Firebase Analytics from collecting usage data."
+            },
+            {
+              "name": "Hide ads",
+              "description": "Removes banner and interstitial ads and the Remove Ads menu item."
+            }
+          ],
+          "versions": [
+            "9.3.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable tracking",
+        "Hide ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable tracking",
+          "description": "Stops Firebase Analytics from collecting usage data."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Removes banner and interstitial ads and the Remove Ads menu item."
+        }
+      ],
+      "versions": [
+        "9.3.0"
+      ],
+      "iconColor": "#F89532",
       "iconUrl": ""
     },
     {
@@ -37172,16 +37532,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -38368,16 +38728,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -38439,16 +38799,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -38478,7 +38838,7 @@
             }
           ],
           "versions": [
-            "1.87.0"
+            "1.87.1"
           ]
         }
       ],
@@ -38507,7 +38867,7 @@
         }
       ],
       "versions": [
-        "1.87.0"
+        "1.87.1"
       ],
       "iconColor": "#8B0000",
       "iconUrl": ""
@@ -39318,16 +39678,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -40749,28 +41109,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -41047,28 +41419,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -45257,16 +45641,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -46208,28 +46592,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -47078,28 +47474,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -48410,28 +48818,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -49843,16 +50263,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -51279,12 +51699,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -51462,28 +51882,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -51656,28 +52088,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -53463,16 +53907,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -54577,16 +55021,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -54766,28 +55210,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -54851,8 +55307,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -54860,12 +55316,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks Projectivy Launcher Premium"
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks Projectivy Launcher Premium"
         }
       ],
       "versions": [
@@ -55055,28 +55511,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -55186,28 +55654,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -55985,28 +56465,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -56291,28 +56783,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -56489,28 +56993,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -56625,28 +57141,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -56700,28 +57228,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -56782,8 +57322,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass Session Expiry",
-        "Bypass session expiry"
+        "Bypass session expiry",
+        "Bypass Session Expiry"
       ],
       "patchDetails": [
         {
@@ -56791,12 +57331,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass Session Expiry",
-          "description": "Kills session expiry dialogs"
-        },
-        {
           "name": "Bypass session expiry",
           "description": "Stops the security prompt that signs the account out."
+        },
+        {
+          "name": "Bypass Session Expiry",
+          "description": "Kills session expiry dialogs"
         }
       ],
       "versions": [
@@ -57874,28 +58414,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -57969,28 +58521,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -58125,16 +58689,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -58565,28 +59129,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -60057,28 +60633,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -60784,16 +61372,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -63504,6 +64092,95 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.kiloo.subwaysurf",
+      "name": "Subway Surfers",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-kiloo-subwaysurf-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-kiloo-subwaysurf-byehi98-okish-morphe-patches",
+            "assetName": "subway-surfers-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Ad Removal & Free Rewards",
+              "description": "Removes all ads. \"Watch a video\" rewards (coins, revives, bonuses) are granted instantly, without watching anything."
+            },
+            {
+              "name": "IAP Grant Engine",
+              "description": "Approves every in-app purchase for free \u2014 items are added to your account instantly."
+            },
+            {
+              "name": "IAP Grant Trigger",
+              "description": "Starts the free-purchase helper every time you open the game."
+            },
+            {
+              "name": "No Payment Popup",
+              "description": "Buy coins or items in the shop instantly \u2014 no Google Play popup, no payment, rewards arrive right away."
+            }
+          ],
+          "versions": [
+            "3.69.1"
+          ]
+        }
+      ],
+      "patches": [
+        "Ad Removal & Free Rewards",
+        "IAP Grant Engine",
+        "IAP Grant Trigger",
+        "No Payment Popup"
+      ],
+      "patchDetails": [
+        {
+          "name": "Ad Removal & Free Rewards",
+          "description": "Removes all ads. \"Watch a video\" rewards (coins, revives, bonuses) are granted instantly, without watching anything."
+        },
+        {
+          "name": "IAP Grant Engine",
+          "description": "Approves every in-app purchase for free \u2014 items are added to your account instantly."
+        },
+        {
+          "name": "IAP Grant Trigger",
+          "description": "Starts the free-purchase helper every time you open the game."
+        },
+        {
+          "name": "No Payment Popup",
+          "description": "Buy coins or items in the shop instantly \u2014 no Google Play popup, no payment, rewards arrive right away."
+        }
+      ],
+      "versions": [
+        "3.69.1"
+      ],
+      "iconColor": "#FFC107",
+      "iconUrl": ""
+    },
+    {
       "packageName": "ee.dustland.android.dustlandsudoku",
       "name": "Sudoku The Clean One",
       "repos": [
@@ -64014,16 +64691,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -64094,16 +64771,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -64234,28 +64911,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -64281,18 +64970,18 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -66461,16 +67150,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -66505,6 +67194,128 @@
         "2.1.27"
       ],
       "iconColor": "#00838F",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.dubox.drive",
+      "name": "TeraBox",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-dubox-drive-hxreborn-morphe-patches",
+            "releaseTag": "app-com-dubox-drive-hxreborn-morphe-patches",
+            "assetName": "terabox-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Fix Google login",
+              "description": "Restores signing in with a Google account."
+            },
+            {
+              "name": "Hide ads",
+              "description": "Removes feed, banner, interstitial, app-open, video player and rewarded ads. Features unlocked by watching an ad are unavailable."
+            },
+            {
+              "name": "Hide consent form",
+              "description": "Hides the ad consent form shown at startup."
+            },
+            {
+              "name": "Hide promotions",
+              "description": "Hides Premium upgrade cards and banners, prize cards, and sale, coupon and promotional popups."
+            },
+            {
+              "name": "Hide video recommendations",
+              "description": "Hides the recommended videos below the video player."
+            }
+          ],
+          "versions": [
+            "4.26.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Fix Google login",
+        "Hide ads",
+        "Hide consent form",
+        "Hide promotions",
+        "Hide video recommendations"
+      ],
+      "patchDetails": [
+        {
+          "name": "Fix Google login",
+          "description": "Restores signing in with a Google account."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Removes feed, banner, interstitial, app-open, video player and rewarded ads. Features unlocked by watching an ad are unavailable."
+        },
+        {
+          "name": "Hide consent form",
+          "description": "Hides the ad consent form shown at startup."
+        },
+        {
+          "name": "Hide promotions",
+          "description": "Hides Premium upgrade cards and banners, prize cards, and sale, coupon and promotional popups."
+        },
+        {
+          "name": "Hide video recommendations",
+          "description": "Hides the recommended videos below the video player."
+        }
+      ],
+      "versions": [
+        "4.26.0"
+      ],
+      "iconColor": "#226DF6",
       "iconUrl": ""
     },
     {
@@ -68115,16 +68926,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -68186,28 +68997,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -68841,8 +69664,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -68886,11 +69709,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -69061,16 +69884,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -69364,12 +70187,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -69460,12 +70283,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.37.5 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.37.7 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** lift the live ad mask when the last ad ends"
+                "text": "**netflix:** suppress household prompt on both profile-select and playback routes (45609ef), closes #168"
               }
             ]
           },
@@ -70249,16 +71072,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.31.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**crossyroad-refactor:** consolidate free store patches"
+                "text": "**subwaysurfers:** add ad removal and free iap patches"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**crossyroad:** implement free store"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
               }
             ]
           },
@@ -70722,6 +71545,101 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.darinsoft.vimo",
+      "name": "VLLO",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-darinsoft-vimo-hxreborn-morphe-patches",
+            "releaseTag": "app-com-darinsoft-vimo-hxreborn-morphe-patches",
+            "assetName": "vllo-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Disable tracking",
+              "description": "Stops AppsFlyer, Firebase Analytics, and Facebook from collecting usage data."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks premium editing features, removes ads and the export watermark, and skips the ad before importing audio. Hides the store button. The AI tools are not included."
+            }
+          ],
+          "versions": [
+            "13.7.4"
+          ]
+        }
+      ],
+      "patches": [
+        "Disable tracking",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Disable tracking",
+          "description": "Stops AppsFlyer, Firebase Analytics, and Facebook from collecting usage data."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium editing features, removes ads and the export watermark, and skips the ad before importing audio. Hides the store button. The AI tools are not included."
+        }
+      ],
+      "versions": [
+        "13.7.4"
+      ],
+      "iconColor": "#F02050",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.frontrow.vlog",
       "name": "VN",
       "repos": [
@@ -71072,28 +71990,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -71182,28 +72112,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.29.0 (2026-09-23)",
-            "date": "2026-09-23",
+            "title": "1.30.0 (2026-09-25)",
+            "date": "2026-09-25",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
               },
               {
-                "category": "New Features",
-                "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
               },
               {
-                "category": "New Features",
-                "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+                "category": "Bug Fixes",
+                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
               }
             ]
           },
@@ -71232,8 +72174,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -71241,12 +72183,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock Premium",
-          "description": ""
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks premium, removes ads and the free session time limit."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": ""
         }
       ],
       "versions": [
@@ -77564,28 +78506,40 @@
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.29.0 (2026-09-23)",
-        "date": "2026-09-23",
+        "title": "1.30.0 (2026-09-25)",
+        "date": "2026-09-25",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** apply the black theme to the earbuds screens too"
+            "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** cover the earbuds screens the theme missed"
+            "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** keep pinned night colours on page backgrounds"
+            "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
           },
           {
-            "category": "New Features",
-            "text": "**Override certificate pinning:** allow inspecting app traffic via proxy"
+            "category": "Bug Fixes",
+            "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
           },
           {
-            "category": "New Features",
-            "text": "**Photo Editor Pro - Hide share options:** hide share buttons and center saved photo"
+            "category": "Bug Fixes",
+            "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
           }
         ]
       },
