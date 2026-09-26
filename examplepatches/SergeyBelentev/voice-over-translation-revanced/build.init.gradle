@@ -1,0 +1,77 @@
+// Uses the pinned upstream Gradle toolchain, but compiles/packages ONLY this add-on.
+gradle.projectsEvaluated {
+    def p = gradle.rootProject.project(':patches')
+    def root = new File(System.getProperty('vot.source', '/standalone'))
+    p.layout.buildDirectory.set(new File(root, 'build/patches'))
+    p.extensions.getByName('kotlin').sourceSets.getByName('main').kotlin.setSrcDirs([new File(root, 'patches')])
+    p.extensions.getByName('kotlin').sourceSets.getByName('test').kotlin.setSrcDirs([new File(root, 'tests')])
+    p.sourceSets.main.java.setSrcDirs([])
+    p.sourceSets.main.resources.setSrcDirs([new File(root, 'build/resources')])
+    p.sourceSets.test.java.setSrcDirs([])
+    p.sourceSets.test.resources.setSrcDirs([])
+
+    def runProcess = { List<String> command ->
+        def process = new ProcessBuilder(command).redirectErrorStream(true).start()
+        process.inputStream.eachLine { println it }
+        if (process.waitFor() != 0) throw new GradleException('Build command failed: ' + command[0])
+    }
+    def nativeTask = p.tasks.register('buildVotNative') {
+        inputs.dir(new File(root, 'extension'))
+        inputs.dir(new File(root, 'stubs'))
+        outputs.file(new File(root, 'build/resources/standalone-vot/translation.rve'))
+        doLast {
+            def classes = new File(root, 'build/native/classes'); classes.mkdirs()
+            def androidJar = new File(System.getenv('ANDROID_HOME'), 'platforms/android-34/android.jar')
+            def sources = p.fileTree(new File(root, 'extension')).matching { include '**/*.java' }.files + p.fileTree(new File(root, 'stubs')).matching { include '**/*.java' }.files
+            runProcess([System.getProperty('java.home') + '/bin/javac', '-encoding', 'UTF-8', '-source', '11', '-target', '11', '-classpath', androidJar.path, '-d', classes.path] + sources.collect { it.path })
+            def nativeJar = new File(root, 'build/native/vot.jar')
+            p.ant.jar(destfile: nativeJar) { fileset(dir: classes) { include(name: 'app/revanced/extension/youtube/vot/**') } }
+            def r8 = new File(System.getenv('ANDROID_HOME'), 'build-tools/36.0.0/lib/d8.jar')
+            def dexDir = new File(root, 'build/native/dex'); dexDir.mkdirs()
+            runProcess([System.getProperty('java.home') + '/bin/java', '-cp', r8.path, 'com.android.tools.r8.D8', '--release', '--min-api', '28', '--lib', androidJar.path, '--output', dexDir.path, nativeJar.path])
+            def output = new File(root, 'build/resources/standalone-vot/translation.rve')
+            output.parentFile.mkdirs(); output.bytes = new File(dexDir, 'classes.dex').bytes
+        }
+    }
+    p.tasks.named('processResources') {
+        setDependsOn([nativeTask])
+    }
+    p.tasks.named('jar') {
+        archiveBaseName.set('vot-standalone')
+        archiveVersion.set('0.3.1')
+        manifest.attributes('Name': 'VOT standalone', 'Description': 'Only VOT; requires official ReVanced 6.2.1', 'Version': '0.3.1', 'Author': 'Independent VOT integration', 'Source': 'Local source distribution', 'Contact': '', 'Website': '', 'License': 'GPL-3.0; VOT protocol MIT')
+    }
+    p.tasks.register('verifyStandalone') {
+        dependsOn(p.tasks.named('buildAndroid'))
+        doLast {
+            def bundle = p.tasks.named('jar').get().archiveFile.get().asFile
+            def loader = new URLClassLoader(([bundle] + p.configurations.runtimeClasspath.files.toList()).collect { it.toURI().toURL() } as URL[], ClassLoader.getPlatformClassLoader())
+            def zip = new java.util.zip.ZipFile(bundle)
+            try {
+                def exports = []
+                zip.entries().each { entry ->
+                    if (entry.name.endsWith('.class')) {
+                        def clazz = loader.loadClass(entry.name.replace('/', '.').replaceAll(/\.class$/, ''))
+                        clazz.methods.findAll { java.lang.reflect.Modifier.isStatic(it.modifiers) && it.parameterCount == 0 && it.returnType.name == 'app.revanced.patcher.patch.Patch' }.each {
+                            def patch = it.invoke(null)
+                            if (patch.name != null) exports.add(patch.name)
+                        }
+                    }
+                }
+                assert exports == ['Add VOT (voice-over translation)']: exports
+                assert zip.getEntry('classes.dex') != null
+                assert zip.getEntry('standalone-vot/translation.rve') != null
+                assert zip.getEntry('extensions/youtube.rve') == null
+                assert zip.getEntry('extensions/shared.rve') == null
+                println 'PASS: exactly one patch export (VOT); Android DEX present; no stock extensions bundled.'
+            } finally { zip.close(); loader.close() }
+        }
+    }
+    p.tasks.register('exerciseVot', JavaExec) {
+        dependsOn(p.tasks.named('testClasses'), p.tasks.named('buildAndroid'))
+        classpath = p.sourceSets.test.output + p.configurations.testRuntimeClasspath
+        mainClass.set('vot.standalone.tests.ExerciseKt')
+        args(p.tasks.named('jar').get().archiveFile.get().asFile.path, System.getProperty('vot.apk', '/input.apk'), new File(root, 'build/exercise').path)
+        maxHeapSize = '5g'
+    }
+}

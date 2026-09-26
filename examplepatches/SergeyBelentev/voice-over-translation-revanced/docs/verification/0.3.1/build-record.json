@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-25",
+  "build": "Docker; successful full clean-APK integration test",
+  "toolchain_checkout": "015fe10a23ea5b919a3fda6e7da2c176517ae75d",
+  "manager_selection_reference": "ReVanced Manager v2.6.0, aed92b22d3efa91bf46ec6b9d7a8d470b22abeee",
+  "official_bundle_version": "6.2.1",
+  "official_bundle_url": "https://api.revanced.app/v5/patches.rvp",
+  "official_bundle_sha256": "50f41e4656b7374a1c8fe5579fd107f697f86d7f13fc6cd194cf3821761dc4b4",
+  "clean_youtube_20_40_45_sha256": "b7659da492a1ebd8bd7cea2909be4ee1f58e00a2586d65a1c91b2e1e5ec6acd1",
+  "standalone_rvp_sha256": "b9287345591505f8d67b7952b2f9cebc82bc86f1af8bcd512e3355d9b65235b4",
+  "version": "0.3.1",
+  "patches_selected": 62,
+  "official_default_patches": 61,
+  "standalone_exports": [
+    "Add VOT (voice-over translation)"
+  ],
+  "vot_class_definitions": 44,
+  "vot_method_references_all_resolved": 149,
+  "vot_button_count": 1,
+  "unsigned_diagnostic_apk_sha256": "09b34bfc8a4adb4170247b08f07f4027e293351baffb5b4a00f23f36dccec032",
+  "device_tested": false,
+  "real_yandex_account_tested": false,
+  "keyboard_fix_tested_on_device": false,
+  "previous_dialog_alt_focusable_im_confirmed_via_adb": true,
+  "local_checks": {
+    "protocol_clock": 3625,
+    "protobuf_fuzz": 2000,
+    "oauth_lively": 40,
+    "audio_gate": 17
+  }
+}

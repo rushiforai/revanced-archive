@@ -1,0 +1,4 @@
+PASS: clean YouTube 20.40.45 + official ReVanced 6.2.1 defaults + standalone VOT.
+44 VOT class definitions; 149 VOT method references all resolve.
+Exactly one VOT control; voice settings hook verified; unsigned diagnostic APK assembled with verified DEX and icon.
+Device playback and live Yandex account login not tested for 0.3.1.

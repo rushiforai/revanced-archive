@@ -1,5 +1,5 @@
 {
-    "version": "v1.18.0-dev.12",
+    "version": "v1.20.0-dev.1",
     "patches": [
         {
             "compatiblePackages": [
@@ -109,6 +109,88 @@
             "description": "Legacy overlay-permission fallback retained for older Steam Link builds. Adds SYSTEM_ALERT_WINDOW and the compositor signal window.",
             "name": "Appear on top (legacy)",
             "options": []
+        },
+        {
+            "compatiblePackages": [
+                {
+                    "name": "Steam Link Experimental",
+                    "packageName": "com.valvesoftware.steamlinkvr",
+                    "targets": [
+                        {
+                            "description": "Exact native blue-noise adaptation 2.0.20/5001712; static validation only.",
+                            "isExperimental": false,
+                            "version": "2.0.20",
+                            "versionCodes": {
+                                "ARM64_V8A": 5001712,
+                                "ARMEABI_V7A": 5001712,
+                                "X86": 5001712,
+                                "X86_64": 5001712
+                            }
+                        }
+                    ],
+                    "versions": [
+                        "2.0.20"
+                    ]
+                },
+                {
+                    "name": "Steam Link Experimental",
+                    "packageName": "com.valvesoftware.steamlinkvr",
+                    "targets": [
+                        {
+                            "description": "Exact native blue-noise adaptation 2.0.22/5002244; static validation only.",
+                            "isExperimental": false,
+                            "version": "2.0.22",
+                            "versionCodes": {
+                                "ARM64_V8A": 5002244,
+                                "ARMEABI_V7A": 5002244,
+                                "X86": 5002244,
+                                "X86_64": 5002244
+                            }
+                        }
+                    ],
+                    "versions": [
+                        "2.0.22"
+                    ]
+                },
+                {
+                    "name": "Steam Link Experimental",
+                    "packageName": "com.valvesoftware.steamlinkvr",
+                    "targets": [
+                        {
+                            "description": "Exact native blue-noise adaptation 2.0.23/5002363; static validation only.",
+                            "isExperimental": false,
+                            "version": "2.0.23",
+                            "versionCodes": {
+                                "ARM64_V8A": 5002363,
+                                "ARMEABI_V7A": 5002363,
+                                "X86": 5002363,
+                                "X86_64": 5002363
+                            }
+                        }
+                    ],
+                    "versions": [
+                        "2.0.23"
+                    ]
+                }
+            ],
+            "default": false,
+            "dependencies": [],
+            "description": "Static blue-noise quantization after video colour processing and fade, only on the background/base layer. Accepts 8-bit or 10-bit input and always uses 8-bit sRGB output. Select independently or together with the other layer's blue-noise patch. Separate from OLED/VD-like processing; headset validation pending. Unknown host shaders pass through unchanged.",
+            "name": "Background blue-noise dithering (experimental)",
+            "options": [
+                {
+                    "default": "10-bit",
+                    "description": "Both choices apply the same final 8-bit output quantizer. This describes your stream; it does not change host negotiation or decoder precision. When combining with OLED calibration, leave both of its existing VD-like fovea toggles off.",
+                    "key": "inputDepth",
+                    "required": true,
+                    "title": "Declared input depth",
+                    "type": "kotlin.String",
+                    "values": {
+                        "10-bit input": "10-bit",
+                        "8-bit input": "8-bit"
+                    }
+                }
+            ]
         },
         {
             "compatiblePackages": [
@@ -600,7 +682,7 @@
             ],
             "default": false,
             "dependencies": [],
-            "description": "Static blue-noise quantization after video colour processing and fade, only on the foveal layer. Accepts 8-bit or 10-bit input and always uses 8-bit sRGB output. Separate from OLED/VD-like processing; headset validation pending. Unknown host shaders pass through unchanged.",
+            "description": "Static blue-noise quantization after video colour processing and fade, only on the foveal layer. Accepts 8-bit or 10-bit input and always uses 8-bit sRGB output. Select independently or together with the other layer's blue-noise patch. Separate from OLED/VD-like processing; headset validation pending. Unknown host shaders pass through unchanged.",
             "name": "Foveal blue-noise dithering (experimental)",
             "options": [
                 {
@@ -1080,7 +1162,7 @@
             ],
             "default": false,
             "dependencies": [],
-            "description": "OLED calibration with optional VD-informed SDR foveal processing for 8-bit or 10-bit input, always with 8-bit sRGB output. The VD options remove added gamma/saturation and arithmetic noise from the foveal shader while retaining Valve's decoder colour correction. Exact builds 5001712, 5002244, and 5002363; decoder precision and banding improvement require runtime verification.",
+            "description": "OLED calibration with optional VD-informed SDR foveal processing and a separate foveal gamma adjustment, always with 8-bit sRGB output. The VD options bypass the calibration profile on the fovea while retaining Valve's decoder colour correction. Foveal gamma can darken that layer in any mode. Exact builds 5001712, 5002244, and 5002363; visible improvement requires headset verification.",
             "name": "OLED color calibration",
             "options": [
                 {
@@ -1117,7 +1199,7 @@
                 },
                 {
                     "default": false,
-                    "description": "VD-informed SDR processing for declared 10-bit input: use highp sampling, retain Valve's decoder colour correction, bypass added gamma/saturation on the foveal layer, and add no shader noise. Output is 8-bit sRGB. Does not negotiate host depth or reproduce VD's raw-YUV decoder import. Mutually exclusive with the 8-bit option and separate blue-noise patch.",
+                    "description": "VD-informed SDR processing for declared 10-bit input: use highp sampling, retain Valve's decoder colour correction, bypass the calibration profile on the foveal layer, and add no shader noise. The separate foveal gamma adjustment still applies. Output is 8-bit sRGB. Does not negotiate host depth or reproduce VD's raw-YUV decoder import. Mutually exclusive with the 8-bit option and separate blue-noise patch.",
                     "key": "foveaVdLike10Bit",
                     "required": true,
                     "title": "Fovea VD-Like Input 10 bit",
@@ -1126,11 +1208,20 @@
                 },
                 {
                     "default": false,
-                    "description": "Uses the same VD-informed SDR foveal processing for declared 8-bit input, retaining Valve's decoder colour correction with no added gamma/saturation or shader noise. Output is 8-bit sRGB. Cannot recover precision already lost in the source. Mutually exclusive with the 10-bit option and separate blue-noise patch; does not negotiate host depth.",
+                    "description": "Uses the same VD-informed SDR foveal processing for declared 8-bit input, retaining Valve's decoder colour correction while bypassing the calibration profile and adding no shader noise. The separate foveal gamma adjustment still applies. Output is 8-bit sRGB. Cannot recover precision already lost in the source. Mutually exclusive with the 10-bit option and separate blue-noise patch; does not negotiate host depth.",
                     "key": "foveaVdLike8Bit",
                     "required": true,
                     "title": "Fovea VD-Like Input 8 bit",
                     "type": "kotlin.Boolean",
+                    "values": null
+                },
+                {
+                    "default": 1.0,
+                    "description": "Additional gamma on the foveal layer only, after its colour processing. 1.00 leaves it unchanged; higher values darken shadows and midtones. Try 1.02 first for a lighter foveal region. Works with either VD option or both off, before fade and optional blue-noise dithering. Background calibration and edge blending stay unchanged; this is manual compensation, not a verified seam fix.",
+                    "key": "fovealGamma",
+                    "required": true,
+                    "title": "Foveal gamma adjustment",
+                    "type": "kotlin.Float",
                     "values": null
                 }
             ]

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-09-25T01:27:46",
-  "description": "## [0.2.0-dev.6](https://github.com/dunecache/oyasumi-patches/compare/v0.2.0-dev.5...v0.2.0-dev.6) (2026-09-25)\n\n### \u2728 New Features\n\n* add ADM ad and rating suppression patches ([284dc63](https://github.com/dunecache/oyasumi-patches/commit/284dc639a429eee68cfb7416d2c405c53b881e2a))\n",
-  "download_url": "https://github.com/dunecache/oyasumi-patches/releases/download/v0.2.0-dev.6/patches-0.2.0-dev.6.mpp",
+  "created_at": "2026-09-25T21:11:21",
+  "description": "## [0.2.0-dev.15](https://github.com/dunecache/oyasumi-patches/compare/v0.2.0-dev.14...v0.2.0-dev.15) (2026-09-25)\n\n### \ud83d\udc1b Bug Fixes\n\n* surface media menu hook diagnostic on device ([9e42bcb](https://github.com/dunecache/oyasumi-patches/commit/9e42bcb88ef2baf3d05acfc5ee83980664edea30))\n",
+  "download_url": "https://github.com/dunecache/oyasumi-patches/releases/download/v0.2.0-dev.15/patches-0.2.0-dev.15.mpp",
   "signature_download_url": "N/A",
-  "version": "v0.2.0-dev.6"
+  "version": "v0.2.0-dev.15"
 }
