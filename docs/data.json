@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-26 03:27 UTC",
+  "generatedAt": "2026-09-27 03:20 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 729,
-  "patchCount": 2607,
+  "appCount": 730,
+  "patchCount": 2635,
   "universalPatchCount": 154,
   "hostCounts": {
     "github.com": 122,
@@ -61,7 +61,7 @@
       "webUrl": "https://github.com/ajstrick81/morphe-androidtv-patches",
       "addUrl": "https://Revanced.software/add-source?github=ajstrick81/morphe-androidtv-patches",
       "avatarUrl": "https://github.com/ajstrick81.png?size=96",
-      "patchCount": 38,
+      "patchCount": 39,
       "appCount": 14,
       "createdAt": 1784836028108,
       "updatedAt": 1784836028108,
@@ -137,7 +137,7 @@
         {
           "name": "com.tubitv",
           "packageName": "com.tubitv",
-          "patchCount": 1,
+          "patchCount": 2,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -1671,23 +1671,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 75,
-      "appCount": 32,
+      "patchCount": 76,
+      "appCount": 33,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.31.0 (2026-09-25)",
-        "date": "2026-09-25",
+        "title": "1.32.0 (2026-09-27)",
+        "date": "2026-09-27",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**subwaysurfers:** add ad removal and free iap patches"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+            "text": "**trafficracer:** add iap bypass patch"
           }
         ]
       },
@@ -1894,6 +1890,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#00838F"
+        },
+        {
+          "name": "Traffic Racer",
+          "packageName": "com.skgames.trafficracer",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#8BC34A"
         },
         {
           "name": "Traffic Rider",
@@ -4683,47 +4686,47 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 75,
-      "appCount": 38,
+      "patchCount": 88,
+      "appCount": 39,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.30.0 (2026-09-25)",
-        "date": "2026-09-25",
+        "title": "1.31.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+            "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+            "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+            "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+            "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+            "text": "**Proton VPN - Patches menu:** list every applied patch"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+            "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+            "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+            "text": "**TeraBox - Hide promotions:** hide floating invites"
           }
         ]
       },
@@ -4885,7 +4888,14 @@
         {
           "name": "Proton Pass",
           "packageName": "proton.android.pass",
-          "patchCount": 3,
+          "patchCount": 4,
+          "iconUrl": "",
+          "iconColor": "#6D4AFF"
+        },
+        {
+          "name": "Proton VPN",
+          "packageName": "ch.protonvpn.android",
+          "patchCount": 11,
           "iconUrl": "",
           "iconColor": "#6D4AFF"
         },
@@ -4962,7 +4972,7 @@
         {
           "name": "TeraBox",
           "packageName": "com.dubox.drive",
-          "patchCount": 5,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": "#226DF6"
         },
@@ -5006,19 +5016,39 @@
       "webUrl": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
       "addUrl": "https://Revanced.software/add-source?github=icysymmetra/tiktok-patches-for-morphe",
       "avatarUrl": "https://github.com/icysymmetra.png?size=96",
-      "patchCount": 30,
+      "patchCount": 42,
       "appCount": 1,
       "createdAt": 1784836037034,
       "updatedAt": 1784836037034,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "0.7.0",
+        "title": "0.8.0",
         "date": "",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**tiktok:** preserve swipe-lock playback speed"
+            "text": "**tiktok:** activate installed features on first use"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**tiktok:** keep feed debugger observations after filter hooks"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**tiktok:** recheck ads when feed items are read"
+          },
+          {
+            "category": "Features",
+            "text": "hide AI-labelled posts across feed delivery paths"
+          },
+          {
+            "category": "Features",
+            "text": "**tiktok:** add themed feed debugger to diagnostic tools"
+          },
+          {
+            "category": "Features",
+            "text": "**tiktok:** hide FYP unpersonalized slop videos"
           }
         ]
       },
@@ -5026,7 +5056,7 @@
         {
           "name": "com.zhiliaoapp.musically",
           "packageName": "com.zhiliaoapp.musically",
-          "patchCount": 30,
+          "patchCount": 42,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -6048,19 +6078,23 @@
       "webUrl": "https://github.com/kondratjev/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=kondratjev/morphe-patches",
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
-      "patchCount": 19,
+      "patchCount": 20,
       "appCount": 10,
       "createdAt": 1784836038162,
       "updatedAt": 1784836038162,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.25.0 (2026-09-18)",
-        "date": "2026-09-18",
+        "title": "1.26.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Bump medisafe and add pillo microg support"
+            "text": "add patched yt music support for lyfta"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "bump pillo, ornament, lyfta"
           }
         ]
       },
@@ -6082,7 +6116,7 @@
         {
           "name": "Lyfta",
           "packageName": "com.lyfta",
-          "patchCount": 1,
+          "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#000000"
         },
@@ -6876,20 +6910,32 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.50.0 (2026-09-19)",
-        "date": "2026-09-19",
+        "title": "1.51.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "fire buy-time grant in int-returning billing bridges too"
+            "text": "call the product details listener directly instead of by reflection"
           },
           {
             "category": "Bug Fixes",
-            "text": "make free IAP injections pass ART bytecode verification"
+            "text": "null-guard the listener holder in the buy-time grant"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "only warn about skipped RevenueCat fakes when RevenueCat is present"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "stop marking the synthetic catalog helper as a constructor"
           },
           {
             "category": "New Features",
-            "text": "synthesize product catalog for billing queries that never resolve"
+            "text": "add a repeat full ad break option for the reward multiplier"
+          },
+          {
+            "category": "New Features",
+            "text": "add reward multiplier option to Ads Free Rewards"
           }
         ]
       },
@@ -10457,12 +10503,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.21 (2026-09-22)",
-        "date": "2026-09-22",
+        "title": "1.12.27 (2026-09-27)",
+        "date": "2026-09-27",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**avito:** long-press to block on seller profile pages (#95)"
           }
         ]
       },
@@ -10693,40 +10739,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -11207,16 +11253,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -12062,16 +12104,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -12338,40 +12376,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -12551,40 +12589,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -12637,16 +12675,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -12699,16 +12733,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -14368,40 +14398,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -14607,40 +14637,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -14693,40 +14723,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -15379,12 +15409,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.21 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.12.27 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** long-press to block on seller profile pages (#95)"
               }
             ]
           },
@@ -17138,40 +17168,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -17225,16 +17255,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -19040,16 +19066,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -22016,7 +22038,7 @@
             },
             {
               "name": "Override certificate pinning",
-              "description": "Adds a network_security_config trusting user CAs (no pin sets) so AdGuard Premium can inspect the app's platform-stack HTTPS. Optional adjunct: Prime Video's ad plane is largely native libcurl, so DNS blocking is the primary tool."
+              "description": "Adds a network_security_config trusting user CAs (no pin sets) so AdGuard Premium can inspect the app's platform-stack HTTPS. Optional adjunct: removes no ads by itself and is not needed for the native in-app ad strip. Opt-in. Security trade-off: the app will also trust ANY user-installed CA, so leave it off unless you run an HTTPS-filtering proxy."
             },
             {
               "name": "Prime Video extension",
@@ -22060,7 +22082,7 @@
         },
         {
           "name": "Override certificate pinning",
-          "description": "Adds a network_security_config trusting user CAs (no pin sets) so AdGuard Premium can inspect the app's platform-stack HTTPS. Optional adjunct: Prime Video's ad plane is largely native libcurl, so DNS blocking is the primary tool."
+          "description": "Adds a network_security_config trusting user CAs (no pin sets) so AdGuard Premium can inspect the app's platform-stack HTTPS. Optional adjunct: removes no ads by itself and is not needed for the native in-app ad strip. Opt-in. Security trade-off: the app will also trust ANY user-installed CA, so leave it off unless you run an HTTPS-filtering proxy."
         },
         {
           "name": "Prime Video extension",
@@ -25690,6 +25712,10 @@
           },
           "patches": [
             {
+              "name": "Block analytics & tracking",
+              "description": "Stops Tubi's analytics and tracking: Adjust, Branch, Braze, Nielsen, Conviva, NPAW/Youbora, Mux, Firebase/Google Analytics, Meta app events, and Tubi's own analytics endpoint (which receives your advertiser ID, device ID and ZIP/location fields). Blocking happens on the device, inside the app. Crash reporting, feature flags, sign-in and playback are left alone. Recommendations may be less personalised. Opt-in / experimental; test on-device."
+            },
+            {
               "name": "Skip ads",
               "description": "Suppresses all ad delivery systems in Tubi Android TV."
             }
@@ -25700,9 +25726,14 @@
         }
       ],
       "patches": [
+        "Block analytics & tracking",
         "Skip ads"
       ],
       "patchDetails": [
+        {
+          "name": "Block analytics & tracking",
+          "description": "Stops Tubi's analytics and tracking: Adjust, Branch, Braze, Nielsen, Conviva, NPAW/Youbora, Mux, Firebase/Google Analytics, Meta app events, and Tubi's own analytics endpoint (which receives your advertiser ID, device ID and ZIP/location fields). Blocking happens on the device, inside the app. Crash reporting, feature flags, sign-in and playback are left alone. Recommendations may be less personalised. Opt-in / experimental; test on-device."
+        },
         {
           "name": "Skip ads",
           "description": "Suppresses all ad delivery systems in Tubi Android TV."
@@ -26714,7 +26745,7 @@
           "patches": [
             {
               "name": "Override certificate pinning",
-              "description": "Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium."
+              "description": "Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium. Security trade-off: the app will also trust ANY user-installed CA; turn it off if you don't use an HTTPS-filtering proxy."
             },
             {
               "name": "Skip ads",
@@ -26734,7 +26765,7 @@
       "patchDetails": [
         {
           "name": "Override certificate pinning",
-          "description": "Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium."
+          "description": "Allows HTTPS traffic inspection tools like AdGuard Premium to intercept app connections. Enables ViX live (Lura SSAI) ad suppression when used alongside AdGuard Premium. Security trade-off: the app will also trust ANY user-installed CA; turn it off if you don't use an HTTPS-filtering proxy."
         },
         {
           "name": "Skip ads",
@@ -27023,12 +27054,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/icysymmetra/tiktok-patches-for-morphe/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/icysymmetra.png?size=96",
           "latestChanges": {
-            "title": "0.7.0",
+            "title": "0.8.0",
             "date": "",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**tiktok:** preserve swipe-lock playback speed"
+                "text": "**tiktok:** activate installed features on first use"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**tiktok:** keep feed debugger observations after filter hooks"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**tiktok:** recheck ads when feed items are read"
+              },
+              {
+                "category": "Features",
+                "text": "hide AI-labelled posts across feed delivery paths"
+              },
+              {
+                "category": "Features",
+                "text": "**tiktok:** add themed feed debugger to diagnostic tools"
+              },
+              {
+                "category": "Features",
+                "text": "**tiktok:** hide FYP unpersonalized slop videos"
               }
             ]
           },
@@ -27045,6 +27096,10 @@
               "description": "Always shows the publish date in video author information. Thanks to lyyako for the original implementation."
             },
             {
+              "name": "Comment sort controls",
+              "description": "Exposes TikTok's native full comment-sort sheet, including its hot, time, media, and creator modes, instead of relying on rollout gates."
+            },
+            {
               "name": "Copy comments without username",
               "description": "Copies only the comment text without including the creator's username."
             },
@@ -27054,7 +27109,7 @@
             },
             {
               "name": "Diagnostic tools",
-              "description": "Adds optional Morphe diagnostic logging, filtered reports, and local TikTok crash capture."
+              "description": "Adds diagnostic logging, crash capture, reports, and an optional rolling feed debugger."
             },
             {
               "name": "Disable login requirement",
@@ -27070,11 +27125,11 @@
             },
             {
               "name": "Disable screen capture detection",
-              "description": "Prevents TikTok from reacting to screenshots and screen recordings."
+              "description": "Disables capture detection and secure-window screenshot protection, including Circle to Search blocking."
             },
             {
               "name": "Downloads",
-              "description": "Adds watermark-free downloads, comment sticker saving, configurable folders, and filename templates."
+              "description": "Adds watermark-free downloads, video quality selection, comment sticker saving, configurable folders, and filename templates."
             },
             {
               "name": "Enable Live search",
@@ -27083,6 +27138,10 @@
             {
               "name": "Enable non-personalized search",
               "description": "Uses TikTok's non-personalized search mode instead of its saved account choice."
+            },
+            {
+              "name": "Enable voice comments",
+              "description": "Enables TikTok's native voice-comment recording and publishing entry points."
             },
             {
               "name": "Feature Gate Lab",
@@ -27101,16 +27160,52 @@
               "description": "Restores Google account sign-in after patching."
             },
             {
+              "name": "Foldable split comment view",
+              "description": "Forces TikTok's tablet-style split layout (video beside comments instead of a bottom sheet) once the screen is at least as wide as a configurable threshold, for foldables TikTok doesn't already recognize as tablet-class."
+            },
+            {
+              "name": "Force show Auto scroll",
+              "description": "Adds a setting that bypasses TikTok's rollout gates for its native Auto scroll action on supported videos."
+            },
+            {
+              "name": "Hide AI content",
+              "description": "Hides posts marked as AI-generated or AI-modified by TikTok or their creators. Unmarked AI content may still appear."
+            },
+            {
               "name": "Hide CAPTCHA popups",
               "description": "Adds a default-off setting to hide browsing and LIVE puzzle dialogs while preserving login and account verification."
+            },
+            {
+              "name": "Hide feed follow button",
+              "description": "Adds an option to hide the + follow button below creator avatars in video feeds."
+            },
+            {
+              "name": "Hide feed LIVE button",
+              "description": "Adds an option to hide the LIVE button at the top left of video feeds."
+            },
+            {
+              "name": "Hide feed save button",
+              "description": "Adds an option to hide the save/favourites button from video feeds."
+            },
+            {
+              "name": "Hide feed search button",
+              "description": "Adds an option to hide the search button at the top right of video feeds."
             },
             {
               "name": "Hide floating promotions",
               "description": "Removes floating promotional badges, coin icons, and timer banners from the Home feed."
             },
             {
+              "name": "Hide FYP unpersonalized slop videos",
+              "description": "Hides certain batches of unpersonalized slop posts that appear in your For You feed."
+            },
+            {
               "name": "Hide quick comment reactions",
               "description": "Hides TikTok's exposed quick emoji row in supported comment inputs."
+            },
+            {
+              "name": "Hide suggested accounts",
+              "description": "Removes suggested-account cards from profile and inbox surfaces. Thanks to tymmesyde for the original implementation."
             },
             {
               "name": "Hold-and-slide 2x lock",
@@ -27123,6 +27218,10 @@
             {
               "name": "Playback speed",
               "description": "Enables playback-speed controls for all videos and remembers the selected speed between videos."
+            },
+            {
+              "name": "Region spoof",
+              "description": "Adds in-app controls for changing the region TikTok reads."
             },
             {
               "name": "Remember clear display",
@@ -27141,16 +27240,16 @@
               "description": "Adds the Metra patches settings menu to TikTok. Supports TikTok 46.2.3."
             },
             {
+              "name": "Share sheet modification",
+              "description": "Adds toggles and allow-lists for the video share sheet's \"Send to\", \"Share via app\", and \"Video Actions\" sections."
+            },
+            {
               "name": "Show seekbar",
               "description": "Shows TikTok's native video seekbar where it would normally be hidden."
             },
             {
               "name": "Show seekbar thumbnail",
               "description": "Shows TikTok's video preview thumbnail while dragging the seekbar."
-            },
-            {
-              "name": "SIM spoof",
-              "description": "Spoofs SIM country and operator information retrieved by TikTok, with country presets for easier setup."
             },
             {
               "name": "Stop video looping",
@@ -27199,6 +27298,7 @@
       "patches": [
         "Always show publish date",
         "Change TikTok share domain",
+        "Comment sort controls",
         "Copy comments without username",
         "Custom offline videos limit",
         "Diagnostic tools",
@@ -27209,23 +27309,34 @@
         "Downloads",
         "Enable Live search",
         "Enable non-personalized search",
+        "Enable voice comments",
         "Feature Gate Lab",
         "Feed filter",
         "Feed tab navigation",
         "Fix Google login",
+        "Foldable split comment view",
+        "Force show Auto scroll",
+        "Hide AI content",
         "Hide CAPTCHA popups",
+        "Hide feed follow button",
+        "Hide feed LIVE button",
+        "Hide feed save button",
+        "Hide feed search button",
         "Hide floating promotions",
+        "Hide FYP unpersonalized slop videos",
         "Hide quick comment reactions",
+        "Hide suggested accounts",
         "Hold-and-slide 2x lock",
         "Open external links directly",
         "Playback speed",
+        "Region spoof",
         "Remember clear display",
         "Resume videos after scrolling",
         "Sanitize sharing links",
         "Settings",
+        "Share sheet modification",
         "Show seekbar",
         "Show seekbar thumbnail",
-        "SIM spoof",
         "Stop video looping",
         "TikTokIndiaRegionUnlock (STUB)",
         "Translate comments"
@@ -27240,6 +27351,10 @@
           "description": "Rewrites generated TikTok share links to sticktock.kareem.one."
         },
         {
+          "name": "Comment sort controls",
+          "description": "Exposes TikTok's native full comment-sort sheet, including its hot, time, media, and creator modes, instead of relying on rollout gates."
+        },
+        {
           "name": "Copy comments without username",
           "description": "Copies only the comment text without including the creator's username."
         },
@@ -27249,7 +27364,7 @@
         },
         {
           "name": "Diagnostic tools",
-          "description": "Adds optional Morphe diagnostic logging, filtered reports, and local TikTok crash capture."
+          "description": "Adds diagnostic logging, crash capture, reports, and an optional rolling feed debugger."
         },
         {
           "name": "Disable login requirement",
@@ -27265,11 +27380,11 @@
         },
         {
           "name": "Disable screen capture detection",
-          "description": "Prevents TikTok from reacting to screenshots and screen recordings."
+          "description": "Disables capture detection and secure-window screenshot protection, including Circle to Search blocking."
         },
         {
           "name": "Downloads",
-          "description": "Adds watermark-free downloads, comment sticker saving, configurable folders, and filename templates."
+          "description": "Adds watermark-free downloads, video quality selection, comment sticker saving, configurable folders, and filename templates."
         },
         {
           "name": "Enable Live search",
@@ -27278,6 +27393,10 @@
         {
           "name": "Enable non-personalized search",
           "description": "Uses TikTok's non-personalized search mode instead of its saved account choice."
+        },
+        {
+          "name": "Enable voice comments",
+          "description": "Enables TikTok's native voice-comment recording and publishing entry points."
         },
         {
           "name": "Feature Gate Lab",
@@ -27296,16 +27415,52 @@
           "description": "Restores Google account sign-in after patching."
         },
         {
+          "name": "Foldable split comment view",
+          "description": "Forces TikTok's tablet-style split layout (video beside comments instead of a bottom sheet) once the screen is at least as wide as a configurable threshold, for foldables TikTok doesn't already recognize as tablet-class."
+        },
+        {
+          "name": "Force show Auto scroll",
+          "description": "Adds a setting that bypasses TikTok's rollout gates for its native Auto scroll action on supported videos."
+        },
+        {
+          "name": "Hide AI content",
+          "description": "Hides posts marked as AI-generated or AI-modified by TikTok or their creators. Unmarked AI content may still appear."
+        },
+        {
           "name": "Hide CAPTCHA popups",
           "description": "Adds a default-off setting to hide browsing and LIVE puzzle dialogs while preserving login and account verification."
+        },
+        {
+          "name": "Hide feed follow button",
+          "description": "Adds an option to hide the + follow button below creator avatars in video feeds."
+        },
+        {
+          "name": "Hide feed LIVE button",
+          "description": "Adds an option to hide the LIVE button at the top left of video feeds."
+        },
+        {
+          "name": "Hide feed save button",
+          "description": "Adds an option to hide the save/favourites button from video feeds."
+        },
+        {
+          "name": "Hide feed search button",
+          "description": "Adds an option to hide the search button at the top right of video feeds."
         },
         {
           "name": "Hide floating promotions",
           "description": "Removes floating promotional badges, coin icons, and timer banners from the Home feed."
         },
         {
+          "name": "Hide FYP unpersonalized slop videos",
+          "description": "Hides certain batches of unpersonalized slop posts that appear in your For You feed."
+        },
+        {
           "name": "Hide quick comment reactions",
           "description": "Hides TikTok's exposed quick emoji row in supported comment inputs."
+        },
+        {
+          "name": "Hide suggested accounts",
+          "description": "Removes suggested-account cards from profile and inbox surfaces. Thanks to tymmesyde for the original implementation."
         },
         {
           "name": "Hold-and-slide 2x lock",
@@ -27318,6 +27473,10 @@
         {
           "name": "Playback speed",
           "description": "Enables playback-speed controls for all videos and remembers the selected speed between videos."
+        },
+        {
+          "name": "Region spoof",
+          "description": "Adds in-app controls for changing the region TikTok reads."
         },
         {
           "name": "Remember clear display",
@@ -27336,16 +27495,16 @@
           "description": "Adds the Metra patches settings menu to TikTok. Supports TikTok 46.2.3."
         },
         {
+          "name": "Share sheet modification",
+          "description": "Adds toggles and allow-lists for the video share sheet's \"Send to\", \"Share via app\", and \"Video Actions\" sections."
+        },
+        {
           "name": "Show seekbar",
           "description": "Shows TikTok's native video seekbar where it would normally be hidden."
         },
         {
           "name": "Show seekbar thumbnail",
           "description": "Shows TikTok's video preview thumbnail while dragging the seekbar."
-        },
-        {
-          "name": "SIM spoof",
-          "description": "Spoofs SIM country and operator information retrieved by TikTok, with country presets for easier setup."
         },
         {
           "name": "Stop video looping",
@@ -28560,16 +28719,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -29004,40 +29159,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -29228,16 +29383,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -30173,16 +30324,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -30500,16 +30647,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -30700,40 +30843,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -30810,16 +30953,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -30984,40 +31123,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -31596,40 +31735,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -32398,16 +32537,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -32460,12 +32595,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -33508,40 +33647,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -33857,16 +33996,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -35230,16 +35365,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -35944,16 +36075,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -36026,40 +36153,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -37532,16 +37659,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -38728,16 +38851,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -38799,16 +38918,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -39678,16 +39793,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -41109,40 +41220,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -41419,40 +41530,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -41968,12 +42079,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -43149,12 +43264,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -43167,24 +43286,33 @@
           },
           "patches": [
             {
+              "name": "Support patched YouTube Music",
+              "description": "Points the workout music button at a patched YouTube Music app instead of the stock package, so the button opens it."
+            },
+            {
               "name": "Unlock Premium",
               "description": "Unlocks all premium features."
             }
           ],
           "versions": [
             "1.575",
-            "1.591"
+            "1.600"
           ]
         }
       ],
       "patches": [
         "Enable Premium",
+        "Support patched YouTube Music",
         "Unlock Premium"
       ],
       "patchDetails": [
         {
           "name": "Enable Premium",
           "description": "Enables app features locked behind the subscription paywall."
+        },
+        {
+          "name": "Support patched YouTube Music",
+          "description": "Points the workout music button at a patched YouTube Music app instead of the stock package, so the button opens it."
         },
         {
           "name": "Unlock Premium",
@@ -43194,7 +43322,7 @@
       "versions": [
         "1.551",
         "1.575",
-        "1.591"
+        "1.600"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -44217,12 +44345,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -45641,16 +45773,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -46592,40 +46720,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -46933,12 +47061,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -47474,40 +47606,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -48818,40 +48950,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -50263,16 +50395,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -50600,12 +50728,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -50623,7 +50755,7 @@
             }
           ],
           "versions": [
-            "4.19.2"
+            "4.20.1"
           ]
         }
       ],
@@ -50637,7 +50769,7 @@
         }
       ],
       "versions": [
-        "4.19.2"
+        "4.20.1"
       ],
       "iconColor": "#6750A4",
       "iconUrl": ""
@@ -50816,12 +50948,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.21 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.12.27 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** long-press to block on seller profile pages (#95)"
               }
             ]
           },
@@ -50848,7 +50980,8 @@
             "19.33.1",
             "19.34.0",
             "19.35.0",
-            "19.36.0"
+            "19.36.0",
+            "19.36.1"
           ]
         }
       ],
@@ -50911,7 +51044,8 @@
         "19.33.1",
         "19.34.0",
         "19.35.0",
-        "19.36.0"
+        "19.36.0",
+        "19.36.1"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -51373,12 +51507,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -51882,40 +52020,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -52088,40 +52226,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -52759,12 +52897,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -52790,7 +52932,7 @@
             }
           ],
           "versions": [
-            "0.6.19"
+            "0.6.20"
           ]
         },
         {
@@ -52853,7 +52995,8 @@
         }
       ],
       "versions": [
-        "0.6.19"
+        "0.6.19",
+        "0.6.20"
       ],
       "iconColor": "#7C4DFF",
       "iconUrl": ""
@@ -53907,16 +54050,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -55021,16 +55160,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -55210,40 +55345,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -55511,40 +55646,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -55654,40 +55789,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -55702,6 +55837,10 @@
             {
               "name": "AMOLED dark theme",
               "description": "Replaces the dark theme background with pure black."
+            },
+            {
+              "name": "Custom accent color",
+              "description": "Changes the accent color. Choose a color in the patches menu."
             },
             {
               "name": "Hide promotional messages",
@@ -55758,6 +55897,7 @@
       ],
       "patches": [
         "AMOLED dark theme",
+        "Custom accent color",
         "Hide promotional messages",
         "Hide upgrade promotions",
         "Unlock Unlimited Plan"
@@ -55766,6 +55906,10 @@
         {
           "name": "AMOLED dark theme",
           "description": "Replaces the dark theme background with pure black."
+        },
+        {
+          "name": "Custom accent color",
+          "description": "Changes the accent color. Choose a color in the patches menu."
         },
         {
           "name": "Hide promotional messages",
@@ -55791,6 +55935,7 @@
       "name": "Proton VPN",
       "repos": [
         "hoo-dles/morphe-patches",
+        "hxreborn/morphe-patches",
         "Joussflls10/Jouss-Patches",
         "Paresh-Maheshwari/paresh-patches",
         "rushiranpise/morphe-patches"
@@ -55841,6 +55986,109 @@
           ],
           "versions": [
             "5.19.43.0"
+          ]
+        },
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ch-protonvpn-android-hxreborn-morphe-patches",
+            "releaseTag": "app-ch-protonvpn-android-hxreborn-morphe-patches",
+            "assetName": "proton-vpn-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "AMOLED dark theme",
+              "description": "Replaces the dark theme background with pure black."
+            },
+            {
+              "name": "Custom accent color",
+              "description": "Changes the accent color. Choose a color in the patches menu."
+            },
+            {
+              "name": "Hide upgrade promotions",
+              "description": "Hides settings that need a paid plan, upgrade banners, the Discover VPN Plus carousel and special offers."
+            },
+            {
+              "name": "Remove server change delay",
+              "description": "Removes the wait between server changes on free plans."
+            },
+            {
+              "name": "Show free server locations",
+              "description": "Lists free server locations in Countries and Search and connects to the one you pick. Applies only to free plans."
+            },
+            {
+              "name": "Unlock connection preferences",
+              "description": "Unlocks the default connection and excluded locations on free plans."
+            },
+            {
+              "name": "Unlock custom DNS",
+              "description": "Unlocks custom DNS on free plans."
+            },
+            {
+              "name": "Unlock LAN connections",
+              "description": "Unlocks LAN connections on free plans."
+            },
+            {
+              "name": "Unlock NetShield",
+              "description": "Unlocks NetShield ad and tracker blocking on free plans."
+            },
+            {
+              "name": "Unlock profiles",
+              "description": "Unlocks profiles on free plans and limits them to free locations. Profiles for other locations are hidden."
+            },
+            {
+              "name": "Unlock split tunneling",
+              "description": "Unlocks split tunneling on free plans."
+            }
+          ],
+          "versions": [
+            "5.20.39.0"
           ]
         },
         {
@@ -55970,18 +56218,38 @@
         }
       ],
       "patches": [
+        "AMOLED dark theme",
+        "Custom accent color",
         "Disable telemetry",
+        "Hide upgrade promotions",
         "Proton VPN Premium",
         "Remove delay",
+        "Remove server change delay",
+        "Show free server locations",
+        "Unlock connection preferences",
         "Unlock custom DNS",
         "Unlock LAN connections",
+        "Unlock NetShield",
+        "Unlock profiles",
         "Unlock split tunneling",
         "Unlock VPN Plus"
       ],
       "patchDetails": [
         {
+          "name": "AMOLED dark theme",
+          "description": "Replaces the dark theme background with pure black."
+        },
+        {
+          "name": "Custom accent color",
+          "description": "Changes the accent color. Choose a color in the patches menu."
+        },
+        {
           "name": "Disable telemetry",
           "description": "Blocks all telemetry, analytics, and observability data collection."
+        },
+        {
+          "name": "Hide upgrade promotions",
+          "description": "Hides settings that need a paid plan, upgrade banners, the Discover VPN Plus carousel and special offers."
         },
         {
           "name": "Proton VPN Premium",
@@ -55992,16 +56260,36 @@
           "description": "Removes the imposed delay when changing VPN servers."
         },
         {
+          "name": "Remove server change delay",
+          "description": "Removes the wait between server changes on free plans."
+        },
+        {
+          "name": "Show free server locations",
+          "description": "Lists free server locations in Countries and Search and connects to the one you pick. Applies only to free plans."
+        },
+        {
+          "name": "Unlock connection preferences",
+          "description": "Unlocks the default connection and excluded locations on free plans."
+        },
+        {
           "name": "Unlock custom DNS",
-          "description": "Enables the custom DNS feature usually locked behind the Proton Plus paywall."
+          "description": "Unlocks custom DNS on free plans."
         },
         {
           "name": "Unlock LAN connections",
-          "description": "Enables the LAN connections feature usually locked behind the Proton Plus paywall."
+          "description": "Unlocks LAN connections on free plans."
+        },
+        {
+          "name": "Unlock NetShield",
+          "description": "Unlocks NetShield ad and tracker blocking on free plans."
+        },
+        {
+          "name": "Unlock profiles",
+          "description": "Unlocks profiles on free plans and limits them to free locations. Profiles for other locations are hidden."
         },
         {
           "name": "Unlock split tunneling",
-          "description": "Enables the split tunneling feature usually locked behind the Proton Plus paywall."
+          "description": "Unlocks split tunneling on free plans."
         },
         {
           "name": "Unlock VPN Plus",
@@ -56012,7 +56300,8 @@
         "5.19.16.0",
         "5.19.43.0",
         "5.19.72.0",
-        "5.19.78.0"
+        "5.19.78.0",
+        "5.20.39.0"
       ],
       "iconColor": "#6D4AFF",
       "iconUrl": ""
@@ -56465,40 +56754,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -56783,40 +57072,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -56993,40 +57282,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -57141,40 +57430,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -57228,40 +57517,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -57322,8 +57611,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass session expiry",
-        "Bypass Session Expiry"
+        "Bypass Session Expiry",
+        "Bypass session expiry"
       ],
       "patchDetails": [
         {
@@ -57331,12 +57620,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass session expiry",
-          "description": "Stops the security prompt that signs the account out."
-        },
-        {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Stops the security prompt that signs the account out."
         }
       ],
       "versions": [
@@ -58414,40 +58703,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -58521,40 +58810,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -58689,16 +58978,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -59129,40 +59414,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -60633,40 +60918,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -61372,16 +61657,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -62643,12 +62924,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -64107,16 +64392,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -64146,7 +64427,7 @@
             }
           ],
           "versions": [
-            "3.69.1"
+            "3.69.2"
           ]
         }
       ],
@@ -64175,7 +64456,7 @@
         }
       ],
       "versions": [
-        "3.69.1"
+        "3.69.2"
       ],
       "iconColor": "#FFC107",
       "iconUrl": ""
@@ -64691,16 +64972,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -64771,16 +65048,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -64911,40 +65184,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -66277,12 +66550,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.21 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.12.27 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** long-press to block on seller profile pages (#95)"
               }
             ]
           },
@@ -67150,16 +67423,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -67212,40 +67481,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -67271,11 +67540,15 @@
             },
             {
               "name": "Hide promotions",
-              "description": "Hides Premium upgrade cards and banners, prize cards, and sale, coupon and promotional popups."
+              "description": "Hides Premium upgrade cards and banners, prize and campaign cards, speed-up prompts, floating invites, and sale, coupon and promotional popups."
             },
             {
               "name": "Hide video recommendations",
               "description": "Hides the recommended videos below the video player."
+            },
+            {
+              "name": "Unlock Premium Plus",
+              "description": "Unlocks HD up to original quality, playback speeds up to 3x and video uploads. HD buffers faster over parallel connections."
             }
           ],
           "versions": [
@@ -67288,7 +67561,8 @@
         "Hide ads",
         "Hide consent form",
         "Hide promotions",
-        "Hide video recommendations"
+        "Hide video recommendations",
+        "Unlock Premium Plus"
       ],
       "patchDetails": [
         {
@@ -67305,11 +67579,15 @@
         },
         {
           "name": "Hide promotions",
-          "description": "Hides Premium upgrade cards and banners, prize cards, and sale, coupon and promotional popups."
+          "description": "Hides Premium upgrade cards and banners, prize and campaign cards, speed-up prompts, floating invites, and sale, coupon and promotional popups."
         },
         {
           "name": "Hide video recommendations",
           "description": "Hides the recommended videos below the video player."
+        },
+        {
+          "name": "Unlock Premium Plus",
+          "description": "Unlocks HD up to original quality, playback speeds up to 3x and video uploads. HD buffers faster over parallel connections."
         }
       ],
       "versions": [
@@ -68911,6 +69189,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.skgames.trafficracer",
+      "name": "Traffic Racer",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**trafficracer:** add iap bypass patch"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-skgames-trafficracer-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-skgames-trafficracer-byehi98-okish-morphe-patches",
+            "assetName": "traffic-racer-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Traffic Racer IAP Bypass",
+              "description": "Everything in the store is free with one tap \u2014 cash packs, double cash, remove ads, starter kit and the premium car. Just tap Buy and it grants instantly, no Google Play payment needed, and purchases persist across restarts."
+            }
+          ],
+          "versions": [
+            "4.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Traffic Racer IAP Bypass"
+      ],
+      "patchDetails": [
+        {
+          "name": "Traffic Racer IAP Bypass",
+          "description": "Everything in the store is free with one tap \u2014 cash packs, double cash, remove ads, starter kit and the premium car. Just tap Buy and it grants instantly, no Google Play payment needed, and purchases persist across restarts."
+        }
+      ],
+      "versions": [
+        "4.0"
+      ],
+      "iconColor": "#8BC34A",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.skgames.trafficrider",
       "name": "Traffic Rider",
       "repos": [
@@ -68926,16 +69262,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -68997,40 +69329,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -69664,8 +69996,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -69709,11 +70041,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -69884,16 +70216,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -70218,7 +70546,7 @@
             },
             {
               "name": "Override certificate pinning",
-              "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct to the manifest-rewrite ad approach."
+              "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct: removes no ads by itself and is not needed for the in-app ad removal. Opt-in. Security trade-off: the app will also trust ANY user-installed CA, so leave it off unless you run an HTTPS-filtering proxy."
             },
             {
               "name": "Skip ads",
@@ -70252,7 +70580,7 @@
         },
         {
           "name": "Override certificate pinning",
-          "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct to the manifest-rewrite ad approach."
+          "description": "Edits Pluto's network_security_config to trust user CAs (system + user, overridePins) on both a new base-config and every existing domain-config \u2014 including the pluto.tv entry that is otherwise system-only \u2014 so an HTTPS-filtering proxy can inspect the HLS manifest. Optional adjunct: removes no ads by itself and is not needed for the in-app ad removal. Opt-in. Security trade-off: the app will also trust ANY user-installed CA, so leave it off unless you run an HTTPS-filtering proxy."
         },
         {
           "name": "Skip ads",
@@ -71072,16 +71400,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.31.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.32.0 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**subwaysurfers:** add ad removal and free iap patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**billing:** update patch for Into the Dead 2 v1.87.1"
+                "text": "**trafficracer:** add iap bypass patch"
               }
             ]
           },
@@ -71560,40 +71884,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -71990,40 +72314,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -72112,40 +72436,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.30.0 (2026-09-25)",
-            "date": "2026-09-25",
+            "title": "1.31.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+                "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+                "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+                "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+                "text": "**Proton VPN - Patches menu:** list every applied patch"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+                "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+                "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
               },
               {
                 "category": "Bug Fixes",
-                "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+                "text": "**TeraBox - Hide promotions:** hide floating invites"
               }
             ]
           },
@@ -72882,12 +73206,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.12.21 (2026-09-22)",
-            "date": "2026-09-22",
+            "title": "1.12.27 (2026-09-27)",
+            "date": "2026-09-27",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** long-press to block on seller profile pages (#95)"
               }
             ]
           },
@@ -73769,12 +74093,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.25.0 (2026-09-18)",
-            "date": "2026-09-18",
+            "title": "1.26.0 (2026-09-26)",
+            "date": "2026-09-26",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "Bump medisafe and add pillo microg support"
+                "text": "add patched yt music support for lyfta"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "bump pillo, ornament, lyfta"
               }
             ]
           },
@@ -75605,8 +75933,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -76095,11 +76423,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -78506,40 +78834,40 @@
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.30.0 (2026-09-25)",
-        "date": "2026-09-25",
+        "title": "1.31.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** remove \"Log in to Secure Your Premium\" prompt"
+            "text": "**ci:** repair stale workflow inputs and add bot disclaimers to triage replies"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** resume downloads after short network drops"
+            "text": "**Proton Mail - AMOLED dark theme:** turn Proton Core deep backgrounds black"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** start downloads despite short network drops"
+            "text": "**Proton Mail - AMOLED dark theme:** turn the email composer background black"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** stop downloaded videos freezing on their last frame"
+            "text": "**Proton Mail:** follow the app appearance setting in the patches menu"
           },
           {
             "category": "Bug Fixes",
-            "text": "**MovieBox - All-In-One:** stop Edge-Cache downloads stalling and failing"
+            "text": "**Proton VPN - Patches menu:** list every applied patch"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Proton Mail - AMOLED dark theme:** turn contact list and search black with grey contact cards"
+            "text": "**TeraBox - Fix Google login:** block script injection from the sign-in popup"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** theme earbuds settings, fit test and More screens"
+            "text": "**TeraBox - Hide promotions:** hide campaign cards in search"
           },
           {
             "category": "Bug Fixes",
-            "text": "**Realme Link - AMOLED dark theme:** turn More page black and make Spatial Audio controls readable"
+            "text": "**TeraBox - Hide promotions:** hide floating invites"
           }
         ]
       },
@@ -78819,12 +79147,16 @@
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.25.0 (2026-09-18)",
-        "date": "2026-09-18",
+        "title": "1.26.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "Bump medisafe and add pillo microg support"
+            "text": "add patched yt music support for lyfta"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "bump pillo, ornament, lyfta"
           }
         ]
       },
@@ -78958,20 +79290,32 @@
       "avatarUrl": "https://github.com/Nai64.png?size=96",
       "patchCount": 5,
       "latestChanges": {
-        "title": "1.50.0 (2026-09-19)",
-        "date": "2026-09-19",
+        "title": "1.51.0 (2026-09-26)",
+        "date": "2026-09-26",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "fire buy-time grant in int-returning billing bridges too"
+            "text": "call the product details listener directly instead of by reflection"
           },
           {
             "category": "Bug Fixes",
-            "text": "make free IAP injections pass ART bytecode verification"
+            "text": "null-guard the listener holder in the buy-time grant"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "only warn about skipped RevenueCat fakes when RevenueCat is present"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "stop marking the synthetic catalog helper as a constructor"
           },
           {
             "category": "New Features",
-            "text": "synthesize product catalog for billing queries that never resolve"
+            "text": "add a repeat full ad break option for the reward multiplier"
+          },
+          {
+            "category": "New Features",
+            "text": "add reward multiplier option to Ads Free Rewards"
           }
         ]
       },
@@ -79538,12 +79882,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.12.21 (2026-09-22)",
-        "date": "2026-09-22",
+        "title": "1.12.27 (2026-09-27)",
+        "date": "2026-09-27",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "publish Wildberries 7.8.1002 seller recommendations fix (#89)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**avito:** long-press to block on seller profile pages (#95)"
           }
         ]
       },

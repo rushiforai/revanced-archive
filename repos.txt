@@ -18,6 +18,7 @@ Graywizard888/Enhancify
 HZbutcoding/sn-patching
 Jman-Github/ReVanced-Patch-Bundles
 Jman-Github/Universal-ReVanced-Manager
+KR1901/sofascore-font-revanced
 LeddaZ/MorpheUpdater
 LeeeeT/bt-keepalive-patch
 LisoUseInAIKyrios/revanced-patcher
