@@ -73,6 +73,12 @@ public final class DownloadTrackPatch {
      */
     public static void onTrackMenu(Dialog dialog, Object trackUrn) {
         try {
+            // An imported file: nothing to download, but its cover can be picked.
+            java.io.File imported = app.revanced.extension.soundcloud.local.LocalAdditions.importedFileOf(trackUrn);
+            if (imported != null) {
+                Utils.runOnMainThread(() -> app.revanced.extension.soundcloud.local.LocalAdditions.addTrackCoverRow(dialog, imported));
+                return;
+            }
             String trackId = parseTrackId(trackUrn);
             if (trackId == null) return;
 
@@ -131,7 +137,8 @@ public final class DownloadTrackPatch {
     /**
      * Injection point. Called when a playlist cell builds its download icon.
      *
-     * @return The spinning icon while tracks started from this playlist are downloading, otherwise the original.
+     * @return The spinning icon while tracks started from this playlist are downloading, otherwise the
+     * original. The number of downloaded tracks is shown next to the number of tracks instead of an icon.
      */
     public static Object getPlaylistDownloadIcon(Object icon, Object playlist) {
         try {
@@ -458,6 +465,13 @@ public final class DownloadTrackPatch {
         return connection.getResponseCode();
     }
 
+    /** @return The response code of an authorized DELETE request to the SoundCloud API. */
+    public static int apiDelete(String url) throws Exception {
+        HttpURLConnection connection = openApiConnection(url);
+        connection.setRequestMethod("DELETE");
+        return connection.getResponseCode();
+    }
+
     private static HttpURLConnection openApiConnection(String url) throws Exception {
         app.revanced.extension.soundcloud.network.RegionGuard.throwIfBlocked(new URL(url).getHost());
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
@@ -728,7 +742,7 @@ public final class DownloadTrackPatch {
         return new HashSet<>(getDownloadedTracks());
     }
 
-    private static Set<String> getDownloadedTracks() {
+    static Set<String> getDownloadedTracks() {
         SharedPreferences preferences = getPreferences();
         return preferences == null ? new HashSet<>() : preferences.getStringSet(DOWNLOADED_TRACKS, new HashSet<>());
     }

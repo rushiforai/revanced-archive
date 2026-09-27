@@ -49,6 +49,8 @@ public final class LocalAdditions {
     private static final String FILE_PREFIX = "file:";
     private static final String TRACK_ROW_TAG = "arsound_local_add_row";
     private static final String PLAYLIST_ROW_TAG = "arsound_local_additions_row";
+    private static final String COVER_ROW_TAG = "arsound_cover_row";
+    private static final String REMOVE_COVER_ROW_TAG = "arsound_remove_cover_row";
 
     private static final boolean RUSSIAN = "ru".equals(Locale.getDefault().getLanguage());
 
@@ -126,6 +128,13 @@ public final class LocalAdditions {
         return true;
     }
 
+    /** Replaces the added entries of a playlist, keeping the given order. */
+    static void setEntries(String playlistUrn, List<String> entries) {
+        Map<String, List<String>> additions = readAdditions();
+        additions.put(playlistUrn, new ArrayList<>(entries));
+        writeAdditions(additions);
+    }
+
     public static void remove(String playlistUrn, String entry) {
         Map<String, List<String>> additions = readAdditions();
         List<String> entries = additions.get(playlistUrn);
@@ -137,7 +146,7 @@ public final class LocalAdditions {
     }
 
     /** Remembers opened playlists, so they can be picked as a target. Newest first: urn and title. */
-    private static synchronized List<String[]> readRecentPlaylists() {
+    static synchronized List<String[]> readRecentPlaylists() {
         List<String[]> result = new ArrayList<>();
         SharedPreferences preferences = preferences();
         if (preferences == null) return result;
@@ -210,12 +219,20 @@ public final class LocalAdditions {
                 List<Object> urns = new ArrayList<>((List<?>) value);
                 ClassLoader loader = single.getClass().getClassLoader();
                 RemovedTracks.onTrackList(key, urns);
+                List<String> skipped = new ArrayList<>();
                 for (String entry : getShownEntries(key)) {
                     Object urn = toUrn(loader, entry);
-                    if (urn != null && !urns.contains(urn)) urns.add(urn);
+                    if (urn != null && !urns.contains(urn)) {
+                        urns.add(urn);
+                    } else {
+                        skipped.add(entry + (urn == null ? " (no file)" : " (already in the list)"));
+                    }
                 }
+                if (!skipped.isEmpty()) Logger.printInfo(() -> "Local additions of " + key + " not shown: " + skipped);
                 RemovedTracks.placeKept(key, urns, loader, !playback);
-                return TrackOrder.apply(key, urns);
+                Object ordered = TrackOrder.apply(key, urns);
+                if (!playback) PlaylistHeader.onScreenTracks(key, (List<?>) ordered);
+                return ordered;
             });
         } catch (Exception ex) {
             Logger.printException(() -> "Could not append local additions", ex);
@@ -409,6 +426,96 @@ public final class LocalAdditions {
         }
     }
 
+    /**
+     * The menu gets an imported file as a plain urn, "sc-local:tracks:local_" and the path in Base64.
+     *
+     * @return The file of an imported track, or null for any other urn.
+     */
+    public static File importedFileOf(Object trackUrn) {
+        String urn = String.valueOf(trackUrn);
+        int start = urn.indexOf(":local_");
+        if (!urn.startsWith("sc-local:") || start < 0) return null;
+        try {
+            byte[] path = java.util.Base64.getUrlDecoder().decode(urn.substring(start + ":local_".length()));
+            return new File(new String(path, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (IllegalArgumentException ex) {
+            Logger.printException(() -> "Not a local track urn: " + urn, ex);
+            return null;
+        }
+    }
+
+    /** "Set cover" in the menu of an imported file. */
+    public static void addTrackCoverRow(Dialog dialog, File audio) {
+        try {
+            View menuItems = dialog.findViewById(Utils.getResourceIdentifier(ResourceType.ID, "menuItems"));
+            if (menuItems == null || !(menuItems.getParent() instanceof LinearLayout)) return;
+            LinearLayout parent = (LinearLayout) menuItems.getParent();
+            View existing = parent.findViewWithTag(COVER_ROW_TAG);
+            if (existing != null) parent.removeView(existing);
+
+            Context context = dialog.getContext();
+            ViewGroup row = DownloadTrackPatch.createMenuRow(context, LocalCovers.hasUserCover(audio)
+                            ? text("Сменить обложку", "Change cover") : text("Задать обложку", "Set cover"),
+                    "ic_actions_image", v -> {
+                        Context activity = dialog.getOwnerActivity() != null ? dialog.getOwnerActivity() : context;
+                        dialog.dismiss();
+                        ImportActivity.pickTrackCover(activity, audio);
+                    });
+            row.setTag(COVER_ROW_TAG);
+            parent.addView(row, parent.indexOfChild(menuItems) + 1, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            View existingRemove = parent.findViewWithTag(REMOVE_COVER_ROW_TAG);
+            if (existingRemove != null) parent.removeView(existingRemove);
+            if (!LocalCovers.hasUserCover(audio)) return;
+            ViewGroup removeRow = DownloadTrackPatch.createMenuRow(context, text("Убрать свою обложку", "Remove own cover"),
+                    "ic_actions_delete", v -> {
+                        dialog.dismiss();
+                        Utils.runOnBackgroundThread(() -> {
+                            LocalCovers.removeUserCover(audio);
+                            Utils.runOnMainThread(() -> notifyTrackChanged(audio));
+                        });
+                    });
+            removeRow.setTag(REMOVE_COVER_ROW_TAG);
+            parent.addView(removeRow, parent.indexOfChild(row) + 1, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        } catch (Exception ex) {
+            Logger.printException(() -> "Could not add the cover row", ex);
+        }
+    }
+
+    /**
+     * "Set cover" in the menu of a playlist without SoundCloud tracks: its artwork would stay empty,
+     * so a picture from the gallery is shown instead, on this device only.
+     */
+    private static void addPlaylistCoverRows(Dialog dialog, LinearLayout menuItems, String playlistUrn) {
+        boolean hasCover = LocalCovers.hasPlaylistCover(playlistUrn);
+        if (!hasCover && !PlaylistTracks.hasOnlyImportedTracks(playlistUrn)) return;
+        Context context = dialog.getContext();
+        ViewGroup row = DownloadTrackPatch.createMenuRow(context,
+                hasCover ? text("Сменить обложку", "Change cover") : text("Задать обложку", "Set cover"),
+                "ic_actions_image", v -> {
+                    Context activity = dialog.getOwnerActivity() != null ? dialog.getOwnerActivity() : context;
+                    dialog.dismiss();
+                    ImportActivity.pickPlaylistCover(activity, playlistUrn);
+                });
+        menuItems.addView(row, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (!hasCover) return;
+        ViewGroup removeRow = DownloadTrackPatch.createMenuRow(context, text("Убрать свою обложку", "Remove own cover"),
+                "ic_actions_delete", v -> {
+                    dialog.dismiss();
+                    Utils.runOnBackgroundThread(() -> {
+                        LocalCovers.setPlaylistCover(playlistUrn, null);
+                        Utils.runOnMainThread(() -> {
+                            notifyPlaylistChanged(playlistUrn);
+                            PlaylistHeader.showCover(playlistUrn, null);
+                        });
+                    });
+                });
+        menuItems.addView(removeRow, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
     public static void addPlaylistMenuRow(Dialog dialog, String playlistUrn) {
         try {
             LinearLayout menuItems = dialog.findViewById(
@@ -437,6 +544,8 @@ public final class LocalAdditions {
                     });
             menuItems.addView(importRow, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            addPlaylistCoverRows(dialog, menuItems, playlistUrn);
         } catch (Exception ex) {
             Logger.printException(() -> "Could not add local additions row", ex);
         }
@@ -598,6 +707,11 @@ public final class LocalAdditions {
         } catch (Exception ex) {
             Logger.printException(() -> "Could not refresh playlist " + playlistUrn, ex);
         }
+    }
+
+    /** Tells the open playlists that show an imported file to load its track again, with a new cover. */
+    public static void notifyTrackChanged(File audio) {
+        for (String playlist : PlaylistTracks.playlistsWithImportedTracks()) notifyPlaylistChanged(playlist);
     }
 
     private static String entryOf(Object trackUrn) {

@@ -5,6 +5,7 @@ import static app.revanced.extension.soundcloud.download.DownloadTrackPatch.text
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +17,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +31,9 @@ import app.revanced.extension.shared.Utils;
  * Adds a "Check downloads" row to the playlist and album menu.
  * It finds playable, non-subscription tracks and offers to download them all. Each task prefers
  * the author-provided file, then falls back to the official progressive stream.
+ * <p>
+ * Playlists downloaded this way are remembered on this device: the Downloads screen lists them until
+ * their downloaded tracks are deleted.
  */
 @SuppressWarnings("unused")
 public final class DownloadPlaylistPatch {
@@ -35,6 +41,7 @@ public final class DownloadPlaylistPatch {
     private static final String DELETE_ROW_TAG = "arsound_playlist_delete_row";
     private static final Pattern PLAYLIST_ID = Pattern.compile("^soundcloud:playlists:(\\d+)$");
     private static final int TRACKS_PER_REQUEST = 50;
+    private static final String PREFERENCES_NAME = "arsound_downloaded_playlists";
 
     private static final class TrackInfo {
         final String id;
@@ -53,6 +60,44 @@ public final class DownloadPlaylistPatch {
             return source.status == TrackSource.Status.REQUIRES_HLS_PROCESSING;
         }
     }
+
+    // region Downloaded playlists
+
+    private static SharedPreferences preferences() {
+        Context context = Utils.getContext();
+        return context == null ? null : context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+    }
+
+    /** @return The ids of the downloaded playlists and the time each was downloaded. */
+    public static Map<String, Long> getDownloadedPlaylists() {
+        Map<String, Long> result = new HashMap<>();
+        SharedPreferences preferences = preferences();
+        if (preferences == null) return result;
+        for (Map.Entry<String, ?> entry : preferences.getAll().entrySet()) {
+            if (entry.getValue() instanceof Long) result.put(entry.getKey(), (Long) entry.getValue());
+        }
+        return result;
+    }
+
+    public static boolean isPlaylistDownloaded(String playlistId) {
+        SharedPreferences preferences = preferences();
+        return playlistId != null && preferences != null && preferences.contains(playlistId);
+    }
+
+    private static void setPlaylistDownloaded(String playlistId, boolean downloaded) {
+        SharedPreferences preferences = preferences();
+        if (preferences == null) return;
+        if (downloaded == preferences.contains(playlistId)) return;
+        if (downloaded) {
+            preferences.edit().putLong(playlistId, System.currentTimeMillis()).apply();
+        } else {
+            preferences.edit().remove(playlistId).apply();
+        }
+        Logger.printInfo(() -> "Playlist " + playlistId + (downloaded ? " is downloaded" : " is no longer downloaded"));
+        DownloadsScreen.refresh();
+    }
+
+    // endregion
 
     /**
      * Injection point. Called when the playlist menu receives its data.
@@ -167,7 +212,7 @@ public final class DownloadPlaylistPatch {
                                         + "Music imported from the phone stays."))
                         .setNegativeButton(android.R.string.cancel, null)
                         .setPositiveButton(text("Удалить " + downloaded.size(), "Delete " + downloaded.size()),
-                                (d, which) -> deleteAll(context.getApplicationContext(), downloaded))
+                                (d, which) -> deleteAll(context.getApplicationContext(), playlistId, downloaded))
                         .show());
             } catch (Exception ex) {
                 Logger.printException(() -> "Could not count downloaded tracks", ex);
@@ -180,18 +225,44 @@ public final class DownloadPlaylistPatch {
     /** The tracks of the playlist that Arsound downloaded. */
     private static List<String> downloadedTracksOf(String playlistId) throws Exception {
         List<String> downloaded = new ArrayList<>();
-        String[] playlist = DownloadTrackPatch.apiGet("https://api-v2.soundcloud.com/playlists/" + playlistId);
-        if (playlist[1] == null) return downloaded;
-
-        JSONArray tracks = new JSONObject(playlist[1]).getJSONArray("tracks");
-        for (int i = 0; i < tracks.length(); i++) {
-            String id = String.valueOf(tracks.getJSONObject(i).getLong("id"));
+        for (String id : trackIdsOf(playlistId, null)) {
             if (DownloadTrackPatch.isDownloaded(id)) downloaded.add(id);
         }
         return downloaded;
     }
 
-    private static void deleteAll(Context context, List<String> trackIds) {
+    /**
+     * The SoundCloud tracks of the playlist: those on the server, then those added on this phone.
+     *
+     * @param imported Receives the number of imported files added on this phone, may be null.
+     * @return The track ids, or null if the server did not answer.
+     */
+    private static List<String> trackIdsOf(String playlistId, int[] imported) throws Exception {
+        String[] playlist = DownloadTrackPatch.apiGet("https://api-v2.soundcloud.com/playlists/" + playlistId);
+        if (playlist[1] == null) {
+            lastError = playlist[0];
+            return null;
+        }
+        List<String> ids = new ArrayList<>();
+        JSONArray tracks = new JSONObject(playlist[1]).getJSONArray("tracks");
+        for (int i = 0; i < tracks.length(); i++) ids.add(String.valueOf(tracks.getJSONObject(i).getLong("id")));
+
+        // Tracks added on the phone are not on the server: without them a playlist made of them looks empty.
+        for (String entry : app.revanced.extension.soundcloud.local.LocalAdditions.getShownEntries("soundcloud:playlists:" + playlistId)) {
+            if (entry.startsWith("file:")) {
+                if (imported != null) imported[0]++;
+                continue;
+            }
+            String id = DownloadTrackPatch.parseTrackId(entry);
+            if (id != null && !ids.contains(id)) ids.add(id);
+        }
+        return ids;
+    }
+
+    private static volatile String lastError;
+
+    private static void deleteAll(Context context, String playlistId, List<String> trackIds) {
+        setPlaylistDownloaded(playlistId, false);
         Utils.runOnBackgroundThread(() -> {
             int deleted = 0;
             for (String trackId : trackIds) {
@@ -212,19 +283,15 @@ public final class DownloadPlaylistPatch {
 
         Utils.runOnBackgroundThread(() -> {
             try {
-                String[] playlist = DownloadTrackPatch.apiGet("https://api-v2.soundcloud.com/playlists/" + playlistId);
-                if (playlist[1] == null) {
-                    DownloadTrackPatch.showToast(context, text("Не удалось получить треки, ошибка " + playlist[0],
-                            "Could not load the tracks, error " + playlist[0]));
+                int[] imported = {0};
+                List<String> ids = trackIdsOf(playlistId, imported);
+                if (ids == null) {
+                    DownloadTrackPatch.showToast(context, text("Не удалось получить треки, ошибка " + lastError,
+                            "Could not load the tracks, error " + lastError));
                     return;
                 }
 
                 // The playlist only contains the ids of most tracks, so the track details are requested separately.
-                JSONArray playlistTracks = new JSONObject(playlist[1]).getJSONArray("tracks");
-                List<String> ids = new ArrayList<>();
-                for (int i = 0; i < playlistTracks.length(); i++) {
-                    ids.add(String.valueOf(playlistTracks.getJSONObject(i).getLong("id")));
-                }
 
                 List<TrackInfo> downloadable = new ArrayList<>();
                 List<String> unavailableTitles = new ArrayList<>();
@@ -266,9 +333,9 @@ public final class DownloadPlaylistPatch {
                     }
                 }
 
-                Logger.printInfo(() -> "Playlist " + playlistId + ": " + ids.size() + " tracks, downloaded "
-                        + alreadyDownloaded[0] + ", downloading " + alreadyDownloaded[1] + ", can download " + downloadable.size());
-                Utils.runOnMainThread(() -> showResult(context, playlistId, ids.size(), alreadyDownloaded[0], alreadyDownloaded[1],
+                Logger.printInfo(() -> "Playlist " + playlistId + ": " + ids.size() + " tracks, imported " + imported[0]
+                        + ", downloaded " + alreadyDownloaded[0] + ", downloading " + alreadyDownloaded[1] + ", can download " + downloadable.size());
+                Utils.runOnMainThread(() -> showResult(context, playlistId, ids.size(), imported[0], alreadyDownloaded[0], alreadyDownloaded[1],
                         downloadable, unavailableTitles));
             } catch (Exception ex) {
                 Logger.printException(() -> "Playlist check failure", ex);
@@ -277,12 +344,13 @@ public final class DownloadPlaylistPatch {
         });
     }
 
-    private static void showResult(Context context, String playlistId, int total, int downloaded, int downloading, List<TrackInfo> downloadable,
-                                   List<String> unavailableTitles) {
+    private static void showResult(Context context, String playlistId, int total, int imported, int downloaded, int downloading,
+                                   List<TrackInfo> downloadable, List<String> unavailableTitles) {
         int unavailable = total - downloaded - downloading - downloadable.size();
         StringBuilder summary = new StringBuilder();
-        summary.append(text("Треков в плейлисте: ", "Tracks in the playlist: ")).append(total).append('\n')
-                .append(text("Уже скачано: ", "Already downloaded: ")).append(downloaded).append('\n');
+        summary.append(text("Треков в плейлисте: ", "Tracks in the playlist: ")).append(total + imported).append('\n');
+        if (imported > 0) summary.append(text("Импортированы с телефона: ", "Imported from the phone: ")).append(imported).append('\n');
+        summary.append(text("Уже скачано: ", "Already downloaded: ")).append(downloaded).append('\n');
         if (downloading > 0) summary.append(text("Скачиваются сейчас: ", "Downloading now: ")).append(downloading).append('\n');
         summary.append(text("Можно скачать: ", "Can be downloaded: ")).append(downloadable.size()).append('\n');
         if (unavailable > 0) {
@@ -292,8 +360,10 @@ public final class DownloadPlaylistPatch {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // Everything available is on the phone: the playlist counts as downloaded.
+        if (downloadable.isEmpty() && downloading == 0 && downloaded > 0) setPlaylistDownloaded(playlistId, true);
         if (downloadable.isEmpty()) {
-            builder.setTitle(downloaded + downloading > 0
+            builder.setTitle(downloaded + downloading + imported > 0
                             ? text("Всё доступное уже скачано", "Everything available is downloaded")
                             : text("Нечего скачать", "Nothing to download"))
                     .setMessage(summary.toString().trim())
@@ -320,6 +390,7 @@ public final class DownloadPlaylistPatch {
 
     private static void downloadAll(Context context, String playlistId, List<TrackInfo> tracks) {
         Context appContext = context.getApplicationContext();
+        setPlaylistDownloaded(playlistId, true);
         Utils.runOnBackgroundThread(() -> {
             int started = 0;
             for (TrackInfo track : tracks) {

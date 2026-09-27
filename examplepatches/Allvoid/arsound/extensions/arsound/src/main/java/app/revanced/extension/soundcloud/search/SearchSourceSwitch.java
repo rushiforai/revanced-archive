@@ -48,6 +48,7 @@ import app.revanced.extension.shared.ResourceType;
 import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.local.LocalMusic;
 import app.revanced.extension.soundcloud.permissions.WelcomePermissions;
+import app.revanced.extension.soundcloud.shared.HelpBadge;
 
 /**
  * A switch under the search field of the Search tab: SoundCloud (the usual search) or Arsound.
@@ -61,6 +62,8 @@ public final class SearchSourceSwitch {
 
     private static final Handler handler = new Handler(Looper.getMainLooper());
     private static final ExecutorService network = Executors.newFixedThreadPool(3);
+    /** Album and artist searches, run next to the track search without taking its threads. */
+    private static final ExecutorService extra = Executors.newFixedThreadPool(2);
     /** Track URL → download percent, while downloading. Survives leaving and opening the tab again. */
     private static final Map<String, Integer> downloading = new HashMap<>();
     private static final Set<String> downloaded = new HashSet<>();
@@ -137,6 +140,8 @@ public final class SearchSourceSwitch {
         final TextView status;
         final ProgressBar spinner;
         final Map<String, Row> rows = new HashMap<>();
+        final LinearLayout tabsBar;
+        final LinearLayout tabs;
         String shownQuery;
         int generation;
 
@@ -170,17 +175,8 @@ public final class SearchSourceSwitch {
             arsoundSegment.setGravity(Gravity.CENTER);
             arsoundSegment.setOnClickListener(v -> select(true));
             arsoundSegment.addView(arsoundButton);
-            help = new TextView(context);
-            help.setText("?");
-            help.setGravity(Gravity.CENTER);
-            help.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
-            help.setTypeface(Typeface.DEFAULT_BOLD);
-            help.setIncludeFontPadding(false);
-            help.setContentDescription(text("Что такое поиск Arsound", "What Arsound search is"));
-            help.setOnClickListener(v -> showHelp(context));
-            LinearLayout.LayoutParams helpParams = new LinearLayout.LayoutParams(dp(context, 17), dp(context, 17));
-            helpParams.leftMargin = dp(context, 6);
-            arsoundSegment.addView(help, helpParams);
+            help = HelpBadge.create(context, textColor, text("Что такое поиск Arsound", "What Arsound search is"), HELP);
+            arsoundSegment.addView(help, HelpBadge.layoutParams(context));
             toggle.addView(arsoundSegment, new LinearLayout.LayoutParams(0, dp(context, 38), 1));
             bar.setPadding(dp(context, 16), dp(context, 4), dp(context, 16), dp(context, 8));
             bar.addView(toggle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
@@ -209,6 +205,38 @@ public final class SearchSourceSwitch {
                     Gravity.TOP | Gravity.CENTER_HORIZONTAL);
             spinnerParams.topMargin = dp(context, 48);
             results.addView(spinner, spinnerParams);
+            // The same tabs as SoundCloud's own search results: text, a line under the selected one and
+            // a thin line under the row. SoundCloud draws them in Compose, so they are made here the same
+            // way, with its labels (the app has no Russian translation of them).
+            tabsBar = new LinearLayout(context);
+            tabsBar.setOrientation(LinearLayout.VERTICAL);
+            tabs = new LinearLayout(context);
+            tabs.setOrientation(LinearLayout.HORIZONTAL);
+            String[] labels = {"All", "Tracks", "Profiles", "Albums"};
+            for (int i = 0; i < labels.length; i++) {
+                int index = i;
+                LinearLayout tabView = new LinearLayout(context);
+                tabView.setOrientation(LinearLayout.VERTICAL);
+                tabView.setGravity(Gravity.CENTER_HORIZONTAL);
+                tabView.setOnClickListener(v -> selectTab(index));
+                TextView label = new TextView(context);
+                label.setText(labels[i]);
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                label.setTypeface(Typeface.DEFAULT_BOLD);
+                label.setGravity(Gravity.CENTER);
+                tabView.addView(label, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+                View indicator = new View(context);
+                indicator.setBackgroundColor(textColor);
+                tabView.addView(indicator, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(context, 2)));
+                tabs.addView(tabView, new LinearLayout.LayoutParams(0, dp(context, 52), 1));
+            }
+            tabsBar.addView(tabs);
+            View divider = new View(context);
+            divider.setBackgroundColor(withAlpha(textColor, 0x26));
+            tabsBar.addView(divider, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(context, 1)));
+            coordinator.addView(tabsBar, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            styleTabs();
             coordinator.addView(results, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
 
             edit.addTextChangedListener(new TextWatcher() {
@@ -252,14 +280,10 @@ public final class SearchSourceSwitch {
         void apply() {
             style(soundCloudButton, soundCloudButton, !arsoundSelected);
             style(arsoundSegment, arsoundButton, arsoundSelected);
-            int helpColor = arsoundSelected ? inverse(textColor) : withAlpha(textColor, 0xB0);
-            help.setTextColor(helpColor);
-            GradientDrawable circle = new GradientDrawable();
-            circle.setShape(GradientDrawable.OVAL);
-            circle.setStroke(dp(context, 1.2f), helpColor);
-            help.setBackground(circle);
+            HelpBadge.setColor(help, arsoundSelected ? inverse(textColor) : withAlpha(textColor, 0xB0));
             soundCloudResults.setVisibility(arsoundSelected ? View.GONE : View.VISIBLE);
             results.setVisibility(arsoundSelected ? View.VISIBLE : View.GONE);
+            tabsBar.setVisibility(arsoundSelected ? View.VISIBLE : View.GONE);
             if (arsoundSelected) search();
         }
 
@@ -282,13 +306,19 @@ public final class SearchSourceSwitch {
             if (query.isEmpty()) {
                 spinner.setVisibility(View.GONE);
                 status.setVisibility(View.VISIBLE);
-                status.setText(text("Введите название трека — найдём то, что не скачивается в SoundCloud.",
-                        "Type a track name to find what SoundCloud does not let download."));
+                status.setText(text("Введите трек, альбом или исполнителя — найдём то, что не скачивается в SoundCloud.",
+                        "Type a track, album or artist to find what SoundCloud does not let download."));
                 return;
             }
+            back.clear();
             status.setVisibility(View.GONE);
             spinner.setVisibility(View.VISIBLE);
             network.execute(() -> {
+                // Albums and artists are asked for at the same time as tracks; their failure only hides them.
+                java.util.concurrent.Future<List<OtherSource.Album>> albums =
+                        extra.submit(() -> OtherSource.searchAlbums(query));
+                java.util.concurrent.Future<List<OtherSource.Artist>> artists =
+                        extra.submit(() -> OtherSource.searchArtists(query));
                 List<OtherSource.Track> found = null;
                 Exception error = null;
                 try {
@@ -297,13 +327,15 @@ public final class SearchSourceSwitch {
                     error = ex;
                     Logger.printException(() -> "Arsound search failed", ex);
                 }
-                List<OtherSource.Track> tracks = found;
+                List<OtherSource.Album> foundAlbums = resultOrEmpty(albums);
+                List<OtherSource.Artist> foundArtists = resultOrEmpty(artists);
+                List<OtherSource.Track> tracks = error != null ? new java.util.ArrayList<>() : found;
                 boolean failed = error != null;
                 boolean blocked = isRegionBlock(error);
                 handler.post(() -> {
                     if (current != generation) return;
                     spinner.setVisibility(View.GONE);
-                    if (failed || tracks.isEmpty()) {
+                    if (tracks.isEmpty() && foundAlbums.isEmpty() && foundArtists.isEmpty()) {
                         status.setVisibility(View.VISIBLE);
                         status.setText(blocked
                                 ? text("Российский IP — поиск Arsound отключён (Настройки → Arsound → сеть).",
@@ -314,13 +346,195 @@ public final class SearchSourceSwitch {
                         if (failed) shownQuery = null;
                         return;
                     }
-                    for (OtherSource.Track track : tracks) {
-                        Row row = new Row(this, track);
-                        rows.put(track.url, row);
-                        list.addView(row.view);
-                    }
+                    root = () -> showResults(foundArtists, foundAlbums, tracks);
+                    root.run();
                 });
             });
+        }
+
+        /** Pages opened from the results: the page to return to is on top. */
+        final java.util.ArrayDeque<Runnable> back = new java.util.ArrayDeque<>();
+        Runnable root;
+        Runnable shown;
+
+        void clearList() {
+            list.removeAllViews();
+            rows.clear();
+            status.setVisibility(View.GONE);
+            spinner.setVisibility(View.GONE);
+        }
+
+        /** The selected tab: all, tracks, artists or albums. */
+        int tab;
+
+        void selectTab(int index) {
+            if (tab == index) return;
+            tab = index;
+            styleTabs();
+            // Opened albums and artists belong to the results of the previous tab.
+            back.clear();
+            if (root != null) root.run();
+        }
+
+        void styleTabs() {
+            for (int i = 0; i < tabs.getChildCount(); i++) {
+                LinearLayout tabView = (LinearLayout) tabs.getChildAt(i);
+                boolean selected = i == tab;
+                ((TextView) tabView.getChildAt(0)).setTextColor(selected ? textColor : withAlpha(textColor, 0xA0));
+                tabView.getChildAt(1).setVisibility(selected ? View.VISIBLE : View.INVISIBLE);
+            }
+        }
+
+        void showResults(List<OtherSource.Artist> artists, List<OtherSource.Album> albums, List<OtherSource.Track> tracks) {
+            shown = root;
+            clearList();
+            // "All" shows a few of each; a tab shows everything of its kind.
+            boolean all = tab == 0;
+            if ((all || tab == 2) && !artists.isEmpty()) {
+                if (all) list.addView(header(text("Исполнители", "Artists")));
+                for (int i = 0; i < (all ? Math.min(3, artists.size()) : artists.size()); i++) {
+                    OtherSource.Artist artist = artists.get(i);
+                    list.addView(linkRow(artist.name, text("Исполнитель · альбомы", "Artist · albums"),
+                            () -> open(() -> showArtist(artist))));
+                }
+            }
+            if ((all || tab == 3) && !albums.isEmpty()) {
+                if (all) list.addView(header(text("Альбомы", "Albums")));
+                for (int i = 0; i < (all ? Math.min(6, albums.size()) : albums.size()); i++) addAlbumRow(albums.get(i));
+            }
+            if ((all || tab == 1) && !tracks.isEmpty()) {
+                if (all && (!artists.isEmpty() || !albums.isEmpty())) list.addView(header(text("Треки", "Tracks")));
+                addTracks(tracks);
+            }
+            if (list.getChildCount() == 0) list.addView(note(text("Здесь ничего не нашлось.", "Nothing here.")));
+        }
+
+        void addAlbumRow(OtherSource.Album album) {
+            String count = album.trackCount > 0 ? album.trackCount + " " + text("тр.", "tracks") : "";
+            String subtitle = album.artist.isEmpty() ? count : count.isEmpty() ? album.artist : album.artist + " · " + count;
+            list.addView(linkRow(album.title, subtitle, () -> open(() -> showAlbum(album))));
+        }
+
+        void addTracks(List<OtherSource.Track> tracks) {
+            for (OtherSource.Track track : tracks) {
+                Row row = new Row(this, track);
+                rows.put(track.url, row);
+                list.addView(row.view);
+            }
+        }
+
+        /** Opens a page; the back row returns to the page shown now. */
+        void open(Runnable page) {
+            if (shown != null) back.push(shown);
+            page.run();
+        }
+
+        void goBack() {
+            Runnable previous = back.poll();
+            if (previous != null) previous.run();
+        }
+
+        /** Shows a page title with a back row, then loads the page content off the main thread. */
+        <T> void loadPage(Runnable self, String title, java.util.concurrent.Callable<T> load,
+                          java.util.function.Consumer<T> show) {
+            shown = self;
+            int current = ++generation;
+            clearList();
+            list.addView(linkRow("←  " + text("Назад", "Back"), null, this::goBack));
+            list.addView(header(title));
+            spinner.setVisibility(View.VISIBLE);
+            network.execute(() -> {
+                T value = null;
+                Exception error = null;
+                try {
+                    value = load.call();
+                } catch (Exception ex) {
+                    error = ex;
+                    Logger.printException(() -> "Could not open " + title, ex);
+                }
+                T loaded = value;
+                boolean failed = error != null;
+                handler.post(() -> {
+                    if (current != generation) return;
+                    spinner.setVisibility(View.GONE);
+                    if (failed) {
+                        list.addView(note(text("Не получилось открыть: проверьте интернет.",
+                                "Could not open: check the connection.")));
+                        return;
+                    }
+                    show.accept(loaded);
+                });
+            });
+        }
+
+        void showArtist(OtherSource.Artist artist) {
+            loadPage(() -> showArtist(artist), artist.name, () -> OtherSource.artistAlbums(artist), albums -> {
+                if (albums.isEmpty()) list.addView(note(text("Альбомов не нашлось.", "No albums found.")));
+                for (OtherSource.Album album : albums) addAlbumRow(album);
+            });
+        }
+
+        void showAlbum(OtherSource.Album album) {
+            loadPage(() -> showAlbum(album), album.title, () -> OtherSource.albumTracks(album), tracks -> {
+                if (tracks.isEmpty()) {
+                    list.addView(note(text("В альбоме нет треков.", "The album has no tracks.")));
+                    return;
+                }
+                list.addView(linkRow(text("Скачать всё", "Download all") + " (" + tracks.size() + ")",
+                        text("В плейлист «Импортированные»", "To the imported music"), () -> {
+                            for (Row row : new java.util.ArrayList<>(rows.values())) startDownload(row);
+                        }));
+                addTracks(tracks);
+            });
+        }
+
+        TextView header(String label) {
+            TextView view = new TextView(context);
+            view.setText(label);
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            view.setTypeface(Typeface.DEFAULT_BOLD);
+            view.setTextColor(textColor);
+            view.setPadding(dp(context, 16), dp(context, 16), dp(context, 16), dp(context, 4));
+            return view;
+        }
+
+        TextView note(String label) {
+            TextView view = new TextView(context);
+            view.setText(label);
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            view.setTextColor(withAlpha(textColor, 0xB0));
+            view.setPadding(dp(context, 16), dp(context, 16), dp(context, 16), dp(context, 16));
+            return view;
+        }
+
+        /** A row that opens something: a title and an optional grey line under it. */
+        LinearLayout linkRow(String title, String subtitle, Runnable onClick) {
+            LinearLayout view = new LinearLayout(context);
+            view.setOrientation(LinearLayout.VERTICAL);
+            view.setGravity(Gravity.CENTER_VERTICAL);
+            view.setMinimumHeight(dp(context, 56));
+            view.setPadding(dp(context, 16), dp(context, 8), dp(context, 16), dp(context, 8));
+            TypedValue ripple = new TypedValue();
+            context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, ripple, true);
+            view.setBackgroundResource(ripple.resourceId);
+            view.setOnClickListener(v -> onClick.run());
+            TextView first = new TextView(context);
+            first.setText(title);
+            first.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            first.setTextColor(textColor);
+            first.setSingleLine(true);
+            first.setEllipsize(TextUtils.TruncateAt.END);
+            view.addView(first);
+            if (subtitle != null && !subtitle.isEmpty()) {
+                TextView second = new TextView(context);
+                second.setText(subtitle);
+                second.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                second.setTextColor(withAlpha(textColor, 0xA0));
+                second.setSingleLine(true);
+                second.setEllipsize(TextUtils.TruncateAt.END);
+                view.addView(second);
+            }
+            return view;
         }
 
         void refreshRows() {
@@ -474,6 +688,10 @@ public final class SearchSourceSwitch {
                 handler.post(() -> {
                     if (!url.equals(playingUrl)) return;
                     stopPreview();
+                    if (needsSignIn(ex)) {
+                        offerSignIn();
+                        return;
+                    }
                     toast(context, isRegionBlock(ex) ? REGION_BLOCKED_TEXT
                             : text("Не получилось включить трек.", "Could not play the track."));
                 });
@@ -545,6 +763,7 @@ public final class SearchSourceSwitch {
                         if (attempt >= 3) throw ex;
                     }
                 }
+                app.revanced.extension.soundcloud.local.LocalCovers.save(file, track.coverUrl);
                 LocalMusic.onFileAdded();
                 handler.post(() -> {
                     downloading.remove(url);
@@ -560,6 +779,10 @@ public final class SearchSourceSwitch {
                 handler.post(() -> {
                     downloading.remove(url);
                     refreshScreen();
+                    if (needsSignIn(ex)) {
+                        offerSignIn();
+                        return;
+                    }
                     toast(context, isRegionBlock(ex) ? REGION_BLOCKED_TEXT : refused(ex)
                             ? text("YouTube не отдал файл: похоже, VPN шлёт запросы с разных адресов.",
                             "YouTube refused the file: the VPN seems to use different addresses.")
@@ -573,11 +796,53 @@ public final class SearchSourceSwitch {
     private static final String REGION_BLOCKED_TEXT = text("Российский IP — поиск Arsound отключён.",
             "Russian IP: the Arsound search is off.");
 
+    private static <T> List<T> resultOrEmpty(java.util.concurrent.Future<List<T>> future) {
+        try {
+            return future.get();
+        } catch (Exception ex) {
+            Logger.printException(() -> "Arsound album or artist search failed", ex);
+            return new java.util.ArrayList<>();
+        }
+    }
+
     private static boolean isRegionBlock(Throwable error) {
         for (Throwable cause = error; cause != null; cause = cause.getCause()) {
             if (cause instanceof app.revanced.extension.soundcloud.network.RegionGuard.BlockedException) return true;
         }
         return false;
+    }
+
+    private static boolean needsSignIn(Throwable error) {
+        for (Throwable cause = error; cause != null; cause = cause.getCause()) {
+            if (cause instanceof YouTubeAccount.SignInRequiredException) return true;
+        }
+        return false;
+    }
+
+    private static boolean signInOffered;
+
+    /** An age-restricted track without an account: offers to sign in, once at a time. */
+    private static void offerSignIn() {
+        Activity current = activity.get();
+        if (current == null || current.isFinishing() || signInOffered) return;
+        signInOffered = true;
+        try {
+            new AlertDialog.Builder(current)
+                    .setView(WelcomePermissions.createDialogContent(current,
+                            text("У трека возрастное ограничение: YouTube отдаёт его только после входа в аккаунт.",
+                                    "The track is age-restricted: YouTube gives it only to signed-in listeners."),
+                            text("Войти в YouTube Music? Это по желанию: пароль вводится на странице Google, "
+                                            + "а выйти можно в Настройках → Arsound → Аккаунт.",
+                                    "Sign in to YouTube Music? It is optional: the password is typed into Google's page, "
+                                            + "and you can sign out in Settings → Arsound → Account.")))
+                    .setPositiveButton(text("Войти", "Sign in"), (dialog, which) -> YouTubeLoginActivity.start(current))
+                    .setNegativeButton(text("Не сейчас", "Not now"), null)
+                    .setOnDismissListener(dialog -> signInOffered = false)
+                    .show();
+        } catch (Exception ex) {
+            signInOffered = false;
+            Logger.printException(() -> "Could not offer the sign-in", ex);
+        }
     }
 
     private static boolean refused(Throwable error) {
@@ -587,10 +852,7 @@ public final class SearchSourceSwitch {
         return false;
     }
 
-    private static void showHelp(Context context) {
-        try {
-            new AlertDialog.Builder(context)
-                    .setView(WelcomePermissions.createDialogContent(context,
+    private static final CharSequence[] HELP = {
                             text("Поиск Arsound нужен, чтобы скачивать треки, которые в SoundCloud скачать нельзя: "
                                             + "их там нет, они только для подписчиков, это отрывок или трек защищён.",
                                     "Arsound search is for downloading tracks that SoundCloud does not let you download: "
@@ -600,13 +862,7 @@ public final class SearchSourceSwitch {
                                     "Tracks are searched on YouTube Music. Tap a track to listen and check it is the right one; "
                                             + "tap again to stop. The button on the right downloads it."),
                             text("Скачанное появляется в плейлисте «Импортированные» — оттуда трек можно добавить в любой плейлист.",
-                                    "Downloads appear in the \"Imported\" playlist, and can be added to any playlist from there.")))
-                    .setPositiveButton(text("Понятно", "Got it"), null)
-                    .show();
-        } catch (Exception ex) {
-            Logger.printException(() -> "Could not show the search help", ex);
-        }
-    }
+                                    "Downloads appear in the \"Imported\" playlist, and can be added to any playlist from there.")};
 
     private static void toast(Context context, String message) {
         android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_LONG).show();

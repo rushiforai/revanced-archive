@@ -1,5 +1,7 @@
 package app.revanced.extension.soundcloud.search;
 
+import android.net.Uri;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,18 +13,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import app.arsound.shaded.newpipe.extractor.Image;
 import app.arsound.shaded.newpipe.extractor.InfoItem;
+import app.arsound.shaded.newpipe.extractor.ListExtractor;
+import app.arsound.shaded.newpipe.extractor.Page;
+import app.arsound.shaded.newpipe.extractor.channel.ChannelInfo;
+import app.arsound.shaded.newpipe.extractor.channel.ChannelInfoItem;
+import app.arsound.shaded.newpipe.extractor.channel.tabs.ChannelTabInfo;
+import app.arsound.shaded.newpipe.extractor.channel.tabs.ChannelTabs;
+import app.arsound.shaded.newpipe.extractor.linkhandler.ListLinkHandler;
+import app.arsound.shaded.newpipe.extractor.playlist.PlaylistInfo;
+import app.arsound.shaded.newpipe.extractor.playlist.PlaylistInfoItem;
 import app.arsound.shaded.newpipe.extractor.NewPipe;
 import app.arsound.shaded.newpipe.extractor.ServiceList;
 import app.arsound.shaded.newpipe.extractor.StreamingService;
 import app.arsound.shaded.newpipe.extractor.downloader.Downloader;
 import app.arsound.shaded.newpipe.extractor.downloader.Request;
 import app.arsound.shaded.newpipe.extractor.downloader.Response;
+import app.arsound.shaded.newpipe.extractor.exceptions.AgeRestrictedContentException;
 import app.arsound.shaded.newpipe.extractor.search.SearchInfo;
 import app.arsound.shaded.newpipe.extractor.services.youtube.linkHandler.YoutubeSearchQueryHandlerFactory;
 import app.arsound.shaded.newpipe.extractor.stream.AudioStream;
 import app.arsound.shaded.newpipe.extractor.stream.StreamInfo;
 import app.arsound.shaded.newpipe.extractor.stream.StreamInfoItem;
+import app.revanced.extension.shared.Logger;
 
 /**
  * Search and audio streams from YouTube Music, through NewPipeExtractor.
@@ -41,13 +55,28 @@ public final class OtherSource {
         public final String title;
         public final String artist;
         public final long durationSeconds;
+        /** The album cover, or null. */
+        public final String coverUrl;
 
-        Track(String url, String title, String artist, long durationSeconds) {
+        Track(String url, String title, String artist, long durationSeconds, String coverUrl) {
             this.url = url;
             this.title = title;
             this.artist = artist;
             this.durationSeconds = durationSeconds;
+            this.coverUrl = coverUrl;
         }
+    }
+
+    /**
+     * The largest picture. YouTube Music covers are square and can be asked for in any size: 544 px
+     * is what its own player shows. Video thumbnails are 16:9 frames and stay as they are.
+     */
+    private static String coverUrl(List<Image> images) {
+        Image best = null;
+        for (Image image : images) if (best == null || image.getHeight() > best.getHeight()) best = image;
+        if (best == null) return null;
+        String url = best.getUrl();
+        return url.contains("googleusercontent.com") ? url.replaceAll("=w\\d+-h\\d+[^/]*$", "=w544-h544") : url;
     }
 
     private static synchronized StreamingService service() {
@@ -70,16 +99,129 @@ public final class OtherSource {
                 StreamInfoItem stream = (StreamInfoItem) item;
                 String artist = stream.getUploaderName();
                 if (artist != null && artist.endsWith(" - Topic")) artist = artist.substring(0, artist.length() - 8);
-                tracks.add(new Track(stream.getUrl(), stream.getName(), artist == null ? "" : artist, stream.getDuration()));
+                tracks.add(new Track(stream.getUrl(), stream.getName(), artist == null ? "" : artist, stream.getDuration(),
+                        coverUrl(stream.getThumbnails())));
             }
             if (!tracks.isEmpty()) break;
         }
         return tracks;
     }
 
+    public static final class Album {
+        public final String url;
+        public final String title;
+        public final String artist;
+        public final long trackCount;
+
+        Album(String url, String title, String artist, long trackCount) {
+            this.url = url;
+            this.title = title;
+            this.artist = artist;
+            this.trackCount = trackCount;
+        }
+    }
+
+    public static final class Artist {
+        public final String url;
+        public final String name;
+
+        Artist(String url, String name) {
+            this.url = url;
+            this.name = name;
+        }
+    }
+
+    private static List<InfoItem> searchItems(String query, String filter) throws Exception {
+        StreamingService service = service();
+        return SearchInfo.getInfo(service,
+                service.getSearchQHFactory().fromQuery(query, Collections.singletonList(filter), "")).getRelatedItems();
+    }
+
+    private static String artistName(String name) {
+        if (name == null) return "";
+        return name.endsWith(" - Topic") ? name.substring(0, name.length() - 8) : name;
+    }
+
+    private static Album toAlbum(InfoItem item, String fallbackArtist) {
+        if (!(item instanceof PlaylistInfoItem)) return null;
+        PlaylistInfoItem playlist = (PlaylistInfoItem) item;
+        String artist = artistName(playlist.getUploaderName());
+        return new Album(playlist.getUrl(), playlist.getName(), artist.isEmpty() ? fallbackArtist : artist,
+                playlist.getStreamCount());
+    }
+
+    /** Albums and singles of YouTube Music. */
+    public static List<Album> searchAlbums(String query) throws Exception {
+        List<Album> albums = new ArrayList<>();
+        for (InfoItem item : searchItems(query, YoutubeSearchQueryHandlerFactory.MUSIC_ALBUMS)) {
+            Album album = toAlbum(item, "");
+            if (album != null) albums.add(album);
+        }
+        return albums;
+    }
+
+    public static List<Artist> searchArtists(String query) throws Exception {
+        List<Artist> artists = new ArrayList<>();
+        for (InfoItem item : searchItems(query, YoutubeSearchQueryHandlerFactory.MUSIC_ARTISTS)) {
+            if (item instanceof ChannelInfoItem) artists.add(new Artist(item.getUrl(), item.getName()));
+        }
+        return artists;
+    }
+
+    /** The tracks of an album, in album order. */
+    public static List<Track> albumTracks(Album album) throws Exception {
+        StreamingService service = service();
+        PlaylistInfo info = PlaylistInfo.getInfo(service, album.url);
+        List<StreamInfoItem> items = new ArrayList<>(info.getRelatedItems());
+        Page page = info.getNextPage();
+        while (Page.isValid(page) && items.size() < 500) {
+            ListExtractor.InfoItemsPage<StreamInfoItem> more = PlaylistInfo.getMoreItems(service, album.url, page);
+            items.addAll(more.getItems());
+            page = more.getNextPage();
+        }
+        List<Track> tracks = new ArrayList<>();
+        for (StreamInfoItem stream : items) {
+            String artist = artistName(stream.getUploaderName());
+            // Tracks of an album share its cover.
+            String cover = coverUrl(info.getThumbnails());
+            tracks.add(new Track(stream.getUrl(), stream.getName(), artist.isEmpty() ? album.artist : artist,
+                    stream.getDuration(), cover != null ? cover : coverUrl(stream.getThumbnails())));
+        }
+        return tracks;
+    }
+
+    /** Albums and singles of an artist, from the releases tab of the artist's channel. */
+    public static List<Album> artistAlbums(Artist artist) throws Exception {
+        StreamingService service = service();
+        ChannelInfo channel = ChannelInfo.getInfo(service, artist.url);
+        List<Album> albums = new ArrayList<>();
+        for (ListLinkHandler tab : channel.getTabs()) {
+            if (!tab.getContentFilters().contains(ChannelTabs.ALBUMS)) continue;
+            ChannelTabInfo info = ChannelTabInfo.getInfo(service, tab);
+            List<InfoItem> items = new ArrayList<>(info.getRelatedItems());
+            Page page = info.getNextPage();
+            while (Page.isValid(page) && items.size() < 300) {
+                ListExtractor.InfoItemsPage<InfoItem> more = ChannelTabInfo.getMoreItems(service, tab, page);
+                items.addAll(more.getItems());
+                page = more.getNextPage();
+            }
+            for (InfoItem item : items) {
+                Album album = toAlbum(item, artist.name);
+                if (album != null) albums.add(album);
+            }
+        }
+        return albums;
+    }
+
     /** The best audio stream that Android stores as .m4a, or the best of any kind. */
     public static AudioStream bestAudio(String url) throws Exception {
-        StreamInfo info = StreamInfo.getInfo(service(), url);
+        StreamInfo info;
+        try {
+            info = StreamInfo.getInfo(service(), url);
+        } catch (AgeRestrictedContentException ex) {
+            // Anonymous requests cannot get age-restricted tracks; a signed-in account can.
+            return YouTubeAccount.audio(Uri.parse(url).getQueryParameter("v"));
+        }
         AudioStream best = null;
         AudioStream bestM4a = null;
         for (AudioStream stream : info.getAudioStreams()) {
