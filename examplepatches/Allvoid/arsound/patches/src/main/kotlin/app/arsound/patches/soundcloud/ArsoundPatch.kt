@@ -3,6 +3,7 @@ package app.arsound.patches.soundcloud
 import app.arsound.patches.all.misc.packagename.changePackageNamePatch
 import app.arsound.patches.soundcloud.ads.playbackAdsPatch
 import app.arsound.patches.soundcloud.analytics.disableTelemetryPatch
+import app.arsound.patches.soundcloud.debug.playbackTimelinePatch
 import app.arsound.patches.soundcloud.debug.playerBarLogPatch
 import app.arsound.patches.soundcloud.download.downloadTrackPatch
 import app.arsound.patches.soundcloud.library.hideImportBannerPatch
@@ -16,6 +17,9 @@ import app.arsound.patches.soundcloud.network.networkPatch
 import app.arsound.patches.soundcloud.offline.downloadedPlaybackPatch
 import app.arsound.patches.soundcloud.offline.offlineFirstPatch
 import app.arsound.patches.soundcloud.power.powerSavingPatch
+import app.arsound.patches.soundcloud.player.equalizerPatch
+import app.arsound.patches.soundcloud.player.listeningStatsPatch
+import app.arsound.patches.soundcloud.player.streamCachePatch
 import app.arsound.patches.soundcloud.recommendations.duplicateFilterPatch
 import app.arsound.patches.soundcloud.upsell.hideSubscriptionOffersPatch
 import app.revanced.patcher.patch.Patch
@@ -60,6 +64,7 @@ val arsoundBaseGroup = arsoundGroup(
         "Ставится рядом с оригинальным SoundCloud.",
     disableTelemetryPatch,
     playerBarLogPatch,
+    playbackTimelinePatch,
 )
 
 @Suppress("unused")
@@ -106,4 +111,13 @@ val arsoundRecommendationsGroup = arsoundGroup(
     "Arsound: без дубликатов",
     "Скрывает перезаливы одного и того же трека в рекомендациях и на главной.",
     duplicateFilterPatch,
+)
+
+@Suppress("unused")
+val arsoundPlayerGroup = arsoundGroup(
+    "Arsound: плеер",
+    "Эквалайзер, размер и срок хранения кэша потоков, статистика прослушиваний.",
+    streamCachePatch,
+    listeningStatsPatch,
+    equalizerPatch,
 )

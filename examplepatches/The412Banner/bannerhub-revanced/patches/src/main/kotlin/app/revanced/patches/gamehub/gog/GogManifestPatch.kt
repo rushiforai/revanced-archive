@@ -28,6 +28,7 @@ private val ACTIVITIES = listOf(
     "$PKG.GogLoginActivity" to false, // WebView GOG OAuth
     "$PKG.GogGamesActivity" to false, // owned-library list
     "$PKG.GogGameDetailActivity" to false,
+    "$PKG.GogCatalogDetailActivity" to false, // store-only detail page (unowned catalog titles)
     "$PKG.BhDownloadsActivity" to false, // shared download manager screen
     "$PKG.FolderPickerActivity" to false, // install-location picker
 )
@@ -42,6 +43,11 @@ val gogManifestPatch = resourcePatch(
         "GogMainActivity is exported in Phase 1 only as the temporary adb dev entry.",
 ) {
     compatibleWith(GAMEHUB_PACKAGE(GAMEHUB_VERSION))
+    // The GOG store always ships with its native download engine
+    // (lib/arm64-v8a/libblsteam.so + assets/blsteam_cacert.pem). The runtime
+    // switch + load probe in GogDownloadManager decide per download whether it
+    // is used; when the lib is missing the Java loop runs unchanged.
+    dependsOn(gogEngineLibBundlePatch)
 
     apply {
         document("AndroidManifest.xml").use { dom ->

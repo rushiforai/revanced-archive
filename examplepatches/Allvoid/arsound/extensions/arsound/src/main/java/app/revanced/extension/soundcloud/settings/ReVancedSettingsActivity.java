@@ -71,6 +71,8 @@ public final class ReVancedSettingsActivity extends Activity {
     private static final String SCREEN_UPDATES = "updates";
     private static final String SCREEN_DEVELOPER = "developer";
     private static final String SCREEN_ACCOUNT = "account";
+    private static final String SCREEN_STATS = "stats";
+    private static final String SCREEN_EQUALIZER = "equalizer";
 
     /** A screen with the toolbar and a scrolling list. Returns the root; the list is the last child of the scroll view. */
     private LinearLayout createScreen(LinearLayout[] listOut) {
@@ -149,6 +151,12 @@ public final class ReVancedSettingsActivity extends Activity {
         list.addView(openScreenRow(text("Своя музыка", "Your music"),
                 text("Импорт файлов, плейлист «Импортированные», свой порядок", "Import files, \"Imported\" playlist, custom order"),
                 SCREEN_MUSIC));
+        list.addView(openScreenRow(text("Эквалайзер", "Equalizer"),
+                text("Громкость низких, средних и высоких частот", "Levels of low, middle and high frequencies"),
+                SCREEN_EQUALIZER));
+        list.addView(openScreenRow(text("Статистика прослушиваний", "Listening statistics"),
+                text("Сколько и что вы слушали — только на этом телефоне", "What and how much you listened to, on this phone only"),
+                SCREEN_STATS));
         list.addView(openScreenRow(text("Батарея и конфиденциальность", "Battery and privacy"),
                 text("Экономия батареи, телеметрия", "Battery saving, telemetry"),
                 SCREEN_PRIVACY));
@@ -194,6 +202,14 @@ public final class ReVancedSettingsActivity extends Activity {
             case SCREEN_UPDATES:
                 list.addView(createTitle(text("Обновления и данные", "Updates and data"), false));
                 addUpdatesSection(list);
+                break;
+            case SCREEN_EQUALIZER:
+                list.addView(createTitle(text("Эквалайзер", "Equalizer"), false));
+                addEqualizerSection(list);
+                break;
+            case SCREEN_STATS:
+                list.addView(createTitle(text("Статистика прослушиваний", "Listening statistics"), false));
+                addStatsSection(list);
                 break;
             case SCREEN_ACCOUNT:
                 list.addView(createTitle(text("Аккаунт", "Account"), false));
@@ -289,6 +305,288 @@ public final class ReVancedSettingsActivity extends Activity {
                 Settings.isPlaybackRetryEnabled(),
                 (button, checked) -> Settings.setPlaybackRetryEnabled(checked)
         ));
+        addStreamCacheOptions(list);
+    }
+
+    private void addEqualizerSection(LinearLayout list) {
+        app.revanced.extension.soundcloud.player.AudioEqualizer.Info info = app.revanced.extension.soundcloud.player.AudioEqualizer.readInfo();
+        LinearLayout options = new LinearLayout(this);
+        options.setOrientation(LinearLayout.VERTICAL);
+        list.addView(createToggleRow(
+                text("Включить эквалайзер", "Turn on the equalizer"),
+                text("Меняет звук всего, что играет в SoundCloud, сразу, без перезапуска. Работает через эквалайзер Android.",
+                        "Changes the sound of everything SoundCloud plays, at once, without a restart. Uses Android's equalizer."),
+                app.revanced.extension.soundcloud.player.AudioEqualizer.isEnabled(),
+                (button, checked) -> {
+                    Settings.putBoolean(app.revanced.extension.soundcloud.player.AudioEqualizer.ENABLED, checked);
+                    app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
+                    options.setVisibility(checked ? View.VISIBLE : View.GONE);
+                }
+        ));
+        options.setVisibility(app.revanced.extension.soundcloud.player.AudioEqualizer.isEnabled() ? View.VISIBLE : View.GONE);
+        list.addView(options);
+        if (info.centerFrequenciesHz.length == 0) {
+            options.addView(createText("Body.Secondary", text("Эквалайзер недоступен на этом телефоне.", "The equalizer is not available on this phone.")));
+            return;
+        }
+
+        int bands = info.centerFrequenciesHz.length;
+        android.widget.SeekBar[] sliders = new android.widget.SeekBar[bands];
+        TextView[] values = new TextView[bands];
+        Runnable showLevels = () -> {
+            long preset = Settings.getLong(app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM);
+            short[] levels = preset >= 0 && preset < info.presetLevels.length ? info.presetLevels[(int) preset] : app.revanced.extension.soundcloud.player.AudioEqualizer.levels(bands);
+            for (int band = 0; band < bands; band++) {
+                sliders[band].setProgress(levels[band] - info.minLevel);
+                values[band].setText(levelText(levels[band]));
+            }
+        };
+
+        long[] presetValues = new long[info.presets.length + 1];
+        String[] presetLabels = new String[info.presets.length + 1];
+        presetValues[0] = app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM;
+        presetLabels[0] = text("Своя настройка", "Custom");
+        for (int i = 0; i < info.presets.length; i++) {
+            presetValues[i + 1] = i;
+            presetLabels[i + 1] = info.presets[i];
+        }
+        View presetRow = createChoiceRow(text("Пресет", "Preset"), null, app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM, presetValues, presetLabels, () -> {
+            app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
+            showLevels.run();
+        });
+        options.addView(presetRow);
+        TextView presetDescription = (TextView) ((ViewGroup) presetRow).getChildAt(1);
+
+        for (int band = 0; band < bands; band++) {
+            options.addView(createBandSlider(band, bands, info, sliders, values, () -> presetDescription.setText(presetLabels[0])));
+        }
+        showLevels.run();
+        options.addView(createActionRow(text("Сбросить", "Reset"),
+                text("Все полосы на 0 дБ.", "All bands at 0 dB."), v -> {
+                    Settings.putString(app.revanced.extension.soundcloud.player.AudioEqualizer.LEVELS, "");
+                    Settings.putLong(app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM);
+                    app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
+                    presetDescription.setText(presetLabels[0]);
+                    showLevels.run();
+                }));
+    }
+
+    /** One band of the equalizer: its frequency, a slider and the level in decibels. */
+    private View createBandSlider(int band, int bands, app.revanced.extension.soundcloud.player.AudioEqualizer.Info info,
+                                  android.widget.SeekBar[] sliders, TextView[] values, Runnable onUserChange) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(dimen("spacing_m"), dimen("spacing_xs"), dimen("spacing_m"), dimen("spacing_xs"));
+        int hz = info.centerFrequenciesHz[band];
+        TextView frequency = createText("Body.Primary", hz >= 1000 ? (hz / 1000) + text(" кГц", " kHz") : hz + text(" Гц", " Hz"));
+        row.addView(frequency, new LinearLayout.LayoutParams(dp(72), ViewGroup.LayoutParams.WRAP_CONTENT));
+        android.widget.SeekBar slider = new android.widget.SeekBar(this);
+        slider.setMax(info.maxLevel - info.minLevel);
+        row.addView(slider, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        TextView value = createText("Body.Secondary", "");
+        value.setGravity(Gravity.END);
+        row.addView(value, new LinearLayout.LayoutParams(dp(72), ViewGroup.LayoutParams.WRAP_CONTENT));
+        sliders[band] = slider;
+        values[band] = value;
+        slider.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser) return;
+                short level = (short) (progress + info.minLevel);
+                value.setText(levelText(level));
+                app.revanced.extension.soundcloud.player.AudioEqualizer.setLevel(band, level, bands);
+                onUserChange.run();
+            }
+
+            @Override
+            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
+            }
+        });
+        return row;
+    }
+
+    private static String levelText(short millibels) {
+        return String.format(Locale.US, "%+.1f ", millibels / 100f) + text("дБ", "dB");
+    }
+
+    private void addStatsSection(LinearLayout list) {
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        list.addView(createToggleRow(
+                text("Собирать статистику", "Collect statistics"),
+                text("Запоминает, какие треки и сколько времени играли. Хранится только на этом телефоне, никуда не отправляется. "
+                                + "Прослушиванием считается от 30 секунд.",
+                        "Remembers which tracks played and for how long. Kept only on this phone, never sent anywhere. "
+                                + "A play counts from 30 seconds on."),
+                app.revanced.extension.soundcloud.player.ListeningStats.isEnabled(),
+                (button, checked) -> Settings.putBoolean(app.revanced.extension.soundcloud.player.ListeningStats.ENABLED, checked)
+        ));
+        long day = 24L * 60 * 60 * 1000;
+        list.addView(createChoiceRow(text("Период", "Period"), null, "stats_period", 30,
+                new long[]{7, 30, 365, 0},
+                new String[]{text("7 дней", "7 days"), text("30 дней", "30 days"), text("Год", "Year"), text("Всё время", "All time")},
+                () -> showStats(content)));
+        list.addView(content);
+        showStats(content);
+        list.addView(createActionRow(text("Очистить статистику", "Clear statistics"),
+                text("Удалить всю историю прослушиваний с телефона.", "Delete the whole listening history from the phone."),
+                v -> new android.app.AlertDialog.Builder(this)
+                        .setTitle(text("Очистить статистику?", "Clear statistics?"))
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(text("Очистить", "Clear"), (dialog, which) -> {
+                            app.revanced.extension.soundcloud.player.ListeningStats.clear();
+                            showStats(content);
+                        })
+                        .show()));
+    }
+
+    private void showStats(LinearLayout content) {
+        content.removeAllViews();
+        content.addView(createText("Body.Secondary", text("Считаю…", "Counting…")));
+        long days = Settings.getLong("stats_period", 30);
+        long since = days == 0 ? 0 : System.currentTimeMillis() - days * 24L * 60 * 60 * 1000;
+        Utils.runOnBackgroundThread(() -> {
+            app.revanced.extension.soundcloud.player.ListeningStats.Summary summary =
+                    app.revanced.extension.soundcloud.player.ListeningStats.summarize(since, 10);
+            Utils.runOnMainThread(() -> {
+                content.removeAllViews();
+                TextView total = createText("H4.Primary", text("Прослушано: ", "Listened: ") + duration(summary.playedMs));
+                total.setPadding(dimen("spacing_m"), dimen("spacing_s"), dimen("spacing_m"), 0);
+                content.addView(total);
+                TextView counts = createText("Body.Secondary", text("Прослушиваний: " + summary.plays + " · разных треков: " + summary.tracks,
+                        "Plays: " + summary.plays + " · different tracks: " + summary.tracks));
+                counts.setPadding(dimen("spacing_m"), 0, dimen("spacing_m"), dimen("spacing_s"));
+                content.addView(counts);
+                if (summary.topTracks.isEmpty()) return;
+                content.addView(createSubHeading(text("Треки", "Tracks")));
+                for (app.revanced.extension.soundcloud.player.ListeningStats.Entry entry : summary.topTracks) {
+                    content.addView(createStatRow(entry.title, (entry.artist == null || entry.artist.isEmpty() ? "" : entry.artist + " · ")
+                            + playsText(entry.plays) + " · " + duration(entry.playedMs)));
+                }
+                if (summary.topArtists.isEmpty()) return;
+                content.addView(createSubHeading(text("Исполнители", "Artists")));
+                for (app.revanced.extension.soundcloud.player.ListeningStats.Entry entry : summary.topArtists) {
+                    content.addView(createStatRow(entry.title, playsText(entry.plays) + " · " + duration(entry.playedMs)));
+                }
+            });
+        });
+    }
+
+    private View createStatRow(String title, String details) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.VERTICAL);
+        row.setPadding(dimen("spacing_m"), dimen("spacing_xs"), dimen("spacing_m"), dimen("spacing_xs"));
+        row.addView(createText("Body.Primary", title));
+        row.addView(createText("Body.Secondary", details));
+        return row;
+    }
+
+    private static String playsText(int plays) {
+        return text(plays + " прослуш.", plays + (plays == 1 ? " play" : " plays"));
+    }
+
+    private static String duration(long ms) {
+        long minutes = ms / 60_000;
+        if (minutes == 0) return text(ms / 1000 + " с", ms / 1000 + " s");
+        if (minutes < 60) return text(minutes + " мин", minutes + " min");
+        return text(minutes / 60 + " ч " + minutes % 60 + " мин", minutes / 60 + " h " + minutes % 60 + " min");
+    }
+
+    private void addWatchFolderOptions(LinearLayout list) {
+        LinearLayout options = new LinearLayout(this);
+        options.setOrientation(LinearLayout.VERTICAL);
+        list.addView(createToggleRow(
+                text("Следить за папкой", "Watch a folder"),
+                text("Новые аудиофайлы из выбранной папки на телефоне сами импортируются, когда вы открываете SoundCloud. "
+                                + "Удаление файла из папки импортированный трек не трогает.",
+                        "New audio files in the chosen phone folder are imported by themselves when you open SoundCloud. "
+                                + "Removing a file from the folder does not remove the imported track."),
+                app.revanced.extension.soundcloud.local.WatchFolder.isEnabled(),
+                (button, checked) -> {
+                    if (checked && app.revanced.extension.soundcloud.local.WatchFolder.getFolder() == null) {
+                        app.revanced.extension.soundcloud.local.ImportActivity.pickWatchFolder(this);
+                    }
+                    app.revanced.extension.soundcloud.local.WatchFolder.setEnabled(checked);
+                    options.setVisibility(checked ? View.VISIBLE : View.GONE);
+                }
+        ));
+        options.setVisibility(app.revanced.extension.soundcloud.local.WatchFolder.isEnabled() ? View.VISIBLE : View.GONE);
+        list.addView(options);
+        TextView[] folder = new TextView[1];
+        View folderRow = createActionRow(text("Папка", "Folder"), "",
+                v -> app.revanced.extension.soundcloud.local.ImportActivity.pickWatchFolder(this));
+        folder[0] = (TextView) ((ViewGroup) folderRow).getChildAt(1);
+        options.addView(folderRow);
+        options.addView(createActionRow(text("Проверить сейчас", "Check now"),
+                text("Импортировать новые файлы из папки, не дожидаясь следующего запуска.",
+                        "Import new files from the folder without waiting for the next start."),
+                v -> app.revanced.extension.soundcloud.local.WatchFolder.check(getApplicationContext(), true)));
+        // The folder is picked in another screen: the name is shown again when this one comes back.
+        folderNameViews.add(folder[0]);
+        updateFolderNames();
+    }
+
+    private final java.util.List<TextView> folderNameViews = new java.util.ArrayList<>();
+
+    private void updateFolderNames() {
+        String name = app.revanced.extension.soundcloud.local.WatchFolder.folderName();
+        for (TextView view : folderNameViews) {
+            view.setText(name != null ? name : text("Не выбрана — нажмите, чтобы выбрать", "Not chosen, tap to choose"));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateFolderNames();
+    }
+
+    private void addStreamCacheOptions(LinearLayout list) {
+        list.addView(createSubHeading(text("Кэш потоков", "Stream cache")));
+        long megabyte = 1024L * 1024;
+        long gigabyte = 1024 * megabyte;
+        list.addView(createChoiceRow(text("Размер кэша", "Cache size"),
+                text("Сюда SoundCloud сохраняет части треков, которые вы слушали из сети, чтобы при повторе не качать их "
+                                + "снова. Скачанные треки сюда не входят. Применится после перезапуска.",
+                        "SoundCloud keeps parts of the tracks you streamed here, so a replay does not download them again. "
+                                + "Downloaded tracks are not in it. Applies after a restart."),
+                Settings.STREAM_CACHE_SIZE, 0,
+                new long[]{0, 250 * megabyte, 500 * megabyte, gigabyte, 2 * gigabyte, 5 * gigabyte, 10 * gigabyte, 20 * gigabyte},
+                new String[]{text("Как в SoundCloud (120–500 МБ)", "SoundCloud default (120–500 MB)"),
+                        text("250 МБ", "250 MB"), text("500 МБ", "500 MB"), text("1 ГБ", "1 GB"), text("2 ГБ", "2 GB"),
+                        text("5 ГБ", "5 GB"), text("10 ГБ", "10 GB"), text("20 ГБ", "20 GB")},
+                null));
+        list.addView(createChoiceRow(text("Срок хранения", "Keep for"),
+                text("Части треков, которые вы не слушали столько дней, удаляются при запуске.",
+                        "Parts of tracks you have not played for this many days are removed at start."),
+                Settings.STREAM_CACHE_DAYS, 0,
+                new long[]{0, 1, 7, 30, 90},
+                new String[]{text("Пока хватает места", "Until the cache is full"), text("1 день", "1 day"),
+                        text("7 дней", "7 days"), text("30 дней", "30 days"), text("90 дней", "90 days")},
+                null));
+        TextView[] used = new TextView[1];
+        View clearRow = createActionRow(text("Очистить кэш", "Clear cache"), "", v -> {
+            Settings.putBoolean(app.revanced.extension.soundcloud.player.StreamCache.CLEAR_REQUESTED, true);
+            used[0].setText(text("Кэш очистится при следующем запуске SoundCloud.",
+                    "The cache is cleared the next time SoundCloud starts."));
+        });
+        used[0] = (TextView) ((ViewGroup) clearRow).getChildAt(1);
+        used[0].setText(text("Считаю…", "Counting…"));
+        Utils.runOnBackgroundThread(() -> {
+            long bytes = app.revanced.extension.soundcloud.player.StreamCache.usedBytes();
+            boolean pending = Settings.getBoolean(app.revanced.extension.soundcloud.player.StreamCache.CLEAR_REQUESTED, false);
+            String size = android.text.format.Formatter.formatShortFileSize(this, bytes);
+            Utils.runOnMainThread(() -> used[0].setText(pending
+                    ? text("Кэш очистится при следующем запуске SoundCloud.", "The cache is cleared the next time SoundCloud starts.")
+                    : text("Сейчас занято: " + size + ". Очистится при следующем запуске.",
+                    "Now used: " + size + ". Cleared at the next start.")));
+        });
+        list.addView(clearRow);
     }
 
     private void addAdsSection(LinearLayout list) {
@@ -338,8 +636,8 @@ public final class ReVancedSettingsActivity extends Activity {
         duplicateOptions.setOrientation(LinearLayout.VERTICAL);
         list.addView(createToggleRow(
                 text("Скрывать дубликаты", "Hide duplicates"),
-                text("Один и тот же трек, перезалитый разными людьми, показывается на главной и в автовоспроизведении "
-                                + "один раз. Одинаковыми считаются треки с тем же названием и длительностью (разница до 2 с). "
+                text("Один и тот же трек, перезалитый разными людьми, показывается на главной, в автовоспроизведении "
+                                + "и в подборках, которые SoundCloud собрал для вас (Your Mix, Daily Drops, Weekly Wave), один раз. Одинаковыми считаются треки с тем же названием и длительностью (разница до 2 с). "
                                 + "Лайки, плейлисты и профили не меняются.",
                         "The same song re-uploaded by different users appears once on the home screen and in autoplay. "
                                 + "Tracks with the same title and duration (within 2 s) count as the same."),
@@ -352,11 +650,53 @@ public final class ReVancedSettingsActivity extends Activity {
         duplicateOptions.setVisibility(Settings.isDuplicateFilterEnabled() ? View.VISIBLE : View.GONE);
         duplicateOptions.addView(createToggleRow(
                 text("Считать slowed, sped up и ремиксы тем же треком", "Treat slowed, sped up and remixes as the same song"),
-                text("Если выключено, такие версии показываются отдельно.", "When off, these versions are shown separately."),
+                text("Версии с другой скоростью («0.9 speed», «1.2x», slowed) и ремиксы считаются тем же треком, "
+                                + "даже если длительность отличается. Если выключено, такие версии показываются отдельно.",
+                        "Versions at another speed (\"0.9 speed\", \"1.2x\", slowed) and remixes count as the same song, "
+                                + "even with another duration. When off, these versions are shown separately."),
                 Settings.isMergeEditedVersions(),
                 (button, checked) -> Settings.putBoolean(Settings.MERGE_EDITED_VERSIONS, checked)
         ));
         list.addView(duplicateOptions);
+        addDislikeOptions(list);
+    }
+
+    private void addDislikeOptions(LinearLayout list) {
+        LinearLayout disliked = new LinearLayout(this);
+        disliked.setOrientation(LinearLayout.VERTICAL);
+        list.addView(createToggleRow(
+                text("«Не нравится» у треков", "\"Not for me\" on tracks"),
+                text("В меню «⋮» трека появляется «Не нравится — не рекомендовать». Такой трек пропадает с главной, из "
+                                + "автовоспроизведения и из подборок SoundCloud (Your Mix, Daily Drops). Лайки, плейлисты и поиск не меняются; список хранится на телефоне.",
+                        "The track menu gets \"Not for me: don't recommend\". Such a track disappears from the home screen and "
+                                + "autoplay. Likes, playlists and search stay as they are; the list is kept on the phone."),
+                app.revanced.extension.soundcloud.recommendations.TrackDislikes.isEnabled(),
+                (button, checked) -> {
+                    Settings.putBoolean(app.revanced.extension.soundcloud.recommendations.TrackDislikes.ENABLED, checked);
+                    disliked.setVisibility(checked ? View.VISIBLE : View.GONE);
+                }
+        ));
+        disliked.setVisibility(app.revanced.extension.soundcloud.recommendations.TrackDislikes.isEnabled() ? View.VISIBLE : View.GONE);
+        list.addView(disliked);
+        showDisliked(disliked);
+    }
+
+    private void showDisliked(LinearLayout container) {
+        container.removeAllViews();
+        java.util.Map<String, String> all = app.revanced.extension.soundcloud.recommendations.TrackDislikes.getAll();
+        container.addView(createSubHeading(text("Не нравится", "Not for me") + " (" + all.size() + ")"));
+        if (all.isEmpty()) {
+            TextView empty = createText("Body.Secondary", text("Пока пусто.", "Nothing yet."));
+            empty.setPadding(dimen("spacing_m"), 0, dimen("spacing_m"), dimen("spacing_s"));
+            container.addView(empty);
+            return;
+        }
+        for (java.util.Map.Entry<String, String> entry : all.entrySet()) {
+            container.addView(createActionRow(entry.getValue(), text("Нажмите, чтобы вернуть в рекомендации", "Tap to allow in recommendations again"), v -> {
+                app.revanced.extension.soundcloud.recommendations.TrackDislikes.remove(entry.getKey());
+                showDisliked(container);
+            }));
+        }
     }
 
     private void addMusicSection(LinearLayout list) {
@@ -367,6 +707,7 @@ public final class ReVancedSettingsActivity extends Activity {
                 v -> startActivity(new android.content.Intent(this, ReVancedSettingsActivity.class)
                         .putExtra(EXTRA_SCREEN, SCREEN_LOCAL_MUSIC))
         ));
+        addWatchFolderOptions(list);
         LinearLayout savedOptions = new LinearLayout(this);
         savedOptions.setOrientation(LinearLayout.VERTICAL);
         list.addView(createToggleRow(
@@ -686,6 +1027,18 @@ public final class ReVancedSettingsActivity extends Activity {
         delayDescription[0] = (TextView) ((ViewGroup) delayRow).getChildAt(1);
         container.addView(delayRow);
 
+        container.addView(createToggleRow(
+                text("Журнал воспроизведения", "Playback log"),
+                text("Записывает каждый старт трека: сколько он ждал и почему, состояние сети, ошибки. Нужен, чтобы "
+                                + "разобраться, почему трек запускается медленно. Файлы за два дня лежат в "
+                                + "Android/data/<пакет>/files/playback-log. Применится после перезапуска.",
+                        "Writes every track start: how long it waited and why, the network, errors. Helps find out why a "
+                                + "track starts slowly. Files of two days are kept in Android/data/<package>/files/playback-log. "
+                                + "Applies after a restart."),
+                Settings.getBoolean(app.revanced.extension.soundcloud.debug.PlaybackTimeline.ENABLED, false),
+                (button, checked) -> Settings.putBoolean(app.revanced.extension.soundcloud.debug.PlaybackTimeline.ENABLED, checked)
+        ));
+
         addLogOptions(container);
     }
 
@@ -939,6 +1292,39 @@ public final class ReVancedSettingsActivity extends Activity {
 
     private View createActionRow(String title, String description, View.OnClickListener listener) {
         return createActionRow(title, description, null, listener);
+    }
+
+    /**
+     * A row that picks one of several values of a long setting. The description shows the chosen value.
+     *
+     * @param explanation Shown under the chosen value, may be null.
+     */
+    private View createChoiceRow(String title, String explanation, String key, long defaultValue,
+                                 long[] values, String[] labels, Runnable onChange) {
+        TextView[] description = new TextView[1];
+        View row = createActionRow(title, "", v -> new android.app.AlertDialog.Builder(this)
+                .setTitle(title)
+                .setSingleChoiceItems(labels, indexOf(values, Settings.getLong(key, defaultValue)), (dialog, which) -> {
+                    Settings.putLong(key, values[which]);
+                    description[0].setText(choiceDescription(key, defaultValue, values, labels, explanation));
+                    dialog.dismiss();
+                    if (onChange != null) onChange.run();
+                })
+                .show());
+        description[0] = (TextView) ((ViewGroup) row).getChildAt(1);
+        description[0].setText(choiceDescription(key, defaultValue, values, labels, explanation));
+        return row;
+    }
+
+    private static String choiceDescription(String key, long defaultValue, long[] values, String[] labels, String explanation) {
+        int index = indexOf(values, Settings.getLong(key, defaultValue));
+        String chosen = index >= 0 ? labels[index] : String.valueOf(Settings.getLong(key, defaultValue));
+        return explanation == null ? chosen : chosen + "\n" + explanation;
+    }
+
+    private static int indexOf(long[] values, long value) {
+        for (int i = 0; i < values.length; i++) if (values[i] == value) return i;
+        return -1;
     }
 
     /** @param help A {@link HelpBadge} shown right after the title, or null. */
