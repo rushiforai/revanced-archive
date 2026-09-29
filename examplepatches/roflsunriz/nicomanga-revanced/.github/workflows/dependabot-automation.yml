@@ -22,7 +22,10 @@ jobs:
       contents: write
       pull-requests: write
       statuses: write
-    uses: roflsunriz/myAGENTS/.github/workflows/dependabot-automation.yml@e2bc243aaac72671e01b9188382cf46d27227804
+    uses: roflsunriz/myAGENTS/.github/workflows/dependabot-automation.yml@8bcb79de73249f04e83d0a6071d30ac025710a17
     with:
       ci_workflows: '["Build"]'
       callback_workflow_file: dependabot-automation.yml
+      autofix_command: './gradlew --no-daemon build --write-locks'
+      autofix_paths: '["extensions/extension/gradle.lockfile","patches/gradle.lockfile"]'
+      autofix_workflow_files: '["build.yml"]'
