@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29 03:56 UTC",
+  "generatedAt": "2026-09-30 03:54 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
@@ -68,32 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.40.1 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.40.3 (2026-09-30)",
+        "date": "2026-09-30",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-          },
-          {
-            "category": "Features",
-            "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-          },
-          {
-            "category": "Features",
-            "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-          },
-          {
-            "category": "Features",
-            "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+            "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
           }
         ]
       },
@@ -659,12 +639,12 @@
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "3.3.1 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "3.3.2 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "keep the sound of DASH saves whose audio starts before zero"
+            "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
           }
         ]
       },
@@ -1677,16 +1657,24 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.35.0 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.35.1 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**docscanner:** add premium unlock patch"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
           },
           {
-            "category": "\u2728 New Features",
-            "text": "**lumina:** add wallpapers license and premium patches"
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+          },
+          {
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**onlyone:** update target app version to 1.3044"
+          },
+          {
+            "category": "\ud83d\ude80 Updated App Support",
+            "text": "**plagueinc:** bump target version to 1.26.1"
           }
         ]
       },
@@ -2019,12 +2007,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.5.3 (2026-09-24)",
-        "date": "2026-09-24",
+        "title": "1.5.4 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**github:** preserve custom monospace in markdown"
+          },
+          {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**bitwarden and github:** update app support"
+            "text": "update GitHub app support"
           }
         ]
       },
@@ -3811,20 +3803,20 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.1 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.4.2 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "pin Hamro Patro compatibility to 10.7.33"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+            "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
           }
         ]
       },
@@ -4713,20 +4705,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.34.0 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.36.0 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
             "category": "New Features",
-            "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+            "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
           }
         ]
       },
@@ -10766,20 +10750,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -11260,16 +11236,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -12115,16 +12099,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -12391,20 +12383,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -12584,20 +12568,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -12650,16 +12626,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -12712,16 +12696,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -14171,8 +14163,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -14180,12 +14172,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -14309,20 +14301,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -14389,20 +14381,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -14608,20 +14592,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -14674,20 +14650,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -17105,20 +17073,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -17172,16 +17132,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -17211,7 +17179,7 @@
             }
           ],
           "versions": [
-            "3.1.1"
+            "3.1.2"
           ]
         },
         {
@@ -17298,7 +17266,8 @@
         }
       ],
       "versions": [
-        "3.1.1"
+        "3.1.1",
+        "3.1.2"
       ],
       "iconColor": "#8B4513",
       "iconUrl": ""
@@ -17319,12 +17288,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.3 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.5.4 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**github:** preserve custom monospace in markdown"
+              },
+              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**bitwarden and github:** update app support"
+                "text": "update GitHub app support"
               }
             ]
           },
@@ -17948,20 +17921,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -18139,20 +18104,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -19063,16 +19028,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -19353,20 +19326,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -22005,32 +21978,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -22512,32 +22465,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -22652,32 +22585,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -22736,32 +22649,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -23068,32 +22961,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -23311,32 +23184,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -23391,12 +23244,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.3 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.5.4 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**github:** preserve custom monospace in markdown"
+              },
+              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**bitwarden and github:** update app support"
+                "text": "update GitHub app support"
               }
             ]
           },
@@ -23426,7 +23283,7 @@
             }
           ],
           "versions": [
-            "1.277.0"
+            "1.278.0"
           ]
         },
         {
@@ -23574,7 +23431,7 @@
       ],
       "versions": [
         "1.271.1",
-        "1.277.0"
+        "1.278.0"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -25084,32 +24941,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -25845,32 +25682,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -25892,7 +25709,7 @@
             }
           ],
           "versions": [
-            "10.28.5000"
+            "10.36.5000"
           ]
         }
       ],
@@ -25911,7 +25728,7 @@
         }
       ],
       "versions": [
-        "10.28.5000"
+        "10.36.5000"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -25932,32 +25749,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -26917,32 +26714,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -27077,32 +26854,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -28950,16 +28707,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -29394,20 +29159,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -29478,20 +29235,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -29684,16 +29433,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -30431,16 +30188,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -30670,16 +30435,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -30997,16 +30770,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -31197,20 +30978,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -31287,16 +31060,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -31310,7 +31091,7 @@
           "patches": [
             {
               "name": "Earn to Die 2 Free IAP",
-              "description": "Intercepts all in-app purchases and reports instant success to the game engine, unlocking paid content (cash doubler) for free."
+              "description": "Intercepts all in-app purchases and calls the native on_purchase(String[], String) grant directly, unlocking paid content (cash doubler) for free without Play Billing."
             },
             {
               "name": "Earn to Die 2 No Ads + Instant Rewards",
@@ -31322,7 +31103,7 @@
             }
           ],
           "versions": [
-            "1.4.58"
+            "1.5.6"
           ]
         }
       ],
@@ -31334,7 +31115,7 @@
       "patchDetails": [
         {
           "name": "Earn to Die 2 Free IAP",
-          "description": "Intercepts all in-app purchases and reports instant success to the game engine, unlocking paid content (cash doubler) for free."
+          "description": "Intercepts all in-app purchases and calls the native on_purchase(String[], String) grant directly, unlocking paid content (cash doubler) for free without Play Billing."
         },
         {
           "name": "Earn to Die 2 No Ads + Instant Rewards",
@@ -31346,7 +31127,7 @@
         }
       ],
       "versions": [
-        "1.4.58"
+        "1.5.6"
       ],
       "iconColor": "#FF6F00",
       "iconUrl": ""
@@ -31461,20 +31242,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -32053,20 +31826,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -32388,12 +32153,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.3.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "3.3.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "keep the sound of DASH saves whose audio starts before zero"
+                "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
               }
             ]
           },
@@ -32422,16 +32187,16 @@
               "description": "Keeps your place in the news feed when you come back to Facebook. Pull down to refresh the feed."
             },
             {
+              "name": "[Feed] Hide page suggestions and promo cards",
+              "description": "Removes the items that Facebook adds to the feed, such as \"Pages you may like\", promo cards and surveys. \"Suggested for you\" posts stay."
+            },
+            {
               "name": "[Feed] Hide post prompts",
               "description": "Removes the prompts Facebook adds inside a post, such as \"Are you interested in this post?\"."
             },
             {
               "name": "[Feed] Hide sponsored posts",
               "description": "Removes sponsored posts from the news feed, with no gap left behind."
-            },
-            {
-              "name": "[Feed] Hide suggested and promoted posts",
-              "description": "Removes posts that Facebook adds to the feed, such as \"Pages you may like\", upsells and surveys."
             },
             {
               "name": "[Fix] Restore screens on re-signed builds",
@@ -32603,9 +32368,9 @@
         "[Ad] Block background ad prefetch",
         "[Ad] Disable Audience Network",
         "[Feed] Block feed auto refresh",
+        "[Feed] Hide page suggestions and promo cards",
         "[Feed] Hide post prompts",
         "[Feed] Hide sponsored posts",
-        "[Feed] Hide suggested and promoted posts",
         "[Fix] Restore screens on re-signed builds",
         "[General] AMOLED black theme",
         "[General] Hide affiliate product links",
@@ -32639,16 +32404,16 @@
           "description": "Keeps your place in the news feed when you come back to Facebook. Pull down to refresh the feed."
         },
         {
+          "name": "[Feed] Hide page suggestions and promo cards",
+          "description": "Removes the items that Facebook adds to the feed, such as \"Pages you may like\", promo cards and surveys. \"Suggested for you\" posts stay."
+        },
+        {
           "name": "[Feed] Hide post prompts",
           "description": "Removes the prompts Facebook adds inside a post, such as \"Are you interested in this post?\"."
         },
         {
           "name": "[Feed] Hide sponsored posts",
           "description": "Removes sponsored posts from the news feed, with no gap left behind."
-        },
-        {
-          "name": "[Feed] Hide suggested and promoted posts",
-          "description": "Removes posts that Facebook adds to the feed, such as \"Pages you may like\", upsells and surveys."
         },
         {
           "name": "[Fix] Restore screens on re-signed builds",
@@ -32858,16 +32623,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -33972,20 +33745,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -34301,16 +34066,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -34372,20 +34145,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -34411,8 +34184,7 @@
             }
           ],
           "versions": [
-            "1.3.7",
-            "1.4.0.1"
+            "1.6.5"
           ]
         }
       ],
@@ -34436,8 +34208,7 @@
         }
       ],
       "versions": [
-        "1.3.7",
-        "1.4.0.1"
+        "1.6.5"
       ],
       "iconColor": "#1F6FEB",
       "iconUrl": ""
@@ -35693,16 +35464,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -35825,20 +35604,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -36419,16 +36198,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -36501,20 +36288,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -37987,16 +37766,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -38358,12 +38145,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.5.3 (2026-09-24)",
-            "date": "2026-09-24",
+            "title": "1.5.4 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**github:** preserve custom monospace in markdown"
+              },
+              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**bitwarden and github:** update app support"
+                "text": "update GitHub app support"
               }
             ]
           },
@@ -39183,16 +38974,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -39254,16 +39053,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -39842,32 +39649,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -40077,20 +39864,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -40152,20 +39939,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -40187,7 +39974,7 @@
             }
           ],
           "versions": [
-            "1.0.REV-0207"
+            "1.0.REV-0570"
           ]
         }
       ],
@@ -40206,7 +39993,7 @@
         }
       ],
       "versions": [
-        "1.0.REV-0207"
+        "1.0.REV-0570"
       ],
       "iconColor": "#008577",
       "iconUrl": ""
@@ -40227,16 +40014,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -40740,20 +40535,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -41602,20 +41389,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -41750,20 +41537,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -42040,20 +41819,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -42753,12 +42524,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.3.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "3.3.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "keep the sound of DASH saves whose audio starts before zero"
+                "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
               }
             ]
           },
@@ -43580,16 +43351,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -46276,16 +46055,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -47294,20 +47081,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -48160,20 +47939,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -48195,7 +47966,7 @@
             }
           ],
           "versions": [
-            "1.3.1"
+            "1.3.2"
           ]
         }
       ],
@@ -48214,7 +47985,7 @@
         }
       ],
       "versions": [
-        "1.3.1"
+        "1.3.2"
       ],
       "iconColor": "#9F1C3B",
       "iconUrl": ""
@@ -48561,20 +48332,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -48795,20 +48566,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -49510,20 +49281,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -49585,20 +49356,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -51010,16 +50773,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -51045,7 +50816,7 @@
             }
           ],
           "versions": [
-            "1.3043"
+            "1.3044"
           ]
         }
       ],
@@ -51069,7 +50840,7 @@
         }
       ],
       "versions": [
-        "1.3043"
+        "1.3044"
       ],
       "iconColor": "#E2E2E2",
       "iconUrl": ""
@@ -52460,32 +52231,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -52511,6 +52262,7 @@
             }
           ],
           "versions": [
+            "7.10.102",
             "7.5.102",
             "7.6.100",
             "7.8.100"
@@ -52577,6 +52329,7 @@
         }
       ],
       "versions": [
+        "7.10.102",
         "7.5.102",
         "7.6.100",
         "7.8.100",
@@ -52663,20 +52416,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -52849,20 +52594,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -54653,16 +54390,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -54708,7 +54453,7 @@
             }
           ],
           "versions": [
-            "1.25.2"
+            "1.26.1"
           ]
         }
       ],
@@ -54757,7 +54502,7 @@
         }
       ],
       "versions": [
-        "1.25.2"
+        "1.26.1"
       ],
       "iconColor": "#B71C1C",
       "iconUrl": ""
@@ -55767,16 +55512,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -55847,20 +55600,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -55964,20 +55717,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -56245,20 +55990,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -56284,7 +56021,7 @@
             },
             {
               "name": "Remove 'Sent from' signature",
-              "description": "Removes the 'Sent from Proton Mail' signature from emails."
+              "description": "Removes the 'Sent from Proton Mail' signature and unlocks the mobile signature setting."
             },
             {
               "name": "Remove free accounts limit",
@@ -56330,7 +56067,7 @@
         },
         {
           "name": "Remove 'Sent from' signature",
-          "description": "Removes the 'Sent from Proton Mail' signature from emails."
+          "description": "Removes the 'Sent from Proton Mail' signature and unlocks the mobile signature setting."
         },
         {
           "name": "Remove free accounts limit",
@@ -56370,20 +56107,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -56558,20 +56287,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -56867,20 +56588,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.4.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.4.2 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "note the Hamro Patro patch combines with Nai64's No Ads"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "Fricam Edge - take the first Boolean.valueOf, do not assert there is one"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "pin Fricam to 1.6.5, and cross-check every app's AppTarget list"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "pin Hamro Patro compatibility to 10.7.33"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "re-pin the Hamro Patro ad patch to 10.7.33"
+                "text": "re-verify Fricam 1.6.5 and JellyWatch TV 1.0.REV-0570; record JellyWatch Admin drift"
               }
             ]
           },
@@ -57223,20 +56944,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -57375,20 +57088,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -57673,20 +57378,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -57863,20 +57560,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -57991,20 +57680,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -58058,20 +57739,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -58132,8 +57805,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass session expiry",
-        "Bypass Session Expiry"
+        "Bypass Session Expiry",
+        "Bypass session expiry"
       ],
       "patchDetails": [
         {
@@ -58141,12 +57814,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass session expiry",
-          "description": "Stops the security prompt that signs the account out."
-        },
-        {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Stops the security prompt that signs the account out."
         }
       ],
       "versions": [
@@ -59224,20 +58897,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -59311,20 +58976,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -59459,16 +59116,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -59899,20 +59564,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -61383,20 +61040,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -62103,16 +61752,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -65337,16 +64994,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -65417,16 +65082,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -65557,20 +65230,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -65596,18 +65261,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -67780,16 +67445,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -67842,20 +67515,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -69545,16 +69210,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -69607,16 +69280,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -69678,20 +69359,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -70545,16 +70218,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -70884,32 +70565,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -71000,32 +70661,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.1 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.40.3 (2026-09-30)",
+            "date": "2026-09-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**netflix:** recover MASTER on renamed getAds builds (M1-only) \u2014 closes #212 (#223)"
-              },
-              {
-                "category": "Features",
-                "text": "**espn:** rotating live scoreboard card for ad-break slate (#221)"
-              },
-              {
-                "category": "Features",
-                "text": "**raiplay:** add Skip ads patch for RaiPlay Android TV (#217)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**privacy:** make unneeded TLS trust overrides opt-in"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tubi:** make WebView hooks label-free so Skip ads and Block analytics can stack"
-              },
-              {
-                "category": "Features",
-                "text": "**tubi:** add opt-in \"Block analytics & tracking\" patch"
+                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
               }
             ]
           },
@@ -71809,16 +71450,24 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.35.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.35.1 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**docscanner:** add premium unlock patch"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**bighunter:** update license bypass, and updated app version for 3.1.2"
               },
               {
-                "category": "\u2728 New Features",
-                "text": "**lumina:** add wallpapers license and premium patches"
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**earntodie2:** update patches for v1.5.6 compatibility"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**onlyone:** update target app version to 1.3044"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "**plagueinc:** bump target version to 1.26.1"
               }
             ]
           },
@@ -72297,20 +71946,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -72707,20 +72348,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -72809,20 +72442,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -72851,8 +72476,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -72860,12 +72485,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks premium, removes ads and the free session time limit."
-        },
-        {
           "name": "Unlock Premium",
           "description": ""
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium, removes ads and the free session time limit."
         }
       ],
       "versions": [
@@ -74503,20 +74128,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.34.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.36.0 (2026-09-29)",
+            "date": "2026-09-29",
             "items": [
               {
                 "category": "New Features",
-                "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-              },
-              {
-                "category": "New Features",
-                "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+                "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
               }
             ]
           },
@@ -76364,8 +75981,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -76383,8 +76000,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -76862,11 +76479,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -76938,12 +76555,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -79281,20 +78898,12 @@
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.34.0 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.36.0 (2026-09-29)",
+        "date": "2026-09-29",
         "items": [
           {
             "category": "New Features",
-            "text": "**BlurWall:** unlock premium, add AMOLED theme and disable tracking (2962191), closes #78"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton Pass - Hide upgrade promotions:** hide attachments card on free plans (f070b39), closes #88"
-          },
-          {
-            "category": "New Features",
-            "text": "**Proton VPN - Hide upgrade promotions:** hide account settings upgrade card (7da5ec1), closes #99"
+            "text": "**MyMoveset:** support 1.3.2 (960c1f9), closes #72"
           }
         ]
       },
