@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-03 03:44 UTC",
+  "generatedAt": "2026-10-04 04:14 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 740,
-  "patchCount": 2716,
-  "universalPatchCount": 155,
+  "appCount": 741,
+  "patchCount": 2714,
+  "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
     "gitlab.com": 4
@@ -68,12 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.40.3 (2026-09-30)",
-        "date": "2026-09-30",
+        "title": "1.40.4 (2026-10-04)",
+        "date": "2026-10-04",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+            "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
           }
         ]
       },
@@ -639,12 +639,20 @@
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "3.3.2 (2026-09-29)",
-        "date": "2026-09-29",
+        "title": "3.4.0 (2026-10-03)",
+        "date": "2026-10-03",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
+            "text": "make search result cards black in the AMOLED theme (3268483), closes #333334 #3B3C3E #136"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "add the option \"Save as H.264\" to story and reel download (f18cb4d), closes #155"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "save VP9 stories in full quality"
           }
         ]
       },
@@ -1650,19 +1658,27 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 80,
-      "appCount": 35,
+      "patchCount": 83,
+      "appCount": 36,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.36.2 (2026-10-02)",
-        "date": "2026-10-02",
+        "title": "1.37.0 (2026-10-04)",
+        "date": "2026-10-04",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**crossyroad:** update target app version"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**deadtarget:** enable glove and drone equipping"
+          },
+          {
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**deadtarget:** enable gun usability in all items patch"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
           }
         ]
       },
@@ -1722,6 +1738,13 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#1A237E"
+        },
+        {
+          "name": "Dead Target: Offline Games 3D",
+          "packageName": "com.vng.g6.a.zombie",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#2E6B32"
         },
         {
           "name": "Dead Trigger",
@@ -7005,21 +7028,16 @@
       "webUrl": "https://github.com/Nai64/Nai64Patches",
       "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
       "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 5,
+      "patchCount": 0,
       "appCount": 0,
       "createdAt": 1784836023539,
       "updatedAt": 1784836023539,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.52.1 (2026-10-01)",
-        "date": "2026-10-01",
-        "items": [
-          {
-            "category": "Bug Fixes",
-            "text": "escape and complete the Free IAP synthetic product details"
-          }
-        ]
+        "title": "",
+        "date": "",
+        "items": []
       },
       "apps": []
     },
@@ -10597,12 +10615,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.13.4 (2026-10-01)",
-        "date": "2026-10-01",
+        "title": "1.13.5 (2026-10-03)",
+        "date": "2026-10-03",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+            "text": "**avito:** remove personal banners from My listings"
           }
         ]
       },
@@ -11347,12 +11365,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -12226,12 +12252,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -12825,12 +12859,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -12883,12 +12925,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -15655,12 +15705,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.13.4 (2026-10-01)",
-            "date": "2026-10-01",
+            "title": "1.13.5 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+                "text": "**avito:** remove personal banners from My listings"
               }
             ]
           },
@@ -17579,12 +17629,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -18461,8 +18519,8 @@
       "patches": [
         "AMOLED dark theme",
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -18474,12 +18532,12 @@
           "description": "Stops the Google Mobile Ads SDK from starting and reading the advertising ID."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks the HalfBlur effect."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlock Premium Features in app."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the HalfBlur effect."
         }
       ],
       "versions": [
@@ -19558,12 +19616,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -22702,12 +22768,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -23217,12 +23283,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -23337,12 +23403,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -23401,12 +23467,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -23741,12 +23807,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -23964,12 +24030,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -25777,12 +25843,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -26518,12 +26584,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -26585,12 +26651,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -27550,12 +27616,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -27690,12 +27756,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -29563,12 +29629,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -30363,12 +30437,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -30873,6 +30955,90 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.vng.g6.a.zombie",
+      "name": "Dead Target: Offline Games 3D",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-vng-g6-a-zombie-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-vng-g6-a-zombie-byehi98-okish-morphe-patches",
+            "assetName": "dead-target-offline-games-3d-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "All items owned",
+              "description": "Every gun, skin, glove and drone shows as unlocked, and you can equip any of them. Your save file is not changed."
+            },
+            {
+              "name": "Instant rewarded video",
+              "description": "Reward buttons pay out instantly. Tap once and you get the reward, with no ad to watch."
+            },
+            {
+              "name": "Unlimited currency",
+              "description": "Your cash, gold and diamonds always show the maximum. You never run short of money."
+            }
+          ],
+          "versions": [
+            "4.183.0"
+          ]
+        }
+      ],
+      "patches": [
+        "All items owned",
+        "Instant rewarded video",
+        "Unlimited currency"
+      ],
+      "patchDetails": [
+        {
+          "name": "All items owned",
+          "description": "Every gun, skin, glove and drone shows as unlocked, and you can equip any of them. Your save file is not changed."
+        },
+        {
+          "name": "Instant rewarded video",
+          "description": "Reward buttons pay out instantly. Tap once and you get the reward, with no ad to watch."
+        },
+        {
+          "name": "Unlimited currency",
+          "description": "Your cash, gold and diamonds always show the maximum. You never run short of money."
+        }
+      ],
+      "versions": [
+        "4.183.0"
+      ],
+      "iconColor": "#2E6B32",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.madfingergames.deadtrigger",
       "name": "Dead Trigger",
       "repos": [
@@ -30888,12 +31054,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -31164,12 +31338,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -31399,12 +31581,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -31722,12 +31912,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -32028,12 +32226,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -33193,12 +33399,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.3.2 (2026-09-29)",
-            "date": "2026-09-29",
+            "title": "3.4.0 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
+                "text": "make search result cards black in the AMOLED theme (3268483), closes #333334 #3B3C3E #136"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "add the option \"Save as H.264\" to story and reel download (f18cb4d), closes #155"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "save VP9 stories in full quality"
               }
             ]
           },
@@ -33811,12 +34025,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -35307,12 +35529,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -36781,12 +37011,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -37551,12 +37789,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -39209,12 +39455,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -40405,12 +40659,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -40472,12 +40734,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -41080,12 +41350,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -41445,12 +41715,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -44075,12 +44353,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.3.2 (2026-09-29)",
-            "date": "2026-09-29",
+            "title": "3.4.0 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**facebook:** rename \"Hide suggested and promoted posts\" to \"Hide page suggestions and promo cards\" (e466869), closes #143"
+                "text": "make search result cards black in the AMOLED theme (3268483), closes #333334 #3B3C3E #136"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "add the option \"Save as H.264\" to story and reel download (f18cb4d), closes #155"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "save VP9 stories in full quality"
               }
             ]
           },
@@ -44986,12 +45272,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -48009,12 +48303,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -53085,12 +53387,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -53638,12 +53948,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.13.4 (2026-10-01)",
-            "date": "2026-10-01",
+            "title": "1.13.5 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+                "text": "**avito:** remove personal banners from My listings"
               }
             ]
           },
@@ -54557,12 +54867,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -56854,12 +57164,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -58087,12 +58405,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -60716,8 +61042,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass session expiry",
-        "Bypass Session Expiry"
+        "Bypass Session Expiry",
+        "Bypass session expiry"
       ],
       "patchDetails": [
         {
@@ -60725,12 +61051,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass session expiry",
-          "description": "Stops the security prompt that signs the account out."
-        },
-        {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Stops the security prompt that signs the account out."
         }
       ],
       "versions": [
@@ -62085,12 +62411,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -64883,12 +65217,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -68288,12 +68630,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -68364,12 +68714,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -68559,18 +68917,18 @@
         }
       ],
       "patches": [
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -69866,12 +70224,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.13.4 (2026-10-01)",
-            "date": "2026-10-01",
+            "title": "1.13.5 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+                "text": "**avito:** remove personal banners from My listings"
               }
             ]
           },
@@ -70739,12 +71097,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -72526,12 +72892,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -72584,12 +72958,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -73318,8 +73700,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -73363,11 +73745,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -73538,12 +73920,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -73901,12 +74291,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -73997,12 +74387,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.40.3 (2026-09-30)",
-            "date": "2026-09-30",
+            "title": "1.40.4 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**peacock:** support 7.10.102 \u2014 re-anchor the OkHttp client hook on the builder"
+                "text": "**peacock:** preserve shared OkHttp client config so sign-in works (#230) (2fd8350), closes #228"
               }
             ]
           },
@@ -74806,12 +75196,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.36.2 (2026-10-02)",
-            "date": "2026-10-02",
+            "title": "1.37.0 (2026-10-04)",
+            "date": "2026-10-04",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**crossyroad:** update target app version"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable glove and drone equipping"
+              },
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**deadtarget:** enable gun usability in all items patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**deadtarget:** add instant rewarded video, all items, unlimited currency"
               }
             ]
           },
@@ -76686,12 +77084,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.13.4 (2026-10-01)",
-            "date": "2026-10-01",
+            "title": "1.13.5 (2026-10-03)",
+            "date": "2026-10-03",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+                "text": "**avito:** remove personal banners from My listings"
               }
             ]
           },
@@ -83198,53 +83596,6 @@
       ]
     },
     {
-      "repo": "Nai64/Nai64Patches",
-      "host": "github.com",
-      "webUrl": "https://github.com/Nai64/Nai64Patches",
-      "addUrl": "https://Revanced.software/add-source?github=Nai64/Nai64Patches",
-      "source": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/patches-bundle.json",
-      "changelogUrl": "https://raw.githubusercontent.com/Nai64/Nai64Patches/main/CHANGELOG.md",
-      "avatarUrl": "https://github.com/Nai64.png?size=96",
-      "patchCount": 5,
-      "latestChanges": {
-        "title": "1.52.1 (2026-10-01)",
-        "date": "2026-10-01",
-        "items": [
-          {
-            "category": "Bug Fixes",
-            "text": "escape and complete the Free IAP synthetic product details"
-          }
-        ]
-      },
-      "patches": [
-        {
-          "name": "Ads Free Rewards",
-          "description": "Get rewards without watching ads. Combine with No Ads for other formats, but keep No Ads' rewarded block off.",
-          "default": false
-        },
-        {
-          "name": "Free In-app Purchases",
-          "description": "Get paid items free: buying grants items without charging. Best for offline games.",
-          "default": false
-        },
-        {
-          "name": "No Ads",
-          "description": "Blocks ads by type. Pick what to block. For rewarded ads use Ads Free Rewards instead.",
-          "default": false
-        },
-        {
-          "name": "Pairip Bypass",
-          "description": "Bypass app protection so the patched app can start.",
-          "default": false
-        },
-        {
-          "name": "Unlock Premium",
-          "description": "Unlock premium features and remove paywalls.",
-          "default": false
-        }
-      ]
-    },
-    {
       "repo": "Pa-kon/morphe-screenshot-patches",
       "host": "github.com",
       "webUrl": "https://github.com/Pa-kon/morphe-screenshot-patches",
@@ -83804,12 +84155,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.13.4 (2026-10-01)",
-        "date": "2026-10-01",
+        "title": "1.13.5 (2026-10-03)",
+        "date": "2026-10-03",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**avito:** match the Profile Pro widgets converter on 234.5 (#116) (a36b22f), closes #115"
+            "text": "**avito:** remove personal banners from My listings"
           }
         ]
       },
