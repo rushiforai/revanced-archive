@@ -60,6 +60,7 @@ dbhavsar76/revanced-patches
 exconvinced/revanced-web-app
 eyalm2000/tidal-debug-menu
 forsyth47/revanced-patches
+freethekitties/freethekitties
 fromhgbwithluv/ReX-patches
 gitlab.com/gltieo/revanced-patches
 hoo-dles/jadx-morphe
@@ -77,6 +78,7 @@ lennyRBLX/apk-patches
 liaralabs/revanced-patches
 lluni/custom-revanced-patches
 loan-mgt/moovit-patch
+nuc134r/yandex-ads-patches
 permissionBRICK/youtube-home-assistant-patches
 prevanced/prevanced-manager
 roflsunriz/chmate-revanced
