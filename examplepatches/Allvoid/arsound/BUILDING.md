@@ -17,7 +17,11 @@ extensions/                       Код, который встраиваетс�
   arsound/stub/                   Заглушки классов SoundCloud для компиляции
   arsound-shared/                 Общая библиотека расширений ReVanced
 tools/branding/generate.py        Генерация иконок и анимаций Arsound
+tools/branding/icons.py           Варианты иконки приложения (цвета и градиенты)
+tools/branding/design_icons.py    Иконки из набора Claude Design в цветах тем
+tools/branding/theme_fonts.py     Шрифты тем оформления (статичные начертания из шрифтов Google Fonts)
 build-and-install.cmd             Сборка, патчинг и установка одной командой
+start-emulator.cmd                Запуск эмулятора Android для проверки без телефона
 local/                            Локальные файлы, в Git не попадают (см. ниже)
 ```
 
@@ -34,7 +38,6 @@ local/                            Локальные файлы, в Git не п�
 | **Settings** | Пункт «Arsound» в настройках SoundCloud (Compose-строка `ActionListItemKt.a`), экран Arsound на обычных View с ресурсами SoundCloud, проверка обновлений через GitHub Releases. |
 | **Disable telemetry** | Отключение аналитики SoundCloud. |
 | **Download tracks** | Сначала авторский download (`/tracks/{id}/download`), затем поток `progressive` из `media.transcodings` через DownloadManager. HLS не сохраняется, Go/Go+ и preview отсекаются до запроса ссылки. Уже скачанные и скачивающиеся треки повторно не ставятся в очередь. |
-| **Control playback advertisements** | Флаг `no_audio_ads`, условия баннеров, реклама между треками и полноэкранная реклама при запуске. |
 | **Offline first playlists** | Сохранённая копия плейлиста отдаётся сразу, синхронизация уходит в фон; фоновое сохранение метаданных всех плейлистов библиотеки (`SyncInitiator`). |
 | **Play downloaded files** | Скачанный трек играет из файла (`Stream$FileStream`): элемент воспроизведения собирается сразу в `PlaybackMediaProvider.j`, без ожидания `TrackRepository` (`SYNC_MISSING`), метаданные уведомления ждут не больше 2 с. Таймаут обложки уведомления, повтор при сбое потока. Разрешение `READ_MEDIA_AUDIO` для файлов, скачанных до переустановки. |
 | **Network** | Свой DNS (DoH/UDP) для всех клиентов OkHttp, блокировка запросов к SoundCloud с российского IP (проверка через Cloudflare), вопрос перед проверкой устройства DataDome, плашка статуса сети. |
@@ -43,7 +46,7 @@ local/                            Локальные файлы, в Git не п�
 | **Hide duplicate recommendations** | Фильтр перезаливов в автовоспроизведении и на серверной главной (`SDUIView`). |
 | **Hide subscription offers** | Экран покупки Go/Go+, окна MoEngage, вкладка Upgrade, серверные блоки главной `UpsellPlaceholder` и `BannerAdPlaceholder`, кнопка «Get Pro» в шапке. |
 | **Change account type** | Свой тип аккаунта Android, чтобы мод работал рядом с оригиналом. |
-| **Custom app name**, **Arsound branding** | Название, иконки, анимации запуска и загрузки, логотипы и заглушка обложки. |
+| **Custom app name**, **Arsound branding** | Название, иконки (и 93 варианта иконки на выбор), анимации запуска и загрузки, логотипы и заглушка обложки. |
 | **Change package name** | Патч ReVanced: пакет `com.soundcloud.android.revanced`. |
 
 ## Что нужно для сборки
@@ -52,7 +55,7 @@ local/                            Локальные файлы, в Git не п�
 - **JDK 21**. Скрипт по умолчанию ищет Eclipse Temurin в `C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot`,
   другой путь задаётся переменной `JAVA_HOME`.
 - **Android SDK** (достаточно `platforms;android-34` и build-tools), путь в `ANDROID_HOME`.
-- **adb** и телефон с включённой отладкой по USB.
+- **adb** и телефон с включённой отладкой по USB или эмулятор (см. «Эмулятор» ниже).
 - **GitHub CLI** (`gh`), авторизованный с правом `read:packages`. Gradle-плагин ReVanced лежит в GitHub Packages,
   и без токена сборка не скачает его:
   ```bash
@@ -74,6 +77,9 @@ local/
   manager.keystore                       (необязательно) ключ, экспортированный из ReVanced Manager;
   manager.keystore.alias, .password      его псевдоним и пароль из Manager → Настройки → Импорт и экспорт.
                                          Если он есть, сборка ставится поверх версии из Manager без потери данных
+  lastfm.properties                      (необязательно) api_key=... — ключ Last.fm для плейлиста «Для вас»
+                                         (last.fm/api/account/create). Без него плейлист не собирается.
+                                         Вместо файла можно задать переменную ARSOUND_LASTFM_API_KEY
   out/                                   готовые APK и логи
 ```
 
@@ -108,7 +114,13 @@ build-and-install.cmd
 ```
 
 Скрипт собирает патчи (`patches/build/libs/patches-<версия>.rvp`, версия — в `gradle.properties`), применяет их к APK, подписывает ключом
-из `local/` и ставит на подключённый телефон. Если телефона нет, готовый APK остаётся в `local/out/`.
+из `local/` и ставит на все подключённые устройства: телефон и запущенный эмулятор. Если устройств нет, готовый APK остаётся в `local/out/`.
+Поставить только на одно из них:
+
+```bash
+build-and-install.cmd phone
+build-and-install.cmd emu
+```
 
 Иконки и анимации пересобираются отдельно:
 
@@ -116,7 +128,94 @@ build-and-install.cmd
 python tools/branding/generate.py <папка экспорта иконки>
 ```
 
-Нужны `pillow`, `picosvg`, `skia-pathops`, `resvg-py`. Заглушка обложки берётся из разобранного APK
+Варианты иконки для выбора в настройках описаны в проекте иконки (`palettes.py` и `fancy.py` там пишут
+`export/palettes/palettes.json`; иконки со свечением, неоном и рисунком — картинки WebP, остальные векторные) и переносятся в патчи так:
+
+```bash
+python tools/branding/icons.py <папка экспорта иконки>/palettes/palettes.json
+```
+
+Скрипт пишет векторные слои каждой иконки в ресурсы патча и списки вариантов
+(`misc/branding/AppIcons.kt`, `branding/AppIconList.java`); их руками не правят.
+
+Иконки из набора Claude Design («Arsound Icons»: плитка, буква, свечение, цветы, каваи, стикер…) лежат исходниками в
+`tools/branding/design-icons/<вариант>.svg`, нарисованные в алом. Скрипт делает каждую в цвете каждой темы (акцент
+тёмной палитры из `themes.json`, новая тема сама добавит цвет): оттенок поворачивается к оттенку акцента с той же видимой
+яркостью, так белая буква не теряется на мятном и лаймовом. Плитка растягивается на весь фоновый слой значка Android,
+буква уходит на передний; слои — WebP 432 px. Значки встают в конец списков между пометками `design icons`, по группе
+на цвет; к темам они не привязаны. `icons.py` при перезапуске вызывает этот скрипт сам.
+
+```bash
+python tools/branding/design_icons.py
+```
+
+### Темы оформления
+
+Темы описаны в `patches/src/main/resources/soundcloud/theme/themes.json`. Патч кладёт его и шрифты в `assets/arsound/`
+и делает заставку каждой темы; приложение подменяет ресурсы SoundCloud на лету, после выбора темы оно перезапускается.
+
+**Новая тема из макета Claude Design — одной командой.** Компонент телефона в макете хранит вид в объекте токенов
+`th` (bg, surface, surface2, deep, border, accent, pink, muted, text2, head, track, rc, coverBorder, mini, miniBorder,
+tabbar). Скрипт читает его из `.dc.html` или прямо из handoff-архива, выводит из токенов всю тему, скачивает шрифты с
+Google Fonts и пишет тему в `themes.json` (тема с тем же id заменяется, её название и описание сохраняются):
+
+```bash
+python tools/branding/theme_from_design.py "<макет-handoff.zip>" <id темы> --variant <вариант> --name-ru "<имя>" --name-en "<name>"
+```
+
+Вариант — имя условия в макете (`anime ? {...} : {...}`: `--variant anime` берёт первый объект, любое другое — второй).
+Дальше обычная сборка. Картинки макета (места под арты) скрипт пока не переносит.
+
+Тему, у которой есть только две палитры SoundCloud (первые темы), тот же скрипт переводит в этот шаблон без макета:
+токены светлого и тёмного вида выводятся из её палитр, название, описание, палитры, шрифты и скругления остаются.
+
+```bash
+python tools/branding/theme_from_design.py --from-palette cobalt
+```
+
+**Из чего состоит тема:**
+
+- `dark`, `light` — палитра SoundCloud (surface, primary, secondary, highlight, special, error, overlay, imageBorders,
+  dialog). У тёмной темы (`darkOnly`) светлая палитра красит только то, что SoundCloud держит светлым на тёмном (круглые
+  кнопки плеера); `darkOnly` держит приложение тёмным через тёмный режим приложения в Android 12+.
+- `fonts` — файлы шрифтов по местам Söhne; `radii` — скругления обложек и мини-плеера.
+- `colors` — любые другие цвета SoundCloud по имени: серая шкала в оттенке темы, цвет полосы «Твои лайки».
+- `tokens` и `parts` — цвета макета и части, которые тема берёт. `tokensLight` — токены светлого вида: тогда каждый
+  цветной файл части кладётся дважды, в `<тип>` (светлый) и `<тип>-night` (тёмный), и Android выбирает по режиму;
+  файл с пометкой `arsound:one-look` (плеер, он тёмный всегда) берёт только тёмные цвета. Часть — папка `theme/parts/<часть>/<тип>/<имя>.xml`
+  с ресурсами, общими для всех тем: в файлах `${accent}`, `${mini}`, `${bg@85}` (85 % непрозрачности) и `${theme}`
+  заменяются значениями темы. Патч кладёт файл в приложение как `arsound_<тема>__<имя>`, приложение направляет на него
+  ресурс SoundCloud `<тип>/<имя>`. Части: `lucideIcons` (иконки), `libraryIcons` (значки строк
+  «Библиотеки», их SoundCloud не рисует — патч спрашивает значок у темы), `tabBar`, `miniPlayer`, `playerButtons`
+  (кнопки плеера и большая Play плейлистов), `homeGreeting` (приветствие и свечение на главной). Конвертер берёт все
+  части из папки `parts`, так что новая часть сразу достаётся и новым темам. Файлы только одной темы лежат в
+  `theme/overrides/<тема>/` и перекрывают файлы частей с тем же именем. Gradle сам пишет индекс файлов тем, списки
+  вручную не ведутся. В разметке нужно сохранить id и классы элементов, которые ищет код SoundCloud; файлы с именем
+  `arsound_...` — добавки, их используют другие файлы темы.
+- `decor` — украшения того, что рисует сам Arsound: экран настроек (`settingsGlow`, `settingsBadge`, `settingsStrips`),
+  цвет приветствия на главной (`homeHelloColor`, приветствие — класс `theme/HomeGreeting`) и вуаль над полосой
+  «Твои лайки» (`shortcutScrim` вместо 70 % чёрного SoundCloud). `decorLight` — значения для светлого вида, они перекрывают `decor`
+  (сам SoundCloud тёмный всегда, светлым бывает только экран настроек Arsound).
+
+**Шрифты** режутся из файлов Google Fonts (лицензия OFL), переменных или статичных; набор берётся из `fonts` всех тем.
+Имя `<шрифт>_t<NN>_<вес>` — буквы на NN сотых em плотнее, так делаются плотные заголовки из макета. Пересобираются
+только шрифты, лежащие в папке (`theme_from_design.py` вызывает это сам):
+
+```bash
+python tools/branding/theme_fonts.py <папка с файлами шрифтов>
+```
+
+**Иконки** (часть `lucideIcons`) — набор Lucide (лицензия ISC) той же версии, что в макете, переведённый в векторные
+иконки Android с именами, размерами и цветами иконок SoundCloud:
+
+```bash
+python tools/branding/theme_icons.py <папка пакета lucide-static 0.460.0>
+```
+
+Русский перевод SoundCloud лежит в `patches/src/main/resources/soundcloud/translation/` (строки и множественные формы,
+которые SoundCloud переводит на другие языки).
+
+Нужны `pillow`, `picosvg`, `skia-pathops`, `resvg-py`, для шрифтов — `fonttools`. Заглушка обложки берётся из разобранного APK
 (`local/analysis/res-decoded`), если он есть.
 
 Патчинг на компьютере без Manager:
@@ -135,6 +234,43 @@ java -jar revanced-cli-6.0.0-all.jar patch -bp patches-<версия>.rvp soundc
 
 Классы патчей лежат в `app.arsound.*`, а расширения называются `arsound*.rve`: если взять имена ReVanced,
 Manager грузит оба набора в одно пространство, и наши копии ломают официальные ReVanced Patches.
+
+## Эмулятор
+
+Чтобы проверять сборку без телефона, на компьютере работает эмулятор Android 16 с Google Play.
+Экран у него как у тестового телефона (720×1560, плотность 300), поэтому координаты нажатий из заметок подходят и ему.
+SoundCloud собран только под ARM, эмулятор переводит его код на x86 сам, это немного медленнее телефона.
+
+Запуск (первый раз — около минуты, дальше несколько секунд: эмулятор при закрытии сохраняет снимок):
+
+```bash
+start-emulator.cmd
+```
+
+Когда подключены и телефон, и эмулятор, команды `adb` нужно адресовать: `adb -s emulator-5554 …` для эмулятора.
+
+Эмулятор создаётся один раз. Нужны Android SDK Command-line Tools (`cmdline-tools/latest` в SDK) и включённая в Windows платформа низкоуровневой оболочки (WHPX):
+
+```bash
+cmdline-tools\latest\bin\android sdk install emulator system-images/android-36/google_apis_playstore/x86_64
+cmdline-tools\latest\bin\avdmanager create avd -n arsound -k "system-images;android-36;google_apis_playstore;x86_64" -d pixel_7
+```
+
+Затем в `%USERPROFILE%\.android\avd\arsound.avd\config.ini` поставить:
+
+```ini
+PlayStore.enabled=yes
+hw.gpu.mode=host
+hw.keyboard=yes
+hw.lcd.width=720
+hw.lcd.height=1560
+hw.lcd.density=300
+hw.ramSize=4096
+hw.cpu.ncore=4
+disk.dataPartition.size=16G
+```
+
+В SoundCloud на эмуляторе нужно войти заново: вход хранится в системных аккаунтах Android, а без root их с телефона не достать.
 
 ## Нюансы
 
