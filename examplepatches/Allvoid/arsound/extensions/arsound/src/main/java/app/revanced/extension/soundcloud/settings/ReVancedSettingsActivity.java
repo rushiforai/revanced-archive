@@ -49,14 +49,23 @@ public final class ReVancedSettingsActivity extends Activity {
     }
 
     @Override
+    protected void attachBaseContext(android.content.Context base) {
+        super.attachBaseContext(base);
+        // Dark like SoundCloud's own screens, whatever the phone's mode.
+        app.revanced.extension.soundcloud.theme.ArsoundTheme.forceDark(this, base);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         try {
             String screen = getIntent().getStringExtra(EXTRA_SCREEN);
-            setContentView(screen == null ? createContent()
+            View content = screen == null ? createContent()
                     : SCREEN_LOCAL_MUSIC.equals(screen) ? createLocalMusicContent()
-                    : createSection(screen));
+                    : createSection(screen);
+            addThemeEffect(content);
+            setContentView(content);
         } catch (Exception ex) {
             Logger.printException(() -> "Failed to create ReVanced settings screen", ex);
             finish();
@@ -76,6 +85,16 @@ public final class ReVancedSettingsActivity extends Activity {
     private static final String SCREEN_EQUALIZER = "equalizer";
     private static final String SCREEN_APP_ICON = "app_icon";
     private static final String SCREEN_APPEARANCE = "appearance";
+
+    /** The chosen theme's animation behind the screen, over its background colour and glow. */
+    private void addThemeEffect(View root) {
+        app.revanced.extension.soundcloud.theme.ThemeEffect effect =
+                app.revanced.extension.soundcloud.theme.ThemeBackdrop.forCurrentTheme(this, 1f);
+        if (effect == null) return;
+        android.graphics.drawable.Drawable background = root.getBackground();
+        root.setBackground(background == null ? effect : new android.graphics.drawable.LayerDrawable(
+                new android.graphics.drawable.Drawable[]{background, effect}));
+    }
 
     /** A screen with the toolbar and a scrolling list. Returns the root; the list is the last child of the scroll view. */
     private LinearLayout createScreen(LinearLayout[] listOut) {
@@ -296,17 +315,24 @@ public final class ReVancedSettingsActivity extends Activity {
     /** Theme, app icon and language. */
     private void addAppearanceSection(LinearLayout list) {
         list.addView(createSubHeading(text("Тема", "Theme")));
-        String current = app.revanced.extension.soundcloud.theme.ArsoundTheme.current();
-        boolean night = (getResources().getConfiguration().uiMode
-                & android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES;
-
-        list.addView(createThemeRow(app.revanced.extension.soundcloud.theme.ArsoundTheme.SOUNDCLOUD,
-                text("SoundCloud", "SoundCloud"),
-                text("Стандартный вид SoundCloud: чёрно-белый с оранжевым.", "SoundCloud's own look: black and white with orange."),
-                night ? 0xFF121212 : 0xFFFFFFFF, 0xFFFF5500, current));
-        for (app.revanced.extension.soundcloud.theme.ArsoundTheme.Theme theme : app.revanced.extension.soundcloud.theme.ArsoundTheme.all(this)) {
-            list.addView(createThemeRow(theme.id, theme.name, theme.description, theme.surface(night), theme.accent(night), current));
-        }
+        list.addView(createThemeDropdown());
+        list.addView(createToggleRow(
+                text("Анимация темы", "Theme animation"),
+                text("Лёгкий живой фон: искры у «Алого», звёзды у «Кобальта», светлячки у «Мяты», лепестки у «Сакуры», "
+                                + "сканер у «Лайма». Замирает в режиме экономии батареи и когда анимации выключены в Android.",
+                        "A light living background: sparks for Scarlet, stars for Cobalt, fireflies for Mint, petals for "
+                                + "Sakura, a scanner for Lime. Stands still in battery saver mode and when Android's "
+                                + "animations are off."),
+                Settings.isThemeEffectsEnabled(),
+                (button, checked) -> {
+                    Settings.putBoolean(Settings.THEME_EFFECTS, checked);
+                    recreate();
+                }
+        ));
+        list.addView(createChoiceRow(text("Количество частиц", "Particle amount"), null,
+                Settings.THEME_EFFECTS_DENSITY, 100, new long[]{50, 100, 160},
+                new String[]{text("Меньше", "Fewer"), text("Как в макете", "As designed"), text("Больше", "More")},
+                this::recreate));
 
         list.addView(createSubHeading(text("Ещё", "More")));
         list.addView(openScreenRow(text("Иконка приложения", "App icon"),
@@ -315,50 +341,211 @@ public final class ReVancedSettingsActivity extends Activity {
         addLanguageRow(list);
     }
 
-    /** A theme: a swatch of its background with its accent, the name and a short description. */
-    private View createThemeRow(String id, String name, String description, int surface, int accent, String current) {
+    /** One entry of the theme list: the original look has no theme object. */
+    private static final class ThemeChoice {
+        final String id, name, description;
+        final ArsoundTheme.Theme theme;
+
+        ThemeChoice(String id, String name, String description, ArsoundTheme.Theme theme) {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.theme = theme;
+        }
+    }
+
+    private java.util.List<ThemeChoice> themeChoices() {
+        java.util.List<ThemeChoice> choices = new java.util.ArrayList<>();
+        choices.add(new ThemeChoice(ArsoundTheme.SOUNDCLOUD, "SoundCloud",
+                text("Стандартный вид SoundCloud: чёрно-белый с оранжевым.", "SoundCloud's own look: black and white with orange."),
+                null));
+        for (ArsoundTheme.Theme theme : ArsoundTheme.all(this)) {
+            choices.add(new ThemeChoice(theme.id, theme.name, theme.description, theme));
+        }
+        return choices;
+    }
+
+    /**
+     * The theme picker as a drop-down: a card with the chosen theme, which unfolds into the list of themes.
+     * Every theme shows its colours and its animation in a small tile.
+     */
+    private View createThemeDropdown() {
+        java.util.List<ThemeChoice> choices = themeChoices();
+        String current = ArsoundTheme.current();
+        ThemeChoice chosen = choices.get(0);
+        for (ThemeChoice choice : choices) if (choice.id.equals(current)) chosen = choice;
+
+        int accent = ArsoundTheme.palette(this, "special");
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        android.graphics.drawable.GradientDrawable cardShape = new android.graphics.drawable.GradientDrawable();
+        cardShape.setColor(ArsoundTheme.palette(this, "highlight"));
+        cardShape.setCornerRadius(dp(18));
+        cardShape.setStroke(dp(1), (accent & 0x00FFFFFF) | 0x40000000);
+        card.setBackground(cardShape);
+        card.setClipToOutline(true);
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cardParams.leftMargin = cardParams.rightMargin = dimen("spacing_m");
+        cardParams.bottomMargin = dimen("spacing_s");
+        card.setLayoutParams(cardParams);
+
+        View header = createThemeOption(chosen, false, accent);
+        android.widget.ImageView chevron = new android.widget.ImageView(this);
+        chevron.setImageDrawable(lineIcon(new float[]{.22f, .4f, .5f, .64f, .78f, .4f}, themeColor("themeColorPrimary")));
+        ((LinearLayout) header).addView(chevron, new LinearLayout.LayoutParams(dp(24), dp(24)));
+        header.setContentDescription(text("Тема: ", "Theme: ") + chosen.name);
+        card.addView(header);
+
+        LinearLayout options = new LinearLayout(this);
+        options.setOrientation(LinearLayout.VERTICAL);
+        options.setVisibility(View.GONE);
+        View divider = new View(this);
+        divider.setBackgroundColor((themeColor("themeColorPrimary") & 0x00FFFFFF) | 0x1A000000);
+        options.addView(divider, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Math.max(1, dp(1) / 2)));
+        for (ThemeChoice choice : choices) {
+            View option = createThemeOption(choice, choice.id.equals(current), accent);
+            option.setOnClickListener(v -> {
+                foldOptions(options, chevron, false);
+                if (choice.id.equals(ArsoundTheme.current())) return;
+                ArsoundTheme.setCurrent(this, choice.id);
+                ArsoundTheme.restartApp(this);
+            });
+            options.addView(option);
+        }
+        card.addView(options);
+        header.setOnClickListener(v -> foldOptions(options, chevron, options.getVisibility() != View.VISIBLE));
+        return card;
+    }
+
+    /** Unfolds or folds a drop-down list: the height slides, the arrow turns, the rows appear one after another. */
+    private void foldOptions(LinearLayout options, View chevron, boolean open) {
+        if (options.getTag() instanceof android.animation.Animator) ((android.animation.Animator) options.getTag()).cancel();
+        int width = ((View) options.getParent()).getWidth();
+        options.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        int full = options.getMeasuredHeight();
+        int from = options.getVisibility() == View.VISIBLE ? options.getHeight() : 0;
+        int to = open ? full : 0;
+        ViewGroup.LayoutParams params = options.getLayoutParams();
+        params.height = from;
+        options.setLayoutParams(params);
+        options.setVisibility(View.VISIBLE);
+
+        android.animation.ValueAnimator animator = android.animation.ValueAnimator.ofInt(from, to);
+        animator.setDuration(open ? 320 : 220);
+        animator.setInterpolator(new android.view.animation.DecelerateInterpolator(open ? 2f : 1.5f));
+        animator.addUpdateListener(a -> {
+            params.height = (int) a.getAnimatedValue();
+            options.setLayoutParams(params);
+        });
+        animator.addListener(new android.animation.AnimatorListenerAdapter() {
+            private boolean cancelled;
+
+            @Override
+            public void onAnimationCancel(android.animation.Animator animation) {
+                cancelled = true;
+            }
+
+            @Override
+            public void onAnimationEnd(android.animation.Animator animation) {
+                options.setTag(null);
+                if (cancelled) return;
+                if (!open) options.setVisibility(View.GONE);
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                options.setLayoutParams(params);
+            }
+        });
+        options.setTag(animator);
+        animator.start();
+        chevron.animate().rotation(open ? 180 : 0).setDuration(open ? 320 : 220)
+                .setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
+
+        // The rows after the divider fade and slide in with a small step between them.
+        for (int i = 1; i < options.getChildCount(); i++) {
+            View row = options.getChildAt(i);
+            row.animate().cancel();
+            if (open) {
+                row.setAlpha(0f);
+                row.setTranslationY(-dp(10));
+                row.animate().alpha(1f).translationY(0).setStartDelay(40L * i).setDuration(240)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
+            } else {
+                row.animate().alpha(0f).setStartDelay(0).setDuration(150).start();
+            }
+        }
+    }
+
+    /** A theme row: a tile with its colours and animation, the name and the description, a tick if chosen. */
+    private View createThemeOption(ThemeChoice choice, boolean selected, int accent) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
         row.setBackgroundResource(themeAttribute(android.R.attr.selectableItemBackground));
-        row.setPadding(dimen("spacing_m"), dimen("spacing_s"), dimen("spacing_m"), dimen("spacing_s"));
+        row.setPadding(dp(14), dp(12), dp(14), dp(12));
+        row.setContentDescription(choice.name);
+
+        // Tiles show the dark look: SoundCloud's own screens, where the animation plays, stay dark.
+        boolean night = true;
+        int surface = choice.theme == null ? (night ? 0xFF121212 : 0xFFFFFFFF) : choice.theme.surface(night);
+        int dotColor = choice.theme == null ? 0xFFFF5500 : choice.theme.accent(night);
 
         android.graphics.drawable.GradientDrawable swatch = new android.graphics.drawable.GradientDrawable();
         swatch.setColor(surface);
-        swatch.setCornerRadius(dp(12));
+        swatch.setCornerRadius(dp(14));
         swatch.setStroke(dp(1), 0x33888888);
-        android.widget.FrameLayout tile = new android.widget.FrameLayout(this);
-        tile.setBackground(swatch);
-        View dot = new View(this);
-        android.graphics.drawable.GradientDrawable dotShape = new android.graphics.drawable.GradientDrawable();
-        dotShape.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-        dotShape.setColor(accent);
-        dot.setBackground(dotShape);
-        android.widget.FrameLayout.LayoutParams dotParams = new android.widget.FrameLayout.LayoutParams(dp(18), dp(18), Gravity.CENTER);
-        tile.addView(dot, dotParams);
-        LinearLayout.LayoutParams tileParams = new LinearLayout.LayoutParams(dp(44), dp(44));
+        android.graphics.drawable.GradientDrawable dot = new android.graphics.drawable.GradientDrawable();
+        dot.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+        dot.setColor(dotColor);
+        app.revanced.extension.soundcloud.theme.ThemeEffect effect = choice.theme == null || !Settings.isThemeEffectsEnabled()
+                ? null : app.revanced.extension.soundcloud.theme.ThemeBackdrop.forTheme(this, choice.theme, .45f, .7f);
+        android.graphics.drawable.LayerDrawable layers = effect == null
+                ? new android.graphics.drawable.LayerDrawable(new android.graphics.drawable.Drawable[]{swatch, dot})
+                : new android.graphics.drawable.LayerDrawable(new android.graphics.drawable.Drawable[]{swatch, effect, dot});
+        int dotIndex = layers.getNumberOfLayers() - 1;
+        // Without an animation the accent sits in the middle; with one it moves to the corner.
+        if (effect == null) layers.setLayerInset(dotIndex, dp(17), dp(17), dp(17), dp(17));
+        else layers.setLayerInset(dotIndex, dp(36), dp(36), dp(6), dp(6));
+        View tile = new View(this);
+        tile.setBackground(layers);
+        tile.setClipToOutline(true);
+        LinearLayout.LayoutParams tileParams = new LinearLayout.LayoutParams(dp(52), dp(52));
         tileParams.rightMargin = dp(14);
         row.addView(tile, tileParams);
 
         LinearLayout texts = new LinearLayout(this);
         texts.setOrientation(LinearLayout.VERTICAL);
-        texts.addView(createText("H4.Primary", name));
-        TextView descriptionView = createText("Body.Secondary", description);
-        texts.addView(descriptionView);
+        TextView name = createText("H4.Primary", choice.name);
+        if (selected) name.setTextColor(accent);
+        texts.addView(name);
+        texts.addView(createText("Body.Secondary", choice.description));
         row.addView(texts, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        android.widget.RadioButton radio = new android.widget.RadioButton(this);
-        radio.setChecked(id.equals(current));
-        radio.setClickable(false);
-        row.addView(radio);
-
-        row.setOnClickListener(v -> {
-            if (id.equals(app.revanced.extension.soundcloud.theme.ArsoundTheme.current())) return;
-            app.revanced.extension.soundcloud.theme.ArsoundTheme.setCurrent(this, id);
-            Toast.makeText(this, text("Тема: ", "Theme: ") + name, Toast.LENGTH_SHORT).show();
-            app.revanced.extension.soundcloud.theme.ArsoundTheme.restartApp(this);
-        });
+        if (selected) {
+            android.widget.ImageView tick = new android.widget.ImageView(this);
+            tick.setImageDrawable(lineIcon(new float[]{.2f, .52f, .42f, .72f, .82f, .3f}, accent));
+            row.addView(tick, new LinearLayout.LayoutParams(dp(24), dp(24)));
+        }
         return row;
+    }
+
+    /** A small line icon (an arrow, a tick) from points in a unit square. */
+    private android.graphics.drawable.Drawable lineIcon(float[] points, int color) {
+        android.graphics.Path path = new android.graphics.Path();
+        path.moveTo(points[0], points[1]);
+        for (int i = 2; i < points.length; i += 2) path.lineTo(points[i], points[i + 1]);
+        android.graphics.drawable.ShapeDrawable icon = new android.graphics.drawable.ShapeDrawable(
+                new android.graphics.drawable.shapes.PathShape(path, 1, 1));
+        android.graphics.Paint paint = icon.getPaint();
+        paint.setColor(color);
+        paint.setStyle(android.graphics.Paint.Style.STROKE);
+        paint.setStrokeWidth(.09f);
+        paint.setStrokeCap(android.graphics.Paint.Cap.ROUND);
+        paint.setStrokeJoin(android.graphics.Paint.Join.ROUND);
+        paint.setAntiAlias(true);
+        icon.setIntrinsicWidth(dp(24));
+        icon.setIntrinsicHeight(dp(24));
+        return icon;
     }
 
     /** The app language: as in the system, Russian or English. Android 13+ keeps it per app. */
@@ -370,7 +557,7 @@ public final class ReVancedSettingsActivity extends Activity {
         String chosen = manager.getApplicationLocales().isEmpty() ? "" : manager.getApplicationLocales().get(0).getLanguage();
         int index = java.util.Arrays.asList(tags).indexOf(chosen);
         View row = createActionRow(text("Язык приложения", "App language"), labels[Math.max(0, index)], v ->
-                new android.app.AlertDialog.Builder(this)
+                new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                         .setTitle(text("Язык приложения", "App language"))
                         .setSingleChoiceItems(labels, Math.max(0, index), (dialog, which) -> {
                             dialog.dismiss();
@@ -479,14 +666,32 @@ public final class ReVancedSettingsActivity extends Activity {
                 text("Не выходить в сеть с российского IP", "Stay offline on a Russian IP"),
                 text("Если приложение выходит в интернет с российского IP, оно не обращается ни к SoundCloud, "
                                 + "ни к поиску Arsound. Играют скачанные и импортированные треки. Страна определяется "
-                                + "через Cloudflare, проверяется заново при смене сети и раз в 30 секунд, пока идут запросы; "
-                                + "если проверка не прошла, запросы ждут следующей.",
+                                + "через Cloudflare; если проверка не прошла, запросы ждут следующей.",
                         "On a Russian IP the app contacts neither SoundCloud nor the Arsound search; downloaded and "
-                                + "imported tracks still play. The country is checked through Cloudflare, again whenever "
-                                + "the network changes and every 30 seconds while requests go; after a failed check "
-                                + "requests wait for the next one."),
+                                + "imported tracks still play. The country is checked through Cloudflare; after a failed "
+                                + "check requests wait for the next one."),
                 Settings.isRegionGuardEnabled(),
                 (button, checked) -> Settings.putBoolean(Settings.REGION_GUARD, checked)
+        ));
+        list.addView(createToggleRow(
+                text("Проверять при смене сети и VPN", "Check when the network or VPN changes"),
+                text("Страна проверяется заново, как только телефон сменил сеть или включил либо выключил VPN. "
+                                + "Если выключить, приложение помнит прошлую страну до проверки вручную: после отключения "
+                                + "VPN запросы могут уйти с российского IP.",
+                        "The country is checked again as soon as the phone changes the network or turns a VPN on or "
+                                + "off. When off, the app keeps the last country until you check by hand: after a VPN "
+                                + "is turned off, requests may go from a Russian IP."),
+                Settings.isRegionRecheckOnChangeEnabled(),
+                (button, checked) -> Settings.putBoolean(Settings.REGION_RECHECK_ON_CHANGE, checked)
+        ));
+        list.addView(createToggleRow(
+                text("Проверять раз в 30 секунд", "Check every 30 seconds"),
+                text("Пока идут запросы, страна перепроверяется в фоне раз в 30 секунд: так заметен VPN, который "
+                                + "отвалился без смены сети. Без неё — меньше запросов к Cloudflare.",
+                        "While requests go, the country is checked again in the background every 30 seconds, which "
+                                + "catches a VPN that dropped without a network change. Off means fewer requests to Cloudflare."),
+                Settings.isRegionRecheckPeriodicEnabled(),
+                (button, checked) -> Settings.putBoolean(Settings.REGION_RECHECK_PERIODIC, checked)
         ));
         list.addView(createActionRow(
                 text("Проверить IP снова", "Check IP again"),
@@ -503,10 +708,11 @@ public final class ReVancedSettingsActivity extends Activity {
         addDnsOptions(list);
         list.addView(createToggleRow(
                 text("Показывать статус сети", "Show network status"),
-                text("Плашка вверху главного экрана, когда нет интернета или SoundCloud отключён из-за российского IP. "
-                                + "Нажмите на неё, чтобы проверить сеть снова.",
-                        "A pill at the top of the home screen when there is no connection or SoundCloud is off "
-                                + "because of a Russian IP. Tap it to check again."),
+                text("Маленький значок перечёркнутого интернета внизу справа, над плеером, когда нет сети или "
+                                + "SoundCloud отключён из-за российского IP. Нажмите — сеть проверится снова; "
+                                + "удерживайте — покажет, в чём дело.",
+                        "A small crossed-out globe at the bottom right, above the player, when there is no connection "
+                                + "or SoundCloud is off because of a Russian IP. Tap it to check again, hold it to see why."),
                 Settings.isNetworkBannerEnabled(),
                 (button, checked) -> Settings.putBoolean(Settings.NETWORK_BANNER, checked)
         ));
@@ -568,7 +774,13 @@ public final class ReVancedSettingsActivity extends Activity {
                 (button, checked) -> {
                     Settings.putBoolean(app.revanced.extension.soundcloud.player.AudioEqualizer.ENABLED, checked);
                     app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
-                    options.setVisibility(checked ? View.VISIBLE : View.GONE);
+                    if (checked) {
+                        options.setAlpha(0f);
+                        options.setVisibility(View.VISIBLE);
+                        options.animate().alpha(1f).setDuration(250).start();
+                    } else {
+                        options.setVisibility(View.GONE);
+                    }
                 }
         ));
         options.setVisibility(app.revanced.extension.soundcloud.player.AudioEqualizer.isEnabled() ? View.VISIBLE : View.GONE);
@@ -577,90 +789,273 @@ public final class ReVancedSettingsActivity extends Activity {
             options.addView(createText("Body.Secondary", text("Эквалайзер недоступен на этом телефоне.", "The equalizer is not available on this phone.")));
             return;
         }
-
-        int bands = info.centerFrequenciesHz.length;
-        android.widget.SeekBar[] sliders = new android.widget.SeekBar[bands];
-        TextView[] values = new TextView[bands];
-        Runnable showLevels = () -> {
-            long preset = Settings.getLong(app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM);
-            short[] levels = preset >= 0 && preset < info.presetLevels.length ? info.presetLevels[(int) preset] : app.revanced.extension.soundcloud.player.AudioEqualizer.levels(bands);
-            for (int band = 0; band < bands; band++) {
-                sliders[band].setProgress(levels[band] - info.minLevel);
-                values[band].setText(levelText(levels[band]));
-            }
-        };
-
-        long[] presetValues = new long[info.presets.length + 1];
-        String[] presetLabels = new String[info.presets.length + 1];
-        presetValues[0] = app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM;
-        presetLabels[0] = text("Своя настройка", "Custom");
-        for (int i = 0; i < info.presets.length; i++) {
-            presetValues[i + 1] = i;
-            presetLabels[i + 1] = info.presets[i];
-        }
-        View presetRow = createChoiceRow(text("Пресет", "Preset"), null, app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM, presetValues, presetLabels, () -> {
-            app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
-            showLevels.run();
-        });
-        options.addView(presetRow);
-        TextView presetDescription = (TextView) ((ViewGroup) presetRow).getChildAt(1);
-
-        for (int band = 0; band < bands; band++) {
-            options.addView(createBandSlider(band, bands, info, sliders, values, () -> presetDescription.setText(presetLabels[0])));
-        }
-        showLevels.run();
-        options.addView(createActionRow(text("Сбросить", "Reset"),
-                text("Все полосы на 0 дБ.", "All bands at 0 dB."), v -> {
-                    Settings.putString(app.revanced.extension.soundcloud.player.AudioEqualizer.LEVELS, "");
-                    Settings.putLong(app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET, app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM);
-                    app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
-                    presetDescription.setText(presetLabels[0]);
-                    showLevels.run();
-                }));
+        new EqualizerPanel(info, options).build();
     }
 
-    /** One band of the equalizer: its frequency, a slider and the level in decibels. */
-    private View createBandSlider(int band, int bands, app.revanced.extension.soundcloud.player.AudioEqualizer.Info info,
-                                  android.widget.SeekBar[] sliders, TextView[] values, Runnable onUserChange) {
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setPadding(dimen("spacing_m"), dimen("spacing_xs"), dimen("spacing_m"), dimen("spacing_xs"));
-        int hz = info.centerFrequenciesHz[band];
-        TextView frequency = createText("Body.Primary", hz >= 1000 ? (hz / 1000) + text(" кГц", " kHz") : hz + text(" Гц", " Hz"));
-        row.addView(frequency, new LinearLayout.LayoutParams(dp(72), ViewGroup.LayoutParams.WRAP_CONTENT));
-        android.widget.SeekBar slider = new android.widget.SeekBar(this);
-        slider.setMax(info.maxLevel - info.minLevel);
-        row.addView(slider, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        TextView value = createText("Body.Secondary", "");
-        value.setGravity(Gravity.END);
-        row.addView(value, new LinearLayout.LayoutParams(dp(72), ViewGroup.LayoutParams.WRAP_CONTENT));
-        sliders[band] = slider;
-        values[band] = value;
-        slider.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                if (!fromUser) return;
-                short level = (short) (progress + info.minLevel);
-                value.setText(levelText(level));
+    /** A drop-down of presets over a curve of the bands that can be dragged; the user's own presets in the same list. */
+    private final class EqualizerPanel {
+        private final app.revanced.extension.soundcloud.player.AudioEqualizer.Info info;
+        private final LinearLayout options;
+        private final int bands;
+        private final int accent = ArsoundTheme.palette(ReVancedSettingsActivity.this, "special");
+        private final int primary = themeColor("themeColorPrimary");
+        private final int card = ArsoundTheme.palette(ReVancedSettingsActivity.this, "highlight");
+        private short[] levels;
+        private LinearLayout header, list;
+        private android.widget.ImageView chevron;
+        private EqualizerGraph graph;
+
+        EqualizerPanel(app.revanced.extension.soundcloud.player.AudioEqualizer.Info info, LinearLayout options) {
+            this.info = info;
+            this.options = options;
+            this.bands = info.centerFrequenciesHz.length;
+        }
+
+        private String choice() {
+            return Settings.getString(app.revanced.extension.soundcloud.player.AudioEqualizer.CHOICE, "");
+        }
+
+        void build() {
+            // A preset of the phone chosen in an older version becomes the user's own band levels.
+            long legacy = Settings.getLong(app.revanced.extension.soundcloud.player.AudioEqualizer.PRESET,
+                    app.revanced.extension.soundcloud.player.AudioEqualizer.CUSTOM);
+            if (legacy >= 0 && legacy < info.presetLevels.length) {
+                app.revanced.extension.soundcloud.player.AudioEqualizer.setLevels(info.presetLevels[(int) legacy], "");
+            }
+            levels = app.revanced.extension.soundcloud.player.AudioEqualizer.levels(bands);
+
+            // The card: the chosen preset on top, the list of presets unfolds under it.
+            LinearLayout dropdown = new LinearLayout(ReVancedSettingsActivity.this);
+            dropdown.setOrientation(LinearLayout.VERTICAL);
+            android.graphics.drawable.GradientDrawable shape = new android.graphics.drawable.GradientDrawable();
+            shape.setColor(card);
+            shape.setCornerRadius(dp(18));
+            shape.setStroke(dp(1), (accent & 0x00FFFFFF) | 0x40000000);
+            dropdown.setBackground(shape);
+            dropdown.setClipToOutline(true);
+            LinearLayout.LayoutParams dropdownParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dropdownParams.leftMargin = dropdownParams.rightMargin = dimen("spacing_m");
+            dropdownParams.topMargin = dimen("spacing_s");
+            dropdownParams.bottomMargin = dimen("spacing_m");
+            header = new LinearLayout(ReVancedSettingsActivity.this);
+            header.setOrientation(LinearLayout.HORIZONTAL);
+            dropdown.addView(header);
+            list = new LinearLayout(ReVancedSettingsActivity.this);
+            list.setOrientation(LinearLayout.VERTICAL);
+            list.setVisibility(View.GONE);
+            dropdown.addView(list);
+            chevron = new android.widget.ImageView(ReVancedSettingsActivity.this);
+            chevron.setImageDrawable(lineIcon(new float[]{.22f, .4f, .5f, .64f, .78f, .4f}, primary));
+            header.setOnClickListener(v -> {
+                boolean open = list.getVisibility() != View.VISIBLE;
+                if (open) fillList();
+                foldOptions(list, chevron, open);
+            });
+            options.addView(dropdown, dropdownParams);
+
+            graph = new EqualizerGraph(ReVancedSettingsActivity.this, info.centerFrequenciesHz, info.minLevel, info.maxLevel,
+                    accent, primary, card);
+            graph.setLevels(levels, false);
+            graph.setListener((band, level) -> {
+                levels[band] = level;
                 app.revanced.extension.soundcloud.player.AudioEqualizer.setLevel(band, level, bands);
-                onUserChange.run();
-            }
+                showHeader();
+            });
+            LinearLayout.LayoutParams graphParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            graphParams.leftMargin = graphParams.rightMargin = dimen("spacing_m");
+            options.addView(graph, graphParams);
+            TextView hint = createText("Body.Secondary", text(
+                    "Тяните точки вверх и вниз, чтобы подстроить звук. Свою настройку можно сохранить под своим именем — "
+                            + "она появится в списке пресетов; удерживайте её там, чтобы переименовать или удалить.",
+                    "Drag the points up and down to tune the sound. Your tuning can be saved under a name and shows up in "
+                            + "the preset list; hold it there to rename or delete it."));
+            hint.setPadding(dimen("spacing_m"), dp(10), dimen("spacing_m"), dp(10));
+            options.addView(hint);
 
-            @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-            }
+            TextView save = createText("H4.Primary", text("+ Сохранить как свой пресет", "+ Save as my preset"));
+            save.setTextColor(accent);
+            save.setGravity(Gravity.CENTER);
+            save.setMinHeight(dp(44));
+            save.setPadding(dp(18), dp(8), dp(18), dp(8));
+            android.graphics.drawable.GradientDrawable dashed = new android.graphics.drawable.GradientDrawable();
+            dashed.setCornerRadius(dp(100));
+            dashed.setStroke(Math.max(1, dp(1)), accent, dp(5), dp(4));
+            save.setBackground(new android.graphics.drawable.RippleDrawable(
+                    android.content.res.ColorStateList.valueOf((accent & 0x00FFFFFF) | 0x40000000), dashed, null));
+            save.setOnClickListener(v -> askName(null));
+            LinearLayout.LayoutParams saveParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            saveParams.leftMargin = dimen("spacing_m");
+            saveParams.bottomMargin = dimen("spacing_m");
+            options.addView(save, saveParams);
+            showHeader();
+        }
 
-            @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
+        /** Name, note and curve of what is chosen now, in the closed drop-down. */
+        private void showHeader() {
+            String choice = choice();
+            String title, note;
+            short[] shape = levels;
+            app.revanced.extension.soundcloud.player.AudioEqualizer.Preset preset = choice.startsWith("p:")
+                    ? app.revanced.extension.soundcloud.player.AudioEqualizer.preset(choice.substring(2)) : null;
+            if (preset != null) {
+                title = preset.name();
+                note = preset.note();
+            } else if (choice.startsWith("u:")) {
+                title = choice.substring(2);
+                note = text("Ваш пресет", "Your preset");
+            } else {
+                title = text("Своя настройка", "Custom");
+                note = text("Не сохранена", "Not saved");
             }
-        });
-        return row;
+            TextView old = header.getChildCount() > 0 ? (TextView) header.findViewWithTag("name") : null;
+            boolean changed = old == null || !title.equals(old.getText().toString());
+            header.removeAllViews();
+            View row = presetRow(title, note, shape, false);
+            // The row's views move into the header, which keeps its own click and the arrow.
+            ViewGroup source = (ViewGroup) row;
+            while (source.getChildCount() > 0) {
+                View child = source.getChildAt(0);
+                source.removeViewAt(0);
+                header.addView(child);
+            }
+            header.setGravity(Gravity.CENTER_VERTICAL);
+            header.setPadding(row.getPaddingLeft(), row.getPaddingTop(), row.getPaddingRight(), row.getPaddingBottom());
+            header.setBackgroundResource(themeAttribute(android.R.attr.selectableItemBackground));
+            if (chevron.getParent() != null) ((ViewGroup) chevron.getParent()).removeView(chevron);
+            header.addView(chevron, new LinearLayout.LayoutParams(dp(24), dp(24)));
+            header.setContentDescription(text("Пресет: ", "Preset: ") + title);
+            if (changed) {
+                View name = header.findViewWithTag("name");
+                name.setAlpha(0f);
+                name.setTranslationY(dp(6));
+                name.animate().alpha(1f).translationY(0).setDuration(220).start();
+            }
+        }
+
+        /** The unfolding list: built-in presets, then the user's. */
+        private void fillList() {
+            list.removeAllViews();
+            String choice = choice();
+            View divider = new View(ReVancedSettingsActivity.this);
+            divider.setBackgroundColor((primary & 0x00FFFFFF) | 0x1A000000);
+            list.addView(divider, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Math.max(1, dp(1) / 2)));
+            for (app.revanced.extension.soundcloud.player.AudioEqualizer.Preset preset
+                    : app.revanced.extension.soundcloud.player.AudioEqualizer.PRESETS) {
+                short[] shape = preset.levels(info);
+                View row = presetRow(preset.name(), preset.note(), shape, ("p:" + preset.id).equals(choice));
+                row.setOnClickListener(v -> choose(shape, "p:" + preset.id));
+                list.addView(row);
+            }
+            java.util.List<app.revanced.extension.soundcloud.player.AudioEqualizer.UserPreset> mine =
+                    app.revanced.extension.soundcloud.player.AudioEqualizer.userPresets(bands);
+            if (mine.isEmpty()) return;
+            TextView heading = createText("H4.Secondary", text("Мои пресеты", "My presets"));
+            heading.setPadding(dp(14), dp(14), dp(14), dp(4));
+            list.addView(heading);
+            for (app.revanced.extension.soundcloud.player.AudioEqualizer.UserPreset preset : mine) {
+                View row = presetRow(preset.name, text("Ваш пресет · удерживайте, чтобы изменить", "Your preset · hold to edit"),
+                        preset.levels, ("u:" + preset.name).equals(choice));
+                row.setOnClickListener(v -> choose(preset.levels, "u:" + preset.name));
+                row.setOnLongClickListener(v -> {
+                    editUserPreset(preset.name);
+                    return true;
+                });
+                list.addView(row);
+            }
+        }
+
+        /** A preset row: a small picture of its curve, the name and the note, a tick when chosen. */
+        private View presetRow(String title, String note, short[] shape, boolean selected) {
+            LinearLayout row = new LinearLayout(ReVancedSettingsActivity.this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setBackgroundResource(themeAttribute(android.R.attr.selectableItemBackground));
+            row.setPadding(dp(14), dp(10), dp(14), dp(10));
+
+            View curve = new View(ReVancedSettingsActivity.this);
+            // A narrower scale than the big curve (±10 dB), so gentle presets still show their shape.
+            curve.setBackground(new CurveThumbnail(shape, (short) -1000, (short) 1000, accent,
+                    (primary & 0x00FFFFFF) | 0x14000000, dp(1)));
+            LinearLayout.LayoutParams curveParams = new LinearLayout.LayoutParams(dp(56), dp(36));
+            curveParams.rightMargin = dp(14);
+            row.addView(curve, curveParams);
+
+            LinearLayout texts = new LinearLayout(ReVancedSettingsActivity.this);
+            texts.setOrientation(LinearLayout.VERTICAL);
+            TextView name = createText("H4.Primary", title);
+            name.setTag("name");
+            if (selected) name.setTextColor(accent);
+            texts.addView(name);
+            texts.addView(createText("Body.Secondary", note));
+            row.addView(texts, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+            if (selected) {
+                android.widget.ImageView tick = new android.widget.ImageView(ReVancedSettingsActivity.this);
+                tick.setImageDrawable(lineIcon(new float[]{.2f, .52f, .42f, .72f, .82f, .3f}, accent));
+                row.addView(tick, new LinearLayout.LayoutParams(dp(24), dp(24)));
+            }
+            return row;
+        }
+
+        private void choose(short[] chosen, String choice) {
+            levels = chosen.clone();
+            app.revanced.extension.soundcloud.player.AudioEqualizer.setLevels(levels, choice);
+            foldOptions(list, chevron, false);
+            graph.setLevels(levels, true);
+            showHeader();
+        }
+
+        /** After saving, renaming or deleting: the header, and the list if it is open. */
+        private void refresh() {
+            showHeader();
+            if (list.getVisibility() == View.VISIBLE) fillList();
+        }
+
+        /** Asks for a name: to save the current curve, or to rename the given preset. */
+        private void askName(String renaming) {
+            android.widget.EditText input = new android.widget.EditText(ReVancedSettingsActivity.this);
+            input.setSingleLine(true);
+            input.setText(renaming != null ? renaming
+                    : text("Мой пресет ", "My preset ") + (app.revanced.extension.soundcloud.player.AudioEqualizer.userPresets(bands).size() + 1));
+            input.selectAll();
+            android.widget.FrameLayout box = new android.widget.FrameLayout(ReVancedSettingsActivity.this);
+            box.setPadding(dimen("spacing_m"), dp(8), dimen("spacing_m"), 0);
+            box.addView(input);
+            new app.revanced.extension.soundcloud.shared.ArsoundDialog(ReVancedSettingsActivity.this)
+                    .setTitle(renaming != null ? text("Новое имя", "New name") : text("Сохранить пресет", "Save preset"))
+                    .setView(box)
+                    .setPositiveButton(text("Готово", "Done"), (dialog, which) -> {
+                        String value = input.getText().toString().trim();
+                        if (value.isEmpty()) return;
+                        if (renaming != null) {
+                            app.revanced.extension.soundcloud.player.AudioEqualizer.renameUserPreset(renaming, value, bands);
+                        } else {
+                            app.revanced.extension.soundcloud.player.AudioEqualizer.saveUserPreset(value, levels);
+                        }
+                        refresh();
+                    })
+                    .setNegativeButton(text("Отмена", "Cancel"), null)
+                    .show();
+            input.requestFocus();
+        }
+
+        private void editUserPreset(String presetName) {
+            new app.revanced.extension.soundcloud.shared.ArsoundDialog(ReVancedSettingsActivity.this)
+                    .setTitle(presetName)
+                    .setItems(new String[]{text("Переименовать", "Rename"), text("Удалить", "Delete")}, (dialog, which) -> {
+                        if (which == 0) {
+                            askName(presetName);
+                        } else {
+                            app.revanced.extension.soundcloud.player.AudioEqualizer.deleteUserPreset(presetName, bands);
+                            refresh();
+                        }
+                    })
+                    .show();
+        }
     }
 
-    private static String levelText(short millibels) {
-        return String.format(Locale.US, "%+.1f ", millibels / 100f) + text("дБ", "dB");
-    }
 
     private void addStatsSection(LinearLayout list) {
         LinearLayout content = new LinearLayout(this);
@@ -683,7 +1078,7 @@ public final class ReVancedSettingsActivity extends Activity {
         showStats(content);
         list.addView(createActionRow(text("Очистить статистику", "Clear statistics"),
                 text("Удалить всю историю прослушиваний с телефона.", "Delete the whole listening history from the phone."),
-                v -> new android.app.AlertDialog.Builder(this)
+                v -> new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                         .setTitle(text("Очистить статистику?", "Clear statistics?"))
                         .setNegativeButton(android.R.string.cancel, null)
                         .setPositiveButton(text("Очистить", "Clear"), (dialog, which) -> {
@@ -1201,7 +1596,7 @@ public final class ReVancedSettingsActivity extends Activity {
         TextView[] serverDescription = new TextView[1];
         View serverRow = createActionRow(text("Сервер", "Server"), dnsServerDescription(), v -> {
             String[] presets = {"xbox-dns.ru", text("Свой сервер", "Custom server")};
-            new android.app.AlertDialog.Builder(this)
+            new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                     .setTitle(text("Сервер DNS", "DNS server"))
                     .setItems(presets, (dialog, which) -> {
                         Settings.putString(Settings.DNS_PRESET, which == 0 ? app.revanced.extension.soundcloud.network.CustomDns.PRESET_XBOX : app.revanced.extension.soundcloud.network.CustomDns.PRESET_CUSTOM);
@@ -1219,7 +1614,7 @@ public final class ReVancedSettingsActivity extends Activity {
             String[] modes = {text("Авто: сначала DoH, потом обычный", "Auto: DoH first, then plain"),
                     text("Только DNS-over-HTTPS", "DNS-over-HTTPS only"),
                     text("Только обычный DNS", "Plain DNS only")};
-            new android.app.AlertDialog.Builder(this)
+            new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                     .setTitle(text("Способ", "Mode"))
                     .setItems(modes, (dialog, which) -> {
                         Settings.putString(Settings.DNS_MODE, which == 0 ? app.revanced.extension.soundcloud.network.CustomDns.MODE_AUTO
@@ -1280,7 +1675,7 @@ public final class ReVancedSettingsActivity extends Activity {
         servers.setText(Settings.getCustomDnsServers());
         form.addView(doh);
         form.addView(servers);
-        new android.app.AlertDialog.Builder(this)
+        new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                 .setTitle(text("Свой DNS", "Custom DNS"))
                 .setView(form)
                 .setNegativeButton(android.R.string.cancel, null)
@@ -1524,7 +1919,7 @@ public final class ReVancedSettingsActivity extends Activity {
                     + String.format(Locale.US, "%d:%02d", seconds / 60, seconds % 60);
             View row = createActionRow(track.title, details, v -> playLocal(index, false));
             row.setOnLongClickListener(v -> {
-                new android.app.AlertDialog.Builder(this)
+                new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                         .setTitle(track.title)
                         .setNeutralButton(text("В плейлист…", "To playlist…"), (dialog, which) ->
                                 app.revanced.extension.soundcloud.local.LocalAdditions.pickPlaylist(this, app.revanced.extension.soundcloud.local.LocalAdditions.fileEntry(track.file)))
@@ -1576,7 +1971,7 @@ public final class ReVancedSettingsActivity extends Activity {
     }
 
     private void confirmReset() {
-        new android.app.AlertDialog.Builder(this)
+        new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                 .setTitle(text("Сбросить данные?", "Reset data?"))
                 .setMessage(text("SoundCloud перезапустится и заново загрузит библиотеку с сервера — нужен рабочий интернет. "
                                 + "Без него плейлисты не откроются, пока сеть не появится. Вход, настройки Arsound, "
@@ -1604,7 +1999,7 @@ public final class ReVancedSettingsActivity extends Activity {
     private View createChoiceRow(String title, String explanation, String key, long defaultValue,
                                  long[] values, String[] labels, Runnable onChange) {
         TextView[] description = new TextView[1];
-        View row = createActionRow(title, "", v -> new android.app.AlertDialog.Builder(this)
+        View row = createActionRow(title, "", v -> new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
                 .setTitle(title)
                 .setSingleChoiceItems(labels, indexOf(values, Settings.getLong(key, defaultValue)), (dialog, which) -> {
                     Settings.putLong(key, values[which]);
