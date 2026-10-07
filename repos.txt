@@ -78,6 +78,7 @@ lennyRBLX/apk-patches
 liaralabs/revanced-patches
 lluni/custom-revanced-patches
 loan-mgt/moovit-patch
+niposch/revanced-tiktok-patches
 nuc134r/yandex-ads-patches
 permissionBRICK/youtube-home-assistant-patches
 prevanced/prevanced-manager
