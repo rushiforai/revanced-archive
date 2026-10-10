@@ -28,6 +28,13 @@ public final class ValidatePatches {
             FEED, ACL, DOWNLOADS, "LX/19k8;", "Lcom/ss/android/ugc/aweme/feed/model/Aweme;", "Lcom/ss/android/ugc/aweme/feed/model/AnchorCommonStruct;",
             "Lcom/ss/android/ugc/aweme/feed/FeedApiService;", "Lcom/ss/android/ugc/aweme/feed/api/FeedApi;",
             "Lcom/ss/android/ugc/tiktok/ConvertHelper;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/NewLiveRoomStruct;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/LiveRoomStruct;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/RoomFeedCellStruct;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/FYPCommerceStruct;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/FeedRoomTag;",
+            "Lcom/ss/android/ugc/aweme/feed/model/live/FeedRoomTagList;",
+            "Lcom/ss/android/ugc/aweme/commerce/AwemeCommerceStruct;",
             "Lcom/ss/android/ugc/aweme/gsonopt/OptJsonAdapterFor$com$ss$android$ugc$aweme$feed$model$FeedItemList;"
         ));
         DexPool pool = new DexPool(Opcodes.getDefault());

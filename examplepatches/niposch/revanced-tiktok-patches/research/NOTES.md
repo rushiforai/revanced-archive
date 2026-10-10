@@ -98,7 +98,8 @@ declaration rather than applying to a different layout silently.
 An absent entry in a desktop resource dump is insufficient evidence that a
 resource is unusable on Android. Compare compiled attributes and runtime resource
 resolution when rebuilding obfuscated resources. Other decoded null references
-need their own investigation; the Share repair is scoped to this verified layout.
+need their own investigation. The initial Share-only repair was superseded by the
+systematic behavior-reference restoration described below.
 
 The repaired production APK passed five Share open/dismiss cycles with scrolling
 to a different feed item after each dismissal on a stock-boot Android 36.1
@@ -107,6 +108,147 @@ emulator. Both Share views measured 1080 by 1105 pixels instead of zero. The
 Temporary root instrumentation was stopped before validation. No recipient was
 selected and nothing was sent. Physical-device validation is still pending;
 the emulator's intermittent video-rendering corruption remains separate work.
+
+## Poll confirmation crashes and systematic resource restoration
+
+A retained Java crash pointed to `BottomSheetBehavior.from()` in the bottom-toast
+constructor `X/0I8f`, reached through `X/07p6.LJIIJJI` and `X/0YJK`. The latter
+runnable belongs to `PollCell.scheduleVotedToast`: the crash happens while showing
+the confirmation after a comment-poll vote, rather than while parsing a poll or
+sending its vote request. Original toast layout `0x7f0d0009` (`layout/gu`) assigns
+behavior attribute `0x7f060eed` to string `0x7f111ebf` on `@id/zm3`. In the installed
+rebuilt APK that attribute was null.
+
+TikTok's runtime resources are wrapped by `X/03Ia`, a `Resources` subclass. Its
+`getString()` calls its overridden `getText()`, which uses
+`NxResourceUtils.nativeGetText()` through `NxRewordManager` and the `nxreword`
+native library. The missing strings therefore resolve at runtime even though
+they are absent from the APK's normal resource table. APKTool lacks this runtime
+lookup and emits null for the references. This is a decoder/runtime resource
+mismatch, not evidence that the original reference was broken.
+
+**Change package name** causes a full resource decode and rebuild under Patcher
+22. The feed filters and download patch change bytecode only. The locally reviewed
+ReVanced package-name and YouTube microG resource implementations likewise edit
+the manifest through a resource patch; their authentication changes do not
+address TikTok's resource decoding. Patcher's raw resource API avoids decoding,
+but its version-22 packaging excludes raw `AndroidManifest.xml` and `res` from
+other-file output. Simply changing the patch type would not package the manifest
+changes. See [Patcher resource handling](https://github.com/ReVanced/revanced-patcher/blob/v22.0.0/patcher/src/commonMain/kotlin/app/revanced/patcher/patch/ResourcePatchContext.kt).
+
+The wider compiled-layout audit found 56 references lost during decoding:
+12 to `BottomSheetBehavior` and 44 to `AppBarLayout$ScrollingViewBehavior` through
+resource `0x7f1119be`. Android runtime lookup verified both class names. The
+central `ResourceRepairs` pass reads the original resource table to map layouts
+back to their binary XML, checks matching element structure and behavior attribute
+IDs, and restores these two verified class references where the decoded value is
+null. It does not infer the behavior from the view type or replace every null
+attribute. Unknown references, changed structure or a changed repair count fail
+patching. Temporary original files are removed so they cannot override rebuilt
+resources. The custom-attribute namespace restoration still preserves their IDs.
+
+All 126 compiled layout behavior declarations in the rebuilt APK matched the
+unmodified APK, including the untouched literal declarations. An emulator test
+called the same toast builder on the UI thread, without submitting a vote. The
+original APK succeeded; the previous Filtered build threw the retained exception;
+the repaired build succeeded. This test used temporary emulator instrumentation,
+not a rooted phone. An actual comment-poll post was unavailable, so a real vote
+on the updated phone remains a separate verification step.
+
+This supersedes maintaining a separate fix for each Share/toast layout. It proves
+preservation of the audited behavior declarations, not that every other resource
+in the APK survives decoding without loss.
+
+## Duplicate patch bundles in Manager
+
+Manager 2.6.0's bundle loader passes all configured bundles to Patcher before
+filtering selected patches. Patcher 22's Android implementation creates one
+`DexClassLoader` with those bundle paths. If old and new versions contain the
+same Java class names, the first path can provide both versions' implementations,
+even when only the newer source's patches are checked. The manifest version shown
+in the source list does not establish which class implementation ran.
+
+A phone build with duplicate imports completed all selected patches and installed
+using the existing signing key. Share opened successfully, but auditing the actual
+installed APK found 55 null behavior declarations and the previous Share-only
+repair. Therefore that install does not validate the new resource or LIVE changes.
+The corrected desktop APK has all 126 behavior declarations intact and passed the
+emulator toast check. Testing was stopped at the user's request before rebuilding
+the phone update. A real comment-poll vote remains untested.
+
+Keep one copy/source of this bundle configured in Manager, rather than merely
+unchecking the older copy. Compare the compiled output with the unmodified APK;
+successful patch logs and updated source metadata alone are insufficient.
+
+## LIVE Shop room metadata
+
+Shopping LIVE cards can lack the existing Aweme product flags and anchors. Their
+commerce metadata is carried by `Aweme.newLiveRoomData`, or the `newLiveRoomData`
+and `room` fields of its `RoomFeedCellStruct`. These are the feed model's
+`NewLiveRoomStruct` and `LiveRoomStruct`, not the separate LIVE SDK `Room` class.
+
+Hide Shop videos now reads `hasCommerceGoods` and the optional `FYPCommerceStruct`
+fields `productNum` and `popProductId`. Current goods or a positive product count
+or preview-product identifier removes the feed card. Selling permission and
+historical goods alone are insufficient. The code reads existing decoded fields
+without converting a room, parsing additional JSON or inspecting the stream's
+video/audio/captions. Direct access is guarded against the exact APK field types,
+including nullable boxed `Long` values; compile fixtures are excluded from the
+runtime extension.
+
+Behavior checks cover all three room representations, null commerce records,
+null/zero/negative product values, ordinary LIVE retention, independent ad
+selection, immutable input and survivor order. APK-derived ABI checks cover all
+19 referenced feed members. Android execution using TikTok's actual model classes
+also removed three synthetic Shop LIVE cards, retained an ordinary stream with
+permission/history only, and preserved the separate ad selection and input list.
+These checks do not establish that every promotional
+LIVE uses these fields. The supplied public LIVE page did not expose feed commerce
+metadata, so removal of that particular broadcast in an actual For You response
+still needs observation. Shop access and opening a LIVE directly are unchanged;
+the patch filters feed cards.
+
+## Disclosed promotions and LIVE commerce tags (1.4.0)
+
+The platform ad flags do not cover every creator advertisement. An actual public
+video labeled Paid partnership had both `_isAd` and `_isSoftAd` false, while
+`Aweme.getCommerceVideoAuthInfo()` returned an `AwemeCommerceStruct` with
+`brandedContentType = 8` and `brandOrganicType = 0`. TikTok's native predicates
+`isBrandedContent()` and `isBrandOrganicContent()` check whether their respective
+types are positive. Hide ads now uses those predicates rather than guessing from
+an anchor, captions or translated disclosure text. A commerce record by itself,
+with zero/negative types, is insufficient.
+
+LIVE cards also carry `FeedRoomTagList` on both feed room classes. The native
+commerce-card renderer recognizes tag ID `1000001`, independently of current
+goods/count fields. Hide Shop videos checks this ID across the first, sub, bottom,
+bottom-sub, commercial-disclosure and boost tag lists. Null entries and unknown
+tag IDs remain safe. The separate `bcToggleTags` field supplies commercial labels
+to `BcToggleInfoWidget`; Hide ads removes LIVE cards with a nonempty disclosure
+there. Ordinary recommendations and boost tags do not become ads merely because
+their text looks promotional. No additional JSON parsing or room conversion is
+required in the feed filter.
+
+Before/after Android checks used the exact video model captured from the
+unmodified app, replayed through TikTok's configured Gson decoder. Version 1.3.0
+retained that video; 1.4.0 removed it while retaining the ordinary control. The
+Shop-only selection still retained that non-Shop partnership. Controlled native
+LIVE models exercised direct raw rooms and both nested room representations:
+1.3.0 retained tag-only commerce cards and commercial disclosures; 1.4.0 removed
+each through its corresponding filter. Ordinary LIVE recommendations, nulls,
+immutable input and independent selection were preserved. These LIVE cases test
+the actual Android model classes and production APK, but are not a replay of the
+supplied broadcast's full For You response.
+Fresh feed sampling was interrupted by a native host-emulator crash during touch
+input, including with an alternative software renderer. That limitation is
+separate from the successful Android model and filter execution checks.
+
+Behavior tests include null/empty disclosures, all six tag-list placements,
+noncommercial metadata, unknown IDs, multiple positive branded types and survivor
+order. The extension's 32 referenced TikTok members passed APK-derived ABI checks,
+and all six patch selection combinations passed integration checks. The full
+updated APK retained all 126 compiled layout behavior declarations. Captures,
+public test links and account/device data remain private.
 
 ## Download permissions and missing media sources
 
@@ -162,7 +304,7 @@ cases, not universal saving across every post type or server configuration.
 
 Behavior checks cover independent and combined filters, immutable inputs,
 survivor order, clean-list identity, null values and all-filtered batches.
-APK-derived checks verify all nine referenced TikTok members, four getter returns,
+APK-derived checks verify all 32 referenced TikTok members, four getter returns,
 six response returns and four preload writes. Branches cannot bypass the getter
 filter, and fixture models never enter the extension.
 
