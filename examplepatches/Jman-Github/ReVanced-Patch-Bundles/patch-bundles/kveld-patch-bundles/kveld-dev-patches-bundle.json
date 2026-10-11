@@ -1,7 +1,0 @@
-{
-  "created_at": "2026-10-10T02:53:40",
-  "description": "## [2.6.0-experimental.16](https://github.com/kveld9/kveld-morphe-patches/compare/v2.6.0-experimental.15...v2.6.0-experimental.16) (2026-10-10)\n\n### Bug Fixes\n\n* **skills:** unindent section break after runtime safety note in morphe-patcher ([d2a7dbe](https://github.com/kveld9/kveld-morphe-patches/commit/d2a7dbe9f889c797d5975a71afeea54bd494362b))\n",
-  "download_url": "https://github.com/kveld9/kveld-morphe-patches/releases/download/v2.6.0-experimental.16/patches-2.6.0-experimental.16.mpp",
-  "signature_download_url": "N/A",
-  "version": "v2.6.0-experimental.16"
-}
