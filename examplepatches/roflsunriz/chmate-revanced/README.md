@@ -6,6 +6,11 @@ ChMate (`jp.co.airfront.android.a2chMate`) 向けの ReVanced Patch です。ChM
 
 - スレッド上部およびスレッド途中の広告 View を高さ `0dp`・`GONE` にする
 - 実行時に生成される広告 View も Activity のレイアウト更新時に折りたたむ
+- ニコニコ動画のサムネイルを公式の動画情報から取得し、取得できない場合はChMate本来の画像取得へ戻す
+- サムネイル対応済みの動画リンクに、公開されているタイトル・再生数・コメント数・マイリスト数・いいね数・投稿日・投稿者・概要欄をスレッド内で表示する（サービスが提供する項目のみ）
+- 投稿間隔エラーに待機秒数が明記された場合、指定時間を待って返信・新規スレッド作成を最大2回まで自動で再試行する
+- 4chan、ふたば、jschan系サイトの板・スレッドを画像付きで読み込み、各サイトの投稿フォームと認証画面をChMate内から開く
+- 既存NG設定に加え、項目別の文字列・数値・時間条件をANDで組み合わせ、否定・板/スレッド範囲・連鎖・通常/透明あぼーんを設定する
 - 既知の広告ホストを DNS、`URL`、HTTP クライアント、WebView の境界で遮断する
 - 既知広告 SDK のクラスから発生する DNS、`URL`、文字列 URL、WebView 通信を送信先にかかわらず遮断する
 - 広告 SDK の自動初期化 component と、公開されている初期化・広告 request entry point を無効化する
@@ -15,7 +20,15 @@ ChMate (`jp.co.airfront.android.a2chMate`) 向けの ReVanced Patch です。ChM
 - 再署名された APK を異常終了させる多段の署名整合性チェックを、結果配列の比較構造と限定した失敗処理に基づいて回避する
 - 設定画面を日本語、英語、中国語、ヒンディー語、スペイン語、フランス語、アラビア語、ポルトガル語、ベンガル語、ロシア語、ウルドゥー語で表示する
 
-設定画面は ChMate のメニューから「設定」→「ChMate ReVanced」と進んで開きます。独立したランチャーアイコンは追加しません。空欄を保存すると ChMate 本来の User-Agent に戻ります。
+設定画面は ChMate のメニューから「設定」→「ChMate ReVanced」と進んで開きます。独立したランチャーアイコンは追加しません。空欄を保存すると ChMate 本来の User-Agent に戻ります。動画情報は既定で表示し、同画面のスイッチで無効にできます。切り替え後はスレッドを開き直してください。
+
+動画情報カードは一つのレスにつき先頭16件まで表示します。サービス側が公開しない項目は表示しません。ニコニコ動画のいいね数は公式検索APIの日次更新を反映するため、動画ページの値と一時的に差が出る場合があります。
+
+画像掲示板は「設定」→「ChMate ReVanced」→「画像掲示板（4chan・ふたば・jschan）」から開きます。板またはスレッドのHTTPS URLを入力し、「開く」を押してください。板一覧のスレッドをタップするとレスを読めます。「投稿フォーム」は各掲示板の元ページをアプリ内で開くため、CAPTCHA、添付ファイル、削除キーなどはサイトの画面で操作します。4chanの`boards.4channel.org`形式のURLは、AQUOSのWebViewで正常に開けた`boards.4chan.org`へ切り替えて使います。jschan系では対象サイトが公式API形式の`catalog.json`と`thread/{id}.json`を公開している必要があります。
+
+高度なNGは「設定」→「ChMate ReVanced」→「高度なNGルール」で編集します。1ルール内の条件はすべて一致したときに適用されます。文字列には本文・名前・ID・トリップ・ﾜｯﾁｮｲ・IP・BE・URL・スレッド名などを指定でき、含む・正規表現・大小無視の正規表現・あいまい一致から選べます。数値にはレス番号・改行数・文字数・同じIDのレス数・参照数・被参照数・スレッドのレス数、時間には投稿曜日・時刻・投稿からの経過分を指定できます。板またはスレッドのURLを入力すると適用範囲を限定できます。通常あぼーんは「あぼーん」行を残し、透明あぼーんは行と空間を消します。設定後はスレッドを開き直してください。既存ChMateのNG設定はそのまま使えます。
+
+投稿の自動再試行は、サーバーのエラーに待機秒数が明記されている場合だけ動作します。通信障害や秒数のない連続投稿エラーでは再試行しません。待機中はChMateの「書き込み中…」画面が続きます。
 
 ## ダウンロード
 
@@ -43,7 +56,7 @@ https://github.com/roflsunriz/chmate-revanced/releases/latest/download/patches.j
 
 ビルドには次のものが必要です。
 
-- JDK 17 以上
+- JDK 17（CI と同じメジャーバージョン）
 - Android SDK Platform 34
 - GitHub Packages を読める GitHub Personal Access Token (`read:packages`)
 
@@ -55,13 +68,13 @@ $env:ORG_GRADLE_PROJECT_githubPackagesPassword = '<read:packagesトークン>'
 .\gradlew.bat :patches:test :extensions:chmate:test :extensions:chmate:lint :patches:buildAndroid
 ```
 
-成果物は `patches/build/libs/patches-1.0.3.rvp` です。バージョンは `gradle.properties` の `version` に従います。
+成果物は `patches/build/libs/patches-<version>.rvp` です。`<version>` は `gradle.properties` の `version` に従います。
 
 認証方法の詳細は [GitHub Packages の公式ドキュメント](https://docs.github.com/ja/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)を参照してください。
 
 ## 適用と確認
 
-1. 自分で正当に入手した ChMate APK または XAPK を用意する。XAPK は base APK を patch し、全 split APK を同じ鍵で再署名する。
+1. 自分で正当に入手した ChMate APK または XAPK を用意する。XAPK は全splitを単一APKへ統合してからpatchするか、base APKをpatchした後に全split APKを同じ鍵で再署名する。base APKだけの更新インストールではsplit不足になる場合があります。
 2. 対応する ReVanced Manager または ReVanced CLI に生成した `.rvp` をカスタム patch bundle として読み込ませる。
 3. `ChMate ReVanced` patch を選び、APK を patch・署名・インストールする。
 4. スレッド上部と途中に広告用の空白が残らないことを確認する。
@@ -78,6 +91,13 @@ ChMate APK や patch 済み APK はこのリポジトリで配布しません。
 - ReVanced Manager（2026-08-09）: AQUOS SH-R80P / Android 16、公式ReVanced Manager 2.6.0へ`patches-1.0.2.rvp`をストレージから追加し、`0.8.10.241`の準備、resource / DEX patch、resource再コンパイル、zipalign、署名、patched APK保存がすべて成功
 - 書き込み画面（2026-08-10）: AQUOS SH-R80P / Android 16、ChMate `0.8.10.241`でv1.0.2の書き込み欄を開くと`<include>`の`layout`属性欠落による`InflateException`で終了することを再現。公式ReVanced Manager 2.6.0がv1.0.3候補で生成・署名したAPKをデータ保持更新し、既存スレッドの書き込み欄と新規スレッド作成画面が終了せず開くことを確認
 - APK 適用: `0.8.10.165`、`0.8.10.179`、`0.8.10.202 dev`、`0.8.10.241` の4世代で成功
+- ニコニコ動画サムネイル修正（2026-10-11）: `getthumbinfo/sm9` が返す画像URLと画像本体を確認。修正したRVPは上記4世代のAPKで公式CLI 6.0.0による適用、再構築、署名に成功。AQUOS上で公開スレッドの`sm33589395`の画像表示と元動画への遷移を確認
+- 動画情報と更新インストール（2026-10-11）: 0.8.10.241の4分割XAPKを単一APKへ統合後、公式Managerでパッチ・保存・署名、AQUOS SH-R80P / Android 16へのデータ保持更新と起動に成功。公開スレッドで`sm`・`so`のサムネイルとタイトル・統計値・投稿日・概要欄のカード、YouTube動画のカード、カードの展開・復帰と元動画への遷移を確認。表示スイッチをオフにして開き直すと、サムネイルを残したままカードとその空間が消えることも確認。`nm`はAPI応答と4世代のAPK適用まで確認し、実画面は未確認
+- 投稿間隔エラーの再試行（2026-10-11）: 4世代へのCLI適用に成功。AQUOS上でローカル模擬掲示板への返信と新規スレッド作成を試し、2秒指定のエラー後に約3秒で1回再送し、次の別エラーでは追加送信しないことを確認。実際の掲示板への投稿は未実施
+- 依存監査（2026-10-11）: Gradle lockfile 3件をOSV-Scannerで検査し、Netty・Bouncy Castleの既知脆弱性を修正版への更新で解消。再検査で検出0件
+- 画像掲示板（2026-10-11）: AQUOS上で4chan `/po/`の一覧152件・公開スレッド4レスと、ふたば料理板の一覧10件・返信を含むスレッド8レスを表示。4chanの返信フォームとCloudflare CAPTCHA、ふたばの返信フォームが開くことを確認。外部掲示板への実投稿は未実施
+- jschan系（2026-10-11）: 公式README掲載の`zzzchan.xyz`で`/tech/`の一覧142件、画像、スレッド3レス、返信フォームの名前・本文・添付・CAPTCHA欄をAQUOSで確認。実投稿は未実施
+- 高度なNG（2026-10-11）: AQUOSのローカル模擬スレッドで、指定本文の2レス目とそれを参照する3レス目が連鎖してあぼーんになることを確認。通常あぼーんでは表示行が残り、透明あぼーんでは両行と空間が消えた。ルールを無効にすると本文が戻り、30レスをスクロール往復しても他のレスは消えなかった。数値・時間は単体テストと編集UIの切替まで確認
 - 構造検証: 全4世代で元の launcher、本体設定に追加した Preference、非公開の設定 Activity / Provider、拡張DEX、署名を確認
 - 広告 component: 検出した SDK component を各世代で30/30、35/35、6/6、29/29件無効化済み
 - XAPK: `0.8.10.179` の20 APK、`0.8.10.241` の4 APKを同一証明書で再署名し、split setを再構成済み

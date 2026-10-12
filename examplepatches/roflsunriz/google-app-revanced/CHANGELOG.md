@@ -4,16 +4,35 @@
 
 ## [Unreleased]
 
+### Changed
+
+- 公開されたv0.2.4を確認できるよう、配布物のハッシュ・ビルド証明・APK適用とManagerの版表示を検証記録へ追加した。
+
+## [0.2.4] - 2026-10-11
+
+Googleアプリ17.50.19と17.52.24でパッチ適用・再構築・署名、AQUOSのReVanced Manager 2.6.0でインストール直前まで確認しました。Pixel 10aでの起動拒否の改善、修正版インストール後のコンポーネント復旧と新しいアシスタント設定の操作は未確認です。
+
 ### Fixed
 
+- ReVanced GmsCore利用時の起動拒否とアプリ内コンポーネント無効化を防ぐため、GmsComplianceの機能判定だけを既存の無効経路へ切り替え、以前無効化されたコンポーネントの復旧処理を保った。
+- 外部の標準検索・アシスタント呼び出しがクローンでも届くよう、公開検索カテゴリを保持し、GCM配信カテゴリだけを実パッケージ名へ変換するようにした。
 - CI と Dependabot の分類の実行順が前後しても更新を取りこぼさないよう、同じ PR 番号と head SHA を再照合する経路を追加した。
+
+### Added
+
+- 標準アシスタントの設定をアプリ内から行えるよう、Google ReVanced設定へAndroidの選択画面を開く項目を日本語と主要10言語で追加した。
+
+### Security
+
+- APK解析・検証の依存に残っていた証明書名制約とASN.1解析の既知脆弱性を解消するため、Bouncy Castle関連依存を1.86へ統一し、Gradle lockfileを再生成した。
 
 ### Changed
 
+- 公開されたビルド・APK解析ツールの修正を取り込むため、Gradleを9.8.1、smaliを3.0.10へ更新し、パッチ生成・検出テストを再確認した。
 
 - 不具合・機能提案などの受付とPRの記入形式を揃え、プロジェクト固有の確認項目を残した。 READMEは既存の意味と手順を保ち、実装と異なる説明や読みにくい表現を修正した。
 
-- 依存更新を安全に省力化するため、Dependabot の patch／minor PR を既存 CI の全チェック成功後に自動取り込みし、失敗ジョブを一度再実行する設定を追加した。
+- 依存更新を安全に省力化するため、Dependabotのpatch／minor／major PRを現在のコミットの全チェック成功後に自動取り込みし、失敗ジョブの再実行と対象を限定したGradle lockfile修復を行う設定を追加した。運用文書も現在の設定へ揃えた。
 
 ## [0.2.3] - 2026-09-02
 
@@ -73,7 +92,8 @@
 - 広告ID、AdServices attribution、昇格通知権限と広告測定コンポーネントを無効化し、広告SDKへ識別子や測定イベントが渡る経路を削減しました。
 - ビルド・検証経路の既知脆弱性を除くため、Netty、Protobuf、Commons Lang、Apache HttpClient、Bouncy Castleの推移依存をOSV修正版へ固定しました。
 
-[Unreleased]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.4...HEAD
+[0.2.4]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/roflsunriz/google-app-revanced/compare/v0.2.0...v0.2.1

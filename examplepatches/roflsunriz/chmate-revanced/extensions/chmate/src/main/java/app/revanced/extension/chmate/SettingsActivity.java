@@ -1,6 +1,7 @@
 package app.revanced.extension.chmate;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -10,8 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public final class SettingsActivity extends Activity {
     private SettingsStrings strings;
@@ -41,6 +45,36 @@ public final class SettingsActivity extends Activity {
         descriptionParams.topMargin = dp(12);
         descriptionParams.bottomMargin = dp(24);
         content.addView(description, descriptionParams);
+
+        Switch videoMetadataSwitch = new Switch(this);
+        videoMetadataSwitch.setText(VideoMetadataStrings.setting(Locale.getDefault()));
+        videoMetadataSwitch.setChecked(UserAgentOverride.preferences(this)
+                .getBoolean(VideoMetadataBridge.ENABLED_KEY, true));
+        videoMetadataSwitch.setOnClickListener(view -> {
+            boolean enabled = videoMetadataSwitch.isChecked();
+            if (!UserAgentOverride.preferences(this).edit()
+                    .putBoolean(VideoMetadataBridge.ENABLED_KEY, enabled).commit()) {
+                videoMetadataSwitch.setChecked(!enabled);
+                Toast.makeText(this, strings.saveFailed, Toast.LENGTH_LONG).show();
+            }
+        });
+        LinearLayout.LayoutParams videoMetadataParams = matchWrap();
+        videoMetadataParams.bottomMargin = dp(20);
+        content.addView(videoMetadataSwitch, videoMetadataParams);
+
+        Button imageBoards = button(Locale.getDefault().getLanguage().equals("ja")
+                ? "画像掲示板（4chan・ふたば・jschan）" : "Imageboards (4chan, Futaba, jschan)",
+                view -> startActivity(new Intent(this, ImageBoardActivity.class)));
+        LinearLayout.LayoutParams imageBoardsParams = matchWrap();
+        imageBoardsParams.bottomMargin = dp(20);
+        content.addView(imageBoards, imageBoardsParams);
+
+        Button advancedNg = button(Locale.getDefault().getLanguage().equals("ja")
+                ? "高度なNGルール" : "Advanced NG rules",
+                view -> startActivity(new Intent(this, AdvancedNgActivity.class)));
+        LinearLayout.LayoutParams advancedNgParams = matchWrap();
+        advancedNgParams.bottomMargin = dp(20);
+        content.addView(advancedNg, advancedNgParams);
 
         TextView label = new TextView(this);
         label.setText(strings.userAgent);

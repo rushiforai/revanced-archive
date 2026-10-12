@@ -8,6 +8,8 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 
 private const val SETTINGS_ACTIVITY = "app.revanced.extension.chmate.SettingsActivity"
+private const val IMAGE_BOARD_ACTIVITY = "app.revanced.extension.chmate.ImageBoardActivity"
+private const val ADVANCED_NG_ACTIVITY = "app.revanced.extension.chmate.AdvancedNgActivity"
 private const val SETTINGS_PREFERENCE_KEY = "chmateRevancedSettings"
 private const val BOOTSTRAP_PROVIDER = "app.revanced.extension.chmate.BootstrapProvider"
 private const val MAIN_ACTIVITY_METADATA = "app.revanced.extension.chmate.MAIN_ACTIVITY"
@@ -30,6 +32,24 @@ internal val chMateResourcePatch = resourcePatch {
 
             if (!application.hasComponent("activity", SETTINGS_ACTIVITY)) {
                 application.addSettingsActivity(document, mainActivity)
+            }
+            if (!application.hasComponent("activity", IMAGE_BOARD_ACTIVITY)) {
+                application.appendChild(document.createElement("activity").apply {
+                    setAttribute("android:name", IMAGE_BOARD_ACTIVITY)
+                    setAttribute("android:exported", "false")
+                    setAttribute("android:excludeFromRecents", "true")
+                    setAttribute("android:label", "Imageboards")
+                    setAttribute("android:theme", "@android:style/Theme.Material.Light.NoActionBar")
+                })
+            }
+            if (!application.hasComponent("activity", ADVANCED_NG_ACTIVITY)) {
+                application.appendChild(document.createElement("activity").apply {
+                    setAttribute("android:name", ADVANCED_NG_ACTIVITY)
+                    setAttribute("android:exported", "false")
+                    setAttribute("android:excludeFromRecents", "true")
+                    setAttribute("android:label", "Advanced NG")
+                    setAttribute("android:theme", "@android:style/Theme.Material.Light.NoActionBar")
+                })
             }
 
             if (!application.hasComponent("provider", BOOTSTRAP_PROVIDER)) {

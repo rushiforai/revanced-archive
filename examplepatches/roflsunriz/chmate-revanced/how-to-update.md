@@ -14,21 +14,28 @@ ChMate、ReVanced Patcher、広告 SDK のいずれかが更新されたとき�
 .\gradlew.bat --refresh-dependencies :patches:test :extensions:chmate:test :extensions:chmate:lint :patches:buildAndroid
 ```
 
-6. 全 configuration を解決できる状態で Gradle dependency locking を有効化し、`--write-locks` で lockfile を生成・差分確認する。
+6. 品質ゲートで使う configuration と、通常は未解決のAndroidテスト内部依存を両方解決して lockfile を生成・差分確認する。後者が古いままだと脆弱性検査に旧版が残る。
+
+```powershell
+.\gradlew.bat --no-daemon :patches:test :extensions:chmate:test :extensions:chmate:lint :patches:buildAndroid --write-locks
+.\gradlew.bat --no-daemon :patches:resolveAdditionalLockConfigurations :extensions:chmate:resolveAdditionalLockConfigurations --write-locks
+.\gradlew.bat --no-daemon :patches:test :extensions:chmate:test :extensions:chmate:lint :patches:buildAndroid
+```
+
 7. 利用可能な依存監査を実行し、検出事項、影響、対応を記録する。
 
 依存解決エラーを無視したり、不完全な lockfile を作ったり、Lint baseline で新しい警告を隠したりしません。
 
 ## 2. 新しい ChMate APK を調査する
 
-APK はリポジトリ外で管理します。
+検証用 APK は Git 管理外で保管します。ローカルの `input/` やリポジトリ直下に置く場合も、コミットには含めません。
 
 1. package が `jp.co.airfront.android.a2chMate` であること、versionName / versionCode、SHA-256 を記録する。
 2. manifest に MAIN / LAUNCHER Activity が一つ以上あることを確認する。
 3. DEX 内の広告 SDK package と、利用している通信 API を列挙する。
 4. `res/layout*` の広告領域について View class、resource ID、tag を列挙する。
 5. 新しい SDK を発見した場合は、SDK class marker と固有ホストを追加する。一般サイトまで遮断する広すぎるドメインは追加しない。
-6. XAPK の場合は base APK だけでなく全 split APK の一覧も記録する。patch 後は全 split を同じ鍵で再署名し、`adb install-multiple` または対応する split installer で一括導入する。
+6. XAPK の場合は base APK だけでなく全 split APK の一覧も記録する。単一APKを使う場合は[APKEditor](https://github.com/REAndroid/APKEditor)で`java -jar <APKEditor.jar> merge -i <元XAPK> -o <統合APK> -validate-modules`を実行してからpatchする。分割のまま使う場合はpatch後に全splitを同じ鍵で再署名し、`adb install-multiple`または対応するsplit installerで一括導入する。base APKだけのManagerパッチ成功をインストール可能とみなさない。
 
 ## 3. patch 適用を検証する
 
@@ -51,6 +58,11 @@ APK はリポジトリ外で管理します。
 - 「保存して再起動」で ChMate の main process が入れ替わり、設定値が反映される
 - 広告 SDK package から外部通信が出ない
 - 既知広告ホストへの DNS / TCP / TLS 接続が出ない
+- ニコニコ動画の既知の公開動画リンクでサムネイルが表示され、動画を開く元の導線が維持される。動画情報APIが失敗する場合も既存の画像取得処理へ戻る
+- ニコニコ動画の`sm`・`so`・`nm`リンクと、YouTube・Dailymotionなどの公開動画リンクで、提供されるメタデータのカードがレス内に表示される。カードのタップで省略表示を展開・復帰でき、表示設定をオフにしてスレッドを開き直すとカードが消える
+- `scripts/mock-chmate-board.py`のローカル模擬掲示板で、秒数を明示する投稿間隔エラーの後に返信と新規スレッド作成が待機して再送される。秒数のないエラーや別種のエラーでは自動再送せず、繰り返しも最大2回で止まる
+- 4chan・ふたば・jschan系の公開板URLを画像掲示板画面へ入力し、一覧・スレッド・サムネイル・更新を確認する。jschan系では公開`catalog.json`と`thread/{id}.json`の応答を先に確かめる。投稿フォームでは各サイトの名前・本文・添付・認証欄が表示されることを確認し、実投稿は対象と内容への許可がある場合だけ行う
+- 高度NGで文字列・数値・時間条件、複数条件AND、否定、板/スレッド範囲、通常/透明、連鎖を保存・再編集・無効化・削除できることを確認する。本文が一致する通常レスと、そのレスへの参照を含むローカル模擬スレッドを開き、通常あぼーんは行が残り、透明あぼーんは行と空間が消えること、無効化で本文が戻ることを確認する。既存NGや別レスを巻き込まないかスクロール往復でも確かめる
 
 通信確認は少なくとも、コールドスタート、スレッド一覧、スレッド表示を数分ずつ行います。端末の Private DNS や別の広告ブロッカーは無効にし、この patch 単独の結果を測ります。
 
@@ -83,8 +95,8 @@ APK はリポジトリ外で管理します。
 4. `docs/release-notes/v<version>.md` を作り、APK のハッシュ、端末 / Android 版、実測結果を記録する。ただし APK 自体は添付しない。
 5. クリーンビルドと全検証、依存関係の脆弱性検査を再実行する。
 6. `main` へ push した後、GitHub Actions の `Release` workflow を手動実行する。手動実行は Release を作らず、同じテスト、Lint、`.rvp` 生成、SHA-256 検証を行って Actions artifact を作るため、公開前確認に使う。
-7. artifact の内容をローカル成果物と照合し、問題がなければ注釈付きタグ `v<version>` を `gradle.properties` と同じ commit に作成して push する。
-8. タグ起点の `Release` workflow が成功し、GitHub Release に `patches-<version>.rvp`、`patches-<version>.rvp.sha256`、`patches.json` の3資産だけが公開されたことを確認する。`patches.json` の `version` と `download_url` が同じタグと `.rvp` を指すことも確認する。
+7. artifact の内容をローカル成果物と照合し、問題がなければ注釈付きタグ `v<version>` を `gradle.properties` と同じ commit に作成して push する。`.rvp` のmanifestにはビルド時刻が入るため、ローカルとActionsのファイル全体のSHA-256は一致しなくてもよい。ZIP内のエントリ名とmanifest以外の内容、manifestの版番号を比較する。
+8. タグ起点の `Release` workflow が成功し、GitHub Release に `patches-<version>.rvp`、`patches-<version>.rvp.sha256`、`patches.json` の3資産だけが公開されたことを確認する。配布ファイルのSHA-256を同梱の照合ファイルと比較し、`patches.json` の `version` と `download_url` が同じタグと `.rvp` を指すこと、READMEの固定URLから取得できること、ManagerがURLから読み込めることも確認する。
 
 Release workflow は ReVanced 公式と同じ `.rvp` 形式を直接配布し、ReVanced Manager が URL から更新できる API 形式の `patches.json` も生成します。ZIP は作りません。タグ名と `gradle.properties` の version が一致しない場合、release note がない場合、テスト・Lint・checksum・`patches.json` の検証のいずれかが失敗した場合は公開しません。
 
@@ -97,3 +109,5 @@ Release workflow は ReVanced 公式と同じ `.rvp` 形式を直接配布し、
 設定を変えたときは `actionlint .github/workflows/dependabot-automation.yml` と実際の PR の Actions 結果を確認します。問題があれば呼び出し先の共通 workflow SHA を直前の検証済み値へ戻すコミットを push します。取り込まれた依存更新に問題があれば通常の revert コミットで復旧します。
 
 CI 完了より Dependabot の分類が遅れる場合は、`callback_workflow_file` が指す呼び出し側 workflow を `workflow_dispatch` し、同じ PR 番号・head SHA・全チェックを再確認する。呼び出し側のファイル名を変える際はこの入力も一緒に更新する。
+
+他の PR による main の更新と自動マージが競合して `Base branch was modified` になった場合は、対象 PR が open のままであること、現在の head SHA、全チェック成功、mergeable 状態を再確認する。条件がそろっていれば `gh pr merge <PR番号> --squash --match-head-commit <確認したhead SHA> --delete-branch` で取り込み、main の CI とリモートブランチ削除を確認する。古い head SHA や失敗したチェックを前提に再実行しない。

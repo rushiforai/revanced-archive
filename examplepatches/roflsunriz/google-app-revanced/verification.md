@@ -8,6 +8,44 @@
 - API 37互換: 非公開framework直接参照、将来の音声対話属性
 - Android拡張: 広告URL判定、資源名の誤検出防止
 - GmsCore互換: クローンパッケージ、権限・authority、GCM受信カテゴリ、spoofメタデータ、process名変換、Cloud Messaging登録対象プロセス、Google API認証ヘッダーの保持
+- 外部呼び出し: 公開検索カテゴリ、検索・アシスタントのexported alias、検索メタデータ、VoiceInteractionServiceのシステム権限を保持し、GCMのRECEIVE/REGISTRATIONカテゴリだけを変換
+- GmsCompliance: 機能判定のBoolean分岐、range呼び出し、高位レジスタ、未知・曖昧な構造の拒否
+
+## 2026-10-11: v0.2.4の公開準備
+
+- `gradle.properties`を0.2.4へ更新し、未リリースの変更を2026-10-11の変更履歴へ移した。`scripts/generate-patches-json.ps1`でルートJSON、`scripts/extract-changelog.ps1`で公開本文を生成した。
+- クリーンビルド・29テスト・Android lint・Android用RVP構造検査が成功し、RVP manifestのVersionが0.2.4であることを確認した。OSV-Scanner 2.6.0でlockfile 226パッケージの既知脆弱性0件を確認した。
+- Gradle 9.8.1、smali 3.0.10、JUnit Jupiter 6.1.3、JUnit 4.13.2、Bouncy Castle 1.86が各公式メタデータの公開最新版と一致することを確認した。ReVanced Patcherは公開安定版22.0.1、Gradleプラグインは公開タグdev.11を維持した。
+- 現在の共通Dependabot workflow（固定SHA `8bcb79de73249f04e83d0a6071d30ac025710a17`）はmajor更新も対象にし、再試行失敗後は許可されたlockfileの修復を試みる。READMEと更新手順に残っていた旧説明を修正した。下記2026-09-23の記録は当時の運用である。
+- Pixel 10aの再現確認と修正版インストール後の動作は未検証のまま、READMEと公開本文へ明記した。
+
+## 2026-10-11: v0.2.4の公開検証
+
+- mainの`dbbd30b77142349c8f9df1aba46cb1d3b471d5b0`に対する[CI](https://github.com/roflsunriz/google-app-revanced/actions/runs/38130706553)成功後、同じコミットへ`v0.2.4`タグを作成・pushした。[Release workflow](https://github.com/roflsunriz/google-app-revanced/actions/runs/38130805794)も成功し、[v0.2.4](https://github.com/roflsunriz/google-app-revanced/releases/tag/v0.2.4)は2026-10-11 19:08 JSTに最新版として公開された。
+- 公開RVPとJSONを再取得し、GitHub assetのSHA-256と一致することを確認した。RVPは`17c468eacec63ce3ee17b3975bbb31bd8cbe109b47777411761fdb6dad5ef32e`、JSONは`71cf8cbb87ddd23c1eba3346a928f44fdaf9c4c60f68098f82299e6df7d7e767`。
+- 公開RVPの35エントリがローカル生成物の構造と一致し、Android用`classes.dex`、`extensions/googleapp.rve`、manifestのVersion 0.2.4を確認した。公開本文はCHANGELOGの0.2.4節から抽出した内容と一致した。
+- `gh attestation verify`で両配布物のSLSAビルド証明を検証した。署名workflowを本リポジトリの`release.yml`、source refを`refs/tags/v0.2.4`、source digestを上記リリースコミットへ限定して成功した。
+- READMEの`releases/latest/download/patches.json`と、その`download_url`が指すRVPを認証なしで取得し、JSONの版0.2.4と両配布物のハッシュ一致を確認した。
+- 公開RVPそのものを17.52.24の元APKへ適用し、2パッチ、19 DEX生成、資源再構築、整列、v3署名まで成功した。署名検証とAPKメタデータで`app.revanced.android.googleapp`、17.52.24、表示名Google ReVancedを確認した。
+- ChMateチャットから約2分の利用枠を借り、AQUOSのManager 2.6.0で既存Googleソースだけを更新した。登録URLを変えず、ソース一覧にGoogle App ReVanced Patches `v0.2.4・2パッチ`がエラーなく表示されることをUI階層とスクリーンショットで確認した。ChMateの同じResListActivity・同じタスクへ戻し、検証用XML/PNGを端末から削除して利用枠を返した。インストール、他ソース、既定アシスタントは変更していない。
+
+## 2026-10-11: Issue #6・#8の解析とローカル検証
+
+- 作業前のmainは`44aded1698625c73b52f8a3ea34d2e13c67e4957`、未コミット差分は0件。
+- Google 17.52.24の元APKとAQUOSに導入済みの17.54.11クローン（SHA-256: `b78d9bf2aa665472b6d6aa11bf912ecfd653b6ee2421bb58395a823f4b6dd3c7`）を解析した。非対応判定のコールバックが拒否画面を起動し、元Activityを終了するだけでなく、services/receivers/providersを無効化することを確認した。これはPixelで実際に返された判定値の実測ではない。
+- `Checking for device compliance...`と`Feature is disabled!`の間のBoolean分岐を検出し、Google既存のfeature-disabled経路へ切り替える。既存のcomponent reset処理を残し、認証結果を偽造しない。17.54.11の実DEXにも検出コードを直接実行し、対象ゲートが一意であることを確認した。
+- 17.52.24で2パッチの適用、全DEX再構築、資源リンク、整列、署名まで成功した。生成APKの実DEXでも対象ゲートが0となり、無効経路へ分岐することを確認した。
+- 17.50.19の単一APKでも同じ2パッチの適用、18 DEX生成、資源リンク、整列、署名まで成功した。17.52.24は18 DEXを生成した。
+- 公開検索カテゴリの過剰な改名を修正し、元APKの標準検索・アシスタント受付を再利用する。Androidの既定アシスタント選択を開く設定を追加し、キャンセル・未対応端末・既定設定済みの場合の経路も実装した。
+- 自動テスト、Android lint、全ビルド、Android用RVP構造検査は成功。ビルドプラグイン1.0.0-dev.11由来のGradle非推奨APIとSDK XML世代の警告は残る。公開タグではdev.11が最新であり、この作業で未公開プラグインへ変更していない。
+- OSV-Scanner 2.6.0は当初Bouncy Castle 1.84の`GHSA-9pwp-9qqc-pr26`と`GHSA-qp49-qgx5-5m26`を検出した。公式配布元とMaven Centralで1.86を確認し、関連4モジュールを更新後、lockfile 225パッケージの既知脆弱性0件を確認した。
+- SDK標準AAPT2 37.0.0では元APKの`$$` drawable名を拒否した。ReVanced CLI 6.0.0の既定AAPT2では同じ入力が再構築できたため、検証手順を更新した。
+- NyTweetDeckの解放後にAQUOS（SH-R80P / Android 16）を使用し、Manager 2.6.0へローカルRVPを登録した。公開版との重複を外して修正版2パッチだけを17.52.24へ適用し、準備2/2、パッチ適用3/3、保存2/2、18 DEX生成、資源再構築、整列、署名を完了し「インストール」ボタンへ到達した。更新インストールは承認がなく実施していない。生成版17.52.24を既存17.54.11へ上書きしていない。
+- 既存17.54.11の標準WEB_SEARCHをパッケージ指定なしで呼び、Androidの選択画面からGoogle ReVancedを「1回のみ」で選択した。クローンの`com.google.android.search.core.google.GoogleSearch`に遷移し、検索語`ReVanced`が保持されることをUI階層で確認した。GLOBAL_SEARCH（元SEARCH_WIDGETカテゴリ付き）とVOICE_ASSISTもクローンを候補として解決した。既定アシスタントは作業前後ともクローンの`GsaVoiceInteractionService`で、設定は変更していない。この確認は修正版インストール後の検証ではない。
+- 新しいアシスタント設定行の選択・キャンセルとGmsComplianceのコンポーネント復旧は、修正版をインストールしていないため実機では未確認。Pixel 10aはADB接続されておらず、同端末の起動拒否に対する修正結果も未検証。AQUOSの正常起動をPixelの修正確認として扱わない。
+- 公開main `d10b622`の[CI](https://github.com/roflsunriz/google-app-revanced/actions/runs/38129013178)は全ジョブ成功。追加の最新版確認でGradle 9.8.1とsmali 3.0.10を確認し、wrapperを生成して配布ZIP/JARの公式SHA-256を照合した。更新後も29テストと全ビルドが成功し、lockfile 226パッケージの既知脆弱性0件を確認した。
+- Gradle/smali更新後の最終RVPも17.52.24で2パッチ、19 DEX生成、資源再構築、整列、署名まで成功した。最終APKの実DEXにも検査コードを直接実行し、feature-disabled分岐を再確認した。
+- 検証終了後、Managerから今回のローカルソースだけを削除し、公開Googleソースが有効であることを確認した。共有ストレージの検証用APK/RVP・UI階層・スクリーンショットを削除し、NyTweetDeckの元のタスクへ戻して両チャットへAQUOS解放を連絡した。既存GoogleのversionName・lastUpdateTimeと既定アシスタントは作業前の状態を保持した。
 
 ## 2026-09-01の実測
 
