@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-12 04:36 UTC",
+  "generatedAt": "2026-10-13 06:57 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 772,
-  "patchCount": 2820,
+  "appCount": 775,
+  "patchCount": 2829,
   "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
@@ -4017,23 +4017,38 @@
       "webUrl": "https://github.com/GoldRift/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=GoldRift/morphe-patches",
       "avatarUrl": "https://github.com/GoldRift.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 2,
+      "appCount": 2,
       "createdAt": 1785897755333,
       "updatedAt": 1785897755333,
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.0 (2026-07-11)",
-        "date": "2026-07-11",
+        "title": "1.0.0 (2026-10-13)",
+        "date": "2026-10-13",
         "items": [
           {
             "category": "\u2728 New Features",
+            "text": "add HiPaint subscription unlock patch"
+          },
+          {
+            "category": "\u2728 New Features",
             "text": "add strong app unlock pro patch"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "added hipaint patch"
           }
         ]
       },
       "apps": [
+        {
+          "name": "HiPaint",
+          "packageName": "com.aige.hipaint",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#1E88E5"
+        },
         {
           "name": "Strong",
           "packageName": "io.strongapp.strong",
@@ -4819,35 +4834,19 @@
       "webUrl": "https://github.com/hxreborn/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
-      "patchCount": 165,
-      "appCount": 71,
+      "patchCount": 169,
+      "appCount": 73,
       "createdAt": 1784837695114,
       "updatedAt": 1784837695114,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.48.0 (2026-10-12)",
-        "date": "2026-10-12",
+        "title": "1.49.1 (2026-10-13)",
+        "date": "2026-10-13",
         "items": [
           {
-            "category": "New Features",
-            "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-          },
-          {
-            "category": "New Features",
-            "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-          },
-          {
-            "category": "New Features",
-            "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-          },
-          {
-            "category": "New Features",
-            "text": "**MyMoveset:** add support for 1.4.0"
-          },
-          {
-            "category": "New Features",
-            "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+            "category": "Bug Fixes",
+            "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
           }
         ]
       },
@@ -5016,7 +5015,7 @@
         {
           "name": "imo",
           "packageName": "com.imo.android.imoim",
-          "patchCount": 16,
+          "patchCount": 17,
           "iconUrl": "",
           "iconColor": "#1B4A91"
         },
@@ -5287,6 +5286,13 @@
           "iconColor": "#0E7AFE"
         },
         {
+          "name": "Storywise",
+          "packageName": "com.storywise.storywise",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": "#D9543D"
+        },
+        {
           "name": "Symfonium",
           "packageName": "app.symfonik.music.player",
           "patchCount": 1,
@@ -5306,6 +5312,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#00A88F"
+        },
+        {
+          "name": "Video Editor",
+          "packageName": "videoeditor.videomaker.videoeditorforyoutube",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#FF9800"
         },
         {
           "name": "VLLO",
@@ -10227,24 +10240,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.14.0 (2026-10-07)",
-        "date": "2026-10-07",
+        "title": "1.15.0 (2026-10-12)",
+        "date": "2026-10-12",
         "items": [
           {
             "category": "New Features",
-            "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-          },
-          {
-            "category": "New Features",
-            "text": "add Safar (com.safar.fyi) ad removal"
-          },
-          {
-            "category": "New Features",
-            "text": "bypass PairIP license check for Safar re-signed builds"
-          },
-          {
-            "category": "New Features",
-            "text": "update NetMonster premium unlock for 4.0.4"
+            "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
           }
         ]
       },
@@ -10360,19 +10361,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 168,
+      "patchCount": 172,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.7 (2026-10-08)",
-        "date": "2026-10-08",
+        "title": "1.4.8 (2026-10-12)",
+        "date": "2026-10-12",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.46.0"
+            "text": "Sync upstream Morphe patches v1.47.0"
           }
         ]
       },
@@ -10387,7 +10388,7 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 94,
+          "patchCount": 98,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -11053,28 +11054,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -12706,28 +12691,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -12825,28 +12794,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -13054,28 +13007,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -14006,28 +13943,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -14745,8 +14666,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -14754,12 +14675,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -14963,28 +14884,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -15192,28 +15097,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -15266,28 +15155,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -15351,28 +15224,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -17835,28 +17692,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -18691,28 +18532,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -18784,8 +18609,8 @@
       "patches": [
         "AMOLED dark theme",
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -18797,12 +18622,12 @@
           "description": "Stops the Google Mobile Ads SDK from starting and reading the advertising ID."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks the HalfBlur effect."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlock Premium Features in app."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the HalfBlur effect."
         }
       ],
       "versions": [
@@ -21352,28 +21177,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -30300,28 +30109,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -30396,28 +30189,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -31393,28 +31170,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -32343,28 +32104,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -32623,28 +32368,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -32662,7 +32391,8 @@
             }
           ],
           "versions": [
-            "9.2"
+            "9.2",
+            "9.3"
           ]
         }
       ],
@@ -32676,7 +32406,8 @@
         }
       ],
       "versions": [
-        "9.2"
+        "9.2",
+        "9.3"
       ],
       "iconColor": "#2E2E45",
       "iconUrl": ""
@@ -32697,28 +32428,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -33325,28 +33040,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -34341,28 +34040,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -34491,28 +34174,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -35422,24 +35089,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -35457,7 +35112,7 @@
             },
             {
               "name": "Remove ads",
-              "description": "Removes foodpanda's order-tracking ads (DeliveryHero adtech) and the forced, repeatedly-reappearing PandaMart \"CrossSell\" promo popup on the order-tracking screen."
+              "description": "Removes foodpanda's adtech banner ads (all placements: order-tracking, home, discovery, reels) and the forced PandaMart \"CrossSell\" popup, and suppresses the forced in-app review prompt (DeliveryHero InAppRatingActivity)."
             },
             {
               "name": "Unlock premium (foodpanda)",
@@ -35481,7 +35136,7 @@
         },
         {
           "name": "Remove ads",
-          "description": "Removes foodpanda's order-tracking ads (DeliveryHero adtech) and the forced, repeatedly-reappearing PandaMart \"CrossSell\" promo popup on the order-tracking screen."
+          "description": "Removes foodpanda's adtech banner ads (all placements: order-tracking, home, discovery, reels) and the forced PandaMart \"CrossSell\" popup, and suppresses the forced in-app review prompt (DeliveryHero InAppRatingActivity)."
         },
         {
           "name": "Unlock premium (foodpanda)",
@@ -35563,28 +35218,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -38371,28 +38010,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -38436,6 +38059,68 @@
         "9.3.0"
       ],
       "iconColor": "#F89532",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.aige.hipaint",
+      "name": "HiPaint",
+      "repos": [
+        "GoldRift/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "GoldRift/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/GoldRift/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=GoldRift/morphe-patches",
+          "source": "https://raw.githubusercontent.com/GoldRift/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/GoldRift/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/GoldRift.png?size=96",
+          "latestChanges": {
+            "title": "1.0.0 (2026-10-13)",
+            "date": "2026-10-13",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "add HiPaint subscription unlock patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "add strong app unlock pro patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "added hipaint patch"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-aige-hipaint-goldrift-morphe-patches",
+            "releaseTag": "app-com-aige-hipaint-goldrift-morphe-patches",
+            "assetName": "hipaint-goldrift-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock Subscription",
+              "description": "Unlocks subscription features. Requires the \"Spoof signature\" patch from the Morphe patches bundle to be enabled."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "Unlock Subscription"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock Subscription",
+          "description": "Unlocks subscription features. Requires the \"Spoof signature\" patch from the Morphe patches bundle to be enabled."
+        }
+      ],
+      "versions": [],
+      "iconColor": "#1E88E5",
       "iconUrl": ""
     },
     {
@@ -39691,28 +39376,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -39735,6 +39404,10 @@
             {
               "name": "Disable update check",
               "description": "Removes the forced update screen and the update prompts."
+            },
+            {
+              "name": "GmsCore support",
+              "description": "Signs in through GmsCore instead of Google Play Services. Requires GmsCore to be installed."
             },
             {
               "name": "Hide ads",
@@ -39798,6 +39471,7 @@
         "AMOLED dark theme",
         "Disable analytics",
         "Disable update check",
+        "GmsCore support",
         "Hide ads",
         "Hide invite prompts",
         "Hide Voice Club tab",
@@ -39824,6 +39498,10 @@
         {
           "name": "Disable update check",
           "description": "Removes the forced update screen and the update prompts."
+        },
+        {
+          "name": "GmsCore support",
+          "description": "Signs in through GmsCore instead of Google Play Services. Requires GmsCore to be installed."
         },
         {
           "name": "Hide ads",
@@ -41595,24 +41273,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -42798,28 +42464,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -42930,28 +42580,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -43862,28 +43496,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -44058,28 +43676,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -44356,28 +43958,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -44662,28 +44248,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -46327,28 +45897,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -47446,28 +47000,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -47681,28 +47219,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -48064,28 +47586,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -50397,28 +49903,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -50601,24 +50091,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -50796,28 +50274,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -50971,28 +50433,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -51045,24 +50491,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -51495,28 +50929,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -51698,24 +51116,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -52323,24 +51729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -53009,28 +52403,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -53049,7 +52427,8 @@
           ],
           "versions": [
             "3.4.12",
-            "3.4.13"
+            "3.4.13",
+            "3.4.14"
           ]
         }
       ],
@@ -53064,7 +52443,8 @@
       ],
       "versions": [
         "3.4.12",
-        "3.4.13"
+        "3.4.13",
+        "3.4.14"
       ],
       "iconColor": "#008837",
       "iconUrl": ""
@@ -54405,24 +53785,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -54484,28 +53852,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -56215,28 +55567,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -56411,28 +55747,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -56751,28 +56071,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -59142,28 +58446,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -59826,28 +59114,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -59870,7 +59142,8 @@
           ],
           "versions": [
             "4.70",
-            "4.71"
+            "4.71",
+            "4.72"
           ]
         },
         {
@@ -59911,8 +59184,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -59920,17 +59193,18 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
         "4.70",
-        "4.71"
+        "4.71",
+        "4.72"
       ],
       "iconColor": "#FFDD00",
       "iconUrl": ""
@@ -60115,28 +59389,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -60261,28 +59519,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -60496,28 +59738,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -60967,28 +60193,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -61050,17 +60260,17 @@
         }
       ],
       "patches": [
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all regions. Removes ads and the upgrade button."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Forces the subscription gate to report an unlimited subscription, removing ads and the upgrade prompt. Constructs a minimal fake Purchase to prevent NPE/IOOB in call sites that dereference getProducts().get(0)."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all regions. Removes ads and the upgrade button."
         }
       ],
       "versions": [
@@ -61266,28 +60476,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -61426,28 +60620,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -61742,28 +60920,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -61782,7 +60944,8 @@
           ],
           "versions": [
             "2.2.8",
-            "2.2.9"
+            "2.2.9",
+            "2.2.91"
           ]
         }
       ],
@@ -61797,7 +60960,8 @@
       ],
       "versions": [
         "2.2.8",
-        "2.2.9"
+        "2.2.9",
+        "2.2.91"
       ],
       "iconColor": "#141414",
       "iconUrl": ""
@@ -61880,28 +61044,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -62034,28 +61182,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -62170,28 +61302,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -62247,28 +61363,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -62827,12 +61927,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.7 (2026-10-08)",
-            "date": "2026-10-08",
+            "title": "1.4.8 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.46.0"
+                "text": "Sync upstream Morphe patches v1.47.0"
               }
             ]
           },
@@ -62932,11 +62032,10 @@
           "versions": [
             "2024.02.0",
             "2026.10.0",
-            "2026.14.0",
             "2026.24.0",
-            "2026.38.0",
             "2026.39.0",
-            "2026.40.0"
+            "2026.40.0",
+            "2026.41.0"
           ]
         }
       ],
@@ -63424,28 +62523,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -63519,28 +62602,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -63568,7 +62635,8 @@
           "versions": [
             "Android V1.78.47",
             "Android V1.78.49",
-            "Android V1.78.51"
+            "Android V1.78.51",
+            "Android V1.78.52"
           ]
         }
       ],
@@ -63594,7 +62662,8 @@
       "versions": [
         "Android V1.78.47",
         "Android V1.78.49",
-        "Android V1.78.51"
+        "Android V1.78.51",
+        "Android V1.78.52"
       ],
       "iconColor": "#8E58FF",
       "iconUrl": ""
@@ -64141,28 +63210,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -64460,24 +63513,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -65807,28 +64848,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -65897,24 +64922,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.14.0 (2026-10-07)",
-            "date": "2026-10-07",
+            "title": "1.15.0 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "New Features",
-                "text": "add foodpanda order-tracking ad + PandaMart popup removal"
-              },
-              {
-                "category": "New Features",
-                "text": "add Safar (com.safar.fyi) ad removal"
-              },
-              {
-                "category": "New Features",
-                "text": "bypass PairIP license check for Safar re-signed builds"
-              },
-              {
-                "category": "New Features",
-                "text": "update NetMonster premium unlock for 4.0.4"
+                "text": "foodpanda \u2014 remove home/reels ad banners, CrossSell popup, and forced review prompt"
               }
             ]
           },
@@ -68552,28 +67565,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -68981,28 +67978,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -69318,6 +68299,82 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.storywise.storywise",
+      "name": "Storywise",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-storywise-storywise-hxreborn-morphe-patches",
+            "releaseTag": "app-com-storywise-storywise-hxreborn-morphe-patches",
+            "assetName": "storywise-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "GmsCore support",
+              "description": "Signs in through GmsCore instead of Google Play Services. Requires GmsCore to be installed."
+            },
+            {
+              "name": "Remove forced update",
+              "description": "Removes the update screen that blocks the app when a newer build is published."
+            },
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks locked lessons, quizzes and the full Report Card without a pass. The server caps the AI tutor at five questions a day and withholds lectures and live sessions. Signing in requires GmsCore support."
+            }
+          ],
+          "versions": [
+            "1.0.3"
+          ]
+        }
+      ],
+      "patches": [
+        "GmsCore support",
+        "Remove forced update",
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "GmsCore support",
+          "description": "Signs in through GmsCore instead of Google Play Services. Requires GmsCore to be installed."
+        },
+        {
+          "name": "Remove forced update",
+          "description": "Removes the update screen that blocks the app when a newer build is published."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks locked lessons, quizzes and the full Report Card without a pass. The server caps the AI tutor at five questions a day and withholds lectures and live sessions. Signing in requires GmsCore support."
+        }
+      ],
+      "versions": [
+        "1.0.3"
+      ],
+      "iconColor": "#D9543D",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.strava",
       "name": "Strava",
       "repos": [
@@ -69518,12 +68575,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/GoldRift/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/GoldRift.png?size=96",
           "latestChanges": {
-            "title": "1.0.0 (2026-07-11)",
-            "date": "2026-07-11",
+            "title": "1.0.0 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
                 "category": "\u2728 New Features",
+                "text": "add HiPaint subscription unlock patch"
+              },
+              {
+                "category": "\u2728 New Features",
                 "text": "add strong app unlock pro patch"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "added hipaint patch"
               }
             ]
           },
@@ -70535,28 +69600,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -70625,8 +69674,8 @@
       "patches": [
         "Disable Symfonium beta expiry",
         "Disable Symfonium trial expiry",
-        "Unlock Premium",
         "Unlock premium",
+        "Unlock Premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
@@ -70639,12 +69688,12 @@
           "description": "Neutralises the expired-trial block screen. The welcome screen gates entry with a single `state instanceof ExpiredTrial` check; this forces that check to false, so the app proceeds on every launch (online, offline, or with a server-expired trial). The server handshake, billing/licence machinery and the offline fail-open path are left untouched. Validated on 15.0.1 (versionCode 127798)."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all premium features."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
         },
         {
           "name": "Unlock Symfonium",
@@ -72975,28 +72024,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -74826,28 +73859,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -75485,8 +74502,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -75530,11 +74547,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -77330,6 +76347,64 @@
       "iconUrl": ""
     },
     {
+      "packageName": "videoeditor.videomaker.videoeditorforyoutube",
+      "name": "Video Editor",
+      "repos": [
+        "hxreborn/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "hxreborn/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/hxreborn/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=hxreborn/morphe-patches",
+          "source": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/hxreborn.png?size=96",
+          "latestChanges": {
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "videoeditor-videomaker-videoeditorforyoutube-hxreborn-morphe-patches",
+            "releaseTag": "app-videoeditor-videomaker-videoeditorforyoutube-hxreborn-morphe-patches",
+            "assetName": "video-editor-hxreborn-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Unlock premium",
+              "description": "Unlocks Pro features."
+            }
+          ],
+          "versions": [
+            "1.621.196"
+          ]
+        }
+      ],
+      "patches": [
+        "Unlock premium"
+      ],
+      "patchDetails": [
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks Pro features."
+        }
+      ],
+      "versions": [
+        "1.621.196"
+      ],
+      "iconColor": "#FF9800",
+      "iconUrl": ""
+    },
+    {
       "packageName": "video.player.videoplayer",
       "name": "Video Player All Format",
       "repos": [
@@ -77465,28 +76540,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -77883,28 +76942,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -77997,28 +77040,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -78046,8 +77073,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -78055,12 +77082,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks premium, removes ads and the free session time limit."
-        },
-        {
           "name": "Unlock Premium",
           "description": ""
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium, removes ads and the free session time limit."
         }
       ],
       "versions": [
@@ -78479,28 +77506,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -79819,28 +78830,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -80013,28 +79008,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/hxreborn/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/hxreborn.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-12)",
-            "date": "2026-10-12",
+            "title": "1.49.1 (2026-10-13)",
+            "date": "2026-10-13",
             "items": [
               {
-                "category": "New Features",
-                "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-              },
-              {
-                "category": "New Features",
-                "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-              },
-              {
-                "category": "New Features",
-                "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-              },
-              {
-                "category": "New Features",
-                "text": "**MyMoveset:** add support for 1.4.0"
-              },
-              {
-                "category": "New Features",
-                "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+                "category": "Bug Fixes",
+                "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
               }
             ]
           },
@@ -81141,12 +80120,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.7 (2026-10-08)",
-            "date": "2026-10-08",
+            "title": "1.4.8 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.46.0"
+                "text": "Sync upstream Morphe patches v1.47.0"
               }
             ]
           },
@@ -81161,6 +80140,10 @@
             {
               "name": "Add to queue",
               "description": "Overrides the feed flyout 'Play next in queue' with the Morphe video queue."
+            },
+            {
+              "name": "AI channel filter",
+              "description": "Adds options to hide videos from channels flagged as AI-generated by the AiSList community list and to report AI channels from the video menu."
             },
             {
               "name": "Ambient mode",
@@ -81211,6 +80194,10 @@
               "description": "Checks if the device DNS server is preventing user watch history from being saved."
             },
             {
+              "name": "Copy text",
+              "description": "Adds options to copy the video title and comments by tapping and holding them."
+            },
+            {
               "name": "Copy video link",
               "description": "Adds options to display buttons in the video player to copy video links."
             },
@@ -81229,6 +80216,10 @@
             {
               "name": "Disable auto feed refresh",
               "description": "Adds an option to stop feeds from refreshing automatically after they become outdated."
+            },
+            {
+              "name": "Disable continue watching prompt",
+              "description": "Adds an option to keep autoplay going instead of pausing with a \"Continue watching\" prompt after a period of inactivity."
             },
             {
               "name": "Disable double tap actions",
@@ -81305,6 +80296,10 @@
             {
               "name": "Force original audio",
               "description": "Adds an option to always use the original audio track."
+            },
+            {
+              "name": "Force system font",
+              "description": "Adds an option to show the app with the device system font instead of YouTube Sans."
             },
             {
               "name": "Fullscreen video scale",
@@ -81538,8 +80533,8 @@
           "versions": [
             "20.21.37",
             "20.51.39",
-            "21.13.164",
             "21.16.256",
+            "21.20.405",
             "21.23.492",
             "21.28.208",
             "21.38.130",
@@ -81986,8 +80981,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -82007,8 +81002,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice Over Translation",
         "Voice over translation",
+        "Voice Over Translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -82534,11 +81529,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -82618,12 +81613,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice Over Translation",
-          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
-        },
-        {
           "name": "Voice over translation",
           "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
+        },
+        {
+          "name": "Voice Over Translation",
+          "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -83322,12 +82317,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.7 (2026-10-08)",
-            "date": "2026-10-08",
+            "title": "1.4.8 (2026-10-12)",
+            "date": "2026-10-12",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v1.46.0"
+                "text": "Sync upstream Morphe patches v1.47.0"
               }
             ]
           },
@@ -83341,15 +82336,11 @@
           "patches": [
             {
               "name": "Android Auto",
-              "description": "Restores YouTube Music playlists and podcasts in Android Auto."
+              "description": "Bypasses certificate checks and restores YouTube Music playlists and podcasts in Android Auto."
             },
             {
               "name": "App refresh rate",
               "description": "Adds an option to change the app refresh rate."
-            },
-            {
-              "name": "Bypass certificate checks",
-              "description": "Bypasses certificate checks which prevent YouTube Music from working on Android Auto."
             },
             {
               "name": "Change header",
@@ -83369,7 +82360,7 @@
             },
             {
               "name": "Crossfade",
-              "description": "Adds a true dual-player crossfade between consecutive tracks. Requires YouTube Music 9.00 or newer; on older versions the patch is a no-op."
+              "description": "Adds a true dual-player crossfade between consecutive tracks."
             },
             {
               "name": "Custom branding",
@@ -83390,6 +82381,10 @@
             {
               "name": "Downloads",
               "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
+            },
+            {
+              "name": "Enable audio/video switch",
+              "description": "Adds an option to switch between the audio and the video version of a track by redirecting videoId."
             },
             {
               "name": "Enable debugging",
@@ -83426,10 +82421,6 @@
             {
               "name": "Hide buttons",
               "description": "Adds options to hide the cast, history, notification, search, voice search, sound search, and Library New buttons."
-            },
-            {
-              "name": "Hide filter bar",
-              "description": "Adds an option to hide the filter bar at the top of the homepage."
             },
             {
               "name": "Hide flyout menu components",
@@ -83470,6 +82461,10 @@
             {
               "name": "Playback speed",
               "description": "Adds options to change the playback speed and pitch of tracks."
+            },
+            {
+              "name": "Playlist track tap action",
+              "description": "Adds an option to play only the tapped track of a playlist or album, or to add it to the queue, instead of replacing the queue with the whole playlist."
             },
             {
               "name": "PoToken provider",
@@ -83748,7 +82743,6 @@
         "Android Auto",
         "App refresh rate",
         "Bitrate default value",
-        "Bypass certificate checks",
         "Bypass image region restrictions",
         "Certificate spoof",
         "Change header",
@@ -83788,7 +82782,6 @@
         "Hide action bar components",
         "Hide ads",
         "Hide buttons",
-        "Hide filter bar",
         "Hide flyout menu components",
         "Hide layout components",
         "Hide music action buttons",
@@ -83833,7 +82826,7 @@
       "patchDetails": [
         {
           "name": "Android Auto",
-          "description": "Restores YouTube Music playlists and podcasts in Android Auto."
+          "description": "Bypasses certificate checks and restores YouTube Music playlists and podcasts in Android Auto."
         },
         {
           "name": "App refresh rate",
@@ -83842,10 +82835,6 @@
         {
           "name": "Bitrate default value",
           "description": "Sets the audio quality to 'Always High' when you first install the app."
-        },
-        {
-          "name": "Bypass certificate checks",
-          "description": "Bypasses certificate checks which prevent YouTube Music from working on Android Auto."
         },
         {
           "name": "Bypass image region restrictions",
@@ -83877,7 +82866,7 @@
         },
         {
           "name": "Crossfade",
-          "description": "Adds a true dual-player crossfade between consecutive tracks. Requires YouTube Music 9.00 or newer; on older versions the patch is a no-op."
+          "description": "Adds a true dual-player crossfade between consecutive tracks."
         },
         {
           "name": "Custom branding",
@@ -84002,10 +82991,6 @@
         {
           "name": "Hide buttons",
           "description": "Adds options to hide the cast, history, notification, search, voice search, sound search, and Library New buttons."
-        },
-        {
-          "name": "Hide filter bar",
-          "description": "Adds an option to hide the filter bar at the top of the homepage."
         },
         {
           "name": "Hide flyout menu components",
@@ -85087,28 +84072,12 @@
       "avatarUrl": "https://github.com/hxreborn.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.48.0 (2026-10-12)",
-        "date": "2026-10-12",
+        "title": "1.49.1 (2026-10-13)",
+        "date": "2026-10-13",
         "items": [
           {
-            "category": "New Features",
-            "text": "**All Video Player App - Skip splash delay:** open the app without the 10 second splash wait"
-          },
-          {
-            "category": "New Features",
-            "text": "**DevCheck - Unlock premium:** unlock the Pro tools, tests, themes and colors (aee3ee7), closes #187"
-          },
-          {
-            "category": "New Features",
-            "text": "**My APK - Unlock premium:** unlock premium and remove ads (9406552), closes #188"
-          },
-          {
-            "category": "New Features",
-            "text": "**MyMoveset:** add support for 1.4.0"
-          },
-          {
-            "category": "New Features",
-            "text": "**Psiphon - Unlock premium:** unlock all regions and remove ads and the upgrade button"
+            "category": "Bug Fixes",
+            "text": "**imo - GmsCore support:** list GmsCore accounts for chat backup"
           }
         ]
       },
@@ -85924,12 +84893,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 5,
       "latestChanges": {
-        "title": "1.4.7 (2026-10-08)",
-        "date": "2026-10-08",
+        "title": "1.4.8 (2026-10-12)",
+        "date": "2026-10-12",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v1.46.0"
+            "text": "Sync upstream Morphe patches v1.47.0"
           }
         ]
       },
@@ -86449,23 +85418,38 @@
       "webUrl": "https://github.com/GoldRift/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=GoldRift/morphe-patches",
       "avatarUrl": "https://github.com/GoldRift.png?size=96",
-      "patchCount": 1,
-      "appCount": 1,
+      "patchCount": 2,
+      "appCount": 2,
       "createdAt": 1785897755333,
       "updatedAt": 1785897755333,
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.0.0 (2026-07-11)",
-        "date": "2026-07-11",
+        "title": "1.0.0 (2026-10-13)",
+        "date": "2026-10-13",
         "items": [
           {
             "category": "\u2728 New Features",
+            "text": "add HiPaint subscription unlock patch"
+          },
+          {
+            "category": "\u2728 New Features",
             "text": "add strong app unlock pro patch"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "added hipaint patch"
           }
         ]
       },
       "apps": [
+        {
+          "name": "HiPaint",
+          "packageName": "com.aige.hipaint",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#1E88E5"
+        },
         {
           "name": "Strong",
           "packageName": "io.strongapp.strong",
