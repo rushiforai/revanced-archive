@@ -6,6 +6,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
@@ -14,13 +15,13 @@ try:
     from scripts.git_hosts import hosts
     from scripts.git_hosts import normalize_source as normalize_repository
     from scripts.release_assets import canonical_bundle_type, digest_matches, migrate_bundle_types
-    from scripts.release_history import release_is_prerelease
+    from scripts.release_history import reconcile_release, release_is_prerelease
     from scripts.snapshot_retention import apply_retention, published_snapshots, retention_plan
 except ModuleNotFoundError:
     from git_hosts import hosts
     from git_hosts import normalize_source as normalize_repository
     from release_assets import canonical_bundle_type, digest_matches, migrate_bundle_types
-    from release_history import release_is_prerelease
+    from release_history import reconcile_release, release_is_prerelease
     from snapshot_retention import apply_retention, published_snapshots, retention_plan
 
 try:
@@ -141,6 +142,32 @@ def grams(text):
     return {text[i : i + 3] for i in range(max(0, len(text) - 2))}
 
 
+def javascript_lower_texts(pages):
+    """Use JavaScript case conversion for the Worker's Unicode search postings."""
+    if not pages:
+        return {}
+    script = (
+        "let data='';process.stdin.setEncoding('utf8');"
+        "process.stdin.on('data',chunk=>data+=chunk);"
+        "process.stdin.on('end',()=>{const pages=JSON.parse(data);"
+        "process.stdout.write(JSON.stringify(Object.fromEntries("
+        "Object.entries(pages).map(([page,texts])=>"
+        "[page,texts.map(text=>text.toLowerCase())]))));});"
+    )
+    try:
+        result = subprocess.run(  # noqa: S603 - fixed Node command, input passed over stdin
+            ["node", "-e", script],  # noqa: S607 - Node provisioned by project workflows
+            input=json.dumps(pages, ensure_ascii=False),
+            capture_output=True,
+            check=True,
+            encoding="utf-8",
+            timeout=60,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+        raise RuntimeError("Node.js is required to build Unicode search postings") from exc
+    return json.loads(result.stdout)
+
+
 def restore_catalog_cache(root=ROOT):
     """Restore current channel inputs from the last committed, trusted snapshot."""
     write_extraction_policy(root)
@@ -149,6 +176,11 @@ def restore_catalog_cache(root=ROOT):
     if not re.fullmatch(r"snapshots/[a-f0-9]{24}", snapshot):
         return
     history = migrate_bundle_types(read_json(root / "database" / snapshot / "history.json", {}))
+    observations_path = root / "internal/cache/history/releases.json"
+    if not observations_path.exists():
+        observations = read_json(root / "database" / snapshot / "releases.json", {})
+        observations_path.parent.mkdir(parents=True, exist_ok=True)
+        observations_path.write_bytes(encoded(observations))
     availability = read_json(root / "database" / snapshot / "availability.json", {})
     missing_channels = {
         (row["source_id"], row["channel"])
@@ -289,6 +321,10 @@ def build_database(root=ROOT, *, restore=True):
         for item in inventory.values()
         if isinstance(item, dict) and item.get("patches")
     }
+    observations = read_json(root / "internal/cache/history/releases.json", {})
+    observations = {
+        url: versions for url, versions in observations.items() if url in configured_urls
+    }
     historical_inventory = read_json(root / "internal/cache/history/sources.json", {})
     inventory = {
         **inventory,
@@ -379,6 +415,16 @@ def build_database(root=ROOT, *, restore=True):
             missing.append({"source_id": source_id, "channel": channel, "reason": "invalid_bundle"})
             continue
         version = artifact.get("version")
+        if not reconcile_release(raw, url, observations):
+            continue
+        if (
+            url.lower() in observations
+            and not settings.get("historical")
+            and channel != "latest"
+            and raw["is_prerelease"] != (channel == "dev")
+        ):
+            missing.append({"source_id": source_id, "channel": channel, "reason": "no_release"})
+            continue
         download = artifact.get("download_url" if modern else "url")
         if (
             not version
@@ -505,6 +551,8 @@ def build_database(root=ROOT, *, restore=True):
                 or prior_release.get("release_url"),
             },
         )
+        if url.lower() in observations:
+            bundle["is_prerelease"] = raw["is_prerelease"]
         if timestamp_rank(status.get("attempted_at")) > timestamp_rank(
             bundle["patch_refresh_attempted_at"]
         ):
@@ -592,8 +640,11 @@ def build_database(root=ROOT, *, restore=True):
         if item["bundle"]["source_id"] not in sources:
             retired.append(identity)
             continue
+        bundle = item["bundle"].copy()
+        if not reconcile_release(bundle, sources[bundle["source_id"]]["url"], observations):
+            retired.append(identity)
+            continue
         if identity not in bundles:
-            bundle = item["bundle"].copy()
             if sources[bundle["source_id"]]["enabled"]:
                 bundle.update(channels=[], is_latest=False, import_urls={})
             bundles[identity], details[identity] = bundle, item["patches"]
@@ -770,7 +821,36 @@ def build_database(root=ROOT, *, restore=True):
         # Keep the same description as the detail response for SQL comparisons.
         summary = {**bundle, "detail_file": files_name}
         summaries.append(summary)
-    files = {"sources.json": list(sources.values()), "bundles.json": summaries}
+    files = {
+        "sources.json": list(sources.values()),
+        "bundles.json": summaries,
+        "releases.json": observations,
+    }
+    # GraphQL scans scalar bundle fields without downloading the growing
+    # release descriptions or repeating object keys thousands of times.
+    # Keep the full text separately for description filters and projections.
+    graphql_columns = (
+        "id", "legacy_id", "source_id", "bundle_type", "ecosystem", "version",
+        "created_at", "download_url", "signature_download_url", "file_hash",
+        "icon_url", "owner_avatar_url", "is_prerelease", "is_latest",
+        "need_patches_update", "patcher_failure_fingerprint", "metadata_status",
+        "patcher_runtime", "extraction_status", "patch_count", "release_status",
+        "channels", "import_urls", "release_url",
+    )
+    files["graphql-bundles.json"] = {
+        "columns": graphql_columns,
+        "rows": [[bundle.get(column) for column in graphql_columns] for bundle in summaries],
+    }
+    files["graphql-bundle-descriptions.json"] = {
+        bundle["id"]: bundle.get("description") for bundle in summaries
+    }
+    # The complete description index is needed for SQL-style comparisons,
+    # while projected bundle descriptions can read only a small shard.
+    for bundle in summaries:
+        shard = int(bundle["legacy_id"]) // 400
+        files.setdefault(f"graphql-descriptions/{shard}.json", {})[bundle["id"]] = (
+            bundle.get("description")
+        )
     # App lookups need release selectors, not every historical changelog.
     app_bundle_fields = (
         "id",
@@ -809,7 +889,13 @@ def build_database(root=ROOT, *, restore=True):
         ]
     files.update({f"bundles/{key}.json": value for key, value in bundles.items()})
     index = {"packages": {}, "bundles": {}, "patch_ids": {}, "pages": []}
-    search = {str(bucket): {} for bucket in range(16)}
+    # Two-character buckets prevent common trigrams from creating multi-MB
+    # index files, while retaining deterministic shard lookup.
+    search = {f"{first}-{second}": {} for first in range(16) for second in range(16)}
+    short_search = {}
+    unicode_text = {}
+    package_page_counts = {}
+    patch_name_ids = {}
     app_versions, rows = {}, []
     for identity, patches in sorted(details.items()):
         for position, patch in enumerate(patches):
@@ -924,17 +1010,82 @@ def build_database(root=ROOT, *, restore=True):
         for row in page:
             if row["bundle_id"] in public_bundles:
                 index["patch_ids"][str(row["legacy_id"])] = [page_id]
+                # SQL name = '' cannot match NULL. Keep the two apart before
+                # paginating exact-name lookups by their posting lists.
+                if row.get("name") is not None:
+                    patch_name_ids.setdefault(row["name"], []).append(row["legacy_id"])
             index["bundles"].setdefault(row["bundle_id"], set()).add(page_id)
-            for package in row["packages"]:
-                index["packages"].setdefault(package["name"], set()).add(page_id)
-            for gram in grams((row.get("name") or "") + " " + (row.get("description") or "")):
-                search[str(ord(gram[0]) % 16)].setdefault(gram, set()).add(page_id)
+            for package_name in {package["name"] for package in row["packages"]}:
+                index["packages"].setdefault(package_name, set()).add(page_id)
+                counts = package_page_counts.setdefault(package_name, {})
+                counts.setdefault(page_id, 0)
+                if row["bundle_id"] in public_bundles:
+                    counts[page_id] += 1
+            # Disabled sources cannot produce public search results. Exclude
+            # their postings so GraphQL does not exhaust shard reads before
+            # finding an enabled match on a later page.
+            if row["bundle_id"] in public_bundles:
+                original_text = (row.get("name") or "") + " " + (row.get("description") or "")
+                # Preserve original text so the Worker can use its own Unicode
+                # lowercase tables to find matching pages before loading them.
+                if any(ord(char) > 127 for char in original_text):
+                    unicode_text.setdefault(page_id, []).append(original_text)
+                for gram in grams(original_text):
+                    search[f"{ord(gram[0]) % 16}-{ord(gram[1]) % 16}"].setdefault(
+                        gram, set()
+                    ).add(page_id)
+                text = ((row.get("name") or "") + " " + (row.get("description") or "")).lower()
+                for char in set(text):
+                    short_search.setdefault(f"1-{ord(char) % 16}", {}).setdefault(
+                        char, set()
+                    ).add(page_id)
+                for position in range(len(text) - 1):
+                    gram = text[position : position + 2]
+                    short_search.setdefault(
+                        f"2-{ord(gram[0]) % 16}-{ord(gram[1]) % 16}", {}
+                    ).setdefault(gram, set()).add(page_id)
     for bucket, values in search.items():
-        files[f"search/{bucket}.json"] = {
+        files[f"search-v2/{bucket}.json"] = {
+            key: sorted(value) for key, value in sorted(values.items())
+        }
+    for bucket, values in short_search.items():
+        files[f"search-short/{bucket}.json"] = {
+            key: sorted(value) for key, value in sorted(values.items())
+        }
+    unicode_search = {f"{first}-{second}": {} for first in range(16) for second in range(16)}
+    unicode_short = {}
+    for page_id, texts in javascript_lower_texts(unicode_text).items():
+        for text in texts:
+            characters = list(text)
+            for position in range(len(characters) - 2):
+                gram = "".join(characters[position : position + 3])
+                unicode_search[f"{ord(gram[0]) % 16}-{ord(gram[1]) % 16}"].setdefault(
+                    gram, set()
+                ).add(page_id)
+            for char in set(characters):
+                unicode_short.setdefault(f"1-{ord(char) % 16}", {}).setdefault(
+                    char, set()
+                ).add(page_id)
+            for position in range(len(characters) - 1):
+                gram = "".join(characters[position : position + 2])
+                unicode_short.setdefault(
+                    f"2-{ord(gram[0]) % 16}-{ord(gram[1]) % 16}", {}
+                ).setdefault(gram, set()).add(page_id)
+    for bucket, values in unicode_search.items():
+        files[f"search-unicode-v2/{bucket}.json"] = {
+            key: sorted(value) for key, value in sorted(values.items())
+        }
+    for bucket, values in unicode_short.items():
+        files[f"search-unicode-short/{bucket}.json"] = {
             key: sorted(value) for key, value in sorted(values.items())
         }
     for group in ("packages", "bundles"):
         index[group] = {key: sorted(value) for key, value in sorted(index[group].items())}
+    # A query scoped to specific bundles needs only their patch-page locations.
+    # The full index also contains patch IDs, packages, and search data.
+    files["patch-bundle-index.json"] = index["bundles"]
+    files["patch-package-counts.json"] = package_page_counts
+    files["patch-name-ids.json"] = patch_name_ids
     files["patch-index.json"] = index
     files["packages.json"] = [
         {
@@ -949,7 +1100,18 @@ def build_database(root=ROOT, *, restore=True):
         key: {"bundle": value, "patches": details.get(key, [])} for key, value in bundles.items()
     }
     files["availability.json"] = {"missing": missing, "retired_history": retired}
-    payloads = {name: encoded(value) for name, value in files.items()}
+    payloads = {
+        name: (
+            (json.dumps(value, ensure_ascii=False, sort_keys=True,
+                        separators=(",", ":")) + "\n").encode("utf-8")
+            if name.startswith(("graphql-", "search-v2/", "search-short/",
+                                "search-unicode-v2/", "search-unicode-short/",
+                                "patch-bundle-index.json", "patch-package-counts.json",
+                                "patch-name-ids.json"))
+            else encoded(value)
+        )
+        for name, value in files.items()
+    }
     generation = digest(encoded({name: digest(value) for name, value in payloads.items()}))[:24]
     snapshot = f"snapshots/{generation}"
     target = output / snapshot
@@ -1043,13 +1205,18 @@ def build_site(root=ROOT):
     public = destination / "database"
     public.mkdir()
     (public / "manifest.json").write_bytes(encoded(manifest))
-    for snapshot in published_snapshots(output, manifest["snapshot"]):
+    for snapshot in (
+        [] if os.environ.get("CATALOG_BACKEND") == "d1"
+        else published_snapshots(output, manifest["snapshot"])
+    ):
         shutil.copytree(
             snapshot,
             public / "snapshots" / snapshot.name,
             ignore=shutil.ignore_patterns("history.json"),
         )
     config = read_json(root / "config/site.json")
+    if os.environ.get("CATALOG_BACKEND") == "d1":
+        config["catalog_backend"] = "d1"
     (destination / "config.json").write_bytes(encoded(config))
     (destination / "config").mkdir(exist_ok=True)
     (destination / "config/git-hosts.json").write_bytes(encoded(hosts(root)))
