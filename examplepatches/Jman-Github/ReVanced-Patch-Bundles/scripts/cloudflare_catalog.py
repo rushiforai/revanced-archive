@@ -2,11 +2,9 @@
 
 import argparse
 import hashlib
-import io
 import json
 import os
 import re
-import tarfile
 import time
 from collections import Counter
 from pathlib import Path
@@ -18,10 +16,13 @@ from scripts.cloudflare_storage import (
     REFRESH_FILES,
     REFRESH_ROOT_FILES,
     BlobCache,
+    R2Reader,
     pack_refresh,
     unpack_refresh,
 )
 from scripts.git_hosts import normalize_source
+from scripts.refresh_issues import read_issues
+from scripts.source_cleanup import clean_inputs, clean_snapshots, configured_sources, filter_records
 from scripts.source_policy import disabled_sources, source_channels
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,6 +54,14 @@ class Cloud:
     def __init__(self):
         import boto3
         from botocore.config import Config
+        from botocore.exceptions import (
+            ConnectionClosedError,
+            ConnectTimeoutError,
+            EndpointConnectionError,
+            IncompleteReadError,
+            ReadTimeoutError,
+            ResponseStreamingError,
+        )
 
         self.account = os.environ["CLOUDFLARE_ACCOUNT_ID"]
         self.database = os.environ.get("CATALOG_D1_ID")
@@ -63,17 +72,43 @@ class Cloud:
             timeout=60,
         )
         self.s3 = None
+        self.s3_reads = None
         if os.environ.get("R2_ACCESS_KEY_ID"):
+            options = {
+                "endpoint_url": "https://" + self.account + ".r2.cloudflarestorage.com",
+                "aws_access_key_id": os.environ["R2_ACCESS_KEY_ID"],
+                "aws_secret_access_key": os.environ["R2_SECRET_ACCESS_KEY"],
+                "region_name": "auto",
+            }
             self.s3 = boto3.client(
                 "s3",
-                endpoint_url="https://" + self.account + ".r2.cloudflarestorage.com",
-                aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
-                aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
-                region_name="auto",
+                **options,
                 config=Config(
                     retries={"max_attempts": 5, "mode": "standard"}, max_pool_connections=16
                 ),
             )
+            # Shared R2Reader policy must see failures before the SDK retries
+            # them independently. Writes retain the normal SDK retry policy.
+            self.s3_reads = boto3.client(
+                "s3",
+                **options,
+                config=Config(
+                    retries={"total_max_attempts": 1, "mode": "standard"},
+                    max_pool_connections=4,
+                ),
+            )
+        self._r2_reader = R2Reader(
+            self.read_object,
+            workers=int(os.environ.get("CATALOG_R2_WORKERS") or "8"),
+            transport_errors=(
+                ConnectionClosedError,
+                ConnectTimeoutError,
+                EndpointConnectionError,
+                IncompleteReadError,
+                ReadTimeoutError,
+                ResponseStreamingError,
+            ),
+        )
 
     def transfers(self):
         if not hasattr(self, "_transfers"):
@@ -93,6 +128,7 @@ class Cloud:
             "elapsed_seconds": round(time.perf_counter() - started, 3),
             **dict(cache.metrics),
             **getattr(self, "publication_metrics", {}),
+            "r2_read_retries": getattr(getattr(self, "_r2_reader", None), "retries", 0),
         }
         path = ROOT / "internal/cache/cloudflare-performance.json"
         try:
@@ -136,8 +172,15 @@ class Cloud:
     def put(self, key, body):
         self.s3.put_object(Bucket=self.bucket, Key=key, Body=body)
 
+    def read_object(self, key):
+        body = self.s3_reads.get_object(Bucket=self.bucket, Key=key)["Body"]
+        try:
+            return body.read()
+        finally:
+            body.close()
+
     def get(self, key):
-        return self.s3.get_object(Bucket=self.bucket, Key=key)["Body"].read()
+        return self._r2_reader.read(key)
 
     def blob(self, body, known):
         return self.transfers().upload(body, known)
@@ -169,55 +212,14 @@ class Cloud:
         )
 
     def checkpoint(self):
-        output = io.BytesIO()
-        with tarfile.open(fileobj=output, mode="w:gz") as archive:
-            paths = list((ROOT / "internal/cache").rglob("*.json"))
-            paths += [ROOT / "database/ids.json", ROOT / "database/repository-metadata.json"]
-            for path in paths:
-                if (
-                    path.is_file()
-                    and not path.is_symlink()
-                    and path.resolve().is_relative_to(ROOT.resolve())
-                ):
-                    body = path.read_bytes()
-                    json.loads(
-                        body
-                    )  # Refuse a partially written cache, rather than saving corruption.
-                    entry = tarfile.TarInfo(path.relative_to(ROOT).as_posix())
-                    entry.size = len(body)
-                    archive.addfile(entry, io.BytesIO(body))
-        self.put("checkpoints/latest.tgz", output.getvalue())
+        from scripts.cloudflare_checkpoint import save
+
+        save(self, ROOT)
 
     def restore_checkpoint(self):
-        try:
-            body = self.get("checkpoints/latest.tgz")
-        except Exception as error:
-            code = getattr(error, "response", {}).get("Error", {}).get("Code")
-            if code in ("NoSuchKey", "404"):
-                return
-            raise
-        restored = {}
-        with tarfile.open(fileobj=io.BytesIO(body), mode="r:gz") as archive:
-            for member in archive:
-                path = (ROOT / member.name).resolve()
-                allowed = path.is_relative_to((ROOT / "internal/cache").resolve()) or path in (
-                    ROOT / "database/ids.json",
-                    ROOT / "database/repository-metadata.json",
-                )
-                if not allowed or not member.isfile() or path.suffix != ".json":
-                    raise ValueError("Unsafe checkpoint entry")
-                payload = archive.extractfile(member).read()
-                json.loads(payload)
-                restored[path] = payload
-        ids_path = ROOT / "database/ids.json"
-        if ids_path in restored:
-            current = json.loads(ids_path.read_bytes()) if ids_path.exists() else {}
-            saved = json.loads(restored[ids_path])
-            merged = merge_ids(current, saved)
-            restored[ids_path] = encode(merged)
-        for path, payload in restored.items():
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(payload)
+        from scripts.cloudflare_checkpoint import restore
+
+        restore(self, ROOT, merge_ids, clean_inputs)
 
     def download_catalog(self, document, refresh_inputs=False):
         manifest = document["manifest"]
@@ -364,7 +366,15 @@ class Cloud:
             temporary.replace(target)
 
     def publish(self, require_complete=True):
+        clean_inputs(ROOT)
         manifest, records = catalog_records(ROOT)
+        configured, _ = configured_sources(ROOT)
+        inventory_complete = True
+        snapshot_sources = json.loads(
+            (ROOT / "database" / manifest["snapshot"] / "sources.json").read_bytes()
+        )
+        if any(row["url"].lower() not in configured for row in snapshot_sources):
+            raise ValueError("Catalog contains removed sources; rebuild before publication")
         base_generation = manifest["generation"]
         if require_complete:
             inventory = source_channels(
@@ -376,23 +386,53 @@ class Cloud:
             states = {
                 key.lower(): row for (kind, key), row in records.items() if kind == "history_source"
             }
-            if not states or any(
+            issue_sources = {
+                normalize_source(row["source"], ROOT).lower()
+                for row in read_issues(ROOT)
+                if row["phase"] == "Release check"
+                and row.get("observed_at", "")
+                >= states.get(normalize_source(row["source"], ROOT).lower(), {}).get(
+                    "checked_at", "~"
+                )
+            }
+            inventory_complete = all(
+                states.get(url, {}).get("status") == "complete" for url in required
+            )
+            if any(
                 not states.get(url, {}).get("configured")
                 or not states[url].get("required", True)
-                or states[url].get("status") != "complete"
+                or (
+                    states[url].get("status") != "complete"
+                    and not (states[url].get("status") == "incomplete" and url in issue_sources)
+                )
                 for url in required
             ):
                 raise ValueError("Historical reconciliation incomplete; publication refused")
         active = self.active()
         if active and not require_complete:
             raise ValueError("Seed is only allowed for an empty catalog; use normal publication")
+        active_document = self.document(active) if active else None
+        if active_document and active_document.get("source_purge_pending"):
+            # A prior purge may have discarded generation rows before removing
+            # their record versions. Finish it before choosing or reusing a seq.
+            self.finish_source_purge(active_document)
         tips = self.sql(
             "SELECT * FROM catalog_generations WHERE status='ready' ORDER BY seq DESC LIMIT 1"
         )
-        previous = self.document(tips[0]) if tips else None
+        previous = (
+            active_document
+            if tips and active and tips[0]["seq"] == active["seq"]
+            else self.document(tips[0]) if tips else None
+        )
         known = self.object_digests(previous) if previous else set()
         previous_records = self.read_records(previous) if previous else []
-        # Retain removed source/release/bundle/patch metadata, with explicit availability.
+        removed = {
+            (row["data"].get("url") or row["data"].get("source_url") or row["key"]).lower()
+            for row in previous_records
+            if row["kind"] in ("source", "history_source")
+        } - configured
+        # Retain upstream release deletions for configured (including disabled) sources.
+        # Removing the source itself is an explicit purge.
         for item in previous_records:
             key = (item["kind"], item["key"])
             if key in records or key[0] == "refresh_jobs":
@@ -412,6 +452,7 @@ class Cloud:
                     records[key][field] = sorted(
                         set(records[key].get(field, [])) | set(item["data"].get(field, []))
                     )
+        records = filter_records(ROOT, records)
         exported = [
             {"kind": kind, "key": key, "data": row} for (kind, key), row in sorted(records.items())
         ]
@@ -423,18 +464,21 @@ class Cloud:
             lambda item: self.blob(encode(item[1]), known), sorted(blocks.items())
         )
         record_digest = hashlib.sha256(encode(record_blocks)).hexdigest()
-        generation = hashlib.sha256(encode([manifest["generation"], record_digest])).hexdigest()[
-            :24
-        ]
+        identity_digest = hashlib.sha256((ROOT / "database/ids.json").read_bytes()).hexdigest()
+        generation = hashlib.sha256(
+            encode([manifest["generation"], record_digest, identity_digest])
+        ).hexdigest()[:24]
         existing = self.sql(
             "SELECT * FROM catalog_generations WHERE generation=? AND status='ready'", [generation]
         )
         if existing and active and active["generation"] == generation:
+            self.finish_source_purge(active_document)
             print("Catalog unchanged; no D1 writes or repeated full verification")
             return
         if existing:
             self.verify_document(self.document(existing[0]))
             self.sql("UPDATE catalog_state SET active_seq=? WHERE id=1", [existing[0]["seq"]])
+            self.finish_source_purge(self.document(existing[0]))
             print("Reactivated verified existing generation")
             return
         if active and active["generation"] == generation:
@@ -465,10 +509,14 @@ class Cloud:
         document = {
             "manifest": manifest,
             "base_generation": base_generation,
+            "identity_digest": identity_digest,
             "files": files,
             "record_blocks": record_blocks,
             "ids": self.blob((ROOT / "database/ids.json").read_bytes(), known),
-            "complete": require_complete,
+            "complete": require_complete and inventory_complete,
+            "source_purge_pending": bool(removed)
+            or (ROOT / "internal/cache/source-removals.json").exists()
+            or bool(previous and previous.get("source_purge_pending")),
             "record_count": len(records),
         }
         document["refresh_inputs"] = self.blob(
@@ -531,7 +579,75 @@ class Cloud:
         # Atomic activation. The workflow concurrency group is the single-writer lock.
         self.sql("UPDATE catalog_generations SET status='ready' WHERE seq=?", [seq])
         self.sql("UPDATE catalog_state SET active_seq=? WHERE id=1", [seq])
+        self.finish_source_purge(document)
         print(json.dumps({"generation": generation, "records_changed": writes, "records": count}))
+
+    def finish_source_purge(self, document):
+        if not document.get("source_purge_pending") and not (
+            ROOT / "internal/cache/source-removals.json"
+        ).exists():
+            return
+        active = self.active()
+        if not active or active["generation"] != document["manifest"]["generation"]:
+            raise ValueError("Source purge requires the active verified generation")
+        if not document.get("source_purge_pending"):
+            document["source_purge_pending"] = True
+            self.put(active["manifest_key"], encode(document))
+        sequence = active["seq"]
+        # Older snapshots contain removed data and cannot remain restorable. Keep
+        # the newly verified snapshot and all records visible in that snapshot.
+        self.sql("DELETE FROM catalog_generations WHERE seq<>?", [sequence])
+        self.sql(
+            "DELETE FROM catalog_records WHERE NOT (from_seq<=? AND (to_seq IS NULL OR to_seq>?))",
+            [sequence, sequence],
+        )
+        # Discarded future versions must not expire rows retained by this snapshot
+        # when their sequence numbers are reused by a later publication.
+        self.sql("UPDATE catalog_records SET to_seq=NULL WHERE to_seq>?", [sequence])
+        retained = {"objects/" + digest for digest in self.object_digests(document)}
+        retained.add(active["manifest_key"])
+        for row in self.read_records(document):
+            if row["kind"] == "history_release" and len(encode(row["data"])) > 1_500_000:
+                retained.add("objects/" + hashlib.sha256(encode(row["data"])).hexdigest())
+        # A checkpoint written before removal must never restore deleted content.
+        clean_inputs(ROOT)
+        clean_snapshots(ROOT)
+        (ROOT / "internal/cache/source-removals.json").unlink(missing_ok=True)
+        self.checkpoint()
+        from scripts.cloudflare_checkpoint import evict_key, retained_keys
+
+        retained.update(retained_keys(self, ROOT))
+        obsolete = []
+        for page in self.s3.get_paginator("list_objects_v2").paginate(Bucket=self.bucket):
+            for item in page.get("Contents", []):
+                key = item["Key"]
+                if (
+                    key.startswith(("objects/", "generations/", "checkpoints/"))
+                    and key not in retained
+                ):
+                    obsolete.append(key)
+
+        def delete(keys):
+            result = self.s3.delete_objects(
+                Bucket=self.bucket,
+                Delete={"Objects": [{"Key": key} for key in keys], "Quiet": True},
+            )
+            failed = {row["Key"] for row in result.get("Errors", [])}
+            for key in set(keys) - failed:
+                if key.startswith("objects/"):
+                    self.transfers().path(key[8:]).unlink(missing_ok=True)
+                evict_key(self, key)
+            if failed:
+                raise RuntimeError("R2 source purge could not delete all obsolete objects")
+
+        self.transfers().parallel(
+            delete, [obsolete[start : start + 1000] for start in range(0, len(obsolete), 1000)]
+        )
+        # Last write is the durable completion marker; a later publish retries
+        # interrupted cleanup even when the catalog contents are unchanged.
+        document["source_purge_pending"] = False
+        self.put(active["manifest_key"], encode(document))
+        print(f"Purged removed sources; deleted {len(obsolete)} obsolete R2 objects")
 
     def read_records(self, document):
         self.transfers().prefetch(document["record_blocks"])
@@ -543,9 +659,12 @@ class Cloud:
 
     def verify_document(self, document, skip_digests=()):
         record_digest = hashlib.sha256(encode(document["record_blocks"])).hexdigest()
-        generation = hashlib.sha256(
-            encode([document["base_generation"], record_digest])
-        ).hexdigest()[:24]
+        identity = [document["base_generation"], record_digest]
+        if "identity_digest" in document:
+            if document["identity_digest"] != document["ids"]:
+                raise ValueError("Snapshot ID registry integrity mismatch")
+            identity.append(document["identity_digest"])
+        generation = hashlib.sha256(encode(identity)).hexdigest()[:24]
         if generation != document["manifest"]["generation"]:
             raise ValueError("Snapshot manifest integrity mismatch")
         if document["manifest"]["snapshot"] != "snapshots/" + generation:
@@ -704,13 +823,16 @@ class Cloud:
                 if record["kind"] == "history_release" and len(encode(record["data"])) > 1_500_000:
                     objects.add(hashlib.sha256(encode(record["data"])).hexdigest())
         obsolete = [row for row in generations if row["manifest_key"] not in keys]
+        from scripts.cloudflare_checkpoint import evict_key, retained_keys
+
+        checkpoints = retained_keys(self, ROOT)
         orphaned = []
         for page in self.s3.get_paginator("list_objects_v2").paginate(Bucket=self.bucket):
             for item in page.get("Contents", []):
                 key = item["Key"]
                 if (key.startswith("objects/") and key[8:] not in objects) or (
                     key.startswith("generations/") and key not in keys
-                ):
+                ) or (key.startswith("checkpoints/") and key not in checkpoints):
                     orphaned.append(key)
         print(
             json.dumps(
@@ -732,6 +854,7 @@ class Cloud:
             self.sql("DELETE FROM catalog_generations WHERE seq=?", [row["seq"]])
         for key in orphaned:
             self.s3.delete_object(Bucket=self.bucket, Key=key)
+            evict_key(self, key)
 
     def provision(self):
         name = os.environ.get("CATALOG_D1_NAME") or "patch-bundle-registry"
