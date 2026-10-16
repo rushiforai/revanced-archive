@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-15 04:45 UTC",
+  "generatedAt": "2026-10-16 03:14 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 781,
-  "patchCount": 2853,
+  "patchCount": 2857,
   "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
@@ -231,27 +231,19 @@
       "webUrl": "https://github.com/Alastor-Kaneki/Morphe-Patches",
       "addUrl": "https://Revanced.software/add-source?github=Alastor-Kaneki/Morphe-Patches",
       "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
-      "patchCount": 10,
-      "appCount": 5,
+      "patchCount": 12,
+      "appCount": 6,
       "createdAt": 1785897755305,
       "updatedAt": 1785897755305,
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.14.1 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.16.0 (2026-10-15)",
+        "date": "2026-10-15",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**mcpe-center:** make package rename fingerprint order-independent"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**release:** accept spaced Gradle version property"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**release:** auto-update latest bundle metadata"
+            "category": "\u2728 New Features",
+            "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
           }
         ]
       },
@@ -283,6 +275,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#FF315A"
+        },
+        {
+          "name": "Reddit",
+          "packageName": "com.reddit.frontpage",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#FF4500"
         },
         {
           "name": "Suno",
@@ -632,23 +631,19 @@
       "webUrl": "https://github.com/andrewliang25/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=andrewliang25/morphe-patches",
       "avatarUrl": "https://github.com/andrewliang25.png?size=96",
-      "patchCount": 49,
+      "patchCount": 50,
       "appCount": 2,
       "createdAt": 1785034852052,
       "updatedAt": 1785034852052,
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "3.6.0 (2026-10-14)",
-        "date": "2026-10-14",
+        "title": "3.7.0 (2026-10-16)",
+        "date": "2026-10-16",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**LINE:** add runtime switches for the chat UI hide patches"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**LINE:** add support for LINE 26.15.1"
+            "text": "**LINE:** add custom font upload to the Font page (597701e), closes #186"
           }
         ]
       },
@@ -663,7 +658,7 @@
         {
           "name": "LINE",
           "packageName": "jp.naver.line.android",
-          "patchCount": 30,
+          "patchCount": 31,
           "iconUrl": "",
           "iconColor": "#06C755"
         }
@@ -1347,23 +1342,23 @@
       "webUrl": "https://github.com/bigyank/morphe-patches-samsung",
       "addUrl": "https://Revanced.software/add-source?github=bigyank/morphe-patches-samsung",
       "avatarUrl": "https://github.com/bigyank.png?size=96",
-      "patchCount": 2,
+      "patchCount": 3,
       "appCount": 1,
       "createdAt": 1784836031229,
       "updatedAt": 1784836031229,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.3.0 (2026-10-14)",
-        "date": "2026-10-14",
+        "title": "1.4.0 (2026-10-15)",
+        "date": "2026-10-15",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "promote Samsung Health 7.00.6.011 to stable"
+            "category": "\u2728 New Features",
+            "text": "add dex diff stage, version-watch automation, emulator smoke test"
           },
           {
             "category": "\u2728 New Features",
-            "text": "add Samsung Health 7.00.6.011 support (experimental)"
+            "text": "add hide-home-promotion-panel patch (issue #6)"
           }
         ]
       },
@@ -1371,7 +1366,7 @@
         {
           "name": "Samsung Health",
           "packageName": "com.sec.android.app.shealth",
-          "patchCount": 2,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#1DC9A0"
         }
@@ -5467,32 +5462,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "0.8.0",
-        "date": "",
+        "title": "0.8.1 (2026-10-15)",
+        "date": "2026-10-15",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**tiktok:** activate installed features on first use"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**tiktok:** keep feed debugger observations after filter hooks"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**tiktok:** recheck ads when feed items are read"
-          },
-          {
-            "category": "Features",
-            "text": "hide AI-labelled posts across feed delivery paths"
-          },
-          {
-            "category": "Features",
-            "text": "**tiktok:** add themed feed debugger to diagnostic tools"
-          },
-          {
-            "category": "Features",
-            "text": "**tiktok:** hide FYP unpersonalized slop videos"
+            "text": "**tiktok:** avoid final-field writes when rejecting cached posts"
           }
         ]
       },
@@ -15031,8 +15006,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -15040,12 +15015,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all AT4K premium features by forcing the premium status to true."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
         }
       ],
       "versions": [
@@ -19227,8 +19202,8 @@
       "patches": [
         "AMOLED dark theme",
         "Disable tracking",
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
@@ -19240,12 +19215,12 @@
           "description": "Stops the Google Mobile Ads SDK from starting and reading the advertising ID."
         },
         {
-          "name": "Unlock Premium",
-          "description": "Unlock Premium Features in app."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks the HalfBlur effect."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Unlock Premium Features in app."
         }
       ],
       "versions": [
@@ -28731,32 +28706,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/icysymmetra/tiktok-patches-for-morphe/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/icysymmetra.png?size=96",
           "latestChanges": {
-            "title": "0.8.0",
-            "date": "",
+            "title": "0.8.1 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**tiktok:** activate installed features on first use"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tiktok:** keep feed debugger observations after filter hooks"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**tiktok:** recheck ads when feed items are read"
-              },
-              {
-                "category": "Features",
-                "text": "hide AI-labelled posts across feed delivery paths"
-              },
-              {
-                "category": "Features",
-                "text": "**tiktok:** add themed feed debugger to diagnostic tools"
-              },
-              {
-                "category": "Features",
-                "text": "**tiktok:** hide FYP unpersonalized slop videos"
+                "text": "**tiktok:** avoid final-field writes when rejecting cached posts"
               }
             ]
           },
@@ -34557,16 +34512,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.6.0 (2026-10-14)",
-            "date": "2026-10-14",
+            "title": "3.7.0 (2026-10-16)",
+            "date": "2026-10-16",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**LINE:** add runtime switches for the chat UI hide patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**LINE:** add support for LINE 26.15.1"
+                "text": "**LINE:** add custom font upload to the Font page (597701e), closes #186"
               }
             ]
           },
@@ -37803,20 +37754,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**mcpe-center:** make package rename fingerprint order-independent"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** accept spaced Gradle version property"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** auto-update latest bundle metadata"
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
               }
             ]
           },
@@ -37830,7 +37773,7 @@
           "patches": [
             {
               "name": "MonkeyScript userscript manager",
-              "description": "Adds a Chrome 150 Material You userscript manager using a Violentmonkey-derived parser, native app-menu integration, guaranteed Fork-page installation, Greasy Fork/Sleazy Fork support, publishing, and configurable app/package cloning."
+              "description": "Adds the Chrome 150 Material You userscript manager and cloning. Trichrome builds need the matching original Trichrome Library APK installed before the patched Chrome APK."
             }
           ],
           "versions": []
@@ -37842,7 +37785,7 @@
       "patchDetails": [
         {
           "name": "MonkeyScript userscript manager",
-          "description": "Adds a Chrome 150 Material You userscript manager using a Violentmonkey-derived parser, native app-menu integration, guaranteed Fork-page installation, Greasy Fork/Sleazy Fork support, publishing, and configurable app/package cloning."
+          "description": "Adds the Chrome 150 Material You userscript manager and cloning. Trichrome builds need the matching original Trichrome Library APK installed before the patched Chrome APK."
         }
       ],
       "versions": [],
@@ -46948,16 +46891,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.6.0 (2026-10-14)",
-            "date": "2026-10-14",
+            "title": "3.7.0 (2026-10-16)",
+            "date": "2026-10-16",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**LINE:** add runtime switches for the chat UI hide patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**LINE:** add support for LINE 26.15.1"
+                "text": "**LINE:** add custom font upload to the Font page (597701e), closes #186"
               }
             ]
           },
@@ -47032,6 +46971,10 @@
             {
               "name": "[General] Andrew's Patch Setting",
               "description": "Adds \"Andrew's Patch Setting\" to LINE Settings, below \"Profile\". There you can turn some patches on or off without patching again, and see the credits and licenses."
+            },
+            {
+              "name": "[General] Custom font",
+              "description": "Adds a button to LINE's Font page to use a font file from your device. The page then no longer loads LINE's font list from the server."
             },
             {
               "name": "[General] Disable VOOM",
@@ -47113,6 +47056,7 @@
         "[Fix] Restore location maps via MicroG-RE",
         "[Fix] Restore push notifications",
         "[General] Andrew's Patch Setting",
+        "[General] Custom font",
         "[General] Disable VOOM",
         "[General] Hide Agent i buttons",
         "[General] Hide new item badges",
@@ -47192,6 +47136,10 @@
         {
           "name": "[General] Andrew's Patch Setting",
           "description": "Adds \"Andrew's Patch Setting\" to LINE Settings, below \"Profile\". There you can turn some patches on or off without patching again, and see the credits and licenses."
+        },
+        {
+          "name": "[General] Custom font",
+          "description": "Adds a button to LINE's Font page to use a font file from your device. The page then no longer loads LINE's font list from the server."
         },
         {
           "name": "[General] Disable VOOM",
@@ -51580,20 +51528,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**mcpe-center:** make package rename fingerprint order-independent"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** accept spaced Gradle version property"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** auto-update latest bundle metadata"
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
               }
             ]
           },
@@ -56595,20 +56535,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**mcpe-center:** make package rename fingerprint order-independent"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** accept spaced Gradle version property"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** auto-update latest bundle metadata"
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
               }
             ]
           },
@@ -60251,20 +60183,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**mcpe-center:** make package rename fingerprint order-independent"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** accept spaced Gradle version property"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** auto-update latest bundle metadata"
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
               }
             ]
           },
@@ -63390,17 +63314,17 @@
         }
       ],
       "patches": [
-        "Unlock Premium",
-        "Unlock premium"
+        "Unlock premium",
+        "Unlock Premium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock Premium",
-          "description": "Forces the subscription gate to report an unlimited subscription, removing ads and the upgrade prompt. Constructs a minimal fake Purchase to prevent NPE/IOOB in call sites that dereference getProducts().get(0)."
-        },
-        {
           "name": "Unlock premium",
           "description": "Unlocks all regions. Removes ads and the upgrade button."
+        },
+        {
+          "name": "Unlock Premium",
+          "description": "Forces the subscription gate to report an unlimited subscription, removing ads and the upgrade prompt. Constructs a minimal fake Purchase to prevent NPE/IOOB in call sites that dereference getProducts().get(0)."
         }
       ],
       "versions": [
@@ -64968,6 +64892,7 @@
       "packageName": "com.reddit.frontpage",
       "name": "Reddit",
       "repos": [
+        "Alastor-Kaneki/Morphe-Patches",
         "bernardo7894/remove-permaban-banner-patch",
         "chirag127/morphe-patches",
         "jkennethcarino/adobo",
@@ -64976,6 +64901,45 @@
         "variablenine/morphe-patches"
       ],
       "sources": [
+        {
+          "repo": "Alastor-Kaneki/Morphe-Patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/Alastor-Kaneki/Morphe-Patches",
+          "addUrl": "https://Revanced.software/add-source?github=Alastor-Kaneki/Morphe-Patches",
+          "source": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
+          "latestChanges": {
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-reddit-frontpage-alastor-kaneki-morphe-patches",
+            "releaseTag": "app-com-reddit-frontpage-alastor-kaneki-morphe-patches",
+            "assetName": "reddit-alastor-kaneki-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Download Reddit gallery originals",
+              "description": "Adds an in-app Download Originals button and share target. Fetches gallery metadata from Arctic Shift (fallback to Reddit) and saves original-quality images or a ZIP."
+            },
+            {
+              "name": "Reddit native post-menu originals (2026.41.0)",
+              "description": "Use Reddit's actual post overflow-menu event to identify the current post, show a contextual Save Originals action, and let the existing downloader save the original images or ZIP without a share link."
+            }
+          ],
+          "versions": [
+            "2026.41.0"
+          ]
+        },
         {
           "repo": "bernardo7894/remove-permaban-banner-patch",
           "host": "github.com",
@@ -65505,6 +65469,7 @@
         "Disable post detail swipe",
         "Disable screenshot banner",
         "Disable screenshot popup",
+        "Download Reddit gallery originals",
         "Enable guest mode",
         "Force system font",
         "Hide ads",
@@ -65530,6 +65495,7 @@
         "Open external links directly",
         "Open links directly",
         "Open links externally",
+        "Reddit native post-menu originals (2026.41.0)",
         "Remove ads and telemetry",
         "Remove subreddit dialog",
         "Sanitize Reddit share links",
@@ -65599,6 +65565,10 @@
         {
           "name": "Disable screenshot popup",
           "description": "Adds an option to disable the popup that appears when taking a screenshot."
+        },
+        {
+          "name": "Download Reddit gallery originals",
+          "description": "Adds an in-app Download Originals button and share target. Fetches gallery metadata from Arctic Shift (fallback to Reddit) and saves original-quality images or a ZIP."
         },
         {
           "name": "Enable guest mode",
@@ -65699,6 +65669,10 @@
         {
           "name": "Open links externally",
           "description": "Adds an option to always open links in your browser instead of with the in-app-browser."
+        },
+        {
+          "name": "Reddit native post-menu originals (2026.41.0)",
+          "description": "Use Reddit's actual post overflow-menu event to identify the current post, show a contextual Save Originals action, and let the existing downloader save the original images or ZIP without a share link."
         },
         {
           "name": "Remove ads and telemetry",
@@ -67272,16 +67246,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/bigyank/morphe-patches-samsung/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/bigyank.png?size=96",
           "latestChanges": {
-            "title": "1.3.0 (2026-10-14)",
-            "date": "2026-10-14",
+            "title": "1.4.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "promote Samsung Health 7.00.6.011 to stable"
+                "category": "\u2728 New Features",
+                "text": "add dex diff stage, version-watch automation, emulator smoke test"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "add Samsung Health 7.00.6.011 support (experimental)"
+                "text": "add hide-home-promotion-panel patch (issue #6)"
               }
             ]
           },
@@ -67300,6 +67274,10 @@
             {
               "name": "Disable Knox integrity checks",
               "description": "Bypass Knox, root, warranty bit, and SAK checks so Samsung Health runs on Knox-tripped devices (0x1) without root."
+            },
+            {
+              "name": "Hide home promotion panel",
+              "description": "Removes the Discover+ advertising card from the home screen by replicating the app's own offline early-exit in the promotion load path. No-ops on builds without the promotion package."
             }
           ],
           "versions": [
@@ -67312,7 +67290,8 @@
       ],
       "patches": [
         "Bypass Samsung Account provider checks",
-        "Disable Knox integrity checks"
+        "Disable Knox integrity checks",
+        "Hide home promotion panel"
       ],
       "patchDetails": [
         {
@@ -67322,6 +67301,10 @@
         {
           "name": "Disable Knox integrity checks",
           "description": "Bypass Knox, root, warranty bit, and SAK checks so Samsung Health runs on Knox-tripped devices (0x1) without root."
+        },
+        {
+          "name": "Hide home promotion panel",
+          "description": "Removes the Discover+ advertising card from the home screen by replicating the app's own offline early-exit in the promotion load path. No-ops on builds without the promotion package."
         }
       ],
       "versions": [
@@ -72648,20 +72631,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Alastor-Kaneki/Morphe-Patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
           "latestChanges": {
-            "title": "1.14.1 (2026-08-24)",
-            "date": "2026-08-24",
+            "title": "1.16.0 (2026-10-15)",
+            "date": "2026-10-15",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**mcpe-center:** make package rename fingerprint order-independent"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** accept spaced Gradle version property"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**release:** auto-update latest bundle metadata"
+                "category": "\u2728 New Features",
+                "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
               }
             ]
           },
@@ -73648,8 +73623,8 @@
       "patches": [
         "Disable Symfonium beta expiry",
         "Disable Symfonium trial expiry",
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
@@ -73662,12 +73637,12 @@
           "description": "Neutralises the expired-trial block screen. The welcome screen gates entry with a single `state instanceof ExpiredTrial` check; this forces that check to false, so the app proceeds on every launch (online, offline, or with a server-expired trial). The server handshake, billing/licence machinery and the offline fail-open path are left untouched. Validated on 15.0.1 (versionCode 127798)."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -78638,8 +78613,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable Telemetry",
         "Disable telemetry",
+        "Disable Telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -78683,11 +78658,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -85423,8 +85398,8 @@
         "Save to Watch later",
         "Seekbar",
         "Seekbar components",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -85971,11 +85946,11 @@
           "description": "Adds options to hide or change components related to the seekbar."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -89919,27 +89894,19 @@
       "webUrl": "https://github.com/Alastor-Kaneki/Morphe-Patches",
       "addUrl": "https://Revanced.software/add-source?github=Alastor-Kaneki/Morphe-Patches",
       "avatarUrl": "https://github.com/Alastor-Kaneki.png?size=96",
-      "patchCount": 10,
-      "appCount": 5,
+      "patchCount": 12,
+      "appCount": 6,
       "createdAt": 1785897755305,
       "updatedAt": 1785897755305,
       "createdDate": "2026-08-05",
       "updatedDate": "2026-08-05",
       "latestChanges": {
-        "title": "1.14.1 (2026-08-24)",
-        "date": "2026-08-24",
+        "title": "1.16.0 (2026-10-15)",
+        "date": "2026-10-15",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**mcpe-center:** make package rename fingerprint order-independent"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**release:** accept spaced Gradle version property"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**release:** auto-update latest bundle metadata"
+            "category": "\u2728 New Features",
+            "text": "**reddit:** native 2026.41.0 overflow-menu post ID hook (#42)"
           }
         ]
       },
@@ -89971,6 +89938,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#FF315A"
+        },
+        {
+          "name": "Reddit",
+          "packageName": "com.reddit.frontpage",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#FF4500"
         },
         {
           "name": "Suno",
