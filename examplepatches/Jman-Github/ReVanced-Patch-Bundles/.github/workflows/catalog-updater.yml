@@ -50,14 +50,23 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+          cache-dependency-path: requirements.txt
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
+      - name: Install Java 21 for bundle extraction
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: temurin
+          java-version: '21'
       - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
       - name: Cache pinned native inspectors
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
@@ -125,6 +134,15 @@ jobs:
           CATALOG_REFRESH_FAILED: ${{ job.status != 'success' }}
         run: python scripts/notify_catalog_update.py notify --baseline "$RUNNER_TEMP/catalog-before.json"
 
+      - name: Upload extraction failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: catalog-extraction-diagnostics
+          path: internal/cache/extraction-diagnostics/*.log
+          if-no-files-found: ignore
+          retention-days: 7
+
   cloudflare:
     if: vars.CATALOG_DATA_ENABLED == 'true'
     runs-on: ubuntu-latest
@@ -146,6 +164,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CATALOG_D1_ID: ${{ vars.CATALOG_D1_ID }}
       CATALOG_R2_BUCKET: ${{ vars.CATALOG_R2_BUCKET }}
+      CATALOG_RETENTION_GENERATIONS: ${{ vars.CATALOG_RETENTION_GENERATIONS || '8' }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
     steps:
@@ -163,11 +182,19 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '24'
+      - name: Install Java 21 for bundle extraction
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: temurin
+          java-version: '21'
       - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
         with:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e
+        with:
+          cache-provider: basic
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
       - name: Cache pinned native inspectors
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
@@ -231,4 +258,5 @@ jobs:
             internal/cache/history/archive.json
             internal/cache/cloudflare-performance.json
             internal/cache/refresh-issues.json
+            internal/cache/extraction-diagnostics/*.log
           retention-days: 7

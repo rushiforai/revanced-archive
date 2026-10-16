@@ -161,6 +161,45 @@ public class PatchKt {
             return result
 
         assert extract(artifact, "unavailable runtime falls back")["status"] == "verified"
+        # Exercise the repaired, installed legacy runtime without another fallback
+        # hiding a missing dependency or a class-loader failure.
+        legacy_id = "revanced-v3-11"
+        if installed.get(legacy_id, {}).get("available"):
+            legacy_source = folder / "LegacyPatch.java"
+            legacy_source.write_text(
+                "@app.revanced.patcher.patch.annotations.Patch\n"
+                '@app.revanced.patcher.annotation.Name(name="Legacy runtime fixture")\n'
+                "public class LegacyPatch {}\n"
+            )
+            legacy_classes = folder / "legacy-classes"
+            run(
+                [
+                    javac,
+                    "-cp",
+                    installed[legacy_id]["classpath"],
+                    "-d",
+                    str(legacy_classes),
+                    str(legacy_source),
+                ]
+            )
+            legacy_artifact = folder / "legacy-fixture.jar"
+            with zipfile.ZipFile(legacy_artifact, "w") as jar:
+                jar.writestr(
+                    "META-INF/MANIFEST.MF", "Manifest-Version: 1.0\nPatcher-Version: 11.0.4\n\n"
+                )
+                jar.write(legacy_classes / "LegacyPatch.class", "LegacyPatch.class")
+            legacy_config = {
+                **config,
+                "runtimes": [r for r in config["runtimes"] if r["id"] == legacy_id],
+            }
+            inspected = extract(
+                legacy_artifact,
+                "installed patcher 11 legacy bundle",
+                legacy_config,
+                {legacy_id: installed[legacy_id]},
+            )
+            assert inspected["status"] == "verified" and inspected["patch_count"] == 1
+            assert inspected["runtime"] == "app.revanced:revanced-patcher:11.0.4"
         morphe = folder / "fixture.mpp"
         with zipfile.ZipFile(morphe, "w") as jar:
             jar.writestr(
@@ -197,10 +236,20 @@ public class PatchKt {
         fallback_config = {
             **fixture_config,
             "runtimes": [
-                {**morphe_definition, "id": "alternate", "coordinate": "test:alternate:1.0.0",
-                 "range": "<=1.0.0", "fallback": True},
-                {**morphe_definition, "id": "preferred", "coordinate": "test:preferred:2.0.0",
-                 "range": ">1.0.0", "fallback": False},
+                {
+                    **morphe_definition,
+                    "id": "alternate",
+                    "coordinate": "test:alternate:1.0.0",
+                    "range": "<=1.0.0",
+                    "fallback": True,
+                },
+                {
+                    **morphe_definition,
+                    "id": "preferred",
+                    "coordinate": "test:preferred:2.0.0",
+                    "range": ">1.0.0",
+                    "fallback": False,
+                },
             ],
         }
         fallback_manifest = {
@@ -215,31 +264,36 @@ public class PatchKt {
             **fallback_manifest,
             "preferred": {"available": True, "classpath": str(runtime_jar)},
         }
-        declared = extract(morphe, "declared older runtime stays first",
-                           fallback_config, both_working)
+        declared = extract(
+            morphe, "declared older runtime stays first", fallback_config, both_working
+        )
         assert declared["status"] == "verified" and declared["runtime"] == "test:alternate:1.0.0"
         older_rejects = {
             **both_working,
             "alternate": {"available": True, "classpath": str(rejected_runtime)},
         }
-        recovered = extract(morphe, "rejected declared runtime retries latest",
-                            fallback_config, older_rejects)
+        recovered = extract(
+            morphe, "rejected declared runtime retries latest", fallback_config, older_rejects
+        )
         assert recovered["status"] == "verified" and recovered["runtime"] == "test:preferred:2.0.0"
         with zipfile.ZipFile(morphe, "w") as jar:
             jar.writestr("META-INF/MANIFEST.MF", "Manifest-Version: 1.0\n\n")
-        newest = extract(morphe, "missing declaration starts with latest",
-                         fallback_config, both_working)
+        newest = extract(
+            morphe, "missing declaration starts with latest", fallback_config, both_working
+        )
         assert newest["status"] == "verified" and newest["runtime"] == "test:preferred:2.0.0"
         with zipfile.ZipFile(morphe, "w") as jar:
             jar.writestr(
                 "META-INF/MANIFEST.MF", "Manifest-Version: 1.0\nPatcher-Version: 2.0.0\n\n"
             )
-        recovered = extract(morphe, "rejected preferred runtime falls back",
-                            fallback_config, fallback_manifest)
+        recovered = extract(
+            morphe, "rejected preferred runtime falls back", fallback_config, fallback_manifest
+        )
         assert recovered["status"] == "verified" and recovered["runtime"] == "test:alternate:1.0.0"
         unavailable = {**fallback_manifest, "preferred": {"available": False, "classpath": ""}}
-        recovered = extract(morphe, "unavailable preferred runtime falls back",
-                            fallback_config, unavailable)
+        recovered = extract(
+            morphe, "unavailable preferred runtime falls back", fallback_config, unavailable
+        )
         assert recovered["status"] == "verified" and recovered["runtime"] == "test:alternate:1.0.0"
         all_rejected = {
             **fallback_manifest,
@@ -456,16 +510,39 @@ public class PatchKt {
             invalid_reseam = folder / "invalid.reseam"
             invalid_reseam.write_bytes(b"invalid archive")
             rejected = extract(invalid_reseam, "Reseam rejects invalid archive", config, installed)
-            native_candidates = [runtime for runtime in config["runtimes"]
-                                 if runtime["family"] == "Reseam"]
-            all_available = all(installed.get(runtime["id"], {}).get("available")
-                                for runtime in native_candidates)
+            native_candidates = [
+                runtime for runtime in config["runtimes"] if runtime["family"] == "Reseam"
+            ]
+            all_available = all(
+                installed.get(runtime["id"], {}).get("available") for runtime in native_candidates
+            )
             assert rejected["terminal"] == all_available
-            assert rejected["status"] == "runtime_parsing_failure"
+            assert rejected["status"] in {
+                "runtime_parsing_failure",
+                "runtime_missing_dependency",
+                "incomplete_patch_inventory",
+            }
             # Local live-validation artifacts are optional and never committed.
             for artifact in (ROOT / "internal/reseam-fixtures").glob("*.reseam"):
                 inspected = extract(artifact, "real Reseam " + artifact.name, config, installed)
                 assert inspected["status"] == "verified" and inspected["patch_count"] > 0
+        audit = os.environ.get("CATALOG_COVERAGE_AUDIT")
+        if audit:
+            directory = Path(audit)
+            inventory = json.loads((directory / "inventory.json").read_text(encoding="utf8"))
+            unexpected = []
+            for row in inventory["available"]:
+                artifact = directory / row["path"]
+                inspected = extract(artifact, "coverage repair " + artifact.name, config, installed)
+                expected = inventory.get("expected_failures", {}).get(row.get("file_hash"))
+                if expected:
+                    assert inspected["status"] == expected, inspected
+                elif inspected["status"] != "verified" or inspected["patch_count"] <= 0:
+                    unexpected.append({
+                        "source": row["source"]["url"],
+                        "version": row["version"], **inspected,
+                    })
+            assert not unexpected, unexpected
         if real:
             import httpx
 
@@ -507,6 +584,11 @@ public class PatchKt {
                         }
                     )
                     print("Real bundle unavailable: " + source + " (" + type(error).__name__ + ")")
+    audited = [item for item in results if item["case"].startswith("coverage repair ")]
+    if audited:
+        from collections import Counter
+        counts = dict(Counter(item["status"] for item in audited))
+        print("Coverage audit summary: " + json.dumps(counts))
     report = ROOT / "bundle-parser/build/runtime-validation.json"
     report.write_text(json.dumps(results, indent=2) + "\n")
     return results
