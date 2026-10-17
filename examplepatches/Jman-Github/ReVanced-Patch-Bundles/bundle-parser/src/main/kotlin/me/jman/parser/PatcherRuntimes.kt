@@ -45,7 +45,8 @@ internal data class ExtractionRecord(
     val terminal: Boolean = false, val bundle_type: String? = null,
     val runtime_config_hash: String? = null, val reseam_bundle: JsonObject? = null,
     val parser_revision: String? = null, val completeness_version: Int = 0,
-    val runtime_attempts: List<RuntimeAttempt> = emptyList()
+    val runtime_attempts: List<RuntimeAttempt> = emptyList(),
+    val fallback_patch_count: Int? = null
 )
 internal data class RuntimeResult(val patches: JsonArray?, val status: String,
                                   val hash: String? = null, val runtime: String? = null,
@@ -54,7 +55,9 @@ internal data class RuntimeResult(val patches: JsonArray?, val status: String,
                                   val requiredEngine: String? = null,
                                   val attempts: List<RuntimeAttempt> = emptyList(),
                                   val cause: String? = null,
-                                  val completenessVersion: Int = 0)
+                                  val completenessVersion: Int = 0,
+                                  val embeddedMetadata: EmbeddedPatchMetadata? = null,
+                                  val fallbackPatchCount: Int? = null)
 
 private val runtimeJson = Json { ignoreUnknownKeys = true; prettyPrint = true }
 private val runtimeResults = RuntimeResultCache()
@@ -324,7 +327,7 @@ private fun extractWithRuntime(
                     if (!isUsablePatchArray(patches))
                         return RuntimeResult(null, "invalid_patch_metadata", hash, terminal = true)
                     successful = true
-                    return RuntimeResult(patches, "verified", hash, runtime.coordinate, completenessVersion = 1)
+                    return RuntimeResult(patches, "verified", hash, runtime.coordinate, completenessVersion = 4)
                 }
                 else -> failure = "runtime_initialization_failure"
             }
@@ -410,6 +413,15 @@ private fun extractDownloadedArtifact(artifact: File, hash: String, family: Stri
     } catch (_: Exception) {
         return RuntimeResult(null, "runtime_parsing_failure", hash, terminal = true)
     }
+    if (family != "Reseam") {
+        try { requireJvmPatchClasses(artifact) }
+        catch (_: IncompletePatchInventory) {
+            // Changing JVM versions cannot load a DEX/metadata-only archive.
+            return RuntimeResult(null, "incomplete_patch_inventory", hash, terminal = true,
+                attempts = listOf(RuntimeAttempt("artifact", "incomplete_patch_inventory", "No JVM patch classes")),
+                embeddedMetadata = embeddedPatchMetadata(artifact))
+        }
+    }
     val config = loadRuntimeConfiguration()
     val candidates = try {
         selectRuntimes(config, family, declared)
@@ -449,7 +461,8 @@ private fun extractDownloadedArtifact(artifact: File, hash: String, family: Stri
         allRejected = allRejected && result.terminal
         failure = result.status
     }
-    return RuntimeResult(null, failure, hash, terminal = allRejected, attempts = attempts)
+    return RuntimeResult(null, failure, hash, terminal = allRejected, attempts = attempts,
+        embeddedMetadata = if (family == "Reseam") null else embeddedPatchMetadata(artifact))
 }
 
 internal fun recordExtraction(
@@ -461,7 +474,7 @@ internal fun recordExtraction(
                                   java.time.Instant.now().toString(),
                                   if (result.status == "verified") null else runtimeFingerprint(), providerDigest,
                                   result.terminal, family, runtimeConfigHash(), result.reseamBundle,
-                                  parserRevision(), result.completenessVersion, result.attempts.take(40))
+                                  parserRevision(), result.completenessVersion, result.attempts.take(40), result.fallbackPatchCount)
     atomicWriteText(output, runtimeJson.encodeToString(record) + "\n")
 }
 

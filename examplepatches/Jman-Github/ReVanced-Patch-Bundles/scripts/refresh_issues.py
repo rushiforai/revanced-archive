@@ -39,6 +39,28 @@ def record_issue(root, source, phase, error):
     temporary.replace(path)
 
 
+def extraction_cause(attempts):
+    """Expose known diagnoses, never arbitrary worker output or URL contents."""
+    causes = []
+    for attempt in attempts:
+        cause = attempt.get("cause")
+        if not isinstance(cause, str):
+            continue
+        if cause == "No JVM patch classes":
+            causes.append("No JVM patch classes; archive contains DEX or metadata only")
+        elif attempt.get("status") == "runtime_missing_dependency":
+            match = re.fullmatch(
+                r"(?:[A-Za-z_$][A-Za-z0-9_$]* <- )*[A-Za-z_$][A-Za-z0-9_$]* "
+                r"([A-Za-z_$][A-Za-z0-9_$]*(?:\.[A-Za-z_$][A-Za-z0-9_$]*)+)",
+                cause,
+            )
+            if match:
+                causes.append("Missing class " + match[1])
+        elif cause in {"bundle_too_old", "bundle_too_new", "engine_too_old"}:
+            causes.append(cause)
+    return "; ".join(dict.fromkeys(causes))[:400]
+
+
 def extraction_issues(root, started_at):
     try:
         from scripts.source_cleanup import configured_sources
@@ -71,13 +93,37 @@ def extraction_issues(root, started_at):
         except (ValueError, TypeError):
             current = False
         if current and status.get("status") != "verified":
+            count = status.get("fallback_patch_count")
+            fallback = type(count) is int and 0 <= count <= 50000
+            if fallback:
+                list_path = path.with_name(
+                    path.name.replace("-extraction.json", "-patches-list.json")
+                )
+                try:
+                    metadata = json.loads(list_path.read_bytes())
+                    fallback = (
+                        metadata.get("version") == status.get("version")
+                        and isinstance(metadata.get("patches"), list)
+                        and len(metadata["patches"]) == count
+                    )
+                except (OSError, ValueError, AttributeError):
+                    fallback = False
             record_issue(
                 root,
                 source,
-                "Patch extraction",
+                "Metadata fallback" if fallback else "Patch extraction",
                 str(status.get("version") or "Unknown version")
                 + ": "
+                + (
+                    f"{count} publisher patches available (unverified); binary extraction: "
+                    if fallback else ""
+                )
                 + str(status.get("status") or "Extraction failed")
+                + (
+                    ": " + explanation
+                    if (explanation := extraction_cause(status.get("runtime_attempts", [])))
+                    else ""
+                )
                 + (
                     " ("
                     + "; ".join(
@@ -90,7 +136,7 @@ def extraction_issues(root, started_at):
                         )
                     )[:600]
                     + ")"
-                    if status.get("runtime_attempts")
+                    if status.get("runtime_attempts") and not fallback
                     else ""
                 ),
             )

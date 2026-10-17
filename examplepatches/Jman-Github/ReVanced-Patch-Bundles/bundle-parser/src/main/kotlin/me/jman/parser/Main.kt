@@ -313,7 +313,7 @@ private fun sanitizeDependencies(patches: JsonArray): JsonArray {
             val obj = element as? JsonObject ?: return@map element
             val dependencies = obj["dependencies"] as? JsonArray ?: return@map element
             val sanitized = JsonArray(
-                dependencies.map { dep ->
+                dependencies.filter { it != JsonNull }.map { dep ->
                     val primitive = dep as? JsonPrimitive ?: return@map dep
                     JsonPrimitive(primitive.content.substringBefore("@"))
                 }
@@ -370,8 +370,9 @@ internal fun sanitizeCompatiblePackages(patches: JsonArray): JsonArray {
             val sanitizedPackages = JsonArray(
                 compatiblePackages.mapNotNull { packageElement ->
                     val packageObject = packageElement as? JsonObject ?: return@mapNotNull null
-                    val fallbackName = packageObject["packageName"]?.jsonPrimitive?.contentOrNull
-                    val packageName = packageObject["name"]?.jsonPrimitive?.contentOrNull ?: fallbackName
+                    val fallbackName = (packageObject["packageName"] as? JsonPrimitive)
+                        ?.takeIf { it.isString }?.contentOrNull?.takeIf { it.isNotBlank() }
+                    val packageName = fallbackName ?: packageObject["name"]?.jsonPrimitive?.contentOrNull
                     if (packageName.isNullOrBlank()) {
                         return@mapNotNull null
                     }
@@ -513,7 +514,8 @@ internal fun processBundle(
                 val digestMatches = extracted.hash == null || matchesProviderDigest(
                     parsedBundle.providerDigest, extracted.hash, parsedBundle.providerDigest)
                 val extraction = if (digestMatches) extracted else
-                    extracted.copy(patches = null, status = "artifact_digest_mismatch", terminal = false, paused = false)
+                    extracted.copy(patches = null, embeddedMetadata = null,
+                        status = "artifact_digest_mismatch", terminal = false, paused = false)
                 if (extraction.paused) return@processVariant
                 // Revoke old proof before cleanup or writing, including failures
                 // after binary extraction returned a patch array.
@@ -523,6 +525,7 @@ internal fun processBundle(
                     downloadUri, pending, parsedBundle.providerDigest, family)
                 // Keep existing metadata fallback behavior; only binary extraction receives artifact proof.
                 val created = extraction.patches?.let(::canonicalizePatchArray)
+                    ?: embeddedFallbackPatches(extraction.embeddedMetadata, parsedBundle.version)?.let(::canonicalizePatchArray)
                     ?: if (fallback != null) fallback(downloadUri, parsedBundle.version)
                     else generateFallbackPatchList(downloadUri, parsedBundle.version, family)
                 if (created == null) {
@@ -530,7 +533,8 @@ internal fun processBundle(
                     downloadUri, extraction, parsedBundle.providerDigest, family)
                     return@processVariant
                 }
-                val result = if (extraction.patches == null) extraction else extraction.copy(patches = created)
+                val result = if (extraction.patches == null) extraction.copy(fallbackPatchCount = created.size)
+                    else extraction.copy(patches = created)
                 writePatchList(outputPatchesFile, parsedBundle.version, created)
                 FreshAppPackages.add(bundleFolder.name, parsedBundle.version, parsedBundle.downloadUrl, created)
                 recordExtraction(recordFile, outputPatchesFile, parsedBundle.version,
@@ -692,16 +696,18 @@ private fun fetchReleaseMetadata(location: ReleaseLocation): JsonObject? {
     return null
 }
 
-private fun findPatchMetadataAsset(releaseJson: JsonObject): String? {
+internal fun findPatchMetadataAsset(releaseJson: JsonObject): String? {
     val assets = releaseJson["assets"]?.jsonArray ?: return null
     val candidates = assets.mapNotNull { it as? JsonObject }
     fun JsonObject.downloadUrl(): String? = this["browser_download_url"]?.jsonPrimitive?.contentOrNull
     fun JsonObject.assetName(): String = this["name"]?.jsonPrimitive?.contentOrNull.orEmpty()
 
     val prioritized = candidates.firstOrNull { it.assetName().equals("patches.json", ignoreCase = true) }
+        ?: candidates.firstOrNull { it.assetName().equals("patches-list.json", ignoreCase = true) }
         ?: candidates.firstOrNull {
             val lower = it.assetName().lowercase(Locale.ROOT)
-            lower.endsWith("patches.json") || (lower.contains("patch") && lower.endsWith(".json"))
+            lower != "patches-bundle.json" &&
+                (lower.endsWith("patches.json") || (lower.contains("patch") && lower.endsWith(".json")))
         }
     return prioritized?.downloadUrl()
 }
@@ -714,9 +720,9 @@ private fun generatePatchListFromRepositoryFile(
     val attempts = listOf(location.tag, null)
 
     for (ref in attempts) {
-        val payload = downloadRepositoryFile(location, "patches-list.json", ref) ?: continue
+        val payload = downloadRepositoryFile(location, "patches-list.json", ref?.let { "refs/tags/$it" }) ?: continue
         val sourceLabel = ref?.let { "ref $it" } ?: "default branch"
-        val parsed = parseRepositoryPatchListPayload(payload, expectedVersion)
+        val parsed = parseRepositoryPatchListPayload(payload, expectedVersion, ref?.takeIf { it == location.tag })
         if (parsed == null) {
             Logger.warning(
                 "Repository patches-list.json from ${location.owner}/${location.repo} ($sourceLabel) " +
@@ -762,7 +768,15 @@ private fun generatePatchListFromGitLabRepositoryFile(
     return null
 }
 
-private fun parseRepositoryPatchListPayload(payload: String, expectedVersion: String): JsonArray? {
+internal fun parseRepositoryPatchListPayload(
+    payload: String, expectedVersion: String, releaseTag: String? = null
+): JsonArray? {
+    val element = runCatching { Json.parseToJsonElement(payload) }.getOrNull() ?: return null
+    if (element is JsonArray) {
+        // A default branch's unversioned list cannot describe a historical release.
+        if (releaseTag == null || !versionsMatch(releaseTag, expectedVersion)) return null
+        return convertPatchMetadataPayload(payload)
+    }
     val parsed = try {
         parsingJson.decodeFromString<LocalPatchesFile>(payload)
     } catch (e: SerializationException) {
@@ -783,7 +797,7 @@ private fun parseRepositoryPatchListPayload(payload: String, expectedVersion: St
     return parsed.patches
 }
 
-private fun versionsMatch(left: String, right: String): Boolean =
+internal fun versionsMatch(left: String, right: String): Boolean =
     normalizeVersionForComparison(left) == normalizeVersionForComparison(right)
 
 private fun normalizeVersionForComparison(value: String): String =
@@ -816,16 +830,17 @@ private fun downloadRepositoryFile(location: ReleaseLocation, path: String, ref:
                 HttpURLConnection.HTTP_OK -> {
                     val body = connection.inputStream.bufferedReader().use { it.readText() }
                     val response = Json.parseToJsonElement(body).jsonObject
-                    val downloadUrl = response["download_url"]?.jsonPrimitive?.contentOrNull
-                    if (!downloadUrl.isNullOrBlank()) {
-                        return downloadPlainText(downloadUrl)
-                    }
-
                     val content = response["content"]?.jsonPrimitive?.contentOrNull
                     val encoding = response["encoding"]?.jsonPrimitive?.contentOrNull
                     if (!content.isNullOrBlank() && encoding.equals("base64", ignoreCase = true)) {
                         val normalized = content.replace("\n", "").replace("\r", "")
                         return String(Base64.getDecoder().decode(normalized), StandardCharsets.UTF_8)
+                    }
+
+                    // Prefer the body bound to this exact ref; it also saves a second request.
+                    val downloadUrl = response["download_url"]?.jsonPrimitive?.contentOrNull
+                    if (!downloadUrl.isNullOrBlank()) {
+                        return downloadPlainText(downloadUrl)
                     }
 
                     Logger.warning(
@@ -965,7 +980,10 @@ internal fun convertCompatibilityArray(array: JsonArray?): JsonElement {
     }
     val mapped = array.mapNotNull { entry ->
         val compatObj = entry as? JsonObject ?: return@mapNotNull null
-        val packageName = compatObj["name"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
+        val packageName = (compatObj["packageName"] as? JsonPrimitive)
+            ?.takeIf { it.isString }?.contentOrNull?.takeIf { it.isNotBlank() }
+            ?: compatObj["name"]?.jsonPrimitive?.contentOrNull
+            ?: return@mapNotNull null
         val versionsElement = compatObj["versions"]
         val versions = when (versionsElement) {
             is JsonArray -> versionsElement.mapNotNull { it.jsonPrimitive.contentOrNull }

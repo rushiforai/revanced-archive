@@ -182,9 +182,17 @@ async function rest(catalog, url) {
     if (params.has("source")) where.source.id = {_in:await catalog.sourceIds(params.get("source"))};
     else where.is_latest = {_eq:true};
     const args = {limit:Number(params.get("limit") ?? 100),offset:Number(params.get("offset") ?? 0),where};
-    const data = await Promise.all((await catalog.rows("bundle",args)).map(row=>catalog.restRow(row)));
-    if (params.has("source")) for (const row of data) row.description = row.description ? "Available" : "";
-    return {data,generation:catalog.manifest.generation};
+    const data = await catalog.restRows(await catalog.rows("bundle",args));
+    // Browsing needs summaries; changelogs and full source inventories are loaded on demand.
+    for (const row of data) {
+      row.description = row.description ? "Available" : "";
+      if (row.source) {
+        const {bundles,...source} = row.source;
+        row.source = source;
+      }
+    }
+    const total = await catalog.count("bundle",{where});
+    return {data,total,generation:catalog.manifest.generation};
   }
   if (catalog.rows && path === "/catalog/patches") {
     if (params.get("generation") !== catalog.manifest.generation)
