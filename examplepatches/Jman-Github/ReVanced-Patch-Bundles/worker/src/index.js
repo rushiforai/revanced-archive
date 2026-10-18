@@ -7,6 +7,7 @@ import { latestReleaseIds } from "../../shared/site.js";
 import { runGraphQL, withPostgresLocale } from "./graphql.js";
 import { openapi } from "./openapi.js";
 import { liveJobs, mergeJobs } from "./jobs.js";
+import { gitHosts } from "../../shared/hosts.js";
 export { RefreshStatus } from "./jobs.js";
 export { CatalogSubscriptions } from "./subscriptions.js";
 
@@ -41,6 +42,16 @@ function corsHeaders(request, env) {
   if (origin && allowed.includes(origin)) headers["Access-Control-Allow-Origin"] = origin;
   return headers;
 }
+function matchesEtag(request, etag) {
+  if (!["GET", "HEAD"].includes(request.method)) return false;
+  const condition = request.headers.get("If-None-Match");
+  if (!condition || !etag) return false;
+  if (condition.trim() === "*") return true;
+  // If-None-Match uses weak comparison; proxies can weaken tags on compression.
+  const opaque = tag => tag.replace(/^W\//, "");
+  const tags = condition.match(/(?:W\/)?"[\x21\x23-\x7e\x80-\xff]*"/g) ?? [];
+  return tags.some(tag => opaque(tag) === opaque(etag));
+}
 async function jsonResponse(request, env, data, status, generation, cacheable = true) {
   let body = JSON.stringify(data);
   if (new TextEncoder().encode(body).length > MAX_RESPONSE) {
@@ -55,7 +66,7 @@ async function jsonResponse(request, env, data, status, generation, cacheable = 
     new TextEncoder().encode((generation ?? "") + body)))]
     .map(n => n.toString(16).padStart(2, "0")).join("");
   headers.ETag = '"' + hash + '"';
-  if (status === 200 && request.headers.get("If-None-Match") === headers.ETag)
+  if (status === 200 && matchesEtag(request, headers.ETag))
     return new Response(null, { status: 304, headers });
   return new Response(body, { status, headers });
 }
@@ -64,7 +75,7 @@ function manifestResponse(request, env, manifest) {
   const headers = { ...corsHeaders(request, env), "Content-Type": "application/json; charset=utf-8",
     "X-Content-Type-Options": "nosniff", "Cache-Control": "public, max-age=60",
     "X-Catalog-Generation": manifest.generation, "ETag": '"manifest-' + manifest.generation + '"' };
-  if (request.headers.get("If-None-Match") === headers.ETag)
+  if (matchesEtag(request, headers.ETag))
     return new Response(null, { status: 304, headers });
   return new Response(JSON.stringify(manifest), { headers });
 }
@@ -114,6 +125,79 @@ function legacyDto(bundle) {
     download_url: bundle.download_url, signature_download_url:
       bundle.signature_download_url === "N/A" ? "" : (bundle.signature_download_url ?? ""),
     ...bundleImages(bundle) };
+}
+
+/** Retrieve the publisher's native index, checking cached identity when available. */
+async function fetchReseamIndex(releaseUrl, env) {
+  const origin = new URL(releaseUrl);
+  let current = origin;
+  const signal = AbortSignal.timeout(12000);
+  const fetcher = env.RESEAM_RELEASE_FETCH ?? fetch;
+  for (let redirects = 0; redirects < 5; redirects++) {
+    const response = await fetcher(current.href, { redirect: "manual", signal });
+    if (![301, 302, 303, 307, 308].includes(response.status)) return response;
+    const location = response.headers.get("Location");
+    let next;
+    try { next = new URL(location, current); }
+    catch { throw new CatalogError("Reseam release asset redirect is invalid", 503); }
+    // GitHub and GitLab serve legitimate release downloads through these HTTPS
+    // object hosts. Never follow arbitrary redirects from a publisher's origin.
+    const trustedCdn = (origin.hostname === "github.com" &&
+      ["release-assets.githubusercontent.com", "objects.githubusercontent.com"].includes(next.hostname)) ||
+      (origin.hostname === "gitlab.com" && next.hostname === "storage.googleapis.com");
+    if (!location || next.protocol !== "https:" || next.username || next.password ||
+        next.hash || (next.origin !== origin.origin && (!trustedCdn || next.port)) ||
+        next.href === current.href)
+      throw new CatalogError("Reseam release asset redirected to an untrusted host", 503);
+    current = next;
+  }
+  throw new CatalogError("Too many Reseam release asset redirects", 503);
+}
+async function reseamReleaseIndex(bundle, env) {
+  const publisher = bundle.reseam_bundle;
+  if (bundle.bundle_type !== "Reseam") throw new CatalogError("Source has no matching Reseam bundle",404);
+  // A native index remains usable by Reseam Manager even if this catalog's
+  // binary inspector does not yet support the publisher's newest engine.
+  // When verified identity is available, require the upstream index to match.
+  if (publisher && (typeof publisher.name !== "string" ||
+      !/^[a-f0-9]{64}$/i.test(publisher.public_key ?? "")))
+    throw new CatalogError("Reseam publisher metadata is invalid",503);
+  const source = new URL(normalizeSource(bundle.source.url));
+  if (source.protocol !== "https:")
+    throw new CatalogError("Reseam release source must use HTTPS", 422);
+  const tag = String(bundle.version ?? "");
+  if (!/^[A-Za-z0-9][A-Za-z0-9._+\-]{0,127}$/.test(tag))
+    throw new CatalogError("Unsupported release tag for Reseam native index",422);
+  // The release asset is built from a canonical, configured Git host and an
+  // encoded tag, never a URL provided by the API caller.
+  const root = source.href.replace(/\/$/, "");
+  const releaseUrl = root + (gitHosts[source.host] === "gitlab" ?
+    "/-/releases/" + encodeURIComponent(tag) + "/downloads/patches.json" :
+    "/releases/download/" + encodeURIComponent(tag) + "/patches.json");
+  let response;
+  try { response = await fetchReseamIndex(releaseUrl, env); }
+  catch { throw new CatalogError("Reseam native release index is temporarily unavailable",503); }
+  if (response.status === 404) throw new CatalogError("This release has no patches.json asset",404);
+  if (!response.ok) throw new CatalogError("Reseam native release index is unavailable",503);
+  let document;
+  try { document = JSON.parse(await limitedText(response, MAX_RESPONSE)); }
+  catch (error) {
+    if (error instanceof CatalogError) throw error;
+    throw new CatalogError("Reseam release index is invalid",502);
+  }
+  const releases = document?.releases;
+  if (!document || typeof document !== "object" || !document.bundle ||
+      !/^[a-f0-9]{64}$/i.test(document.bundle.public_key ?? "") ||
+      typeof document.bundle.name !== "string" ||
+      (publisher && (document.bundle.public_key.toLowerCase() !== publisher.public_key.toLowerCase() ||
+        document.bundle.name !== publisher.name)) || !Array.isArray(releases) ||
+      !releases.length || !releases.every(row => row && typeof row.version === "string" &&
+        typeof row.download_url === "string" && typeof row.prerelease === "boolean" &&
+        typeof row.description === "string" && typeof row.created_at === "string" &&
+        (!Object.hasOwn(row, "patches") || Array.isArray(row.patches))) ||
+      releases.filter(row => row.version.replace(/^v/, "") === tag.replace(/^v/, "")).length !== 1)
+    throw new CatalogError("Reseam release index does not match the verified publisher and version",502);
+  return document;
 }
 function filteredBundles(bundles, params) {
   const q = (params.get("q") ?? "").toLowerCase();
@@ -171,7 +255,7 @@ async function selectedApps(catalog, params) {
   });
   return { apps, bundles };
 }
-async function rest(catalog, url) {
+async function rest(catalog, url, env = {}) {
   const originalPath = url.pathname.replace(/\/$/, "");
   const path = originalPath.replace(/^\/api\/v1(?=\/(?:sources|bundles|releases|packages|patches|availability|apps)(?:\/|$))/, "");
   const params = url.searchParams;
@@ -291,7 +375,7 @@ async function rest(catalog, url) {
   }
   if (path === "/health") return { ok: true, generation: catalog.manifest.generation,
                                   counts: catalog.manifest.counts };
-  if (path === "/api/v3/bundle" || path === "/api/reseam/bundle") {
+  if (path === "/api/v3/bundle" || path === "/api/reseam/bundle" || path === "/api/reseam/patches.json") {
     const sourceUrl = params.get("source_url");
     const version = params.get("version")?.trim();
     if (!sourceUrl || !version) throw new CatalogError("source_url and version are required");
@@ -311,6 +395,7 @@ async function rest(catalog, url) {
     if (!bundles.length) throw new CatalogError("No cached bundle matches source and version", 404);
     const bundle = { ...bundles[0], ...(await catalog.file("bundles/" + bundles[0].id + ".json")),
                      source: bundles[0].source };
+    if (path === "/api/reseam/patches.json") return reseamReleaseIndex(bundle, env);
     if (path === "/api/reseam/bundle") {
       if (bundle.bundle_type !== "Reseam") throw new CatalogError("Source has no matching Reseam bundle", 404);
       const publisher = bundle.reseam_bundle;
@@ -573,7 +658,7 @@ export default {
         const headers = {...corsHeaders(request,env),"Content-Type":"application/json",
           "Cache-Control":"public,max-age=31536000,immutable","ETag":'"'+document.files[name]+'"',
           "X-Catalog-Generation":match[1],"X-Content-Type-Options":"nosniff"};
-        if (request.headers.get("If-None-Match") === headers.ETag)
+        if (matchesEtag(request, headers.ETag))
           return new Response(null,{status:304,headers});
         return new Response(object.body ?? JSON.stringify(await object.json()),{headers});
       }
@@ -586,7 +671,7 @@ export default {
       const responseKey = new Request(cacheUrl);
       const cached = responseCache && await responseCache.match(responseKey);
       if (cached) {
-        if (request.headers.get("If-None-Match") === cached.headers.get("ETag"))
+        if (matchesEtag(request, cached.headers.get("ETag")))
           return new Response(null,{status:304,headers:cached.headers});
         return cached;
       }
@@ -602,7 +687,7 @@ export default {
           operationName: url.searchParams.get("operationName") ?? undefined };
         result = await runGraphQL(catalog, payload);
       } else result = await withPostgresLocale(catalog.regexLocale ?? "en_US.utf8",
-        () => rest(catalog, url));
+        () => rest(catalog, url, env));
       const response = await jsonResponse(request, env, result, 200, generation, !result.errors);
       if (responseCache && response.status === 200 && !result.errors)
         context.waitUntil(responseCache.put(responseKey,response.clone()));
