@@ -6,6 +6,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- GitHub Actions の月間利用時間を抑えるため、Dependabot version update と自動マージを毎週・即時処理から毎月28日（Asia/Tokyo）の月末一括処理へ変更した。
+- 重複するビルドCIを自動で取り消し、Gradleの独立タスクとビルドキャッシュを利用してRVP生成を短縮した。
+
 ### Fixed
 
 - CI と Dependabot の分類の実行順が前後しても更新を取りこぼさないよう、同じ PR 番号と head SHA を再照合する経路を追加した。

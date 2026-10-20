@@ -1,5 +1,11 @@
 # 検証手順
 
+## 2026-10-19: CI高速化
+
+- 変更したGitHub Actionsをactionlint 1.7.12で検査し、エラー0件を確認した。
+- GitHub上の未解決Dependabot更新PRと依存脆弱性アラートがともに0件であることを確認した。
+- Android SDKを明示し、RVP生成タスクへ`--parallel --build-cache --dry-run`を指定してタスクグラフ生成が成功した。
+
 ## 2026-10-16: findings.mdへの文書分離
 
 - 比較元: `04c56c1cb2ba7d8ff8043449abbc36ee707b82af`。目的は、共通の行動規律と固有の実現手段・過去の知見を分け、次の作業者が着手前に全文確認できるようにすること。
@@ -23,3 +29,8 @@
 - 既存の固有質問・入力例・必須条件を原文と照合。READMEのリンク・画像・コマンド・条件を確認し、裏付けがある誤記だけを訂正した。
 - 既存のCI、Dependabot、labeler、ライセンスのファイル内容は比較元から変更していない。
 - 製品のビルド・インストール・実機操作、GitHub上のフォーム表示、公開後CIは今回の静的検証に含めない。公開後に実際の受付表示と必要ラベルの適用を確認する。
+
+## 2026-10-20: Dependabot 月末一括処理
+
+- `.github/dependabot.yml` は毎月28日00:00、`.github/workflows/dependabot-automation.yml` は同日18:00（いずれも `Asia/Tokyo`）に設定した。呼び出し先は検証済み共通 workflow の固定 SHA とし、現在の head SHA、Dependabot の資格状態、全 PR チェック成功を merge 前に再確認する。
+- YAML 構文、変更差分、空白エラーをローカルで検査した。実際の月末 schedule と Dependabot PR の merge 経路は、次回の毎月28日実行で確認する。
