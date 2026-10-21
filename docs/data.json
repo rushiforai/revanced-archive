@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-20 04:31 UTC",
+  "generatedAt": "2026-10-21 03:44 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 810,
-  "patchCount": 2964,
+  "appCount": 813,
+  "patchCount": 2973,
   "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
@@ -2101,27 +2101,27 @@
       "webUrl": "https://github.com/ch3thanhs/stylus",
       "addUrl": "https://Revanced.software/add-source?github=ch3thanhs/stylus",
       "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
-      "patchCount": 6,
-      "appCount": 4,
+      "patchCount": 8,
+      "appCount": 5,
       "createdAt": 1784837694852,
       "updatedAt": 1784837694852,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.7.1 (2026-10-11)",
-        "date": "2026-10-11",
+        "title": "1.8.0 (2026-10-21)",
+        "date": "2026-10-21",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Bitwarden:** Update app support to 2026.9.1"
+            "category": "\u2728 New Features",
+            "text": "**where-is-my-train:** add font patches"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**where-is-my-train:** add optional font feature settings"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**GitHub:** Update app support to 1.280.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Telegram:** Update app support to 13.0.1 and 12.10.6 (web version)"
+            "text": "update GitHub, Bitwarden, and Telegram app support"
           }
         ]
       },
@@ -2153,6 +2153,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#2CA5E0"
+        },
+        {
+          "name": "Where is my Train",
+          "packageName": "com.whereismytrain.android",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#0277BD"
         }
       ]
     },
@@ -3919,23 +3926,19 @@
       "webUrl": "https://github.com/franticg33k/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=franticg33k/morphe-patches",
       "avatarUrl": "https://github.com/franticg33k.png?size=96",
-      "patchCount": 27,
-      "appCount": 13,
+      "patchCount": 29,
+      "appCount": 14,
       "createdAt": 1784836034684,
       "updatedAt": 1784836034684,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.5.1 (2026-10-19)",
-        "date": "2026-10-19",
+        "title": "1.6.0 (2026-10-21)",
+        "date": "2026-10-21",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+            "category": "\u2728 New Features",
+            "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
           }
         ]
       },
@@ -3995,6 +3998,13 @@
           "patchCount": 1,
           "iconUrl": "",
           "iconColor": "#1565C0"
+        },
+        {
+          "name": "Marriage",
+          "packageName": "com.bhoos.marriage",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#E0457B"
         },
         {
           "name": "Native Camera",
@@ -10512,19 +10522,19 @@
       "webUrl": "https://github.com/totsiaw/proxma-patches",
       "addUrl": "https://Revanced.software/add-source?github=totsiaw/proxma-patches",
       "avatarUrl": "https://github.com/totsiaw.png?size=96",
-      "patchCount": 26,
-      "appCount": 11,
+      "patchCount": 31,
+      "appCount": 12,
       "createdAt": 1784837695610,
       "updatedAt": 1784837695610,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.17.0 (2026-10-17)",
-        "date": "2026-10-17",
+        "title": "1.22.2 (2026-10-21)",
+        "date": "2026-10-21",
         "items": [
           {
-            "category": "New Features",
-            "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+            "category": "Bug Fixes",
+            "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
           }
         ]
       },
@@ -10535,6 +10545,13 @@
           "patchCount": 4,
           "iconUrl": "",
           "iconColor": "#D70F64"
+        },
+        {
+          "name": "inDrive",
+          "packageName": "sinet.startup.inDriver",
+          "patchCount": 1,
+          "iconUrl": "",
+          "iconColor": "#C1F11D"
         },
         {
           "name": "Investify",
@@ -10567,7 +10584,7 @@
         {
           "name": "NetMonster",
           "packageName": "cz.mroczis.netmonster",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#00BCD4"
         },
@@ -10595,7 +10612,7 @@
         {
           "name": "Simosa",
           "packageName": "com.jazz.jazzworld",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": "#FF6B35"
         },
@@ -11104,12 +11121,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.14.0-dev.1 (2026-10-19)",
-        "date": "2026-10-19",
+        "title": "1.13.16 (2026-10-20)",
+        "date": "2026-10-20",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**avito:** support version 235.5"
           }
         ]
       },
@@ -15405,8 +15422,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -15414,12 +15431,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -15547,16 +15564,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -16742,12 +16755,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.0-dev.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.13.16 (2026-10-20)",
+            "date": "2026-10-20",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** support version 235.5"
               }
             ]
           },
@@ -16803,7 +16816,8 @@
             "233.5",
             "234.0",
             "234.5",
-            "235.1"
+            "235.1",
+            "235.5"
           ]
         }
       ],
@@ -16862,7 +16876,8 @@
         "233.5",
         "234.0",
         "234.5",
-        "235.1"
+        "235.1",
+        "235.5"
       ],
       "iconColor": "#00AAFF",
       "iconUrl": ""
@@ -19000,20 +19015,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.7.1 (2026-10-11)",
-            "date": "2026-10-11",
+            "title": "1.8.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.9.1"
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add font patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add optional font feature settings"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.280.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.0.1 and 12.10.6 (web version)"
+                "text": "update GitHub, Bitwarden, and Telegram app support"
               }
             ]
           },
@@ -19031,7 +19046,7 @@
             }
           ],
           "versions": [
-            "2026.9.1"
+            "2026.10.0"
           ]
         }
       ],
@@ -19045,7 +19060,7 @@
         }
       ],
       "versions": [
-        "2026.9.1"
+        "2026.10.0"
       ],
       "iconColor": "#175DDC",
       "iconUrl": ""
@@ -19775,8 +19790,8 @@
       "patches": [
         "AMOLED dark theme",
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -19788,12 +19803,12 @@
           "description": "Stops the Google Mobile Ads SDK from starting and reading the advertising ID."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks the HalfBlur effect."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlock Premium Features in app."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the HalfBlur effect."
         }
       ],
       "versions": [
@@ -19885,16 +19900,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -21284,16 +21295,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -25943,20 +25950,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.7.1 (2026-10-11)",
-            "date": "2026-10-11",
+            "title": "1.8.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.9.1"
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add font patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add optional font feature settings"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.280.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.0.1 and 12.10.6 (web version)"
+                "text": "update GitHub, Bitwarden, and Telegram app support"
               }
             ]
           },
@@ -25986,7 +25993,7 @@
             }
           ],
           "versions": [
-            "1.280.0"
+            "1.281.0"
           ]
         },
         {
@@ -26162,7 +26169,7 @@
       ],
       "versions": [
         "1.271.1",
-        "1.280.0"
+        "1.281.0"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -37594,12 +37601,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -38178,16 +38185,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -39776,16 +39779,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -42502,6 +42501,66 @@
       "iconUrl": ""
     },
     {
+      "packageName": "sinet.startup.inDriver",
+      "name": "inDrive",
+      "repos": [
+        "totsiaw/proxma-patches"
+      ],
+      "sources": [
+        {
+          "repo": "totsiaw/proxma-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/totsiaw/proxma-patches",
+          "addUrl": "https://Revanced.software/add-source?github=totsiaw/proxma-patches",
+          "source": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/totsiaw.png?size=96",
+          "latestChanges": {
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "sinet-startup-indriver-totsiaw-proxma-patches",
+            "releaseTag": "app-sinet-startup-indriver-totsiaw-proxma-patches",
+            "assetName": "indrive-totsiaw-proxma-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Remove ads",
+              "description": "Removes inDrive's Google ads \u2014 the banner, the card shown during and after a ride, and the full-screen ones \u2014 by switching the app's own Google Ads enable flags off, so it never asks Google for an ad. Rides, chat, payments and inDrive's own promo codes keep working."
+            }
+          ],
+          "versions": [
+            "5.188.0",
+            "5.189.0"
+          ]
+        }
+      ],
+      "patches": [
+        "Remove ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Remove ads",
+          "description": "Removes inDrive's Google ads \u2014 the banner, the card shown during and after a ride, and the full-screen ones \u2014 by switching the app's own Google Ads enable flags off, so it never asks Google for an ad. Rides, chat, payments and inDrive's own promo codes keep working."
+        }
+      ],
+      "versions": [
+        "5.188.0",
+        "5.189.0"
+      ],
+      "iconColor": "#C1F11D",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.wb.goog.injustice",
       "name": "Injustice: Gods Among Us",
       "repos": [
@@ -43994,12 +44053,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -44588,16 +44647,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -44659,16 +44714,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -46394,16 +46445,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -50258,6 +50305,73 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.bhoos.marriage",
+      "name": "Marriage",
+      "repos": [
+        "franticg33k/morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "franticg33k/morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/franticg33k/morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=franticg33k/morphe-patches",
+          "source": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/franticg33k.png?size=96",
+          "latestChanges": {
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-bhoos-marriage-franticg33k-morphe-patches",
+            "releaseTag": "app-com-bhoos-marriage-franticg33k-morphe-patches",
+            "assetName": "marriage-franticg33k-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Reward when the ad fails to load",
+              "description": "The reward for a rewarded ad is granted by one branch of the ad listener, and the redemption call it makes (a/redeemAdReward) never checks that an ad was actually shown. This routes the ad-load-failure branch into that same reward call, so pressing \"Watch ad\" with no ad available pays out instead of showing \"Ad Error\"."
+            },
+            {
+              "name": "Skip hourly gift cooldown",
+              "description": "Removes the one-hour countdown gate on the lobby gift button, so the gift screen opens on every press instead of after the timer. The window is computed on the device (account.giftTimeStamp + 1 h) - this only removes that gate; whether the server accepts a claim inside the hour is up to the server."
+            }
+          ],
+          "versions": [
+            "2.8.45"
+          ]
+        }
+      ],
+      "patches": [
+        "Reward when the ad fails to load",
+        "Skip hourly gift cooldown"
+      ],
+      "patchDetails": [
+        {
+          "name": "Reward when the ad fails to load",
+          "description": "The reward for a rewarded ad is granted by one branch of the ad listener, and the redemption call it makes (a/redeemAdReward) never checks that an ad was actually shown. This routes the ad-load-failure branch into that same reward call, so pressing \"Watch ad\" with no ad available pays out instead of showing \"Ad Error\"."
+        },
+        {
+          "name": "Skip hourly gift cooldown",
+          "description": "Removes the one-hour countdown gate on the lobby gift button, so the gift screen opens on every press instead of after the timer. The window is computed on the device (account.giftTimeStamp + 1 h) - this only removes that gate; whether the server accepts a claim inside the hour is up to the server."
+        }
+      ],
+      "versions": [
+        "2.8.45"
+      ],
+      "iconColor": "#E0457B",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.pryshedko.materialpods",
       "name": "MaterialPods",
       "repos": [
@@ -53685,12 +53799,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -54227,12 +54341,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -54888,12 +55002,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -55098,16 +55212,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -55334,16 +55444,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -55511,12 +55617,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -55529,20 +55635,40 @@
           },
           "patches": [
             {
+              "name": "Bypass Play license check (NetMonster)",
+              "description": "Removes Google Play's PairIP license check so a re-signed NetMonster 5.0.x build runs instead of being blocked by the \"Get this app from Play\" screen. Without it, patched 5.0.0 / 5.0.1 open the Play Store on launch and close. No effect on 4.0.4, which has no such check."
+            },
+            {
+              "name": "Google Maps API key (NetMonster)",
+              "description": "Optional: write YOUR OWN Google Maps API key so the map renders after re-signing (NetMonster's built-in key is cert-locked). Leave the key empty to leave the map as-is."
+            },
+            {
               "name": "Unlock premium (NetMonster)",
               "description": "Unlocks NetMonster Premium \u2014 forces the Adapty entitlement collector to always report premium active, so real-time LTE/NR-NSA location calculation is unlocked, ads are removed, and the status shows Active without a subscription."
             }
           ],
           "versions": [
-            "4.0.4"
+            "4.0.4",
+            "5.0.0",
+            "5.0.1"
           ]
         }
       ],
       "patches": [
+        "Bypass Play license check (NetMonster)",
+        "Google Maps API key (NetMonster)",
         "Unlock Premium",
         "Unlock premium (NetMonster)"
       ],
       "patchDetails": [
+        {
+          "name": "Bypass Play license check (NetMonster)",
+          "description": "Removes Google Play's PairIP license check so a re-signed NetMonster 5.0.x build runs instead of being blocked by the \"Get this app from Play\" screen. Without it, patched 5.0.0 / 5.0.1 open the Play Store on launch and close. No effect on 4.0.4, which has no such check."
+        },
+        {
+          "name": "Google Maps API key (NetMonster)",
+          "description": "Optional: write YOUR OWN Google Maps API key so the map renders after re-signing (NetMonster's built-in key is cert-locked). Leave the key empty to leave the map as-is."
+        },
         {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features."
@@ -55554,7 +55680,9 @@
       ],
       "versions": [
         "4.0.4",
-        "4.0.5"
+        "4.0.5",
+        "5.0.0",
+        "5.0.1"
       ],
       "iconColor": "#1565C0",
       "iconUrl": ""
@@ -56365,16 +56493,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -57965,12 +58089,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -57988,7 +58112,7 @@
             },
             {
               "name": "Remove ads",
-              "description": "Removes native feed ads (Google GMA), the full-height ad slot, and the \"Buy with Delivery\" promo section (bar, cards and View all) from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed classes)."
+              "description": "Removes native feed ads (Google GMA), the full-height ad slot, the \"Buy with Delivery\" promo section (bar, cards and View all), and the three item-page banner slots from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed and item-page classes)."
             }
           ],
           "versions": [
@@ -58007,7 +58131,7 @@
         },
         {
           "name": "Remove ads",
-          "description": "Removes native feed ads (Google GMA), the full-height ad slot, and the \"Buy with Delivery\" promo section (bar, cards and View all) from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed classes)."
+          "description": "Removes native feed ads (Google GMA), the full-height ad slot, the \"Buy with Delivery\" promo section (bar, cards and View all), and the three item-page banner slots from OLX. Pinned to the 18.8.0 build (matches that build's obfuscated feed and item-page classes)."
         }
       ],
       "versions": [
@@ -58032,12 +58156,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -58903,12 +59027,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.0-dev.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.13.16 (2026-10-20)",
+            "date": "2026-10-20",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** support version 235.5"
               }
             ]
           },
@@ -58940,7 +59064,8 @@
             "19.37.0",
             "19.38.0",
             "19.38.2",
-            "19.39.0"
+            "19.39.0",
+            "19.40.0"
           ]
         }
       ],
@@ -59008,7 +59133,8 @@
         "19.37.0",
         "19.38.0",
         "19.38.2",
-        "19.39.0"
+        "19.39.0",
+        "19.40.0"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -63835,16 +63961,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -64217,8 +64339,8 @@
       ],
       "patches": [
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -64226,12 +64348,12 @@
           "description": "Disables analytics and crash reporting."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks Projectivy Launcher Premium"
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         }
       ],
       "versions": [
@@ -65436,16 +65558,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/franticg33k/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/franticg33k.png?size=96",
           "latestChanges": {
-            "title": "1.5.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.6.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**atlasphoto:** locate the branching setIsProMember setter in 2.7.9"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**byair:** drop the dead UpdateSubscriptionUserId stub from Enable Online Pro (2990578), closes #51"
+                "category": "\u2728 New Features",
+                "text": "**marriage:** skip hourly gift cooldown and pay out on ad-load failure"
               }
             ]
           },
@@ -65678,17 +65796,17 @@
         }
       ],
       "patches": [
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all regions. Removes ads and the upgrade button."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Forces the subscription gate to report an unlimited subscription, removing ads and the upgrade prompt. Constructs a minimal fake Purchase to prevent NPE/IOOB in call sites that dereference getProducts().get(0)."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all regions. Removes ads and the upgrade button."
         }
       ],
       "versions": [
@@ -67377,8 +67495,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass session expiry",
-        "Bypass Session Expiry"
+        "Bypass Session Expiry",
+        "Bypass session expiry"
       ],
       "patchDetails": [
         {
@@ -67386,12 +67504,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass session expiry",
-          "description": "Renews the session in the background instead of asking to sign in again. The sign-in prompt appears only when renewal fails."
-        },
-        {
           "name": "Bypass Session Expiry",
           "description": "Kills session expiry dialogs"
+        },
+        {
+          "name": "Bypass session expiry",
+          "description": "Renews the session in the background instead of asking to sign in again. The sign-in prompt appears only when renewal fails."
         }
       ],
       "versions": [
@@ -69630,12 +69748,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -71300,12 +71418,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -71318,8 +71436,16 @@
           },
           "patches": [
             {
+              "name": "Auto check-in & claim daily reward",
+              "description": "Claims the daily check-in reward on its own: opening the daily-rewards screen no longer waits for the check-in ad, the reward is granted right away. The missed-days restore and the day-10/20/30 milestone claim are untouched."
+            },
+            {
               "name": "Bypass signature verification",
               "description": "Disables Simosa's anti-tamper signature check so a re-signed APK launches normally instead of stalling on the splash / \"version is not correct\" dialog."
+            },
+            {
+              "name": "Dark theme (black background)",
+              "description": "Makes Simosa a dark app: screens, sheets, dialogs and menus use the dark palette (near-black background, light text) instead of the light one, including on Android 12+ where the app would otherwise take a light colour scheme from the wallpaper. The app's own red/orange branding and its white cards are left alone so text on them stays readable."
             },
             {
               "name": "Remove ads & tracking",
@@ -71331,19 +71457,30 @@
             }
           ],
           "versions": [
-            "3.3.4.2"
+            "3.3.4.2",
+            "3.3.5"
           ]
         }
       ],
       "patches": [
+        "Auto check-in & claim daily reward",
         "Bypass signature verification",
+        "Dark theme (black background)",
         "Remove ads & tracking",
         "Remove daily check-in ads"
       ],
       "patchDetails": [
         {
+          "name": "Auto check-in & claim daily reward",
+          "description": "Claims the daily check-in reward on its own: opening the daily-rewards screen no longer waits for the check-in ad, the reward is granted right away. The missed-days restore and the day-10/20/30 milestone claim are untouched."
+        },
+        {
           "name": "Bypass signature verification",
           "description": "Disables Simosa's anti-tamper signature check so a re-signed APK launches normally instead of stalling on the splash / \"version is not correct\" dialog."
+        },
+        {
+          "name": "Dark theme (black background)",
+          "description": "Makes Simosa a dark app: screens, sheets, dialogs and menus use the dark palette (near-black background, light text) instead of the light one, including on Android 12+ where the app would otherwise take a light colour scheme from the wallpaper. The app's own red/orange branding and its white cards are left alone so text on them stays readable."
         },
         {
           "name": "Remove ads & tracking",
@@ -71355,7 +71492,8 @@
         }
       ],
       "versions": [
-        "3.3.4.2"
+        "3.3.4.2",
+        "3.3.5"
       ],
       "iconColor": "#FF6B35",
       "iconUrl": ""
@@ -74826,12 +74964,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/totsiaw/proxma-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/totsiaw.png?size=96",
           "latestChanges": {
-            "title": "1.17.0 (2026-10-17)",
-            "date": "2026-10-17",
+            "title": "1.22.2 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "New Features",
-                "text": "**olx:** add OLX India remove-ads and remove-Elite-promotions patches (4632596), closes #24"
+                "category": "Bug Fixes",
+                "text": "**simosa:** resolve StateFlow descriptor dynamically to fix 3.3.5 crash"
               }
             ]
           },
@@ -76337,8 +76475,8 @@
       "patches": [
         "Disable Symfonium beta expiry",
         "Disable Symfonium trial expiry",
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
@@ -76351,12 +76489,12 @@
           "description": "Neutralises the expired-trial block screen. The welcome screen gates entry with a single `state instanceof ExpiredTrial` check; this forces that check to false, so the app proceeds on every launch (online, offline, or with a server-expired trial). The server handshake, billing/licence machinery and the offline fail-open path are left untouched. Validated on 15.0.1 (versionCode 127798)."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -77658,12 +77796,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.0-dev.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.13.16 (2026-10-20)",
+            "date": "2026-10-20",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** support version 235.5"
               }
             ]
           },
@@ -77934,20 +78072,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.7.1 (2026-10-11)",
-            "date": "2026-10-11",
+            "title": "1.8.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.9.1"
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add font patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add optional font feature settings"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.280.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.0.1 and 12.10.6 (web version)"
+                "text": "update GitHub, Bitwarden, and Telegram app support"
               }
             ]
           },
@@ -77965,7 +78103,7 @@
             }
           ],
           "versions": [
-            "12.10.6"
+            "13.0.2"
           ]
         },
         {
@@ -78389,9 +78527,9 @@
       ],
       "versions": [
         "12.10.1",
-        "12.10.6",
         "12.8.3",
-        "12.9.2"
+        "12.9.2",
+        "13.0.2"
       ],
       "iconColor": "#2AABEE",
       "iconUrl": ""
@@ -78413,20 +78551,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.7.1 (2026-10-11)",
-            "date": "2026-10-11",
+            "title": "1.8.0 (2026-10-21)",
+            "date": "2026-10-21",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.9.1"
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add font patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add optional font feature settings"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.280.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.0.1 and 12.10.6 (web version)"
+                "text": "update GitHub, Bitwarden, and Telegram app support"
               }
             ]
           },
@@ -78444,7 +78582,7 @@
             }
           ],
           "versions": [
-            "13.0.1"
+            "13.1.0"
           ]
         },
         {
@@ -78624,7 +78762,7 @@
       ],
       "versions": [
         "12.10.1",
-        "13.0.1"
+        "13.1.0"
       ],
       "iconColor": "#2CA5E0",
       "iconUrl": ""
@@ -84080,8 +84218,8 @@
       ],
       "patches": [
         "Disable rating prompt",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -84089,12 +84227,12 @@
           "description": "Stops the Google Play rating prompt from appearing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks premium, removes ads and the free session time limit."
-        },
-        {
           "name": "Unlock Premium",
           "description": ""
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks premium, removes ads and the free session time limit."
         }
       ],
       "versions": [
@@ -84941,6 +85079,81 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.whereismytrain.android",
+      "name": "Where is my Train",
+      "repos": [
+        "ch3thanhs/stylus"
+      ],
+      "sources": [
+        {
+          "repo": "ch3thanhs/stylus",
+          "host": "github.com",
+          "webUrl": "https://github.com/ch3thanhs/stylus",
+          "addUrl": "https://Revanced.software/add-source?github=ch3thanhs/stylus",
+          "source": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
+          "latestChanges": {
+            "title": "1.8.0 (2026-10-21)",
+            "date": "2026-10-21",
+            "items": [
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add font patches"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**where-is-my-train:** add optional font feature settings"
+              },
+              {
+                "category": "\ud83d\ude80 Updated App Support",
+                "text": "update GitHub, Bitwarden, and Telegram app support"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-whereismytrain-android-ch3thanhs-stylus",
+            "releaseTag": "app-com-whereismytrain-android-ch3thanhs-stylus",
+            "assetName": "where-is-my-train-ch3thanhs-stylus.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Custom font (Where is my Train)",
+              "description": "Replaces Where is my Train's bundled Google Sans, Nunito Sans, and Roboto UI fonts with a custom font file. Optional OpenType feature settings can enable alternate digits such as Inter's ss01 open-style numbers."
+            },
+            {
+              "name": "Force system font (Where is my Train)",
+              "description": "Renders the app using the device's system font instead of Google Sans / Nunito Sans."
+            }
+          ],
+          "versions": [
+            "7.1.5.974952539"
+          ]
+        }
+      ],
+      "patches": [
+        "Custom font (Where is my Train)",
+        "Force system font (Where is my Train)"
+      ],
+      "patchDetails": [
+        {
+          "name": "Custom font (Where is my Train)",
+          "description": "Replaces Where is my Train's bundled Google Sans, Nunito Sans, and Roboto UI fonts with a custom font file. Optional OpenType feature settings can enable alternate digits such as Inter's ss01 open-style numbers."
+        },
+        {
+          "name": "Force system font (Where is my Train)",
+          "description": "Renders the app using the device's system font instead of Google Sans / Nunito Sans."
+        }
+      ],
+      "versions": [
+        "7.1.5.974952539"
+      ],
+      "iconColor": "#0277BD",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.remi.widget",
       "name": "Widget 2026",
       "repos": [
@@ -85022,12 +85235,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.0-dev.1 (2026-10-19)",
-            "date": "2026-10-19",
+            "title": "1.13.16 (2026-10-20)",
+            "date": "2026-10-20",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**avito:** support version 235.5"
               }
             ]
           },
@@ -92413,12 +92626,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.14.0-dev.1 (2026-10-19)",
-        "date": "2026-10-19",
+        "title": "1.13.16 (2026-10-20)",
+        "date": "2026-10-20",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**avito:** hide the prize-portal incut on the Favorites screen (#142)"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**avito:** support version 235.5"
           }
         ]
       },
