@@ -151,7 +151,8 @@ public final class ImportActivity extends Activity {
             Utils.runOnMainThread(() -> {
                 if (playlistUrn != null) {
                     LocalAdditions.notifyPlaylistChanged(playlistUrn);
-                    if (done) PlaylistHeader.showCover(playlistUrn, LocalCovers.playlistCoverUrl(playlistUrn));
+                    // The open header is not bound again by the list: its playlist did not change.
+                    PlaylistHeader.redraw(playlistUrn);
                 }
                 if (file != null) LocalAdditions.notifyTrackChanged(new File(file));
                 Toast.makeText(context, done

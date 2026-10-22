@@ -508,7 +508,7 @@ public final class LocalAdditions {
                         LocalCovers.setPlaylistCover(playlistUrn, null);
                         Utils.runOnMainThread(() -> {
                             notifyPlaylistChanged(playlistUrn);
-                            PlaylistHeader.showCover(playlistUrn, null);
+                            PlaylistHeader.redraw(playlistUrn);
                         });
                     });
                 });
