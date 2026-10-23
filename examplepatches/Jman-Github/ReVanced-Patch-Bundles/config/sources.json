@@ -465,11 +465,6 @@
     "integrations": false,
     "disabled": false
   },
-  "AlexNaga": {
-    "patches": "https://github.com/AlexNaga/android-patches",
-    "integrations": false,
-    "disabled": false
-  },
   "rushiranpise": {
     "patches": "https://github.com/rushiranpise/morphe-patches",
     "integrations": false,
@@ -2055,11 +2050,6 @@
     "integrations": false,
     "disabled": false
   },
-  "cappys-patches": {
-    "patches": "https://github.com/CappyT/cappys-patches",
-    "integrations": false,
-    "disabled": false
-  },
   "lurk-morphe": {
     "patches": "https://github.com/jordanwoodson/lurk-morphe-patches",
     "integrations": false,
@@ -2245,11 +2235,6 @@
     "integrations": false,
     "disabled": false
   },
-  "codeghost-patches": {
-    "patches": "https://github.com/codeghost-glitch/codeghost-patches",
-    "integrations": false,
-    "disabled": false
-  },
   "morphe-catppuccin": {
     "patches": "https://github.com/titandrive/morphe-catppuccin",
     "integrations": false,
@@ -2257,6 +2242,11 @@
   },
   "spotify-tv-crossfade": {
     "patches": "https://github.com/ethan-manny/spotify-tv-crossfade",
+    "integrations": false,
+    "disabled": false
+  },
+  "oxbow": {
+    "patches": "https://github.com/aic0d3r/oxbow",
     "integrations": false,
     "disabled": false
   }
