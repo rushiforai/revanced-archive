@@ -126,6 +126,23 @@ build-and-install.cmd phone
 build-and-install.cmd emu
 ```
 
+Версия для китайских прошивок (`local/out/arsound-<версия SoundCloud>-china.apk`) — то же, но под именем пакета
+`com.kugou.viper` (KuGou Concept), которое уже есть в списке плеера в шторке vivo OriginOS и плееров OPPO/realme.
+Ставится рядом с обычной сборкой, с отдельным аккаунтом. Аргумент `china` сочетается с `phone` и `emu`:
+
+```bash
+build-and-install.cmd china
+build-and-install.cmd emu china
+```
+
+APK для Telegram-канала собираются из SoundCloud только с библиотеками телефона (`soundcloud-<версия>-arm64-merged.apk`,
+файл меньше) — аргумент `arm64`, тоже сочетается с `china`. `phone` без подключённого телефона просто оставляет APK в `local/out/`:
+
+```bash
+build-and-install.cmd phone arm64
+build-and-install.cmd phone arm64 china
+```
+
 Иконки и анимации пересобираются отдельно:
 
 ```bash
@@ -160,7 +177,7 @@ python tools/branding/design_icons.py
 
 Анимация фона темы (`theme/ThemeEffect.java`) повторяет макет «Анимации тем»: частицы считаются от времени, как
 CSS-кадры, рисуются на Canvas и идут только пока видны. Эффект выбирается по id темы (`scarlet`, `cobalt`, `mint`,
-`sakura`, `lime`); новой теме можно отдать чужой эффект полем `"effect"` в `themes.json`.
+`sakura`, `lime`, `winter`); новой теме можно отдать чужой эффект полем `"effect"` в `themes.json`.
 
 **Новая тема из макета Claude Design — одной командой.** Компонент телефона в макете хранит вид в объекте токенов
 `th` (bg, surface, surface2, deep, border, accent, pink, muted, text2, head, track, rc, coverBorder, mini, miniBorder,
@@ -195,7 +212,10 @@ python tools/branding/theme_from_design.py --from-palette cobalt
   заменяются значениями темы. Патч кладёт файл в приложение как `arsound_<тема>__<имя>`, приложение направляет на него
   ресурс SoundCloud `<тип>/<имя>`. Части: `lucideIcons` (иконки), `libraryIcons` (значки строк
   «Библиотеки», их SoundCloud не рисует — патч спрашивает значок у темы), `tabBar`, `miniPlayer`, `playerButtons`
-  (кнопки плеера и большая Play плейлистов), `homeGreeting` (приветствие и свечение на главной). Конвертер берёт все
+  (кнопки плеера и большая Play плейлистов), `homeGreeting` (приветствие и свечение на главной), `playerSkin` (новый
+  плеер: разметка страницы трека, верхней колонки кнопок, нижней панели и времени над волной). Часть из списка
+  `OPTIONAL_PARTS` в `ThemePatch.kt` включается в настройках: патч пишет её ресурсы в `theme-resources.json` под ключом
+  `_optional`, и приложение не подменяет их, пока переключатель выключен (`ArsoundTheme.isPlayerSkinEnabled`). Конвертер берёт все
   части из папки `parts`, так что новая часть сразу достаётся и новым темам. Файлы только одной темы лежат в
   `theme/overrides/<тема>/` и перекрывают файлы частей с тем же именем. Gradle сам пишет индекс файлов тем, списки
   вручную не ведутся. В разметке нужно сохранить id и классы элементов, которые ищет код SoundCloud; файлы с именем

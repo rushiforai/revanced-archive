@@ -30,7 +30,7 @@ import app.revanced.extension.soundcloud.settings.Settings;
 @SuppressWarnings("unused")
 public final class UpdateChecker {
     /** Must match {@code version} in gradle.properties. */
-    public static final String VERSION = "0.8.3";
+    public static final String VERSION = "0.9.2";
 
     public static final String REPOSITORY_URL = "https://github.com/Allvoid/arsound";
     /** The ready APK of every version is posted here. */
@@ -60,25 +60,37 @@ public final class UpdateChecker {
     private UpdateChecker() {
     }
 
+    private static void guarded(String what, Runnable action) {
+        try {
+            action.run();
+        } catch (Exception ex) {
+            Logger.printException(() -> "Resume hook failed: " + what, ex);
+        }
+    }
+
     /**
      * Injection point. Called when the application starts.
      * Checks for an update in the background and shows it on the first screen that opens.
      */
     public static void onApplicationCreate(Application application) {
+        // First, so a crash anywhere after this is written down.
+        app.revanced.extension.soundcloud.debug.CrashLog.install(application);
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityResumed(Activity activity) {
                 resumedActivity = new WeakReference<>(activity);
                 // The network of an app that is not on screen yet is blocked, so the check starts here.
-                startCheckOnce();
-                showPendingRelease();
-                app.revanced.extension.soundcloud.network.NetworkBanner.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.permissions.WelcomePermissions.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.download.MusicAccess.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.download.DownloadProgress.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.download.ProgressPill.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.search.SearchSourceSwitch.onActivityResumed(activity);
-                app.revanced.extension.soundcloud.local.WatchFolder.onActivityResumed(activity);
+                // One failing part must not crash the screen or stop the parts after it.
+                guarded("update check", UpdateChecker::startCheckOnce);
+                guarded("update sheet", UpdateChecker::showPendingRelease);
+                guarded("network banner", () -> app.revanced.extension.soundcloud.network.NetworkBanner.onActivityResumed(activity));
+                guarded("permissions", () -> app.revanced.extension.soundcloud.permissions.WelcomePermissions.onActivityResumed(activity));
+                guarded("music access", () -> app.revanced.extension.soundcloud.download.MusicAccess.onActivityResumed(activity));
+                guarded("vivo card", () -> app.revanced.extension.soundcloud.player.VivoMusicCard.onActivityResumed(activity));
+                guarded("download progress", () -> app.revanced.extension.soundcloud.download.DownloadProgress.onActivityResumed(activity));
+                guarded("progress pill", () -> app.revanced.extension.soundcloud.download.ProgressPill.onActivityResumed(activity));
+                guarded("search switch", () -> app.revanced.extension.soundcloud.search.SearchSourceSwitch.onActivityResumed(activity));
+                guarded("watch folder", () -> app.revanced.extension.soundcloud.local.WatchFolder.onActivityResumed(activity));
             }
 
             @Override

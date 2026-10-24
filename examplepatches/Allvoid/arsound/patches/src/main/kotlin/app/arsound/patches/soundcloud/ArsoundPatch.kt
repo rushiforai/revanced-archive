@@ -6,10 +6,12 @@ import app.arsound.patches.soundcloud.analytics.disableTelemetryPatch
 import app.arsound.patches.soundcloud.debug.playbackTimelinePatch
 import app.arsound.patches.soundcloud.debug.playerBarLogPatch
 import app.arsound.patches.soundcloud.download.downloadTrackPatch
+import app.arsound.patches.soundcloud.download.headerDownloadButtonPatch
 import app.arsound.patches.soundcloud.library.hideImportBannerPatch
 import app.arsound.patches.soundcloud.local.localMusicPatch
 import app.arsound.patches.soundcloud.misc.account.accountTypePatch
 import app.arsound.patches.soundcloud.misc.permissions.removePhonePermissionPatch
+import app.arsound.patches.soundcloud.misc.playservices.playServicesDialogPatch
 import app.arsound.patches.soundcloud.misc.appname.appNamePatch
 import app.arsound.patches.soundcloud.misc.branding.brandingPatch
 import app.arsound.patches.soundcloud.misc.translation.russianTranslationPatch
@@ -22,7 +24,10 @@ import app.arsound.patches.soundcloud.offline.offlineFirstPatch
 import app.arsound.patches.soundcloud.power.powerSavingPatch
 import app.arsound.patches.soundcloud.player.equalizerPatch
 import app.arsound.patches.soundcloud.player.listeningStatsPatch
+import app.arsound.patches.soundcloud.player.notificationArtworkPatch
+import app.arsound.patches.soundcloud.player.playModePatch
 import app.arsound.patches.soundcloud.player.streamCachePatch
+import app.arsound.patches.soundcloud.player.vivoMusicCardPatch
 import app.arsound.patches.soundcloud.recommendations.duplicateFilterPatch
 import app.arsound.patches.soundcloud.upsell.hideSubscriptionOffersPatch
 import app.revanced.patcher.patch.Patch
@@ -45,6 +50,7 @@ private val basePatch = bytecodePatch {
         settingsPatch,
         accountTypePatch,
         removePhonePermissionPatch,
+        playServicesDialogPatch,
         appNamePatch,
         brandingPatch,
         russianTranslationPatch,
@@ -71,6 +77,9 @@ val arsoundBaseGroup = arsoundGroup(
     disableTelemetryPatch,
     playerBarLogPatch,
     playbackTimelinePatch,
+    notificationArtworkPatch,
+    playModePatch,
+    vivoMusicCardPatch,
 )
 
 @Suppress("unused")
@@ -88,6 +97,7 @@ val arsoundDownloadsGroup = arsoundGroup(
     "Скачивание доступных треков в «Музыка/Arsound» и воспроизведение скачанного из файла.",
     downloadTrackPatch,
     downloadedPlaybackPatch,
+    headerDownloadButtonPatch,
 )
 
 @Suppress("unused")

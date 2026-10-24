@@ -2,9 +2,30 @@ name: Build Sofascore Font Patch
 
 on:
   workflow_dispatch:
+    inputs:
+      font:
+        description: "Google Fonts family name, e.g. Inter. Leave blank to use fonts/font.txt."
+        required: false
+        default: ""
 
 permissions:
   contents: write
+
+env:
+  # Pinned so builds are reproducible. Bump deliberately.
+  #
+  # This must be a template that targets patcher 22.x. ReVanced Manager 2.6.0
+  # ships patcher 22.0.2-dev.1, which has no `ResourcePatch` class: the patch
+  # API was reworked in 22.0.0 so `resourcePatch {}` returns `Patch`. Building
+  # against the older template (patcher 21.x) produces a bundle whose patch
+  # getter returns `ResourcePatch`, which Manager then fails to load with
+  # NoClassDefFoundError. The template's `main` branch is still on 21.0.0; the
+  # `dev` branch is the one on patcher 22.
+  TEMPLATE_REPO: https://github.com/ReVanced/revanced-patches-template.git
+  TEMPLATE_SHA: 9abc54a4ea849f1ba38c33ea1fd141bc87125d86
+  # Used to pin a variable font to the weights Sofascore needs, and to sanity
+  # check the files Google Fonts hands back.
+  FONTTOOLS_VERSION: "4.66.1"
 
 jobs:
   build:
@@ -23,23 +44,165 @@ jobs:
 
       - name: Prepare official ReVanced template
         shell: bash
+        env:
+          INPUT_FONT: ${{ inputs.font }}
         run: |
           set -euo pipefail
 
           BUILD_DIR="$RUNNER_TEMP/revanced-patches"
 
-          git clone \
-            --depth 1 \
-            https://github.com/ReVanced/revanced-patches-template.git \
-            "$BUILD_DIR"
+          git clone "$TEMPLATE_REPO" "$BUILD_DIR"
+          git -C "$BUILD_DIR" checkout "$TEMPLATE_SHA"
 
-          mkdir -p \
-            "$BUILD_DIR/patches/src/main/kotlin/app/revanced/patches/sofascore/font" \
-            "$BUILD_DIR/patches/src/main/resources/fonts"
+          PATCH_DIR="$BUILD_DIR/patches/src/main/kotlin/app/revanced/patches/sofascore/font"
+          FONT_DIR="$BUILD_DIR/patches/src/main/resources/fonts"
 
-          cp \
-            patches/src/main/kotlin/app/revanced/patches/sofascore/font/SofascoreFontPatch.kt \
-            "$BUILD_DIR/patches/src/main/kotlin/app/revanced/patches/sofascore/font/SofascoreFontPatch.kt"
+          mkdir -p "$PATCH_DIR" "$FONT_DIR"
+
+          # Drop the template's example patch and its unused extension module so
+          # they do not ship inside the bundle.
+          rm -rf "$BUILD_DIR/patches/src/main/kotlin/app/revanced/patches/com"
+          rm -rf "$BUILD_DIR/extensions"
+
+          cp patches/src/main/kotlin/app/revanced/patches/sofascore/font/SofascoreFontPatch.kt \
+            "$PATCH_DIR/SofascoreFontPatch.kt"
+
+          # --- Which font? ---------------------------------------------------
+          # The workflow input wins; otherwise fonts/font.txt in this repository.
+          FONT_FAMILY="$INPUT_FONT"
+          if [ -z "$FONT_FAMILY" ] && [ -f fonts/font.txt ]; then
+            FONT_FAMILY="$(tr -d '\r\n' < fonts/font.txt | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+          fi
+          if [ -z "$FONT_FAMILY" ]; then
+            FONT_FAMILY="Google Sans Code"
+          fi
+
+          echo "Building with font: $FONT_FAMILY"
+          echo "FONT_FAMILY=$FONT_FAMILY" >> "$GITHUB_ENV"
+
+          # --- Fetch it from Google Fonts ------------------------------------
+          python3 -m pip install --quiet "fonttools==${FONTTOOLS_VERSION}"
+
+          STAGE="$RUNNER_TEMP/fonts"
+          mkdir -p "$STAGE"
+
+          FONT_FAMILY="$FONT_FAMILY" STAGE="$STAGE" \
+          python3 - <<'PY'
+          import os
+          import re
+          import shutil
+          import sys
+          import urllib.parse
+          import urllib.request
+
+          # Sofascore's font resources, each mapped to the weight we want for it.
+          TARGETS = {
+              "regular.ttf": 400,
+              "medium.ttf": 500,
+              "bold.ttf": 700,
+              "regular-condensed.ttf": 400,
+              "medium-condensed.ttf": 500,
+              "bold-condensed.ttf": 700,
+              "mono.ttf": 400,
+              "roboto-numbers.ttf": 500,
+              "optimistic.ttf": 400,
+          }
+
+          UA = "Mozilla/5.0 (X11; Linux x86_64)"
+
+          def fetch(url):
+              request = urllib.request.Request(url, headers={"User-Agent": UA})
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  return response.read()
+
+          family = os.environ["FONT_FAMILY"].strip()
+          stage = os.environ["STAGE"]
+          os.makedirs(stage, exist_ok=True)
+
+          # Downloads live in a subfolder so they never end up in the bundle.
+          raw = os.path.join(stage, "raw")
+          os.makedirs(raw, exist_ok=True)
+
+          css_url = (
+              "https://fonts.googleapis.com/css2?family="
+              + urllib.parse.quote(family)
+              + ":wght@400;500;700"
+          )
+
+          try:
+              css = fetch(css_url).decode("utf-8", "replace")
+          except Exception as error:
+              sys.exit(
+                  f"Could not fetch '{family}' from Google Fonts ({error}). Check the "
+                  "family name matches fonts.google.com exactly."
+              )
+
+          # One @font-face per weight, or a single range for variable families.
+          weights = {}
+          variable_url = None
+
+          for match in re.finditer(
+              r"font-weight:\s*(\d+)(?:\s+(\d+))?;\s*src:\s*url\((https://[^)]+)\)", css
+          ):
+              low, high, url = int(match.group(1)), match.group(2), match.group(3)
+              if high is None:
+                  weights.setdefault(low, url)
+              else:
+                  variable_url = variable_url or url
+
+          if not weights and not variable_url:
+              sys.exit(f"Google Fonts returned no usable font files for '{family}'.")
+
+          sources = {}
+
+          if weights:
+              for weight, url in sorted(weights.items()):
+                  path = os.path.join(raw, f"source-{weight}.ttf")
+                  with open(path, "wb") as handle:
+                      handle.write(fetch(url))
+                  sources[weight] = path
+              print(f"'{family}': Google Fonts returned weights {sorted(weights)}.")
+          else:
+              from fontTools.ttLib import TTFont
+              from fontTools.varLib import instancer
+
+              source = os.path.join(raw, "source-variable.ttf")
+              with open(source, "wb") as handle:
+                  handle.write(fetch(variable_url))
+
+              for weight in sorted(set(TARGETS.values())):
+                  font = TTFont(source)
+                  path = os.path.join(raw, f"source-{weight}.ttf")
+                  instancer.instantiateVariableFont(
+                      font, {"wght": weight}, inplace=False, updateFontNames=False
+                  ).save(path)
+                  sources[weight] = path
+              print(f"'{family}': variable font instanced at {sorted(sources)}.")
+
+          available = sorted(sources)
+          for name, wanted in TARGETS.items():
+              chosen = min(available, key=lambda weight: abs(weight - wanted))
+              shutil.copyfile(sources[chosen], os.path.join(stage, name))
+              if chosen != wanted:
+                  print(f"  {name}: no weight {wanted}, using {chosen} instead.")
+
+          from fontTools.ttLib import TTFont
+
+          for name in TARGETS:
+              font = TTFont(os.path.join(stage, name))
+              print(f"  {name}: {font['name'].getDebugName(1)!r} {font['name'].getDebugName(2)!r}")
+          PY
+
+          # --- Anything in fonts/ still wins, by filename ---------------------
+          if [ -d fonts ]; then
+            find fonts -maxdepth 1 -type f \( -name '*.ttf' -o -name '*.otf' \) \
+              -exec cp -f {} "$STAGE"/ \;
+          fi
+
+          cp "$STAGE"/*.ttf "$FONT_DIR/"
+
+          echo "Fonts bundled:"
+          ls -l "$FONT_DIR"
 
           cat > "$BUILD_DIR/patches/build.gradle.kts" <<'EOF'
           group = "app.revanced"
@@ -47,7 +210,7 @@ jobs:
           patches {
               about {
                   name = "Sofascore Font ReVanced"
-                  description = "Replaces Sofascore's bundled regular sans font with Google Sans Code NFP Regular."
+                  description = "Replaces every font Sofascore bundles with one of your choosing."
                   source = "https://github.com/KR1901/sofascore-font-revanced"
                   author = "KR1901"
                   contact = "ranvirkr19@gmail.com"
@@ -57,89 +220,118 @@ jobs:
           }
           EOF
 
-          curl -fL \
-            "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/GoogleSansCode.zip" \
-            -o "$RUNNER_TEMP/GoogleSansCode.zip"
-
-          mkdir -p "$RUNNER_TEMP/google-sans-code"
-
-          unzip -q \
-            "$RUNNER_TEMP/GoogleSansCode.zip" \
-            -d "$RUNNER_TEMP/google-sans-code"
-
-          FONT="$(find "$RUNNER_TEMP/google-sans-code" \
-            -type f \
-            -name 'GoogleSansCodeNerdFontPropo-Regular.ttf' \
-            -print -quit)"
-
-          test -n "$FONT"
-
-          cp "$FONT" \
-            "$BUILD_DIR/patches/src/main/resources/fonts/GoogleSansCodeNerdFontPropo-Regular.ttf"
-
           echo "BUILD_DIR=$BUILD_DIR" >> "$GITHUB_ENV"
 
-      - name: Update ReVanced API declarations
+      # The template's settings declares the ReVanced GitHub Packages repositories
+      # with `credentials(PasswordCredentials::class)`, which Gradle resolves from
+      # the `githubPackagesUsername` / `githubPackagesPassword` project properties.
+      # Without these the gradle plugin and app.revanced:patcher cannot be resolved.
+      #
+      # ReVanced Manager loads patch bundles by reading DEX from them, so the
+      # bundle must be built with the buildAndroid task: it runs D8 over the jar
+      # and merges classes.dex in. Plain `jar` (and `build`) only packs .class
+      # files, which Manager rejects with EmptyMultiDexContainerException.
+      - name: Build ReVanced patch (Android bundle)
         working-directory: ${{ env.BUILD_DIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew :patches:apiDump --no-daemon
+          ORG_GRADLE_PROJECT_githubPackagesUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid --no-daemon
 
-      - name: Build ReVanced patch
-        working-directory: ${{ env.BUILD_DIR }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew build --no-daemon
-
-      - name: Find generated RVP
+      - name: Verify bundle contents
         shell: bash
         run: |
           set -euo pipefail
 
           RVP="$(find "$BUILD_DIR/patches/build/libs" \
-            -maxdepth 1 \
-            -type f \
-            -name '*.rvp' \
-            ! -name '*sources*' \
-            ! -name '*javadoc*' \
-            -print -quit)"
+            -maxdepth 1 -type f -name '*.rvp' \
+            ! -name '*sources*' ! -name '*javadoc*' -print -quit)"
+
+          test -n "$RVP"
+
+          echo "Bundle: $RVP"
+          unzip -l "$RVP"
+
+          # Without DEX the bundle builds fine but cannot be loaded by ReVanced
+          # Manager, which then fails with EmptyMultiDexContainerException.
+          # Match anywhere in the line: unzip -l pads the filename into a column.
+          unzip -l "$RVP" | grep -qE 'classes[0-9]*\.dex' \
+            || { echo "::error::bundle contains no DEX; ReVanced Manager cannot load it"; exit 1; }
+
+          # Fail loudly rather than shipping template leftovers.
+          if unzip -l "$RVP" | grep -qiE 'patches/(example|com)|extension\.rve'; then
+            echo "::error::example patch or extension leaked into the bundle"
+            exit 1
+          fi
+
+          unzip -l "$RVP" | grep -q 'app/revanced/patches/sofascore/font/.*\.class' \
+            || { echo "::error::Sofascore font patch class missing from bundle"; exit 1; }
+
+          for font in regular medium bold regular-condensed medium-condensed \
+                      bold-condensed mono roboto-numbers optimistic; do
+            unzip -l "$RVP" | grep -q "fonts/${font}.ttf" \
+              || { echo "::error::fonts/${font}.ttf missing from bundle"; exit 1; }
+          done
+
+      - name: Publish RVP release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          RVP="$(find "$BUILD_DIR/patches/build/libs" \
+            -maxdepth 1 -type f -name '*.rvp' \
+            ! -name '*sources*' ! -name '*javadoc*' -print -quit)"
 
           test -n "$RVP"
 
           VERSION="0.1.${GITHUB_RUN_NUMBER}"
 
-          cp "$RVP" \
-            "$GITHUB_WORKSPACE/patches-${VERSION}.rvp"
+          cp "$RVP" "$GITHUB_WORKSPACE/patches-${VERSION}.rvp"
 
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
-      - name: Publish RVP release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create \
-            "v${VERSION}" \
-            "patches-${VERSION}.rvp" \
+          gh release create "v${VERSION}" "$GITHUB_WORKSPACE/patches-${VERSION}.rvp" \
             --repo "$GITHUB_REPOSITORY" \
             --title "Sofascore Font Patch v${VERSION}" \
-            --notes "Replaces Sofascore 26.09.14 regular sans font with Google Sans Code NFP Regular."
+            --notes "Replaces every font Sofascore bundles with ${FONT_FAMILY} (Sofascore 26.09.14 / 26.10.12)."
 
-      - name: Create ReVanced API manifest
+      - name: Create ReVanced source manifest
         shell: bash
         run: |
           set -euo pipefail
 
-          cat > patches.json <<EOF
-          {
-            "version": "v${VERSION}",
-            "created_at": "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)",
-            "description": "Sofascore font patch: replaces the bundled regular sans font with Google Sans Code NFP Regular.",
-            "download_url": "https://github.com/${GITHUB_REPOSITORY}/releases/download/v${VERSION}/patches-${VERSION}.rvp",
-            "signature_download_url": null
+          # Record the font that was actually built, so the repository shows it.
+          printf '%s\n' "$FONT_FAMILY" > fonts/font.txt
+
+          # created_at must be a *local* ISO datetime. ReVanced Manager deserialises
+          # it into kotlinx.datetime.LocalDateTime, which rejects a trailing "Z" and
+          # then reports "Failed to download patches".
+          python3 - <<'PY'
+          import datetime
+          import json
+          import os
+
+          version = os.environ["VERSION"]
+          repo = os.environ["GITHUB_REPOSITORY"]
+          family = os.environ["FONT_FAMILY"]
+
+          manifest = {
+              "version": f"v{version}",
+              "created_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+              "description": f"Sofascore font patch: replaces every bundled font with {family}.",
+              "download_url": f"https://github.com/{repo}/releases/download/v{version}/patches-{version}.rvp",
+              "signature_download_url": None,
           }
-          EOF
+
+          with open("patches.json", "w") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")
+          PY
+
+          cat patches.json
 
       - name: Commit manifest
         env:
@@ -151,10 +343,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add patches.json
+          git add patches.json fonts/font.txt
 
           git commit \
-            -m "build: publish ReVanced patch manifest v${VERSION}" \
+            -m "build: publish ReVanced patch manifest v${VERSION} (${FONT_FAMILY})" \
             || true
 
           git push origin HEAD:main

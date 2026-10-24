@@ -46,6 +46,10 @@ public final class ArsoundDialog {
     private View buttonsStart;
     private DialogInterface.OnDismissListener onDismiss;
 
+    /** Every dialog shown, to tell whether one is on screen; closed ones drop out with their activity. */
+    private static final java.util.Set<Dialog> SHOWN =
+            java.util.Collections.newSetFromMap(new java.util.WeakHashMap<>());
+
     public ArsoundDialog(Context context) {
         this.context = context;
         accent = ArsoundTheme.palette(context, "special");
@@ -133,6 +137,12 @@ public final class ArsoundDialog {
         return this;
     }
 
+    /** True while an Arsound dialog is on screen, so a prompt that can wait does not cover it. Main thread only. */
+    public static boolean isAnyShown() {
+        for (Dialog dialog : SHOWN) if (dialog.isShowing()) return true;
+        return false;
+    }
+
     public Dialog show() {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -208,11 +218,21 @@ public final class ArsoundDialog {
             window.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
             window.setDimAmount(0.55f);
         }
+        // A result that arrives after its screen was left has no window to open in.
+        if (context instanceof android.app.Activity
+                && (((android.app.Activity) context).isFinishing() || ((android.app.Activity) context).isDestroyed())) {
+            return dialog;
+        }
         card.setAlpha(0f);
         card.setScaleX(.94f);
         card.setScaleY(.94f);
         card.setTranslationY(dp(12));
-        dialog.show();
+        try {
+            dialog.show();
+        } catch (android.view.WindowManager.BadTokenException ex) {
+            return dialog;
+        }
+        SHOWN.add(dialog);
         card.animate().alpha(1f).scaleX(1f).scaleY(1f).translationY(0).setDuration(220)
                 .setInterpolator(new DecelerateInterpolator(1.8f)).start();
         return dialog;

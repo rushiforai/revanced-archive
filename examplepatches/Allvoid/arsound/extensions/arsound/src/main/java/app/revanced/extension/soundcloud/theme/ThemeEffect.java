@@ -21,7 +21,7 @@ import android.provider.Settings;
 /**
  * The animated background of a theme, after the design "Анимации тем": sparks rising for «Алый», a night sky
  * with meteors for «Кобальт», fireflies for «Мята», falling petals for «Сакура», a scanner line with rising
- * squares for «Лайм».
+ * squares for «Лайм», snowfall under a frozen top edge for «Зима».
  * <p>
  * A drawable, so it can lie under a screen (Arsound settings), over one (the main screen, where SoundCloud's
  * backgrounds are opaque) or in a small preview tile. Every particle is computed from the time alone, like a CSS
@@ -29,18 +29,24 @@ import android.provider.Settings;
  * saver mode or when Android's animations are turned off.
  */
 public final class ThemeEffect extends Drawable implements Runnable {
-    private static final long FRAME_MS = 16;
+    /**
+     * Time between frames: one refresh of the screen at its highest rate, so on a 120 Hz screen the particles move
+     * as smoothly as the rest of the app. A fixed 16 ms held them at 60 frames a second there.
+     */
+    private final long frameMs;
     /** The design draws its effects on a card this tall, in dp; travel distances are scaled to the real height. */
     private static final float DESIGN_HEIGHT = 600f;
 
-    private static final String SCARLET = "scarlet", COBALT = "cobalt", MINT = "mint", SAKURA = "sakura", LIME = "lime";
+    private static final String SCARLET = "scarlet", COBALT = "cobalt", MINT = "mint", SAKURA = "sakura", LIME = "lime", WINTER = "winter";
 
     private final String kind;
+    /** Kept to look again at battery saver and Android's animations whenever the effect comes back on screen. */
+    private final Context appContext;
     /** Pixels per design dp, with the size scale of a preview tile. */
     private final float dp;
     private final boolean night;
     private final int accent;
-    private final boolean still;
+    private boolean still;
     private final Particle[] particles;
     private final long start = SystemClock.uptimeMillis();
 
@@ -49,6 +55,10 @@ public final class ThemeEffect extends Drawable implements Runnable {
     private final Path petal = new Path();
     private final RectF rect = new RectF();
     private Shader glow, meteor, petalShader, scan;
+    /** «Зима»: the ice along the top edge, drawn once per size; and the tips where it now and then glints. */
+    private android.graphics.Bitmap frost;
+    private int frostWidth;
+    private final java.util.List<float[]> frostTips = new java.util.ArrayList<>();
     private int alpha = 255;
 
     private static final class Particle {
@@ -72,6 +82,7 @@ public final class ThemeEffect extends Drawable implements Runnable {
             case MINT:
             case SAKURA:
             case LIME:
+            case WINTER:
                 return new ThemeEffect(context, kind, sizeScale, density, night, accent);
             default:
                 return null;
@@ -80,16 +91,51 @@ public final class ThemeEffect extends Drawable implements Runnable {
 
     /** Whether the theme has an effect, for the settings. */
     public static boolean exists(String kind) {
-        return SCARLET.equals(kind) || COBALT.equals(kind) || MINT.equals(kind) || SAKURA.equals(kind) || LIME.equals(kind);
+        return SCARLET.equals(kind) || COBALT.equals(kind) || MINT.equals(kind) || SAKURA.equals(kind) || LIME.equals(kind)
+                || WINTER.equals(kind);
     }
 
     private ThemeEffect(Context context, String kind, float sizeScale, float density, boolean night, int accent) {
         this.kind = kind;
+        Context application = context.getApplicationContext();
+        this.appContext = application != null ? application : context;
         this.dp = context.getResources().getDisplayMetrics().density * sizeScale;
         this.night = night;
         this.accent = accent;
         this.still = isStill(context);
+        this.frameMs = frameMs(context);
         this.particles = build(kind, density);
+    }
+
+    /**
+     * Stops or restarts the animation after battery saver or Android's animations were switched while it was on
+     * screen. Without this it stayed as it was made until the app restarted.
+     */
+    public void refreshStill(Context context) {
+        boolean now = isStill(context);
+        if (now == still) return;
+        still = now;
+        invalidateSelf();
+    }
+
+    /** One refresh at the screen's highest supported rate, in whole milliseconds, at least 4 (250 Hz). */
+    private static long frameMs(Context context) {
+        float rate = 60f;
+        try {
+            android.hardware.display.DisplayManager displays =
+                    context.getSystemService(android.hardware.display.DisplayManager.class);
+            android.view.Display display = displays == null ? null
+                    : displays.getDisplay(android.view.Display.DEFAULT_DISPLAY);
+            if (display != null) {
+                for (android.view.Display.Mode mode : display.getSupportedModes()) {
+                    rate = Math.max(rate, mode.getRefreshRate());
+                }
+            }
+        } catch (Exception ignored) {
+            // The usual 60 Hz.
+        }
+        // A little under one refresh, so the next frame is asked for before its refresh, not one refresh late.
+        return Math.max(4, (long) Math.floor(1000f / rate) - 1);
     }
 
     private static boolean isStill(Context context) {
@@ -170,6 +216,30 @@ public final class ThemeEffect extends Drawable implements Runnable {
                     p.delay2 = -random() * 3;
                 }
                 return list;
+            case WINTER:
+                // Three depths of snow: many small slow flakes far away, a few big quick ones close by.
+                list = new Particle[count(44, density)];
+                for (int i = 0; i < list.length; i++) {
+                    Particle p = list[i] = new Particle();
+                    float depth = random();
+                    int layer = depth < .6f ? 0 : depth < .88f ? 1 : 2;
+                    p.size = layer == 0 ? 1.2f + random() * .8f : layer == 1 ? 2 + random() : 3.2f + random() * 1.4f;
+                    p.duration = layer == 0 ? 18 + random() * 6 : layer == 1 ? 12 + random() * 4 : 8 + random() * 3;
+                    p.dx = layer == 0 ? 6 : layer == 1 ? 12 : 20;
+                    p.opacity = layer == 0 ? .35f + random() * .15f : layer == 1 ? .6f + random() * .2f : .85f;
+                    p.x = random();
+                    p.delay = -random() * p.duration;
+                    p.duration2 = 3 + random() * 3;
+                    p.delay2 = -random() * p.duration2;
+                    // The close flakes are crystals, turning slowly one way or the other.
+                    p.filled = layer == 2 && random() < .45f;
+                    p.a = (random() * 2 - 1) * 24;
+                    // About one flake in four now and then catches the warm light of the garland.
+                    p.b = random() < .25f ? 1 : 0;
+                    p.d = 7 + random() * 6;
+                    p.c = -random() * p.d;
+                }
+                return list;
             default:
                 list = new Particle[count(10, density)];
                 for (int i = 0; i < list.length; i++) {
@@ -233,6 +303,7 @@ public final class ThemeEffect extends Drawable implements Runnable {
         petalShader = new LinearGradient(0, 0, 1, .75f, petalLight, tint(0xFFF28AC0), Shader.TileMode.CLAMP);
         scan = new LinearGradient(bounds.left, 0, bounds.right, 0,
                 new int[]{0, tint(0x73A6FF3B), 0}, null, Shader.TileMode.CLAMP);
+        if (WINTER.equals(kind)) buildFrost(Math.round(w), Math.round(h));
         // The petal of the design: a box with the top-left and bottom-right corners rounded by 80%, 1 wide.
         petal.reset();
         float pw = 1, ph = .75f;
@@ -277,13 +348,16 @@ public final class ThemeEffect extends Drawable implements Runnable {
             case SAKURA:
                 drawSakura(canvas, time, w, h);
                 break;
+            case WINTER:
+                drawWinter(canvas, time, w, h);
+                break;
             default:
                 drawLime(canvas, time, w, h);
         }
         canvas.restore();
         if (!still && isVisible()) {
             unscheduleSelf(this);
-            scheduleSelf(this, SystemClock.uptimeMillis() + FRAME_MS);
+            scheduleSelf(this, SystemClock.uptimeMillis() + frameMs);
         }
     }
 
@@ -295,8 +369,13 @@ public final class ThemeEffect extends Drawable implements Runnable {
     @Override
     public boolean setVisible(boolean visible, boolean restart) {
         boolean changed = super.setVisible(visible, restart);
-        if (!visible) unscheduleSelf(this);
-        else if (changed) invalidateSelf();
+        if (!visible) {
+            unscheduleSelf(this);
+        } else {
+            // Battery saver or Android's animations may have been switched while the effect was off screen.
+            refreshStill(appContext);
+            if (changed) invalidateSelf();
+        }
         return changed;
     }
 
@@ -430,6 +509,184 @@ public final class ThemeEffect extends Drawable implements Runnable {
             canvas.restore();
         }
         paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void drawWinter(Canvas canvas, float time, float w, float h) {
+        if (frost != null) {
+            paint.setShader(null);
+            paint.setAlpha(alpha);
+            canvas.drawBitmap(frost, 0, 0, paint);
+            paint.setAlpha(255);
+            // Now and then a point of the ice catches the light: short and faint.
+            for (int i = 0; i < frostTips.size(); i++) {
+                float[] tip = frostTips.get(i);
+                float t = progress(time, tip[2], tip[3]);
+                if (t < 0 || t > .14f) continue;
+                float f = pulse(t / .14f);
+                halo(canvas, tip[0], tip[1], 3.2f * dp, tint(0xFFE6F6FF), .45f * f);
+                circle(canvas, tip[0], tip[1], .9f * dp, tint(0xFFF4FBFF), .7f * f);
+            }
+        }
+        float fall = h + 20 * dp;
+        for (Particle p : particles) {
+            float t = progress(time, p.duration, p.delay);
+            float s = progress(time, p.duration2, p.delay2);
+            if (t < 0 || s < 0) continue;
+            float x = p.x * w + (float) Math.sin(2 * Math.PI * s) * p.dx * dp;
+            float y = -10 * dp + fall * t;
+            float radius = p.size * dp / 2;
+            // Snow thins out at the very bottom instead of piling against the edge.
+            float opacity = p.opacity * (t > .9f ? (1 - t) / .1f : 1);
+
+            float glint = 0;
+            if (p.b > 0) {
+                float g = progress(time, p.d, p.c);
+                if (g >= 0 && g < .1f) glint = pulse(g / .1f);
+            }
+            if (glint > 0) halo(canvas, x, y, radius * 4.5f, tint(0xFFF2C46D), opacity * glint);
+            // While it glints, the flake itself warms to the garland's gold.
+            int snow = glint > 0 ? blend(0xFFEAF6FF, 0xFFF2C46D, .85f * glint) : 0xFFEAF6FF;
+            int ice = glint > 0 ? blend(0xFFC7EAF7, 0xFFF2C46D, .85f * glint) : 0xFFC7EAF7;
+
+            if (p.filled) {
+                crystal(canvas, x, y, radius * 2.4f, p.a * time, tint(ice), opacity);
+            } else {
+                if (p.size > 3) halo(canvas, x, y, radius * 1.8f, tint(snow), opacity * .5f);
+                circle(canvas, x, y, radius, tint(snow), opacity);
+            }
+        }
+    }
+
+    /**
+     * The ice along the top edge, as if the screen froze a little at the top: an uneven crust of frost, a thin rim
+     * on its lower edge, frost ferns growing from it (longer in the corners, where frost starts on a window) and a
+     * few short icicles. All of it faint, so it never competes with the content under it.
+     */
+    private void buildFrost(int w, int h) {
+        int height = Math.round(Math.min(h * .26f, 190 * dp));
+        // The ice depends on the width only: bounds that got shorter (the keyboard opened) just clip the same
+        // bitmap, so it is not drawn again with every change of the height.
+        if (frost != null && frostWidth == w && frost.getHeight() >= height && height >= 4) return;
+        frost = null;
+        frostTips.clear();
+        if (w <= 0 || height < 4) return;
+        android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(w, height, android.graphics.Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        java.util.Random random = new java.util.Random(11);
+        int ice = tint(0xFFDDF3FF);
+
+        // The crust: a wavy lower edge, deeper towards both corners.
+        float base = 12 * dp, phase1 = random.nextFloat() * 6.3f, phase2 = random.nextFloat() * 6.3f;
+        int steps = Math.max(8, Math.round(w / (3 * dp)));
+        float[] edge = new float[steps + 1];
+        Path crust = new Path(), rim = new Path();
+        crust.moveTo(0, 0);
+        for (int i = 0; i <= steps; i++) {
+            float x = w * i / (float) steps;
+            float corner = Math.max(0, 1 - Math.min(x, w - x) / (w * .22f));
+            float y = base + 5 * dp * (float) Math.sin(x / (41 * dp) + phase1)
+                    + 3 * dp * (float) Math.sin(x / (13 * dp) + phase2) + 30 * dp * corner * corner;
+            edge[i] = y;
+            crust.lineTo(x, y);
+            if (i == 0) rim.moveTo(x, y);
+            else rim.lineTo(x, y);
+        }
+        crust.lineTo(w, 0);
+        crust.close();
+        Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fill.setShader(new LinearGradient(0, 0, 0, base + 40 * dp,
+                withAlpha(ice, .11f), withAlpha(ice, .035f), Shader.TileMode.CLAMP));
+        canvas.drawPath(crust, fill);
+        Paint line = new Paint(Paint.ANTI_ALIAS_FLAG);
+        line.setStyle(Paint.Style.STROKE);
+        line.setStrokeCap(Paint.Cap.ROUND);
+        line.setStrokeWidth(Math.max(1, .8f * dp));
+        line.setColor(withAlpha(ice, .17f));
+        canvas.drawPath(rim, line);
+
+        // Ferns from the rim, every 20-40dp, and bigger ones from the corners.
+        line.setStrokeWidth(Math.max(1, .7f * dp));
+        float x = random.nextFloat() * 20 * dp;
+        while (x < w) {
+            int i = Math.min(steps, Math.round(x / w * steps));
+            float corner = Math.max(0, 1 - Math.min(x, w - x) / (w * .22f));
+            float length = (7 + random.nextFloat() * 12) * dp * (1 + 1.1f * corner);
+            float angle = 90 + (random.nextFloat() * 2 - 1) * 28;
+            fern(canvas, line, ice, x, edge[i] - 2 * dp, angle, length, 3, .2f, random);
+            x += (20 + random.nextFloat() * 20) * dp;
+        }
+        for (int i = 0; i < 3; i++) {
+            fern(canvas, line, ice, 0, i * 12 * dp, 32 + i * 18 + random.nextFloat() * 8, (34 + random.nextFloat() * 22) * dp, 3, .17f, random);
+            fern(canvas, line, ice, w, i * 12 * dp, 148 - i * 18 - random.nextFloat() * 8, (34 + random.nextFloat() * 22) * dp, 3, .17f, random);
+        }
+
+        // A few short icicles hanging from the rim.
+        int icicles = 5 + random.nextInt(4);
+        for (int n = 0; n < icicles; n++) {
+            float at = (.06f + random.nextFloat() * .88f) * w;
+            float top = edge[Math.min(steps, Math.round(at / w * steps))] - 1 * dp;
+            float length = (5 + random.nextFloat() * 11) * dp, half = (1.2f + random.nextFloat() * 1.6f) * dp;
+            Path icicle = new Path();
+            icicle.moveTo(at - half, top);
+            icicle.lineTo(at + half, top);
+            icicle.lineTo(at + half * .15f, top + length);
+            icicle.close();
+            fill.setShader(new LinearGradient(0, top, 0, top + length, withAlpha(ice, .16f), withAlpha(ice, 0), Shader.TileMode.CLAMP));
+            canvas.drawPath(icicle, fill);
+        }
+
+        // Glints wait at random tips, each on its own slow beat.
+        java.util.Collections.shuffle(frostTips, random);
+        while (frostTips.size() > 6) frostTips.remove(frostTips.size() - 1);
+        for (float[] tip : frostTips) {
+            tip[2] = 5 + random.nextFloat() * 6;
+            tip[3] = -random.nextFloat() * tip[2];
+        }
+        frost = bitmap;
+        frostWidth = w;
+    }
+
+    /** A frost fern: a stroke with side twigs at a third and two thirds, each a smaller fern, and a shorter tip. */
+    private void fern(Canvas canvas, Paint line, int color, float x, float y, float angle, float length, int depth,
+                      float opacity, java.util.Random random) {
+        double radians = Math.toRadians(angle);
+        float ex = x + (float) Math.cos(radians) * length, ey = y + (float) Math.sin(radians) * length;
+        line.setColor(withAlpha(color, opacity));
+        canvas.drawLine(x, y, ex, ey, line);
+        if (depth == 0) {
+            if (random.nextFloat() < .25f) frostTips.add(new float[]{ex, ey, 0, 0});
+            return;
+        }
+        for (float at : new float[]{.35f, .65f}) {
+            float px = x + (ex - x) * at, py = y + (ey - y) * at;
+            float side = 50 + random.nextFloat() * 18;
+            fern(canvas, line, color, px, py, angle - side, length * .36f, depth - 1, opacity * .75f, random);
+            fern(canvas, line, color, px, py, angle + side, length * .36f, depth - 1, opacity * .75f, random);
+        }
+        fern(canvas, line, color, ex, ey, angle + (random.nextFloat() * 2 - 1) * 12, length * .5f, depth - 1, opacity * .85f, random);
+    }
+
+    /** A six-armed snow crystal: three strokes through the middle, each arm with a pair of short twigs. */
+    private void crystal(Canvas canvas, float x, float y, float radius, float angle, int color, float opacity) {
+        paint.setShader(null);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(Math.max(1, .9f * dp));
+        paint.setColor(withAlpha(color, opacity * alpha / 255f));
+        canvas.save();
+        canvas.translate(x, y);
+        canvas.rotate(angle);
+        float twig = radius * .38f;
+        for (int arm = 0; arm < 6; arm++) {
+            canvas.drawLine(0, 0, 0, -radius, paint);
+            float at = -radius * .58f;
+            canvas.drawLine(0, at, -twig * .7f, at - twig * .7f, paint);
+            canvas.drawLine(0, at, twig * .7f, at - twig * .7f, paint);
+            canvas.rotate(60);
+        }
+        canvas.restore();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setStrokeCap(Paint.Cap.BUTT);
     }
 
     @Override
