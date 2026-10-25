@@ -233,7 +233,9 @@ public final class ForYou {
     }
 
     static String songKey(String artist, String title) {
-        return artistKey(artist) + "|" + DuplicateFilter.songKey(title);
+        // Remixes and other speeds are other songs here, whatever the user chose for the lists: with them merged,
+        // a remix found on Last.fm took the cached match of the original.
+        return artistKey(artist) + "|" + DuplicateFilter.songKey(title, false);
     }
 
     private static SQLiteDatabase open(Context context, String name) {
@@ -431,6 +433,11 @@ public final class ForYou {
         if (context == null) throw new IllegalStateException("No context");
         if (!LastFm.hasKey()) return done(text("Нет ключа Last.fm в сборке", "No Last.fm key in this build"));
         if ("RU".equals(app.revanced.extension.soundcloud.network.RegionGuard.lastCountry())) return needsVpn();
+        // The user's own block of another country: every request would fail with a network error.
+        if (app.revanced.extension.soundcloud.network.RegionGuard.blocksLastCountry()) {
+            return text("Сеть выключена блоком по стране IP (Настройки → Arsound → Сеть)",
+                    "The network is off by the IP country block (Settings → Arsound → Network)");
+        }
 
         report(listener, text("Собираю вашу библиотеку…", "Reading your library…"));
         Set<String> known = new HashSet<>();
@@ -534,10 +541,14 @@ public final class ForYou {
         }
         long now = System.currentTimeMillis();
         Set<String> disliked = new HashSet<>(TrackDislikes.getAll().keySet());
+        // Another upload of a disliked song has its own urn: it is told by the title and length.
+        List<Object[]> dislikedSongs = TrackDislikes.songs();
 
         List<String> entries = new ArrayList<>();
         Set<String> chosenKeys = new HashSet<>();
         Map<String, Integer> perArtist = new HashMap<>();
+        // Title and length of the songs already chosen: another upload of the same song is not taken again.
+        List<Object[]> chosenSongs = new ArrayList<>();
         int lookups = 0;
         int failures = 0;
         int index = 0;
@@ -551,41 +562,48 @@ public final class ForYou {
                     if (perArtist.getOrDefault(artistKey(candidate.artist), 0) >= PER_ARTIST) continue;
                     batch.add(candidate);
                 }
-                List<Future<String>> results = new ArrayList<>();
+                List<Future<String[]>> results = new ArrayList<>();
                 for (Candidate candidate : batch) {
                     String key = songKey(candidate.artist, candidate.title);
                     JSONObject cached = cache.optJSONObject(key);
-                    if (cached != null && now - cached.optLong("time") < MATCH_KEPT_MS) {
-                        String urn = cached.optString("urn");
-                        results.add(pool.submit(() -> urn));
+                    // Matches kept by older versions have no title or length: they are looked up again.
+                    if (cached != null && cached.has("title") && now - cached.optLong("time") < MATCH_KEPT_MS) {
+                        String[] hit = {cached.optString("urn"), cached.optString("title"), String.valueOf(cached.optLong("dur"))};
+                        results.add(pool.submit(() -> hit));
                         continue;
                     }
                     lookups++;
                     results.add(pool.submit(() -> {
                         ClientProfiles.FoundTrack found = BatchActivity.findOnSoundCloud(candidate.artist, candidate.title);
-                        return found == null ? "" : "soundcloud:tracks:" + found.id;
+                        return found == null ? new String[]{"", "", "0"}
+                                : new String[]{"soundcloud:tracks:" + found.id, found.title, String.valueOf(found.duration)};
                     }));
                 }
                 for (int i = 0; i < batch.size(); i++) {
                     Candidate candidate = batch.get(i);
                     String key = songKey(candidate.artist, candidate.title);
-                    String urn;
+                    String[] hit;
                     try {
-                        urn = results.get(i).get(60, TimeUnit.SECONDS);
+                        hit = results.get(i).get(60, TimeUnit.SECONDS);
                     } catch (Exception ex) {
                         failures++;
                         Logger.printInfo(() -> "For you: SoundCloud search failed for " + key + ": " + ex);
                         continue;
                     }
+                    String urn = hit[0];
                     // A match read from the cache keeps its first date, so it expires after two weeks, however often it is used.
                     JSONObject earlier = cache.optJSONObject(key);
                     long since = earlier != null && urn.equals(earlier.optString("urn"))
                             && now - earlier.optLong("time") < MATCH_KEPT_MS ? earlier.optLong("time") : now;
-                    cache.put(key, new JSONObject().put("urn", urn).put("time", since));
+                    cache.put(key, new JSONObject().put("urn", urn).put("time", since)
+                            .put("title", hit[1]).put("dur", Long.parseLong(hit[2])));
                     if (urn.isEmpty() || disliked.contains(urn) || entries.contains(urn)) continue;
                     // The last batch may find more than the playlist takes.
                     if (entries.size() >= PLAYLIST_SIZE) continue;
                     if (perArtist.getOrDefault(artistKey(candidate.artist), 0) >= PER_ARTIST) continue;
+                    long length = Long.parseLong(hit[2]);
+                    if (isRepeat(chosenSongs, hit[1], length) || isRepeat(dislikedSongs, hit[1], length)) continue;
+                    chosenSongs.add(new Object[]{hit[1], length});
                     perArtist.merge(artistKey(candidate.artist), 1, Integer::sum);
                     entries.add(urn);
                     chosenKeys.add(key);
@@ -611,6 +629,15 @@ public final class ForYou {
             preferences.edit().putString(MATCHES, kept.toString()).putStringSet(PREVIOUS, chosenKeys).apply();
         }
         return entries;
+    }
+
+    /** True if a copy of this song (same title, length within two seconds) is among these songs. */
+    private static boolean isRepeat(List<Object[]> chosen, String title, long length) {
+        if (title == null || title.isEmpty() || length <= 0) return false;
+        for (Object[] song : chosen) {
+            if (DuplicateFilter.sameSong((String) song[0], (Long) song[1], title, length)) return true;
+        }
+        return false;
     }
 
     /**

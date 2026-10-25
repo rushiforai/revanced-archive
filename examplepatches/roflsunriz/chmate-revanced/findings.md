@@ -9,5 +9,18 @@
 - 投稿retryは通信callback解放後の最終 `IOException` 派生経路へ接続する。実掲示板へ送らず、ローカル模擬板と `adb reverse` で返信・新規threadを確認する。
 - 高度NGは判定method入口でレスと判定器をbridge stackへ保存し、早期returnを含む全returnでpopする。終端のparameter registerは別用途へ再利用され得る。透明NGは対象レスのRecyclerView行だけを0/GONEにし、再利用viewでは必ず復元する。
 - 4chan、ふたば、jschanはAPI・投稿form・encodingが別。独立engineとして扱い、4channel URLは実機SSL不具合時に4chanへ正規化しても読取API `a.4cdn.org` との役割を混同しない。
-- ローカル/Actionsの同版RVPはmanifest Timestamp差で全体SHAが一致しない。公開前はZIP entryとmanifest以外を比較し、公開後はrelease RVPと同梱checksumを照合する。
+- ローカル/Actionsの同版RVPはmanifest Timestampに加え、Windows/Linux間のD8が生成するlambda・nest accessor番号の差で拡張DEXのSHAも一致しない場合がある。公開前はZIP entry、patch class、拡張DEXのクラス・method・文字列と逆コンパイル後の処理を比較し、公開後はrelease RVPと同梱checksumを照合する。
 - 広告通信の完全遮断はbytecode適用だけで断定せず、対象APK・実機のpacket観測で判定する。native/独自暗号/新SDK/Compose移行は追加調査対象。
+- 0.8.10.246 devの設定は空`PreferenceScreen`ではなくCompose化されている。設定入口は旧版のXML Preferenceと、新版の`SettingActivity.onCreate`後に既存contentを包む経路の両方へ接続する。
+- 画像掲示板をChMate標準画面で扱うには、元サイト別APIを直接ChMate内部modelへ増設するより、loopback限定の`BBSMENU`・`subject.txt`・`dat`変換とURL解析入口の書換えが版差に強い。任意HTTPS URLをjschan扱いせず、jschanは掲示板設定で登録済みのhost/boardだけを書き換える。
+- ホーム更新の実体は新版の`AutoCheckWork`、旧版の`ReloadBookmarkTask2`にある逐次処理である。元methodを再帰防止付きで最大4分割すると、難読化された取得・DB・error処理を複製せず並列化できる。
+- Android版Managerのapktoolは、246 devの難読化binary XMLで属性値または属性名をnullとして返す場合がある。値は型とraw dataから復元し、名前を復元できない属性だけを除外して不正な`android:`属性を作らない。
+- Manager 2.6.0の246 dev復号結果には、10進／16進のframework resource・attr ID、数値のanimation enum、1桁color、数値化されたapp attr名が残る。`public.xml`と既知framework IDへ戻し、未知値は有効な`@0x...`／`?0x...`形式を維持する。attr名は大文字小文字を変えずに復元する。
+- 246 devのroot配置binary XMLは属性名のstring pool indexが`-1`でもresource IDを保持する。apktool 2.10系の`AXmlResourceParser.getAttributeName`はこの場合にresource ID解決前に空文字を返すため、`getAttributeNameResource`とAndroid実行時の`android.R.attr`で補完しないとPreferenceの`key`・`entries`・`defaultValue`が全消失し、アプリ起動時に`IntListPreference`がNPEになる。文字列値もprivate string blockから復元し、framework enum・flag・resource参照はAAPT2が受理するsymbolへ戻す。
+- 246 devの`RoidonApp.onCreate`にも、同じ結果arrayから2値を読み出して不一致時にnullをthrowするintegrity分岐がある。新版obfuscatorではpaired read間のregister準備が増えるため、短い後方windowだけでは検出できず起動直後にNPEとなる。
+- Android 17ではManager 2.6.0の別patcher processの`user.home`が`/`となり、apktool 2.10系が`/.local/share/apktool/framework`を属性解決のたびに作成しようとして失敗する。大量logがBinder bufferを超えると`RemoteFailureException`になるため、RVP内で`java.io.tmpdir/framework`へ明示的に切り替える。
+- 246 devの`ResListActivity.onStart`／`onResume`には、内部counterや端末値でnull throw・算術例外・不正配列操作へ分岐するintegrity trapがあり、同じスレッドでも約1/2で終了する。成功経路はsuperの同名ライフサイクル呼び出しだけなので、板一覧Activityと同様に先頭からsuperへ委譲してreturnする。
+- 246 devの`WebViewActivity.onStart`にも同型のintegrity trapがあり、ホームの「スレ検索」を開く実機UI回帰検査でNPEを再現した。ライフサイクルtrapの対象は板一覧・レス一覧・WebViewの3 Activityとして回帰testで固定する。
+- 246 devの`ResEditActivity.onStart`にも同型のintegrity trapがあり、スレッドtoolbarの「書き込む」から返信ダイアログを開く検査でArithmeticExceptionを再現した。ライフサイクルtrapの対象は板一覧・レス一覧・書き込み・WebViewの4 Activityとして回帰testで固定する。
+- 246 devのActivityを横断すると、Home・Search・ThreadListにもthrow／divideを使うライフサイクルtrapがある。旧版へ無条件適用せず、対象7 Activityの`onStart`／`onResume`／`onPause`でsuper同名呼出しとtrap opcodeが共存するmethodだけを置換する。
+- `ResEditActivity.onResume`のtrapはthrow／divideではなく負数を長さにした`NEW_ARRAY`で終了する。ライフサイクルの構造判定では`NEW_ARRAY`もtrap候補とし、super同名呼出しとの共存を必須にする。

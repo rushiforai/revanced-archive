@@ -10,6 +10,70 @@ internal object ResourceNameSanitizer {
     private val missingValue = Regex("""(?:APKTOOL_MISSING_0x|missing_)([0-9A-Fa-f]+)""")
     private val dummyResourceName = Regex("""APKTOOL_DUMMYVAL_0x([0-9A-Fa-f]+)""")
     private val rawResourceReference = Regex("""@([0-9]{8,10})(?![0-9])""")
+    private val rawHexResourceReference = Regex("""@0x([0-9A-Fa-f]{8})(?![0-9A-Fa-f])""")
+    private val nullResourceReference = Regex("""@(?:0x0{1,8}|0)(?![0-9A-Fa-f])""")
+    private val rawAttributeReference = Regex(
+        """\?(?:(?:android:)?attr/)?([0-9]{8,10})(?![0-9])""",
+    )
+    private val rawHexAttributeReference = Regex("""\?0x([0-9A-Fa-f]{8})(?![0-9A-Fa-f])""")
+    private val frameworkAttributeReferences = mapOf(
+        0x01010030 to "?android:attr/colorForeground",
+        0x01010033 to "?android:attr/disabledAlpha",
+        0x01010042 to "?android:attr/textAppearanceSmall",
+        0x0101005b to "?android:attr/windowTitleStyle",
+        0x01010078 to "?android:attr/progressBarStyleHorizontal",
+        0x01010079 to "?android:attr/progressBarStyleSmall",
+        0x01010086 to "?android:attr/dropDownItemStyle",
+        0x01010208 to "?android:attr/listSeparatorTextViewStyle",
+        0x01010429 to "?android:attr/colorControlNormal",
+        0x0101042a to "?android:attr/colorControlActivated",
+        0x0101042b to "?android:attr/colorButtonNormal",
+        0x0101042c to "?android:attr/colorControlHighlight",
+        0x01010435 to "?android:attr/colorAccent",
+    )
+    private val numericXmlAttributeName = Regex(
+        """(\s(?:[A-Za-z_][A-Za-z0-9_.-]*:)?)(213[0-9]{7})(=\")""",
+    )
+    private val shortColor = Regex("""(?<==\")#([0-9A-Fa-f])(?=\")""")
+    private val frameworkResourceReferences = mapOf(
+        0x01020000 to "@android:id/background",
+        0x0102000d to "@android:id/progress",
+        0x0102000f to "@android:id/secondaryProgress",
+        0x0102002e to "@android:id/mask",
+        0x01030006 to "@android:style/Theme.NoTitleBar",
+        0x01030007 to "@android:style/Theme.NoTitleBar.Fullscreen",
+        0x01030009 to "@android:style/Theme.Black.NoTitleBar",
+        0x0103000a to "@android:style/Theme.Black.NoTitleBar.Fullscreen",
+        0x0103000f to "@android:style/Theme.Translucent",
+        0x01030010 to "@android:style/Theme.Translucent.NoTitleBar",
+        0x0103022e to "@android:style/Theme.Material.NoActionBar",
+        0x01030232 to "@android:style/Theme.Material.Panel",
+        0x01030241 to "@android:style/Theme.Material.Light.NoActionBar",
+        0x0106000b to "@android:color/white",
+        0x0106000c to "@android:color/black",
+        0x0106000d to "@android:color/transparent",
+        0x010a0004 to "@android:anim/accelerate_decelerate_interpolator",
+        0x010a0005 to "@android:anim/accelerate_interpolator",
+        0x010a0006 to "@android:anim/decelerate_interpolator",
+        0x010a000b to "@android:anim/linear_interpolator",
+        0x010c0000 to "@android:interpolator/accelerate_quad",
+        0x010c0001 to "@android:interpolator/decelerate_quad",
+        0x010c000b to "@android:interpolator/linear",
+        0x010c000d to "@android:interpolator/fast_out_slow_in",
+        0x010e0000 to "@android:integer/config_shortAnimTime",
+        0x010e0001 to "@android:integer/config_mediumAnimTime",
+    )
+    private val runtimeFrameworkResourceReferences: Map<Int, String> by lazy {
+        listOf("anim", "color", "drawable", "id", "integer", "interpolator", "layout", "string", "style")
+            .flatMap { type ->
+                runCatching {
+                    Class.forName("android.R\$$type").fields.map { field ->
+                        field.getInt(null) to "@android:$type/${field.name}"
+                    }
+                }.getOrDefault(emptyList())
+            }
+            .toMap()
+    }
     private val xmlAttribute = Regex("""(?:[A-Za-z0-9_.-]+:)?([A-Za-z0-9_.-]+)="([^"]*)"""")
     private val styleItem = Regex("""<item\b[^>]*\bname="([^"]+)"[^>]*>(.*?)</item>""", RegexOption.DOT_MATCHES_ALL)
     private val attributeDefinition = Regex(
@@ -71,6 +135,19 @@ internal object ResourceNameSanitizer {
         numericSymbols: Set<String> = emptySet(),
         resourceIdReferences: Map<String, String> = emptyMap(),
     ): String = xml
+        .replace(numericXmlAttributeName) { match ->
+            val reference = resourceIdReferences[match.groupValues[2]]
+            val name = reference?.takeIf { it.startsWith("@attr/") }?.substringAfter('/')
+                ?: return@replace match.value
+            "${match.groupValues[1]}$name${match.groupValues[3]}"
+        }
+        .replace(rawHexAttributeReference) { match ->
+            resolveRawAttributeReference(match.groupValues[1].toLong(16), resourceIdReferences)
+        }
+        .replace(rawAttributeReference) { match ->
+            resolveRawAttributeReference(match.groupValues[1].toLong(), resourceIdReferences)
+        }
+        .replace(shortColor) { match -> "#0000000${match.groupValues[1]}" }
         .replace(dummyResourceName) { match -> "res_${match.groupValues[1].lowercase()}" }
         .replace(numericNameAttribute) { match -> prefixed(match) }
         .replace(numericTypedReference) { match -> prefixed(match) }
@@ -79,7 +156,169 @@ internal object ResourceNameSanitizer {
             if (match.groupValues[1] in numericSymbols) "res_${match.groupValues[1]}" else match.value
         }
         .replace(missingValue) { match -> "missing_${match.groupValues[1].lowercase()}" }
-        .replace(rawResourceReference) { match -> resourceIdReferences[match.groupValues[1]] ?: match.value }
+        .replace(nullResourceReference, "@null")
+        .replace(rawHexResourceReference) { match ->
+            val id = match.groupValues[1].toLong(16).toInt()
+            runtimeFrameworkResourceReferences[id]
+                ?: frameworkResourceReferences[id]
+                ?: match.value
+        }
+        .replace(rawResourceReference) { match ->
+            resourceIdReferences[match.groupValues[1]]
+                ?: runtimeFrameworkResourceReferences[match.groupValues[1].toLong().toInt()]
+                ?: frameworkResourceReferences[match.groupValues[1].toLong().toInt()]
+                ?: "@0x${match.groupValues[1].toLong().toString(16).padStart(8, '0')}"
+        }
+        .let(::sanitizeFrameworkAnimationEnums)
+
+    private fun resolveRawAttributeReference(id: Long, resourceIdReferences: Map<String, String>): String {
+        val decimal = id.toString()
+        val appReference = resourceIdReferences[decimal]
+            ?.takeIf { it.startsWith("@attr/") }
+            ?.let { "?attr/${it.substringAfter('/')}" }
+        return appReference
+            ?: runtimeFrameworkAttributeName(id.toInt())?.let { "?android:attr/$it" }
+            ?: frameworkAttributeReferences[id.toInt()]
+            ?: "?0x${id.toString(16).padStart(8, '0')}"
+    }
+
+    private fun sanitizeFrameworkAnimationEnums(xml: String): String {
+        val mappings = mapOf(
+            "zAdjustment" to mapOf("-1" to "bottom", "0" to "normal", "1" to "top"),
+            "valueType" to mapOf(
+                "0" to "floatType", "1" to "intType", "2" to "pathType", "3" to "colorType",
+            ),
+            "ordering" to mapOf("0" to "together", "1" to "sequentially"),
+            "repeatMode" to mapOf("1" to "restart", "2" to "reverse"),
+            "fillType" to mapOf("0" to "nonZero", "1" to "evenOdd"),
+            "shape" to mapOf("0" to "rectangle", "1" to "oval", "2" to "line", "3" to "ring"),
+            "tileMode" to mapOf(
+                "0" to "clamp", "1" to "repeat", "2" to "mirror", "-1" to "disabled",
+            ),
+            "tileModeX" to mapOf(
+                "0" to "clamp", "1" to "repeat", "2" to "mirror", "-1" to "disabled",
+            ),
+            "clipOrientation" to mapOf(
+                "0x1" to "horizontal", "0x2" to "vertical", "0x3" to "horizontal|vertical",
+            ),
+            "gravity" to mapOf(
+                "0x1" to "center_horizontal",
+                "0x11" to "center",
+                "0x13" to "left|center_vertical",
+                "0x800003" to "start",
+            ),
+            "layout_width" to mapOf("-1" to "match_parent", "-2" to "wrap_content"),
+            "layout_height" to mapOf("-1" to "match_parent", "-2" to "wrap_content"),
+            "orientation" to mapOf("0" to "horizontal", "1" to "vertical"),
+            "visibility" to mapOf("0" to "visible", "1" to "invisible", "2" to "gone"),
+            "ellipsize" to mapOf(
+                "0" to "none", "1" to "start", "2" to "middle", "3" to "end", "4" to "marquee",
+            ),
+            "layoutDirection" to mapOf("0" to "ltr", "1" to "rtl", "2" to "inherit", "3" to "locale"),
+            "scaleType" to mapOf(
+                "0" to "matrix", "1" to "fitXY", "2" to "fitStart", "3" to "fitCenter",
+                "4" to "fitEnd", "5" to "center", "6" to "centerCrop", "7" to "centerInside",
+            ),
+            "dropDownHeight" to mapOf("-1" to "match_parent", "-2" to "wrap_content"),
+            "overScrollMode" to mapOf("0" to "always", "1" to "ifContentScrolls", "2" to "never"),
+            "imeOptions" to mapOf(
+                "0x0" to "actionUnspecified", "0x1" to "actionNone", "0x2" to "actionGo",
+                "0x3" to "actionSearch", "0x4" to "actionSend", "0x5" to "actionNext",
+                "0x6" to "actionDone", "0x7" to "actionPrevious",
+            ),
+            "inputType" to mapOf(
+                "0x1" to "text",
+                "0x11" to "textUri",
+                "0x21" to "textEmailAddress",
+                "0x81" to "textPassword",
+                "0x20001" to "textMultiLine",
+                "0x20011" to "textUri|textMultiLine",
+                "0x90001" to "textAutoComplete|textNoSuggestions",
+            ),
+            "importantForAutofill" to mapOf(
+                "0x0" to "auto", "0x1" to "yes", "0x2" to "no",
+                "0x4" to "yesExcludeDescendants", "0x8" to "noExcludeDescendants",
+            ),
+            "textStyle" to mapOf(
+                "0x0" to "normal", "0x1" to "bold", "0x2" to "italic", "0x3" to "bold|italic",
+            ),
+            "ringtoneType" to mapOf(
+                "0x1" to "ringtone", "0x2" to "notification", "0x4" to "alarm", "0x7" to "all",
+            ),
+        )
+        var result = sanitizeFrameworkFlags(xml)
+        mappings.forEach { (attribute, values) ->
+            val pattern = Regex("""(\b(?:android:)?${Regex.escape(attribute)}=\")(-?(?:0x[0-9A-Fa-f]+|\d+))(\")""")
+            result = pattern.replace(result) { match ->
+                val symbolic = values[match.groupValues[2]] ?: return@replace match.value
+                "${match.groupValues[1]}$symbolic${match.groupValues[3]}"
+            }
+        }
+        return result
+    }
+
+    private fun sanitizeFrameworkFlags(xml: String): String {
+        var result = replaceFlagAttribute(xml, "gravity", ::decodeGravity)
+        result = replaceFlagAttribute(result, "layout_gravity", ::decodeGravity)
+        result = replaceFlagAttribute(result, "foregroundGravity", ::decodeGravity)
+        result = replaceFlagAttribute(result, "fadingEdge") { value ->
+            decodeFlags(value, listOf(0x1000 to "horizontal", 0x2000 to "vertical"))
+        }
+        result = replaceFlagAttribute(result, "scrollbars") { value ->
+            decodeFlags(value, listOf(0x100 to "horizontal", 0x200 to "vertical"))
+        }
+        result = replaceFlagAttribute(result, "showAsAction") { value ->
+            decodeFlags(value, listOf(
+                0x1 to "ifRoom", 0x2 to "always", 0x4 to "withText", 0x8 to "collapseActionView",
+            ))
+        }
+        result = replaceFlagAttribute(result, "scrollIndicators") { value ->
+            decodeFlags(value, listOf(
+                0x01 to "top", 0x02 to "bottom", 0x04 to "left",
+                0x08 to "right", 0x10 to "start", 0x20 to "end",
+            ))
+        }
+        return result
+    }
+
+    private fun replaceFlagAttribute(xml: String, attribute: String, decoder: (Int) -> String?): String {
+        val pattern = Regex("""(\b(?:android:)?${Regex.escape(attribute)}=\")(-?(?:0x[0-9A-Fa-f]+|\d+))(\")""")
+        return pattern.replace(xml) { match ->
+            val raw = match.groupValues[2]
+            val value = if (raw.startsWith("0x")) raw.substring(2).toLong(16).toInt() else raw.toInt()
+            val symbolic = decoder(value) ?: return@replace match.value
+            "${match.groupValues[1]}$symbolic${match.groupValues[3]}"
+        }
+    }
+
+    private fun decodeGravity(value: Int): String? {
+        if (value == 0) return "no_gravity"
+        val parts = mutableListOf<String>()
+        when (value and 0x00800007) {
+            0x00800003 -> parts += "start"
+            0x00800005 -> parts += "end"
+            0x01 -> parts += "center_horizontal"
+            0x03 -> parts += "left"
+            0x05 -> parts += "right"
+            0x07 -> parts += "fill_horizontal"
+        }
+        when (value and 0x70) {
+            0x10 -> parts += "center_vertical"
+            0x30 -> parts += "top"
+            0x50 -> parts += "bottom"
+            0x70 -> parts += "fill_vertical"
+        }
+        return parts.takeIf { it.isNotEmpty() }?.joinToString("|")
+    }
+
+    private fun decodeFlags(value: Int, flags: List<Pair<Int, String>>): String? {
+        if (value == 0) return "none"
+        var remaining = value
+        val parts = flags.mapNotNull { (mask, name) ->
+            if (remaining and mask == 0) null else name.also { remaining = remaining and mask.inv() }
+        }
+        return parts.takeIf { remaining == 0 && it.isNotEmpty() }?.joinToString("|")
+    }
 
     fun sanitizeFileName(fileName: String): String = numericFileName.matchEntire(fileName)?.let { match ->
         "res_${match.groupValues[1]}${match.groupValues[2]}"
@@ -96,8 +335,11 @@ internal object ResourceNameSanitizer {
     fun resourceIdReferences(publicXml: String): Map<String, String> {
         val publicEntry = Regex("""<public\b[^>]*\btype="([^"]+)"[^>]*\bname="([^"]+)"[^>]*\bid="0x([0-9A-Fa-f]+)"[^>]*/>""")
         return publicEntry.findAll(publicXml).associate { match ->
+            val type = match.groupValues[1]
+            val name = if (type == "attr") match.groupValues[2]
+            else sanitizeResourceName(match.groupValues[2])
             match.groupValues[3].toLong(16).toString() to
-                "@${match.groupValues[1]}/${sanitizeResourceName(match.groupValues[2])}"
+                "@$type/$name"
         }
     }
 

@@ -15,6 +15,27 @@ class IntegrityCheckPatchTest {
     }
 
     @Test
+    fun `patches board and response list lifecycle integrity classes`() {
+        assertTrue("Ljp/syoboi/a2chMate/activity/BoardList2Activity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/HomeActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/ResListActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/ResEditActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/SearchActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/ThreadListActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue("Ljp/syoboi/a2chMate/activity/WebViewActivity;" in lifecycleIntegrityClassTypes)
+        assertTrue(hasLifecycleTrapOpcode(listOf(Opcode.THROW)))
+        assertTrue(hasLifecycleTrapOpcode(listOf(Opcode.DIV_INT_LIT8)))
+        assertTrue(hasLifecycleTrapOpcode(listOf(Opcode.NEW_ARRAY)))
+        assertFalse(hasLifecycleTrapOpcode(listOf(Opcode.INVOKE_SUPER, Opcode.RETURN_VOID)))
+    }
+
+    @Test
+    fun `permits a constant between array cast and read`() {
+        assertTrue(isIntegrityArrayIndexSetup(listOf(Opcode.CONST_4)))
+        assertFalse(isIntegrityArrayIndexSetup(listOf(Opcode.INVOKE_STATIC)))
+    }
+
+    @Test
     fun `does not classify reads from unrelated result arrays`() {
         assertFalse(
             matchesIntegrityComparison(
@@ -38,6 +59,18 @@ class IntegrityCheckPatchTest {
             matchesWindowFeatureTrap(
                 Opcode.DIV_INT_2ADDR,
                 "Landroid/app/Activity;->requestWindowFeature(I)Z",
+            ),
+        )
+    }
+
+    @Test
+    fun `detects an obfuscated integrity divide trap`() {
+        assertTrue(
+            matchesObfuscatedDivideTrap(
+                Opcode.DIV_INT_2ADDR,
+                divideResultRegister = 2,
+                Opcode.CONST,
+                numeratorRegister = 2,
             ),
         )
     }

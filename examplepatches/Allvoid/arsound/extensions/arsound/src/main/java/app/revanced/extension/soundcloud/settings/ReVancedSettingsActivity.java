@@ -246,13 +246,15 @@ public final class ReVancedSettingsActivity extends Activity {
                 SCREEN_APPEARANCE));
 
         list.addView(openScreenRow(text("Сеть", "Network"),
-                text("Российский IP, свой DNS, статус сети, проверка устройства", "Russian IP, custom DNS, network status, device check"),
+                text("Блок по стране IP, свой DNS, статус сети, проверка устройства", "IP country block, custom DNS, network status, device check"),
                 SCREEN_NETWORK));
         list.addView(openScreenRow(text("Офлайн и воспроизведение", "Offline and playback"),
-                text("Плейлисты без интернета, повтор при обрыве связи", "Playlists without a connection, retry on dropped connection"),
+                text("Плейлисты без интернета, повтор при обрыве связи, игра вместе с другими приложениями",
+                        "Playlists without a connection, retry on dropped connection, playing along with other apps"),
                 SCREEN_PLAYBACK));
         list.addView(openScreenRow(text("Реклама и подписка", "Ads and subscription"),
-                text("Реклама, предложения Go и Go+, вкладка Upgrade", "Ads, Go and Go+ offers, Upgrade tab"),
+                text("Реклама, предложения Go и Go+, вкладка Upgrade, кнопки скачивания, окно скриншота",
+                        "Ads, Go and Go+ offers, Upgrade tab, download buttons, screenshot sheet"),
                 SCREEN_ADS));
         list.addView(openScreenRow(text("Рекомендации", "Recommendations"),
                 text("Плейлист «Для вас» от Last.fm, дубликаты, «Не нравится»", "\"For you\" playlist by Last.fm, duplicates, dislikes"),
@@ -264,7 +266,7 @@ public final class ReVancedSettingsActivity extends Activity {
                 text("Сколько места занимают скачанные треки, удаление", "Space taken by downloaded tracks, removing them"),
                 SCREEN_STORAGE));
         list.addView(openScreenRow(text("Эквалайзер", "Equalizer"),
-                text("Громкость низких, средних и высоких частот", "Levels of low, middle and high frequencies"),
+                text("Преамп и громкость низких, средних и высоких частот", "Preamp and levels of low, middle and high frequencies"),
                 SCREEN_EQUALIZER));
         list.addView(openScreenRow(text("Статистика прослушиваний", "Listening statistics"),
                 text("Сколько и что вы слушали — только на этом телефоне", "What and how much you listened to, on this phone only"),
@@ -860,6 +862,16 @@ public final class ReVancedSettingsActivity extends Activity {
         );
         trackColors.setVisibility(ArsoundTheme.isPlayerSkinEnabled() ? View.VISIBLE : View.GONE);
         list.addView(trackColors);
+        list.addView(createToggleRow(
+                text("Без картинки в шапке «Ваши лайки»", "No picture at the top of \"Your likes\""),
+                text("Убирает сердца за заголовком «Ваши лайки» и карточки за заголовком покупок: остаётся фон темы. "
+                                + "Выключено — картинка в цвете темы. Открытая страница меняется, когда её откроют снова.",
+                        "Removes the hearts behind the \"Your likes\" title and the cards behind the purchases title: "
+                                + "the theme's background stays. Off: the picture in the theme's colour. A page already "
+                                + "open changes when it is opened again."),
+                Settings.isHeaderArtworkHidden(),
+                (button, checked) -> Settings.putBoolean(Settings.HIDE_HEADER_ARTWORK, checked)
+        ));
 
         list.addView(createSubHeading(text("Ещё", "More")));
         list.addView(openScreenRow(text("Иконка приложения", "App icon"),
@@ -1211,16 +1223,17 @@ public final class ReVancedSettingsActivity extends Activity {
         list.addView(network);
         checkNetwork(network);
         list.addView(createToggleRow(
-                text("Не выходить в сеть с российского IP", "Stay offline on a Russian IP"),
-                text("Если приложение выходит в интернет с российского IP, оно не обращается ни к SoundCloud, "
-                                + "ни к поиску Arsound. Играют скачанные и импортированные треки. Страна определяется "
-                                + "через Cloudflare; если проверка не прошла, запросы ждут следующей.",
-                        "On a Russian IP the app contacts neither SoundCloud nor the Arsound search; downloaded and "
-                                + "imported tracks still play. The country is checked through Cloudflare; after a failed "
-                                + "check requests wait for the next one."),
+                text("Не выходить в сеть с IP выбранных стран", "Stay offline on IPs of chosen countries"),
+                text("Если приложение выходит в интернет с IP одной из отмеченных ниже стран, оно не обращается ни к "
+                                + "SoundCloud, ни к поиску Arsound. Играют скачанные и импортированные треки. Страна "
+                                + "определяется через Cloudflare; если проверка не прошла, запросы ждут следующей.",
+                        "On an IP of one of the countries ticked below the app contacts neither SoundCloud nor the "
+                                + "Arsound search; downloaded and imported tracks still play. The country is checked "
+                                + "through Cloudflare; after a failed check requests wait for the next one."),
                 Settings.isRegionGuardEnabled(),
                 (button, checked) -> Settings.putBoolean(Settings.REGION_GUARD, checked)
         ));
+        addGuardCountries(list);
         list.addView(createToggleRow(
                 text("Проверять при смене сети и VPN", "Check when the network or VPN changes"),
                 text("Страна проверяется заново, как только телефон сменил сеть или включил либо выключил VPN. "
@@ -1257,10 +1270,11 @@ public final class ReVancedSettingsActivity extends Activity {
         list.addView(createToggleRow(
                 text("Показывать статус сети", "Show network status"),
                 text("Маленький значок перечёркнутого интернета внизу справа, над плеером, когда нет сети или "
-                                + "SoundCloud отключён из-за российского IP. Нажмите — сеть проверится снова; "
+                                + "SoundCloud отключён из-за IP выбранной страны. Нажмите — сеть проверится снова; "
                                 + "удерживайте — покажет, в чём дело.",
                         "A small crossed-out globe at the bottom right, above the player, when there is no connection "
-                                + "or SoundCloud is off because of a Russian IP. Tap it to check again, hold it to see why."),
+                                + "or SoundCloud is off because of an IP of a chosen country. Tap it to check again, "
+                                + "hold it to see why."),
                 Settings.isNetworkBannerEnabled(),
                 (button, checked) -> Settings.putBoolean(Settings.NETWORK_BANNER, checked)
         ));
@@ -1273,6 +1287,130 @@ public final class ReVancedSettingsActivity extends Activity {
                 Settings.isDataDomePromptEnabled(),
                 (button, checked) -> Settings.putBoolean(Settings.DATADOME_PROMPT, checked)
         ));
+    }
+
+    /** The countries offered with a tick: the neighbours most users ask about. Others are typed in by code. */
+    private static final String[] GUARD_COUNTRIES = {"RU", "UA", "BY", "KZ"};
+
+    private String guardCountryName(String code) {
+        switch (code) {
+            case "RU":
+                return text("Россия", "Russia");
+            case "UA":
+                return text("Украина", "Ukraine");
+            case "BY":
+                return text("Беларусь", "Belarus");
+            default:
+                return text("Казахстан", "Kazakhstan");
+        }
+    }
+
+    /** One tick per country, and a row for codes of any other countries. */
+    private void addGuardCountries(LinearLayout list) {
+        list.addView(createSubHeading(text("Страны", "Countries")));
+        for (String code : GUARD_COUNTRIES) {
+            list.addView(createCheckRow(guardCountryName(code) + " (" + code + ")",
+                    Settings.getRegionGuardCountries().contains(code),
+                    (button, checked) -> {
+                        java.util.Set<String> codes = new java.util.LinkedHashSet<>(Settings.getRegionGuardCountries());
+                        if (checked) codes.add(code);
+                        else codes.remove(code);
+                        Settings.setRegionGuardCountries(codes);
+                        warnIfNoGuardCountries();
+                    }));
+        }
+        TextView[] description = new TextView[1];
+        View others = createActionRow(text("Другие страны", "Other countries"), "",
+                v -> editOtherGuardCountries(description[0]));
+        description[0] = (TextView) ((ViewGroup) others).getChildAt(1);
+        description[0].setText(otherGuardCountriesDescription());
+        list.addView(others);
+    }
+
+    /** The switch stays on with no country left, and then blocks nothing: said once the last tick goes. */
+    private void warnIfNoGuardCountries() {
+        if (!Settings.isRegionGuardEnabled() || !Settings.getRegionGuardCountries().isEmpty()) return;
+        Toast.makeText(this, text("Ни одна страна не отмечена: блок по стране не действует",
+                "No country is ticked: the country block does nothing"), Toast.LENGTH_LONG).show();
+    }
+
+    private static java.util.List<String> otherGuardCountries() {
+        java.util.List<String> others = new java.util.ArrayList<>(Settings.getRegionGuardCountries());
+        others.removeAll(java.util.Arrays.asList(GUARD_COUNTRIES));
+        return others;
+    }
+
+    private String otherGuardCountriesDescription() {
+        java.util.List<String> others = otherGuardCountries();
+        return others.isEmpty()
+                ? text("Двухбуквенные коды стран через запятую, например DE, PL", "Two-letter country codes separated by commas, for example DE, PL")
+                : android.text.TextUtils.join(", ", others);
+    }
+
+    private void editOtherGuardCountries(TextView description) {
+        android.widget.EditText codes = new android.widget.EditText(this);
+        codes.setHint("DE, PL");
+        codes.setSingleLine(true);
+        codes.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+        codes.setText(android.text.TextUtils.join(", ", otherGuardCountries()));
+        codes.setSelection(codes.length());
+        LinearLayout form = new LinearLayout(this);
+        form.setPadding(dimen("spacing_m"), 0, dimen("spacing_m"), 0);
+        form.addView(codes, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        new app.revanced.extension.soundcloud.shared.ArsoundDialog(this)
+                .setTitle(text("Другие страны", "Other countries"))
+                .setMessage(text("Двухбуквенные коды стран, как в Cloudflare: DE — Германия, PL — Польша.",
+                        "Two-letter country codes, as Cloudflare reports them: DE is Germany, PL is Poland."))
+                .setView(form)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String input = codes.getText().toString().trim().toUpperCase(java.util.Locale.US);
+                    if (!input.isEmpty() && !input.matches("[A-Z]{2}(\\s*[,;\\s]\\s*[A-Z]{2})*[,;\\s]*")) {
+                        Toast.makeText(this, text("Нужны коды из двух латинских букв через запятую",
+                                "Use two-letter codes separated by commas"), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    java.util.Set<String> chosen = new java.util.LinkedHashSet<>();
+                    for (String code : GUARD_COUNTRIES) {
+                        if (Settings.getRegionGuardCountries().contains(code)) chosen.add(code);
+                    }
+                    for (String code : input.split("[,;\\s]+")) {
+                        if (code.matches("[A-Z]{2}")) chosen.add(code);
+                    }
+                    Settings.setRegionGuardCountries(chosen);
+                    description.setText(otherGuardCountriesDescription());
+                    warnIfNoGuardCountries();
+                })
+                .show();
+    }
+
+    /** A compact row with a tick on the right, for picking several items of a list. */
+    private View createCheckRow(String title, boolean checked, CompoundButton.OnCheckedChangeListener listener) {
+        recordForSearch(title, "");
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setMinimumHeight(dimen("action_list_default_height"));
+        row.setPadding(dimen("spacing_m"), 0, dimen("spacing_m"), 0);
+        row.setBackgroundResource(themeAttribute(android.R.attr.selectableItemBackground));
+
+        TextView titleView = createText("Body.Primary", title);
+        row.addView(titleView, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        android.widget.CheckBox box = new android.widget.CheckBox(this);
+        // See createToggleRow: the state always comes from the settings.
+        box.setSaveEnabled(false);
+        // The accent of the toggles when ticked, the secondary text colour when not.
+        box.setButtonTintList(new android.content.res.ColorStateList(
+                new int[][]{{android.R.attr.state_checked}, {}},
+                new int[]{app.revanced.extension.soundcloud.theme.ArsoundTheme.palette(this, "special"),
+                        app.revanced.extension.soundcloud.theme.ArsoundTheme.palette(this, "secondary")}));
+        box.setChecked(checked);
+        box.setOnCheckedChangeListener(listener);
+        row.addView(box);
+
+        row.setOnClickListener(v -> box.toggle());
+        return row;
     }
 
     private void addPlaybackSection(LinearLayout list) {
@@ -1308,6 +1446,21 @@ public final class ReVancedSettingsActivity extends Activity {
                 Settings.isPlaybackRetryEnabled(),
                 (button, checked) -> Settings.setPlaybackRetryEnabled(checked)
         ));
+        list.addView(createToggleRow(
+                text("Играть вместе с другими приложениями", "Play along with other apps"),
+                text("Музыка не встаёт на паузу и не становится тише, когда звук включает другое приложение: видео, "
+                                + "голосовое сообщение, игра или другой плеер. Звучат оба. Учтите: музыка не "
+                                + "остановится и во время записи голосового или видео. При звонке пауза остаётся, "
+                                + "после звонка музыка продолжится.",
+                        "Music does not pause or get quieter when another app plays sound: a video, a voice message, "
+                                + "a game or another player. Both play. Note that music also keeps playing while you "
+                                + "record a voice message or a video. Calls still pause it, and it resumes after the call."),
+                Settings.isMixWithOtherAppsEnabled(),
+                (button, checked) -> {
+                    Settings.putBoolean(Settings.MIX_WITH_OTHER_APPS, checked);
+                    app.revanced.extension.soundcloud.player.MixWithOtherApps.onSettingChanged(checked);
+                }
+        ));
         addStreamCacheOptions(list);
         addVivoMusicCardRow(list);
     }
@@ -1329,6 +1482,7 @@ public final class ReVancedSettingsActivity extends Activity {
     private static volatile app.revanced.extension.soundcloud.player.AudioEqualizer.Info equalizerInfo;
 
     private void addEqualizerSection(LinearLayout list) {
+        addPreampRow(list);
         LinearLayout options = new LinearLayout(this);
         options.setOrientation(LinearLayout.VERTICAL);
         list.addView(createToggleRow(
@@ -1337,8 +1491,7 @@ public final class ReVancedSettingsActivity extends Activity {
                         "Changes the sound of everything SoundCloud plays, at once, without a restart. Uses Android's equalizer."),
                 app.revanced.extension.soundcloud.player.AudioEqualizer.isEnabled(),
                 (button, checked) -> {
-                    Settings.putBoolean(app.revanced.extension.soundcloud.player.AudioEqualizer.ENABLED, checked);
-                    app.revanced.extension.soundcloud.player.AudioEqualizer.applyAll();
+                    app.revanced.extension.soundcloud.player.AudioEqualizer.setEnabled(checked);
                     if (checked) {
                         options.setAlpha(0f);
                         options.setVisibility(View.VISIBLE);
@@ -1366,6 +1519,87 @@ public final class ReVancedSettingsActivity extends Activity {
                 showEqualizerPanel(info, options);
             });
         });
+    }
+
+    /** A preamp step: half a decibel. */
+    private static final int PREAMP_STEP = 50;
+
+    private static String preampText(int millibels) {
+        String value = String.format(java.util.Locale.US, "%+.1f", millibels / 100f);
+        return (millibels == 0 ? "0" : value).replace('.', russian() ? ',' : '.') + text(" дБ", " dB");
+    }
+
+    /**
+     * The overall volume: louder or quieter without touching the curve, and with the equalizer turned off too.
+     * Holding the row sets it back to zero.
+     */
+    private void addPreampRow(LinearLayout list) {
+        String title = text("Преамп", "Preamp");
+        String explanation = text("Общая громкость всего, что играет, — тише или громче, не меняя эквалайзер. Работает и с "
+                        + "выключенным эквалайзером. При усилении громкие места не хрипят: их придерживает ограничитель. "
+                        + "Удерживайте строку, чтобы вернуть 0.",
+                "The overall volume of everything that plays, quieter or louder, without changing the equalizer. Works "
+                        + "with the equalizer turned off too. When boosting, a limiter keeps loud parts from distorting. "
+                        + "Hold the row to set it back to 0.");
+        recordForSearch(title, explanation);
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.VERTICAL);
+        row.setPadding(0, dimen("spacing_s"), 0, dimen("spacing_s"));
+        row.setBackgroundResource(themeAttribute(android.R.attr.selectableItemBackground));
+
+        LinearLayout titleLine = new LinearLayout(this);
+        titleLine.setOrientation(LinearLayout.HORIZONTAL);
+        titleLine.setGravity(Gravity.CENTER_VERTICAL);
+        titleLine.setPadding(dimen("spacing_m"), 0, dimen("spacing_m"), 0);
+        titleLine.addView(createText("H4.Primary", title),
+                new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        int accent = ArsoundTheme.palette(this, "special");
+        TextView value = createText("H4.Primary", preampText(app.revanced.extension.soundcloud.player.AudioEqualizer.preamp()));
+        value.setTextColor(accent);
+        titleLine.addView(value);
+        row.addView(titleLine);
+
+        int min = app.revanced.extension.soundcloud.player.AudioEqualizer.PREAMP_MIN;
+        int max = app.revanced.extension.soundcloud.player.AudioEqualizer.PREAMP_MAX;
+        android.widget.SeekBar slider = new android.widget.SeekBar(this);
+        slider.setMax((max - min) / PREAMP_STEP);
+        slider.setProgress((app.revanced.extension.soundcloud.player.AudioEqualizer.preamp() - min) / PREAMP_STEP);
+        slider.setProgressTintList(android.content.res.ColorStateList.valueOf(accent));
+        slider.setThumbTintList(android.content.res.ColorStateList.valueOf(accent));
+        slider.setSaveEnabled(false);
+        slider.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(android.widget.SeekBar bar, int progress, boolean fromUser) {
+                if (!fromUser) return;
+                int millibels = min + progress * PREAMP_STEP;
+                value.setText(preampText(millibels));
+                app.revanced.extension.soundcloud.player.AudioEqualizer.setPreamp(millibels);
+            }
+
+            @Override
+            public void onStartTrackingTouch(android.widget.SeekBar bar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(android.widget.SeekBar bar) {
+            }
+        });
+        LinearLayout.LayoutParams sliderParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sliderParams.topMargin = dp(4);
+        row.addView(slider, sliderParams);
+
+        TextView description = createText("Body.Secondary", explanation);
+        description.setPadding(dimen("spacing_m"), dp(4), dp(72), 0);
+        row.addView(description);
+
+        row.setOnLongClickListener(v -> {
+            slider.setProgress(-min / PREAMP_STEP);
+            value.setText(preampText(0));
+            app.revanced.extension.soundcloud.player.AudioEqualizer.setPreamp(0);
+            return true;
+        });
+        list.addView(row);
     }
 
     /** Whether the read got every preset; a failed read is not kept, the next visit tries again. */
@@ -2166,6 +2400,20 @@ public final class ReVancedSettingsActivity extends Activity {
                 (button, checked) -> Settings.setHideSubscriptionOffersEnabled(checked)
         ));
         list.addView(createToggleRow(
+                text("Кнопки скачивания SoundCloud — через Arsound", "SoundCloud download buttons use Arsound"),
+                text("«Скачать» в меню трека, плейлиста и альбома, на странице трека, круглая кнопка над плейлистом "
+                                + "и «Понравившимися» скачивают файлы через Arsound, а не предлагают подписку Go. "
+                                + "С подпиской SoundCloud скачивает сам, предложения нет — его скачивание "
+                                + "работает как обычно. Выключите, чтобы вернуть кнопкам поведение SoundCloud целиком.",
+                        "\"Download\" in the menu of a track, a playlist and an album, on the track page, and the round "
+                                + "button above a playlist and your likes download files with Arsound instead of "
+                                + "offering a Go subscription. With a subscription SoundCloud downloads by itself and "
+                                + "offers nothing, so its download works as usual. Turn off to give the buttons back "
+                                + "to SoundCloud entirely."),
+                Settings.isInterceptDownloadButtonsEnabled(),
+                (button, checked) -> Settings.putBoolean(Settings.INTERCEPT_DOWNLOAD_BUTTONS, checked)
+        ));
+        list.addView(createToggleRow(
                 text("Скрыть вкладку Upgrade", "Hide Upgrade tab"),
                 text("Убирает вкладку Upgrade из нижней панели. Применится после перезапуска.",
                         "Removes the Upgrade tab from the bottom bar. Applies after a restart."),
@@ -2180,6 +2428,17 @@ public final class ReVancedSettingsActivity extends Activity {
                                 + "for a few days, after which it comes back. Applies after a restart."),
                 Settings.isHideImportBannerEnabled(),
                 (button, checked) -> Settings.setHideImportBannerEnabled(checked)
+        ));
+        list.addView(createToggleRow(
+                text("Окно «Поделиться скриншотом»", "\"Share screenshot\" sheet"),
+                text("После скриншота SoundCloud открывает окно, чтобы поделиться им со ссылкой на трек (Android 14 "
+                                + "и новее). Выключено — скриншот делается без окна. Включено — окно открывается один "
+                                + "раз, а не дважды, как в оригинале на экране плеера. Применится после перезапуска.",
+                        "After a screenshot SoundCloud opens a sheet to share it with a link to the track (Android 14 "
+                                + "and later). Off: screenshots are taken without the sheet. On: the sheet opens once, "
+                                + "not twice as in the original on the player screen. Applies after a restart."),
+                Settings.isScreenshotShareEnabled(),
+                (button, checked) -> Settings.putBoolean(Settings.SCREENSHOT_SHARE, checked)
         ));
     }
 

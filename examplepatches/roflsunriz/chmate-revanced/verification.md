@@ -1,5 +1,49 @@
 # 検証手順
 
+## 2026-10-24: v1.2.0 画像掲示板・高度NG統合と並列更新
+
+- Pixel 10aへv1.2.3をインストール後、スレッドを開くと`ResListActivity.onStart(:727)`のNPEで断続的に終了することをcrash bufferで4件確認した。246 devのdecompile結果では`onStart`と`onResume`の成功経路がsuper呼出しだけで、内部counterの分岐がnull throw等へ入るため、v1.2.4で両ライフサイクルを直接superへ委譲する。
+- v1.2.4候補をPixel 10aへデータ保持更新後、したらばの同一スレッド「AA保管庫」を20回連続で開閉した。20/20回で`ResListActivity`がtop resumed activityとなり、ChMate processは同じPIDで継続し、crash bufferは空だった。
+- 続くホーム全メニュー検査で「スレ検索」を開いた際に`WebViewActivity.onStart(:653)`のNPEを検出したため、同Activityもv1.2.4のライフサイクル修正対象へ追加した。
+- スレッドtoolbarの「書き込む」で`ResEditActivity.onStart(:598)`のArithmeticExceptionを検出したため、同Activityもv1.2.4のライフサイクル修正対象へ追加した。
+- 246 devのdecompile結果をActivity全体へ横断し、Home・Search・ThreadListにもライフサイクルtrapを確認した。対象7 Activityのうちsuper同名呼出しとthrow／divide opcodeが共存するmethodだけを修正する構造判定へ一般化した。
+- 再検査で返信ダイアログは`onStart`を通過したが、`ResEditActivity.onResume(:521)`の`NegativeArraySizeException`を検出した。負数長の`NEW_ARRAY`もsuper同名呼出しと共存する場合に限ってライフサイクルtrapとして修正する。
+- 最終候補v1.2.4eで、ホーム5 tab・12メニュー、設定14項目、画像掲示板／高度NG／ChMate ReVancedの3直接画面、NG編集6 tab、スレッドtoolbar 5操作、コピー／共有／次スレ作成／板へ／URL入力を開閉した。返信・次スレ作成dialog、共有chooser、検索・抽出、リストコントローラー、板一覧、WebView、Archiveも表示できた。「今すぐ再起動」でPID変更とHome復帰も確認した。
+- 最終候補で同一スレッドを再度20回連続開閉し20/20回成功した。更新buttonとpull-to-refresh後もprocessは生存し、全UI回帰検査後のAndroid crash bufferは空だった。外部投稿、履歴削除、NG追加の保存など不可逆・外部副作用を伴う確定操作は行わず、画面・dialog表示とcancel／backまで確認した。
+- v1.2.4のclean状態で`:patches:test`、`:extensions:chmate:test`、`:extensions:chmate:lint`、`:patches:buildAndroid`が成功した。同じ最終RVPを公式CLI 6.0.0で165、統合済み179 XAPK、202 dev、統合済み241 XAPK、244 dev、245 dev、246 devへ適用し、全7世代で`"ChMate ReVanced" succeeded`、resource・全DEX再構築、zipalign、署名済みAPK保存を確認した。ローカルRVPのSHA-256は`2a7ee15f09e391d347fbfb7acc523c8f1f6c14494c9f5405add01832946e48a2`だった。Pixel実機候補との差分は42 entry中`META-INF/MANIFEST.MF`だけだった。
+- OSV-Scanner 2.7.0でpatches lockfileの68 packageとextension lockfileの176 packageを検査し、既知脆弱性0件を確認した。
+- main CI run `40106014071`と公開前Release run `40106203250`が成功した。annotated tag `v1.2.4`起点のRelease run `40106265739`も成功し、公開資産はRVP・checksum・`patches.json`の3点だけだった。公開RVPのSHA-256は`787638c38202238761256bec60a4fc8ba7f14c3edc5c6962f9e120ea8e4e93c8`で同梱checksumと一致し、latest APIもv1.2.4を指した。
+- Pixel 10aのManagerからローカル候補sourceを除去し、固定`releases/latest/download/patches.json`を再登録した。Managerが`ChMate ReVanced Patches v1.2.4`と1 patchを取得することを確認した。
+- Pixel 10a / Android 17 / ReVanced Manager 2.6.0でv1.2.2を246 devへ適用すると、resource decode中に`/.local/share/apktool/framework`を作成できないlogが大量発生し、Binderの`DeadObjectException`を経て`ProcessRuntime.RemoteFailureException`となることを再現した。v1.2.3ではapktool framework保存先をprocess cacheへ切り替える。
+- v1.2.3候補では同じPixel 10aで準備2/2、patch適用2/2、保存2/2まで完走し、全9 DEX、resource、zipalign、Manager署名済みAPKの生成を確認した。`/.local/share`のframework作成失敗、Binder `DeadObjectException`、`RemoteFailureException`はいずれも再発しなかった。端末へのインストールは利用者の明示承認待ちとした。
+- v1.2.3のclean状態で`:patches:test`、`:extensions:chmate:test`、`:extensions:chmate:lint`、`:patches:buildAndroid`が成功した。同じ最終RVPを公式CLI 6.0.0で165、統合済み179 XAPK、202 dev、統合済み241 XAPK、244 dev、245 dev、246 devへ適用し、全7世代で`"ChMate ReVanced" succeeded`、resource・全DEX再構築、zipalign、署名済みAPK保存を確認した。ローカルRVPのSHA-256は`80da098cdf24b3a2d8196bfa0557b06e5c07fdb3b7d01354db7c4f79d96e32c3`だった。Pixel実機候補との差分は42 entry中`META-INF/MANIFEST.MF`だけだった。
+- OSV-Scanner 2.7.0でpatches lockfileの68 packageとextension lockfileの176 packageを検査し、既知脆弱性0件を確認した。
+- main CI run `40101307883`と公開前Release run `40101494225`が成功した。annotated tag `v1.2.3`起点のRelease run `40101538222`も成功し、公開資産はRVP・checksum・`patches.json`の3点だけだった。公開RVPのSHA-256は`9eb2c461da1a6ff4d9fac8a61aa7e32f929ca061d5f81c3a71ec322573056515`で同梱checksumと一致し、latest APIもv1.2.3を指した。
+- Pixel 10aのManagerからローカル候補sourceを除去し、固定`releases/latest/download/patches.json`を再登録した。Managerが`ChMate ReVanced Patches v1.2.3`と1 patchを取得することを確認し、端末上の候補RVPを削除した。
+- 固定URLから取得した公開v1.2.3をPixel 10aで246 devへ再適用し、候補版と同じく準備・patch・保存が各2/2で完了した。framework保存先エラーとremote process終了は再発しなかった。
+- v1.2.1をManagerで246 devへデータ保持更新すると、versionCode 516、versionName `0.8.10.246 dev`、ReVanced証明書SHA-256 `cddbc1c44abb5b0bc4efab2b9e82291758db40409082c7dda55cd1d771459ab0`でインストールは成功した。一方、初回起動で`IntListPreference.<init>`がNPEとなった。patch済みAPKを復号するとroot配置binary XMLのPreference属性が消失しており、文字列pool indexが欠落した属性名をresource IDから復元するv1.2.2修正へ移行した。
+- v1.2.2候補を公式Manager 2.6.0で246 devへデータ保持更新し、ホーム、Compose設定、掲示板設定、NG設定、板一覧を開けることを確認した。掲示板設定下部の「画像掲示板の板」から3種のsourceを保存するとBBSMENU URL 2へ`http://127.0.0.1:28282/bbsmenu`が入り、板一覧更新は1945板を処理した。「URLを開く」に`https://boards.4chan.org/g/`を入力するとChMate標準スレ一覧画面で同URLを開いた。NG設定下部の「高度なNGルール」からルール画面へ直接遷移した。更新ボタンとpull-to-refresh後もChMate processが継続した。
+- v1.2.2のclean状態で`:patches:test`、`:extensions:chmate:test`、`:extensions:chmate:lint`、`:patches:buildAndroid`が成功した。同じ最終RVPを公式CLI 6.0.0で165、統合済み179 XAPK、202 dev、統合済み241 XAPK、244 dev、245 dev、246 devへ適用し、全7世代で`"ChMate ReVanced" succeeded`、resource・全DEX再構築、zipalign、署名済みAPK保存を確認した。ローカルRVPのSHA-256は`b76a0a889ac910371ea2fb2ff9e80cd4be65f9c8f22de42f4010fdf68afb3e0d`だった。
+- OSV-Scanner 2.7.0でpatches lockfileの68 packageとextension lockfileの176 packageを検査し、既知脆弱性0件を確認した。
+- main CI run `40098333136`と公開前Release run `40098525678`が成功した。annotated tag `v1.2.2`起点のRelease run `40098590879`も成功し、公開資産はRVP・checksum・`patches.json`の3点だけだった。公開RVPのSHA-256は`2301142fb3ec3b7b9ca742d795a7562e6a421f8bcf93129342f68d0389543957`で同梱checksumと一致し、latest APIもv1.2.2を指した。
+- AQUOSのManagerから全ローカル候補sourceを除去し、固定`releases/latest/download/patches.json`を再登録した。Managerが`ChMate ReVanced Patches v1.2.2`と1 patchを取得することを確認し、端末上の候補RVPを削除した。
+- v1.2.1候補をAQUOS SH-R80P / Android 16の公式ReVanced Manager 2.6.0へ読み込み、0.8.10.246 devで`ChMate ReVanced`適用、全10 DEXのコンパイル、resourceコンパイル、zipalign、Manager署名まで完了した。候補とclean再ビルドRVPは42 entry中`META-INF/MANIFEST.MF`だけが異なり、patch classと拡張DEXは同一だった。インストールは共通手順に従い利用者の明示承認待ちとした。
+- v1.2.1のclean build後、公式CLI 6.0.0で165、統合済み179 XAPK、202 dev、統合済み241 XAPK、244 dev、245 dev、246 devへ同一RVPを適用し、全7世代で`"ChMate ReVanced" succeeded`、resource・全DEX再構築、zipalign、署名済みAPK保存を確認した。
+- v1.2.1のclean状態で`:patches:test`、`:extensions:chmate:test`、`:extensions:chmate:lint`、`:patches:buildAndroid`が成功した。ローカルRVPは42 entryで、SHA-256は`41692feb214ba022e40ab24605de17406189b46061723d820f561100d8f33479`だった。
+- mainへのpush後、GitHub Actions CI run `40090485509`でも同じJUnit・Android Lint・RVP buildが成功した。
+- 文書更新後のCI run `40090641248`と公開前Release run `40090645487`が成功した。annotated tag `v1.2.1`起点のRelease run `40090690578`も成功し、`patches-1.2.1.rvp`、checksum、`patches.json`の3資産だけを公開した。公開RVPのSHA-256は`940835b94cf22607807e1a3ed58f182d794a0f158e78c17a99b7b5593b7e8d3c`で同梱checksumと一致し、latest APIと`patches.json`はいずれもv1.2.1を指した。
+- AQUOSのManagerからローカル候補sourceを除去し、README記載の固定`releases/latest/download/patches.json`を再登録した。Managerが`ChMate ReVanced Patches v1.2.1`と1 patchを取得することを確認し、端末上の候補RVPと0 byteの保存試行fileを削除した。
+- OSV-Scanner 2.7.0でpatches lockfileの68 packageとextension lockfileの176 packageを検査し、既知脆弱性0件を確認した。settings lockfileは対象packageがなくextractor対象外だった。
+- 公開後の固定URL v1.2.0をManagerへ更新して246 devを再適用すると、binary XMLのnull値・不正属性名は解消したが、`android:key`を失った掲示板設定を検出できず停止した。BBSMENU Preferenceクラスによるv1.2.1候補でもManager復号結果にはクラス名が残らなかったため、旧版のXML統合を保ちつつ、Compose版は実行時の「掲示板設定／BBSMENU」表示から同画面を識別するfallbackへ変更した。
+
+- `ParallelRefreshBridgeTest`で同一板4件を4ワーカーへ分割し、実行区間が重なることとエラー件数の集約を確認した。別板は板単位で分割する。新版`AutoCheckWork`と旧版`ReloadBookmarkTask2`の逐次method入口へ同じbridgeを注入し、worker側だけ元methodを実行するDEXを確認した。
+- `ImageBoardIntegrationTest`で4chanの板・スレッドURLをloopbackの板URL・`test/read.cgi`へ変換し、ChMateが扱えない短いjschan IDを安定した9桁IDへ変換すること、一般HTTPS URLをjschanとして誤変換しないことを確認した。246 devの復号後掲示板設定XMLに`ImageBoardSourcesActivity`へのPreference、manifestに非公開ActivityとProvider、拡張DEXに`BBSMENU`・`subject.txt`・`dat`変換サーバーを確認した。
+- JDK 17のclean後に`:patches:test`、`:extensions:chmate:test`、`:extensions:chmate:lint`、`:patches:buildAndroid`が成功した。ローカルRVPは42エントリ、SHA-256は`2d6e3f96f083fa547db7eac3f99e1454572292e2a575800d8d133355f84bce5d`で、Android DEXの`extensions/chmate.rve`とdeep integration／parallel refresh patchを含み、APK/XAPKを含まない。
+- OSV-Scanner 2.7.0で`patches/gradle.lockfile`の68パッケージと`extensions/chmate/gradle.lockfile`の176パッケージを検査し、既知脆弱性の検出は0件だった。`settings-gradle.lockfile`は依存エントリを持たず抽出対象にならない。GitHub Dependabotの未解決アラートとopen PRも0件だった。
+- 179の20 moduleと241の4 moduleはAPKEditor 1.4.9で統合した。同じ`patches-1.2.0.rvp`を165、179、202 dev、241、244 dev、245 dev、246 devへ公式CLI 6.0.0で適用し、全7世代で`ChMate ReVanced succeeded`、resource・全DEX再構築、zipalign、署名済みAPK保存を確認した。
+- AQUOS SH-R80P / Android 16の公式Manager 2.6.0では、初回候補で246 devのbinary XML属性値がnullとなる失敗、次候補で属性名が空の`android:`となる失敗を再現した。型付きraw値の復元と名前なし属性だけの除外を追加し、JUnitと7世代CLIを再実行した。固定URLソースを残したまま複数の同名ローカル候補を追加するとAPKのパッチ選択画面が新しい候補を列挙しないため、公開後に固定URLをv1.2.0へ更新してManagerの最終適用を行う。
+- `main`のCI [run 40087070199](https://github.com/roflsunriz/chmate-revanced/actions/runs/40087070199)と公開前Release workflow [run 40087075212](https://github.com/roflsunriz/chmate-revanced/actions/runs/40087075212)は成功した。Actions artifactのRVPはSHA-256 `5ea631c9469eebeb4bb3c2d458425c72255900c2e790c3b87d2f8d64e73fa02b`。ローカル版とZIP entry・patch classは一致した。拡張DEXからJADXで双方765ソースを抽出したところ、Windows/LinuxのD8によるlambda・nest accessor番号は異なるが、`app.revanced.extension.chmate`のmethod本体・文字列・型に実装差がないことを確認した。
+
 ## 2026-10-19: CI高速化
 
 - 変更したGitHub Actionsをactionlint 1.7.12で検査し、エラー0件を確認した。

@@ -4,13 +4,58 @@
 
 ## [Unreleased]
 
+## [1.2.4] - 2026-10-25
+
+### Fixed
+
+- 0.8.10.246 devの`ResListActivity`で、`onStart`／`onResume`のintegrity trapが内部状態により発火し、スレッドを開く際に断続的に終了する問題を修正した。
+- 「スレ検索」などで使われる`WebViewActivity`にも同型のライフサイクル修正を適用し、Web画面を開く際の終了を防止した。
+- スレッドの書き込み欄で使われる`ResEditActivity`にも同型の修正を適用し、返信ダイアログを開く際の終了を防止した。
+- 246 devの全Activityを横断確認し、ホーム・検索・スレッド一覧を含む7 Activityについて、super呼出しとthrow／divide trapが共存するライフサイクルmethodだけを構造判定して修正するよう一般化した。
+
+## [1.2.3] - 2026-10-24
+
+### Fixed
+
+- Android 17のReVanced Manager別プロセスでapktoolのframework保存先が`/.local/share`となり、書き込み失敗ログがBinder上限を超えてパッチ処理が終了する問題を修正した。
+
+## [1.2.2] - 2026-10-24
+
+### Fixed
+
+- Android版ReVanced Managerで0.8.10.246 devのroot配置binary XMLを復号した際、文字列poolから欠落した属性名をresource IDから復元し、`IntListPreference`などの必須属性が消えて起動不能になる問題を修正した。
+- 0.8.10.246 devで追加された起動・設定・板一覧のintegrity trapを構造検出して無効化し、Manager署名版でも各画面を開けるようにした。
+- Compose版のChMate設定下部へ画像掲示板と高度NGの直接入口を常設し、掲示板設定・NG設定から中央のReVanced設定を経由せず開けるようにした。
+
+## [1.2.1] - 2026-10-24
+
+### Fixed
+
+- Android版ReVanced Managerで0.8.10.246 devの難読化binary XMLを処理できるよう、数値resource／attr参照、framework enum、短縮color、欠落属性を正規化した。
+- 掲示板設定XMLから属性名・クラス名を復元できないCompose版でも、実行時の「掲示板設定／BBSMENU」表示から対象画面を識別し、画像掲示板項目を追加できるようにした。
+
+## [1.2.0] - 2026-10-24
+
+### Added
+
+- ホームの更新で複数の板・スレッドを確認する処理を最大4ワーカーへ分割し、ChMate本来の取得・DB更新・エラー処理を保ったまま同時読み込みできるようにした。
+- 4chan・ふたば・jschanの板を「設定」→「掲示板設定」から登録し、ループバック変換層を介してChMate標準の板一覧・スレッド一覧・レス画面で閲覧できるようにした。4chan・ふたばのURLと登録済みjschan URLは「URLを指定して開く」にも対応した。
+
 ### Changed
 
 - GitHub Actions の月間利用時間を抑えるため、Dependabot version update と自動マージを毎週・即時処理から毎月28日（Asia/Tokyo）の月末一括処理へ変更した。
+- 高度なNGルールの入口を「ChMate ReVanced」設定からChMate本来のNG編集画面へ移し、既存NGと同じ導線で編集できるようにした。
+- 画像掲示板と高度NGを独立したReVanced設定から除き、User-Agent・再起動・動画情報だけを「ChMate ReVanced」設定に残した。
+- ChMate 0.8.10.246 devのCompose設定画面でも「ChMate ReVanced」を開けるよう、XML Preferenceと実行時設定画面の両方へ互換的に入口を接続した。
 
 - 重複するCIを自動で取り消し、独立したGradleタスクを並列実行してパッチ検証の待ち時間を短縮した。
 
 - 作業規範と実装上の知見を分けて参照できるよう、固有の構成・環境・調査知見を `findings.md` に集約し、元文書の参照と着手前の全文読了指示を整えた。利用者向け手順と既存の検証証跡は保持した。
+
+### Fixed
+
+- 0.8.10.246 devで空の設定XMLを前提にしてパッチが失敗する問題を修正した。
+- Android版ReVanced Managerで難読化binary XMLの属性名・値を解決できない場合も、不正XMLを生成せずresource処理を継続できるようにした。
 
 ## [1.1.0] - 2026-10-12
 
