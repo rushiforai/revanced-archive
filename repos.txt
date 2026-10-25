@@ -63,6 +63,7 @@ forsyth47/revanced-patches
 freethekitties/freethekitties
 fromhgbwithluv/ReX-patches
 gitlab.com/gltieo/revanced-patches
+holjab/AutoMorph
 hoo-dles/jadx-morphe
 indrastorms/Dropped-Patches
 inotia00/revanced-cli-arsclib
