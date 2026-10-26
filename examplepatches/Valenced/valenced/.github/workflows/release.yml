@@ -1,0 +1,227 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: Version name (e.g. 1.0.0), also used as the release tag
+        required: true
+        type: string
+      versionCode:
+        description: Version code (e.g. 1000)
+        required: true
+        type: number
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  # Keep in sync with `javaVersion` in gradle/libs.versions.toml.
+  JAVA_VERSION: 25
+  # Repository receiving the generated `@valenced/types` package.
+  TYPES_REPO: Valenced/valenced-types
+
+jobs:
+  release:
+    name: Build & release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      VERSION_NAME: ${{ inputs.versionName }}
+      VERSION_CODE: ${{ inputs.versionCode }}
+    steps:
+      - name: Validate inputs
+        run: |
+          if ! [[ "$VERSION_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid versionName: $VERSION_NAME"
+            exit 1
+          fi
+          if ! [[ "$VERSION_CODE" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::Invalid versionCode: $VERSION_CODE"
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Bump version
+        run: |
+          sed -i -E \
+            -e "s/^(\s*versionCode = ).*/\1$VERSION_CODE/" \
+            -e "s/^(\s*versionName = ).*/\1\"$VERSION_NAME\"/" \
+            android/build.gradle.kts
+          git diff android/build.gradle.kts
+
+          if git diff --quiet android/build.gradle.kts; then
+            echo "Version unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: bump version to $VERSION_NAME ($VERSION_CODE)" android/build.gradle.kts
+            git push
+          fi
+
+      - name: Setup JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version-file: bundle/.dvmrc
+          cache: true
+          cache-hash: ${{ hashFiles('bundle/deno.lock') }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: true
+
+      - name: Decode keystore
+        env:
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+        run: |
+          if [ -z "$KEYSTORE" ]; then
+            echo "::error::The KEYSTORE secret is required for releases."
+            exit 1
+          fi
+          echo "$KEYSTORE" | base64 -d > "$RUNNER_TEMP/signing-key.jks"
+
+      - name: Install the Reseam CLI and bundle signing key
+        env:
+          PATCHES_SIGNING_KEY: ${{ secrets.PATCHES_SIGNING_KEY }}
+        run: |
+          if [ -z "$PATCHES_SIGNING_KEY" ]; then
+            echo "::error::The PATCHES_SIGNING_KEY secret is required for releases."
+            exit 1
+          fi
+          mkdir -p "$RUNNER_TEMP/reseam"
+          version=$(sed -n 's/.*id("app.reseam.workspace") version "\(.*\)".*/\1/p' android/patches/settings.gradle.kts)
+          curl -fsSL -o "$RUNNER_TEMP/reseam/reseam" "https://cdn.reseam.app/engine/v$version/reseam-linux-x64"
+          chmod +x "$RUNNER_TEMP/reseam/reseam"
+          echo "$PATCHES_SIGNING_KEY" | base64 -d > "$RUNNER_TEMP/reseam/bundle-signing.key"
+          echo "RESEAM_BIN=$RUNNER_TEMP/reseam/reseam" >> "$GITHUB_ENV"
+          echo "RESEAM_BUNDLE_KEY=$RUNNER_TEMP/reseam/bundle-signing.key" >> "$GITHUB_ENV"
+
+      # Committed and tagged locally here, pushed only after the release exists
+      - name: Prepare types
+        env:
+          TYPES_PUSH_TOKEN: ${{ secrets.TYPES_PUSH_TOKEN }}
+        run: |
+          if [ -z "$TYPES_PUSH_TOKEN" ]; then
+            echo "::error::The TYPES_PUSH_TOKEN secret is required to publish types."
+            exit 1
+          fi
+
+          (
+            cd bundle
+            deno install --frozen
+            deno run types
+            cp LICENSE ../.github/types-package/README.md dist/types/
+            jq --arg v "$VERSION_NAME" '.version = $v' dist/types/package.json > "$RUNNER_TEMP/package.json"
+            mv "$RUNNER_TEMP/package.json" dist/types/package.json
+          )
+
+          checkout="$RUNNER_TEMP/types"
+          git clone --depth 1 "https://x-access-token:$TYPES_PUSH_TOKEN@github.com/$TYPES_REPO.git" "$checkout"
+          if git -C "$checkout" ls-remote --exit-code --tags origin "refs/tags/$VERSION_NAME" >/dev/null; then
+            echo "::error::Tag $VERSION_NAME already exists in $TYPES_REPO."
+            exit 1
+          fi
+          # Keep .git, replace everything else
+          find "$checkout" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r bundle/dist/types/. "$checkout"/
+
+          cd "$checkout"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Types already up to date."
+          else
+            git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "chore: update to $VERSION_NAME" \
+              -m "From $GITHUB_REPOSITORY@$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)"
+          fi
+          # Tag every release, even without changes, so each version is installable
+          git tag "$VERSION_NAME"
+
+      - name: Build APKs and patch bundle
+        env:
+          RESEAM_RELEASE_VERSION: ${{ inputs.versionName }}
+          KEYSTORE_FILE: ${{ runner.temp }}/signing-key.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ vars.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew :android:assembleDebug :android:assembleRelease :android-patches:bundle
+
+      - name: Collect artifacts
+        run: |
+          mkdir dist
+          # Android
+          mv android/build/outputs/apk/debug/android-debug.apk dist/app-debug.apk
+          mv android/build/outputs/apk/release/android-release.apk dist/app-release.apk
+          # Android patches
+          mv android/patches/build/reseam/valenced.reseam dist/valenced.reseam
+          # Bundle
+          mv bundle/build/bundle/release/valenced.bundle dist/valenced.bundle
+          mv bundle/build/bundle/release/valenced.js dist/valenced.js
+          mv bundle/build/bundle/release/manifest.json dist/manifest.json
+          "$RESEAM_BIN" bundle list dist/valenced.reseam
+          ls -l dist
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: dist/*
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-apks
+          path: dist/*.apk
+          if-no-files-found: error
+
+      - name: Upload patch bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-patches
+          path: dist/valenced.reseam
+          if-no-files-found: error
+
+      - name: Upload bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-bundle
+          path: |
+            dist/valenced.bundle
+            dist/valenced.js
+            dist/manifest.json
+          if-no-files-found: error
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$VERSION_NAME" >/dev/null 2>&1; then
+            echo "::error::Release $VERSION_NAME already exists."
+            exit 1
+          fi
+          gh release create "$VERSION_NAME" \
+            --target "$(git rev-parse HEAD)" \
+            --title "$VERSION_NAME" \
+            --generate-notes \
+            dist/app-debug.apk dist/app-release.apk dist/valenced.reseam \
+            dist/valenced.bundle dist/valenced.js dist/manifest.json
+
+      - name: Publish types
+        run: git -C "$RUNNER_TEMP/types" push origin HEAD "refs/tags/$VERSION_NAME"

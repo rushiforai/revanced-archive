@@ -1,0 +1,121 @@
+name: "API: Publish"
+
+# Core and Android API share `apiVersion` and must always be published together.
+
+on:
+  push:
+    tags: ['api@*']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  # Keep in sync with `javaVersion` in gradle/libs.versions.toml.
+  JAVA_VERSION: 25
+
+jobs:
+  version:
+    name: Verify version
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Read API version
+        id: version
+        run: |
+          version=$(sed -nE 's/^apiVersion[[:space:]]*=[[:space:]]*"([^"]+)"/\1/p' gradle/libs.versions.toml)
+          if [ -z "$version" ]; then
+            echo "::error::Could not read apiVersion from gradle/libs.versions.toml"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches API version
+        if: github.ref_type == 'tag'
+        env:
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if [ "$TAG" != "api@$VERSION" ]; then
+            echo "::error::Tag $TAG does not match apiVersion $VERSION (expected api@$VERSION)"
+            exit 1
+          fi
+
+  core:
+    name: "Core: Publish to GitHub Packages"
+    needs: version
+    # Apple targets are only enabled on macOS hosts, and a KMP library must publish all its targets at once.
+    runs-on: macos-15
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: true
+
+      - name: Cache Kotlin/Native
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: ${{ runner.os }}-konan-
+
+      - name: Publish
+        env:
+          ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :core:publishAllPublicationsToGitHubPackagesRepository
+
+  android-api:
+    name: "Android API: Publish to GitHub Packages"
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: true
+
+      - name: Publish
+        env:
+          ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :android:api:publishReleasePublicationToGitHubPackagesRepository

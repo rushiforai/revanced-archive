@@ -1,0 +1,82 @@
+import { getPluginDependencies, isPluginStartable } from '../_internal'
+import { pApis } from './decorators'
+import { isReservedDependency } from './manifest'
+import type { AnyPlugin } from '../_internal'
+
+// Plugin dependency resolution graph nodes. We need to ensure dependencies are started before the plugin.
+// Start order: single nodes, leaf nodes (dependencies satisfied), root nodes.
+
+// Root nodes are plugins with dependencies but no dependents. Starting points of the dependency graph.
+// Leaf nodes are plugins with no dependencies, but may have dependents. End points of the dependency graph.
+
+export const pRootNodes = new Set<AnyPlugin>()
+export const pLeafOrSingleNodes = new Set<AnyPlugin>()
+
+// Plugins being ordered, guarding against cycles
+const visited = new Set<AnyPlugin>()
+
+// Sorted plugins to be started
+export const pListOrdered: AnyPlugin[] = []
+// Pending plugins for computation
+export const pPending = new Set<AnyPlugin>()
+
+// Reserved dependency IDs verified by native
+export {
+    ApiDependencyId,
+    DiscordDependencyId,
+    isReservedDependency,
+} from './manifest'
+
+/** Checks whether plugin declares graphable dependencies outside reserved set. */
+function hasGraphableDependencies(plugin: AnyPlugin): boolean {
+    const deps = plugin.manifest.dependencies
+    if (!deps) return false
+    for (const id in deps) if (!isReservedDependency(id)) return true
+    return false
+}
+
+export function computePendingNodes() {
+    for (const plugin of pPending)
+        if (isPluginStartable(plugin)) resolvePluginGraph(plugin)
+
+    const apis: AnyPlugin[] = []
+
+    for (const plugin of pLeafOrSingleNodes) {
+        if (pApis.has(plugin)) apis.push(plugin)
+        else pListOrdered.unshift(plugin)
+    }
+
+    for (const plugin of apis) pListOrdered.unshift(plugin)
+
+    // Visit the children first to prevent the parent from being added before its dependencies.
+    const ordered = new Set(pListOrdered)
+    for (const plugin of pRootNodes) orderAfterDependencies(plugin, ordered)
+
+    pPending.clear()
+    pLeafOrSingleNodes.clear()
+    pRootNodes.clear()
+    visited.clear()
+}
+
+function orderAfterDependencies(plugin: AnyPlugin, ordered: Set<AnyPlugin>) {
+    // Guards against cycles
+    if (ordered.has(plugin) || visited.has(plugin)) return
+    visited.add(plugin)
+
+    for (const dep of getPluginDependencies(plugin, false))
+        orderAfterDependencies(dep, ordered)
+
+    ordered.add(plugin)
+    pListOrdered.push(plugin)
+}
+
+export function resolvePluginGraph(plugin: AnyPlugin) {
+    if (hasGraphableDependencies(plugin)) {
+        // Optimisitically mark as root node (if there are dependents, it will be removed)
+        pRootNodes.add(plugin)
+
+        // Not a root node if it has dependencies
+        for (const dep of getPluginDependencies(plugin, false))
+            if (hasGraphableDependencies(dep)) pRootNodes.delete(dep)
+    } else pLeafOrSingleNodes.add(plugin)
+}

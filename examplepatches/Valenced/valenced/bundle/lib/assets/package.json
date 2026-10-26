@@ -1,0 +1,16 @@
+{
+  "name": "@valenced/assets",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./preinit": {
+      "default": "./src/preinit.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    }
+  }
+}

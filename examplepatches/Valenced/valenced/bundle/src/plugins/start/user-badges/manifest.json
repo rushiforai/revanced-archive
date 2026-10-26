@@ -1,0 +1,8 @@
+{
+  "id": "valenced.user-badges",
+  "name": "User Badges",
+  "description": "Badges for Valenced contributors and sponsors.",
+  "author": "Valenced",
+  "icon": "ShieldUserIcon",
+  "essential": true
+}

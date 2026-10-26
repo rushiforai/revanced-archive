@@ -1,0 +1,423 @@
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { getAssetByName, getAssetIdByName } from '@valenced/assets'
+import { styles } from '@valenced/components/_'
+import Page from '@valenced/components/Page'
+import SearchInput from '@valenced/components/SearchInput'
+import { ActionSheetActionCreators } from '@valenced/discord/actions'
+import { Tokens } from '@valenced/discord/common/tokens'
+import { Design } from '@valenced/discord/design'
+import { reloadApp } from '@valenced/modules/native/app'
+import {
+    getInternalPluginMeta,
+    isDefaultsOnlyBoot,
+    isPluginEnabledInActiveSlot,
+    isPluginEssential,
+    isPluginInternal,
+    isPluginPendingReload,
+    isPluginPendingUpdate,
+    PluginFlags,
+    pEmitter,
+    pList,
+} from '@valenced/plugins/_'
+import { useHasFlagPluginCount } from '@valenced/plugins/_/react'
+import { debounce } from '@valenced/utils/callback'
+import {
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useState,
+} from 'react'
+import { Image, View } from 'react-native'
+import ValencedIcon from '~assets/ValencedIcon'
+import {
+    belongsOnPage,
+    matchInfoOfManifest,
+    usePluginClaimsVersion,
+} from '../claims'
+import { InstalledPluginMasonryFlashList } from '../components/PluginList'
+import PluginTooltipsProvider from '../components/TooltipProvider'
+import { RouteNames, Setting } from '../constants'
+import { pluralize } from '../utils/strings'
+import type { NavigationProp, RouteProp } from '@react-navigation/core'
+import type { ReactNavigationParamList } from '@valenced/externals/react-navigation'
+import type { PluginsPageProps } from '../api'
+import type { FilterAndSortActionSheetProps } from '../components/FilterAndSortActionSheet'
+
+const { Stack, IconButton, FloatingActionButton, LayerScope, Card, Text } =
+    Design
+
+const FiltersHorizontalIcon = getAssetIdByName('FiltersHorizontalIcon', 'png')!
+const SettingsIcon = getAssetIdByName('SettingsIcon')!
+const PlusLargeIcon = getAssetIdByName('PlusLargeIcon')!
+
+export default function ValencedPluginsSettingScreen() {
+    return <PluginsPage />
+}
+
+/**
+ * The Plugins page. Without {@link match}, lists every installed plugin no other plugin claimed.
+ * Dependents receive it with {@link match} as `pluginSettings.PluginsPage`, without the header button.
+ */
+export function PluginsPage(props: Partial<PluginsPageProps>) {
+    return (
+        <LayerScope>
+            <PluginTooltipsProvider>
+                <Page spacing={16}>
+                    <Screen {...props} />
+                </Page>
+            </PluginTooltipsProvider>
+        </LayerScope>
+    )
+}
+
+const SearchDebounceTime = 100
+
+const Filters: FilterAndSortActionSheetProps['filters'] = {
+    Enabled: {
+        icon: getAssetIdByName('CircleCheckIcon')!,
+        filter: plugin => isPluginEnabledInActiveSlot(plugin),
+    },
+    Disabled: {
+        icon: getAssetIdByName('CircleXIcon')!,
+        filter: plugin => !isPluginEnabledInActiveSlot(plugin),
+    },
+    'Has Errors': {
+        icon: getAssetIdByName('CircleErrorIcon')!,
+        filter: plugin => plugin.errors.length > 0,
+    },
+    'Pending Reload': {
+        icon: getAssetIdByName('RetryIcon')!,
+        filter: plugin => isPluginPendingReload(plugin),
+    },
+    'Pending Update': {
+        icon: getAssetIdByName('RefreshIcon')!,
+        filter: plugin => isPluginPendingUpdate(plugin),
+    },
+    Configurable: {
+        icon: getAssetIdByName('SettingsIcon')!,
+        desc: 'Can be toggled or have settings that can be configured.',
+        filter: (plugin, meta) =>
+            !isPluginEssential(meta) || plugin.SettingsComponent !== undefined,
+    },
+    Internal: {
+        icon: ValencedIcon,
+        desc: 'Included with Valenced.',
+        filter: (_, meta) => isPluginInternal(meta),
+    },
+} satisfies FilterAndSortActionSheetProps['filters']
+const DefaultFilters: FilterAndSortActionSheetProps['filter'] = ['Configurable']
+
+const DefaultSort: keyof typeof Sorts = 'Name'
+const Sorts = {
+    Name: [
+        getAssetIdByName('IdIcon')!,
+        (a, b) => a.manifest.name.localeCompare(b.manifest.name),
+    ],
+    'Enabled first': [
+        getAssetIdByName('CircleCheckIcon')!,
+        (a, b) =>
+            isPluginEnabledInActiveSlot(a) === isPluginEnabledInActiveSlot(b)
+                ? a.manifest.name.localeCompare(b.manifest.name)
+                : isPluginEnabledInActiveSlot(a)
+                  ? -1
+                  : 1,
+    ],
+} satisfies FilterAndSortActionSheetProps['sorts']
+
+function HeaderButton() {
+    const navigation = useNavigation<NavigationProp<any>>()
+
+    return (
+        <IconButton
+            icon={SettingsIcon}
+            onPress={() =>
+                navigation.navigate(RouteNames[Setting.ValencedPluginsAdvanced])
+            }
+            variant="tertiary"
+        />
+    )
+}
+
+function BrowseFloatingActionButton({
+    disabled,
+    onBrowse,
+}: {
+    disabled?: boolean
+    onBrowse?: () => void
+}) {
+    const navigation = useNavigation<NavigationProp<any>>()
+
+    return (
+        <FloatingActionButton
+            disabled={disabled}
+            icon={PlusLargeIcon}
+            accessibilityLabel="Browse plugins"
+            onPress={
+                onBrowse ??
+                (() =>
+                    navigation.navigate(
+                        RouteNames[Setting.ValencedPluginsBrowse],
+                    ))
+            }
+        />
+    )
+}
+
+const ShieldIcon = getAssetByName('ShieldIcon')!
+const RecoveryBannerTitleVariant = 'text-md/semibold'
+
+const useRecoveryBannerStyles = Design.createStyles({
+    icon: {
+        tintColor: Tokens.default.colors.TEXT_DEFAULT,
+        height: Design.TextStyleSheet[RecoveryBannerTitleVariant].lineHeight,
+        width: undefined,
+        aspectRatio: (ShieldIcon.width ?? 1) / (ShieldIcon.height ?? 1),
+    },
+})
+
+function RecoveryModeBanner() {
+    const styles = useRecoveryBannerStyles()
+
+    return (
+        <Card style={{ marginHorizontal: 6, marginVertical: 6, boxShadow: '' }}>
+            <Stack spacing={12}>
+                <Stack direction="horizontal" spacing={8} align="center">
+                    <Image
+                        source={ShieldIcon.id}
+                        resizeMode="contain"
+                        style={styles.icon}
+                    />
+                    <Text variant={RecoveryBannerTitleVariant}>
+                        Recovery Mode
+                    </Text>
+                </Stack>
+                <Text variant="text-sm/medium">
+                    You are now running with default plugins. Additional plugins
+                    can't be started in Recovery Mode.{'\n\n'}
+                    Disable or uninstall plugins that might be causing issues,
+                    then reload the app to exit Recovery Mode.
+                </Text>
+                <Stack spacing={8}>
+                    <Design.Button
+                        icon={getAssetIdByName('RetryIcon')}
+                        size="sm"
+                        text="Exit Recovery Mode"
+                        onPress={() => {
+                            reloadApp()
+                        }}
+                    />
+                </Stack>
+            </Stack>
+        </Card>
+    )
+}
+
+const RetryIcon = getAssetByName('RetryIcon')!
+
+const usePendingReloadBannerStyles = Design.createStyles({
+    icon: {
+        tintColor: Tokens.default.colors.TEXT_DEFAULT,
+        height: Design.TextStyleSheet[RecoveryBannerTitleVariant].lineHeight,
+        width: undefined,
+        aspectRatio: (RetryIcon.width ?? 1) / (RetryIcon.height ?? 1),
+    },
+})
+
+function PendingReloadBanner() {
+    const styles = usePendingReloadBannerStyles()
+    const reloads = useHasFlagPluginCount(PluginFlags.PendingReload)
+    const updates = useHasFlagPluginCount(PluginFlags.PendingUpdate)
+
+    if (!reloads && !updates) return null
+
+    const parts: string[] = []
+    if (updates) parts.push(pluralize(updates, 'plugin update'))
+    if (reloads) parts.push(pluralize(reloads, 'plugin change'))
+
+    return (
+        <Card style={{ marginHorizontal: 6, marginVertical: 6, boxShadow: '' }}>
+            <Stack spacing={12}>
+                <Stack direction="horizontal" spacing={8} align="center">
+                    <Image
+                        source={RetryIcon.id}
+                        resizeMode="contain"
+                        style={styles.icon}
+                    />
+                    <Text variant={RecoveryBannerTitleVariant}>
+                        Reload to apply changes
+                    </Text>
+                </Stack>
+                <Text variant="text-sm/medium">
+                    {parts.join(' and ')} will apply after a reload.
+                </Text>
+                <Design.Button
+                    icon={RetryIcon.id}
+                    size="sm"
+                    text="Reload now"
+                    onPress={() => {
+                        reloadApp()
+                    }}
+                />
+            </Stack>
+        </Card>
+    )
+}
+
+function ListHeader() {
+    return (
+        <>
+            {isDefaultsOnlyBoot && <RecoveryModeBanner />}
+            <PendingReloadBanner />
+        </>
+    )
+}
+
+function snapshotPlugins() {
+    return [...pList.values()].map(
+        plugin => [plugin, getInternalPluginMeta(plugin)] as const,
+    )
+}
+
+function Screen({ match, onBrowse }: Partial<PluginsPageProps>) {
+    const navigation = useNavigation()
+    const route =
+        useRoute<
+            RouteProp<
+                ReactNavigationParamList,
+                (typeof RouteNames)[typeof Setting.ValencedPlugins]
+            >
+        >()
+
+    const [search, setSearch] = useState('')
+    const debouncedSetSearch = useCallback(
+        debounce(setSearch, SearchDebounceTime),
+        [],
+    )
+
+    // Our settings, not on pages of other plugins
+    useLayoutEffect(() => {
+        if (!match)
+            navigation.setOptions({
+                headerRight: () => <HeaderButton />,
+            })
+    }, [navigation, match])
+
+    const filter = route.params?.filter ?? DefaultFilters
+    const matchAll = route.params?.matchAll ?? true
+    const reverse = route.params?.reverse ?? false
+    const sort = route.params?.sort ?? DefaultSort
+
+    const hasFilter = useMemo(
+        () =>
+            filter.length !== DefaultFilters.length ||
+            filter.every(f => !DefaultFilters.includes(f)) ||
+            matchAll !== true ||
+            reverse !== false ||
+            sort !== DefaultSort,
+        [filter, matchAll, reverse, sort],
+    )
+
+    const [allPlugins, setAllPlugins] = useState(snapshotPlugins)
+    const claimsVersion = usePluginClaimsVersion()
+
+    useEffect(() => {
+        const handleUpdate = () => setAllPlugins(snapshotPlugins())
+
+        pEmitter.on('register', handleUpdate)
+        pEmitter.on('unregister', handleUpdate)
+
+        return () => {
+            pEmitter.off('register', handleUpdate)
+            pEmitter.off('unregister', handleUpdate)
+        }
+    }, [])
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: claimsVersion changes when claims do, which belongsOnPage reads
+    const plugins = useMemo(
+        () =>
+            allPlugins
+                .filter(([plugin]) =>
+                    belongsOnPage(matchInfoOfManifest(plugin.manifest), match),
+                )
+                .filter(([plugin, meta]) => {
+                    if (filter.length === 0) return true
+                    if (matchAll)
+                        return filter.every(f =>
+                            Filters[f].filter(plugin, meta),
+                        )
+
+                    return filter.some(f => Filters[f].filter(plugin, meta))
+                })
+                .filter(([plugin]) => {
+                    const { name, description, author } = plugin.manifest
+                    const query = search.toLowerCase()
+                    return (
+                        name.toLowerCase().includes(query) ||
+                        description.toLowerCase().includes(query) ||
+                        author.toLowerCase().includes(query)
+                    )
+                })
+                .sort(([a], [b]) => {
+                    const result = Sorts[sort as keyof typeof Sorts][1](a, b)
+                    return reverse ? -result : result
+                }),
+        [
+            allPlugins,
+            filter,
+            matchAll,
+            reverse,
+            sort,
+            search,
+            match,
+            claimsVersion,
+        ],
+    )
+
+    return (
+        <>
+            <Stack direction="horizontal">
+                <View style={styles.grow}>
+                    <SearchInput
+                        onChange={debouncedSetSearch}
+                        size="md"
+                        clearable
+                    />
+                </View>
+                <IconButton
+                    icon={FiltersHorizontalIcon}
+                    variant={hasFilter ? 'primary' : 'tertiary'}
+                    onPress={() =>
+                        ActionSheetActionCreators.openLazy(
+                            import('../components/FilterAndSortActionSheet'),
+                            'filter-and-sort-plugins',
+                            {
+                                filters: Filters,
+                                filter,
+                                setFilter: filter =>
+                                    navigation.setParams({ filter }),
+                                matchAll,
+                                setMatchAll: matchAll =>
+                                    navigation.setParams({ matchAll }),
+                                reverse,
+                                setReverse: reverse =>
+                                    navigation.setParams({ reverse }),
+                                sorts: Sorts,
+                                sort,
+                                setSort: sort => navigation.setParams({ sort }),
+                            },
+                        )
+                    }
+                />
+            </Stack>
+            <InstalledPluginMasonryFlashList
+                ListHeaderComponent={ListHeader}
+                plugins={plugins}
+            />
+            <BrowseFloatingActionButton
+                disabled={isDefaultsOnlyBoot}
+                onBrowse={onBrowse}
+            />
+        </>
+    )
+}

@@ -1,0 +1,10 @@
+{
+  "id": "valenced.settings.themes",
+  "name": "Themes",
+  "description": "This feature requires an update to be installed.",
+  "author": "Valenced",
+  "icon": "PaintPaletteIcon",
+  "version": "0.0.0",
+  "enabledByDefault": true,
+  "defaultSource": true
+}

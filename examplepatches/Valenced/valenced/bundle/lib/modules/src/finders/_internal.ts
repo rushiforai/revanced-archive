@@ -1,0 +1,155 @@
+import { getCurrentStack } from '@valenced/utils/error'
+import { cacheFilterResultForId } from '../caches'
+import { mInitialized } from '../metro/patches'
+import { metroRequire } from '../metro/runtime'
+import { isModuleInitialized } from '../metro/utils'
+import { NamespaceOnlyMark } from './filters/_internal'
+import type { If } from '@valenced/utils/types'
+import type { Metro } from '../types'
+import type { Filter, namespaceOnly } from './filters'
+import type { MaybeNamespaceOnly } from './filters/_internal'
+
+export interface RunFilterOptions {
+    /**
+     * Whether to skip checking the default export.
+     *
+     * @default false
+     * @deprecated Wrap the filter with {@link namespaceOnly} instead, so it doesn't depend on the lookup:
+     *
+     * ```ts
+     * namespaceOnly(filter)
+     * ```
+     */
+    skipDefault?: boolean
+    /**
+     * Whether to allow initializing modules to confirm their exports.
+     *
+     * @default true
+     */
+    initialize?: boolean
+}
+
+export type RunFilterReturnExportsOptions<
+    ReturnNamespace extends boolean = boolean,
+> = RunFilterOptions &
+    If<
+        ReturnNamespace,
+        {
+            /**
+             * Whether to return the whole module with all exports instead of just the default export **if the default export matches**.
+             *
+             * @default false
+             */
+            returnNamespace: true
+        },
+        {
+            returnNamespace?: false
+        }
+    >
+
+export const FilterResultFlags = {
+    /**
+     * A module was found, without exports filtering.
+     */
+    Found: 1,
+    /**
+     * A module was found, and the filter matched the default export.
+     */
+    Default: 2,
+    /**
+     * A module was found, and the filter matched the module namespace.
+     */
+    Namespace: 3,
+}
+
+export type FilterResultFlag =
+    (typeof FilterResultFlags)[keyof typeof FilterResultFlags]
+
+export const FilterResultFlagToHumanReadable: Record<FilterResultFlag, string> =
+    {
+        [FilterResultFlags.Default]: '\u001b[94mdefault\u001b[0m',
+        [FilterResultFlags.Namespace]: '\u001b[35mnamespace\u001b[0m',
+        [FilterResultFlags.Found]: '\u001b[96mexportsless\u001b[0m',
+    }
+
+/** Modules we already know have no `default` export. */
+// Export has no outside references, but exposed to hidden API
+export const noDefaultExportsCache = new Set<Metro.ModuleID>()
+
+// The reason this returns a flag is because flags are never falsy, while exports may be falsy when using ID-only filters (eg. `withDependencies`).
+
+// Currently, we only have options that are relevant for checking exports
+// If we add more options later on, do NOT forget about
+// adding them here, and passing them in the lookup* functions
+export function runFilter(
+    filter: Filter,
+    id: Metro.ModuleID,
+    exports?: Metro.ModuleExports,
+    options?: RunFilterOptions,
+): FilterResultFlag | undefined {
+    if (!isModuleInitialized(id)) {
+        if (filter(id, undefined, false)) {
+            if (options?.initialize ?? true) {
+                const module = metroRequire(id)
+                // Check if the required module is not blacklisted
+                if (mInitialized.has(id)) {
+                    if (__BUILD_FLAG_DEBUG_MODULE_LOOKUPS__) {
+                        const flag = runFilter(filter, id, module, options)
+                        if (!flag) DEBUG_warnPartialFilterMatch(id, filter.key)
+                        return flag
+                    } else return runFilter(filter, id, module, options)
+                } else return
+            }
+
+            return FilterResultFlags.Found
+        }
+
+        return
+    }
+
+    if (filter(id, exports, true))
+        return cacheFilterResultForId(
+            filter.key,
+            id,
+            FilterResultFlags.Namespace,
+        )
+
+    // TODO: Remove skipDefault
+    if (
+        (filter as MaybeNamespaceOnly)[NamespaceOnlyMark] ||
+        options?.skipDefault
+    )
+        return
+    if (noDefaultExportsCache.has(id)) return
+
+    const type = typeof exports
+    if (type !== 'object' || exports === null || !('default' in exports)) {
+        noDefaultExportsCache.add(id)
+        return
+    }
+
+    const { default: defaultExport } = exports
+    if (filter(id, defaultExport, true))
+        return cacheFilterResultForId(filter.key, id, FilterResultFlags.Default)
+}
+
+export function exportsFromFilterResultFlag(
+    flag: FilterResultFlag,
+    exports: Metro.ModuleExports,
+    options?: RunFilterReturnExportsOptions,
+) {
+    if (flag === FilterResultFlags.Default && !options?.returnNamespace)
+        return exports.default
+    return exports
+}
+
+/**
+ * Warns the developer that the filter matched during exportsless comparison, but not during the full comparison.
+ * This will cause modules to be initialized unnecessarily, and may cause issues.
+ */
+function DEBUG_warnPartialFilterMatch(id: Metro.ModuleID, key: string) {
+    nativeLoggingHook(
+        `\u001b[33m${key} matched module ${id} partially.\n${getCurrentStack()}\u001b[0m`,
+        2,
+    )
+}

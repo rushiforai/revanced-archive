@@ -1,0 +1,70 @@
+{
+  "name": "@valenced/discord",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./actions": {
+      "default": "./src/actions.ts"
+    },
+    "./common": {
+      "default": "./src/common/index.ts"
+    },
+    "./common/app-start-performance": {
+      "default": "./src/common/app-start-performance.ts"
+    },
+    "./common/constants": {
+      "default": "./src/common/constants.ts"
+    },
+    "./common/flux": {
+      "default": "./src/common/flux.ts"
+    },
+    "./common/import-tracker": {
+      "default": "./src/common/import-tracker.ts"
+    },
+    "./common/logger": {
+      "default": "./src/common/logger.ts"
+    },
+    "./common/tokens": {
+      "default": "./src/common/tokens.ts"
+    },
+    "./common/utils": {
+      "default": "./src/common/utils.ts"
+    },
+    "./design": {
+      "default": "./src/design.ts"
+    },
+    "./flux": {
+      "default": "./src/flux/index.ts"
+    },
+    "./native": {
+      "default": "./src/native.ts"
+    },
+    "./preinit": {
+      "default": "./src/preinit.ts"
+    },
+    "./start": {
+      "default": "./src/start.ts"
+    },
+    "./modules/main_tabs_v2": {
+      "default": "./src/modules/main_tabs_v2.ts"
+    },
+    "./modules/settings": {
+      "default": "./src/modules/settings/index.ts"
+    },
+    "./modules/settings/renderer": {
+      "default": "./src/modules/settings/renderer.ts"
+    },
+    "./utils/modules/finders": {
+      "default": "./src/utils/modules/finders.ts"
+    },
+    "./utils/modules/metro/subscriptions": {
+      "default": "./src/utils/modules/metro/subscriptions.ts"
+    },
+    "./types": {
+      "types": "./src/types/index.ts"
+    },
+    "./_/modules/settings": {
+      "default": "./src/modules/settings/_internal.ts"
+    }
+  }
+}

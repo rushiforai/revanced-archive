@@ -1,0 +1,403 @@
+import { TypedEventEmitter } from '@valenced/discord/common/utils'
+import { registerJSMethod } from '@valenced/modules/native'
+import { callPluginSystemMethod } from './native'
+import type { PluginSource } from '.'
+
+export interface DownloadProgressEvent {
+    id: string
+    version: string
+    /** Provenance repository URL. */
+    repo: string
+    /** Downloaded bytes. */
+    received: number
+    /** Total byte size from install plan. */
+    total: number
+    /** 1-based index in download sequence. */
+    index: number
+    /** Total artifact count in plan. */
+    count: number
+}
+
+export interface RepoStateEvent {
+    url: string
+    state: 'refreshing' | 'ready' | 'error'
+    error?: string
+}
+
+export const repoEvents = new TypedEventEmitter<{
+    downloadProgress: [DownloadProgressEvent]
+    repoState: [RepoStateEvent]
+}>()
+
+export function registerRepositoryEvents() {
+    registerJSMethod(
+        'valenced.plugins.events.downloadProgress',
+        (event: DownloadProgressEvent) => {
+            repoEvents.emit('downloadProgress', event)
+        },
+    )
+
+    registerJSMethod(
+        'valenced.plugins.events.repoStateUpdate',
+        (event: RepoStateEvent) => {
+            repoEvents.emit('repoState', event)
+        },
+    )
+}
+
+export interface Repo {
+    /** Absolute root URL and unique identity of the repository. */
+    url: string
+    enabled: boolean
+    internal: boolean
+    // Display metadata from the index
+    name: string | null
+    description: string | null
+    /** Packaged asset name or `data:` URL. */
+    icon: string | null
+}
+
+export interface RepoConfigEntry {
+    url: string
+    enabled?: boolean
+}
+
+export function listRepos(): Promise<Repo[]> {
+    return callPluginSystemMethod('valenced.plugins.repos.list', [])
+}
+
+export function setRepos(config: RepoConfigEntry[]): Promise<null> {
+    return callPluginSystemMethod('valenced.plugins.repos.set', [config])
+}
+
+export function refreshRepo(url: string): Promise<Repo> {
+    return callPluginSystemMethod('valenced.plugins.repos.refresh', [url])
+}
+
+/** Refreshes enabled user repositories in parallel, collecting per-repository errors. */
+export async function refreshAllRepos(): Promise<{
+    refreshed: Repo[]
+    errors: { url: string; error: unknown }[]
+}> {
+    const repos = await listRepos()
+    const refreshed: Repo[] = []
+    const errors: { url: string; error: unknown }[] = []
+
+    await Promise.all(
+        repos
+            .filter(repo => !repo.internal && repo.enabled)
+            .map(repo =>
+                refreshRepo(repo.url).then(
+                    result => {
+                        refreshed.push(result)
+                    },
+                    error => {
+                        errors.push({ url: repo.url, error })
+                    },
+                ),
+            ),
+    )
+
+    return { refreshed, errors }
+}
+
+export interface RepoPluginListing {
+    id: string
+    name: string
+    description: string
+    author: string
+    contributors?: string[]
+    /** Packaged asset name or `data:` URL. */
+    icon: string | null
+    /** Channel target pointers (e.g. `latest`) referencing keys of {@link versions}. */
+    channels: Record<string, string>
+    /** Keys of {@link versions}, newest first. */
+    order: string[]
+    versions: Record<
+        string,
+        {
+            /** Absolute artifact download URL, or `null` for internal repositories. */
+            url: string | null
+            sha256: string | null
+            size: number
+            dependencies: Record<
+                string,
+                {
+                    version: string
+                    optional: boolean
+                }
+            >
+        }
+    >
+}
+
+export interface InstallPlanAction {
+    id: string
+    version: string
+    url: string
+    sha256: string
+    size: number
+    /** Source repository recorded as installation provenance. */
+    repo: string
+    /** Channel recorded for future updates. */
+    channel: string
+    /** `true` pauses updates, `false` resumes, `null` uses the current. */
+    hold: boolean | null
+    /** The installed version being replaced, or `null` for fresh installs. */
+    replaces: string | null
+    /** What {@link channel} points to when it can't install and {@link version} fell back below it. */
+    channelVersion: string | null
+    /** Planned actions that pulled this plugin in. Empty for the requested plugin. */
+    dependents: {
+        id: string
+        optional: boolean
+        /** Version range it requires. */
+        range: string
+    }[]
+    /** Versions satisfying planned dependents, keyed by repository then version. */
+    candidates: Record<string, Record<string, VersionCandidate>>
+}
+
+/** A version a planned plugin could switch to. */
+export interface VersionCandidate {
+    /** Installed plugins outside the plan this version breaks. */
+    breaks: string[]
+}
+
+export interface InstallPlan {
+    actions: InstallPlanAction[]
+    /** Non-blocking problems (dependency resolution). */
+    warnings: ResolveIssue[]
+}
+
+export type ResolveIssue = { message: string } & (
+    | {
+          /** Root already at the resolved version. */
+          type: 'upToDate'
+          id: string
+          version: string
+      }
+    | { type: 'downgrade'; id: string; from: string; to: string }
+    | {
+          /** Planned version outside the range of an installed dependent outside the plan. */
+          type: 'breaks'
+          id: string
+          version: string
+          dependent: string
+          range: string
+          /** Update of {@link dependent} accepting {@link version}. Only from {@link listUpdates}. */
+          fixedBy: string | null
+      }
+    | {
+          /** Planned version outside the range of a planned dependent. */
+          type: 'conflict'
+          id: string
+          version: string
+          dependent: string
+          dependentVersion: string
+          range: string
+      }
+    | {
+          /** Dependency with no usable version. Skipped when optional, blocks otherwise. */
+          type: 'unresolved'
+          id: string
+          dependent: string
+          dependentVersion: string
+          range: string
+          optional: boolean
+          reason: 'unavailable' | 'held' | 'target'
+          installed: string | null
+          /** Explains a `target` reason. */
+          detail: string | null
+      }
+    | {
+          /** Paused updates, held at {@link version}. Only from {@link listUpdates}. */
+          type: 'held'
+          id: string
+          version: string
+      }
+    | {
+          /** Root not served, or not at the requested version. */
+          type: 'unavailable'
+          id: string
+          version: string | null
+      }
+)
+
+export interface PluginUpdate {
+    id: string
+    /** Installed version, or the pending on-disk update. */
+    installed: string
+    available: string
+    channel: string
+    /** What {@link channel} points to when it can't install and {@link available} fell back below it. */
+    channelVersion: string | null
+    repo: string
+    /** Artifact size of {@link available} in bytes. */
+    size: number
+    /** Other planned actions, such as dependency updates. Empty with a {@link blocker}. */
+    includes: {
+        id: string
+        version: string
+        replaces: string | null
+        size: number
+    }[]
+    warnings: ResolveIssue[]
+    /** Why the update can't install. */
+    blocker: ResolveIssue | null
+}
+
+/** Lists plugins for repository from cached index. */
+export function listRepoPlugins(url: string): Promise<RepoPluginListing[]> {
+    return callPluginSystemMethod('valenced.plugins.repos.listPlugins', [url])
+}
+
+/** Rules for resolving plugins. */
+export interface PlanTarget {
+    /** Resolve from this repository instead of its provenance or the priority order. */
+    repo?: string
+    /**
+     * Channel to follow. Installs exactly what it points to, unless {@link compatible}.
+     * @default The installed plugin's current channel, or `latest`.
+     */
+    channel?: string
+    /** Falls back to the newest older version that installs when what {@link channel} points to can't. */
+    compatible?: boolean
+    /** Install exactly this version and hold it. Overrides {@link channel}. */
+    version?: string
+}
+
+export interface PlanOptions {
+    /** Per-plugin targets keyed by ID. */
+    targets?: Record<string, PlanTarget>
+    /** Only consider these repositories, for every plugin. */
+    repos?: string[]
+    /** Skips untargeted optional dependencies that aren't installed, eg. for updates. */
+    skipMissingOptionals?: boolean
+}
+
+/**
+ * Computes dependency installation plan against cached repository indexes.
+ * A plugin already at the resolved version is reinstalled when its repository, channel, hold, or artifact would change.
+ */
+export function planInstall(
+    id: string,
+    options?: PlanOptions,
+): Promise<InstallPlan> {
+    return callPluginSystemMethod('valenced.plugins.planInstall', [
+        id,
+        options ?? null,
+    ])
+}
+
+/** Updates plugin hold status, pinning version or resuming channel updates. */
+export function setPluginHeld(
+    id: string,
+    held: boolean,
+): Promise<PluginSource> {
+    return callPluginSystemMethod('valenced.plugins.setHeld', [id, held])
+}
+
+/** Executes an install plan, downloading and applying artifacts to disk. */
+export function installFromRepo(plan: InstallPlan): Promise<{
+    installed: string[]
+    pending: string[]
+    skipped: string[]
+}> {
+    return callPluginSystemMethod('valenced.plugins.install', [plan])
+}
+
+/** Lists updates across enabled repositories from cached indexes. */
+export function listUpdates(): Promise<PluginUpdate[]> {
+    return callPluginSystemMethod('valenced.plugins.listUpdates', [])
+}
+
+/** Returns issues of {@link update} that break installed plugins, ignoring breaks fixed by {@link selected} updates. */
+export function breakingIssuesOf(
+    update: PluginUpdate,
+    selected: ReadonlySet<string>,
+): ResolveIssue[] {
+    return update.warnings.filter(
+        issue =>
+            issue.type === 'conflict' ||
+            (issue.type === 'breaks' &&
+                !(issue.fixedBy && selected.has(issue.fixedBy))),
+    )
+}
+
+/** Picks updates safe to install that won't break existing plugins. */
+export function selectSafeUpdates(updates: PluginUpdate[]): Set<string> {
+    const selected = new Set(updates.filter(u => !u.blocker).map(u => u.id))
+
+    // Dropping one can unfix another's break
+    let changed = true
+    while (changed) {
+        changed = false
+        for (const update of updates)
+            if (
+                selected.has(update.id) &&
+                breakingIssuesOf(update, selected).length
+            ) {
+                selected.delete(update.id)
+                changed = true
+            }
+    }
+
+    return selected
+}
+
+/** Resolves and installs updates of {@link ids}. */
+export async function updatePlugins(ids: Iterable<string>): Promise<{
+    installed: string[]
+    pending: string[]
+    errors: { id: string; error: unknown }[]
+}> {
+    const installed: string[] = []
+    const pending: string[] = []
+    const errors: { id: string; error: unknown }[] = []
+
+    await Promise.all(
+        [...ids].map(async id => {
+            try {
+                // Optional dependencies left out stay out
+                const plan = await planInstall(id, {
+                    skipMissingOptionals: true,
+                })
+                const result = await installFromRepo(plan)
+                installed.push(...result.installed)
+                pending.push(...result.pending)
+            } catch (error) {
+                errors.push({ id, error })
+            }
+        }),
+    )
+
+    return { installed, pending, errors }
+}
+
+/** Installs updates from {@link selectSafeUpdates}. */
+export async function updateAllPlugins() {
+    return updatePlugins(selectSafeUpdates(await listUpdates()))
+}
+
+declare module '@valenced/modules/native' {
+    interface NativeMethods {
+        'valenced.plugins.repos.list': [[], Repo[]]
+        'valenced.plugins.repos.set': [[config: RepoConfigEntry[]], null]
+        'valenced.plugins.repos.refresh': [[url: string], Repo]
+        'valenced.plugins.repos.listPlugins': [
+            [url: string],
+            RepoPluginListing[],
+        ]
+        'valenced.plugins.listUpdates': [[], PluginUpdate[]]
+        'valenced.plugins.planInstall': [
+            [id: string, options: PlanOptions | null],
+            InstallPlan,
+        ]
+        'valenced.plugins.install': [
+            [plan: InstallPlan],
+            { installed: string[]; pending: string[]; skipped: string[] },
+        ]
+        'valenced.plugins.setHeld': [[id: string, held: boolean], PluginSource]
+    }
+}

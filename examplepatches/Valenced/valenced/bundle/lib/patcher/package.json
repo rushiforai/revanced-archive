@@ -1,0 +1,19 @@
+{
+  "name": "@valenced/patcher",
+  "author": {
+    "name": "ryan-0324",
+    "email": "77452312+ryan-0324@users.noreply.github.com",
+    "url": "https://github.com/ryan-0324"
+  },
+  "license": "CC0-1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    }
+  }
+}

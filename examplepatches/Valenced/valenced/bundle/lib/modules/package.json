@@ -1,0 +1,34 @@
+{
+  "name": "@valenced/modules",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./finders/filters": {
+      "default": "./src/finders/filters/index.ts"
+    },
+    "./finders": {
+      "default": "./src/finders/index.ts"
+    },
+    "./metro/subscriptions": {
+      "default": "./src/metro/subscriptions/index.ts"
+    },
+    "./metro/patches": {
+      "default": "./src/metro/patches.ts"
+    },
+    "./metro/utils": {
+      "default": "./src/metro/utils.ts"
+    },
+    "./native": {
+      "default": "./src/native/index.ts"
+    },
+    "./native/app": {
+      "default": "./src/native/app.ts"
+    },
+    "./native/fs": {
+      "default": "./src/native/fs.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    }
+  }
+}

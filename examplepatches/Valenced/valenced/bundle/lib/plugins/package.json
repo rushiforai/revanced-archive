@@ -1,0 +1,34 @@
+{
+  "name": "@valenced/plugins",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./constants": {
+      "default": "./src/constants.ts"
+    },
+    "./utils": {
+      "default": "./src/utils.ts"
+    },
+    "./preinit": {
+      "default": "./src/preinit.ts"
+    },
+    "./init": {
+      "default": "./src/init.ts"
+    },
+    "./start": {
+      "default": "./src/start.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    },
+    "./_": {
+      "default": "./src/_internal/index.ts"
+    },
+    "./_/react": {
+      "default": "./src/_internal/react.ts"
+    },
+    "./_/repositories": {
+      "default": "./src/_internal/repositories.ts"
+    }
+  }
+}

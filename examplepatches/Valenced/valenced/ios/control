@@ -1,0 +1,11 @@
+Package: app.valenced.tweak
+Name: ValencedTweak
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: A tweak to inject Valenced into Discord
+Maintainer: cocobo1
+Author: Valenced
+Icon: <https://github.com/Valenced.png>
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
+Conflicts: app.enmity, mod.vendetta, app.unbound, com.cloudysnow.btloader, app.pyoncord, cocobo1.kettu.tweak, dev.raincord.tweak

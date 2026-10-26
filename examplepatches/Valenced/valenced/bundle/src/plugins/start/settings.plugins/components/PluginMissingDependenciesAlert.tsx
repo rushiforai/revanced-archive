@@ -1,0 +1,52 @@
+import { Design } from '@valenced/discord/design'
+import type { AnyPlugin } from '@valenced/plugins/_'
+
+const { AlertModal, AlertActionButton, Text, TableRowGroup, TableRow } = Design
+
+export default function PluginMissingDependenciesAlert({
+    plugin,
+    dependencies,
+    action,
+}: {
+    plugin: AnyPlugin
+    /** The missing required dependencies: id + the declared version range. */
+    dependencies: { id: string; range: string }[]
+    action: () => unknown
+}) {
+    return (
+        <AlertModal
+            title="Plugin has missing dependencies"
+            content={
+                <Text color="text-default">
+                    Plugin{' '}
+                    <Text variant="text-md/semibold" color="text-default">
+                        {plugin.manifest.name}
+                    </Text>{' '}
+                    requires plugins that are not installed. Install them from
+                    your repositories to enable it.
+                </Text>
+            }
+            extraContent={
+                <TableRowGroup>
+                    {dependencies.map(dep => (
+                        <TableRow
+                            key={dep.id}
+                            label={dep.id}
+                            subLabel={`Requires version ${dep.range}`}
+                        />
+                    ))}
+                </TableRowGroup>
+            }
+            actions={
+                <>
+                    <AlertActionButton
+                        text="Search for plugins"
+                        variant="primary"
+                        onPress={action}
+                    />
+                    <AlertActionButton text="Cancel" variant="secondary" />
+                </>
+            }
+        />
+    )
+}

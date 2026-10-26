@@ -1,0 +1,37 @@
+{
+  "name": "@valenced/utils",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./bitset": {
+      "default": "./src/bitset.ts"
+    },
+    "./callback": {
+      "default": "./src/callback.ts"
+    },
+    "./discord": {
+      "default": "./src/discord.ts"
+    },
+    "./error": {
+      "default": "./src/error.ts"
+    },
+    "./object": {
+      "default": "./src/object.ts"
+    },
+    "./promise": {
+      "default": "./src/promise.ts"
+    },
+    "./proxy": {
+      "default": "./src/proxy.ts"
+    },
+    "./react": {
+      "default": "./src/react.ts"
+    },
+    "./tree": {
+      "default": "./src/tree.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    }
+  }
+}

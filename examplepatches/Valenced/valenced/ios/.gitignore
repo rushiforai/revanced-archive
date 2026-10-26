@@ -1,0 +1,5 @@
+.theos/
+packages/
+.gradle/
+build/
+.DS_Store

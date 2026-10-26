@@ -1,0 +1,147 @@
+import { lookupModule } from '@valenced/modules/finders'
+import {
+    allOf,
+    withDependencies,
+    withProps,
+    withSingleProp,
+} from '@valenced/modules/finders/filters'
+import {
+    ReactJSXRuntimeModuleId,
+    ReactModuleId,
+    ReactNativeModuleId,
+} from '@valenced/react'
+import { proxify } from '@valenced/utils/proxy'
+import { ImportTrackerModuleId } from './common/import-tracker'
+import { TokensModuleId } from './common/tokens'
+import type { DiscordModules } from './types'
+
+const { atLeast, last, partial, relative, ordered } = withDependencies
+
+/**
+ * The lowest amount of dependencies `design/native.tsx` is expected to have.
+ *
+ * It's a barrel module exporting the whole design system,
+ * so it always has a lot of dependencies (~140 as of 341202).
+ *
+ * This is only used as a filter, and is checked before anything else for performance reasons.
+ */
+const DesignMinimumDependencies = 128
+
+// design/native.tsx
+export let Design: Design = proxify(
+    () => {
+        // ID: 13171
+        // [3909, 4608, 5182, 13172, 2, ...] (141 dependencies)
+        const [module] = lookupModule(
+            withProps('TableRow', 'Button')
+                .and(
+                    withDependencies<Design>(
+                        atLeast(DesignMinimumDependencies, [
+                            [ImportTrackerModuleId],
+                            [ImportTrackerModuleId],
+                            last([ImportTrackerModuleId]),
+                            [ImportTrackerModuleId],
+                            ImportTrackerModuleId,
+                        ]),
+                    ),
+                )
+                .keyAs('valenced.discord.design.Design'),
+        )
+
+        if (module) return (Design = module)
+    },
+    {
+        hint: {},
+    },
+)!
+
+// design/components/Forms/native/FormSwitch.native.tsx
+export let FormSwitch: DiscordModules.Components.FormSwitch = proxify(() => {
+    const [module] = lookupModule(
+        withSingleProp('FormSwitch')
+            .and(
+                withDependencies(
+                    partial([
+                        null,
+                        ReactModuleId,
+                        ReactNativeModuleId,
+                        ReactJSXRuntimeModuleId,
+                    ]),
+                ).and(
+                    withDependencies(
+                        ordered([
+                            TokensModuleId,
+                            ordered([relative(1), ImportTrackerModuleId]),
+                            [ImportTrackerModuleId],
+                            ImportTrackerModuleId,
+                        ]),
+                    ),
+                ),
+            )
+            .keyAs('valenced.discord.design.FormSwitch'),
+    )
+
+    if (module) return (FormSwitch = module.FormSwitch)
+})!
+
+export let FormRadio: DiscordModules.Components.FormRadio = proxify(() => {
+    const [module] = lookupModule(
+        withSingleProp('FormRadio')
+            .and(
+                allOf(
+                    withDependencies(last([ImportTrackerModuleId])),
+                    withDependencies(
+                        ordered([
+                            ReactModuleId,
+                            ReactJSXRuntimeModuleId,
+                            TokensModuleId,
+                        ]),
+                    ),
+                ),
+            )
+            .keyAs('valenced.discord.design.FormRadio'),
+    )
+
+    if (module) return (FormRadio = module.FormRadio)
+})!
+
+export interface Design {
+    createStyles: DiscordModules.Components.Styles.CreateStylesFunction
+    useSegmentedControlState: DiscordModules.Components.UseSegmentedControlStateFunction
+    useTooltip: DiscordModules.Components.UseTooltipFunction
+
+    TextStyleSheet: DiscordModules.Components.Styles.TextStyleSheet
+
+    ActionSheet: DiscordModules.Components.ActionSheet
+    ActionSheetRow: DiscordModules.Components.ActionSheetRow
+    ActionSheetSwitchRow: DiscordModules.Components.ActionSheetSwitchRow
+    BottomSheet: DiscordModules.Components.BottomSheet
+    BottomSheetTitleHeader: DiscordModules.Components.BottomSheetTitleHeader
+    AlertActionButton: DiscordModules.Components.AlertActionButton
+    AlertModal: DiscordModules.Components.AlertModal
+    Button: DiscordModules.Components.Button
+    Card: DiscordModules.Components.Card
+    Checkbox: DiscordModules.Components.Checkbox
+    ContextMenu: DiscordModules.Components.ContextMenu
+    ContextMenuItem: DiscordModules.Components.ContextMenuItem
+    FloatingActionButton: DiscordModules.Components.FloatingActionButton
+    IconButton: DiscordModules.Components.IconButton
+    ImageButton: DiscordModules.Components.ImageButton
+    LayerScope: DiscordModules.Components.LayerScope
+    NavigatorHeader: DiscordModules.Components.NavigatorHeader
+    SegmentedControl: DiscordModules.Components.SegmentedControl
+    SegmentedControlPages: DiscordModules.Components.SegmentedControlPages
+    Stack: DiscordModules.Components.Stack
+    Slider: DiscordModules.Components.Slider
+    TableCheckboxRow: DiscordModules.Components.TableCheckboxRow
+    TableRadioGroup: typeof DiscordModules.Components.TableRadioGroup
+    TableRadioRow: typeof DiscordModules.Components.TableRadioRow
+    TableRow: DiscordModules.Components.TableRow
+    TableRowGroup: DiscordModules.Components.TableRowGroup
+    TableSwitchRow: DiscordModules.Components.TableSwitchRow
+    Tabs: DiscordModules.Components.Tabs
+    Text: DiscordModules.Components.Text
+    TextArea: DiscordModules.Components.TextArea
+    TextField: DiscordModules.Components.TextField
+    TextInput: DiscordModules.Components.TextInput
+}

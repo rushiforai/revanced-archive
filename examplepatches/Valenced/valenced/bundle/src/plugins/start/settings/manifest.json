@@ -1,0 +1,8 @@
+{
+  "id": "valenced.settings",
+  "name": "Settings",
+  "description": "Settings UI for Valenced.",
+  "author": "Valenced",
+  "icon": "SettingsIcon",
+  "essential": true
+}

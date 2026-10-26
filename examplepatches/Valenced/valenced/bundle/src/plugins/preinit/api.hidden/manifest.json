@@ -1,0 +1,8 @@
+{
+  "id": "valenced.api.hidden",
+  "name": "Developer Mode",
+  "description": "Exposes internal Valenced APIs for debugging.",
+  "author": "Valenced",
+  "icon": "WrenchIcon",
+  "enabledByDefault": "dev"
+}

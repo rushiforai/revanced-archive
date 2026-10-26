@@ -1,0 +1,52 @@
+import { getAssetIdByName } from '@valenced/assets'
+import { Tokens } from '@valenced/discord/common/tokens'
+import { Design } from '@valenced/discord/design'
+import { Image } from 'react-native'
+import type { PluginIconProps } from '../api'
+
+const PuzzlePieceIcon = getAssetIdByName('PuzzlePieceIcon', 'png')!
+
+export function PluginIcon({
+    icon,
+    defaultIcon = PuzzlePieceIcon,
+    size = 20,
+    danger = false,
+    tintColor,
+    style,
+}: PluginIconProps) {
+    const styles = usePluginIconStyles()
+    // Icons are either a packaged asset name or an inline data: URL, never fetched.
+    // Asset icons are monochrome and get tinted, data: URLs render as-is.
+    const dataUrl = icon?.startsWith('data:')
+
+    return (
+        <Image
+            source={
+                dataUrl
+                    ? { uri: icon }
+                    : icon
+                      ? (getAssetIdByName(icon) ?? defaultIcon)
+                      : defaultIcon
+            }
+            style={[
+                !dataUrl &&
+                    (danger
+                        ? styles.danger
+                        : tintColor
+                          ? { tintColor }
+                          : styles.icon),
+                { width: size, height: size },
+                style,
+            ]}
+        />
+    )
+}
+
+const usePluginIconStyles = Design.createStyles({
+    icon: {
+        tintColor: Tokens.default.colors.TEXT_STRONG,
+    },
+    danger: {
+        tintColor: Tokens.default.colors.TEXT_FEEDBACK_CRITICAL,
+    },
+})

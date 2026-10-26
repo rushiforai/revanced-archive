@@ -1,0 +1,34 @@
+{
+  "name": "@valenced/components",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./Checkbox": {
+      "default": "./src/Checkbox.tsx"
+    },
+    "./FormSwitch": {
+      "default": "./src/FormSwitch.tsx"
+    },
+    "./Page": {
+      "default": "./src/Page.tsx"
+    },
+    "./SheetHeader": {
+      "default": "./src/SheetHeader.tsx"
+    },
+    "./SearchInput": {
+      "default": "./src/SearchInput.tsx"
+    },
+    "./TableRowAssetIcon": {
+      "default": "./src/TableRowAssetIcon.tsx"
+    },
+    "./types": {
+      "types": "./src/types.ts"
+    },
+    "./_": {
+      "default": "./src/_internal.ts"
+    }
+  }
+}

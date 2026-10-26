@@ -1,0 +1,234 @@
+import { getInitializedModuleExports } from '@valenced/modules/metro/utils'
+import { FilterScopes } from '.'
+import { NamespaceOnlyMark } from './_internal'
+import { createFilterGenerator } from './utils'
+import type {
+    Filter,
+    FilterBase,
+    FilterGenerator,
+    FilterInfoOf,
+    FilterScopeValue,
+    MergeFilterInfo,
+    UnionFilterInfo,
+} from '.'
+import type { MaybeNamespaceOnly } from './_internal'
+
+/** {@link FilterScopes.All} sets no predicate assumptions. Only {@link FilterScopes.Uninitialized} implies exportless. */
+const canFilterUninitialized = (scopes: FilterScopeValue) =>
+    Boolean(scopes & FilterScopes.Uninitialized)
+
+/**
+ * If both or neither can filter uninitialized, positional order is preserved.
+ *
+ * If only one can, the one that can will be used as a prefilter for uninitialized modules,
+ * and the other will only run on initialized modules.
+ */
+const compositeHandler = <G extends (a: FilterBase, b: FilterBase) => any>(
+    directHandler: G,
+    prefilteredHandler: G,
+) =>
+    ((a, b) => {
+        const ea = canFilterUninitialized(a.scopes)
+        return ea === canFilterUninitialized(b.scopes)
+            ? directHandler(a, b)
+            : ea
+              ? prefilteredHandler(b, a)
+              : prefilteredHandler(a, b)
+    }) as G
+
+const compositeArrayHandler = <
+    G extends (args: [a: FilterBase, b: FilterBase]) => any,
+>(
+    directHandler: G,
+    prefilteredHandler: G,
+) =>
+    (([a, b]) => {
+        const ea = canFilterUninitialized(a.scopes)
+        return ea === canFilterUninitialized(b.scopes)
+            ? directHandler([a, b])
+            : ea
+              ? prefilteredHandler([b, a])
+              : prefilteredHandler([a, b])
+    }) as G
+
+export type AllOf = FilterGenerator<
+    <F1 extends FilterBase, F2 extends FilterBase>(
+        f1: F1,
+        f2: F2,
+    ) => Filter<MergeFilterInfo<FilterInfoOf<F1>, FilterInfoOf<F2>>>
+>
+
+const allOfKeyGenerator = ([a, b]: Parameters<AllOf>) =>
+    `valenced.allOf(${a.key},${b.key})`
+
+const allOfScopesGenerator = ([a, b]: Parameters<AllOf>) => a.scopes | b.scopes
+
+const directAllOf = createFilterGenerator(
+    ([a, b], id, exports, initialized) =>
+        a(id, exports, initialized) && b(id, exports, initialized),
+    allOfKeyGenerator,
+    allOfScopesGenerator,
+) as AllOf
+
+const prefilteredAllOf = createFilterGenerator(
+    ([filter, prefilter], id, exports, initialized) => {
+        if (initialized)
+            return filter(id, exports, true) && prefilter(id, exports, true)
+
+        return prefilter(id, undefined, false)
+    },
+    allOfKeyGenerator,
+    allOfScopesGenerator,
+) as AllOf
+
+/**
+ * Combines two filters into one, returning true if **every** filter matches.
+ *
+ * If only one of the filters can run on uninitialized modules ({@link FilterScopes.Uninitialized}),
+ * it is used as the prefilter for uninitialized modules, and the other only runs once a candidate is initialized.
+ *
+ * @param filters The filters to combine.
+ *
+ * @example With filter helpers
+ * ```ts
+ * const [SomeModule] = lookupModule(
+ *   withProps('x', 'name')
+ *     .and(withName('SomeName'))
+ *     .and(withDependencies([1, 485, null, 2])),
+ * )
+ * ```
+ *
+ * @example
+ * ```ts
+ * const [SomeModule] = lookupModule(
+ *   allOf(
+ *     allOf(withProps('x', 'name'), withName('SomeName')),
+ *     withDependencies([1, 485, null, 2]),
+ *   ),
+ * )
+ * ```
+ */
+export const allOf = Object.assign(
+    compositeHandler(directAllOf, prefilteredAllOf),
+    {
+        keyFor: compositeArrayHandler(
+            directAllOf.keyFor,
+            prefilteredAllOf.keyFor,
+        ),
+        defaultScopesFor: compositeArrayHandler(
+            directAllOf.defaultScopesFor,
+            prefilteredAllOf.defaultScopesFor,
+        ),
+    },
+) satisfies AllOf
+
+export type AnyOf = FilterGenerator<
+    <F1 extends FilterBase, F2 extends FilterBase>(
+        f1: F1,
+        f2: F2,
+    ) => Filter<UnionFilterInfo<FilterInfoOf<F1>, FilterInfoOf<F2>>>
+>
+
+const anyOfKeyGenerator = ([a, b]: Parameters<AnyOf>) =>
+    `valenced.anyOf(${a.key},${b.key})`
+
+const anyOfScopesGenerator = ([a, b]: Parameters<AnyOf>) => a.scopes | b.scopes
+
+const directAnyOf = createFilterGenerator(
+    ([a, b], id, exports, initialized) =>
+        a(id, exports, initialized) || b(id, exports, initialized),
+    anyOfKeyGenerator,
+    anyOfScopesGenerator,
+) as AnyOf
+
+const prefilteredAnyOf = createFilterGenerator(
+    ([filter, prefilter], id, exports, initialized) => {
+        if (initialized)
+            return filter(id, exports, true) || prefilter(id, exports, true)
+        return prefilter(id, undefined, false)
+    },
+    anyOfKeyGenerator,
+    anyOfScopesGenerator,
+) as AnyOf
+
+/**
+ * Combines two filters into one, returning true if **some** filters match.
+ *
+ * @param filters The filters to combine.
+ *
+ * @example With filter helpers
+ * ```ts
+ * const [SomeModule] = lookupModule(
+ *   withProps('x', 'name')
+ *     .or(withName('SomeName'))
+ *     .or(withDependencies([1, 485, null, 2])),
+ * )
+ * ```
+ *
+ * @example
+ * ```ts
+ * const [SomeModule] = lookupModule(
+ *   anyOf(
+ *     anyOf(withProps('x', 'name'), withName('SomeName')),
+ *     withDependencies([1, 485, null, 2]),
+ *   ),
+ * )
+ * ```
+ */
+export const anyOf = Object.assign(
+    compositeHandler<AnyOf>(directAnyOf, prefilteredAnyOf),
+    {
+        keyFor: compositeArrayHandler(
+            directAnyOf.keyFor,
+            prefilteredAnyOf.keyFor,
+        ),
+        defaultScopesFor: compositeArrayHandler(
+            directAnyOf.defaultScopesFor,
+            prefilteredAnyOf.defaultScopesFor,
+        ),
+    },
+) satisfies AnyOf
+
+export type NamespaceOnly = FilterGenerator<
+    <F extends FilterBase>(filter: F) => Filter<FilterInfoOf<F>>
+>
+
+const namespaceOnlyGenerator = createFilterGenerator<Parameters<NamespaceOnly>>(
+    ([filter], id, exports, initialized) => {
+        if (!initialized) return filter(id, undefined, false)
+        // Inside composite filters, this still runs against the `default` export
+        return (
+            exports === getInitializedModuleExports(id) &&
+            filter(id, exports, true)
+        )
+    },
+    ([filter]) => `valenced.namespaceOnly(${filter.key})`,
+    ([filter]) => filter.scopes,
+) as NamespaceOnly
+
+/**
+ * Matches the filter against the module namespace only, excluding its `default` export.
+ *
+ * Works on what the filter is run against, so it also applies inside composite filters.
+ * Uninitialized modules are left to the filter.
+ *
+ * @param filter The filter to match against the module namespace.
+ *
+ * @example
+ * ```ts
+ * // Matches { x }, but not { default: { x } }
+ * const [SomeModule] = lookupModule(namespaceOnly(withProps('x')))
+ * ```
+ */
+export const namespaceOnly = Object.assign(
+    (filter => {
+        const namespaceFilter = namespaceOnlyGenerator(filter)
+        // Lets lookups skip the `default` export without running the filter against it
+        ;(namespaceFilter as MaybeNamespaceOnly)[NamespaceOnlyMark] = true
+        return namespaceFilter
+    }) as NamespaceOnly,
+    {
+        keyFor: namespaceOnlyGenerator.keyFor,
+        defaultScopesFor: namespaceOnlyGenerator.defaultScopesFor,
+    },
+) satisfies NamespaceOnly
