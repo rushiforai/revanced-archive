@@ -48,6 +48,8 @@ internal data class HelperSettings(
     val virusTotalEnabled: Boolean = false,
     val virusTotalApiKey: String = "",
     val virusTotalScanMode: VirusTotalScanMode = VirusTotalScanMode.ASK,
+    /** Hand the file to Morphe without showing the result when a scan comes back clean. */
+    val virusTotalAutoProceed: Boolean = false,
     // Source opened by default when Helper launches (null = first enabled source).
     val preferredSource: DownloadSource? = null
 )
@@ -140,7 +142,7 @@ internal enum class DownloadLocation(
     ),
     DOWNLOADS(
         title = "Store in downloads",
-        description = "Save a visible copy in Downloads/Helper for Morphe after the file checks out."
+        description = "Save a visible copy in Downloads/Morphe Helper after the file checks out."
     )
 }
 
@@ -220,6 +222,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         adGuardDns = prefs.getBoolean("adguard_dns", false),
         virusTotalEnabled = prefs.getBoolean("virus_total_enabled", false),
         virusTotalApiKey = prefs.getString("virus_total_api_key", "") ?: "",
+        virusTotalAutoProceed = prefs.getBoolean("virus_total_auto_proceed", false),
         virusTotalScanMode = enumValueOrDefault(
             prefs.getString("virus_total_scan_mode", null),
             VirusTotalScanMode.ASK
@@ -252,6 +255,7 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putBoolean("virus_total_enabled", settings.virusTotalEnabled)
         .putString("virus_total_api_key", settings.virusTotalApiKey)
         .putString("virus_total_scan_mode", settings.virusTotalScanMode.name)
+        .putBoolean("virus_total_auto_proceed", settings.virusTotalAutoProceed)
         .putString("preferred_source", settings.preferredSource?.name)
         .apply()
 }
@@ -313,7 +317,7 @@ internal fun Context.clearTemporaryDownloads(): Long {
 
 /** Path of the visible copy folder inside Downloads. */
 internal fun downloadsCopyRelativePath(): String =
-    "${Environment.DIRECTORY_DOWNLOADS}/Helper for Morphe"
+    "${Environment.DIRECTORY_DOWNLOADS}/Morphe Helper"
 
 /** Total size of the visible copies saved to Downloads. */
 internal fun Context.downloadsCopySize(): Long {
@@ -335,7 +339,7 @@ internal fun Context.downloadsCopySize(): Long {
     }
     val dir = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-        "Helper for Morphe"
+        "Morphe Helper"
     )
     return dir.listFiles()?.filter { it.isFile }?.sumOf { it.length() } ?: 0L
 }
@@ -367,7 +371,7 @@ internal fun Context.clearDownloadsCopies(): Long {
     }
     val dir = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-        "Helper for Morphe"
+        "Morphe Helper"
     )
     val files = dir.listFiles()?.filter { it.isFile }.orEmpty()
     val freed = files.sumOf { it.length() }

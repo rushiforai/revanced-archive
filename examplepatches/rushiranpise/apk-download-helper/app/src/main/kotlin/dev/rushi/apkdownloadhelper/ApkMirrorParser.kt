@@ -499,6 +499,10 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         }
         if (selectedVariants.isEmpty()) return emptyList()
 
+        // One release page can carry several variants (BUNDLE/APK, per-arch,
+        // per-dpi). Numbering them only matters when there is more than one, which
+        // is exactly the case where two cards can otherwise look identical.
+        val multiVariant = selectedVariants.size > 1
         return selectedVariants
             .mapNotNull { variant ->
                 apkMirrorDirectCandidateFromReleaseUrl(
@@ -506,7 +510,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
                     releaseUrl = releaseUrl,
                     versionName = versionName,
                     option = option,
-                    variant = variant
+                    variant = variant,
+                    variantNumber = variant?.number?.takeIf { multiVariant }
                 )
             }
             .distinctBy(DownloadCandidate::identityKey)
@@ -517,7 +522,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         releaseUrl: String,
         versionName: String?,
         option: CandidateOption,
-        variant: ApkMirrorVariant?
+        variant: ApkMirrorVariant?,
+        variantNumber: Int? = null
     ): DownloadCandidate? {
         val variantPageUrl = variant?.url ?: releaseUrl
         val variantDoc = if (variant == null) {
@@ -564,6 +570,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             versionStatus = request.versionStatus(resolvedVersion, null),
             formatMatches = request.acceptsFormat(fileKind),
             variantLabel = variantLabel,
+            variantTag = variant?.uiTag(),
+            variantNumber = variantNumber,
             files = listOf(
                 CandidateDownloadFile(
                     url = finalUrl,
@@ -622,9 +630,17 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         note = note
     )
 
+    /**
+     * The release page's variant rows, numbered in the order it lists them.
+     *
+     * The table's own header row also carries `table-row headerFont` and is skipped
+     * by [apkMirrorVariantFromRow], so the number counts real variants rather than
+     * raw rows, and the first one is 1.
+     */
     private fun apkMirrorVariants(releaseDoc: Document): List<ApkMirrorVariant> =
         releaseDoc.select("div.table-row.headerFont")
             .mapNotNull(::apkMirrorVariantFromRow)
+            .mapIndexed { index, variant -> variant.copy(number = index + 1) }
 
     private fun apkMirrorSelectableVariants(
         request: HelperRequest,
@@ -636,25 +652,37 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
                 it.fileKind == kind &&
                     request.acceptsFormat(it.fileKind)
             }
-            typedVariants.filter { apkMirrorDpiMatches(it.dpi) }
-                .takeIf(List<ApkMirrorVariant>::isNotEmpty)
-                ?.let { return it }
-            typedVariants.takeIf(List<ApkMirrorVariant>::isNotEmpty)
-                ?.let { return it }
+            typedVariants.preferRunnableArch(request)?.let { return it }
         }
 
-        val acceptedVariants = variants.filter { request.acceptsFormat(it.fileKind) }
-        val dpiPreferred = acceptedVariants.filter { apkMirrorDpiMatches(it.dpi) }
-        val dpiAnyFormat = variants.filter { apkMirrorDpiMatches(it.dpi) }
-        return when {
-            dpiPreferred.isNotEmpty() -> dpiPreferred
-            acceptedVariants.isNotEmpty() -> acceptedVariants
-            dpiAnyFormat.isNotEmpty() -> dpiAnyFormat
-            // No variant matches the requested format (e.g. APKS requested but the
-            // release is only offered as an APKM bundle): offer the best variant
-            // anyway and let the UI flag the format mismatch, like other sources do.
-            else -> variants
+        // No variant matches the requested format (e.g. APKS requested but the
+        // release is only offered as an APKM bundle): offer the best variant anyway
+        // and let the UI flag the format mismatch, like other sources do.
+        variants.filter { request.acceptsFormat(it.fileKind) }
+            .preferRunnableArch(request)
+            ?.let { return it }
+        return variants.preferRunnableArch(request) ?: variants
+    }
+
+    /**
+     * The variants a device can actually run, best first, or null when empty.
+     *
+     * One release can carry both `arm64-v8a` and `armeabi-v7a` builds. Handing an
+     * arm64 phone the 32-bit one patches fine but installs a 32-bit app, so a build
+     * for another ABI is dropped whenever a runnable one exists - and kept only as a
+     * last resort, so a source that publishes nothing else still yields something.
+     */
+    private fun List<ApkMirrorVariant>.preferRunnableArch(
+        request: HelperRequest
+    ): List<ApkMirrorVariant>? {
+        if (isEmpty()) return null
+        val ranked = sortedBy { archMatchRank(it.arch, request.availableAbis) }
+        val runnable = ranked.filter {
+            archMatchRank(it.arch, request.availableAbis) < ARCH_RANK_MISMATCH
         }
+        val pool = runnable.ifEmpty { ranked }
+        val dpiPreferred = pool.filter { apkMirrorDpiMatches(it.dpi) }
+        return dpiPreferred.ifEmpty { pool }
     }
 
     private fun apkMirrorVariantFromRow(row: Element): ApkMirrorVariant? {
@@ -682,6 +710,18 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             isBundle = fileKind != "apk"
         )
     }
+
+    /**
+     * The variant as APKMirror's own table words it, for the card's badge: the
+     * architecture and the screen DPI, `nodpi` included.
+     *
+     * Kept apart from the label used for file names, which drops `nodpi` because a
+     * file name has no room to explain it.
+     */
+    private fun ApkMirrorVariant.uiTag(): String? = listOfNotNull(
+        arch?.trim()?.takeIf(String::isNotBlank)?.archDisplayLabel(),
+        dpi?.trim()?.takeIf(String::isNotBlank)
+    ).joinToString(" / ").takeIf(String::isNotBlank)
 
     private fun apkMirrorWantedVariantKinds(request: HelperRequest): List<String> {
         val requestedKinds = request.requestedFileKinds

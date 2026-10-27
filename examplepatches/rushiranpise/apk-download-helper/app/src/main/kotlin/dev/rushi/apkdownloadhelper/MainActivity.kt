@@ -218,6 +218,7 @@ import com.aurora.gplayapi.helpers.AppDetailsHelper
 import com.aurora.gplayapi.helpers.PurchaseHelper
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import dev.rushi.apkdownloadhelper.VirusTotalScanner.isEntirelyClean
 import dev.rushi.apkdownloadhelper.play.NativeDeviceInfoProvider
 import dev.rushi.apkdownloadhelper.play.PlayHttpClient
 import java.io.ByteArrayInputStream
@@ -433,6 +434,8 @@ class MainActivity : ComponentActivity() {
                 if (captcha != null) {
                     CaptchaBrowserScreen(
                         candidate = captcha,
+                        requiredAppName = request?.appName,
+                        requiredVersion = request?.requestedVersionName,
                         onClose = ::closeCaptchaBrowser,
                         onDownloadCaptured = ::onBrowserDownloadCaptured
                     )
@@ -1537,6 +1540,15 @@ class MainActivity : ComponentActivity() {
                 val scanResult = event.result
                 val isMalicious = scanResult is VirusTotalScanner.ScanResult.Malicious
                 val detail = scanResultDetail(scanResult)
+                // With the setting on, a scan that found nothing at all hands off on
+                // its own: the result card exists to make the user judge a verdict, and
+                // there is nothing to judge when every engine came back clean. Anything
+                // short of that still shows the card.
+                if (helperSettings.virusTotalAutoProceed && scanResult.isEntirelyClean()) {
+                    appendLog("VirusTotal found nothing; handing off without asking.", LogLevel.Info)
+                    proceedAfterScan()
+                    return
+                }
                 uiState = UiState.ScanResult(
                     candidate = event.candidate,
                     scanResult = scanResult,
@@ -2225,6 +2237,8 @@ private fun HelperOutlinedButton(
 @Composable
 private fun CaptchaBrowserScreen(
     candidate: DownloadCandidate,
+    requiredAppName: String?,
+    requiredVersion: String?,
     onClose: () -> Unit,
     onDownloadCaptured: (BrowserDownloadCapture) -> Unit
 ) {
@@ -2356,11 +2370,25 @@ private fun CaptchaBrowserScreen(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                    // The version Morphe actually needs, because on the captcha and
+                    // manual routes the candidate carries none of its own (it reads
+                    // "Manual"), and the page has to be searched for an exact version
+                    // string that is usually too long to remember.
+                    val wanted = requiredVersion?.takeIf { it.isNotBlank() }
+                    // Morphe names the app ("YouTube"); a manual candidate only knows
+                    // its package name, which is the fallback when no request came in.
+                    val appLabel = requiredAppName?.takeIf { it.isNotBlank() } ?: candidate.name
                     Text(
-                        text = candidate.versionDisplay,
+                        text = if (wanted != null) {
+                            "$appLabel · needs $wanted"
+                        } else {
+                            "$appLabel · ${candidate.versionDisplay}"
+                        },
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
+                        // Two lines, so a long version string stays readable rather
+                        // than being cut down to its first few digits.
+                        maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
@@ -2536,6 +2564,15 @@ private fun HelperScreen(
         color = MaterialTheme.colorScheme.background
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
+        // A pushed screen covers the home, but the focus system has no idea: leaving
+        // the home composed let a D-pad keep driving the hidden screen underneath, so
+        // on a TV the settings page opened and then ignored every press (issue #22).
+        // Fade it out and drop it from the tree, leaving nothing focusable behind.
+        AnimatedVisibility(
+            visible = !showSettings && !showAppBrowser,
+            enter = fadeIn(tween(MorpheDefaults.ANIMATION_DURATION)),
+            exit = fadeOut(tween(MorpheDefaults.ANIMATION_DURATION))
+        ) {
         Column(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier
@@ -2750,6 +2787,7 @@ private fun HelperScreen(
             SourceBottomBar(action = action, onRefresh = onRefresh, onCancel = onCancel)
         }
         }
+        }
 
         // Settings and the app browser push up over the home screen the way the manager
         // brings its own screens forward, instead of swapping screens instantly.
@@ -2957,6 +2995,18 @@ private fun HistoryEntryCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            // A game that refuses to start after patching is usually missing this, so
+            // say it was inside the file and where Android expects it.
+            entry.obbContents?.let { obb ->
+                Text(
+                    text = "Includes game data (${obb.summary}). Install it to " +
+                        "Android/obb/${entry.packageName} if the app will not start.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
             entry.scanVerdict?.let { verdict ->
                 val verdictTone = when {
                     verdict.malicious -> SemanticTone.Error
@@ -3532,6 +3582,21 @@ private fun AdvancedTabContent(
                     apiKey = settings.virusTotalApiKey,
                     onApiKeyChange = { onSettingsChange(settings.copy(virusTotalApiKey = it)) }
                 )
+                if (settings.virusTotalScanMode != VirusTotalScanMode.NEVER) {
+                    MorpheDivider()
+                    SettingsSwitchItem(
+                        icon = Icons.Outlined.Verified,
+                        title = "Proceed automatically when clean",
+                        subtitle = "Hand off without showing the result when VirusTotal finds " +
+                            "nothing and every inner APK was scanned.",
+                        checked = settings.virusTotalAutoProceed,
+                        onToggle = {
+                            onSettingsChange(
+                                settings.copy(virusTotalAutoProceed = !settings.virusTotalAutoProceed)
+                            )
+                        }
+                    )
+                }
                 if (settings.virusTotalApiKey.isNotBlank()) {
                     MorpheDivider()
                     Box(modifier = Modifier.padding(MorpheDefaults.ContentPadding)) {
@@ -4448,9 +4513,10 @@ private fun EmptyLaunchState(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)) {
         MorpheEmptyState(
-            message = "Open this helper from Morphe Manager when it asks for an original APK.",
+            message = stringResource(R.string.empty_launch_message),
             icon = Icons.Outlined.Download
         )
+        HelperSetupCard()
         HelperButton(
             text = "Open Morphe Manager",
             onClick = onOpenMorphe,
@@ -4463,6 +4529,65 @@ private fun EmptyLaunchState(
             icon = Icons.Outlined.Explore,
             modifier = Modifier.fillMaxWidth()
         )
+    }
+}
+
+/**
+ * The one-time step that decides whether the app works at all: Morphe only offers
+ * helpers the user has explicitly trusted, so a fresh install stays silent and the
+ * app looks broken. The path is spelled out rather than saying "enable it in
+ * Morphe", because that row sits well down a long settings page.
+ */
+@Composable
+private fun HelperSetupCard() {
+    val colors = MaterialTheme.colorScheme
+    SectionCard {
+        Column(
+            modifier = Modifier.padding(MorpheDefaults.ContentPadding),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Settings,
+                    contentDescription = null,
+                    tint = colors.primary,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    text = stringResource(R.string.setup_title),
+                    color = colors.onSurface,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            listOf(
+                R.string.setup_step_open_settings,
+                R.string.setup_step_download_helper,
+                R.string.setup_step_trust
+            ).forEachIndexed { index, step ->
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = "${index + 1}.",
+                        color = colors.primary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = stringResource(step),
+                        color = colors.onSurface,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+            Text(
+                text = stringResource(R.string.setup_footer),
+                color = colors.onSurfaceVariant,
+                style = MaterialTheme.typography.labelSmall
+            )
+        }
     }
 }
 
@@ -6302,12 +6427,7 @@ private fun SourcePickerFlow(
             // Keeping each in its own block means no block's content height changes
             // mid-animation, so the layout can never go stale.
             AnimatedExpand(visible = showHowItWorks) {
-                InfoCard(
-                    "Pick a source, then a version type. The helper finds the version, " +
-                        "downloads it, validates it against Morphe's request, and returns it. " +
-                        "If a source gates the file behind a captcha, tap \"Solve captcha in app\" " +
-                        " a real browser opens and any download it produces is captured back."
-                )
+                InfoCard(stringResource(R.string.request_how_it_works))
             }
             Box {
                 DropdownMenu(
@@ -7318,7 +7438,7 @@ private fun RequestLogsCard(
                 onClick = {
                     val share = Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
-                        putExtra(Intent.EXTRA_SUBJECT, "Helper for Morphe logs")
+                        putExtra(Intent.EXTRA_SUBJECT, "Morphe Helper logs")
                         putExtra(Intent.EXTRA_TEXT, AppLog.exportText())
                     }
                     context.startActivity(Intent.createChooser(share, "Share logs"))
@@ -7523,8 +7643,15 @@ private fun CandidateInfoChips(request: HelperRequest, candidate: DownloadCandid
         if (!candidate.fileKind.equals("web", ignoreCase = true)) {
             MorpheStatusBadge(text = candidate.fileKind.uppercase(), tone = formatTone)
         }
-        candidate.variantLabel?.let { label ->
+        // APKMirror's own variant wording wins over the generic label: it names the
+        // DPI even when that is `nodpi`, which is what the site shows side by side.
+        (candidate.variantTag ?: candidate.variantLabel)?.let { label ->
             MorpheStatusBadge(text = label, tone = SemanticTone.Neutral)
+        }
+        // Only set when the release really offers more than one variant, so the
+        // badge identifies which of several otherwise identical cards this is.
+        candidate.variantNumber?.let { number ->
+            MorpheStatusBadge(text = "Variant $number", tone = SemanticTone.Neutral)
         }
     }
 }
@@ -8796,7 +8923,9 @@ internal data class ApkMirrorVariant(
     val fileKind: String,
     val arch: String?,
     val dpi: String?,
-    val isBundle: Boolean
+    val isBundle: Boolean,
+    /** Position of this row in the release page's variant table, 1-based. */
+    val number: Int = 0
 )
 
 internal data class UptodownVersionResponse(
@@ -8847,6 +8976,10 @@ internal data class DownloadCandidate(
     val formatMatches: Boolean,
     val note: String? = null,
     val variantLabel: String? = null,
+    /** Source's own wording for the variant (APKMirror's arch / DPI), for display. */
+    val variantTag: String? = null,
+    /** Which variant of the release this is, when the source offered several. */
+    val variantNumber: Int? = null,
     val files: List<CandidateDownloadFile> = emptyList(),
     // When set, the source gates the file behind a captcha/JS challenge that
     // only a real browser can pass. The card then offers a "Solve captcha in

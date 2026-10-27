@@ -1,12 +1,57 @@
-# Helper for Morphe
+# Morphe Helper
 
 <p align="center">
-  <img src="docs/logo.png" alt="Helper for Morphe" width="180" />
+  <img src="docs/logo.png" alt="Morphe Helper" width="180" />
 </p>
 
-Helper for Morphe is a standalone Android helper app for finding and returning original APK files requested by [Morphe Manager](https://github.com/MorpheApp). It receives a package/version request through an Android intent, resolves a matching file from a supported APK source, downloads it when a direct download is available, and returns a readable `content://` URI back to the caller.
+Morphe Helper is a standalone Android helper app for finding and returning original APK files requested by [Morphe Manager](https://github.com/MorpheApp). It receives a package/version request through an Android intent, resolves a matching file from a supported APK source, downloads it when a direct download is available, and returns a readable `content://` URI back to the caller.
 
 This project is independent from the APK source websites listed below. Source availability, package versions, download formats, and region/device access can change at any time.
+
+## Setup
+
+Installing the APK is only half of it. **Morphe only offers helpers you have explicitly trusted**, so a fresh install does nothing until this one-time step is done:
+
+1. Install Morphe Helper and open it once.
+2. Open **Morphe Manager** and choose **Settings** in the bottom navigation.
+3. Scroll to the **Files** section and tap **APK download helper**.
+4. Switch on **Morphe Helper**, then confirm **Trust** in the dialog that appears.
+
+The row reads `Trusted: 0 of 1` before that and `Trusted: 1 of 1` after it. Nothing else needs configuring: drive requests from Morphe, not from this app.
+
+From then on, whenever Morphe needs an original APK it cannot find installed, the download screen offers **Use a helper app** -> **Open helper**. That launches this app, which resolves the requested version, downloads it, checks it against Morphe's package/version/signature expectations and hands the file straight back.
+
+## Using the request screen
+
+When Morphe needs an original APK it opens this app with the package and version it wants. The **App info** card shows exactly what was asked for:
+
+| Row | Meaning |
+| --- | --- |
+| Version | The version Morphe asked for, marked `Unpatched` |
+| Format | `APK`, `APKS` or `XAPK`, as the source publishes it |
+| Architecture | Which CPU splits the source offers, when it publishes per-architecture builds |
+
+**Selected source** is where the file comes from. Tap **Download source** to switch to another enabled source; the number beside it is how many are available. Per-source reachability is checked in Settings -> Advanced.
+
+**Version type** decides which file is fetched:
+
+- **Manual** opens the source's website so you download the file yourself; the app then picks it up and returns it.
+- **Recommended** fetches exactly the version Morphe asked for. This is the usual choice.
+- **Latest** takes the newest version the source offers, and only hands it over when it really is newer than the requested version.
+- **History** lists every version the source publishes, so you can pick one.
+
+Each mode also has its own **About ... mode** card under the row, and the **How it works** card above explains the flow on the screen itself.
+
+**Fast Mode** (the bolt in the header) skips all of this: it walks your enabled sources on its own and returns the first file that matches. Settings -> System controls whether it fetches the requested version, the newest version, or asks each time.
+
+Whatever the route, the downloaded file is checked before it can be handed over:
+
+- the **package name** must be the one Morphe asked for;
+- the **version** must be the requested version (unless you picked a newer one deliberately);
+- variants Morphe cannot patch, such as APKMirror's `-SECONDARY` builds, are rejected;
+- the **version code** is enforced only in Fast Mode, where a mismatch asks before continuing.
+
+With VirusTotal enabled the file is also scanned, and the verdict is recorded in the history. Once it passes, the file is handed back and the cache is cleared according to your auto-clear setting. You do not need to do anything further in Morphe: the patch resumes by itself.
 
 ## Features
 
@@ -50,8 +95,9 @@ This project is independent from the APK source websites listed below. Source av
 - **Live speed + ETA** in both the progress notification and the in-app card (`45% · 5.9 MB/s · 0:52 left`), smoothed so readings stay stable.
 - Download progress is followed by distinct **extracting / scanning** phases with their own percent bars instead of sitting at a stuck 100%.
 - Files are validated against the source-published **SHA-256** when available (shown as a verified badge), and against the real APK manifest before handoff.
-- Downloads land in Helper's cache by default (honouring the auto-clear-after-handoff toggle) or as a visible copy in `Downloads/Helper for Morphe`. A storage card shows both sizes and clears each with one tap; a startup sweep clears stale cache and reports how much it freed.
+- Downloads land in Helper's cache by default (honouring the auto-clear-after-handoff toggle) or as a visible copy in `Downloads/Morphe Helper`. A storage card shows both sizes and clears each with one tap; a startup sweep clears stale cache and reports how much it freed.
 
+- **Game data (OBB) is reported, never installed.** Android serves expansion files only from `Android/obb/<package>/`, which no other app may write on Android 11 and later, so no helper can place them for you. When the file handed over carries them, the history entry says `Includes game data (2 files · 1.2 GB)` and the request log records it. Copy those files into `Android/obb/<package>/` if a patched game closes on launch. A bare `APK` never contains expansion data, so pick a container format (`XAPK`, `APKS`) for games that need it.
 ### Find New Apps
 
 - A **live community patch index** (fetched fresh from the morphe-archive JSON on every open — never cached) listing every app with available patches, shown when the request does not come from Morphe.
@@ -67,7 +113,7 @@ This project is independent from the APK source websites listed below. Source av
 
 ## Helper Settings
 
-- **Save downloads**: cache (honouring auto-clear) or a visible copy in `Downloads/Helper for Morphe`; a storage card shows cache and Downloads sizes and clears both with one tap.
+- **Save downloads**: cache (honouring auto-clear) or a visible copy in `Downloads/Morphe Helper`; a storage card shows cache and Downloads sizes and clears both with one tap.
 - **Connection**: Wi-Fi only, mobile data only, or both.
 - **Sources**: toggle each APK source, or set a **default source**.
 - **Fast Mode**: enable auto-resolve and choose the version policy (Requested / Latest / Always ask).
@@ -176,7 +222,7 @@ APK hosting and indexing costs money. If this helper saves you time, consider su
 
 ## License
 
-Helper for Morphe is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
+Morphe Helper is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
 
 ## Notes
 

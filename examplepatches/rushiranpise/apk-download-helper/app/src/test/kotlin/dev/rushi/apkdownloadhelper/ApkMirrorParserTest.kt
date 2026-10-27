@@ -255,6 +255,150 @@ class ApkMirrorParserTest {
         assertEquals(listOf(searchUrl), fetcher.requestedUrls())
     }
 
+    /**
+     * The variant table as APKMirror really writes it: a header row that shares the
+     * `table-row headerFont` class with the data rows, then one row per variant.
+     */
+    private fun apkMirrorVariantRow(
+        badge: String,
+        arch: String,
+        minimumAndroid: String,
+        dpi: String,
+        variantUrl: String
+    ) = """
+        <div class="table-row headerFont">
+          <div class="table-cell rowheight addseparator expand pad dowrap-break-all">
+            <a class="accent_color" href="$variantUrl">2.0.0</a>
+            <span class="apkm-badge success" data-apkm-tooltip="APK bundle with base APK and 34 splits">$badge</span>
+          </div>
+          <div class="table-cell rowheight addseparator expand pad">$arch</div>
+          <div class="table-cell rowheight addseparator expand pad">$minimumAndroid</div>
+          <div class="table-cell rowheight addseparator expand pad">$dpi</div>
+        </div>
+    """.trimIndent()
+
+    @Test
+    fun findCandidates_requested_ignoresAVariantBuiltForAnotherAbi() = runBlocking {
+        val releaseUrl = "https://www.apkmirror.com/apk/example-org/example-app/2-0-0-release/"
+        // The 32-bit build is listed first, which is what used to win.
+        val v7aVariant = "$releaseUrl/example-app-2-0-0-android-apk-download/"
+        val arm64Variant = "$releaseUrl/example-app-2-0-0-2-android-apk-download/"
+        val finalUrl = "https://www.apkmirror.com/download.php?id=9&key=z"
+        val downloadPage = "<html><body><a id=\"download-link\" href=\"$finalUrl\"\u003e\u003c/a\u003e\u003c/body\u003e\u003c/html\u003e"
+
+        fun variantPage(url: String) =
+            "<html><body><a class=\"downloadButton\" href=\"$url/download/\"\u003eDownload\u003c/a\u003e\u003c/body\u003e\u003c/html\u003e"
+
+        val fetcher = FakeSourceTextFetcher(
+            pages = mapOf(
+                searchUrl to
+                    "<html><body><a href=\"/apk/example-org/example-app/\"\u003eExample App\u003c/a\u003e\u003c/body\u003e\u003c/html\u003e",
+                appPageUrl to
+                    "<html><body><span id=\"$packageName\"\u003eExample App\u003c/span\u003e\u003c/body\u003e</html>",
+                uploadsUrl to
+                    "<html><body><a href=\"/apk/example-org/example-app/2-0-0-release/\"\u003e2.0.0\u003c/a\u003e\u003c/body\u003e</html>",
+                releaseUrl to
+                    """<html><body><div class="table topmargin variants-table">
+                         <div class="table-row headerFont">
+                           <div class="table-cell rowheight addseparator expand variant-min-width pad">Variant</div>
+                           <div class="table-cell rowheight addseparator expand pad">Architecture</div>
+                           <div class="table-cell rowheight addseparator expand pad">Minimum Version</div>
+                           <div class="table-cell rowheight addseparator expand pad">Screen DPI</div>
+                         </div>
+                         ${apkMirrorVariantRow("APK", "armeabi-v7a", "Android 10+", "nodpi", v7aVariant)}
+                         ${apkMirrorVariantRow("APK", "arm64-v8a", "Android 10+", "nodpi", arm64Variant)}
+                       </div></body></html>""",
+                v7aVariant to variantPage(v7aVariant),
+                arm64Variant to variantPage(arm64Variant),
+                "$v7aVariant/download/" to downloadPage,
+                "$arm64Variant/download/" to downloadPage
+            )
+        )
+        val parser = ApkMirrorParser(parserContext(fetcher))
+        val request = testRequest(packageName = packageName, versionName = "2.0.0")
+
+        val candidates = parser.findCandidates(request, CandidateOption.REQUESTED)
+
+        // testRequest runs with supportedAbis = arm64-v8a, so the v7a row must not
+        // be offered at all while a runnable build is on the page.
+        assertEquals(listOf("arm64-v8a / nodpi"), candidates.map { it.variantTag })
+    }
+
+    @Test
+    fun findCandidates_requested_numbersTheVariantsTheReleasePageLists() = runBlocking {
+        val releaseUrl = "https://www.apkmirror.com/apk/example-org/example-app/2-0-0-release/"
+        val bundleVariant1 = "$releaseUrl/example-app-2-0-0-2-android-apk-download/"
+        val bundleVariant2 = "$releaseUrl/example-app-2-0-0-android-apk-download/"
+        val apkVariant = "$releaseUrl/example-app-2-0-0-3-android-apk-download/"
+        val finalUrl = "https://www.apkmirror.com/download.php?id=123&key=abc"
+
+        fun variantPage(url: String) =
+            """<html><body><a class="downloadButton" href="$url/download/">Download</a></body></html>"""
+
+        val fetcher = FakeSourceTextFetcher(
+            pages = mapOf(
+                searchUrl to
+                    """<html><body><a href="/apk/example-org/example-app/">Example App</a></body></html>""",
+                appPageUrl to
+                    """<html><body><span id="$packageName">Example App</span></body></html>""",
+                uploadsUrl to
+                    """<html><body>
+                         <a href="/apk/example-org/example-app/2-0-0-release/">2.0.0</a>
+                       </body></html>""",
+                releaseUrl to
+                    """<html><body><div class="table topmargin variants-table">
+                         <div class="table-row headerFont">
+                           <div class="table-cell rowheight addseparator expand variant-min-width pad">Variant</div>
+                           <div class="table-cell rowheight addseparator expand pad">Architecture</div>
+                           <div class="table-cell rowheight addseparator expand pad">Minimum Version</div>
+                           <div class="table-cell rowheight addseparator expand pad">Screen DPI</div>
+                         </div>
+                         ${apkMirrorVariantRow("BUNDLE", "universal", "Android 12L+", "120-480dpi", bundleVariant1)}
+                         ${apkMirrorVariantRow("BUNDLE", "arm64-v8a", "Android 10+", "480-640dpi", bundleVariant2)}
+                         ${apkMirrorVariantRow("APK", "universal", "Android 10+", "nodpi", apkVariant)}
+                       </div></body></html>""",
+                bundleVariant1 to variantPage(bundleVariant1),
+                bundleVariant2 to variantPage(bundleVariant2),
+                apkVariant to variantPage(apkVariant),
+                "$bundleVariant1/download/" to
+                    """<html><body><a id="download-link" href="$finalUrl"></a></body></html>""",
+                "$bundleVariant2/download/" to
+                    """<html><body><a id="download-link" href="$finalUrl"></a></body></html>""",
+                "$apkVariant/download/" to
+                    """<html><body><a id="download-link" href="$finalUrl"></a></body></html>"""
+            )
+        )
+        val parser = ApkMirrorParser(parserContext(fetcher))
+        val request = testRequest(
+            packageName = packageName,
+            versionName = "2.0.0",
+            requestedFileType = "APKM"
+        )
+
+        val candidates = parser.findCandidates(request, CandidateOption.REQUESTED)
+
+        // Numbered and tagged by the page's own variant rows, so two cards for one
+        // release can be told apart and matched against the site's table - while the
+        // order offers the build this arm64 device runs first, though the page lists
+        // it second.
+        assertEquals(listOf(2, 1), candidates.map { it.variantNumber })
+        assertEquals(
+            listOf("arm64-v8a / 480-640dpi", "Universal / 120-480dpi"),
+            candidates.map { it.variantTag }
+        )
+
+        // The same release asked for as APK offers only the one variant, so there is
+        // nothing to tell apart and no badge to show - and `nodpi` is now named
+        // rather than dropped, because that is how the site labels it.
+        val apkOnly = parser.findCandidates(
+            testRequest(packageName = packageName, versionName = "2.0.0", requestedFileType = "APK"),
+            CandidateOption.REQUESTED
+        )
+
+        assertEquals(listOf(null), apkOnly.map { it.variantNumber })
+        assertEquals(listOf("Universal / nodpi"), apkOnly.map { it.variantTag })
+    }
+
     @Test
     fun resolveHistoryCandidate_resolvesDirectDownloadFromReleasePage() = runBlocking {
         val releaseUrl = "https://www.apkmirror.com/apk/example-org/example-app/2-0-0-release/"
