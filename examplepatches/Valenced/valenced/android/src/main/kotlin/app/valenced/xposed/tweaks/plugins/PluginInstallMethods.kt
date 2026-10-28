@@ -22,6 +22,7 @@ import app.valenced.plugins.toJSPayload
 import app.valenced.plugins.toPluginError
 import app.valenced.xposed.api.HostScope
 import app.valenced.xposed.api.callJSMethod
+import app.valenced.xposed.runSuspendCatching
 import app.valenced.xposed.tweak
 import app.valenced.xposed.tweaks.plugins.external.InstallResult
 import app.valenced.xposed.tweaks.plugins.external.confirmPluginInstall
@@ -246,7 +247,7 @@ val pluginInstallMethods by tweak {
                 pluginRegistry.add(factory)
                 // Default state for fresh installs.
                 clearBootSlotFlags(factory.manifest.id)
-                runCatching {
+                runSuspendCatching {
                     callJSMethod(
                         PluginEvents.PLUGIN_INSTALL_RESULT,
                         listOf(
@@ -261,7 +262,7 @@ val pluginInstallMethods by tweak {
 
             for (action in result.pending) {
                 pluginRegistry.pendingUpdates[action.id] = action.version
-                runCatching {
+                runSuspendCatching {
                     callJSMethod(
                         PluginEvents.PLUGIN_UPDATED,
                         listOf(mapOf("id" to action.id, "version" to action.version.toString())),

@@ -77,6 +77,7 @@ object DevLoader {
             try {
                 withTimeout(TIMEOUT) { downloadReady.await() }
             } catch (e: Throwable) {
+                e.rethrowIfCancelled()
                 log.w("Bundle download did not complete", e)
             }
         }
@@ -155,6 +156,7 @@ object DevLoader {
                 log.i("Bundle manifest updated (${result.bytes.size} bytes)")
             }
         } catch (e: Throwable) {
+            e.rethrowIfCancelled()
             log.w("Failed to download bundle manifest", e)
         }
     }

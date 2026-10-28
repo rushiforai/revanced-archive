@@ -72,18 +72,14 @@ val pluginStates by tweak {
 }
 
 
-/** Writes a plugin's flags into [slot] and notifies JS with [sendStateToJS]. */
+/**
+ * Writes a plugin's flags into [slot] and notifies JS with [sendStateToJS].
+ *
+ * Await this before a bridge method resolves. Otherwise JS receives after it already resumed and overwrites what it adopted.
+ */
 context(host: HostScope)
 internal suspend fun writeSlotFlags(slot: PluginStateSlot, pluginId: String, flags: Set<PluginFlags>) {
     slot.write(pluginId, flags)
     // Some non-persisted flags can change, so send anyway.
     sendStateToJS(slot.id, pluginId, flags)
-}
-
-/** Writes a plugin's flags into [slot] and notifies JS with [dispatchStateToJS]. */
-context(host: HostScope)
-internal fun dispatchSlotFlags(slot: PluginStateSlot, pluginId: String, flags: Set<PluginFlags>) {
-    slot.write(pluginId, flags)
-    // Some non-persisted flags can change, so dispatch anyway.
-    dispatchStateToJS(slot.id, pluginId, flags)
 }

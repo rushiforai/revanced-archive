@@ -5,6 +5,7 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 
 internal val httpClient by lazy {
@@ -14,6 +15,14 @@ internal val httpClient by lazy {
         install(HttpRedirect) {}
         install(HttpTimeout) {}
     }
+}
+
+internal fun HttpResponse.refusedHttpsDowngradeTarget(): Url? {
+    // Same as HttpRedirect's (private) isRedirect()
+    if (status.value !in setOf(301, 302, 303, 307, 308)) return null
+    val location = headers[HttpHeaders.Location] ?: return null
+    val target = URLBuilder(request.url).takeFrom(location).build()
+    return target.takeIf { request.url.protocol.isSecure() && !it.protocol.isSecure() }
 }
 
 internal sealed class ETagFetchResult {
@@ -42,6 +51,11 @@ internal suspend fun HttpClient.getWithETag(
 
         HttpStatusCode.NotModified -> ETagFetchResult.NotModified
 
-        else -> throw ResponseException(response, "Received status: ${response.status}")
+        else -> throw ResponseException(
+            response,
+            response.refusedHttpsDowngradeTarget()
+                ?.let { "$url redirects to insecure $it. The host should enforce HTTPS." }
+                ?: "Received status: ${response.status}",
+        )
     }
 }

@@ -10,6 +10,7 @@ import app.valenced.plugins.repos.RepoInstallAction
 import app.valenced.plugins.repos.installBegin
 import app.valenced.plugins.repos.installSubmit
 import app.valenced.xposed.httpClient
+import app.valenced.xposed.refusedHttpsDowngradeTarget
 import app.valenced.xposed.tweaks.plugins.*
 import app.valenced.xposed.tweaks.plugins.external.parseExternalPluginDir
 import app.valenced.xposed.tweaks.plugins.external.readParsedPlugin
@@ -112,11 +113,18 @@ private suspend fun download(
     onReceived: (Long) -> Unit,
 ): ByteArray {
     val response = client.get(request.url) {
-        // expectSuccess true (our defaults) would throw on 3xx instead of following the redirect.
-        expectSuccess = false
         timeout { requestTimeoutMillis = DOWNLOAD_TIMEOUT }
         onDownload { received, _ -> onReceived(received) }
     }
+
+    response.refusedHttpsDowngradeTarget()?.let {
+        throw PluginSystemError(
+            PluginErrorCodes.INSTALL_FAILED,
+            "Failed to download ${request.action.id}@${request.action.version}: " +
+                "${request.url} redirects to insecure $it. The host should enforce HTTPS.",
+        )
+    }
+
     if (response.status != HttpStatusCode.OK) {
         throw PluginSystemError(
             PluginErrorCodes.INSTALL_FAILED,

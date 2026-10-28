@@ -6,6 +6,7 @@ import SearchInput from '@valenced/components/SearchInput'
 import { ActionSheetActionCreators } from '@valenced/discord/actions'
 import { Tokens } from '@valenced/discord/common/tokens'
 import { Design } from '@valenced/discord/design'
+import { ReactNativeSafeAreaContext } from '@valenced/externals/react-native-safe-area-context'
 import { reloadApp } from '@valenced/modules/native/app'
 import {
     getInternalPluginMeta,
@@ -147,10 +148,12 @@ function BrowseFloatingActionButton({
     onBrowse?: () => void
 }) {
     const navigation = useNavigation<NavigationProp<any>>()
+    const { bottom } = ReactNativeSafeAreaContext.useSafeAreaInsets()
 
     return (
         <FloatingActionButton
             disabled={disabled}
+            positionBottom={16 + bottom}
             icon={PlusLargeIcon}
             accessibilityLabel="Browse plugins"
             onPress={

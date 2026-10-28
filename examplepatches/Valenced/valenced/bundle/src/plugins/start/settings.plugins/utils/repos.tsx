@@ -143,16 +143,12 @@ export async function installPlugins(
 }
 
 export function handlePotentialPlanResolveError(e: unknown) {
-    if (isPluginSystemErrorPayload(e)) {
-        if (e.code === PluginErrorCodes.ResolveFailed) {
-            showErrorToast(
-                describeIssue(e.details as ResolveIssue),
-                'PLAN_ERROR',
-            )
-        }
-    } else {
-        showErrorToast(messageOf(e), 'PLAN_ERROR')
-    }
+    if (
+        isPluginSystemErrorPayload(e) &&
+        e.code === PluginErrorCodes.ResolveFailed
+    )
+        showErrorToast(describeIssue(e.details as ResolveIssue), 'PLAN_ERROR')
+    else showErrorToast(messageOf(e), 'PLAN_ERROR')
 }
 
 /** Plans every ID with the same {@link targets} and merges the plans. */

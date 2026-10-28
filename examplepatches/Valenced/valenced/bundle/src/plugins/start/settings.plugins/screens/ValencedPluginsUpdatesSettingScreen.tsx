@@ -6,6 +6,7 @@ import Page from '@valenced/components/Page'
 import { ToastActionCreators } from '@valenced/discord/actions'
 import { Tokens } from '@valenced/discord/common/tokens'
 import { Design } from '@valenced/discord/design'
+import { ReactNativeSafeAreaContext } from '@valenced/externals/react-native-safe-area-context'
 import { reloadApp } from '@valenced/modules/native/app'
 import { PluginFlags, pList } from '@valenced/plugins/_'
 import { useHasFlagPluginCount } from '@valenced/plugins/_/react'
@@ -49,7 +50,7 @@ const WarningIcon = getAssetIdByName('WarningIcon')!
 const DownloadIconComponent = lookupGeneratedIconComponent('DownloadIcon')!
 
 // FAB is 56px tall + 16px spacing on top and bottom
-const ListPadding = { paddingBottom: 56 + 2 * 16 }
+const ListPadding = 56 + 2 * 16
 
 const useStyles = createStyles({
     noteIcon: {
@@ -92,6 +93,7 @@ function UpdateNotes({ notes }: { notes: UpdateNote[] }) {
 
 export default function ValencedPluginsUpdatesSettingScreen() {
     const navigation = useNavigation()
+    const { bottom } = ReactNativeSafeAreaContext.useSafeAreaInsets()
 
     const updates = useStore(updatesStore, state => state.updates)
     const repoNames = useStore(updatesStore, state => state.repoNames)
@@ -232,7 +234,7 @@ export default function ValencedPluginsUpdatesSettingScreen() {
             </Text>
             <PluginFlashList
                 plugins={cards}
-                contentContainerStyle={ListPadding}
+                contentContainerStyle={{ paddingBottom: ListPadding + bottom }}
                 extrasOf={card => {
                     const { update, notes } = card as UpdateCardData
                     const blocked = Boolean(update.blocker)
@@ -259,6 +261,7 @@ export default function ValencedPluginsUpdatesSettingScreen() {
             />
             <FloatingActionButton
                 icon={DownloadIcon}
+                positionBottom={16 + bottom}
                 accessibilityLabel={`Update ${pluralize(selected.size, 'plugin')}`}
                 disabled={busy || refreshing || !selected.size}
                 onPress={install}

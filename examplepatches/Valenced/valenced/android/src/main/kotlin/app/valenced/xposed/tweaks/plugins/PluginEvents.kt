@@ -5,6 +5,7 @@ import app.valenced.plugins.pluginLog
 import app.valenced.plugins.toJSPayload
 import app.valenced.xposed.api.HostScope
 import app.valenced.xposed.api.callJSMethod
+import app.valenced.xposed.runSuspendCatching
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
@@ -41,7 +42,7 @@ private val JS_STOP_TIMEOUT = 10.seconds
  */
 context(host: HostScope)
 internal suspend fun letJSStopPluginFirst(pluginId: String): Boolean =
-    host.bridge.isReady && runCatching {
+    host.bridge.isReady && runSuspendCatching {
         withTimeout(JS_STOP_TIMEOUT) { host.callJSMethod(PLUGIN_STOPPING, listOf(pluginId)) }
     }
         .onFailure { pluginLog.w("JS failed to stop $pluginId in time; stopping the native half anyway", it) }
@@ -50,7 +51,7 @@ internal suspend fun letJSStopPluginFirst(pluginId: String): Boolean =
 context(host: HostScope)
 internal fun emitPluginEvent(name: String, payload: Map<String, Any?>) {
     pluginJobScope.launch {
-        runCatching { host.callJSMethod(name, listOf(payload)) }
+        runSuspendCatching { host.callJSMethod(name, listOf(payload)) }
             .onFailure { pluginLog.e("Failed to emit $name", it) }
     }
 }
@@ -71,11 +72,6 @@ internal fun emitDependencyGraphUpdate() {
 /** Tells JS a plugin's flags changed in [slotId]. */
 context(host: HostScope)
 internal suspend fun sendStateToJS(slotId: String, pluginId: String, flags: Set<PluginFlags>) {
-    runCatching { host.callJSMethod(STATE_UPDATE, listOf(slotId, pluginId, flags.toJSPayload())) }
+    runSuspendCatching { host.callJSMethod(STATE_UPDATE, listOf(slotId, pluginId, flags.toJSPayload())) }
         .onFailure { pluginLog.e("Failed to send state of $pluginId in slot '$slotId'", it) }
 }
-
-/** Non-blocking version of [sendStateToJS]. */
-context(host: HostScope)
-internal fun dispatchStateToJS(slotId: String, pluginId: String, flags: Set<PluginFlags>) =
-    pluginJobScope.launch { sendStateToJS(slotId, pluginId, flags) }

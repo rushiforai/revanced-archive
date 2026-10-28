@@ -1,6 +1,7 @@
 import { FlashList } from '@shopify/flash-list'
 import { styles } from '@valenced/components/_'
 import { Design } from '@valenced/discord/design'
+import { ReactNativeSafeAreaContext } from '@valenced/externals/react-native-safe-area-context'
 import { useWindowDimensions } from 'react-native'
 import {
     BrowsePluginCard,
@@ -79,14 +80,15 @@ export function InstalledPluginMasonryFlashList({
 }) {
     const numColumns = useNumColumns()
     const hideTooltips = useHidePluginTooltips()
+    const { bottom } = ReactNativeSafeAreaContext.useSafeAreaInsets()
 
     return (
         <FlashList
             maintainVisibleContentPosition={MaintainVisibleContentPosition}
             masonry
             style={gutterCompensation}
-            // FAB is 56px tall, plus 16px spacing on top and bottom
-            contentContainerStyle={{ paddingBottom: 56 + 2 * 16 }}
+            // FAB is 56px tall, plus 16px spacing on top and bottom, above the navigation bar
+            contentContainerStyle={{ paddingBottom: 56 + 2 * 16 + bottom }}
             data={plugins}
             onScrollBeginDrag={hideTooltips}
             fadingEdgeLength={16}

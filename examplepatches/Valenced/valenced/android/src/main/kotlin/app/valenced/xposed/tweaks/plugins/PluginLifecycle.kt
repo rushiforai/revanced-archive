@@ -14,9 +14,11 @@ import app.valenced.xposed.ScopedDexFinder
 import app.valenced.xposed.api.DexFinder
 import app.valenced.xposed.api.HostScope
 import app.valenced.xposed.api.callJSMethod
+import app.valenced.xposed.runSuspendCatching
 import app.valenced.xposed.tweaks.plugins.internal.InternalPluginFlags
 import java.io.File
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -119,13 +121,13 @@ internal fun loadPlugin(
     val bootSlot = PluginStatesStore.boot
 
     // `drop(1)` to skip the initial load so we don't re-persist the values we just loaded.
-    // Late starts don't drop since we need to sync STARTED_LATE back to JS.
-    val persistJob = flags.drop(if (late) 0 else 1).onEach { newFlags ->
+    // [restartPlugin] sends STARTED_LATE itself.
+    val persistJob = flags.drop(1).onEach { newFlags ->
         writeSlotFlags(bootSlot, manifest.id, newFlags)
     }.launchIn(pluginJobScope)
 
     val errorSyncJob = scope.errors.onEach {
-        runCatching {
+        runSuspendCatching {
             scope.callJSMethod(PluginEvents.PLUGIN_ERRORED, listOf(manifest.id, scope.errorsJSPayload))
         }
     }.launchIn(pluginJobScope)
@@ -191,23 +193,22 @@ private fun chainedDependentsOf(pluginId: String): Set<String> {
 
 /** Tears down the plugin's native half. */
 context(host: HostScope)
-internal fun stopNativePlugin(pluginId: String) {
+internal suspend fun stopNativePlugin(pluginId: String) {
     val entry = loaded.remove(pluginId) ?: return
     try {
         entry.plugin.stop(entry.scope)
     } catch (e: Throwable) {
         entry.scope.errors.tryEmit(e)
         pluginLog.e("Plugin $pluginId threw in stop()", e)
-    } finally {
-        // Clear unrelated flags
-        val latestFlags = entry.scope.flags.value.filter { it.persistAfterDisable || it.bit != 0 }.toSet()
-        // stop() may have changed flags (requireReload), we need to sync before stopping the jobs.
-        // If we accidentally dispatch twice, the second call will be a no-op anyways.
-        dispatchSlotFlags(PluginStatesStore.boot, pluginId, latestFlags)
-
-        entry.persistJob.cancel()
-        entry.errorSyncJob.cancel()
     }
+
+    // Wait for persistence to finish.
+    entry.persistJob.cancelAndJoin()
+    entry.errorSyncJob.cancel()
+
+    // Clear unrelated flags. Read them now, since stop() may call requireReload.
+    val latestFlags = entry.scope.flags.value.filter { it.persistAfterDisable || it.bit != 0 }.toSet()
+    writeSlotFlags(PluginStatesStore.boot, pluginId, latestFlags)
 }
 
 /**
@@ -239,7 +240,7 @@ internal suspend fun restartPlugin(pluginId: String) {
         "Plugin '$pluginId' could not stop cleanly and cannot start again before a reload",
     )
 
-    try {
+    val entry = try {
         loadPlugin(factory, late = true)
     } catch (e: Throwable) {
         throw PluginSystemError(
@@ -249,6 +250,9 @@ internal suspend fun restartPlugin(pluginId: String) {
         )
     }
     pluginRegistry.bootErrors.remove(pluginId)
+
+    // JS runs lifecycles once this resolves, so send STARTED_LATE first.
+    writeSlotFlags(PluginStatesStore.boot, pluginId, entry.scope.flags.value)
 }
 
 /**
@@ -279,19 +283,23 @@ internal suspend fun disablePlugin(pluginId: String) {
 
     val toDisable = dependents + pluginId
 
-    PluginStatesStore.batchSave {
-        for (id in toDisable) {
+    val written = PluginStatesStore.batchSave {
+        toDisable.associateWith { id ->
             // JS plugins stop before disabling, so loaded[id] will be null
             // JS stop()s can record requireReload, so we need to also read from the slot as well.
             val currentFlags = loaded[id]?.scope?.flags?.value
                 ?: PluginStatesStore.boot.entryFlags(id).orEmpty()
             val newFlags = currentFlags.filter { it.persistAfterDisable }.toSet()
-            writeActiveSlotFlags(id, newFlags)
+            PluginStatesStore.active.write(id, newFlags)
 
             // Sync running instances for the boot slot as well.
             loaded[id]?.let { it.scope.flags.value = newFlags }
+            newFlags
         }
     }
+
+    // batchSave can't suspend, so tell JS afterwards.
+    for ((id, flags) in written) sendStateToJS(PluginStatesStore.active.id, id, flags)
 
     stopPlugin(pluginId)
 }
@@ -302,7 +310,7 @@ internal fun pluginEnablementFlags(requiredByUser: Boolean) = buildSet {
 }
 
 context(host: HostScope)
-internal fun enablePlugin(pluginId: String, requiredByUser: Boolean) {
+internal suspend fun enablePlugin(pluginId: String, requiredByUser: Boolean) {
     // On a normal boot the active slot *is* the running session, so replacing the entry outright would strip
     // session-only flags (the ones with no bit, which never reach disk) off a plugin that is already running.
     val sessionOnly = PluginStatesStore.active.entryFlags(pluginId).orEmpty().filter { it.bit == 0 }
@@ -324,8 +332,8 @@ private fun isPluginEnabled(pluginId: String, factory: PluginFactory?): Boolean 
 
 /** Writes the slot the user chose, which is what applies on the next boot, and tells JS. */
 context(host: HostScope)
-internal fun writeActiveSlotFlags(pluginId: String, flags: Iterable<PluginFlags>) {
-    dispatchSlotFlags(PluginStatesStore.active, pluginId, flags.toSet())
+internal suspend fun writeActiveSlotFlags(pluginId: String, flags: Iterable<PluginFlags>) {
+    writeSlotFlags(PluginStatesStore.active, pluginId, flags.toSet())
 }
 
 /** Drops the plugin's entry from the slot this boot runs on. */
