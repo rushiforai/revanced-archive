@@ -329,7 +329,7 @@ export default function ValencedPluginsAdvancedSettingScreen() {
                             <TextInput
                                 label="Repository URL"
                                 onChange={setUrl}
-                                placeholder="https://example.com/plugins"
+                                placeholder="https://plugins.local/index.json"
                                 size="md"
                                 value={url}
                             />

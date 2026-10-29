@@ -8,14 +8,11 @@ import {
     withName,
     withProps,
 } from '@valenced/modules/finders/filters'
-import {
-    mInitializingId,
-    mUninitialized,
-} from '@valenced/modules/metro/patches'
+import { mDeps, mInitializingId } from '@valenced/modules/metro/patches'
 import { getModuleDependencies } from '@valenced/modules/metro/utils'
 import { proxify } from '@valenced/utils/proxy'
 import { executeAssetSubscriptions, resolveAssetOverride } from './_internal'
-import { cache, cacheAsset, Uncached } from './caches'
+import { cache, cacheAsset, markCacheComplete, Uncached } from './caches'
 import type { Metro } from '@valenced/modules/types'
 import type { ReactNative } from '@valenced/react/types'
 import type { Asset, PackagerAsset } from './types'
@@ -46,12 +43,13 @@ const unsubAR = waitForModules(
                 // More fragile way, but also more performant:
                 // There is exactly one asset before the reexported asset registry :/
                 const firstAssetModuleId = id - 1
-                for (const mId of mUninitialized) {
+                // Walk mDeps to prevent collision with module blacklisting 
+                for (const [mId, deps] of mDeps) {
                     if (mId < firstAssetModuleId) continue
-
-                    const deps = getModuleDependencies(mId)!
                     if (deps.length === 1 && deps[0] === id) metroRequire(mId)
                 }
+
+                markCacheComplete()
             }
 
             // We already patched the original asset registry, so we don't need to patch again.
@@ -74,7 +72,6 @@ const unsubAR = waitForModules(
             return result
         }
     },
-    cachedOnly,
 )
 
 /**

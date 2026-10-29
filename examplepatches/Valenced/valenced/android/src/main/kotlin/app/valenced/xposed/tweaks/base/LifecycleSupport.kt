@@ -1,8 +1,8 @@
 package app.valenced.xposed.tweaks.base
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
-import android.content.ContextWrapper
 import android.os.Bundle
 import app.valenced.xposed.Tweak
 import app.valenced.xposed.hook
@@ -23,23 +23,37 @@ private val subscriberLock = Any()
 private val contextSubscribers = mutableListOf<(Context) -> Unit>()
 private val activitySubscribers = mutableListOf<(Activity) -> Unit>()
 
+private val activityHooked = AtomicBoolean(false)
+
 /**
- * Captures [Context] (from `ContextWrapper.attachBaseContext`) and [Activity] (from the launcher activity's `onCreate`),
- * so other tweaks can use [withAppContext]/[withAppActivity] to await them.
+ * Captures [Context] (from the host Application's `attachBaseContext`) and [Activity] (from the launcher activity's
+ * `onCreate`), so other tweaks can use [withAppContext]/[withAppActivity] to await them.
  *
  * The launcher activity is resolved from the package manager, since its class name isn't stable across Discord versions.
  */
 val lifecycleSupport by tweak {
-    val activityHooked = AtomicBoolean(false)
+    // Since we updated LSPatch, dexopt now compiles the host's code, inlining ContextWrapper.attachBaseContext into its super calls, so the hook never fires.
+    // We need to hook the host's own override, since the framework reaches it through a virtual call, so it won't be inlined.
+    val appClass = appInfo.className?.let { classLoader.loadClass(it) } ?: Application::class.java
+    val attachBaseContext = generateSequence(appClass) { it.superclass }
+        .firstNotNullOf { runCatching { it.method("attachBaseContext", Context::class.java) }.getOrNull() }
 
-    ContextWrapper::class.java.method("attachBaseContext", Context::class.java).hook {
-        after {
-            val ctx = args[0] as Context
-            if (activityHooked.compareAndSet(false, true)) hookLauncherActivity(ctx)
+    log.d("Hooking ${attachBaseContext.declaringClass.name}.attachBaseContext")
+    attachBaseContext.hook {
+        after { onContext(thisObject as Context) }
+    }
+}
 
-            contextRef = WeakReference(ctx)
-            log.i("Got Context")
-            drainContextSubscribers(ctx)
+private fun Tweak.onContext(ctx: Context) {
+    contextRef = WeakReference(ctx)
+    log.i("Got Context")
+    drainContextSubscribers(ctx)
+
+    if (activityHooked.compareAndSet(false, true)) {
+        try {
+            hookLauncherActivity(ctx)
+        } catch (e: Throwable) {
+            log.e("Failed to hook the launcher activity", e)
         }
     }
 }
@@ -95,22 +109,35 @@ private fun launcherActivityName(ctx: Context): String {
     return info.targetActivity ?: info.name
 }
 
-private fun drainContextSubscribers(ctx: Context) {
+// Subscribers are removed before they run, so one throwing must not skip the rest.
+private fun Tweak.drainContextSubscribers(ctx: Context) {
     val pending = synchronized(subscriberLock) {
         val copy = contextSubscribers.toList()
         contextSubscribers.clear()
         copy
     }
-    for (s in pending) s(ctx)
+    for (s in pending) {
+        try {
+            s(ctx)
+        } catch (e: Throwable) {
+            log.e("Context subscriber threw", e)
+        }
+    }
 }
 
-private fun drainActivitySubscribers(act: Activity) {
+private fun Tweak.drainActivitySubscribers(act: Activity) {
     val pending = synchronized(subscriberLock) {
         val copy = activitySubscribers.toList()
         activitySubscribers.clear()
         copy
     }
-    for (s in pending) s(act)
+    for (s in pending) {
+        try {
+            s(act)
+        } catch (e: Throwable) {
+            log.e("Activity subscriber threw", e)
+        }
+    }
 }
 
 /** Tweak or plugin code should use [app.valenced.xposed.api.HostScope.withAppContext] instead. */

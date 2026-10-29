@@ -58,14 +58,15 @@ jobs:
             -e "s/^(\s*versionCode = ).*/\1$VERSION_CODE/" \
             -e "s/^(\s*versionName = ).*/\1\"$VERSION_NAME\"/" \
             android/build.gradle.kts
-          git diff android/build.gradle.kts
+          sed -i -E "s/^(\s*\"version\": )\"[^\"]*\"/\1\"$VERSION_NAME\"/" bundle/package.json
+          git diff android/build.gradle.kts bundle/package.json
 
-          if git diff --quiet android/build.gradle.kts; then
+          if git diff --quiet android/build.gradle.kts bundle/package.json; then
             echo "Version unchanged."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: bump version to $VERSION_NAME ($VERSION_CODE)" android/build.gradle.kts
+            git commit -m "chore: bump version to $VERSION_NAME ($VERSION_CODE)" android/build.gradle.kts bundle/package.json
             git push
           fi
 

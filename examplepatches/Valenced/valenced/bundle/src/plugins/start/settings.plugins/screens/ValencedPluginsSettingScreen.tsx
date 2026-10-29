@@ -418,7 +418,6 @@ function Screen({ match, onBrowse }: Partial<PluginsPageProps>) {
                 plugins={plugins}
             />
             <BrowseFloatingActionButton
-                disabled={isDefaultsOnlyBoot}
                 onBrowse={onBrowse}
             />
         </>

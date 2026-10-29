@@ -12,6 +12,7 @@ import app.valenced.xposed.tweaks.bridge.ValencedBridgeRegistry.toNativeObject
 import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
 import java.lang.reflect.Method
+import java.util.concurrent.ConcurrentHashMap
 
 typealias MethodCallback = (args: List<Any?>) -> Any?
 typealias AsyncMethodCallback = suspend (args: List<Any?>) -> Any?
@@ -19,8 +20,9 @@ typealias AsyncMethodCallback = suspend (args: List<Any?>) -> Any?
 object ValencedBridgeRegistry : ValencedBridge {
     internal val log: Logger = logger("valencedBridge")
 
-    private val methods = mutableMapOf<String, MethodCallback>()
-    private val asyncMethods = mutableMapOf<String, AsyncMethodCallback>()
+    // Registered from the main thread, read from the React threads.
+    private val methods: MutableMap<String, MethodCallback> = ConcurrentHashMap()
+    private val asyncMethods: MutableMap<String, AsyncMethodCallback> = ConcurrentHashMap()
 
     /** Pending [callJSMethod] replies. Positional: guarded by [jsCallableLock]. */
     private val jsCallableReturnQueue = ArrayDeque<CompletableDeferred<Any?>>()
