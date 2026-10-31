@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-30 04:12 UTC",
+  "generatedAt": "2026-10-31 04:09 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 849,
-  "patchCount": 3129,
+  "appCount": 850,
+  "patchCount": 3147,
   "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
@@ -68,40 +68,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.46.1 (2026-10-29)",
-        "date": "2026-10-29",
+        "title": "1.46.2 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-          },
-          {
-            "category": "Features",
-            "text": "**hbomax:** add opt-in playback-speed control (#258)"
-          },
-          {
-            "category": "Features",
-            "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-          },
-          {
-            "category": "Features",
-            "text": "**twitch:** add playback speed controls"
-          },
-          {
-            "category": "Features",
-            "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-          },
-          {
-            "category": "Features",
-            "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-          },
-          {
-            "category": "Features",
-            "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+            "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
           }
         ]
       },
@@ -2201,12 +2173,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.8.1 (2026-10-23)",
-        "date": "2026-10-23",
+        "title": "1.8.2 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "update GitHub app support"
+            "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
           }
         ]
       },
@@ -4343,12 +4315,12 @@
       "createdDate": "2026-07-28",
       "updatedDate": "2026-07-28",
       "latestChanges": {
-        "title": "1.6.0 (2026-09-28)",
-        "date": "2026-09-28",
+        "title": "1.6.1 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "add F1 update dismissal and Movie Paradise GMS support"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "make F1 TV APK monitoring resilient and notify on updates (#23)"
           }
         ]
       },
@@ -6286,47 +6258,47 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 43,
+      "patchCount": 45,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "4.0.0 (2026-10-26)",
-        "date": "2026-10-26",
+        "title": "4.1.0 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** fix the occasionally blank shortcut toolbar when opening the keyboard with Rambler enabled."
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add the Dictionaries & Predictions patch to customize resource versions for dictionaries, text predictions, and input correction models, greatly improving the typing experience."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add Key Opacity to Frosted Glass, allowing keys to follow the theme or use a custom percentage independently of background opacity."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add Extend to Navigation Bar to Frosted Glass, extending the blur effect into the bottom navigation area for a seamless appearance and automatically adjusting navigation button colors."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add the Keypress Vibration Intensity Control patch to control keypress vibration strength instead of duration."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** remove the Hyperspeed Typing Animation patch because Gboard 18.5.3 no longer includes its core implementation."
+            "text": "**Gboard:** fix the lingering colored light bar and missing word suggestions after official Rambler voice input ends."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** fix runtime settings access before the first unlock after boot to prevent errors when swiping down to dismiss the keyboard."
+            "text": "**Gboard:** fix duplicate countdown updates and card recycling issues when clipboard items are hidden or kept permanently, and reduce unnecessary settings reads to lower resource usage."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** fix the Zhuyin Bottom Row Key Sizes patch so bottom-row keys retain their configured sizes while typing on the Zhuyin keyboard."
+            "text": "**Gboard:** fix the Split Keyboard patch so the split state is preserved after closing and reopening the keyboard."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** eliminate brief white or dark background flashes when opening or switching keyboards with custom opacity enabled."
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** fix black borders around keyboard corners when adjusting custom opacity."
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Gboard:** update the supported Gboard version to 18.5.4.993608717-release-arm64-v8a."
-          },
-          {
-            "category": "\ud83d\udc1b \u4fee\u5fa9",
-            "text": "**Gboard:** \u4fee\u5fa9\u555f\u7528 Rambler \u6642\uff0c\u958b\u555f\u9375\u76e4\u5f8c\u5feb\u6377\u5de5\u5177\u5217\u5076\u723e\u7a7a\u767d\u7684\u554f\u984c\u3002"
+            "text": "**Gboard:** fix an issue that prevented the Developer options page from opening."
           }
         ]
       },
@@ -6334,7 +6306,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 43,
+          "patchCount": 45,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -7596,47 +7568,47 @@
       "webUrl": "https://github.com/MorpheApp/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=MorpheApp/morphe-patches",
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
-      "patchCount": 190,
+      "patchCount": 194,
       "appCount": 3,
       "createdAt": 1784836023316,
       "updatedAt": 1784836023316,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.48.0 (2026-10-22)",
-        "date": "2026-10-22",
+        "title": "2.0.0 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Downloads:** Allow using in-app downloads with player overlay external download button"
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "Patches now use Morphe Patcher 2.0.0"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Export only filtered logs and stream file exports efficiently (#3746)"
+            "text": "**Reddit - Redgifs audio:** Error toast is shown when network request fails"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Temporarily revert patches-library update to fix app startup crash"
+            "text": "Temporarily change expired PoToken check to log only instead of a user dialog"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Add to queue:** Fix Premium-style queue bugs (#3752)"
+            "text": "**YouTube - Add to queue:** Feed below the player stutters while scrolling"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Ambient mode:** Force Ambient mode when the server turns it off"
+            "text": "**YouTube - Add to queue:** Fix native queue on experimental versions (#4076)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Restore all translation menu getter routes (#3818)"
+            "text": "**YouTube - Add to queue:** Native queue index errors crash before Android 13"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Restore translations from original caption sources (#3794)"
+            "text": "**YouTube - Ambient mode:** Ambient mode is not disabled with 21.43"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Show auto-translated captions of styled caption tracks (#3837)"
+            "text": "**YouTube - Ambient mode:** Ambient mode is replaced by a black background with the new watch page experiment"
           }
         ]
       },
@@ -7651,7 +7623,7 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 105,
+          "patchCount": 109,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
@@ -10974,47 +10946,19 @@
       "webUrl": "https://github.com/wchill/patcheddit",
       "addUrl": "https://Revanced.software/add-source?github=wchill/patcheddit",
       "avatarUrl": "https://github.com/wchill.png?size=96",
-      "patchCount": 64,
-      "appCount": 16,
+      "patchCount": 76,
+      "appCount": 17,
       "createdAt": 1784836042463,
       "updatedAt": 1784836042463,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.1-dev.1 (2026-04-09)",
-        "date": "2026-04-09",
+        "title": "2.0.3 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "Resolve login failure caused by non-English language"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Don't show fake premium patch for reddit is fun golden platinum"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Make /r/all patch available"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "reddit is fun imgur album loading"
-          },
-          {
-            "category": "Features",
-            "text": "/r/all patch for Boost"
-          },
-          {
-            "category": "Features",
-            "text": "Add experimental patch to help resolve some login issues"
-          },
-          {
-            "category": "Features",
-            "text": "Add experimental patch to help resolve some login issues"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Make /r/all patch available"
+            "text": "Comment loading and gallery loading for all reddit apps"
           }
         ]
       },
@@ -11022,21 +10966,21 @@
         {
           "name": "BaconReader",
           "packageName": "com.onelouder.baconreader",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "BaconReader Premium",
           "packageName": "com.onelouder.baconreader.premium",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Boost for Reddit",
           "packageName": "com.rubenmayayo.reddit",
-          "patchCount": 38,
+          "patchCount": 40,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -11055,51 +10999,58 @@
           "iconColor": ""
         },
         {
+          "name": "Infinity for Reddit++",
+          "packageName": "ml.docilealligator.infinityforreddit.plus2",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
           "name": "Joey for Reddit",
           "packageName": "o.o.joey",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Joey for Reddit Dev",
           "packageName": "o.o.joey.dev",
-          "patchCount": 2,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Joey for Reddit Pro",
           "packageName": "o.o.joey.pro",
-          "patchCount": 2,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Relay for Reddit",
           "packageName": "free.reddit.news",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Relay for Reddit Pro",
           "packageName": "reddit.news",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "rif is fun",
           "packageName": "com.andrewshu.android.reddit",
-          "patchCount": 4,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "rif is fun golden platinum",
           "packageName": "com.andrewshu.android.redditdonation",
-          "patchCount": 3,
+          "patchCount": 5,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -11113,21 +11064,21 @@
         {
           "name": "Sync for Reddit",
           "packageName": "com.laurencedawson.reddit_sync",
-          "patchCount": 9,
+          "patchCount": 11,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Dev",
           "packageName": "com.laurencedawson.reddit_sync.dev",
-          "patchCount": 8,
+          "patchCount": 10,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Pro",
           "packageName": "com.laurencedawson.reddit_sync.pro",
-          "patchCount": 8,
+          "patchCount": 10,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -11340,12 +11291,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.14.2 (2026-10-27)",
-        "date": "2026-10-27",
+        "title": "1.14.4 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.8.6001-rustore"
+            "text": "**wildberries:** keep the seller name visible when hiding recommendations"
           }
         ]
       },
@@ -17577,12 +17528,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.2 (2026-10-27)",
-            "date": "2026-10-27",
+            "title": "1.14.4 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.8.6001-rustore"
+                "text": "**wildberries:** keep the seller name visible when hiding recommendations"
               }
             ]
           },
@@ -18856,40 +18807,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -18901,6 +18824,14 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
             {
               "name": "Fix Redgifs API",
               "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
@@ -18920,11 +18851,21 @@
         }
       ],
       "patches": [
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Fix Redgifs API",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
+        },
         {
           "name": "Fix Redgifs API",
           "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
@@ -18960,40 +18901,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -19005,6 +18918,14 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
             {
               "name": "Fix Redgifs API",
               "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
@@ -19024,11 +18945,21 @@
         }
       ],
       "patches": [
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Fix Redgifs API",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
+        },
         {
           "name": "Fix Redgifs API",
           "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
@@ -20318,12 +20249,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.8.1 (2026-10-23)",
-            "date": "2026-10-23",
+            "title": "1.8.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "update GitHub app support"
+                "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
               }
             ]
           },
@@ -21394,40 +21325,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -21512,8 +21415,16 @@
               "description": "Fixes crashes and jumps in the feed when hiding read posts."
             },
             {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
               "name": "Fix profile About scrolling",
               "description": "Fixes the first swipe stopping early on profile About tabs without disabling horizontal scrolling."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Import and export OAuth tokens",
@@ -21616,7 +21527,9 @@
         "Fix Boost image widget click target",
         "Fix Boost navigation bar overlap",
         "Fix Hide crash",
+        "Fix loading more comments",
         "Fix profile About scrolling",
+        "Fix Reddit API lookups",
         "Import and export OAuth tokens",
         "Log exceptions",
         "Modify login WebView",
@@ -21711,8 +21624,16 @@
           "description": "Fixes crashes and jumps in the feed when hiding read posts."
         },
         {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
           "name": "Fix profile About scrolling",
           "description": "Fixes the first swipe stopping early on profile About tabs without disabling horizontal scrolling."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Import and export OAuth tokens",
@@ -26616,40 +26537,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -26974,40 +26867,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -27192,40 +27057,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -27549,40 +27386,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -27891,40 +27700,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -27954,12 +27735,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Hiosdra/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Hiosdra.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.6.1 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "add F1 update dismissal and Movie Paradise GMS support"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "make F1 TV APK monitoring resilient and notify on updates (#23)"
               }
             ]
           },
@@ -28063,40 +27844,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -28149,40 +27902,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -28248,12 +27973,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.8.1 (2026-10-23)",
-            "date": "2026-10-23",
+            "title": "1.8.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "update GitHub app support"
+                "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
               }
             ]
           },
@@ -29145,40 +28870,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "4.0.0 (2026-10-26)",
-            "date": "2026-10-26",
+            "title": "4.1.0 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** fix the occasionally blank shortcut toolbar when opening the keyboard with Rambler enabled."
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add the Dictionaries & Predictions patch to customize resource versions for dictionaries, text predictions, and input correction models, greatly improving the typing experience."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add Key Opacity to Frosted Glass, allowing keys to follow the theme or use a custom percentage independently of background opacity."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add Extend to Navigation Bar to Frosted Glass, extending the blur effect into the bottom navigation area for a seamless appearance and automatically adjusting navigation button colors."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add the Keypress Vibration Intensity Control patch to control keypress vibration strength instead of duration."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** remove the Hyperspeed Typing Animation patch because Gboard 18.5.3 no longer includes its core implementation."
+                "text": "**Gboard:** fix the lingering colored light bar and missing word suggestions after official Rambler voice input ends."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** fix runtime settings access before the first unlock after boot to prevent errors when swiping down to dismiss the keyboard."
+                "text": "**Gboard:** fix duplicate countdown updates and card recycling issues when clipboard items are hidden or kept permanently, and reduce unnecessary settings reads to lower resource usage."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** fix the Zhuyin Bottom Row Key Sizes patch so bottom-row keys retain their configured sizes while typing on the Zhuyin keyboard."
+                "text": "**Gboard:** fix the Split Keyboard patch so the split state is preserved after closing and reopening the keyboard."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** eliminate brief white or dark background flashes when opening or switching keyboards with custom opacity enabled."
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** fix black borders around keyboard corners when adjusting custom opacity."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Gboard:** update the supported Gboard version to 18.5.4.993608717-release-arm64-v8a."
-              },
-              {
-                "category": "\ud83d\udc1b \u4fee\u5fa9",
-                "text": "**Gboard:** \u4fee\u5fa9\u555f\u7528 Rambler \u6642\uff0c\u958b\u555f\u9375\u76e4\u5f8c\u5feb\u6377\u5de5\u5177\u5217\u5076\u723e\u7a7a\u767d\u7684\u554f\u984c\u3002"
+                "text": "**Gboard:** fix an issue that prevented the Developer options page from opening."
               }
             ]
           },
@@ -29239,6 +28964,10 @@
               "description": "\u555f\u7528 \u958b\u767c\u4eba\u54e1\u9078\u9805 \u8207 Flag \u7de8\u8f2f\u5668\uff0c\u4f60\u53ef\u4ee5\u81ea\u5df1\u4fee\u6539Flag\u7684\u503c\nEnable Developer options and the Flag Editor, allowing you to modify flag values."
             },
             {
+              "name": "Dictionaries & Predictions",
+              "description": "\u53ef\u9078\u64c7\u5b57\u5178\u3001\u9810\u6e2c\u53ca\u8f38\u5165\u4fee\u6b63\u7684\u8cc7\u6e90\u7248\u672c\nChoose resource versions for dictionaries, predictions, and input correction."
+            },
+            {
               "name": "Emojis, stickers & GIFs Tab Order",
               "description": "\u81ea\u8a02 Gboard\u300cEmojis, stickers & GIFs\u300d\u5e95\u90e8 tabs \u7684\u6392\u5e8f\uff0c\u652f\u63f4\u62d6\u66f3\u8abf\u6574\nCustomize the bottom tab order in Gboard's Emojis, stickers & GIFs panel with drag-and-drop reordering."
             },
@@ -29297,6 +29026,10 @@
             {
               "name": "Key Shape Selection",
               "description": "\u555f\u7528\u5713\u89d2\u6309\u9375\uff0c\u4e3b\u984c\u8a73\u60c5 > \u6309\u9375\u5f62\u72c0\nEnable Key shape in Theme details."
+            },
+            {
+              "name": "Keypress Vibration Intensity Control",
+              "description": "\u5c07\u6309\u9375\u9707\u52d5\u7531\u6301\u7e8c\u6642\u9593\u6539\u70ba\u529b\u5ea6\u63a7\u5236\u3002\nControl keypress vibration intensity instead of duration."
             },
             {
               "name": "Latin Globe Key Ignore Interval",
@@ -29470,6 +29203,7 @@
         "Custom Symbols",
         "Custom Theme",
         "Developer options",
+        "Dictionaries & Predictions",
         "Disable telemetry & federated learning",
         "Emojis, stickers & GIFs Tab Order",
         "Enable access points menu redesign",
@@ -29493,6 +29227,7 @@
         "Incognito Mode Toggle",
         "Inline Suggestions",
         "Key Shape Selection",
+        "Keypress Vibration Intensity Control",
         "Latin Globe Key Ignore Interval",
         "Long-Press Editing Shortcuts",
         "Network privacy",
@@ -29577,6 +29312,10 @@
         {
           "name": "Developer options",
           "description": "\u555f\u7528 \u958b\u767c\u4eba\u54e1\u9078\u9805 \u8207 Flag \u7de8\u8f2f\u5668\uff0c\u4f60\u53ef\u4ee5\u81ea\u5df1\u4fee\u6539Flag\u7684\u503c\nEnable Developer options and the Flag Editor, allowing you to modify flag values."
+        },
+        {
+          "name": "Dictionaries & Predictions",
+          "description": "\u53ef\u9078\u64c7\u5b57\u5178\u3001\u9810\u6e2c\u53ca\u8f38\u5165\u4fee\u6b63\u7684\u8cc7\u6e90\u7248\u672c\nChoose resource versions for dictionaries, predictions, and input correction."
         },
         {
           "name": "Disable telemetry & federated learning",
@@ -29669,6 +29408,10 @@
         {
           "name": "Key Shape Selection",
           "description": "\u555f\u7528\u5713\u89d2\u6309\u9375\uff0c\u4e3b\u984c\u8a73\u60c5 > \u6309\u9375\u5f62\u72c0\nEnable Key shape in Theme details."
+        },
+        {
+          "name": "Keypress Vibration Intensity Control",
+          "description": "\u5c07\u6309\u9375\u9707\u52d5\u7531\u6301\u7e8c\u6642\u9593\u6539\u70ba\u529b\u5ea6\u63a7\u5236\u3002\nControl keypress vibration intensity instead of duration."
         },
         {
           "name": "Latin Globe Key Ignore Interval",
@@ -30059,40 +29802,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -31138,40 +30853,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -31233,40 +30920,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -32235,40 +31894,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -32407,40 +32038,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -32593,40 +32196,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -36715,40 +36290,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -38261,7 +37808,9 @@
               "description": "Opens external web links in the default browser instead of a Chrome Custom Tab."
             }
           ],
-          "versions": []
+          "versions": [
+            "2.5.0"
+          ]
         }
       ],
       "patches": [
@@ -38278,7 +37827,9 @@
           "description": "Opens external web links in the default browser instead of a Chrome Custom Tab."
         }
       ],
-      "versions": [],
+      "versions": [
+        "2.5.0"
+      ],
       "iconColor": "#81C14B",
       "iconUrl": ""
     },
@@ -46115,40 +45666,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -46206,40 +45729,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -46247,6 +45742,69 @@
             "buildId": "ml-docilealligator-infinityforreddit-plus-wchill-patcheddit",
             "releaseTag": "app-ml-docilealligator-infinityforreddit-plus-wchill-patcheddit",
             "assetName": "infinity-for-redditplus-wchill-patcheddit.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Modify login WebView",
+              "description": "Adjusts the Reddit login page to prevent sign-in problems."
+            },
+            {
+              "name": "Spoof client",
+              "description": "Restores functionality of the app by using custom client ID."
+            }
+          ],
+          "versions": []
+        }
+      ],
+      "patches": [
+        "Modify login WebView",
+        "Spoof client"
+      ],
+      "patchDetails": [
+        {
+          "name": "Modify login WebView",
+          "description": "Adjusts the Reddit login page to prevent sign-in problems."
+        },
+        {
+          "name": "Spoof client",
+          "description": "Restores functionality of the app by using custom client ID."
+        }
+      ],
+      "versions": [],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "ml.docilealligator.infinityforreddit.plus2",
+      "name": "Infinity for Reddit++",
+      "repos": [
+        "wchill/patcheddit"
+      ],
+      "sources": [
+        {
+          "repo": "wchill/patcheddit",
+          "host": "github.com",
+          "webUrl": "https://github.com/wchill/patcheddit",
+          "addUrl": "https://Revanced.software/add-source?github=wchill/patcheddit",
+          "source": "https://raw.githubusercontent.com/wchill/patcheddit/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/wchill.png?size=96",
+          "latestChanges": {
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
+            "items": [
+              {
+                "category": "Bug Fixes",
+                "text": "Comment loading and gallery loading for all reddit apps"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "ml-docilealligator-infinityforreddit-plus2-wchill-patcheddit",
+            "releaseTag": "app-ml-docilealligator-infinityforreddit-plus2-wchill-patcheddit",
+            "assetName": "infinity-for-redditplusplus-wchill-patcheddit.apk",
             "repo": "rushiforai/Revanced-builder",
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
@@ -48345,40 +47903,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -49184,40 +48714,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -49234,6 +48736,14 @@
               "description": ""
             },
             {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -49247,6 +48757,8 @@
       ],
       "patches": [
         "Disable ads",
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -49254,6 +48766,14 @@
         {
           "name": "Disable ads",
           "description": ""
+        },
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Modify login WebView",
@@ -49284,40 +48804,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -49329,6 +48821,14 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
             {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -49342,10 +48842,20 @@
         }
       ],
       "patches": [
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -49375,40 +48885,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -49420,6 +48902,14 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
             {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -49433,10 +48923,20 @@
         }
       ],
       "patches": [
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -57654,12 +57154,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/Hiosdra/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/Hiosdra.png?size=96",
           "latestChanges": {
-            "title": "1.6.0 (2026-09-28)",
-            "date": "2026-09-28",
+            "title": "1.6.1 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "add F1 update dismissal and Movie Paradise GMS support"
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "make F1 TV APK monitoring resilient and notify on updates (#23)"
               }
             ]
           },
@@ -63574,12 +63074,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.2 (2026-10-27)",
-            "date": "2026-10-27",
+            "title": "1.14.4 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.8.6001-rustore"
+                "text": "**wildberries:** keep the seller name visible when hiding recommendations"
               }
             ]
           },
@@ -63613,7 +63113,8 @@
             "19.38.2",
             "19.39.0",
             "19.40.0",
-            "19.40.1"
+            "19.40.1",
+            "19.41.0"
           ]
         }
       ],
@@ -63683,7 +63184,8 @@
         "19.38.2",
         "19.39.0",
         "19.40.0",
-        "19.40.1"
+        "19.40.1",
+        "19.41.0"
       ],
       "iconColor": "#005BFF",
       "iconUrl": ""
@@ -64527,40 +64029,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -72665,40 +72139,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-22)",
-            "date": "2026-10-22",
+            "title": "2.0.0 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Downloads:** Allow using in-app downloads with player overlay external download button"
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "Patches now use Morphe Patcher 2.0.0"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Export only filtered logs and stream file exports efficiently (#3746)"
+                "text": "**Reddit - Redgifs audio:** Error toast is shown when network request fails"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Temporarily revert patches-library update to fix app startup crash"
+                "text": "Temporarily change expired PoToken check to log only instead of a user dialog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Add to queue:** Fix Premium-style queue bugs (#3752)"
+                "text": "**YouTube - Add to queue:** Feed below the player stutters while scrolling"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Ambient mode:** Force Ambient mode when the server turns it off"
+                "text": "**YouTube - Add to queue:** Fix native queue on experimental versions (#4076)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore all translation menu getter routes (#3818)"
+                "text": "**YouTube - Add to queue:** Native queue index errors crash before Android 13"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore translations from original caption sources (#3794)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is not disabled with 21.43"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Show auto-translated captions of styled caption tracks (#3837)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is replaced by a black background with the new watch page experiment"
               }
             ]
           },
@@ -72840,8 +72314,9 @@
             "2026.10.0",
             "2026.24.0",
             "2026.40.0",
-            "2026.41.0",
-            "2026.42.0"
+            "2026.42.0",
+            "2026.43.0",
+            "2026.44.0"
           ]
         },
         {
@@ -73341,7 +72816,8 @@
         "2026.40.0",
         "2026.41.0",
         "2026.42.0",
-        "2026.43.0"
+        "2026.43.0",
+        "2026.44.0"
       ],
       "iconColor": "#FF4500",
       "iconUrl": ""
@@ -73362,40 +72838,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -73410,6 +72858,14 @@
             {
               "name": "Fix /s/ links",
               "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
+            },
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Modify login WebView",
@@ -73427,6 +72883,8 @@
       ],
       "patches": [
         "Fix /s/ links",
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -73434,6 +72892,14 @@
         {
           "name": "Fix /s/ links",
           "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
+        },
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Modify login WebView",
@@ -73466,40 +72932,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -73514,6 +72952,14 @@
             {
               "name": "Fix /s/ links",
               "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
+            },
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Modify login WebView",
@@ -73531,6 +72977,8 @@
       ],
       "patches": [
         "Fix /s/ links",
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -73538,6 +72986,14 @@
         {
           "name": "Fix /s/ links",
           "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
+        },
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Modify login WebView",
@@ -73776,40 +73232,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -73824,6 +73252,14 @@
             {
               "name": "Fake reddit premium",
               "description": "Allows using pro features without ads."
+            },
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Modify login WebView",
@@ -73845,6 +73281,8 @@
       ],
       "patches": [
         "Fake reddit premium",
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client",
         "Use public imgur API"
@@ -73853,6 +73291,14 @@
         {
           "name": "Fake reddit premium",
           "description": "Allows using pro features without ads."
+        },
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Modify login WebView",
@@ -73889,40 +73335,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -73934,6 +73352,14 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
+            },
             {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -73953,11 +73379,21 @@
         }
       ],
       "patches": [
+        "Fix loading more comments",
+        "Fix Reddit API lookups",
         "Modify login WebView",
         "Spoof client",
         "Use public imgur API"
       ],
       "patchDetails": [
+        {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -81998,40 +81434,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -82196,40 +81604,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -82254,8 +81634,16 @@
               "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
             },
             {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
               "name": "Fix post thumbnails",
               "description": "Fixes loading post thumbnails by correcting their URLs."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Fix Redgifs API",
@@ -82292,9 +81680,11 @@
         "Fix Image Post Selftext",
         "Fix imgur links",
         "Fix inline images",
+        "Fix loading more comments",
         "Fix Other discussions",
         "Fix post thumbnails",
         "Fix r/random",
+        "Fix Reddit API lookups",
         "Fix Reddit Video Links",
         "Fix Redgifs API",
         "Fix video downloads",
@@ -82339,6 +81729,10 @@
           "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
           "name": "Fix Other discussions",
           "description": "Fixes the 'Other discussions' tab showing '403 error loading page' by updating the API endpoint."
         },
@@ -82349,6 +81743,10 @@
         {
           "name": "Fix r/random",
           "description": "Restores random subreddit functionality by fetching from an alternative API."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Fix Reddit Video Links",
@@ -82489,40 +81887,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -82543,8 +81913,16 @@
               "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
             },
             {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
               "name": "Fix post thumbnails",
               "description": "Fixes loading post thumbnails by correcting their URLs."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Fix Redgifs API",
@@ -82578,8 +81956,10 @@
         "Fix Image Post Selftext",
         "Fix imgur links",
         "Fix inline images",
+        "Fix loading more comments",
         "Fix post thumbnails",
         "Fix r/random",
+        "Fix Reddit API lookups",
         "Fix Reddit Video Links",
         "Fix Redgifs API",
         "Fix video downloads",
@@ -82620,12 +82000,20 @@
           "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
           "name": "Fix post thumbnails",
           "description": "Fixes loading post thumbnails by correcting their URLs."
         },
         {
           "name": "Fix r/random",
           "description": "Restores random subreddit functionality by fetching from an alternative API."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Fix Reddit Video Links",
@@ -82766,40 +82154,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "1.4.1-dev.1 (2026-04-09)",
-            "date": "2026-04-09",
+            "title": "2.0.3 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "Resolve login failure caused by non-English language"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Don't show fake premium patch for reddit is fun golden platinum"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "reddit is fun imgur album loading"
-              },
-              {
-                "category": "Features",
-                "text": "/r/all patch for Boost"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Features",
-                "text": "Add experimental patch to help resolve some login issues"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "Make /r/all patch available"
+                "text": "Comment loading and gallery loading for all reddit apps"
               }
             ]
           },
@@ -82820,8 +82180,16 @@
               "description": "Opens Reddit share links (/s/) by resolving them to the post they point to."
             },
             {
+              "name": "Fix loading more comments",
+              "description": "Fixes 403 error when loading child comments."
+            },
+            {
               "name": "Fix post thumbnails",
               "description": "Fixes loading post thumbnails by correcting their URLs."
+            },
+            {
+              "name": "Fix Reddit API lookups",
+              "description": "Fixes blocked post, comment, and community info requests."
             },
             {
               "name": "Fix Redgifs API",
@@ -82855,8 +82223,10 @@
         "Fix Image Post Selftext",
         "Fix imgur links",
         "Fix inline images",
+        "Fix loading more comments",
         "Fix post thumbnails",
         "Fix r/random",
+        "Fix Reddit API lookups",
         "Fix Reddit Video Links",
         "Fix Redgifs API",
         "Fix video downloads",
@@ -82897,12 +82267,20 @@
           "description": "Fixes images in text posts showing as plain links instead of rendering inline. Also adds captions below the images where applicable."
         },
         {
+          "name": "Fix loading more comments",
+          "description": "Fixes 403 error when loading child comments."
+        },
+        {
           "name": "Fix post thumbnails",
           "description": "Fixes loading post thumbnails by correcting their URLs."
         },
         {
           "name": "Fix r/random",
           "description": "Restores random subreddit functionality by fetching from an alternative API."
+        },
+        {
+          "name": "Fix Reddit API lookups",
+          "description": "Fixes blocked post, comment, and community info requests."
         },
         {
           "name": "Fix Reddit Video Links",
@@ -83372,12 +82750,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.2 (2026-10-27)",
-            "date": "2026-10-27",
+            "title": "1.14.4 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.8.6001-rustore"
+                "text": "**wildberries:** keep the seller name visible when hiding recommendations"
               }
             ]
           },
@@ -83643,12 +83021,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.8.1 (2026-10-23)",
-            "date": "2026-10-23",
+            "title": "1.8.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "update GitHub app support"
+                "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
               }
             ]
           },
@@ -83666,7 +83044,7 @@
             }
           ],
           "versions": [
-            "13.0.2"
+            "13.1.0"
           ]
         },
         {
@@ -84022,7 +83400,7 @@
         "12.10.1",
         "12.8.3",
         "12.9.2",
-        "13.0.2"
+        "13.1.0"
       ],
       "iconColor": "#2AABEE",
       "iconUrl": ""
@@ -84044,12 +83422,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.8.1 (2026-10-23)",
-            "date": "2026-10-23",
+            "title": "1.8.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "update GitHub app support"
+                "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
               }
             ]
           },
@@ -84067,7 +83445,7 @@
             }
           ],
           "versions": [
-            "13.1.0"
+            "13.1.1"
           ]
         },
         {
@@ -84243,7 +83621,7 @@
       ],
       "versions": [
         "12.10.1",
-        "13.1.0"
+        "13.1.1"
       ],
       "iconColor": "#2CA5E0",
       "iconUrl": ""
@@ -86841,40 +86219,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -86967,40 +86317,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.46.1 (2026-10-29)",
-            "date": "2026-10-29",
+            "title": "1.46.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**hbomax:** playback speed chip remote control + auto-hide (#258) (#277)"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**pluto:** add v17 VOD Skip ads (AVIA stack) + strip click-tracked ad clips (#251)"
-              },
-              {
-                "category": "Features",
-                "text": "**hbomax:** add opt-in playback-speed control (#258)"
-              },
-              {
-                "category": "Features",
-                "text": "**xumo:** add Skip ads for Xumo Play Android TV (#247)"
-              },
-              {
-                "category": "Features",
-                "text": "**twitch:** add playback speed controls"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** disable the \"New version Available\" update prompt (19.7) (64ffa83), closes #257 #257"
-              },
-              {
-                "category": "Features",
-                "text": "**fawesome:** extend update-prompt disable to 20.1 (R8-obfuscated rewrite) (57ebd6a), closes #257"
-              },
-              {
-                "category": "Features",
-                "text": "**netflix:** support 13.2.1 build 27207 (experimental) (676e203), closes 212/#232"
+                "text": "**disney:** re-pin out-of-household fingerprint for 26.16.0 (#278) (7027d0c), closes #119"
               }
             ]
           },
@@ -88485,19 +87807,19 @@
         }
       ],
       "patches": [
-        "Hide ads",
         "Hide Ads",
+        "Hide ads",
         "Hide More screen items",
         "Hide navigation buttons"
       ],
       "patchDetails": [
         {
-          "name": "Hide ads",
-          "description": "Hides ads in the chat list, the More screen, Explore, search and after calls."
-        },
-        {
           "name": "Hide Ads",
           "description": "Hides ad banners between chats."
+        },
+        {
+          "name": "Hide ads",
+          "description": "Hides ads in the chat list, the More screen, Explore, search and after calls."
         },
         {
           "name": "Hide More screen items",
@@ -90534,12 +89856,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.8.1 (2026-10-23)",
-            "date": "2026-10-23",
+            "title": "1.8.2 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "update GitHub app support"
+                "text": "update Telegram app support to 13.1.1 and 13.1.0 (web version)"
               }
             ]
           },
@@ -90663,12 +89985,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/xob0t/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/xob0t.png?size=96",
           "latestChanges": {
-            "title": "1.14.2 (2026-10-27)",
-            "date": "2026-10-27",
+            "title": "1.14.4 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**wildberries:** support version 7.8.6001-rustore"
+                "text": "**wildberries:** keep the seller name visible when hiding recommendations"
               }
             ]
           },
@@ -92517,40 +91839,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-22)",
-            "date": "2026-10-22",
+            "title": "2.0.0 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Downloads:** Allow using in-app downloads with player overlay external download button"
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "Patches now use Morphe Patcher 2.0.0"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Export only filtered logs and stream file exports efficiently (#3746)"
+                "text": "**Reddit - Redgifs audio:** Error toast is shown when network request fails"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Temporarily revert patches-library update to fix app startup crash"
+                "text": "Temporarily change expired PoToken check to log only instead of a user dialog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Add to queue:** Fix Premium-style queue bugs (#3752)"
+                "text": "**YouTube - Add to queue:** Feed below the player stutters while scrolling"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Ambient mode:** Force Ambient mode when the server turns it off"
+                "text": "**YouTube - Add to queue:** Fix native queue on experimental versions (#4076)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore all translation menu getter routes (#3818)"
+                "text": "**YouTube - Add to queue:** Native queue index errors crash before Android 13"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore translations from original caption sources (#3794)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is not disabled with 21.43"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Show auto-translated captions of styled caption tracks (#3837)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is replaced by a black background with the new watch page experiment"
               }
             ]
           },
@@ -92564,7 +91886,7 @@
           "patches": [
             {
               "name": "Add to queue",
-              "description": "Overrides the feed flyout 'Play next in queue' with the Morphe video queue."
+              "description": "Adds a video queue to the feed flyout menu, using either the Morphe queue or a native queue that uses YouTube's playlist interface."
             },
             {
               "name": "AI channel filter",
@@ -92707,6 +92029,10 @@
               "description": "Adds additional double-tap to seek values to the YouTube settings menu."
             },
             {
+              "name": "Download post images",
+              "description": "Adds a button and a menu item to download the images and GIFs of posts."
+            },
+            {
               "name": "Downloads",
               "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, and adds an option to download videos in-app."
             },
@@ -92816,7 +92142,7 @@
             },
             {
               "name": "Miniplayer",
-              "description": "Adds options to change the in-app minimized player. Patching 21.28.206 and lower has more miniplayer types to choose from."
+              "description": "Adds options to change the in-app minimized player. Patching 21.28.208 and lower has more miniplayer types to choose from."
             },
             {
               "name": "Mute button",
@@ -92829,6 +92155,10 @@
             {
               "name": "Network proxy",
               "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
+            },
+            {
+              "name": "Niconico comments",
+              "description": "Adds an option to show live chat and chat replay as comments that scroll across the video."
             },
             {
               "name": "Open channel of live avatar",
@@ -92912,7 +92242,11 @@
             },
             {
               "name": "Save to Watch later",
-              "description": "Adds an option to display save to Watch later button in the video player."
+              "description": "Adds an option to display save to Watch later button in the video player, and adds a setting to redirect Watch later saves to a playlist of your choice."
+            },
+            {
+              "name": "Search comments",
+              "description": "Adds a button to the comments to show only the loaded comments that contain the searched words."
             },
             {
               "name": "Seekbar",
@@ -92967,6 +92301,10 @@
               "description": "Adds options for theming, and settings to change the app foreground and background colors."
             },
             {
+              "name": "Translate posts",
+              "description": "Adds a menu item to translate the text of posts."
+            },
+            {
               "name": "Video delay",
               "description": "Adds an option to delay the video, to keep it in sync with laggy Bluetooth audio."
             },
@@ -92984,14 +92322,13 @@
             }
           ],
           "versions": [
-            "20.21.37",
+            "20.26.46",
             "20.51.39",
-            "21.16.256",
-            "21.20.405",
             "21.23.492",
             "21.28.208",
-            "21.41.525",
-            "21.42.241"
+            "21.30.216",
+            "21.42.241",
+            "21.43.523"
           ]
         },
         {
@@ -93864,6 +93201,7 @@
         "Disable splash animation",
         "Disable video codecs",
         "Double tap to seek",
+        "Download post images",
         "Downloads",
         "Enable debug logging",
         "Enable debugging",
@@ -93914,6 +93252,7 @@
         "Navigation bar",
         "Navigation bar components",
         "Network proxy",
+        "Niconico comments",
         "Open channel of live avatar",
         "Open links externally",
         "Open Shorts in regular player",
@@ -93939,11 +93278,12 @@
         "Return YouTube Username",
         "Sanitize sharing links",
         "Save to Watch later",
+        "Search comments",
         "Seekbar",
         "Seekbar components",
         "Series tracking",
-        "Set Transcript Cookies",
         "Set transcript cookies",
+        "Set Transcript Cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -93960,13 +93300,14 @@
         "Swipe controls",
         "Theme",
         "Toolbar components",
+        "Translate posts",
         "Translations for YouTube",
         "Video delay",
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -94204,6 +93545,10 @@
           "description": "Adds additional double-tap to seek values to the YouTube settings menu."
         },
         {
+          "name": "Download post images",
+          "description": "Adds a button and a menu item to download the images and GIFs of posts."
+        },
+        {
           "name": "Downloads",
           "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, and adds an option to download videos in-app."
         },
@@ -94404,6 +93749,10 @@
           "description": "Adds settings to route supported network requests through an HTTP or HTTPS proxy. Including this patch may cause connectivity problems on certain devices"
         },
         {
+          "name": "Niconico comments",
+          "description": "Adds an option to show live chat and chat replay as comments that scroll across the video."
+        },
+        {
           "name": "Open channel of live avatar",
           "description": "Adds an option to prevent a channel's current live video from opening when tapping its avatar."
         },
@@ -94504,6 +93853,10 @@
           "description": "Adds an option to display save to Watch later button in the video player."
         },
         {
+          "name": "Search comments",
+          "description": "Adds a button to the comments to show only the loaded comments that contain the searched words."
+        },
+        {
           "name": "Seekbar",
           "description": "Adds options to show old seekbar thumbnails, disable precise seeking when swiping up on the seekbar, slide to seek instead of playing at 2x speed when pressing and holding, tapping the player seekbar to seek, hiding the video player seekbar, enabling seeking in live streams, and expanding the live stream DVR duration."
         },
@@ -94516,11 +93869,11 @@
           "description": "Adds a series library to History with local progress and episode continuation. This patch works with YouTube 21.02 and newer."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -94588,6 +93941,10 @@
           "description": "Adds options to hide or change components located on the toolbar, such as the search bar, header, and toolbar buttons."
         },
         {
+          "name": "Translate posts",
+          "description": "Adds a menu item to translate the text of posts."
+        },
+        {
           "name": "Translations for YouTube",
           "description": "Add translations or remove string resources."
         },
@@ -94608,12 +93965,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -94648,6 +94005,7 @@
         "19.47.53",
         "20.05.46",
         "20.21.37",
+        "20.26.46",
         "20.31.42",
         "20.45.36",
         "20.47.62",
@@ -94667,8 +94025,10 @@
         "21.28.204",
         "21.28.208",
         "21.29.366",
+        "21.30.216",
         "21.41.525",
-        "21.42.241"
+        "21.42.241",
+        "21.43.523"
       ],
       "iconColor": "#FF0033",
       "iconUrl": ""
@@ -95012,40 +94372,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/MorpheApp/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/MorpheApp.png?size=96",
           "latestChanges": {
-            "title": "1.48.0 (2026-10-22)",
-            "date": "2026-10-22",
+            "title": "2.0.0 (2026-10-30)",
+            "date": "2026-10-30",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Downloads:** Allow using in-app downloads with player overlay external download button"
+                "category": "\u26a0 BREAKING CHANGES",
+                "text": "Patches now use Morphe Patcher 2.0.0"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Export only filtered logs and stream file exports efficiently (#3746)"
+                "text": "**Reddit - Redgifs audio:** Error toast is shown when network request fails"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Temporarily revert patches-library update to fix app startup crash"
+                "text": "Temporarily change expired PoToken check to log only instead of a user dialog"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Add to queue:** Fix Premium-style queue bugs (#3752)"
+                "text": "**YouTube - Add to queue:** Feed below the player stutters while scrolling"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Ambient mode:** Force Ambient mode when the server turns it off"
+                "text": "**YouTube - Add to queue:** Fix native queue on experimental versions (#4076)"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore all translation menu getter routes (#3818)"
+                "text": "**YouTube - Add to queue:** Native queue index errors crash before Android 13"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Restore translations from original caption sources (#3794)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is not disabled with 21.43"
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**YouTube - Captions:** Show auto-translated captions of styled caption tracks (#3837)"
+                "text": "**YouTube - Ambient mode:** Ambient mode is replaced by a black background with the new watch page experiment"
               }
             ]
           },
@@ -95257,9 +94617,10 @@
           "versions": [
             "9.15.51",
             "9.20.53",
-            "9.40.51",
+            "9.30.53",
             "9.41.52",
-            "9.42.52"
+            "9.42.52",
+            "9.43.51"
           ]
         },
         {
@@ -96185,9 +95546,11 @@
         "9.22.53",
         "9.23.52",
         "9.24.51",
+        "9.30.53",
         "9.40.51",
         "9.41.52",
-        "9.42.52"
+        "9.42.52",
+        "9.43.51"
       ],
       "iconColor": "#FF0000",
       "iconUrl": ""
@@ -97682,40 +97045,40 @@
       "avatarUrl": "https://github.com/MorpheApp.png?size=96",
       "patchCount": 5,
       "latestChanges": {
-        "title": "1.48.0 (2026-10-22)",
-        "date": "2026-10-22",
+        "title": "2.0.0 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Downloads:** Allow using in-app downloads with player overlay external download button"
+            "category": "\u26a0 BREAKING CHANGES",
+            "text": "Patches now use Morphe Patcher 2.0.0"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Export only filtered logs and stream file exports efficiently (#3746)"
+            "text": "**Reddit - Redgifs audio:** Error toast is shown when network request fails"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Temporarily revert patches-library update to fix app startup crash"
+            "text": "Temporarily change expired PoToken check to log only instead of a user dialog"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Add to queue:** Fix Premium-style queue bugs (#3752)"
+            "text": "**YouTube - Add to queue:** Feed below the player stutters while scrolling"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Ambient mode:** Force Ambient mode when the server turns it off"
+            "text": "**YouTube - Add to queue:** Fix native queue on experimental versions (#4076)"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Restore all translation menu getter routes (#3818)"
+            "text": "**YouTube - Add to queue:** Native queue index errors crash before Android 13"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Restore translations from original caption sources (#3794)"
+            "text": "**YouTube - Ambient mode:** Ambient mode is not disabled with 21.43"
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**YouTube - Captions:** Show auto-translated captions of styled caption tracks (#3837)"
+            "text": "**YouTube - Ambient mode:** Ambient mode is replaced by a black background with the new watch page experiment"
           }
         ]
       },
@@ -98196,40 +97559,12 @@
       "avatarUrl": "https://github.com/wchill.png?size=96",
       "patchCount": 1,
       "latestChanges": {
-        "title": "1.4.1-dev.1 (2026-04-09)",
-        "date": "2026-04-09",
+        "title": "2.0.3 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "Resolve login failure caused by non-English language"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Don't show fake premium patch for reddit is fun golden platinum"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Make /r/all patch available"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "reddit is fun imgur album loading"
-          },
-          {
-            "category": "Features",
-            "text": "/r/all patch for Boost"
-          },
-          {
-            "category": "Features",
-            "text": "Add experimental patch to help resolve some login issues"
-          },
-          {
-            "category": "Features",
-            "text": "Add experimental patch to help resolve some login issues"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "Make /r/all patch available"
+            "text": "Comment loading and gallery loading for all reddit apps"
           }
         ]
       },
@@ -98307,12 +97642,12 @@
       "avatarUrl": "https://github.com/xob0t.png?size=96",
       "patchCount": 13,
       "latestChanges": {
-        "title": "1.14.2 (2026-10-27)",
-        "date": "2026-10-27",
+        "title": "1.14.4 (2026-10-30)",
+        "date": "2026-10-30",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**wildberries:** support version 7.8.6001-rustore"
+            "text": "**wildberries:** keep the seller name visible when hiding recommendations"
           }
         ]
       },
