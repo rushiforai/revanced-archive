@@ -19,6 +19,31 @@ export interface PluginContributorLink {
     label?: string
 }
 
+/**
+ * Contributor as written in `manifest.json`. Preferred over the legacy `Name <DISCORD_ID> (LINK "TITLE")` string,
+ * which is still accepted.
+ */
+export interface PluginContributorInput {
+    name: string
+    /** Discord user ID. */
+    id?: string
+    links?: { url: string; title?: string }[]
+}
+
+/** Formats a contributor into the `Name <DISCORD_ID> (LINK "TITLE")` string form. Legacy strings pass through. */
+export function formatPluginContributor(
+    contributor: PluginContributorInput | string,
+): string {
+    if (typeof contributor === 'string') return contributor
+
+    const { name, id, links = [] } = contributor
+    let formatted = name.trim()
+    if (id !== undefined) formatted += ` <${id}>`
+    for (const { url, title } of links)
+        formatted += title === undefined ? ` (${url})` : ` (${url} "${title}")`
+    return formatted
+}
+
 const ContributorEntryRegex =
     /^(?:<(\d{17,20})>|\(((?:https?:\/\/|mailto:)[^()\s]+)(?:\s+"([^"()]+)")?\))\s*/i
 
