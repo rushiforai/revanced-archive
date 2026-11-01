@@ -648,6 +648,9 @@ public final class InlineImages {
      */
     static Media load(String url, boolean network) {
         if (url == null) return null;
+        // A reddit.com/media?url=... wrapper shows what it wraps.
+        String wrapped = ShareLinks.mediaTarget(url);
+        if (wrapped != null) url = wrapped;
         // Video links (comment videos, v.redd.it, imgur gifv/mp4) are InlineVideos'.
         if (InlineVideos.isVideoLink(url)) return InlineVideos.load(url, network);
         // imgur albums are listed via the API (so multi-image albums can be cycled inline).
@@ -1480,7 +1483,7 @@ public final class InlineImages {
                 && data[8] == 'W' && data[9] == 'E' && data[10] == 'B' && data[11] == 'P';
     }
 
-    private static boolean isDirectImage(String url) {
+    static boolean isDirectImage(String url) {
         if (url == null) return false;
         String u = url.toLowerCase(Locale.US);
         int cut = u.indexOf('?');
@@ -1498,7 +1501,8 @@ public final class InlineImages {
     /**
      * Maps a comment link to an image URL to embed, or null to leave it as a link.
      * Direct image links pass through; known media-host page links are resolved to
-     * their image via the page's og:image meta tag (cached in memory and on disk).
+     * their image via the page's og:image meta tag, and Matrix media links via their
+     * redirect (cached in memory and on disk).
      * Without [network], {@link #MISSING_URL} if that would need fetching the page.
      */
     private static String resolveImageUrl(String url, boolean network) {
@@ -1523,7 +1527,7 @@ public final class InlineImages {
 
         // "" = the page has no image (kept on disk for a day); null = the request failed
         // (kept only in memory).
-        String image = fetchOgImage(url);
+        String image = ShareLinks.isMatrixMedia(url) ? ShareLinks.resolveMatrixMedia(url) : fetchOgImage(url);
         RESOLVED.put(url, image == null ? "" : image);
         if (image != null) InlineCache.putText("og:" + url, image);
         return image == null || image.isEmpty() ? null : image;
@@ -1534,7 +1538,7 @@ public final class InlineImages {
      * is the last '-' segment of a /gifs/ slug, or the segment before /giphy.* on a
      * media host.
      */
-    private static String giphyImageUrl(String url) {
+    static String giphyImageUrl(String url) {
         try {
             String u = url.toLowerCase(Locale.US);
             String id = null;
@@ -1569,7 +1573,7 @@ public final class InlineImages {
         return best;
     }
 
-    private static boolean isResolvableHost(String url) {
+    static boolean isResolvableHost(String url) {
         String u = url.toLowerCase(Locale.US);
         return u.startsWith("https://imgur.com/")
                 || u.startsWith("https://www.imgur.com/")
@@ -1578,9 +1582,14 @@ public final class InlineImages {
                 || u.startsWith("https://www.redgifs.com/")
                 || u.startsWith("https://gfycat.com/")
                 || u.startsWith("https://www.gfycat.com/")
+                || u.startsWith("https://imgflip.com/i/")
+                || u.startsWith("https://www.imgflip.com/i/")
+                || u.startsWith("https://imgflip.com/gif/")
+                || u.startsWith("https://www.imgflip.com/gif/")
                 || u.contains("giphy.com/")
                 || u.contains("tenor.com/view/")
-                || u.contains("reddit.com/gallery/");
+                || u.contains("reddit.com/gallery/")
+                || ShareLinks.isMatrixMedia(url);
     }
 
     /** The page's og:image; "" if it has none (or is gone); null if the request failed. */
@@ -1647,7 +1656,7 @@ public final class InlineImages {
      * hosts answer plain http with (imgur: 301). If that fails to connect (e.g. a host
      * without https), the original http URL is tried; otherwise the same URL once more.
      */
-    private static String[] attempts(String url) {
+    static String[] attempts(String url) {
         if (url.regionMatches(true, 0, "http://", 0, 7)) return new String[]{"https://" + url.substring(7), url};
         return new String[]{url, url};
     }
@@ -1686,7 +1695,7 @@ public final class InlineImages {
         }
     }
 
-    private static String decodeHtmlEntities(String s) {
+    static String decodeHtmlEntities(String s) {
         if (s == null) return null;
         return s.replace("&amp;", "&")
                 .replace("&#38;", "&")

@@ -158,7 +158,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -292,6 +291,7 @@ class MainActivity : ComponentActivity() {
         .followRedirects(true)
         .followSslRedirects(true)
         .dns(AdGuardDns)
+        .cookieJar(SessionCookies)
         .addInterceptor { chain ->
             chain.proceed(
                 chain.request().newBuilder()
@@ -305,6 +305,7 @@ class MainActivity : ComponentActivity() {
         .followRedirects(true)
         .followSslRedirects(true)
         .dns(AdGuardDns)
+        .cookieJar(SessionCookies)
         .addInterceptor { chain ->
             chain.proceed(
                 chain.request().newBuilder()
@@ -321,6 +322,22 @@ class MainActivity : ComponentActivity() {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
         .create(ApkPureApi::class.java)
+
+    /** One hop only: APKPure's direct endpoint answers with the file URL in its Location. */
+    private val apkPureDirectClient = OkHttpClient.Builder()
+        .followRedirects(false)
+        .followSslRedirects(false)
+        .dns(AdGuardDns)
+        .cookieJar(SessionCookies)
+        .addInterceptor { chain ->
+            chain.proceed(
+                chain.request().newBuilder()
+                    .header("User-Agent", browserUserAgent)
+                    .build()
+            )
+        }
+        .addInterceptor(httpLoggingInterceptor("APKPure"))
+        .build()
 
     private val aptoideApi = Retrofit.Builder()
         .client(client)
@@ -341,7 +358,18 @@ class MainActivity : ComponentActivity() {
             apkPureApi = apkPureApi,
             aptoideApi = aptoideApi,
             playHttpClient = playHttpClient,
-            appContext = this
+            appContext = this,
+            // Read through the settings each time, so flipping the switch takes effect on
+            // the next request instead of needing a restart.
+            resolveViaMorphe = { request ->
+                if (helperSettings.useMorpheResolver) MorpheResolver.resolve(request) else null
+            },
+            // APKPure's direct endpoint names the file itself in one hop.
+            resolveRedirect = { url ->
+                apkPureDirectClient.newCall(
+                    Request.Builder().url(url).head().build()
+                ).execute().use { response -> response.header("Location") }
+            }
         )
         listOf(
             ApkMirrorParser(parserContext),
@@ -427,9 +455,11 @@ class MainActivity : ComponentActivity() {
                 pureBlackTheme = helperSettings.pureBlackTheme,
                 accentColorHex = helperSettings.customAccentColor
             ) {
-                // Ping every web source at launch so the Settings Health tab
-                // reflects current reachability instead of the last resolve.
-                LaunchedEffect(Unit) { SourceHealthChecker.refresh() }
+                // Source reachability is checked on demand from Settings, never at
+                // launch: a ping to every source's home page is another request in
+                // each site's rate-limit pool, spent before the user has asked for
+                // anything, and it competes with the download that prompted the app to
+                // open. The Settings card keeps a Re-check button for when it is wanted.
                 val captcha = captchaBrowser
                 if (captcha != null) {
                     CaptchaBrowserScreen(
@@ -1083,7 +1113,11 @@ class MainActivity : ComponentActivity() {
     private fun onBrowserDownloadCaptured(capture: BrowserDownloadCapture) {
         val candidate = captchaBrowser ?: return
         captchaBrowser = null
-        val fileKind = fileKindFromUrl(capture.downloadUrl)
+        // A captured link often names no extension (Uptodown's `/dwn/<token>`), so fall
+        // back to what the source said the file is rather than calling every one an APK.
+        val fileKind = fileKindFromUrlOrNull(capture.downloadUrl)
+            ?: candidate.fileKind.lowercase(Locale.US).takeIf { it in DOWNLOAD_FILE_KIND_SET }
+            ?: "apk"
         val referer = capture.refererUrl
             ?.takeIf(String::isNotBlank)
             ?: candidate.captchaUrl
@@ -2291,7 +2325,7 @@ private fun CaptchaBrowserScreen(
                     request: WebResourceRequest?
                 ): Boolean {
                     val url = request?.url?.toString() ?: return false
-                    if (url.looksLikeApkDownload()) {
+                    if (url.isCapturableDownload()) {
                         val referer = view?.url ?: view?.originalUrl ?: candidate.captchaUrl ?: candidate.url
                         onDownloadCaptured(
                             BrowserDownloadCapture(
@@ -2308,6 +2342,7 @@ private fun CaptchaBrowserScreen(
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     view?.evaluateJavascript(CAPTCHA_CAPTURE_JS, null)
+                    view?.evaluateJavascript(CAPTCHA_AUTOPRESS_JS, null)
                 }
             }
             setDownloadListener { url, _, _, _, _ ->
@@ -2462,34 +2497,91 @@ private const val CAPTCHA_BRIDGE_NAME = "Android"
  */
 private const val CAPTCHA_CAPTURE_JS = """
 (function () {
+  if (window.__captureInstalled) return;
+  window.__captureInstalled = true;
   var re = /\.(apk|apks|apkm|xapk)(\?|#|$)/i;
+  function isDw(u) {
+    return /^https?:\/\/[^\/]*uptodown\.(com|net)\//i.test(u) && /\/dwn\//i.test(u);
+  }
   function looksLike(u) {
     if (!u) return false;
     try { u = decodeURIComponent(u); } catch (e) {}
-    return re.test(u) || /filename[^.]*\.(apk|apks|apkm|xapk)/i.test(u);
+    return re.test(u) || /filename[^.]*\.(apk|apks|apkm|xapk)/i.test(u) || isDw(u);
   }
-  
+  function capture(u) {
+    window.__captured = true;
+    window.Android && window.Android.capture(u);
+  }
   document.addEventListener('click', function (e) {
     var el = e.target;
     while (el && el !== document && !(el.tagName === 'A' && el.href)) el = el.parentNode;
-    if (el && el.tagName === 'A' && looksLike(el.href)) {
-      window.Android && window.Android.capture(el.href);
-    }
+    if (el && el.tagName === 'A' && el.href && looksLike(el.href)) capture(el.href);
   }, true);
   var origOpen = window.open;
   window.open = function (u) {
-    if (u && looksLike(u)) { window.Android && window.Android.capture(u); return null; }
+    if (u && looksLike(u)) { capture(u); return null; }
     return origOpen ? origOpen.apply(window, arguments) : null;
   };
 })();
 """
 
+/**
+ * Uptodown keeps its file behind a Turnstile widget: the page's own download button only
+ * starts the file once that is solved. This clears the decoys and presses the real button
+ * a few times, so solving the captcha is the only thing left for the user to do.
+ *
+ * Runs on every page load (the flow normally lands on the app page before the file page),
+ * and stops trying once a download has been captured.
+ */
+private const val CAPTCHA_AUTOPRESS_JS = """
+(function () {
+  var decoys = '#detail-download-button-know-native, [data-url*="uptodown-app-store"]';
+  document.querySelectorAll(decoys).forEach(function (el) { el.style.display = 'none'; });
+  var tries = 0;
+  function press() {
+    if (window.__captured || tries >= 4) return;
+    tries++;
+    var b = document.getElementById('detail-download-button');
+    if (!b) return;
+    b.scrollIntoView({ block: 'center' });
+    b.click();
+  }
+  setTimeout(press, 2000);
+  setTimeout(press, 6000);
+  setTimeout(press, 12000);
+})();
+"""
+
+/**
+ * Percent-decodes a URL without touching `+` (which is a literal plus in a path) and
+ * without `Uri.decode`, so these predicates stay usable off-device in unit tests.
+ */
+private fun String.urlDecoded(): String = runCatching {
+    URLDecoder.decode(replace("+", "%2B"), StandardCharsets.UTF_8.name())
+}.getOrDefault(this)
+
 /** True for URLs that point at an APK-family file (extension or filename hint). */
 private fun String.looksLikeApkDownload(): Boolean {
-    val decoded = Uri.decode(this).lowercase(Locale.US)
+    val decoded = urlDecoded().lowercase(Locale.US)
     return Regex("""\.(apk|apks|apkm|xapk)(\?|#|$)""").containsMatchIn(decoded) ||
         Regex("""filename[^.]*\.(apk|apks|apkm|xapk)""").containsMatchIn(decoded)
 }
+
+/**
+ * Uptodown's file links carry no extension at all (`dw.uptodown.com/dwn/<token>`), so the
+ * extension test alone misses them: the in-app browser saw a navigation to a URL it could
+ * not recognise as a file and let the page handle it.
+ */
+internal fun String.isUptodownFileUrl(): Boolean {
+    val uri = runCatching { java.net.URI(urlDecoded()) }.getOrNull() ?: return false
+    val host = uri.host?.lowercase(Locale.US) ?: return false
+    if (!host.endsWith("uptodown.com") && !host.endsWith("uptodown.net")) return false
+    return uri.path.orEmpty().contains("/dwn/", ignoreCase = true)
+}
+
+/** A URL the in-app browser should treat as the file it was opened to capture. */
+internal fun String.isCapturableDownload(): Boolean =
+    looksLikeApkDownload() || isUptodownFileUrl()
 
 @Composable
 private fun HelperScreen(
@@ -2823,113 +2915,6 @@ private fun HelperScreen(
                 AppBrowserScreen(onBack = { showAppBrowser = false })
             }
         }
-        }
-    }
-}
-
-@Composable
-private fun SourceHealthCard() {
-    val checks by SourceHealthChecker.checks.collectAsState()
-    val checking by SourceHealthChecker.checking.collectAsState()
-    val webChecks = checks.filter { it.status != SourceHealthChecker.Status.Skipped }
-
-    val goodCount = webChecks.count { it.status == SourceHealthChecker.Status.Good }
-    val blockedCount = webChecks.count { it.status == SourceHealthChecker.Status.CaptchaBlocked }
-    val unreachableCount = webChecks.count { it.status == SourceHealthChecker.Status.Unreachable }
-    val hasProblems = blockedCount > 0 || unreachableCount > 0
-
-    val summaryParts = mutableListOf<String>()
-    if (goodCount > 0) summaryParts.add("$goodCount available")
-    if (blockedCount > 0) summaryParts.add("$blockedCount captcha-blocked")
-    if (unreachableCount > 0) summaryParts.add("$unreachableCount unreachable")
-    val summary = when {
-        checking -> "Checking sources…"
-        webChecks.isEmpty() -> "Sources not checked yet"
-        else -> summaryParts.ifEmpty { listOf("No sources available") }.joinToString(" · ")
-    }
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.source_health),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.weight(1f)
-            )
-            HelperOutlinedButton(
-                text = if (checking) "Checking…" else "Re-check",
-                onClick = { SourceHealthChecker.refresh() },
-                icon = if (checking) null else Icons.Outlined.Refresh,
-                modifier = Modifier.width(MorpheDefaults.CompactButtonWidth + 28.dp)
-            )
-        }
-        Text(
-            text = summary,
-            color = if (hasProblems) {
-                MaterialTheme.colorScheme.error
-            } else {
-                MaterialTheme.colorScheme.onSurfaceVariant
-            },
-            style = MaterialTheme.typography.bodySmall
-        )
-
-        if (webChecks.isEmpty()) {
-            InfoCard("No sources checked yet — the check runs automatically when the app opens.")
-        } else {
-            webChecks.forEach { check ->
-                SourceHealthRow(check)
-            }
-        }
-    }
-}
-
-@Composable
-private fun SourceHealthRow(check: SourceHealthChecker.Check) {
-    val (dotColor, statusText) = when (check.status) {
-        SourceHealthChecker.Status.Good -> MaterialTheme.colorScheme.primary to "Available"
-        SourceHealthChecker.Status.Checking -> SemanticTone.Warning.accent to "Checking…"
-        SourceHealthChecker.Status.CaptchaBlocked ->
-            MaterialTheme.colorScheme.error to (check.message ?: "Blocked by a captcha challenge")
-        SourceHealthChecker.Status.Unreachable ->
-            MaterialTheme.colorScheme.error to (check.message ?: "Unreachable")
-        SourceHealthChecker.Status.Skipped -> MaterialTheme.colorScheme.outline to "Not checked"
-    }
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
-        verticalAlignment = Alignment.Top
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(top = 5.dp)
-                .size(8.dp)
-                .clip(MorpheDefaults.PillShape)
-                .background(dotColor)
-        )
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            Text(
-                text = check.source.label,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = statusText,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
         }
     }
 }
@@ -3432,6 +3417,18 @@ private fun SystemTabContent(
                     onClick = { fastModePolicyDialog = true }
                 )
             }
+            MorpheDivider()
+            SettingsSwitchItem(
+                icon = Icons.Outlined.Explore,
+                title = "Use Morphe's resolver",
+                subtitle = "Ask Morphe where its own download dialog would go and open that " +
+                    "page directly, instead of searching the site. Faster; turn it off to " +
+                    "always fetch through this app's own source pages.",
+                checked = settings.useMorpheResolver,
+                onToggle = {
+                    onSettingsChange(settings.copy(useMorpheResolver = !settings.useMorpheResolver))
+                }
+            )
         }
     }
 }
@@ -3606,7 +3603,6 @@ private fun AdvancedTabContent(
             }
         }
 
-        SourceHealthCard()
     }
 }
 
@@ -9392,8 +9388,14 @@ internal data class AptoideFile(
     val vername: String = "",
     val vercode: String = "0",
     val path: String = "",
+    /** Aptoide's own malware verdict for this build; not every endpoint reports it. */
+    val malware: AptoideMalware? = null,
     @SerializedName(value = "path_alt", alternate = ["pathAlt"])
     val pathAlt: String = ""
+)
+
+internal data class AptoideMalware(
+    val rank: String = ""
 )
 
 internal data class AptoideUrls(
@@ -9479,9 +9481,18 @@ private fun validateApkLikeStream(
 
 internal fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadata? {
     if (file.extension.equals("apk", ignoreCase = true)) {
-        return readApkMetadata(file)
+        // A container can arrive named .apk (a source served the bundle under an APK
+        // name, or a candidate's kind was a guess), so fall back to reading it as one.
+        return readApkMetadata(file) ?: readContainerMetadata(file)
     }
 
+    // Only the extension says "container" - the bytes decide. A page that serves a
+    // single APK from a bundle-looking page would otherwise fail validation outright.
+    return readContainerMetadata(file) ?: readApkMetadata(file)
+}
+
+/** The base APK's metadata from inside a split container, or null when it is not one. */
+private fun Context.readContainerMetadata(file: File): DownloadedApkMetadata? {
     return runCatching {
         val validationDir = File(cacheDir, "validation").apply { mkdirs() }
         ZipFile(file).use { zip ->
@@ -9559,7 +9570,16 @@ internal fun parseInfoTableValue(doc: Document, label: String): String? =
         ?.trim()
         ?.takeIf(String::isNotBlank)
 
-internal fun fileKindFromUrl(url: String): String {
+internal fun fileKindFromUrl(url: String): String = fileKindFromUrlOrNull(url) ?: "apk"
+
+/**
+ * The kind a URL names, or null when it names none of them.
+ *
+ * Callers that already know a source's own label (a page stating "XAPK") can keep it
+ * instead of falling back to a plain APK for a link that says nothing, such as
+ * Uptodown's extension-less `dw.uptodown.com/dwn/<token>`.
+ */
+internal fun fileKindFromUrlOrNull(url: String): String? {
     val decoded = URLDecoder.decode(url, StandardCharsets.UTF_8.name()).lowercase(Locale.US)
     // Kind detection must be scoped to the file name (final path segment): CDN
     // hosts and APKMirror's own download.php path embed "apkmirror", so a bare
@@ -9589,7 +9609,7 @@ internal fun fileKindFromUrl(url: String): String {
         "xapk" in fileName -> "xapk"
         "apks" in fileName -> "apks"
         "apkm" in fileName -> "apkm"
-        else -> "apk"
+        else -> null
     }
 }
 

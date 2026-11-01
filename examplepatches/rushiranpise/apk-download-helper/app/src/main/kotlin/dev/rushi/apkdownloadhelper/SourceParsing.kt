@@ -94,7 +94,20 @@ internal class SourceParserContext(
     val apkPureApi: ApkPureApi,
     val aptoideApi: AptoideApi,
     val playHttpClient: PlayHttpClient? = null,
-    val appContext: Context? = null
+    val appContext: Context? = null,
+    /**
+     * Asks Morphe's resolver for the page its own dialog would use, or returns null to
+     * scrape as usual. Null (the default) keeps every parser on its own scraping path, so
+     * tests and any caller that does not opt in are unaffected.
+     */
+    val resolveViaMorphe: ((HelperRequest) -> String?)? = null,
+    /**
+     * Follows [url] without following its redirect, returning the `Location` it answers
+     * with (or null). APKPure's direct endpoint puts the whole file description in that
+     * one hop, so a parser can name a URL without fetching a page. Null keeps parsers on
+     * their scraping path, which is what fixture-based tests use.
+     */
+    val resolveRedirect: ((String) -> String?)? = null
 ) {
     fun document(url: String, referer: String? = null): Document =
         Jsoup.parse(fetcher.fetchText(url, referer), url)

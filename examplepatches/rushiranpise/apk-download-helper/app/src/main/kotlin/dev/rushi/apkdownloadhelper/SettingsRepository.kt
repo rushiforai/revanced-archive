@@ -28,15 +28,50 @@ internal var logcatLoggingEnabled = true
 @Volatile
 internal var adGuardDnsEnabled = false
 
+/**
+ * Sources that start switched off.
+ *
+ * The five the helper is built around (APKMirror, Uptodown, APKPure, APKCombo, Aurora)
+ * are enabled; the rest are theirs to discover in Settings. Like the Fast Mode default,
+ * this only decides what somebody who never touched the source toggles gets - a stored
+ * set is used as it is.
+ */
+/**
+ * Bumped when a default changes in a way existing installs should feel.
+ *
+ * A stored value cannot say whether it was chosen or merely written while it was the
+ * default - every settings change saves every key - so a changed default is applied once
+ * by version rather than inferred from what is on disk.
+ */
+private const val SETTINGS_VERSION_KEY = "settings_version"
+private const val SETTINGS_VERSION = 2
+
+internal val DEFAULT_DISABLED_SOURCES: Set<DownloadSource> = setOf(
+    DownloadSource.APTOIDE,
+    DownloadSource.EVOZI,
+    DownloadSource.MI9,
+    DownloadSource.APK_DOWNLOADER,
+    DownloadSource.PLAY
+)
+
 internal data class HelperSettings(
     val downloadLocation: DownloadLocation = DownloadLocation.TEMPORARY,
     val networkPolicy: NetworkPolicy = NetworkPolicy.WIFI_AND_MOBILE,
     val deleteTemporaryAfterHandoff: Boolean = true,
     val logcatLogging: Boolean = true,
-    val fastMode: Boolean = false,
+    // On by default: the helper exists to hand a file back to Morphe, and Fast Mode is
+    // the path that does that in one step. An explicit off is stored and respected, so
+    // this only decides what somebody who never touched the switch gets.
+    val fastMode: Boolean = true,
     // Which version Fast Mode should auto-fetch when multiple are available.
     val fastModePolicy: FastModePolicy = FastModePolicy.REQUESTED,
-    val disabledSources: Set<DownloadSource> = emptySet(),
+    /**
+     * Ask Morphe's resolver for the page its own dialog would use, instead of walking the
+     * site. On by default because it is a single HEAD chain against a text index rather
+     * than several hundred kilobytes of HTML; off means every source is scraped directly.
+     */
+    val useMorpheResolver: Boolean = true,
+    val disabledSources: Set<DownloadSource> = DEFAULT_DISABLED_SOURCES,
     val themeMode: ThemeMode = ThemeMode.DARK,
     /** Where the palette comes from: the app's own, the wallpaper's, or neutral. */
     val themeStyle: ThemeStyle = ThemeStyle.MORPHE,
@@ -203,7 +238,8 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         ),
         deleteTemporaryAfterHandoff = prefs.getBoolean("delete_temporary_after_handoff", true),
         logcatLogging = prefs.getBoolean("logcat_logging", true),
-        fastMode = prefs.getBoolean("fast_mode", false),
+        fastMode = prefs.getBoolean("fast_mode", true),
+        useMorpheResolver = prefs.getBoolean("use_morphe_resolver", true),
         fastModePolicy = enumValueOrDefault(
             prefs.getString("fast_mode_policy", null),
             FastModePolicy.REQUESTED
@@ -230,9 +266,23 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         preferredSource = prefs.getString("preferred_source", null)
             ?.let { name -> DownloadSource.entries.firstOrNull { it.name == name } }
     )
-    logcatLoggingEnabled = settings.logcatLogging
-    adGuardDnsEnabled = settings.adGuardDns
-    return settings
+
+    // Version 2 turned Fast Mode on and narrowed the enabled sources to the five the
+    // helper is built around. Applied once and saved, so from the next launch on the
+    // stored values (including a deliberate opt-out) win as usual.
+    val storedVersion = prefs.getInt(SETTINGS_VERSION_KEY, 1)
+    val migrated = if (storedVersion < SETTINGS_VERSION) {
+        settings.copy(fastMode = true, disabledSources = DEFAULT_DISABLED_SOURCES)
+    } else {
+        settings
+    }
+    if (migrated !== settings) {
+        saveHelperSettings(migrated)
+    }
+
+    logcatLoggingEnabled = migrated.logcatLogging
+    adGuardDnsEnabled = migrated.adGuardDns
+    return migrated
 }
 
 internal fun Context.saveHelperSettings(settings: HelperSettings) {
@@ -244,7 +294,9 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putString("network_policy", settings.networkPolicy.name)
         .putBoolean("delete_temporary_after_handoff", settings.deleteTemporaryAfterHandoff)
         .putBoolean("logcat_logging", settings.logcatLogging)
+        .putInt(SETTINGS_VERSION_KEY, SETTINGS_VERSION)
         .putBoolean("fast_mode", settings.fastMode)
+        .putBoolean("use_morphe_resolver", settings.useMorpheResolver)
         .putString("fast_mode_policy", settings.fastModePolicy.name)
         .putStringSet("disabled_sources", settings.disabledSources.map { it.name }.toSet())
         .putString("theme_mode", settings.themeMode.name)

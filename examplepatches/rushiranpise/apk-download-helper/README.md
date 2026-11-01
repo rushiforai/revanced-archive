@@ -66,6 +66,14 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 
 - Ten sources: **APKMirror, Uptodown, APKPure, APKCombo, Aptoide, Evozi, Mi9, APK Downloader, Aurora, Play**.
 - Every source can be individually **enabled/disabled** from Settings → Sources; disabled sources disappear from the picker, manual links, Fast Mode, and the default-source dropdown. If you disable *everything*, Play Store remains as the fallback.
+
+- **Five start enabled**: APKMirror, Uptodown, APKPure, APKCombo and Aurora. Aptoide,
+  Evozi, Mi9, APK Downloader and Play are available but off until you turn them on.
+
+- **Morphe's resolver first**: before walking a site, the helper asks Morphe's own resolver
+  (`api.morphe.software`) where its download dialog would go, and opens that page
+  directly - one request instead of a search, app page and uploads walk. On by default;
+  Settings -> System turns it off to always scrape every source itself.
 - A **default source** can be set so the picker opens on your preferred provider instead of the first one.
 - Each source offers up to four flows: **Manual** (open the site), **Recommended** (exact requested version), **Latest** (newest compatible), and **History** (browse every version).
 - The source picker is a compact **dropdown** with a live enabled-source count; selecting a source collapses it so the page stays clean.
@@ -74,6 +82,9 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 ### Fast Mode
 
 - One-tap auto-resolve: walks every enabled source in order and returns the file to Morphe without manual taps.
+- **On by default.** The helper exists to hand a file back to Morphe, so Fast Mode
+  starts enabled for anyone who has never touched the switch; turning it off is
+  remembered and upgrades never re-enable it.
 - **Version policy** — requested, latest, or always ask:
   - **Requested version**: finds the exact requested version *and* version code across sources (build mismatches are surfaced for you to accept or skip, never silently downloaded).
   - **Latest version**: fetches the newest version any enabled source offers, and only calls it "latest" when it actually is newer than the requested version.
