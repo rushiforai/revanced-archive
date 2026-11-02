@@ -1,5 +1,7 @@
 package app.revanced.extension.soundcloud.shared;
 
+import static app.revanced.extension.soundcloud.shared.Colors.contrast;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,10 @@ public final class ArsoundDialog {
     private CharSequence positive, negative, neutral;
     private DialogInterface.OnClickListener onPositive, onNegative, onNeutral;
     private boolean cancelable = true;
+    /** The negative button leaves the dialog open: the listener closes it when it is time. */
+    private boolean negativeKeepsOpen;
+    /** The positive button leaves the dialog open: the listener closes it when what was entered is accepted. */
+    private boolean positiveKeepsOpen;
     private View buttonsStart;
     private DialogInterface.OnDismissListener onDismiss;
 
@@ -90,6 +95,17 @@ public final class ArsoundDialog {
     public ArsoundDialog setPositiveButton(CharSequence text, DialogInterface.OnClickListener listener) {
         positive = text;
         onPositive = listener;
+        positiveKeepsOpen = false;
+        return this;
+    }
+
+    /**
+     * A positive button that does not close the dialog, for a dialog with a field to fill in: when what was typed is
+     * refused, the dialog stays with the text in it, and the listener closes it once the text is accepted.
+     */
+    public ArsoundDialog setPositiveButtonKeepingOpen(CharSequence text, DialogInterface.OnClickListener listener) {
+        setPositiveButton(text, listener);
+        positiveKeepsOpen = true;
         return this;
     }
 
@@ -100,6 +116,17 @@ public final class ArsoundDialog {
     public ArsoundDialog setNegativeButton(CharSequence text, DialogInterface.OnClickListener listener) {
         negative = text;
         onNegative = listener;
+        negativeKeepsOpen = false;
+        return this;
+    }
+
+    /**
+     * A negative button that does not close the dialog, for a dialog that shows a task under way: "Cancel" asks the
+     * task to stop, and the owner of the dialog closes it once the task has.
+     */
+    public ArsoundDialog setNegativeButtonKeepingOpen(CharSequence text, DialogInterface.OnClickListener listener) {
+        setNegativeButton(text, listener);
+        negativeKeepsOpen = true;
         return this;
     }
 
@@ -137,87 +164,43 @@ public final class ArsoundDialog {
         return this;
     }
 
+    /** The height in pixels above which the body of a dialog scrolls, so a view of its own can fit itself to it. */
+    public static int bodyMaxHeight(Context context) {
+        return Math.round(context.getResources().getDisplayMetrics().heightPixels * .62f);
+    }
+
     /** True while an Arsound dialog is on screen, so a prompt that can wait does not cover it. Main thread only. */
     public static boolean isAnyShown() {
-        for (Dialog dialog : SHOWN) if (dialog.isShowing()) return true;
+        // A dialog whose screen was destroyed (a turn, a switch of the dark look) still says it is showing: only one
+        // whose window is on the screen counts, or a prompt waited for a dialog nobody could see.
+        for (Dialog dialog : SHOWN) {
+            if (dialog.isShowing() && dialog.getWindow() != null && dialog.getWindow().getDecorView().isAttachedToWindow()) {
+                return true;
+            }
+        }
         return false;
     }
 
+    /** Builds the dialog and shows it with a slide and a fade; the dialog is returned also if it could not be shown. */
     public Dialog show() {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(cancelable);
         if (onDismiss != null) dialog.setOnDismissListener(onDismiss);
 
-        LinearLayout card = new LinearLayout(context);
-        card.setOrientation(LinearLayout.VERTICAL);
-        GradientDrawable shape = new GradientDrawable();
-        shape.setColor(surface);
-        shape.setCornerRadius(dp(26));
-        shape.setStroke(Math.max(1, dp(1)), (accent & 0x00FFFFFF) | 0x40000000);
-        card.setBackground(shape);
-        card.setPadding(0, dp(22), 0, dp(14));
-
+        LinearLayout card = createCard();
         if (title != null) {
             TextView titleView = text("H3.Primary", title, primary);
             titleView.setPadding(dp(24), 0, dp(24), dp(10));
             card.addView(titleView);
         }
-        LinearLayout body = new LinearLayout(context);
-        body.setOrientation(LinearLayout.VERTICAL);
-        if (message != null) {
-            TextView messageView = text("Body.Secondary", message, secondary);
-            messageView.setPadding(dp(24), 0, dp(24), dp(8));
-            body.addView(messageView);
-        }
-        if (view != null) {
-            if (view.getParent() instanceof ViewGroup) ((ViewGroup) view.getParent()).removeView(view);
-            tintFields(view);
-            body.addView(view);
-        }
-        if (items != null) {
-            for (int i = 0; i < items.length; i++) body.addView(item(dialog, i));
-        }
-        // A long text scrolls, so the buttons always stay on screen.
-        int maxHeight = Math.round(context.getResources().getDisplayMetrics().heightPixels * .62f);
-        ScrollView scroll = new ScrollView(context) {
-            @Override
-            protected void onMeasure(int widthSpec, int heightSpec) {
-                super.onMeasure(widthSpec, MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.AT_MOST));
-            }
-        };
-        scroll.addView(body);
-        card.addView(scroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
+        card.addView(createBody(dialog), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         if (positive != null || negative != null || neutral != null || buttonsStart != null) {
-            LinearLayout buttons = new LinearLayout(context);
-            buttons.setOrientation(LinearLayout.HORIZONTAL);
-            buttons.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
-            buttons.setPadding(dp(14), dp(10), dp(16), 0);
-            if (buttonsStart != null) {
-                if (buttonsStart.getParent() instanceof ViewGroup) ((ViewGroup) buttonsStart.getParent()).removeView(buttonsStart);
-                LinearLayout.LayoutParams startParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                startParams.leftMargin = dp(8);
-                buttons.addView(buttonsStart, startParams);
-                buttons.addView(new View(context), new LinearLayout.LayoutParams(0, 1, 1f));
-            } else if (neutral != null) {
-                buttons.addView(button(dialog, neutral, onNeutral, DialogInterface.BUTTON_NEUTRAL, false));
-                buttons.addView(new View(context), new LinearLayout.LayoutParams(0, 1, 1f));
-            }
-            if (negative != null) buttons.addView(button(dialog, negative, onNegative, DialogInterface.BUTTON_NEGATIVE, false));
-            if (positive != null) buttons.addView(button(dialog, positive, onPositive, DialogInterface.BUTTON_POSITIVE, true));
-            card.addView(buttons);
+            card.addView(createButtons(dialog));
         }
 
         dialog.setContentView(card);
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            int width = Math.min(context.getResources().getDisplayMetrics().widthPixels - dp(40), dp(420));
-            window.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
-            window.setDimAmount(0.55f);
-        }
+        sizeWindow(dialog);
         // A result that arrives after its screen was left has no window to open in.
         if (context instanceof android.app.Activity
                 && (((android.app.Activity) context).isFinishing() || ((android.app.Activity) context).isDestroyed())) {
@@ -236,6 +219,79 @@ public final class ArsoundDialog {
         card.animate().alpha(1f).scaleX(1f).scaleY(1f).translationY(0).setDuration(220)
                 .setInterpolator(new DecelerateInterpolator(1.8f)).start();
         return dialog;
+    }
+
+    /** The rounded card of the dialog colour with a thin accent edge. */
+    private LinearLayout createCard() {
+        LinearLayout card = new LinearLayout(context);
+        card.setOrientation(LinearLayout.VERTICAL);
+        GradientDrawable shape = new GradientDrawable();
+        shape.setColor(surface);
+        shape.setCornerRadius(dp(26));
+        shape.setStroke(Math.max(1, dp(1)), (accent & 0x00FFFFFF) | 0x40000000);
+        card.setBackground(shape);
+        card.setPadding(0, dp(22), 0, dp(14));
+        return card;
+    }
+
+    /** The message, the view and the list items, in a scroll: a long text scrolls, so the buttons always stay on screen. */
+    private ScrollView createBody(Dialog dialog) {
+        LinearLayout body = new LinearLayout(context);
+        body.setOrientation(LinearLayout.VERTICAL);
+        if (message != null) {
+            TextView messageView = text("Body.Secondary", message, secondary);
+            messageView.setPadding(dp(24), 0, dp(24), dp(8));
+            body.addView(messageView);
+        }
+        if (view != null) {
+            if (view.getParent() instanceof ViewGroup) ((ViewGroup) view.getParent()).removeView(view);
+            tintFields(view);
+            body.addView(view);
+        }
+        if (items != null) {
+            for (int i = 0; i < items.length; i++) body.addView(item(dialog, i));
+        }
+        int maxHeight = bodyMaxHeight(context);
+        ScrollView scroll = new ScrollView(context) {
+            @Override
+            protected void onMeasure(int widthSpec, int heightSpec) {
+                super.onMeasure(widthSpec, MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.AT_MOST));
+            }
+        };
+        scroll.addView(body);
+        return scroll;
+    }
+
+    /** The row of buttons: the view at the start or the neutral button, then the negative and the positive. */
+    private LinearLayout createButtons(Dialog dialog) {
+        LinearLayout buttons = new LinearLayout(context);
+        buttons.setOrientation(LinearLayout.HORIZONTAL);
+        buttons.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
+        buttons.setPadding(dp(14), dp(10), dp(16), 0);
+        if (buttonsStart != null) {
+            if (buttonsStart.getParent() instanceof ViewGroup) ((ViewGroup) buttonsStart.getParent()).removeView(buttonsStart);
+            LinearLayout.LayoutParams startParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            startParams.leftMargin = dp(8);
+            buttons.addView(buttonsStart, startParams);
+            buttons.addView(new View(context), new LinearLayout.LayoutParams(0, 1, 1f));
+        } else if (neutral != null) {
+            buttons.addView(button(dialog, neutral, onNeutral, DialogInterface.BUTTON_NEUTRAL, false));
+            buttons.addView(new View(context), new LinearLayout.LayoutParams(0, 1, 1f));
+        }
+        if (negative != null) buttons.addView(button(dialog, negative, onNegative, DialogInterface.BUTTON_NEGATIVE, false));
+        if (positive != null) buttons.addView(button(dialog, positive, onPositive, DialogInterface.BUTTON_POSITIVE, true));
+        return buttons;
+    }
+
+    /** A transparent window as wide as the card: the screen less a margin, at most 420 dp. */
+    private void sizeWindow(Dialog dialog) {
+        Window window = dialog.getWindow();
+        if (window == null) return;
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        int width = Math.min(context.getResources().getDisplayMetrics().widthPixels - dp(40), dp(420));
+        window.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setDimAmount(0.55f);
     }
 
     /** A list row; with a chosen item, a ring that fills for it. */
@@ -290,9 +346,11 @@ public final class ArsoundDialog {
         shape.setColor(main ? accent : Color.TRANSPARENT);
         button.setBackground(new RippleDrawable(ColorStateList.valueOf(main ? 0x33FFFFFF : (accent & 0x00FFFFFF) | 0x33000000),
                 shape, null));
+        boolean keepsOpen = which == DialogInterface.BUTTON_NEGATIVE ? negativeKeepsOpen
+                : which == DialogInterface.BUTTON_POSITIVE && positiveKeepsOpen;
         button.setOnClickListener(v -> {
             if (listener != null) listener.onClick(dialog, which);
-            dialog.dismiss();
+            if (!keepsOpen) dialog.dismiss();
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -331,12 +389,7 @@ public final class ArsoundDialog {
         return view;
     }
 
-    private static int contrast(int color) {
-        double luminance = (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
-        return luminance > 0.6 ? 0xFF111111 : 0xFFFFFFFF;
-    }
-
     private int dp(float value) {
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics()));
+        return Dimens.dp(context, value);
     }
 }

@@ -1,16 +1,10 @@
 package app.revanced.extension.soundcloud.local;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
@@ -25,56 +19,37 @@ import app.revanced.extension.soundcloud.settings.Settings;
  */
 @SuppressWarnings("unused")
 public final class TrackOrder {
-    private static final String PREFERENCES_NAME = "arsound_local_additions";
     private static final String ORDER_PREFIX = "track_order_";
     private static final String TRACK_ITEM_CLASS =
             "com.soundcloud.android.playlists.PlaylistDetailItem$PlaylistDetailTrackItem";
+    /** Fields of the track item of the playlist screen, found in the decompiled app (the names are shrunk). */
+    private static final String SUGGESTED_FIELD = "i";
+    private static final String PLAYLIST_URN_FIELD = "c";
 
     private TrackOrder() {
     }
 
-    private static SharedPreferences preferences() {
-        Context context = Utils.getContext();
-        return context == null ? null : context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+    /** The saved order of one playlist; tracks added later come after the arranged ones. */
+    private static ManualOrder orderOf(String playlistUrn) {
+        return new ManualOrder(ORDER_PREFIX + playlistUrn, ManualOrder.Unknown.LAST);
     }
 
     /** Forgets the manual order of a playlist, so it follows the order of its entries again. */
     static void clear(String playlistUrn) {
-        SharedPreferences preferences = preferences();
-        if (preferences != null) preferences.edit().remove(ORDER_PREFIX + playlistUrn).apply();
-    }
-
-    static boolean hasOrder(String playlistUrn) {
-        SharedPreferences preferences = preferences();
-        return Settings.isPlaylistOrderEnabled() && preferences != null && preferences.contains(ORDER_PREFIX + playlistUrn);
+        orderOf(playlistUrn).clear();
     }
 
     /** Puts the track urns of a playlist in the saved order. */
     static List<Object> apply(String playlistUrn, List<Object> urns) {
-        SharedPreferences preferences = preferences();
-        if (preferences == null || !Settings.isPlaylistOrderEnabled()) return urns;
-        String value = preferences.getString(ORDER_PREFIX + playlistUrn, null);
-        if (value == null || value.isEmpty()) return urns;
-
-        Map<String, Integer> positions = new HashMap<>();
-        String[] saved = value.split("\n");
-        for (int i = 0; i < saved.length; i++) positions.put(saved[i], i);
-        List<Object> result = new ArrayList<>(urns);
-        // Stable sort: new tracks keep SoundCloud's order among themselves, after the arranged ones.
-        Collections.sort(result, (first, second) -> Integer.compare(
-                positions.getOrDefault(String.valueOf(first), Integer.MAX_VALUE),
-                positions.getOrDefault(String.valueOf(second), Integer.MAX_VALUE)));
-        return result;
+        if (!Settings.isPlaylistOrderEnabled()) return urns;
+        ManualOrder order = orderOf(playlistUrn);
+        List<String> saved = order.read();
+        if (saved.isEmpty()) return urns;
+        return order.sort(urns, saved, String::valueOf);
     }
 
     public static void resetAll() {
-        SharedPreferences preferences = preferences();
-        if (preferences == null) return;
-        SharedPreferences.Editor editor = preferences.edit();
-        for (String key : preferences.getAll().keySet()) {
-            if (key.startsWith(ORDER_PREFIX)) editor.remove(key);
-        }
-        editor.apply();
+        ManualOrder.forgetAll(ORDER_PREFIX);
     }
 
     /** Injection point. Called when the playlist screen has created its views. */
@@ -100,26 +75,32 @@ public final class TrackOrder {
     private static boolean isTrackRow(Object item) {
         if (!item.getClass().getName().equals(TRACK_ITEM_CLASS)) return false;
         // Suggested tracks under the playlist are not part of it.
-        Object suggested = field(item, "i");
+        Object suggested = field(item, SUGGESTED_FIELD);
         return !Boolean.TRUE.equals(suggested);
     }
 
     private static void save(List<Object> rows) {
         String playlistUrn = null;
-        StringBuilder order = new StringBuilder();
+        List<Object> urns = new ArrayList<>();
         for (Object item : rows) {
             if (!isTrackRow(item)) continue;
-            if (playlistUrn == null) playlistUrn = String.valueOf(field(item, "c"));
+            if (playlistUrn == null) playlistUrn = String.valueOf(field(item, PLAYLIST_URN_FIELD));
             try {
-                order.append(item.getClass().getMethod("getUrn").invoke(item)).append('\n');
+                urns.add(Urns.of(item));
             } catch (Exception ex) {
                 Logger.printException(() -> "Could not read track urn", ex);
                 return;
             }
         }
-        SharedPreferences preferences = preferences();
-        if (playlistUrn == null || preferences == null) return;
-        preferences.edit().putString(ORDER_PREFIX + playlistUrn, order.toString()).apply();
+        if (playlistUrn != null) saveUrns(playlistUrn, urns);
+    }
+
+    /**
+     * Saves the order of a playlist as the track urns, from first to last. The same as dragging a track does,
+     * for code that changes the list itself.
+     */
+    static void saveUrns(String playlistUrn, List<?> urns) {
+        orderOf(playlistUrn).save(urns);
     }
 
     /**
@@ -130,17 +111,16 @@ public final class TrackOrder {
     private static void reload(List<Object> rows) {
         for (Object item : rows) {
             if (!isTrackRow(item)) continue;
-            String playlistUrn = String.valueOf(field(item, "c"));
-            Utils.runOnBackgroundThread(() -> LocalAdditions.notifyPlaylistChanged(playlistUrn));
+            String playlistUrn = String.valueOf(field(item, PLAYLIST_URN_FIELD));
+            Utils.runOnBackgroundThread(() -> PlaylistChanges.playlistChanged(playlistUrn));
             return;
         }
     }
 
+    /** A field of a row, looked up once per class: a drag reads every row of the playlist at each step. */
     private static Object field(Object item, String name) {
         try {
-            Field field = item.getClass().getDeclaredField(name);
-            field.setAccessible(true);
-            return field.get(item);
+            return app.revanced.extension.soundcloud.shared.Getters.field(item, name);
         } catch (Exception ex) {
             return null;
         }

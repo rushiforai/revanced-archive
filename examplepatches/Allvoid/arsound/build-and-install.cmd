@@ -1,10 +1,11 @@
 @echo off
 rem Builds the patches, patches the SoundCloud APK and installs it next to the original app.
-rem Usage: build-and-install.cmd [phone or emu] [china] [arm64]. Without phone or emu the APK goes to every connected
-rem device.
+rem Usage: build-and-install.cmd [phone or emu] [china] [arm64] [apiNN]. Without phone or emu the APK goes to every
+rem connected device.
 rem "china" builds Arsound for Chinese firmware: under the package of a Chinese music player, which the control centre
 rem player of vivo (and other firmwares with such a list) shows without any setup. It installs next to the usual build.
 rem "arm64" builds from the SoundCloud APK with phone libraries only: the smaller APK posted in the Telegram channel.
+rem "apiNN" (for example api29) is an experiment: the APK installs on Android from API level NN, below SoundCloud's 12L.
 rem Local files (APK, tools, signing key) live in the "local" folder, which is not committed.
 setlocal
 rem The patch names are in Russian.
@@ -13,8 +14,10 @@ cd /d "%~dp0"
 set "TARGET="
 set "VARIANT="
 set "ABI="
+set "MINSDK="
 :arguments
 if "%~1"=="" goto arguments_done
+set "ARG=%~1"
 if /i "%~1"=="phone" (
   set "TARGET=phone"
 ) else if /i "%~1"=="emu" (
@@ -23,15 +26,21 @@ if /i "%~1"=="phone" (
   set "VARIANT=china"
 ) else if /i "%~1"=="arm64" (
   set "ABI=arm64"
+) else if /i "%ARG:~0,3%"=="api" (
+  set "MINSDK=%ARG:~3%"
 ) else (
-  echo Unknown argument "%~1". Use phone or emu, or nothing for every connected device, china and arm64.
+  echo Unknown argument "%~1". Use phone or emu, or nothing for every connected device, china, arm64 and apiNN.
   exit /b 1
 )
 shift
 goto arguments
 :arguments_done
 
-if not defined JAVA_HOME set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot"
+rem Signing works only under this JDK: under others (Oracle 21.0.5, 18) revanced-cli fails with "Invalid password for keystore
+rem entry Arsound" although the password is right. So it is used even when JAVA_HOME already points somewhere else.
+set "SIGN_JDK=C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot"
+if exist "%SIGN_JDK%\bin\java.exe" set "JAVA_HOME=%SIGN_JDK%"
+if not defined JAVA_HOME set "JAVA_HOME=%SIGN_JDK%"
 if not defined ANDROID_HOME set "ANDROID_HOME=%LOCALAPPDATA%\Android\Sdk"
 set "APK_IN=local\apk\soundcloud-2026.10.14-merged.apk"
 set "APK_OUT=local\out\arsound-2026.10.14"
@@ -46,20 +55,20 @@ if "%VARIANT%"=="china" (
   set "APK_OUT=%APK_OUT%-china"
   set "PACKAGE_ARGS=-e "Change package name" -O "Package name=com.kugou.viper""
 )
+set "MINSDK_ARGS="
+if defined MINSDK (
+  set "APK_OUT=%APK_OUT%-api%MINSDK%"
+  set "MINSDK_ARGS=-e "Lower minimum Android version" -O "Min SDK=%MINSDK%""
+)
 set "APK_OUT=%APK_OUT%.apk"
-set "KEYSTORE=local\sc-revanced.keystore"
-set "KEYSTORE_ARGS="
-rem A keystore exported from ReVanced Manager lets the build update an app installed by Manager, keeping its data.
-if exist "local\manager.keystore" (
-  set "KEYSTORE=local\manager.keystore"
-  rem Its alias and key password, as shown in Manager under Import and export, are kept in local files next to it.
-  rem The keystore itself has no password.
-  set /p KEYSTORE_ALIAS=<"local\manager.keystore.alias"
-  set /p KEYSTORE_PASSWORD=<"local\manager.keystore.password"
+rem The Arsound signing key: a BKS keystore with the entry "Arsound" (certificate CN=Arsound). The keystore and the
+rem entry share one password, kept in a local file next to it. See BUILDING.md for how to create them.
+set "KEYSTORE=local\arsound.keystore"
+if not exist "%KEYSTORE%" (
+  echo Missing %KEYSTORE%. See BUILDING.md: the signing key.
+  exit /b 1
 )
-if exist "local\manager.keystore" (
-  set "KEYSTORE_ARGS=--keystore-entry-alias=%KEYSTORE_ALIAS% --keystore-entry-password=%KEYSTORE_PASSWORD%"
-)
+set /p KEYSTORE_PASSWORD=<"local\arsound.keystore.password"
 
 if not exist "%APK_IN%" (
   echo Missing %APK_IN%. See README: "Getting the SoundCloud APK".
@@ -86,8 +95,9 @@ rem The "Arsound: ..." groups include every patch of this project, with the opti
   -e "Arsound: сеть и батарея" ^
   -e "Arsound: без дубликатов" ^
   -e "Arsound: плеер" ^
-  %PACKAGE_ARGS% ^
-  --keystore "%KEYSTORE%" %KEYSTORE_ARGS% -t local\out\tmp ^
+  %PACKAGE_ARGS% %MINSDK_ARGS% ^
+  --keystore "%KEYSTORE%" --keystore-password=%KEYSTORE_PASSWORD% ^
+  --keystore-entry-alias=Arsound --keystore-entry-password=%KEYSTORE_PASSWORD% --signer Arsound -t local\out\tmp ^
   -o "%APK_OUT%" "%APK_IN%" > local\out\patch.log 2>&1
 set "PATCH_EXIT=%errorlevel%"
 type local\out\patch.log

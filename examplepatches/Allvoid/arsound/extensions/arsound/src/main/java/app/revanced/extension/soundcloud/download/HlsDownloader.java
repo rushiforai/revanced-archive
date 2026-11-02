@@ -1,32 +1,23 @@
 package app.revanced.extension.soundcloud.download;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.media.MediaMuxer;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BooleanSupplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +33,7 @@ import app.revanced.extension.soundcloud.network.RegionGuard;
  * <p>
  * The player already plays these streams, so the same steps are done by hand: the playlist is read,
  * the AES-128 key is fetched, and every segment is downloaded and decrypted into one file in
- * Music/Arsound. SoundCloud sends fragmented MP4, which is playable as soon as its {@code #EXT-X-MAP}
+ * the download folder (Music/Arsound unless the user picked another). SoundCloud sends fragmented MP4, which is playable as soon as its {@code #EXT-X-MAP}
  * headers are in place; a transport stream is remuxed into {@code .m4a} instead. Tracks that need a
  * subscription never reach this class.
  */
@@ -53,18 +44,32 @@ public final class HlsDownloader {
     private static final int SEGMENTS_AHEAD = PARALLEL_SEGMENTS * 2;
     /** The sequence number of an {@code #EXT-X-MAP} segment, which is never encrypted. */
     private static final int INITIALISATION_SEGMENT = -1;
+    /** A master may point to another master before reaching the audio playlist. */
+    private static final int MAX_PLAYLIST_DEPTH = 4;
     private static final Pattern KEY_ATTRIBUTE = Pattern.compile("([A-Z0-9-]+)=(\"[^\"]*\"|[^,]*)");
-    /** How many times a request that failed for a passing reason is sent again, after a pause of 1, 2 and 4 seconds. */
-    private static final int MAX_RETRIES = 3;
-    /** The longest pause before a new try, also for a longer Retry-After. */
-    private static final long MAX_RETRY_PAUSE_MS = 15_000;
     /** The start of the names of the cache files of an assembly. */
-    private static final String FILE_PREFIX = "arsound-hls-";
+    static final String FILE_PREFIX = "arsound-hls-";
     /** Files of an assembly older than this were left by a process that was killed. */
     private static final long STALE_FILE_MS = 30 * 60 * 1000L;
     private static final AtomicBoolean cacheSwept = new AtomicBoolean();
+    /** The room that must be left on the phone after an assembly started: the system needs some to keep running. */
+    static final long MIN_FREE_BYTES = 50L * 1024 * 1024;
 
     private HlsDownloader() {
+    }
+
+    /** The track was deleted while it was assembled, so the rest of the segments are not asked for. */
+    static final class CancelledException extends IOException {
+        CancelledException() {
+            super("The assembly was cancelled");
+        }
+    }
+
+    /** The phone has no room for the track. It leaves {@link #download}, so the caller can tell the user why. */
+    static final class NoSpaceException extends IOException {
+        NoSpaceException(String message) {
+            super(message);
+        }
     }
 
     /** One {@code #EXT-X-KEY} line: how the segments after it are encrypted. */
@@ -78,9 +83,10 @@ public final class HlsDownloader {
     private static final class Segment {
         final String url;
         final Key key;
-        final int sequence;
+        /** A long: the number of a playlist that has been running for a while does not fit an int. */
+        final long sequence;
 
-        Segment(String url, Key key, int sequence) {
+        Segment(String url, Key key, long sequence) {
             this.url = url;
             this.key = key;
             this.sequence = sequence;
@@ -90,56 +96,45 @@ public final class HlsDownloader {
     /**
      * Downloads, decrypts and packs an HLS track. Runs on the calling background thread.
      *
-     * @param playlistUrl The {@code .m3u8} URL resolved from the track metadata.
-     * @param mimeType    The mime type of the transcoding, used when the stream cannot be remuxed.
-     * @return The name of the saved file in Music/Arsound, or null if the track could not be saved.
+     * @param track     The {@code .m3u8} URL resolved from the track metadata, the mime type of the transcoding (used
+     *                  when the stream cannot be remuxed), and the title and artist that name and tag the file.
+     * @param location  Where the file is saved, read once when the download started.
+     * @param cancelled Asked between segments: once true, the rest are not downloaded and the result is null.
+     * @return The saved file with its location and media store row, or null if the track could not be saved.
+     * @throws NoSpaceException If the phone has no room for the track.
      */
-    static String download(Context context, String trackId, String playlistUrl, String mimeType) {
+    static DownloadIndex.Ref download(Context context, String trackId, TrackSource track, DownloadLocation location,
+                                      BooleanSupplier cancelled) throws NoSpaceException {
         sweepStaleFiles(context);
-        File transportStream = new File(context.getCacheDir(), FILE_PREFIX + trackId + ".ts");
-        File packed = new File(context.getCacheDir(), FILE_PREFIX + trackId + ".m4a");
-        File stripped = new File(context.getCacheDir(), FILE_PREFIX + trackId + ".mp4");
+        File cache = context.getCacheDir();
+        File transportStream = new File(cache, FILE_PREFIX + trackId + ".ts");
+        File packed = new File(cache, FILE_PREFIX + trackId + ".m4a");
+        File stripped = new File(cache, FILE_PREFIX + trackId + ".mp4");
         try {
-            List<Segment> segments = parsePlaylist(playlistUrl);
-            boolean hasAudio = false;
-            for (Segment segment : segments) hasAudio |= segment.sequence != INITIALISATION_SEGMENT;
-            if (!hasAudio) {
-                // Only the headers of a fragmented MP4 would be saved as a silent "complete" file.
-                Logger.printInfo(() -> "HLS playlist of " + trackId + " has no segments");
-                return null;
-            }
-            String method = segments.get(segments.size() - 1).key.method;
-            Logger.printInfo(() -> "HLS track " + trackId + ": " + segments.size() + " segments, key " + method);
+            requireFreeSpace(cache, MIN_FREE_BYTES);
+            Packed result = assemble(trackId, track.url, track.mimeType, new Parts(transportStream, packed, stripped),
+                    cancelled);
+            if (result == null) return null;
+            // "Artist - Title" when the track's data is known, the id otherwise.
+            String base = track.fileBase != null ? track.fileBase : "soundcloud-" + trackId;
 
-            writeDecrypted(segments, transportStream);
-
-            String fileName;
-            File source;
-            if (isFragmentedMp4(transportStream)) {
-                // Every segment brings its own index, and the first one covers only its own ten seconds: players that
-                // trust it show a track of ten seconds and stop there. A plain MP4 has the whole length in its header.
-                if (remux(transportStream, packed)) {
-                    source = packed;
-                } else if (dropSegmentIndexes(transportStream, stripped)) {
-                    // At least without the false length: the track plays through, only without a length.
-                    source = stripped;
-                    Logger.printInfo(() -> "HLS track " + trackId + " saved as fragments without their indexes");
-                } else {
-                    source = transportStream;
-                }
-                fileName = "soundcloud-" + trackId + ".m4a";
-            } else if (remux(transportStream, packed)) {
-                source = packed;
-                fileName = "soundcloud-" + trackId + ".m4a";
-            } else {
-                // Not a transport stream the system can read: save the decrypted bytes as they are.
-                source = transportStream;
-                fileName = "soundcloud-" + trackId + extensionFor(mimeType);
-                Logger.printInfo(() -> "HLS track " + trackId + " saved without remuxing");
-            }
-
-            return publish(context, source, fileName);
+            if (cancelled.getAsBoolean()) throw new CancelledException();
+            // Another track may already have this name (two uploads of one song): the id tells them apart.
+            return publish(context, location, result.file,
+                    DownloadTrackPatch.freeFileName(location, base + result.extension, trackId), track.title, track.artist);
+        } catch (CancelledException ex) {
+            Logger.printInfo(() -> "HLS assembly of " + trackId + " was cancelled");
+            return null;
+        } catch (NoSpaceException ex) {
+            Logger.printInfo(() -> "HLS track " + trackId + " has no room: " + ex.getMessage());
+            throw ex;
         } catch (Exception ex) {
+            // A write that failed on a full storage says only "ENOSPC" in a message that differs between systems.
+            if (cache.getUsableSpace() < MIN_FREE_BYTES / 2) {
+                NoSpaceException noSpace = new NoSpaceException("The storage ran full: " + ex);
+                Logger.printInfo(() -> "HLS track " + trackId + " has no room: " + noSpace.getMessage());
+                throw noSpace;
+            }
             Logger.printException(() -> "HLS download failure for " + trackId, ex);
             return null;
         } finally {
@@ -147,6 +142,86 @@ public final class HlsDownloader {
             delete(packed);
             delete(stripped);
         }
+    }
+
+    /** The working files of one assembly: the decrypted stream and its two packed forms. */
+    static final class Parts {
+        final File transportStream, packed, stripped;
+
+        Parts(File transportStream, File packed, File stripped) {
+            this.transportStream = transportStream;
+            this.packed = packed;
+            this.stripped = stripped;
+        }
+
+        void delete() {
+            HlsDownloader.delete(transportStream);
+            HlsDownloader.delete(packed);
+            HlsDownloader.delete(stripped);
+        }
+    }
+
+    /** The track packed into one file (one of the {@link Parts}), and the extension it plays under. */
+    static final class Packed {
+        final File file;
+        final String extension;
+
+        Packed(File file, String extension) {
+            this.file = file;
+            this.extension = extension;
+        }
+    }
+
+    static Packed assemble(String trackId, String playlistUrl, String mimeType, Parts parts, BooleanSupplier cancelled)
+            throws Exception {
+        return assemble(trackId, playlistUrl, mimeType, parts, cancelled, 0);
+    }
+
+    /**
+     * Downloads and decrypts the segments of a track and packs them into one file a player reads to the end.
+     *
+     * @param maxSegments A track of more segments is not assembled; 0 for any length.
+     * @return The packed file, or null if the playlist has no audio segments or too many.
+     * @throws CancelledException If {@code cancelled} turned true between segments.
+     * @throws NoSpaceException   If there is no room for the packed copies next to the stream.
+     */
+    static Packed assemble(String trackId, String playlistUrl, String mimeType, Parts parts, BooleanSupplier cancelled,
+                           int maxSegments) throws Exception {
+        List<Segment> segments = parsePlaylist(playlistUrl);
+        if (maxSegments > 0 && segments.size() > maxSegments) {
+            Logger.printInfo(() -> "HLS track " + trackId + " is too long to assemble ahead: " + segments.size() + " segments");
+            return null;
+        }
+        boolean hasAudio = false;
+        for (Segment segment : segments) hasAudio |= segment.sequence != INITIALISATION_SEGMENT;
+        if (!hasAudio) {
+            // Only the headers of a fragmented MP4 would be saved as a silent "complete" file.
+            Logger.printInfo(() -> "HLS playlist of " + trackId + " has no segments");
+            return null;
+        }
+        String method = segments.get(segments.size() - 1).key.method;
+        Logger.printInfo(() -> "HLS track " + trackId + ": " + segments.size() + " segments, key " + method);
+
+        File transportStream = parts.transportStream;
+        writeDecrypted(segments, transportStream, cancelled);
+        // Packing and publishing make one more copy of the track each, next to the decrypted stream.
+        requireFreeSpace(transportStream.getParentFile(), 2 * transportStream.length() + MIN_FREE_BYTES);
+
+        if (isFragmentedMp4(transportStream)) {
+            // Every segment brings its own index, and the first one covers only its own ten seconds: players that
+            // trust it show a track of ten seconds and stop there. A plain MP4 has the whole length in its header.
+            if (remux(transportStream, parts.packed)) return new Packed(parts.packed, ".m4a");
+            if (dropSegmentIndexes(transportStream, parts.stripped)) {
+                // At least without the false length: the track plays through, only without a length.
+                Logger.printInfo(() -> "HLS track " + trackId + " saved as fragments without their indexes");
+                return new Packed(parts.stripped, ".m4a");
+            }
+            return new Packed(transportStream, ".m4a");
+        }
+        if (remux(transportStream, parts.packed)) return new Packed(parts.packed, ".m4a");
+        // Not a transport stream the system can read: save the decrypted bytes as they are.
+        Logger.printInfo(() -> "HLS track " + trackId + " saved without remuxing");
+        return new Packed(transportStream, extensionFor(mimeType));
     }
 
     /**
@@ -196,8 +271,18 @@ public final class HlsDownloader {
         }
     }
 
-    private static void delete(File file) {
+    static void delete(File file) {
         if (file.exists() && !file.delete()) Logger.printInfo(() -> "Could not delete " + file);
+    }
+
+    /** The free space is checked after this many segments of the stream are written. */
+    private static final int SPACE_CHECK_EVERY = 20;
+
+    static void requireFreeSpace(File folder, long bytes) throws NoSpaceException {
+        long free = folder.getUsableSpace();
+        if (free < bytes) {
+            throw new NoSpaceException(free / (1024 * 1024) + " MB free, " + bytes / (1024 * 1024) + " MB needed");
+        }
     }
 
     /**
@@ -205,7 +290,7 @@ public final class HlsDownloader {
      * clean-up in {@link #download}. Done once per process, before its first assembly; the age keeps the files of
      * an assembly running next to it safe.
      */
-    private static void sweepStaleFiles(Context context) {
+    static void sweepStaleFiles(Context context) {
         if (!cacheSwept.compareAndSet(false, true)) return;
         try {
             File[] stale = context.getCacheDir().listFiles((directory, name) -> name.startsWith(FILE_PREFIX));
@@ -223,38 +308,112 @@ public final class HlsDownloader {
      * Whether the playlist is locked by FairPlay or Widevine. Such a stream hands out its key only to
      * a licence server inside a player, so it is left alone.
      */
-    static boolean isDrmProtected(String playlistUrl) {
+    static boolean isDrmProtected(String playlistUrl) throws IOException {
         try {
-            for (String rawLine : readText(playlistUrl).split("\n")) {
+            return isDrmProtected(playlistUrl, 0);
+        } catch (RegionGuard.BlockedException ex) {
+            throw ex;
+        } catch (IOException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new IOException("Could not inspect HLS playlist " + playlistUrl, ex);
+        }
+    }
+
+    private static boolean isDrmProtected(String playlistUrl, int depth) throws Exception {
+        if (depth >= MAX_PLAYLIST_DEPTH) throw new IOException("HLS playlist nesting is too deep");
+        String playlist = DownloadHttp.withRetry(() -> DownloadHttp.readText(playlistUrl));
+        String variant = null;
+        long variantBandwidth = -1;
+        long pendingBandwidth = -1;
+        boolean nextLineIsVariant = false;
+        boolean drmSeen = false;
+        for (String rawLine : playlist.split("\n")) {
                 String line = rawLine.trim();
-                if (!line.startsWith("#EXT-X-KEY:")) continue;
-                Key key = parseKey(line.substring("#EXT-X-KEY:".length()), playlistUrl);
+                if (line.isEmpty()) continue;
+                if (nextLineIsVariant && !line.startsWith("#")) {
+                    if (pendingBandwidth > variantBandwidth) {
+                        variant = absolute(playlistUrl, line);
+                        variantBandwidth = pendingBandwidth;
+                    }
+                    pendingBandwidth = -1;
+                    nextLineIsVariant = false;
+                    continue;
+                }
+                if (line.startsWith("#EXT-X-STREAM-INF:")) {
+                    pendingBandwidth = 0;
+                    Matcher attributes = KEY_ATTRIBUTE.matcher(line.substring("#EXT-X-STREAM-INF:".length()));
+                    while (attributes.find()) {
+                        if ("BANDWIDTH".equals(attributes.group(1))) {
+                            try { pendingBandwidth = Long.parseLong(attributes.group(2).replace("\"", "").trim()); }
+                            catch (NumberFormatException ignored) { pendingBandwidth = 0; }
+                        }
+                    }
+                    nextLineIsVariant = true;
+                    continue;
+                }
+                if (!line.startsWith("#EXT-X-KEY:") && !line.startsWith("#EXT-X-SESSION-KEY:")) continue;
+                int separator = line.indexOf(':');
+                Key key = parseKey(line.substring(separator + 1), playlistUrl);
                 // A key the app can fetch itself is an https link; DRM keys use skd:// or a key format of their own.
                 boolean plainKey = (key.uri == null || key.uri.startsWith("http")) && "identity".equals(key.keyFormat);
-                if (!plainKey || key.method.startsWith("SAMPLE-AES")) return true;
-            }
-            return false;
-        } catch (Exception ex) {
-            Logger.printInfo(() -> "Could not read the playlist of " + playlistUrl + ": " + ex);
-            return false;
+                if (!plainKey || key.method.startsWith("SAMPLE-AES")) {
+                     drmSeen = true;
+                     Logger.printInfo(() -> "DRM key found: method=" + key.method + " format=" + key.keyFormat + " uri=" + key.uri);
+                }
         }
+        // DRM is detected if any key requires a license server (not identity/HTTP)
+        if (drmSeen) {
+             Logger.printInfo(() -> "HLS playlist " + playlistUrl + " is DRM protected");
+         }
+         return drmSeen || (variant != null && isDrmProtected(variant, depth + 1));
     }
 
     // region playlist
 
     private static List<Segment> parsePlaylist(String playlistUrl) throws Exception {
-        String playlist = withRetry(() -> readText(playlistUrl));
+        return parsePlaylist(playlistUrl, 0);
+    }
+
+    private static List<Segment> parsePlaylist(String playlistUrl, int depth) throws Exception {
+        if (depth >= MAX_PLAYLIST_DEPTH) throw new IOException("HLS playlist nesting is too deep");
+        String playlist = DownloadHttp.withRetry(() -> DownloadHttp.readText(playlistUrl));
         List<Segment> segments = new ArrayList<>();
         Key key = new Key();
-        int sequence = 0;
+        long sequence = 0;
+        String variant = null;
+        long variantBandwidth = -1;
+        long pendingBandwidth = -1;
 
         for (String rawLine : playlist.split("\n")) {
             String line = rawLine.trim();
             if (line.isEmpty()) continue;
-            if (line.startsWith("#EXT-X-MEDIA-SEQUENCE:")) {
-                sequence = Integer.parseInt(line.substring("#EXT-X-MEDIA-SEQUENCE:".length()).trim());
+            if (line.startsWith("#EXT-X-STREAM-INF:")) {
+                Matcher attributes = KEY_ATTRIBUTE.matcher(line.substring("#EXT-X-STREAM-INF:".length()));
+                pendingBandwidth = -1;
+                while (attributes.find()) {
+                    if ("BANDWIDTH".equals(attributes.group(1))) {
+                        try { pendingBandwidth = Long.parseLong(attributes.group(2).replace("\"", "").trim()); }
+                        catch (NumberFormatException ignored) { pendingBandwidth = 0; }
+                    }
+                }
+            } else if (!line.startsWith("#") && pendingBandwidth >= 0) {
+                if (pendingBandwidth > variantBandwidth) {
+                    variant = absolute(playlistUrl, line);
+                    variantBandwidth = pendingBandwidth;
+                }
+                pendingBandwidth = -1;
+            } else if (line.startsWith("#EXT-X-MEDIA-SEQUENCE:")) {
+                String number = line.substring("#EXT-X-MEDIA-SEQUENCE:".length()).trim();
+                try {
+                    sequence = Long.parseLong(number);
+                } catch (NumberFormatException ex) {
+                    // The default IV of the segments is made from this number: guessing it would give a file of noise.
+                    throw new IOException("The playlist has an unreadable EXT-X-MEDIA-SEQUENCE: " + number);
+                }
             } else if (line.startsWith("#EXT-X-KEY:")) {
                 key = parseKey(line.substring("#EXT-X-KEY:".length()), playlistUrl);
+                requireSupportedKey(key);
             } else if (line.startsWith("#EXT-X-MAP:")) {
                 // Fragmented MP4 keeps its headers in a separate first segment; without it there is no file.
                 String uri = parseMapUri(line.substring("#EXT-X-MAP:".length()), playlistUrl);
@@ -263,7 +422,24 @@ public final class HlsDownloader {
                 segments.add(new Segment(absolute(playlistUrl, line), key, sequence++));
             }
         }
+        if (variant != null) return parsePlaylist(variant, depth + 1);
         return segments;
+    }
+
+    /** Refuses DRM and ciphers this assembler cannot handle, even if source inspection was inconclusive. */
+    private static void requireSupportedKey(Key key) throws IOException {
+        if ("NONE".equals(key.method)) return;
+        // FairPlay/Widevine hand their key out only to a licence server behind a CDM, so this assembler cannot
+        // decrypt them: such a track is downloaded through SoundCloud's native offline path instead, not here.
+        if (!"identity".equals(key.keyFormat) || key.method.startsWith("SAMPLE-AES")) {
+            throw new IOException("DRM-protected HLS (" + key.method + "/" + key.keyFormat + ") is not handled here");
+        }
+        if (!"AES-128".equals(key.method) && !"AES-CTR".equals(key.method)) {
+            throw new IOException("Unsupported HLS encryption method: " + key.method);
+        }
+        if (key.uri == null || !key.uri.startsWith("http")) {
+            throw new IOException("The HLS encryption key is not available as a regular HTTP resource");
+        }
     }
 
     private static String parseMapUri(String attributes, String playlistUrl) {
@@ -318,30 +494,48 @@ public final class HlsDownloader {
 
     // region segments
 
-    /** Downloads every segment, decrypts it and appends it to one file. */
-    private static void writeDecrypted(List<Segment> segments, File target) throws Exception {
+    /**
+     * Downloads every segment, decrypts it and appends it to one file.
+     *
+     * @throws CancelledException If {@code cancelled} turned true: the segments already on the way finish, no new
+     *                            ones are asked for.
+     */
+    private static void writeDecrypted(List<Segment> segments, File target, BooleanSupplier cancelled) throws Exception {
         java.util.concurrent.ExecutorService pool =
                 java.util.concurrent.Executors.newFixedThreadPool(PARALLEL_SEGMENTS);
+        // Kept for this track only: it is gone with the assembly instead of piling up for the life of the process.
+        Map<String, byte[]> keys = new java.util.concurrent.ConcurrentHashMap<>();
         try (FileOutputStream output = new FileOutputStream(target)) {
             // Segments are fetched in parallel, but written in their playlist order. Only a few are
             // submitted ahead of the one being written, so a slow first segment cannot pile up the rest in memory.
             java.util.ArrayDeque<java.util.concurrent.Future<byte[]>> pending = new java.util.ArrayDeque<>();
             int next = 0;
+            int written = 0;
+            long bytes = 0;
             while (next < segments.size() || !pending.isEmpty()) {
+                if (cancelled.getAsBoolean()) throw new CancelledException();
                 while (next < segments.size() && pending.size() < SEGMENTS_AHEAD) {
                     Segment segment = segments.get(next++);
-                    pending.add(pool.submit(() -> decrypt(segment)));
+                    pending.add(pool.submit(() -> decrypt(segment, keys)));
                 }
-                output.write(pending.poll().get());
+                byte[] data = pending.poll().get();
+                output.write(data);
+                bytes += data.length;
+                // The room for the rest of the stream and for the two copies packing makes is checked as it goes, from
+                // the size so far: an hour-long mix filled the storage before the check after the whole stream.
+                if (++written % SPACE_CHECK_EVERY == 0) {
+                    long expected = bytes * segments.size() / written;
+                    requireFreeSpace(target.getParentFile(), (expected - bytes) + 2 * expected + MIN_FREE_BYTES);
+                }
             }
         } finally {
             pool.shutdownNow();
         }
     }
 
-    private static byte[] decrypt(Segment segment) throws Exception {
+    private static byte[] decrypt(Segment segment, Map<String, byte[]> keys) throws Exception {
         // Only the download is repeated; a failure of the key or the cipher below would come out the same again.
-        byte[] data = withRetry(() -> readBytes(segment.url));
+        byte[] data = DownloadHttp.withRetry(() -> DownloadHttp.readBytes(segment.url));
         Key key = segment.key;
         if ("NONE".equals(key.method)) return data;
         // The headers of a fragmented MP4 come in the clear, and decrypting them would destroy them.
@@ -349,7 +543,7 @@ public final class HlsDownloader {
         // Saving the bytes of a track that says it is encrypted, without a key, would give a file that never plays.
         if (key.uri == null) throw new IOException("The playlist declares " + key.method + " but gives no key");
 
-        byte[] secret = keyBytes(key.uri);
+        byte[] secret = keyBytes(key.uri, keys);
         byte[] iv = key.iv != null ? key.iv : sequenceIv(segment.sequence);
         // AES-128 in CBC pads the last block of every segment; in CTR nothing is padded.
         boolean counterMode = key.method.contains("CTR");
@@ -376,21 +570,19 @@ public final class HlsDownloader {
     }
 
     /** Without an IV in the playlist, HLS uses the sequence number of the segment. */
-    private static byte[] sequenceIv(int sequence) {
+    private static byte[] sequenceIv(long sequence) {
         byte[] iv = new byte[16];
-        for (int i = 0; i < 4; i++) iv[15 - i] = (byte) (sequence >>> (8 * i));
+        for (int i = 0; i < 8; i++) iv[15 - i] = (byte) (sequence >>> (8 * i));
         return iv;
     }
 
-    private static final java.util.Map<String, byte[]> keyCache = new java.util.concurrent.ConcurrentHashMap<>();
-
-    /** One playlist uses one key for all of its segments, so it is fetched once. */
-    private static byte[] keyBytes(String uri) throws Exception {
-        byte[] cached = keyCache.get(uri);
+    /** One playlist uses one key for all of its segments, so it is fetched once and kept in {@code keys}. */
+    private static byte[] keyBytes(String uri, Map<String, byte[]> keys) throws Exception {
+        byte[] cached = keys.get(uri);
         if (cached != null) return cached;
-        byte[] key = withRetry(() -> readBytes(uri));
+        byte[] key = DownloadHttp.withRetry(() -> DownloadHttp.readBytes(uri));
         if (key.length != 16) throw new IOException("The AES key is " + key.length + " bytes, expected 16");
-        keyCache.put(uri, key);
+        keys.put(uri, key);
         return key;
     }
 
@@ -476,7 +668,7 @@ public final class HlsDownloader {
         }
     }
 
-    private static String extensionFor(String mimeType) {
+    static String extensionFor(String mimeType) {
         if (mimeType == null) return ".aac";
         if (mimeType.contains("mpeg")) return ".mp3";
         if (mimeType.contains("opus") || mimeType.contains("ogg")) return ".opus";
@@ -484,186 +676,28 @@ public final class HlsDownloader {
     }
 
     /**
-     * Moves the packed file into Music/Arsound, next to the files of the download manager.
-     * Since Android 10 an app cannot write there directly, so the media store creates the file.
+     * Moves the packed file into the download location, next to the files of the download manager.
+     * Since Android 10 an app cannot write into Music directly, so the media store creates the file; a folder the
+     * user picked is written through the document provider.
      *
-     * @return The name the file got. A file of an earlier install cannot be deleted, and the media store then
-     * names the new file "name (1)": the track has to remember that name, not the old file it cannot read.
+     * @return The saved file. The name differs from the one asked for when that was taken, for instance by a file of
+     * an earlier install that this one cannot see or remove: the media store then names the new file "name (1)", and
+     * the track has to remember that name.
      */
-    private static String publish(Context context, File packed, String fileName) throws Exception {
-        File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Arsound");
-        File target = new File(folder, fileName);
-        if (target.exists() && !target.delete()) Logger.printInfo(() -> "Could not replace " + target);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            if (!folder.isDirectory() && !folder.mkdirs()) throw new IOException("Music/Arsound could not be created");
-            copy(packed, new FileOutputStream(target));
-            return fileName;
-        }
-
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, mimeTypeOf(fileName));
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC + "/Arsound");
-        values.put(MediaStore.MediaColumns.IS_PENDING, 1);
-
-        Uri uri = context.getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
-        if (uri == null) throw new IOException("The file could not be created in Music/Arsound");
-        try {
-            OutputStream output = context.getContentResolver().openOutputStream(uri);
-            if (output == null) throw new IOException("The file could not be opened");
-            copy(packed, output);
-
-            ContentValues done = new ContentValues();
-            done.put(MediaStore.MediaColumns.IS_PENDING, 0);
-            context.getContentResolver().update(uri, done, null, null);
-        } catch (Exception ex) {
-            context.getContentResolver().delete(uri, null, null);
-            throw ex;
-        }
-        String saved = savedName(context, uri);
-        if (saved == null || saved.equals(fileName)) return fileName;
-        Logger.printInfo(() -> "Saved as " + saved + ": " + fileName + " belongs to an earlier install");
-        return saved;
-    }
-
-    /** The name the media store gave the file, or null if it cannot be asked. */
-    private static String savedName(Context context, Uri uri) {
-        try (android.database.Cursor cursor = context.getContentResolver()
-                .query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null)) {
-            return cursor != null && cursor.moveToFirst() ? cursor.getString(0) : null;
-        } catch (Exception ex) {
-            Logger.printInfo(() -> "Could not read the name of " + uri + ": " + ex);
-            return null;
-        }
-    }
-
-    /** The type has to match the extension, otherwise the media store appends one of its own. */
-    private static String mimeTypeOf(String fileName) {
-        if (fileName.endsWith(".m4a")) return "audio/mp4";
-        if (fileName.endsWith(".aac")) return "audio/aac";
-        if (fileName.endsWith(".opus")) return "audio/ogg";
-        return "audio/mpeg";
-    }
-
-    private static void copy(File source, OutputStream output) throws IOException {
-        try (InputStream input = new java.io.FileInputStream(source); OutputStream target = output) {
-            byte[] buffer = new byte[64 * 1024];
-            int read;
-            while ((read = input.read(buffer)) > 0) target.write(buffer, 0, read);
-        }
-    }
-
-    // endregion
-
-    // region network
-
-    /** A reply other than 200, with the pause the server asked for. */
-    private static final class HttpStatusException extends IOException {
-        final int code;
-        /** The Retry-After of the reply in milliseconds, or 0 if it gave no number of seconds. */
-        final long retryAfterMs;
-
-        HttpStatusException(int code, String url, long retryAfterMs) {
-            super("HTTP " + code + " for " + url);
-            this.code = code;
-            this.retryAfterMs = retryAfterMs;
-        }
-    }
-
-    private interface NetworkCall<T> {
-        T run() throws Exception;
-    }
-
-    /**
-     * Runs one request again after a failure that may pass by itself: a timeout, a dropped connection or a busy
-     * server. A single request of a track of hundreds of segments must not throw all the others away.
-     */
-    private static <T> T withRetry(NetworkCall<T> call) throws Exception {
-        for (int attempt = 0; ; attempt++) {
-            try {
-                return call.run();
-            } catch (IOException ex) {
-                // pool.shutdownNow() interrupts the threads of an assembly that has already failed.
-                if (attempt >= MAX_RETRIES || !isTransient(ex) || Thread.currentThread().isInterrupted()) throw ex;
-                long pause = ex instanceof HttpStatusException && ((HttpStatusException) ex).retryAfterMs > 0
-                        ? ((HttpStatusException) ex).retryAfterMs
-                        : Math.min(1000L << attempt, MAX_RETRY_PAUSE_MS);
-                int retry = attempt + 1;
-                Logger.printInfo(() -> "HLS request failed (" + ex + "), retry " + retry + " of " + MAX_RETRIES
-                        + " in " + pause + " ms");
-                Thread.sleep(pause);
-            }
-        }
-    }
-
-    /** Whether asking again can help. A refusal (403, 404), the region guard and a broken link would answer the same. */
-    private static boolean isTransient(IOException ex) {
-        if (ex instanceof RegionGuard.BlockedException || ex instanceof MalformedURLException) return false;
-        if (ex instanceof HttpStatusException) {
-            int code = ((HttpStatusException) ex).code;
-            return code == 408 || code == 429 || code >= 500;
-        }
-        return true;
-    }
-
-    private static byte[] readBytes(String url) throws Exception {
-        HttpURLConnection connection = open(url);
-        try (InputStream input = connection.getInputStream()) {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[64 * 1024];
-            int read;
-            while ((read = input.read(buffer)) > 0) output.write(buffer, 0, read);
-            return output.toByteArray();
-        } finally {
-            connection.disconnect();
-        }
-    }
-
-    private static String readText(String url) throws Exception {
-        HttpURLConnection connection = open(url);
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder body = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) body.append(line).append('\n');
-            return body.toString();
-        } finally {
-            connection.disconnect();
-        }
-    }
-
-    private static HttpURLConnection open(String url) throws Exception {
-        RegionGuard.throwIfBlocked(new URL(url).getHost());
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        boolean opened = false;
-        try {
-            connection.setConnectTimeout(15_000);
-            connection.setReadTimeout(30_000);
-            int code = connection.getResponseCode();
-            if (code != HttpURLConnection.HTTP_OK) throw new HttpStatusException(code, url, retryAfterMs(connection));
-            opened = true;
-            return connection;
-        } finally {
-            // A reply that failed to arrive must not leave its socket open, now that it is asked for again.
-            if (!opened) connection.disconnect();
-        }
-    }
-
-    /** The pause the server asked for in Retry-After, at most {@link #MAX_RETRY_PAUSE_MS}; 0 if it gave none. */
-    private static long retryAfterMs(HttpURLConnection connection) {
-        try {
-            String header = connection.getHeaderField("Retry-After");
-            if (header != null) {
-                long seconds = Long.parseLong(header.trim());
-                // Capped before the multiplication, so a huge number cannot overflow into a negative pause.
-                if (seconds > 0) return Math.min(seconds, MAX_RETRY_PAUSE_MS / 1000) * 1000;
-            }
-        } catch (NumberFormatException ignored) {
-            // A date instead of seconds: the growing pause is good enough.
-        }
-        return 0;
+    static DownloadIndex.Ref publish(Context context, DownloadLocation location, File packed, String fileName,
+                                     String title, String artist) throws Exception {
+        DownloadLocation.Saved saved = location.save(context, packed, fileName, FileNames.mimeTypeOf(fileName), title, artist);
+        if (saved.uri != null) MediaTags.tag(context, saved.uri, title, artist);
+        DownloadIndex.Ref file = new DownloadIndex.Ref(location.id(), saved.name, saved.uri == null ? null : saved.uri.toString());
+        DownloadIndex.noteSaved(context, file, packed.length());
+        return file;
     }
 
     // endregion
 }
+
+
+
+
+
+

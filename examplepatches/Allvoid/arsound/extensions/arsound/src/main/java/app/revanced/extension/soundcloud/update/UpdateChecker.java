@@ -2,6 +2,7 @@ package app.revanced.extension.soundcloud.update;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,12 +17,25 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Locale;
+import java.util.List;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
+import app.revanced.extension.soundcloud.debug.CrashLog;
+import app.revanced.extension.soundcloud.download.DownloadIndex;
+import app.revanced.extension.soundcloud.download.DownloadProgress;
+import app.revanced.extension.soundcloud.download.MusicAccess;
+import app.revanced.extension.soundcloud.download.ProgressPill;
 import app.revanced.extension.soundcloud.local.LocalSheet;
+import app.revanced.extension.soundcloud.local.WatchFolder;
+import app.revanced.extension.soundcloud.login.LoginLogsButton;
+import app.revanced.extension.soundcloud.network.NetworkBanner;
+import app.revanced.extension.soundcloud.permissions.WelcomePermissions;
+import app.revanced.extension.soundcloud.player.VivoMusicCard;
+import app.revanced.extension.soundcloud.search.SearchSourceSwitch;
 import app.revanced.extension.soundcloud.settings.Settings;
+import app.revanced.extension.soundcloud.shared.Lang;
+import app.revanced.extension.soundcloud.shared.Screens;
 
 /**
  * Checks the GitHub releases of Arsound for a newer version. Nothing is downloaded or installed by the app:
@@ -30,7 +44,7 @@ import app.revanced.extension.soundcloud.settings.Settings;
 @SuppressWarnings("unused")
 public final class UpdateChecker {
     /** Must match {@code version} in gradle.properties. */
-    public static final String VERSION = "0.9.3";
+    public static final String VERSION = "1.0.0";
 
     public static final String REPOSITORY_URL = "https://github.com/Allvoid/arsound";
     /** The ready APK of every version is posted here. */
@@ -54,18 +68,35 @@ public final class UpdateChecker {
     }
 
     private static WeakReference<Activity> resumedActivity = new WeakReference<>(null);
+    /** The release to offer, until the user has closed its sheet in any way. */
     private static Release pendingRelease;
+    /** The screen the sheet of {@link #pendingRelease} was put on, and the sheet. */
+    private static WeakReference<Activity> sheetActivity = new WeakReference<>(null);
+    private static WeakReference<Dialog> sheet = new WeakReference<>(null);
     private static boolean checkedThisLaunch;
 
     private UpdateChecker() {
     }
 
-    private static void guarded(String what, Runnable action) {
-        try {
-            action.run();
-        } catch (Exception ex) {
-            Logger.printException(() -> "Resume hook failed: " + what, ex);
-        }
+    /** The features that follow the screens, in the order they run on each screen. */
+    private static ScreenHooks screenHooks() {
+        return new ScreenHooks()
+                // The network of an app that is not on screen yet is blocked, so the check starts here.
+                .add("update check", activity -> startCheckOnce())
+                .add("update sheet", activity -> showPendingRelease())
+                .add("network banner", NetworkBanner::onActivityResumed, NetworkBanner::onActivityPaused)
+                .add("permissions", WelcomePermissions::onActivityResumed)
+                .add("music access", MusicAccess::onActivityResumed)
+                .add("download index", DownloadIndex::onActivityResumed)
+                .add("vivo card", VivoMusicCard::onActivityResumed)
+                .add("download progress", DownloadProgress::onActivityResumed, DownloadProgress::onActivityPaused)
+                .add("progress pill", ProgressPill::onActivityResumed)
+                .add("search switch", SearchSourceSwitch::onActivityResumed, SearchSourceSwitch::onActivityPaused)
+                .add("watch folder", WatchFolder::onActivityResumed)
+                .add("login logs", LoginLogsButton::onActivityResumed)
+                // Changes kept back to be written together reach the disk before the app may be ended in the background.
+                .add("batched preferences", activity -> {
+                }, activity -> app.revanced.extension.soundcloud.shared.BatchedPreferences.flushAll());
     }
 
     /**
@@ -74,31 +105,21 @@ public final class UpdateChecker {
      */
     public static void onApplicationCreate(Application application) {
         // First, so a crash anywhere after this is written down.
-        app.revanced.extension.soundcloud.debug.CrashLog.install(application);
+        CrashLog.install(application);
+        app.revanced.extension.soundcloud.player.SleepTimer.onAppStart(application);
+        app.revanced.extension.soundcloud.offline.NativeOffline.onAppStart(application);
+        ScreenHooks hooks = screenHooks();
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityResumed(Activity activity) {
                 resumedActivity = new WeakReference<>(activity);
-                // The network of an app that is not on screen yet is blocked, so the check starts here.
-                // One failing part must not crash the screen or stop the parts after it.
-                guarded("update check", UpdateChecker::startCheckOnce);
-                guarded("update sheet", UpdateChecker::showPendingRelease);
-                guarded("network banner", () -> app.revanced.extension.soundcloud.network.NetworkBanner.onActivityResumed(activity));
-                guarded("permissions", () -> app.revanced.extension.soundcloud.permissions.WelcomePermissions.onActivityResumed(activity));
-                guarded("music access", () -> app.revanced.extension.soundcloud.download.MusicAccess.onActivityResumed(activity));
-                guarded("vivo card", () -> app.revanced.extension.soundcloud.player.VivoMusicCard.onActivityResumed(activity));
-                guarded("download progress", () -> app.revanced.extension.soundcloud.download.DownloadProgress.onActivityResumed(activity));
-                guarded("progress pill", () -> app.revanced.extension.soundcloud.download.ProgressPill.onActivityResumed(activity));
-                guarded("search switch", () -> app.revanced.extension.soundcloud.search.SearchSourceSwitch.onActivityResumed(activity));
-                guarded("watch folder", () -> app.revanced.extension.soundcloud.local.WatchFolder.onActivityResumed(activity));
+                hooks.resumed(activity);
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
                 if (resumedActivity.get() == activity) resumedActivity = new WeakReference<>(null);
-                app.revanced.extension.soundcloud.network.NetworkBanner.onActivityPaused(activity);
-                app.revanced.extension.soundcloud.download.DownloadProgress.onActivityPaused(activity);
-                app.revanced.extension.soundcloud.search.SearchSourceSwitch.onActivityPaused(activity);
+                hooks.paused(activity);
             }
 
             @Override
@@ -187,40 +208,58 @@ public final class UpdateChecker {
         }
     }
 
-    /** Compares dotted numeric versions, ignoring any suffix such as "-beta". */
+    /** See {@link ReleaseVersion#compare}. */
     static int compareVersions(String first, String second) {
-        String[] a = first.split("[^0-9]+");
-        String[] b = second.split("[^0-9]+");
-        for (int i = 0; i < Math.max(a.length, b.length); i++) {
-            int x = i < a.length && !a[i].isEmpty() ? Integer.parseInt(a[i]) : 0;
-            int y = i < b.length && !b[i].isEmpty() ? Integer.parseInt(b[i]) : 0;
-            if (x != y) return Integer.compare(x, y);
-        }
-        return 0;
+        return ReleaseVersion.compare(first, second);
     }
 
+    /**
+     * Puts the sheet of the found release on the main screen. Not on any other: the launcher's screen that opens the
+     * main one closes at once and would take the sheet with it, so it flashed for a moment and was gone. The release
+     * stays pending until the user closes its sheet; a sheet lost with its screen (closed or made again) comes back on
+     * the next main screen.
+     */
     private static void showPendingRelease() {
         Activity activity = resumedActivity.get();
         Release release = pendingRelease;
-        if (activity == null || release == null || activity.isFinishing()) return;
-        pendingRelease = null;
-        showUpdateSheet(activity, release);
+        if (activity == null || release == null || activity.isFinishing() || !Screens.isMainActivity(activity)) return;
+        Dialog shown = sheet.get();
+        if (shown != null && shown.isShowing() && sheetActivity.get() == activity) return;
+        sheetActivity = new WeakReference<>(activity);
+        sheet = new WeakReference<>(showUpdateSheet(activity, release, () -> {
+            if (pendingRelease == release) pendingRelease = null;
+        }));
     }
 
     public static void showUpdateSheet(Context context, Release release) {
-        boolean russian = Locale.getDefault().getLanguage().equals("ru");
-        java.util.List<LocalSheet.Item> items =LocalSheet.items();
+        showUpdateSheet(context, release, () -> {
+        });
+    }
+
+    /**
+     * @param onClosed Runs when the user closes the sheet: with one of its rows, a swipe, a tap outside or back.
+     * @return The sheet, or null if it could not be shown.
+     */
+    private static Dialog showUpdateSheet(Context context, Release release, Runnable onClosed) {
+        boolean russian = Lang.russian();
+        List<LocalSheet.Item> items = LocalSheet.items();
         // Nothing is downloaded by the app: the user picks where to get the new version.
         items.add(new LocalSheet.Item(russian ? "Скачать APK в Telegram" : "Download the APK on Telegram",
-                "ic_actions_download", () -> openUrl(context, TELEGRAM_URL)));
+                "ic_actions_download", () -> {
+            onClosed.run();
+            openUrl(context, TELEGRAM_URL);
+        }));
         items.add(new LocalSheet.Item(russian ? "Патчи на GitHub (для ReVanced Manager)" : "Patches on GitHub (for ReVanced Manager)",
-                "ic_actions_link", () -> openUrl(context, release.url)));
-        items.add(new LocalSheet.Item(russian ? "Позже" : "Later", "ic_actions_close", null));
-        LocalSheet.show(context,
+                "ic_actions_link", () -> {
+            onClosed.run();
+            openUrl(context, release.url);
+        }));
+        items.add(new LocalSheet.Item(russian ? "Позже" : "Later", "ic_actions_close", onClosed));
+        return LocalSheet.show(context,
                 russian ? "Доступно обновление" : "Update available",
                 (russian ? "Arsound " + release.version + ", у вас " : "Arsound " + release.version + ", you have ")
                         + VERSION,
-                items);
+                items, onClosed);
     }
 
     public static void openUrl(Context context, String url) {

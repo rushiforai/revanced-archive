@@ -1,6 +1,7 @@
 package app.arsound.patches.soundcloud
 
 import app.arsound.patches.all.misc.packagename.changePackageNamePatch
+import app.arsound.patches.soundcloud.ads.hidePlanTransitionsPatch
 import app.arsound.patches.soundcloud.ads.playbackAdsPatch
 import app.arsound.patches.soundcloud.analytics.disableTelemetryPatch
 import app.arsound.patches.soundcloud.debug.playbackTimelinePatch
@@ -10,6 +11,7 @@ import app.arsound.patches.soundcloud.download.downloadTrackPatch
 import app.arsound.patches.soundcloud.download.headerDownloadButtonPatch
 import app.arsound.patches.soundcloud.library.hideImportBannerPatch
 import app.arsound.patches.soundcloud.local.localMusicPatch
+import app.arsound.patches.soundcloud.misc.SOUNDCLOUD_VERSION
 import app.arsound.patches.soundcloud.misc.account.accountTypePatch
 import app.arsound.patches.soundcloud.misc.permissions.removePhonePermissionPatch
 import app.arsound.patches.soundcloud.misc.playservices.playServicesDialogPatch
@@ -22,18 +24,28 @@ import app.arsound.patches.soundcloud.recommendations.forYouPatch
 import app.arsound.patches.soundcloud.misc.settings.settingsPatch
 import app.arsound.patches.soundcloud.network.networkPatch
 import app.arsound.patches.soundcloud.offline.downloadedPlaybackPatch
+import app.arsound.patches.soundcloud.offline.nativeOfflinePatch
+import app.arsound.patches.soundcloud.offline.offlinePlaybackGatePatch
 import app.arsound.patches.soundcloud.offline.offlineFirstPatch
 import app.arsound.patches.soundcloud.power.powerSavingPatch
+import app.arsound.patches.soundcloud.player.currentPlayStatePatch
 import app.arsound.patches.soundcloud.player.equalizerPatch
 import app.arsound.patches.soundcloud.player.listeningStatsPatch
+import app.arsound.patches.soundcloud.player.lyricsPatch
 import app.arsound.patches.soundcloud.player.mixWithOtherAppsPatch
 import app.arsound.patches.soundcloud.player.notificationArtworkPatch
 import app.arsound.patches.soundcloud.player.playModePatch
+import app.arsound.patches.soundcloud.player.playerCommentsPatch
+import app.arsound.patches.soundcloud.player.smoothSheetPatch
 import app.arsound.patches.soundcloud.player.streamCachePatch
+import app.arsound.patches.soundcloud.player.trackTransitionsPatch
 import app.arsound.patches.soundcloud.player.vivoMusicCardPatch
 import app.arsound.patches.soundcloud.recommendations.duplicateFilterPatch
+import app.arsound.patches.soundcloud.region.regionHintPatch
 import app.arsound.patches.soundcloud.upsell.hideSubscriptionOffersPatch
 import app.arsound.patches.soundcloud.widget.likesWidgetPatch
+import app.arsound.patches.soundcloud.widget.playerWidgetHeartPatch
+import app.arsound.patches.soundcloud.widget.squarePlayerWidgetPatch
 import app.revanced.patcher.patch.Patch
 import app.revanced.patcher.patch.bytecodePatch
 
@@ -45,8 +57,6 @@ import app.revanced.patcher.patch.bytecodePatch
  * compatible with the most visible patches across all patch sources, and the official ReVanced Patches have
  * four SoundCloud patches for an older version. With more Arsound patches, Manager suggests the right version.
  */
-
-private const val SOUNDCLOUD_VERSION = "2026.10.14-release"
 
 /** What every group needs: the Arsound settings screen, the icon and name, and installing next to the original. */
 private val basePatch = bytecodePatch {
@@ -83,8 +93,11 @@ val arsoundBaseGroup = arsoundGroup(
     playbackTimelinePatch,
     notificationArtworkPatch,
     playModePatch,
+    currentPlayStatePatch,
     vivoMusicCardPatch,
     likesWidgetPatch,
+    playerWidgetHeartPatch,
+    squarePlayerWidgetPatch,
 )
 
 @Suppress("unused")
@@ -94,6 +107,7 @@ val arsoundNoAdsGroup = arsoundGroup(
         "в интерфейсе.",
     playbackAdsPatch,
     hideSubscriptionOffersPatch,
+    hidePlanTransitionsPatch,
     hideImportBannerPatch,
     screenshotSharePatch,
 )
@@ -101,12 +115,14 @@ val arsoundNoAdsGroup = arsoundGroup(
 @Suppress("unused")
 val arsoundDownloadsGroup = arsoundGroup(
     "Arsound: скачивание",
-    "Скачивание доступных треков в «Музыка/Arsound» и воспроизведение скачанного из файла. Кнопки скачивания " +
-        "SoundCloud скачивают через Arsound.",
+    "Скачивание доступных треков в «Музыка/Arsound» или в любую выбранную папку, в том числе на SD-карте, и " +
+        "воспроизведение скачанного из файла. Кнопки скачивания SoundCloud скачивают через Arsound.",
     downloadTrackPatch,
     downloadedPlaybackPatch,
     headerDownloadButtonPatch,
     downloadButtonsPatch,
+    nativeOfflinePatch,
+    offlinePlaybackGatePatch,
 )
 
 @Suppress("unused")
@@ -129,6 +145,7 @@ val arsoundNetworkGroup = arsoundGroup(
     "Свой DNS, запрет выхода в сеть с IP выбранных стран, статус сети, вопрос перед проверкой устройства, экономия батареи.",
     networkPatch,
     powerSavingPatch,
+    regionHintPatch,
 )
 
 @Suppress("unused")
@@ -141,9 +158,15 @@ val arsoundRecommendationsGroup = arsoundGroup(
 @Suppress("unused")
 val arsoundPlayerGroup = arsoundGroup(
     "Arsound: плеер",
-    "Эквалайзер, размер и срок хранения кэша потоков, статистика прослушиваний, игра вместе с другими приложениями.",
+    "Эквалайзер, размер и срок хранения кэша потоков, статистика прослушиваний, игра вместе с другими приложениями, " +
+        "плавное сворачивание плеера, тексты песен, плавный переход между треками, загрузка следующего трека заранее, " +
+        "скрытие всплывающих комментариев.",
     streamCachePatch,
     listeningStatsPatch,
     equalizerPatch,
     mixWithOtherAppsPatch,
+    smoothSheetPatch,
+    lyricsPatch,
+    trackTransitionsPatch,
+    playerCommentsPatch,
 )

@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.soundcloud.settings.Settings;
+import app.revanced.extension.soundcloud.shared.PlaybackStreams;
+import app.revanced.extension.soundcloud.shared.Reflect;
 
 /**
  * Retries playback errors on a flaky connection instead of showing "Track cannot be streamed".
@@ -35,6 +37,8 @@ public final class PlaybackRetryPatch {
 
     private static Object retriedItem;
     private static int attempts;
+    /** A retry is posted and has not run yet; main thread only. */
+    private static boolean retryPending;
     private static long lastErrorAt;
 
     private PlaybackRetryPatch() {
@@ -65,10 +69,17 @@ public final class PlaybackRetryPatch {
                 return true;
             }
 
+            // A retry already waits: a state reported again meanwhile (a tap on pause) spends no attempt and queues no
+            // second prepare.
+            if (retryPending) return false;
             attempts++;
             int attempt = attempts;
             Logger.printInfo(() -> "Retrying playback, attempt " + attempt);
-            handler.postDelayed(() -> retry(player, item), RETRY_DELAY_MS * attempt);
+            retryPending = true;
+            handler.postDelayed(() -> {
+                retryPending = false;
+                retry(player, item);
+            }, RETRY_DELAY_MS * attempt);
             return false;
         } catch (Exception ex) {
             Logger.printException(() -> "Could not schedule playback retry", ex);
@@ -81,23 +92,30 @@ public final class PlaybackRetryPatch {
             // The user may have switched tracks while waiting.
             if (currentItem(player) != item) return;
 
-            Object exoPlayer = null;
-            for (Method method : baseClass(player).getDeclaredMethods()) {
-                if (method.getParameterTypes().length == 0
-                        && method.getReturnType().getName().equals("androidx.media3.exoplayer.ExoPlayer")
-                        && !java.lang.reflect.Modifier.isAbstract(method.getModifiers())) {
-                    method.setAccessible(true);
-                    exoPlayer = method.invoke(player);
-                    break;
-                }
+            Method exoPlayerGetter = Reflect.method(baseClass(player), method -> method.getParameterTypes().length == 0
+                    && method.getReturnType().getName().equals("androidx.media3.exoplayer.ExoPlayer")
+                    && !java.lang.reflect.Modifier.isAbstract(method.getModifiers()));
+            Object exoPlayer = exoPlayerGetter == null ? null : exoPlayerGetter.invoke(player);
+            if (exoPlayer == null) {
+                giveUp(player);
+                return;
             }
-            if (exoPlayer == null) return;
 
             Class<?> playerInterface = Class.forName("androidx.media3.common.Player", false, exoPlayer.getClass().getClassLoader());
             playerInterface.getMethod("prepare").invoke(exoPlayer);
         } catch (Exception ex) {
             Logger.printException(() -> "Playback retry failed", ex);
+            giveUp(player);
         }
+    }
+
+    /**
+     * The retry could not be made. The budget is spent, so the next report of the error (the player reports its error
+     * state again on the next change, a tap included) goes through to SoundCloud as fatal instead of waiting again.
+     */
+    private static void giveUp(Object player) {
+        attempts = MAX_ATTEMPTS;
+        Logger.printInfo(() -> "Playback retry not possible, the next error report is shown");
     }
 
     /**
@@ -114,7 +132,7 @@ public final class PlaybackRetryPatch {
                         && method.getReturnType().getName().equals(STREAM)) {
                     method.setAccessible(true);
                     Object stream = method.invoke(player, item);
-                    return stream != null && stream.getClass().getName().endsWith("Stream$FileStream");
+                    return PlaybackStreams.isFileStream(stream);
                 }
             }
         } catch (Exception ex) {
@@ -132,12 +150,7 @@ public final class PlaybackRetryPatch {
     }
 
     private static Object currentItem(Object player) throws Exception {
-        for (Field field : baseClass(player).getDeclaredFields()) {
-            if (field.getType().getName().equals("com.soundcloud.android.playback.core.PlaybackItem")) {
-                field.setAccessible(true);
-                return field.get(player);
-            }
-        }
-        return null;
+        Field field = Reflect.field(baseClass(player), Reflect.typeNamed("com.soundcloud.android.playback.core.PlaybackItem"));
+        return field == null ? null : field.get(player);
     }
 }

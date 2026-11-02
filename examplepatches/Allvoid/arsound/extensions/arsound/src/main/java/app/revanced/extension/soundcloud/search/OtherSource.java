@@ -10,8 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import app.arsound.shaded.newpipe.extractor.Image;
 import app.arsound.shaded.newpipe.extractor.InfoItem;
@@ -38,6 +42,8 @@ import app.arsound.shaded.newpipe.extractor.stream.AudioStream;
 import app.arsound.shaded.newpipe.extractor.stream.StreamInfo;
 import app.arsound.shaded.newpipe.extractor.stream.StreamInfoItem;
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.soundcloud.network.RegionGuard;
+import app.revanced.extension.soundcloud.network.StreamText;
 
 /**
  * Search and audio streams from YouTube Music, through NewPipeExtractor.
@@ -46,6 +52,8 @@ import app.revanced.extension.shared.Logger;
 public final class OtherSource {
     private static final String USER_AGENT =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0";
+    private static final int CONNECT_TIMEOUT_MS = 15_000;
+    private static final int READ_TIMEOUT_MS = 30_000;
     private static boolean initialized;
 
     private OtherSource() {
@@ -58,14 +66,46 @@ public final class OtherSource {
         public final long durationSeconds;
         /** The album cover, or null. */
         public final String coverUrl;
+        /** The same cover small, for the row of the list, or null. */
+        public final String thumbUrl;
 
-        Track(String url, String title, String artist, long durationSeconds, String coverUrl) {
+        Track(String url, String title, String artist, long durationSeconds, String coverUrl, String thumbUrl) {
             this.url = url;
             this.title = title;
             this.artist = artist;
             this.durationSeconds = durationSeconds;
             this.coverUrl = coverUrl;
+            this.thumbUrl = thumbUrl;
         }
+    }
+
+    /** The side, in pixels, the pictures of the list rows are asked for in: a 64 dp cell on a dense screen. */
+    private static final int THUMB_PX = 226;
+
+    /**
+     * A picture for a row of the list: YouTube Music sizes a cover or an avatar by its address, so the smallest one
+     * that still fills the row is asked for instead of the 544 px one kept for the downloaded file.
+     */
+    static String thumbUrl(List<Image> images) {
+        Image best = null;
+        for (Image image : images) {
+            if (best == null) {
+                best = image;
+                continue;
+            }
+            boolean bigEnough = image.getHeight() >= THUMB_PX;
+            boolean bestBigEnough = best.getHeight() >= THUMB_PX;
+            // The smallest picture that is big enough; while none is, the biggest.
+            if (bigEnough && (!bestBigEnough || image.getHeight() < best.getHeight())
+                    || !bigEnough && !bestBigEnough && image.getHeight() > best.getHeight()) {
+                best = image;
+            }
+        }
+        if (best == null) return null;
+        String url = best.getUrl();
+        if (url.contains("googleusercontent.com")) return url.replaceAll("=w\\d+-h\\d+[^/]*$", "=w" + THUMB_PX + "-h" + THUMB_PX);
+        if (url.contains("ggpht.com")) return url.replaceAll("=s\\d+", "=s" + THUMB_PX);
+        return url;
     }
 
     /**
@@ -98,10 +138,8 @@ public final class OtherSource {
             for (InfoItem item : info.getRelatedItems()) {
                 if (!(item instanceof StreamInfoItem)) continue;
                 StreamInfoItem stream = (StreamInfoItem) item;
-                String artist = stream.getUploaderName();
-                if (artist != null && artist.endsWith(" - Topic")) artist = artist.substring(0, artist.length() - 8);
-                tracks.add(new Track(stream.getUrl(), stream.getName(), artist == null ? "" : artist, stream.getDuration(),
-                        coverUrl(stream.getThumbnails())));
+                tracks.add(new Track(stream.getUrl(), stream.getName(), artistName(stream.getUploaderName()),
+                        stream.getDuration(), coverUrl(stream.getThumbnails()), thumbUrl(stream.getThumbnails())));
             }
             if (!tracks.isEmpty()) break;
         }
@@ -113,22 +151,28 @@ public final class OtherSource {
         public final String title;
         public final String artist;
         public final long trackCount;
+        /** The cover for the row, or null. */
+        public final String thumbUrl;
 
-        Album(String url, String title, String artist, long trackCount) {
+        Album(String url, String title, String artist, long trackCount, String thumbUrl) {
             this.url = url;
             this.title = title;
             this.artist = artist;
             this.trackCount = trackCount;
+            this.thumbUrl = thumbUrl;
         }
     }
 
     public static final class Artist {
         public final String url;
         public final String name;
+        /** The avatar for the row, or null. */
+        public final String thumbUrl;
 
-        Artist(String url, String name) {
+        Artist(String url, String name, String thumbUrl) {
             this.url = url;
             this.name = name;
+            this.thumbUrl = thumbUrl;
         }
     }
 
@@ -148,7 +192,7 @@ public final class OtherSource {
         PlaylistInfoItem playlist = (PlaylistInfoItem) item;
         String artist = artistName(playlist.getUploaderName());
         return new Album(playlist.getUrl(), playlist.getName(), artist.isEmpty() ? fallbackArtist : artist,
-                playlist.getStreamCount());
+                playlist.getStreamCount(), thumbUrl(playlist.getThumbnails()));
     }
 
     /** Albums and singles of YouTube Music. */
@@ -164,7 +208,7 @@ public final class OtherSource {
     public static List<Artist> searchArtists(String query) throws Exception {
         List<Artist> artists = new ArrayList<>();
         for (InfoItem item : searchItems(query, YoutubeSearchQueryHandlerFactory.MUSIC_ARTISTS)) {
-            if (item instanceof ChannelInfoItem) artists.add(new Artist(item.getUrl(), item.getName()));
+            if (item instanceof ChannelInfoItem) artists.add(new Artist(item.getUrl(), item.getName(), thumbUrl(item.getThumbnails())));
         }
         return artists;
     }
@@ -190,8 +234,10 @@ public final class OtherSource {
             String artist = artistName(stream.getUploaderName());
             // Tracks of an album share its cover.
             String cover = coverUrl(info.getThumbnails());
+            String thumb = album.thumbUrl != null ? album.thumbUrl : thumbUrl(info.getThumbnails());
             tracks.add(new Track(stream.getUrl(), stream.getName(), artist.isEmpty() ? album.artist : artist,
-                    stream.getDuration(), cover != null ? cover : coverUrl(stream.getThumbnails())));
+                    stream.getDuration(), cover != null ? cover : coverUrl(stream.getThumbnails()),
+                    thumb != null ? thumb : thumbUrl(stream.getThumbnails())));
         }
         return tracks;
     }
@@ -271,7 +317,7 @@ public final class OtherSource {
 
     /** The file size, which YouTube puts into the stream link. */
     public static long sizeOf(String url) throws IOException {
-        java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("[?&]clen=(\\d+)").matcher(url);
+        Matcher matcher = Pattern.compile("[?&]clen=(\\d+)").matcher(url);
         if (matcher.find()) return Long.parseLong(matcher.group(1));
         throw new IOException("No size in the stream link");
     }
@@ -281,11 +327,11 @@ public final class OtherSource {
      * without a range, so every read asks for its part with the {@code range} parameter.
      */
     public static byte[] readPart(String url, long position, int length) throws IOException {
-        app.revanced.extension.soundcloud.network.RegionGuard.throwIfBlockedAnyHost();
+        RegionGuard.throwIfBlockedAnyHost();
         HttpURLConnection connection = (HttpURLConnection) new URL(
                 url + "&range=" + position + "-" + (position + length - 1)).openConnection();
-        connection.setConnectTimeout(15_000);
-        connection.setReadTimeout(30_000);
+        connection.setConnectTimeout(CONNECT_TIMEOUT_MS);
+        connection.setReadTimeout(READ_TIMEOUT_MS);
         connection.setRequestProperty("User-Agent", USER_AGENT);
         try {
             int code = connection.getResponseCode();
@@ -298,14 +344,21 @@ public final class OtherSource {
                     if (n > 0) body = new String(head, 0, n, "UTF-8");
                 }
                 String info = "HTTP " + code + " " + body;
-                app.revanced.extension.shared.Logger.printInfo(() -> "Stream part refused: " + info);
+                Logger.printInfo(() -> "Stream part refused: " + info);
                 throw code == 403 ? new RefusedException(info) : new IOException(info);
             }
+            // A server that ignored the range sends the whole stream: written at the offset of the part, it would
+            // put the beginning of the song in its middle. More than the part asked for is refused.
+            long declared = connection.getContentLengthLong();
+            if (declared > length) throw new IOException("The server sent " + declared + " bytes for a part of " + length);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream(length);
             byte[] buffer = new byte[64 * 1024];
             try (InputStream input = connection.getInputStream()) {
                 int read;
-                while ((read = input.read(buffer)) != -1) bytes.write(buffer, 0, read);
+                while ((read = input.read(buffer)) != -1) {
+                    bytes.write(buffer, 0, read);
+                    if (bytes.size() > length) throw new IOException("The server sent more than the part of " + length);
+                }
             }
             return bytes.toByteArray();
         } finally {
@@ -319,6 +372,8 @@ public final class OtherSource {
         long total = sizeOf(url);
         long done = 0;
         while (done < total) {
+            // A download given up (a batch's time limit, a stop) ends at the next part instead of going on unseen.
+            if (Thread.currentThread().isInterrupted()) throw new java.io.InterruptedIOException("Download stopped");
             byte[] bytes = readPart(url, done, (int) Math.min(part, total - done));
             if (bytes.length == 0) throw new IOException("Empty part at " + done);
             output.write(bytes);
@@ -332,27 +387,41 @@ public final class OtherSource {
         private static final int PART = 256 * 1024;
         private final String url;
         private final long size;
-        private final Map<Long, byte[]> parts = new java.util.LinkedHashMap<Long, byte[]>(16, 0.75f, true) {
+        private final Map<Long, byte[]> parts = new LinkedHashMap<Long, byte[]>(16, 0.75f, true) {
             @Override
             protected boolean removeEldestEntry(Map.Entry<Long, byte[]> eldest) {
                 return size() > 24;
             }
         };
 
+        /** Set by {@link #close}: a read still on the network gives up when it comes back. */
+        private volatile boolean closed;
+
         public PartSource(String url) throws IOException {
             this.url = url;
             this.size = sizeOf(url);
         }
 
+        /**
+         * Not synchronized across the network: the read of a part waits up to the read timeout, and a stop of the
+         * preview (on the main thread) waited for it in close(). The kept parts are guarded on their own.
+         */
         @Override
-        public synchronized int readAt(long position, byte[] buffer, int offset, int length) throws IOException {
+        public int readAt(long position, byte[] buffer, int offset, int length) throws IOException {
+            if (closed) throw new IOException("Closed");
             if (position >= size) return -1;
             long index = position / PART;
-            byte[] part = parts.get(index);
+            byte[] part;
+            synchronized (parts) {
+                part = parts.get(index);
+            }
             if (part == null) {
                 long start = index * PART;
                 part = readPart(url, start, (int) Math.min(PART, size - start));
-                parts.put(index, part);
+                if (closed) throw new IOException("Closed");
+                synchronized (parts) {
+                    parts.put(index, part);
+                }
             }
             int inPart = (int) (position - index * PART);
             int count = Math.min(length, part.length - inPart);
@@ -367,20 +436,23 @@ public final class OtherSource {
         }
 
         @Override
-        public synchronized void close() {
-            parts.clear();
+        public void close() {
+            closed = true;
+            synchronized (parts) {
+                parts.clear();
+            }
         }
     }
 
     private static final class HttpDownloader extends Downloader {
         @Override
         public Response execute(Request request) throws IOException {
-            app.revanced.extension.soundcloud.network.RegionGuard.throwIfBlockedAnyHost();
+            RegionGuard.throwIfBlockedAnyHost();
             HttpURLConnection connection = (HttpURLConnection) new URL(request.url()).openConnection();
             // Disconnects also when the request or the read of the body fails.
             try {
-                connection.setConnectTimeout(15_000);
-                connection.setReadTimeout(30_000);
+                connection.setConnectTimeout(CONNECT_TIMEOUT_MS);
+                connection.setReadTimeout(READ_TIMEOUT_MS);
                 connection.setRequestMethod(request.httpMethod());
                 connection.setRequestProperty("User-Agent", USER_AGENT);
                 for (Map.Entry<String, List<String>> header : request.headers().entrySet()) {
@@ -396,15 +468,9 @@ public final class OtherSource {
                 int code = connection.getResponseCode();
                 String body = "";
                 try (InputStream input = code >= 400 ? connection.getErrorStream() : connection.getInputStream()) {
-                    if (input != null) {
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[16 * 1024];
-                        int read;
-                        while ((read = input.read(buffer)) != -1) bytes.write(buffer, 0, read);
-                        body = bytes.toString("UTF-8");
-                    }
+                    if (input != null) body = StreamText.readUtf8(input);
                 }
-                Map<String, List<String>> headers = new java.util.HashMap<>();
+                Map<String, List<String>> headers = new HashMap<>();
                 for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
                     if (header.getKey() != null) headers.put(header.getKey(), header.getValue());
                 }

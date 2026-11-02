@@ -9,7 +9,10 @@ import android.os.Looper;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Locale;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.ResourceType;
@@ -29,41 +32,17 @@ public final class PlayModeButton {
     /** The custom action of the media session, and the broadcast of the notification action. */
     public static final String ACTION = "app.arsound.action.PLAY_MODE";
 
-    private static final String QUEUE_MANAGER = "com.soundcloud.android.features.playqueue.PlayQueueManager";
-    private static final String PLAY_QUEUE = "com.soundcloud.android.foundation.playqueue.PlayQueue";
-    private static final String SHUFFLED_QUEUE = PLAY_QUEUE + "$Shuffled";
-    private static final String PLAY_QUEUE_ITEM = "com.soundcloud.android.foundation.playqueue.PlayQueueItem";
-    private static final String REPEAT_MODE = "com.soundcloud.android.foundation.domain.playqueue.RepeatMode";
     private static final String STATE_BUILDER = "android.support.v4.media.session.PlaybackStateCompat$Builder";
     private static final String STATE = "android.support.v4.media.session.PlaybackStateCompat";
+    private static final String CUSTOM_ACTION = STATE + "$CustomAction";
     private static final String NOTIFICATION_ACTION = "androidx.core.app.NotificationCompat$Action";
 
-    private enum Mode {
-        ORDER("arsound_play_mode_order", "По порядку", "In order"),
-        REPEAT_ALL("arsound_play_mode_repeat_all", "Повтор очереди", "Repeat queue"),
-        REPEAT_ONE("arsound_play_mode_repeat_one", "Повтор трека", "Repeat track"),
-        SHUFFLE("arsound_play_mode_shuffle", "Вперемешку", "Shuffle");
+    // States of PlaybackStateCompat.
+    private static final int STATE_PAUSED = 2;
+    private static final int STATE_PLAYING = 3;
+    private static final int STATE_BUFFERING = 6;
 
-        final String icon;
-        final String russian;
-        final String english;
-
-        Mode(String icon, String russian, String english) {
-            this.icon = icon;
-            this.russian = russian;
-            this.english = english;
-        }
-
-        String title() {
-            return "ru".equals(Locale.getDefault().getLanguage()) ? russian : english;
-        }
-
-        Mode next() {
-            return values()[(ordinal() + 1) % values().length];
-        }
-    }
-
-    private static final Handler main = new Handler(Looper.getMainLooper());
+    private static final Handler handler = new Handler(Looper.getMainLooper());
     private static volatile WeakReference<Object> queueManager = new WeakReference<>(null);
     private static volatile WeakReference<Object> mediaService = new WeakReference<>(null);
     private static volatile WeakReference<Object> notificationManager = new WeakReference<>(null);
@@ -83,6 +62,11 @@ public final class PlayModeButton {
     /** Injection point. The end of the play queue manager's constructor; the app has one. */
     public static void setQueueManager(Object manager) {
         queueManager = new WeakReference<>(manager);
+    }
+
+    /** SoundCloud's queue manager, or null before it is made. */
+    static Object queueManager() {
+        return queueManager.get();
     }
 
     // region Android 13 and later: the media session
@@ -125,10 +109,10 @@ public final class PlayModeButton {
             if (previous == null || previous.equals(actions)) return;
             int playback = (int) state.getClass().getMethod("getState").invoke(state);
             // Paused, playing or buffering: the notification is on screen. A stopped one must not come back.
-            if (playback != 2 && playback != 3 && playback != 6) return;
+            if (playback != STATE_PAUSED && playback != STATE_PLAYING && playback != STATE_BUFFERING) return;
             Object manager = notificationManager.get();
             if (manager == null) return;
-            main.post(() -> {
+            handler.post(() -> {
                 try {
                     manager.getClass().getMethod("d").invoke(manager);
                 } catch (Throwable ex) {
@@ -140,19 +124,77 @@ public final class PlayModeButton {
         }
     }
 
-    /** @return The state with the button among its custom actions, or the state as it was. */
+    /** The playback state classes looked up once: {@link #withAction} runs for every position update. */
+    private static final class StateApi {
+        /** {@code PlaybackStateCompat.Builder(PlaybackStateCompat)}: copies the state with its custom actions. */
+        final Constructor<?> copy;
+        final Method build;
+        final Method addCustomAction;
+        final Method getCustomActions;
+        final Method actionId;
+
+        StateApi() throws Exception {
+            Class<?> stateClass = Class.forName(STATE);
+            Class<?> builderClass = Class.forName(STATE_BUILDER);
+            copy = builderClass.getConstructor(stateClass);
+            build = builderClass.getMethod("build");
+            addCustomAction = builderClass.getMethod("addCustomAction", String.class, String.class, int.class);
+            getCustomActions = stateClass.getMethod("getCustomActions");
+            actionId = Class.forName(CUSTOM_ACTION).getMethod("getAction");
+        }
+    }
+
+    private static volatile StateApi stateApi;
+
+    private static StateApi stateApi() throws Exception {
+        StateApi known = stateApi;
+        if (known == null) {
+            known = new StateApi();
+            stateApi = known;
+        }
+        return known;
+    }
+
+    /**
+     * The state with the button as the last of its custom actions, whatever the state held before: the other actions
+     * keep their order and each stays once. SoundCloud's method that gets the state also gets it again whenever the
+     * metadata of a new track arrives (it hands the session's current state through once more), and after a tap on
+     * the button. Only adding the button each time put a second one in front of the like: Android lays the custom
+     * actions out in the order they were added, so the button took the like's place and the like the button's, until
+     * the next position update (seconds on a slow start, as long as playback is paused).
+     *
+     * @return The state with the button among its custom actions, or the state as it was.
+     */
+    @SuppressWarnings("unchecked")
     private static Object withAction(Object state) {
         if (state == null) return null;
         try {
-            Mode mode = currentMode();
-            if (mode == null) return state;
-            int icon = icon(mode);
-            if (icon == 0) return state;
-            Class<?> builderClass = Class.forName(STATE_BUILDER);
-            Object builder = builderClass.getConstructor(Class.forName(STATE)).newInstance(state);
-            builderClass.getMethod("addCustomAction", String.class, String.class, int.class)
-                    .invoke(builder, ACTION, mode.title(), icon);
-            return builderClass.getMethod("build").invoke(builder);
+            StateApi api = stateApi();
+            // A copy, never the state itself: SoundCloud edits the list of the state it is given in place, and the
+            // session keeps that object. The list of a freshly built state is its own.
+            Object clean = api.build.invoke(api.copy.newInstance(state));
+            List<Object> actions = (List<Object>) api.getCustomActions.invoke(clean);
+            Set<String> seen = new HashSet<>();
+            int dropped = 0;
+            for (Iterator<Object> it = actions.iterator(); it.hasNext(); ) {
+                String id = (String) api.actionId.invoke(it.next());
+                // Ours is added again below; a repeat of any other action (the like, the end of casting) is stale.
+                if (ACTION.equals(id) || !seen.add(id)) {
+                    it.remove();
+                    dropped++;
+                }
+            }
+            if (dropped > 0) {
+                int count = dropped;
+                Logger.printDebug(() -> "Play mode: dropped " + count + " stale actions");
+            }
+            PlayMode mode = currentMode();
+            int icon = mode == null ? 0 : icon(mode);
+            // No queue: no button, and no stale one either.
+            if (icon == 0) return clean;
+            Object builder = api.copy.newInstance(clean);
+            api.addCustomAction.invoke(builder, ACTION, mode.title(), icon);
+            return api.build.invoke(builder);
         } catch (Throwable ex) {
             Logger.printException(() -> "Play mode: could not add the button to the session", ex);
             return state;
@@ -166,7 +208,7 @@ public final class PlayModeButton {
      */
     public static boolean onCustomAction(String action) {
         if (!ACTION.equals(action)) return false;
-        main.post(PlayModeButton::cycle);
+        handler.post(PlayModeButton::cycle);
         return true;
     }
 
@@ -189,7 +231,7 @@ public final class PlayModeButton {
     private static void addNotificationAction(Object builder, Context context) {
         if (builder == null || context == null) return;
         try {
-            Mode mode = currentMode();
+            PlayMode mode = currentMode();
             if (mode == null) return;
             int icon = icon(mode);
             if (icon == 0) return;
@@ -220,63 +262,15 @@ public final class PlayModeButton {
         Object manager = queueManager.get();
         if (manager == null) return;
         try {
-            Mode current = currentMode();
+            PlayMode current = PlayMode.of(manager);
             if (current == null) return;
-            Mode next = current.next();
-            Class<?> repeatModes = Class.forName(REPEAT_MODE);
-            Method setRepeat = manager.getClass().getMethod("E", repeatModes, boolean.class);
-            switch (next) {
-                case REPEAT_ALL:
-                    setRepeat.invoke(manager, repeatMode(repeatModes, "REPEAT_ALL"), true);
-                    break;
-                case REPEAT_ONE:
-                    setRepeat.invoke(manager, repeatMode(repeatModes, "REPEAT_ONE"), true);
-                    break;
-                case SHUFFLE: {
-                    setRepeat.invoke(manager, repeatMode(repeatModes, "REPEAT_NONE"), true);
-                    // As SoundCloud's own shuffle button: the tracks after the current one are shuffled.
-                    Object queue = queue(manager);
-                    int position = (int) manager.getClass().getMethod("i").invoke(manager);
-                    int size = (int) queue.getClass().getMethod("size").invoke(queue);
-                    Object shuffled = queue.getClass().getMethod("shuffle", int.class)
-                            .invoke(queue, position + 1 >= size ? 0 : position + 1);
-                    manager.getClass().getMethod("C", Class.forName(PLAY_QUEUE)).invoke(manager, shuffled);
-                    break;
-                }
-                default: {
-                    Object queue = queue(manager);
-                    if (Class.forName(SHUFFLED_QUEUE).isInstance(queue)) {
-                        keepAddedItems(queue);
-                        manager.getClass().getMethod("F").invoke(manager);
-                    }
-                    setRepeat.invoke(manager, repeatMode(repeatModes, "REPEAT_NONE"), true);
-                    break;
-                }
-            }
+            PlayMode next = current.next();
+            next.applyTo(manager);
             Logger.printDebug(() -> "Play mode: " + current + " -> " + next);
             refresh();
         } catch (Throwable ex) {
             Logger.printException(() -> "Play mode: could not change the mode", ex);
         }
-    }
-
-    /**
-     * Tracks added after shuffling (autoplay recommendations, "Play next") are only in the shuffled queue.
-     * SoundCloud's unshuffle goes back to the queue from before the shuffle and throws if the playing track is not
-     * in it, so the mode stayed on "Shuffle" once autoplay had started. The added tracks are appended to that
-     * queue first, in the order they play now.
-     */
-    private static void keepAddedItems(Object shuffled) throws Exception {
-        Object original = shuffled.getClass().getMethod("getOriginalQueue").invoke(shuffled);
-        Method indexOf = original.getClass().getMethod("indexOfPlayQueueItem", Class.forName(PLAY_QUEUE_ITEM));
-        java.util.List<Object> added = new java.util.ArrayList<>();
-        for (Object item : (java.util.List<?>) shuffled.getClass().getMethod("items").invoke(shuffled)) {
-            if ((int) indexOf.invoke(original, item) < 0) added.add(item);
-        }
-        if (added.isEmpty()) return;
-        original.getClass().getMethod("addAllPlayQueueItems", java.util.List.class, String.class)
-                .invoke(original, added, "reco");
-        Logger.printDebug(() -> "Play mode: kept " + added.size() + " tracks added after shuffling");
     }
 
     /** Sends the last playback state again, so the session and the notification show the new mode. */
@@ -292,28 +286,12 @@ public final class PlayModeButton {
     }
 
     /** The mode of the current play queue, or null if there is no queue yet. */
-    private static Mode currentMode() throws Exception {
+    private static PlayMode currentMode() throws Exception {
         Object manager = queueManager.get();
-        if (manager == null) return null;
-        Object queue = queue(manager);
-        if (queue == null || (int) queue.getClass().getMethod("size").invoke(queue) == 0) return null;
-        if (Class.forName(SHUFFLED_QUEUE).isInstance(queue)) return Mode.SHUFFLE;
-        String repeat = String.valueOf(queue.getClass().getMethod("getRepeatMode").invoke(queue));
-        if ("REPEAT_ALL".equals(repeat)) return Mode.REPEAT_ALL;
-        if ("REPEAT_ONE".equals(repeat)) return Mode.REPEAT_ONE;
-        return Mode.ORDER;
+        return manager == null ? null : PlayMode.of(manager);
     }
 
-    private static Object queue(Object manager) throws Exception {
-        return manager.getClass().getMethod("k").invoke(manager);
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static Object repeatMode(Class<?> repeatModes, String name) {
-        return Enum.valueOf((Class) repeatModes, name);
-    }
-
-    private static int icon(Mode mode) {
+    private static int icon(PlayMode mode) {
         return Utils.getResourceIdentifier(ResourceType.DRAWABLE, mode.icon);
     }
 }

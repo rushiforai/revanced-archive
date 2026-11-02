@@ -3,7 +3,6 @@ package app.revanced.extension.soundcloud.offline;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -12,7 +11,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.soundcloud.download.DownloadTrackPatch;
-import app.revanced.extension.soundcloud.settings.Settings;
+import app.revanced.extension.soundcloud.shared.Reflect;
+import app.revanced.extension.soundcloud.shared.Rx;
 
 /**
  * Starts downloaded tracks from their file without waiting for SoundCloud.
@@ -37,7 +37,6 @@ import app.revanced.extension.soundcloud.settings.Settings;
  */
 @SuppressWarnings("unused")
 public final class InstantFilePlayback {
-    private static final long METADATA_WAIT_MS = 0;
     private static final Handler handler = new Handler(Looper.getMainLooper());
 
     /** A failure of its own, so it can be told apart from SoundCloud's shared failure. */
@@ -46,9 +45,10 @@ public final class InstantFilePlayback {
     private InstantFilePlayback() {
     }
 
-    private static File downloadedFile(Object trackUrn) {
+    /** The path of the downloaded file of the track, or the address of its media store row; null if none can be opened. */
+    private static String downloadedSource(Object trackUrn) {
         if (trackUrn == null) return null;
-        return DownloadTrackPatch.getDownloadedFile(DownloadTrackPatch.parseTrackId(trackUrn));
+        return DownloadTrackPatch.playableSource(DownloadTrackPatch.parseTrackId(trackUrn));
     }
 
     /**
@@ -61,33 +61,34 @@ public final class InstantFilePlayback {
      * @return A {@code Maybe} with a file playback item, or the original one.
      */
     public static Object playbackItem(Object maybe, Object trackSourceInfo, long position, Object trackUrn) {
-        File file = downloadedFile(trackUrn);
-        if (file == null) return maybe;
+        String source = downloadedSource(trackUrn);
+        if (source == null) return maybe;
         try {
             ClassLoader loader = maybe.getClass().getClassLoader();
-            Class<?> streamClass = type(loader, "com.soundcloud.android.playback.core.stream.Stream");
-            Class<?> fileStreamClass = type(loader, "com.soundcloud.android.playback.core.stream.Stream$FileStream");
-            Class<?> knownClass = type(loader, "com.soundcloud.android.playback.core.stream.Metadata$Known");
-            Class<?> streamsClass = type(loader, "com.soundcloud.android.playback.core.stream.Streams");
-            Class<?> itemClass = type(loader, "com.soundcloud.android.playback.AudioPlaybackItem");
+            Class<?> streamClass = Reflect.type(loader, "com.soundcloud.android.playback.core.stream.Stream");
+            Class<?> fileStreamClass = Reflect.type(loader, "com.soundcloud.android.playback.core.stream.Stream$FileStream");
+            Class<?> knownClass = Reflect.type(loader, "com.soundcloud.android.playback.core.stream.Metadata$Known");
+            Class<?> streamsClass = Reflect.type(loader, "com.soundcloud.android.playback.core.stream.Streams");
+            Class<?> itemClass = Reflect.type(loader, "com.soundcloud.android.playback.AudioPlaybackItem");
 
             // Same arguments as SoundCloud uses for imported files: no metadata, default flags.
             Object fileStream = fileStreamClass.getConstructor(String.class, knownClass, int.class)
-                    .newInstance(file.getPath(), null, 14);
-            Object none = type(loader, "com.soundcloud.android.playback.core.stream.Stream$None")
+                    .newInstance(source, null, 14);
+            Object none = Reflect.type(loader, "com.soundcloud.android.playback.core.stream.Stream$None")
                     .getConstructor().newInstance();
             Object streams = streamsClass.getConstructor(streamClass, streamClass).newInstance(fileStream, none);
             Object item = itemClass.getConstructor(streamsClass, long.class, long.class,
-                            type(loader, "com.soundcloud.android.playback.core.PlaybackItem$FadeOut"),
-                            type(loader, "com.soundcloud.android.foundation.attribution.TrackSourceInfo"),
-                            type(loader, "com.soundcloud.android.foundation.domain.TrackUrn"))
+                            Reflect.type(loader, "com.soundcloud.android.playback.core.PlaybackItem$FadeOut"),
+                            Reflect.type(loader, "com.soundcloud.android.foundation.attribution.TrackSourceInfo"),
+                            Reflect.type(loader, "com.soundcloud.android.foundation.domain.TrackUrn"))
                     .newInstance(streams, position, 0L, null, trackSourceInfo, trackUrn);
 
-            Class<?> maybeClass = type(loader, "io.reactivex.rxjava3.core.Maybe");
+            Class<?> maybeClass = Reflect.type(loader, "io.reactivex.rxjava3.core.Maybe");
             for (Method method : maybeClass.getMethods()) {
                 if (Modifier.isStatic(method.getModifiers())
                         && method.getReturnType().getSimpleName().equals("MaybeJust")) {
-                    Logger.printInfo(() -> "Playing downloaded file right away: " + trackUrn);
+                    Logger.printInfo(() -> "Playing downloaded file right away: " + trackUrn + " via "
+                            + DownloadedPlaybackPatch.route(source));
                     return method.invoke(null, item);
                 }
             }
@@ -111,11 +112,11 @@ public final class InstantFilePlayback {
             ClassLoader loader = metadata.getClass().getClassLoader();
             Object failure = instantFailure(loader);
 
-            Class<?> sourceClass = type(loader, "io.reactivex.rxjava3.core.ObservableSource");
+            Class<?> sourceClass = Reflect.type(loader, "io.reactivex.rxjava3.core.ObservableSource");
             Object delayedFailure = delayedItem(loader, sourceClass, failure);
 
             // merge(metadata, delayedFailure): whichever comes first is used to start playback.
-            return app.revanced.extension.soundcloud.shared.Rx.merge(metadata, delayedFailure);
+            return Rx.merge(metadata, delayedFailure);
         } catch (Exception ex) {
             Logger.printException(() -> "Could not limit the metadata wait", ex);
             return metadata;
@@ -136,7 +137,7 @@ public final class InstantFilePlayback {
     private static Object instantFailure(ClassLoader loader) throws Exception {
         Object failure = instantFailure;
         if (failure == null) {
-            Constructor<?> constructor = type(loader, "com.soundcloud.android.playback.players.queue.MediaMetadataFetchResult$Failure")
+            Constructor<?> constructor = Reflect.type(loader, "com.soundcloud.android.playback.players.queue.MediaMetadataFetchResult$Failure")
                     .getDeclaredConstructor();
             constructor.setAccessible(true);
             failure = constructor.newInstance();
@@ -145,10 +146,10 @@ public final class InstantFilePlayback {
         return failure;
     }
 
-    /** An ObservableSource that emits one item after {@link #METADATA_WAIT_MS} (on the next main loop turn) and completes. */
+    /** An ObservableSource that emits one item on the next main loop turn and completes. */
     private static Object delayedItem(ClassLoader loader, Class<?> sourceClass, Object value) throws Exception {
-        Class<?> disposableClass = type(loader, "io.reactivex.rxjava3.disposables.Disposable");
-        Class<?> observerClass = type(loader, "io.reactivex.rxjava3.core.Observer");
+        Class<?> disposableClass = Reflect.type(loader, "io.reactivex.rxjava3.disposables.Disposable");
+        Class<?> observerClass = Reflect.type(loader, "io.reactivex.rxjava3.core.Observer");
         Method onSubscribe = observerClass.getMethod("onSubscribe", disposableClass);
         Method onNext = observerClass.getMethod("onNext", Object.class);
         Method onComplete = observerClass.getMethod("onComplete");
@@ -165,7 +166,7 @@ public final class InstantFilePlayback {
                 return null;
             });
             onSubscribe.invoke(observer, disposable);
-            handler.postDelayed(() -> {
+            handler.post(() -> {
                 if (disposed.getAndSet(true)) return;
                 try {
                     Logger.printInfo(() -> "Starting the track without waiting for the metadata");
@@ -174,7 +175,7 @@ public final class InstantFilePlayback {
                 } catch (Exception ex) {
                     Logger.printException(() -> "Delayed metadata failure", ex);
                 }
-            }, METADATA_WAIT_MS);
+            });
             return null;
         });
     }
@@ -188,9 +189,5 @@ public final class InstantFilePlayback {
             default:
                 return "Arsound" + method.getDeclaringClass().getSimpleName();
         }
-    }
-
-    private static Class<?> type(ClassLoader loader, String name) throws ClassNotFoundException {
-        return Class.forName(name, false, loader);
     }
 }

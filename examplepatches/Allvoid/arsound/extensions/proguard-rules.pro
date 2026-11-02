@@ -20,3 +20,13 @@
 -dontwarn java.beans.**
 -dontwarn javax.script.**
 -dontwarn jdk.dynalink.**
+# sherpa-onnx (lyrics recognition): its native library finds these Java classes, their fields and methods by name.
+-keep class com.k2fsa.sherpa.onnx.** {
+  *;
+}
+
+# ONNX Runtime's Java glue for the voice separation (vendored, the native library is downloaded on demand):
+# the native code finds its classes, fields and methods by name.
+-keep class ai.onnxruntime.** {
+    *;
+}

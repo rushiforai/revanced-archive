@@ -127,7 +127,9 @@ public class Utils {
                 versionName = getPackageInfo().versionName;
             } catch (Exception ex) {
                 Logger.printException(() -> "Failed to get package info", ex);
-                versionName = "Unknown";
+                // Not kept: asked before the context was set (a content provider starts before the application), the
+                // next call reads the real name.
+                return "Unknown";
             }
         }
 
@@ -142,7 +144,8 @@ public class Utils {
                 applicationLabel = (String) applicationInfo.loadLabel(context.getPackageManager());
             } catch (Exception ex) {
                 Logger.printException(() -> "Failed to get application name", ex);
-                applicationLabel = "Unknown";
+                // Not kept, as for the version name.
+                return "Unknown";
             }
         }
 
@@ -240,9 +243,26 @@ public class Utils {
      * Tasks run at normal priority: file copies and downloads at max priority took frames from the screen
      * on weak phones.
      */
+    /** The most threads of the pool; a task beyond them waits in {@link #overflowPool}, not on a new thread. */
+    private static final int MAX_BACKGROUND_THREADS = 16;
+
+    /** Takes the tasks the pool has no thread for, one after another, in the order they came. */
+    private static final ThreadPoolExecutor overflowPool = new ThreadPoolExecutor(
+            1, 1, 10, TimeUnit.SECONDS, new java.util.concurrent.LinkedBlockingQueue<>(),
+            r -> {
+                Thread t = new Thread(r, "Arsound background overflow");
+                t.setPriority(Thread.NORM_PRIORITY);
+                return t;
+            });
+
+    static {
+        overflowPool.allowCoreThreadTimeOut(true);
+    }
+
     private static final ThreadPoolExecutor backgroundThreadPool = new ThreadPoolExecutor(
             3, // 3 threads always ready to go.
-            Integer.MAX_VALUE,
+            // A burst of tasks (a list binding many cells) started a thread for each one beyond the busy ones.
+            MAX_BACKGROUND_THREADS,
             10, // For any threads over the minimum, keep them alive 10 seconds after they go idle.
             TimeUnit.SECONDS,
             new SynchronousQueue<>(),
@@ -250,7 +270,8 @@ public class Utils {
                 Thread t = new Thread(r);
                 t.setPriority(Thread.NORM_PRIORITY);
                 return t;
-            });
+            },
+            (task, pool) -> overflowPool.execute(task));
 
     public static void runOnBackgroundThread(Runnable task) {
         backgroundThreadPool.execute(() -> {
@@ -325,8 +346,21 @@ public class Utils {
      * @see #getResourceIdentifierOrThrow(ResourceType, String)
      */
     public static int getResourceIdentifier(@Nullable ResourceType type, String resourceIdentifierName) {
-        return getResourceIdentifier(getContext(), type, resourceIdentifierName);
+        // The ids of the app's resources do not change while the process lives (a resource loader replaces values,
+        // not ids), and a lookup by name goes through the whole table: list cells asked for the same names on every
+        // bind. Kept per type and name.
+        String key = (type == null ? "" : type.value) + "/" + resourceIdentifierName;
+        Integer known = RESOURCE_IDS.get(key);
+        if (known != null) return known;
+        Context current = getContext();
+        if (current == null) return 0;
+        int id = getResourceIdentifier(current, type, resourceIdentifierName);
+        RESOURCE_IDS.put(key, id);
+        return id;
     }
+
+    /** The resource ids looked up by name, by "type/name". */
+    private static final java.util.Map<String, Integer> RESOURCE_IDS = new java.util.concurrent.ConcurrentHashMap<>();
 
     /**
      * @return zero, if the resource is not found.
@@ -436,8 +470,20 @@ public class Utils {
 
     public static Context getContext() {
         if (context == null) {
-            Logger.printException(() -> "Context is not set by extension hook, returning null",  null);
+            // With the caller's stack: a call before the hook set the context is a bug to find, not only to note.
+            Logger.printException(() -> "Context is not set by extension hook, returning null",
+                    new IllegalStateException("Asked for the context before it was set"));
         }
+        return context;
+    }
+
+    /**
+     * The context, or null before the hook set it, without the error {@link #getContext()} logs. For code that is
+     * itself part of logging (the log file): asking with getContext() there made every cold start log the error,
+     * because {@link #setContext} logs on purpose before it sets the context.
+     */
+    @Nullable
+    public static Context peekContext() {
         return context;
     }
 

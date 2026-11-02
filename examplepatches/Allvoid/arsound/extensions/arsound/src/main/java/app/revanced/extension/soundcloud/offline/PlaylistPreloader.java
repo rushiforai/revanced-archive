@@ -11,9 +11,17 @@ import java.util.concurrent.TimeUnit;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
+import app.revanced.extension.soundcloud.download.DownloadIndex;
+import app.revanced.extension.soundcloud.download.DownloadProgress;
+import app.revanced.extension.soundcloud.download.DownloadTrackPatch;
+import app.revanced.extension.soundcloud.download.UnplayedDownloads;
+import app.revanced.extension.soundcloud.local.LocalCovers;
+import app.revanced.extension.soundcloud.local.PlaylistTracks;
+import app.revanced.extension.soundcloud.local.RemovedTracks;
 import app.revanced.extension.soundcloud.local.SavedPlaylist;
 import app.revanced.extension.soundcloud.network.RegionGuard;
 import app.revanced.extension.soundcloud.settings.Settings;
+import app.revanced.extension.soundcloud.shared.Reflect;
 import app.revanced.extension.soundcloud.shared.Rx;
 
 /**
@@ -46,34 +54,72 @@ public final class PlaylistPreloader {
         started = true;
         Utils.runOnBackgroundThread(() -> {
             try {
-                Thread.sleep(START_DELAY_MS);
-                app.revanced.extension.soundcloud.download.UnplayedDownloads.runAtStart();
-                if (!RegionGuard.blocksLastCountry()) {
-                    app.revanced.extension.soundcloud.download.DownloadTrackPatch.rememberOldFileNames();
-                }
-                // The library cells show how many tracks each playlist has and how many play from a file.
-                // Read from the database only, before the slower preload.
-                List<String> library = new ArrayList<>();
-                List<Object> playlists = new ArrayList<>();
-                for (Object item : libraryItems("LOCAL_ONLY")) {
-                    library.add(String.valueOf(item.getClass().getMethod("getUrn").invoke(item)));
-                    playlists.add(item.getClass().getMethod("getPlaylist").invoke(item));
-                }
-                app.revanced.extension.soundcloud.local.PlaylistTracks.recordAll(library);
-                app.revanced.extension.soundcloud.download.DownloadProgress.redrawNow();
-                // Covers first: a few small pictures, while the track lists take a while.
-                if (Settings.isPlaylistPreloadEnabled()) {
-                    app.revanced.extension.soundcloud.local.LocalCovers.keepOfflineCopies(playlists);
-                }
-                preload();
-                // Downloaded tracks deleted on SoundCloud before their playlists were watched.
-                if (!RegionGuard.blocksLastCountry()) {
-                    app.revanced.extension.soundcloud.local.RemovedTracks.sweepDownloads();
-                }
+                runAfterStart();
             } catch (Exception ex) {
                 Logger.printException(() -> "Playlist preload failed", ex);
             }
         });
+    }
+
+    /** What the app does for its library a little after start, in this order. */
+    private static void runAfterStart() throws Exception {
+        Thread.sleep(START_DELAY_MS);
+        UnplayedDownloads.runAtStart();
+        adoptEarlierDownloads();
+        sweepCutOffDownloads();
+        if (!RegionGuard.blocksLastCountry()) {
+            DownloadTrackPatch.rememberOldFileNames();
+        }
+        List<Object> playlists = recordLibrary();
+        DownloadProgress.redrawNow();
+        // Covers first: a few small pictures, while the track lists take a while.
+        if (Settings.isPlaylistPreloadEnabled()) {
+            LocalCovers.keepOfflineCopies(playlists);
+        }
+        preload();
+        // Downloaded tracks deleted on SoundCloud before their playlists were watched.
+        if (!RegionGuard.blocksLastCountry()) {
+            RemovedTracks.sweepDownloads();
+        }
+    }
+
+    /**
+     * Files of downloads the app lost the record of (a reinstall, another signature): no network needed, the track
+     * id is in their names. Only while the app knows of no download: the tracks the user deleted must not come back
+     * from copies at every start.
+     */
+    private static void adoptEarlierDownloads() {
+        try {
+            DownloadIndex.adoptAtStart(Utils.getContext());
+        } catch (Exception ex) {
+            Logger.printException(() -> "Could not take over the files of earlier downloads", ex);
+        }
+    }
+
+    /** Half written files that a killed process left in a folder of the user, and files that could not be removed while their card was out. */
+    private static void sweepCutOffDownloads() {
+        try {
+            DownloadIndex.sweepAtStart(Utils.getContext());
+        } catch (Exception ex) {
+            Logger.printException(() -> "Could not clean up after cut off downloads", ex);
+        }
+    }
+
+    /**
+     * The library cells show how many tracks each playlist has and how many play from a file. Read from the
+     * database only, before the slower preload.
+     *
+     * @return The playlists of the library.
+     */
+    private static List<Object> recordLibrary() throws Exception {
+        List<String> library = new ArrayList<>();
+        List<Object> playlists = new ArrayList<>();
+        for (Object item : libraryItems("LOCAL_ONLY")) {
+            library.add(String.valueOf(item.getClass().getMethod("getUrn").invoke(item)));
+            playlists.add(item.getClass().getMethod("getPlaylist").invoke(item));
+        }
+        PlaylistTracks.recordAll(library);
+        return playlists;
     }
 
     private static SharedPreferences preferences() {
@@ -97,10 +143,9 @@ public final class PlaylistPreloader {
 
         ClassLoader loader = operations.getClass().getClassLoader();
         List<String> urns = libraryPlaylists(operations, loader);
-        Object syncInitiator = syncInitiator(playlistOperations, loader);
-        Class<?> urnClass = Class.forName("com.soundcloud.android.foundation.domain.Urn", false, loader);
+        Class<?> urnClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.Urn");
 
-        int synced = 0, skipped = 0;
+        int synced = 0, skipped = 0, failedInRow = 0;
         for (String urn : urns) {
             if (!Settings.isPlaylistPreloadEnabled()) return;
             long last = preferences.getLong(urn, 0);
@@ -108,19 +153,41 @@ public final class PlaylistPreloader {
                 skipped++;
                 continue;
             }
+            // A playlist that failed waits longer after each failure (a day, two, four, up to a week): one the server
+            // does not give was asked for, with its wait, at every start.
+            int failures = preferences.getInt(FAILURES_PREFIX + urn, 0);
+            long failedAt = preferences.getLong(FAILED_AT_PREFIX + urn, 0);
+            if (failures > 0 && System.currentTimeMillis() - failedAt < Math.min(MAX_BACKOFF_MS, BACKOFF_MS << Math.min(failures - 1, 3))) {
+                skipped++;
+                continue;
+            }
             String id = urn.substring(urn.lastIndexOf(':') + 1);
             Object playlistUrn = urnClass.getMethod("forPlaylist", String.class).invoke(null, id);
-            Object single = syncInitiator.getClass().getMethod("d", urnClass).invoke(syncInitiator, playlistUrn);
-            Object result = Rx.blockingFirst(single, SYNC_TIMEOUT_S, TimeUnit.SECONDS);
-            if (result != null) {
-                preferences.edit().putLong(urn, System.currentTimeMillis()).apply();
+            if (syncAndWait(playlistOperations, playlistUrn)) {
+                preferences.edit().putLong(urn, System.currentTimeMillis())
+                        .remove(FAILURES_PREFIX + urn).remove(FAILED_AT_PREFIX + urn).apply();
                 synced++;
+                failedInRow = 0;
+            } else {
+                preferences.edit().putInt(FAILURES_PREFIX + urn, failures + 1)
+                        .putLong(FAILED_AT_PREFIX + urn, System.currentTimeMillis()).apply();
+                // Failures one after another mean the network or the server is down: the rest waits for the next start.
+                if (++failedInRow >= MAX_FAILED_IN_ROW) {
+                    Logger.printInfo(() -> "Playlist preload: stopped after " + MAX_FAILED_IN_ROW + " failures in a row");
+                    break;
+                }
             }
             Thread.sleep(PAUSE_MS);
         }
         int total = urns.size(), done = synced, fresh = skipped;
         Logger.printInfo(() -> "Playlist preload: " + total + " in library, saved " + done + ", already fresh " + fresh);
     }
+
+    /** The failures of a playlist in a row and the time of the last one, by urn. */
+    private static final String FAILURES_PREFIX = "failures:", FAILED_AT_PREFIX = "failed_at:";
+    private static final long BACKOFF_MS = 24L * 60 * 60 * 1000;
+    private static final long MAX_BACKOFF_MS = 7 * BACKOFF_MS;
+    private static final int MAX_FAILED_IN_ROW = 5;
 
     /** Urns of the playlists and albums in the library, as SoundCloud lists them (liked and own). */
     private static List<String> libraryPlaylists(Object operations, ClassLoader loader) throws Exception {
@@ -151,16 +218,16 @@ public final class PlaylistPreloader {
     }
 
     private static List<Object> libraryItems(Object operations, ClassLoader loader, String strategy) throws Exception {
-        Class<?> optionsClass = Class.forName("com.soundcloud.android.foundation.domain.playable.PlaylistsOptions", false, loader);
-        Class<?> sortByClass = Class.forName("com.soundcloud.android.foundation.domain.playable.SortBy", false, loader);
-        Class<?> markerClass = Class.forName("kotlin.jvm.internal.DefaultConstructorMarker", false, loader);
+        Class<?> optionsClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.playable.PlaylistsOptions");
+        Class<?> sortByClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.playable.SortBy");
+        Class<?> markerClass = Reflect.type(loader, "kotlin.jvm.internal.DefaultConstructorMarker");
         Constructor<?> defaults = optionsClass.getConstructor(sortByClass, boolean.class, boolean.class, boolean.class, int.class, markerClass);
         // Sorting is only the order of the list; the flags keep their defaults (likes and posts).
         Object sortBy = ((Object[]) sortByClass.getMethod("values").invoke(null))[0];
         Object options = defaults.newInstance(sortBy, false, false, false, 0b1110, null);
 
-        Class<?> filterClass = Class.forName("com.soundcloud.android.foundation.domain.playable.FilterAndSortOptions", false, loader);
-        Class<?> strategyClass = Class.forName("com.soundcloud.android.foundation.domain.repository.LoadStrategy", false, loader);
+        Class<?> filterClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.playable.FilterAndSortOptions");
+        Class<?> strategyClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.repository.LoadStrategy");
         Object loadStrategy = strategyClass.getMethod("valueOf", String.class).invoke(null, strategy);
         Object observable = operations.getClass().getMethod("myPlaylists", filterClass, strategyClass)
                 .invoke(operations, options, loadStrategy);
@@ -171,14 +238,25 @@ public final class PlaylistPreloader {
         return items;
     }
 
+    /**
+     * Loads a playlist from SoundCloud into its database and waits until that is done. Blocks: call it off the main thread.
+     *
+     * @param playlistOperations The {@code PlaylistOperations} of SoundCloud.
+     * @param playlistUrn        The {@code Urn} of the playlist.
+     * @return False if SoundCloud gave no answer in time.
+     */
+    public static boolean syncAndWait(Object playlistOperations, Object playlistUrn) throws Exception {
+        ClassLoader loader = playlistOperations.getClass().getClassLoader();
+        Class<?> urnClass = Reflect.type(loader, "com.soundcloud.android.foundation.domain.Urn");
+        Object syncInitiator = syncInitiator(playlistOperations, loader);
+        Object single = syncInitiator.getClass().getMethod("d", urnClass).invoke(syncInitiator, playlistUrn);
+        return Rx.blockingFirst(single, SYNC_TIMEOUT_S, TimeUnit.SECONDS) != null;
+    }
+
     private static Object syncInitiator(Object playlistOperations, ClassLoader loader) throws Exception {
-        Class<?> type = Class.forName("com.soundcloud.android.sync.SyncInitiator", false, loader);
-        for (Field field : playlistOperations.getClass().getDeclaredFields()) {
-            if (field.getType() == type) {
-                field.setAccessible(true);
-                return field.get(playlistOperations);
-            }
-        }
-        throw new IllegalStateException("SyncInitiator not found");
+        Class<?> type = Reflect.type(loader, "com.soundcloud.android.sync.SyncInitiator");
+        Field initiator = Reflect.field(playlistOperations.getClass(), Reflect.typeIs(type));
+        if (initiator == null) throw new IllegalStateException("SyncInitiator not found");
+        return initiator.get(playlistOperations);
     }
 }

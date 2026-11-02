@@ -13,12 +13,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.shared.Rx;
 
 /**
@@ -41,7 +46,37 @@ public final class LocalMusic {
 
     private static volatile Object playbackInitiator;
 
+    /**
+     * The listing of the import folder, kept while the folder is unchanged: its time changes with every file added or
+     * removed. Many paths ask for it (the likes, the imported playlist, the storage screen), some on the main thread,
+     * and a folder of thousands of files took a stat per comparison of the sort.
+     */
+    private static final class Listing {
+        final long folderTime;
+        final int version;
+        final List<File> newestFirst;
+
+        Listing(long folderTime, int version, List<File> newestFirst) {
+            this.folderTime = folderTime;
+            this.version = version;
+            this.newestFirst = newestFirst;
+        }
+    }
+
+    private static volatile Listing listing;
+    /** Bumped by every change the app makes to the folder, which may come within the precision of its time. */
+    private static final java.util.concurrent.atomic.AtomicInteger listingVersion = new java.util.concurrent.atomic.AtomicInteger();
+    /** The tags of the imported files, read once per file and kept while its size and time stay the same. */
+    private static final Map<String, Track> TRACKS = new java.util.concurrent.ConcurrentHashMap<>();
+    /** Set while a check of the loaded tracks against their files waits: a batch of downloads adds many at once. */
+    private static final AtomicBoolean staleCheckQueued = new AtomicBoolean();
+
     private LocalMusic() {
+    }
+
+    /** The folder changed: the next listing reads it again. */
+    private static void folderChanged() {
+        listingVersion.incrementAndGet();
     }
 
     /** Called from the constructor of {@code PlaybackInitiator}. */
@@ -70,25 +105,52 @@ public final class LocalMusic {
         return directory;
     }
 
-    /** Imported files, newest first, without reading their metadata. */
+    /** Imported files, newest first, without reading their metadata. A copy the caller may change. */
     public static List<File> getFiles(Context context) {
-        File[] files = directory(context).listFiles(File::isFile);
+        File directory = directory(context);
+        long folderTime = directory.lastModified();
+        int version = listingVersion.get();
+        Listing kept = listing;
+        if (kept != null && kept.folderTime == folderTime && kept.version == version && folderTime != 0) {
+            return new ArrayList<>(kept.newestFirst);
+        }
+        File[] files = directory.listFiles(File::isFile);
         List<File> result = new ArrayList<>();
         if (files == null) return result;
-        Arrays.sort(files, (x, y) -> Long.compare(y.lastModified(), x.lastModified()));
-        result.addAll(Arrays.asList(files));
+        // The time of each file is read once, not twice per comparison.
+        long[] times = new long[files.length];
+        Integer[] order = new Integer[files.length];
+        for (int i = 0; i < files.length; i++) {
+            times[i] = files[i].lastModified();
+            order[i] = i;
+        }
+        Arrays.sort(order, (x, y) -> Long.compare(times[y], times[x]));
+        for (Integer i : order) result.add(files[i]);
+        listing = new Listing(folderTime, version, java.util.Collections.unmodifiableList(new ArrayList<>(result)));
         return result;
     }
 
-    /** Imported tracks, newest first. Reads metadata from the files, so call it off the main thread. */
+    /**
+     * Imported tracks, newest first. Reads the tags of the files it has not read before (or that changed), so call it
+     * off the main thread.
+     */
     public static List<Track> getTracks(Context context) {
-        File[] files = directory(context).listFiles(File::isFile);
         List<Track> tracks = new ArrayList<>();
-        if (files == null) return tracks;
-
-        Arrays.sort(files, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
-        for (File file : files) tracks.add(readTrack(file));
+        for (File file : getFiles(context)) tracks.add(track(file));
         return tracks;
+    }
+
+    /** The track of an imported file, its tags read once and kept until the file changes. Off the main thread. */
+    public static Track track(File file) {
+        String key = file.getPath() + "|" + file.length() + "|" + file.lastModified();
+        Track kept = TRACKS.get(key);
+        if (kept != null) return kept;
+        Track read = readTrack(file);
+        // The entry of an earlier version of the same file goes.
+        String prefix = file.getPath() + "|";
+        TRACKS.keySet().removeIf(other -> other.startsWith(prefix));
+        TRACKS.put(key, read);
+        return read;
     }
 
     public static Track readTrack(File file) {
@@ -134,36 +196,56 @@ public final class LocalMusic {
      */
     public static List<File> importFileList(Context context, List<Uri> uris) {
         ContentResolver resolver = context.getContentResolver();
-        List<File> imported = new java.util.ArrayList<>();
+        List<File> imported = new ArrayList<>();
         for (Uri uri : uris) {
             String name = displayName(resolver, uri);
-            // Copied aside and moved onto its name when complete: a process killed mid-copy must not leave
-            // a truncated file in the import directory.
-            File part = null;
-            boolean moved = false;
-            try {
-                part = newPartFile(context);
-                try (InputStream input = resolver.openInputStream(uri);
-                     FileOutputStream output = new FileOutputStream(part)) {
-                    if (input == null) {
-                        Logger.printInfo(() -> "Could not open " + uri);
-                        continue;
-                    }
-                    byte[] buffer = new byte[64 * 1024];
-                    int read;
-                    while ((read = input.read(buffer)) != -1) output.write(buffer, 0, read);
-                    output.getFD().sync();
+            try (InputStream input = resolver.openInputStream(uri)) {
+                if (input == null) {
+                    Logger.printInfo(() -> "Could not open " + uri);
+                    continue;
                 }
-                imported.add(moveIntoImports(context, part, name));
-                moved = true;
+                imported.add(importThroughPart(context, name, output -> {
+                    FileIo.copy(input, output);
+                    output.getFD().sync();
+                }));
             } catch (Exception ex) {
                 Logger.printException(() -> "Could not import " + uri, ex);
-            } finally {
-                //noinspection ResultOfMethodCallIgnored
-                if (!moved && part != null) part.delete();
             }
         }
         return imported;
+    }
+
+    /** What fills a part file with the content of a new import. */
+    public interface PartWriter {
+        void write(FileOutputStream output) throws Exception;
+    }
+
+    /**
+     * Writes a file into the import directory the safe way, for a copy or a download: the content goes to a part file
+     * first and is moved onto its name when complete, so a process killed in the middle leaves no truncated file among
+     * the imports. A part file that was not moved is deleted.
+     *
+     * @param name   The wanted name; a free one is taken if it is used.
+     * @param writer Writes the content.
+     * @return The new file.
+     */
+    public static File importThroughPart(Context context, String name, PartWriter writer) throws Exception {
+        File part = newPartFile(context);
+        boolean moved = false;
+        try {
+            try (FileOutputStream output = new FileOutputStream(part)) {
+                writer.write(output);
+            }
+            // The name is taken only now, so no other import can take it while the content is written.
+            File target = moveIntoImports(context, part, name);
+            moved = true;
+            return target;
+        } finally {
+            if (!moved) {
+                //noinspection ResultOfMethodCallIgnored
+                part.delete();
+            }
+        }
     }
 
     /**
@@ -197,30 +279,54 @@ public final class LocalMusic {
         synchronized (IMPORT_LOCK) {
             File target = newImportFile(context, name);
             if (!part.renameTo(target)) throw new IOException("Could not move " + part + " to " + target);
+            folderChanged();
+            // The imports of a batch are drawn together: the redraw waits for the last one.
+            ImportedLikes.refresh();
             return target;
         }
     }
 
     /** A new file in the import directory, for a track downloaded from another source. */
-    public static File newImportFile(Context context, String name) {
-        return uniqueFile(directory(context), name.replaceAll("[\\\\/:*?\"<>|]", "_"));
+    private static File newImportFile(Context context, String name) {
+        return uniqueFile(directory(context), FileIo.safeName(name));
     }
 
     /** Makes a file written into the import directory show up in the imported playlist. */
     public static void onFileAdded() {
-        LocalAdditions.clearLocalTrackCache();
+        folderChanged();
+        // The loaded tracks of the other files stay; only files changed outside Arsound are read again. Once for a
+        // batch: the check goes through every loaded file, and a playlist download adds its tracks one by one.
+        if (staleCheckQueued.compareAndSet(false, true)) {
+            Utils.runOnMainThreadDelayed(() -> {
+                staleCheckQueued.set(false);
+                LocalTrackLoader.forgetStale();
+            }, 1_000);
+        }
+        ImportedLikes.refresh();
+        // The library card of the imported playlist counts the new file.
+        PlaylistTracks.refreshLater(SavedPlaylist.getUrn());
     }
 
     public static boolean delete(Track track) {
-        LocalAdditions.clearLocalTrackCache();
+        return delete(track.file);
+    }
+
+    /** Deletes an imported file and forgets it everywhere. */
+    public static boolean delete(File file) {
+        Track track = new Track(file, file.getName(), "", 0);
+        LocalTrackLoader.forget(track.file);
         boolean deleted = track.file.delete();
+        if (deleted) folderChanged();
         if (deleted) {
             LocalCovers.onDeleted(track.file);
             // The next file with this name gets the same path: it must not inherit the playlists it was
             // added to, or the removal from the Imported playlist.
             String entry = LocalAdditions.fileEntry(track.file);
-            LocalAdditions.forgetEntry(entry);
+            for (String playlist : LocalAdditions.forgetEntry(entry)) PlaylistTracks.refreshLater(playlist);
             SavedPlaylist.unexclude(entry);
+            ImportedLikes.onFileDeleted(track.file);
+            // The imported playlist lists every imported file without an entry of its own.
+            PlaylistTracks.refreshLater(SavedPlaylist.getUrn());
         }
         return deleted;
     }
@@ -229,7 +335,7 @@ public final class LocalMusic {
         try (Cursor cursor = resolver.query(uri, new String[]{OpenableColumns.DISPLAY_NAME}, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 String name = cursor.getString(0);
-                if (name != null && !name.isEmpty()) return name.replaceAll("[\\\\/:*?\"<>|]", "_");
+                if (name != null && !name.isEmpty()) return FileIo.safeName(name);
             }
         } catch (Exception ignored) {
         }
@@ -241,7 +347,7 @@ public final class LocalMusic {
         int end = 0;
         while (end < text.length()) {
             int point = text.codePointAt(end);
-            int size = new String(Character.toChars(point)).getBytes(java.nio.charset.StandardCharsets.UTF_8).length;
+            int size = new String(Character.toChars(point)).getBytes(StandardCharsets.UTF_8).length;
             if (bytes + size > limit) break;
             bytes += size;
             end += Character.charCount(point);
@@ -255,7 +361,7 @@ public final class LocalMusic {
         String base = dot > 0 ? name.substring(0, dot) : name;
         String extension = dot > 0 ? name.substring(dot) : "";
         // A file name is at most 255 bytes, and a long title in Cyrillic or hieroglyphs needs two or three per letter.
-        base = cutToBytes(base, 200 - extension.getBytes(java.nio.charset.StandardCharsets.UTF_8).length);
+        base = cutToBytes(base, 200 - extension.getBytes(StandardCharsets.UTF_8).length);
         file = new File(directory, base + extension);
         for (int i = 2; file.exists(); i++) file = new File(directory, base + " (" + i + ")" + extension);
         return file;
@@ -268,7 +374,7 @@ public final class LocalMusic {
      */
     public static boolean play(List<File> files, int startIndex, boolean shuffle) {
         List<String> entries = new ArrayList<>();
-        for (File file : files) entries.add(LocalAdditions.fileEntry(file));
+        for (File file : files) entries.add(Entry.ofFile(file).stored());
         return playEntries(entries, startIndex, shuffle);
     }
 
@@ -278,7 +384,7 @@ public final class LocalMusic {
      * @param entries {@code soundcloud:tracks:ID} or {@code file:path} entries.
      * @return False if the player is not ready yet or nothing is playable.
      */
-    public static boolean playEntries(List<String> entries, int startIndex, boolean shuffle) {
+    private static boolean playEntries(List<String> entries, int startIndex, boolean shuffle) {
         Object initiator = playbackInitiator;
         if (initiator == null || entries.isEmpty()) return false;
 
@@ -295,7 +401,7 @@ public final class LocalMusic {
             List<String> ordered = new ArrayList<>(entries.size());
             if (shuffle) {
                 ordered.addAll(entries);
-                java.util.Collections.shuffle(ordered);
+                Collections.shuffle(ordered);
             } else {
                 // Start at the tapped track and keep the rest in order after it.
                 ordered.addAll(entries.subList(startIndex, entries.size()));
@@ -324,7 +430,7 @@ public final class LocalMusic {
     /** {@code Single.just(Object)} is renamed by R8; it is the static factory returning SingleJust. */
     private static Method findJust(Class<?> singleClass) {
         for (Method method : singleClass.getMethods()) {
-            if (java.lang.reflect.Modifier.isStatic(method.getModifiers())
+            if (Modifier.isStatic(method.getModifiers())
                     && method.getReturnType().getSimpleName().equals("SingleJust")
                     && method.getParameterTypes().length == 1
                     && method.getParameterTypes()[0] == Object.class) {
@@ -334,3 +440,4 @@ public final class LocalMusic {
         throw new IllegalStateException("Single.just not found");
     }
 }
+

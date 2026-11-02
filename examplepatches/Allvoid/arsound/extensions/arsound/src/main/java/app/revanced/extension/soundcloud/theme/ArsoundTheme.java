@@ -3,38 +3,23 @@ package app.revanced.extension.soundcloud.theme;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.loader.AssetsProvider;
 import android.content.res.loader.ResourcesLoader;
-import android.content.res.loader.ResourcesProvider;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
-import android.util.Base64;
+import android.os.SystemClock;
+import android.view.View;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.settings.Settings;
+import app.revanced.extension.soundcloud.shared.AppResources;
+import app.revanced.extension.soundcloud.shared.Lang;
+import app.revanced.extension.soundcloud.widget.WidgetHeart;
 
 /**
  * Arsound's own looks: themes over SoundCloud's interface, switched at run time.
@@ -42,59 +27,101 @@ import app.revanced.extension.soundcloud.settings.Settings;
  * SoundCloud draws everything from a handful of colour tokens ({@code dark_mode_surface},
  * {@code light_mode_primary}, the orange accent...): views through theme attributes, Compose through the colour
  * resources themselves, and its text from a few font files. A {@link ResourcesLoader} with a small resource table
- * built on the phone ({@link ArscWriter}) overrides those tokens, the fonts, the artwork and mini player corners
- * and the loading animation (recoloured to the accent) for every lookup.
+ * built on the phone ({@link ThemeTableBuilder}) overrides those tokens, the fonts, the artwork and mini player corners
+ * and the loading animation (recoloured to the accent) for every lookup ({@link ThemeLoader}).
  * "SoundCloud" adds no loader and leaves the original look.
  * <p>
- * The themes are described in {@code assets/arsound/themes.json}, put there by the theme patch together with
- * the fonts and a start screen per theme.
+ * The themes are described in {@code assets/arsound/themes.json} ({@link ThemeCatalog}), put there by the theme patch
+ * together with the fonts and a start screen per theme. Two of them, Monet and the user's Custom theme, only have a seed
+ * there: their colours are made on the phone ({@link RuntimeThemes}) and may change while the app runs, so a theme is
+ * told apart by its {@link Theme#key()}, not only by its id.
+ * <p>
+ * This class is what the rest of the app and the patches call; the work is done by the classes named above,
+ * {@link ThemeLifecycle} (applying the theme as the app runs), {@link NightMode} and {@link ThemeDecor}.
  */
 public final class ArsoundTheme {
     public static final String KEY = "arsound_theme";
     public static final String SOUNDCLOUD = "soundcloud";
-    /** Set while the app's dark mode is forced on by a dark-only theme. */
-    private static final String FORCED_NIGHT_KEY = "arsound_theme_forced_night";
 
-    private static final String ASSETS = "arsound/";
-    /** Read each time: the app language can change while the app runs (the welcome switch). */
-    private static boolean russian() {
-        return "ru".equals(Locale.getDefault().getLanguage());
-    }
+    /** The setting of the new player: the "playerSkin" part of the themes, a beta that is off by default. */
+    public static final String PLAYER_SKIN_KEY = "arsound_player_skin";
 
-    /** Palette roles and the SoundCloud colour token each one replaces (dark_mode_X and light_mode_X). */
-    private static final String[][] TOKENS = {
-            {"surface", "surface"}, {"primary", "primary"}, {"secondary", "secondary"}, {"highlight", "highlight"},
-            {"error", "error"}, {"overlay", "overlay"}, {"imageBorders", "image_borders"},
-    };
-    /** Font slots and SoundCloud's font files. */
-    private static final String[][] FONTS = {
-            {"regular", "soehne_regular_400"}, {"semibold", "soehne_semi_bold_600"}, {"bold", "soehne_bold_900"},
-            {"extrabold", "soehne_extrafett_900"}, {"numbers", "roboto_medium_numbers"},
-    };
-
+    /** One theme of themes.json: its palette, tokens, decoration, radii and fonts. */
     public static final class Theme {
         public final String id;
         /** The app stays dark whatever the phone's mode: the design has no light version. */
         public final boolean darkOnly;
+        /** The app stays light whatever the phone's mode (the user's choice for the custom theme). */
+        public final boolean lightOnly;
+        /** "monet" or "custom" for a theme whose colours are made on the phone, null for the others. */
+        public final String runtime;
         final JSONObject json;
+        private final String key;
 
         Theme(JSONObject json) {
+            this(json, null);
+        }
+
+        /** @param key What tells this theme's colours from the same theme's other colours, null for its id. */
+        Theme(JSONObject json, String key) {
             this.json = json;
             id = json.optString("id");
             darkOnly = json.optBoolean("darkOnly");
+            lightOnly = json.optBoolean("lightOnly");
+            runtime = json.has("runtime") ? json.optString("runtime") : null;
+            this.key = key != null ? key : id;
+        }
+
+        /**
+         * The id of a shipped theme; for a theme made on the phone also its colours, so the resource table is built
+         * again when they change.
+         */
+        public String key() {
+            return key;
+        }
+
+        /** True for a theme whose colours are made on the phone (Monet, the custom theme). */
+        public boolean isRuntime() {
+            return runtime != null;
+        }
+
+        /** Corner radius of covers and cards in dp, the theme's own or SoundCloud's 6. */
+        public int cardRadius() {
+            JSONObject radii = json.optJSONObject("radii");
+            return radii == null ? 6 : radii.optInt("card", 6);
         }
 
         /** In the app language of the moment. */
         public String name() {
-            return json.optJSONObject("name").optString(russian() ? "ru" : "en");
+            return localized("name");
         }
 
         public String description() {
-            return json.optJSONObject("description").optString(russian() ? "ru" : "en");
+            return localized("description");
         }
 
-        int color(boolean night, String role) {
-            return parse(json.optJSONObject(night ? "dark" : "light").optString(role));
+        private String localized(String field) {
+            return json.optJSONObject(field).optString(Lang.russian() ? "ru" : "en");
+        }
+
+        /** A colour of the palette: "surface", "primary", "secondary", "highlight", "special", "dialog"... */
+        public int color(boolean night, String role) {
+            return ThemeColors.parse(json.optJSONObject(night ? "dark" : "light").optString(role));
+        }
+
+        /** A design token ("bg", "surface", "accent", "muted", "mini", "tabbar"...) of the dark or the light look. */
+        public int token(boolean night, String name) {
+            JSONObject tokens = json.optJSONObject(night || json.optJSONObject("tokensLight") == null ? "tokens" : "tokensLight");
+            return ThemeColors.parse(tokens == null ? "" : tokens.optString(name));
+        }
+
+        /**
+         * The value of a colour resource a runtime theme's files name (arsound_rt_*): a token with the opacity
+         * in percent instead of its own (-1 keeps it). {@code dark} keeps the dark look in both modes.
+         */
+        int runtimeColor(boolean night, String token, int percent, boolean dark) {
+            int color = token(night || dark, token);
+            return percent < 0 ? color : (Math.round(percent * 2.55f) << 24) | (color & 0xFFFFFF);
         }
 
         public int accent(boolean night) {
@@ -111,36 +138,19 @@ public final class ArsoundTheme {
         }
     }
 
-    private static int parse(String hex) {
-        // A role missing from themes.json gives an empty string; a pink placeholder is better than no theme at all.
-        if (hex == null || hex.length() < 2) return 0xFFFF00FF;
-        String value = hex.substring(1);
-        // #rrggbbaa as in the design, to Android's aarrggbb.
-        if (value.length() == 8) value = value.substring(6) + value.substring(0, 6);
-        else value = "ff" + value;
-        return (int) Long.parseLong(value, 16);
-    }
-
-    private static volatile List<Theme> themes;
-    private static volatile ResourcesLoader loader;
-    private static volatile String loaderTheme;
     private static Context appContext;
 
     private ArsoundTheme() {
     }
 
+    /** The themes to choose from, the runtime ones in their present colours; Monet is left out where it cannot be made. */
     public static List<Theme> all(Context context) {
-        List<Theme> result = themes;
-        if (result != null) return result;
-        result = new ArrayList<>();
-        try (InputStream input = context.getAssets().open(ASSETS + "themes.json")) {
-            JSONArray list = new JSONObject(new String(readAll(input), "UTF-8")).getJSONArray("themes");
-            for (int i = 0; i < list.length(); i++) result.add(new Theme(list.getJSONObject(i)));
-        } catch (Exception ex) {
-            Logger.printException(() -> "Theme: could not read the themes", ex);
-        }
-        themes = result = Collections.unmodifiableList(result);
-        return result;
+        return ThemeCatalog.all(context);
+    }
+
+    /** A theme as themes.json has it (a runtime theme with its neutral seed colours). */
+    static Theme seed(Context context, String id) {
+        return ThemeCatalog.seed(context, id);
     }
 
     /**
@@ -148,29 +158,12 @@ public final class ArsoundTheme {
      * for example the colour strips of the settings rows and the greeting on the home screen.
      */
     public static JSONObject decor(Context context) {
-        Theme theme = currentTheme(context);
-        JSONObject decor = theme == null ? null : theme.json.optJSONObject("decor");
-        // In the light look the values of "decorLight" win.
-        JSONObject light = theme == null ? null : theme.json.optJSONObject("decorLight");
-        boolean night = (context.getResources().getConfiguration().uiMode
-                & android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES;
-        if (decor == null || light == null || night) return decor;
-        try {
-            JSONObject merged = new JSONObject(decor.toString());
-            for (java.util.Iterator<String> keys = light.keys(); keys.hasNext(); ) {
-                String key = keys.next();
-                merged.put(key, light.get(key));
-            }
-            return merged;
-        } catch (Exception ex) {
-            return decor;
-        }
+        return ThemeDecor.of(currentTheme(context), isNight(context));
     }
 
     /** A colour of the decoration, or the fallback when the theme has none. */
     public static int decorColor(JSONObject decor, String name, int fallback) {
-        String value = decor == null ? "" : decor.optString(name);
-        return value.startsWith("#") ? parse(value) : fallback;
+        return ThemeDecor.color(decor, name, fallback);
     }
 
     /**
@@ -181,7 +174,7 @@ public final class ArsoundTheme {
         try {
             JSONObject decor = appContext == null ? null : decor(appContext);
             String value = decor == null ? "" : decor.optString("shortcutScrim");
-            if (value.startsWith("#")) return parse(value) & 0xFFFFFFFFL;
+            if (value.startsWith("#")) return ThemeColors.parse(value) & 0xFFFFFFFFL;
         } catch (Exception ex) {
             Logger.printException(() -> "Theme: could not read the shortcut veil", ex);
         }
@@ -193,9 +186,9 @@ public final class ArsoundTheme {
      * "libraryIcons" has one per row, named arsound_<theme>__arsound_library_<row> after the row's view id
      * library_header_<row>. 0 keeps the row without an icon.
      */
-    public static int libraryRowIcon(android.view.View row) {
+    public static int libraryRowIcon(View row) {
         try {
-            if (row.getId() == android.view.View.NO_ID) return 0;
+            if (row.getId() == View.NO_ID) return 0;
             return libraryRowIcon(row.getResources().getResourceEntryName(row.getId()).replace("library_header_", ""));
         } catch (Exception ex) {
             Logger.printException(() -> "Theme: no library row icon", ex);
@@ -212,10 +205,7 @@ public final class ArsoundTheme {
         try {
             Theme theme = appContext == null ? null : currentTheme(appContext);
             if (theme == null) return 0;
-            Resources resources = appContext.getResources();
-            String icon = "arsound_" + theme.id + "__arsound_library_" + row;
-            int id = resources.getIdentifier(icon, "drawable", appContext.getPackageName());
-            return id != 0 ? id : resources.getIdentifier(icon, "drawable", "com.soundcloud.android");
+            return AppResources.identifier(appContext, "arsound_" + theme.id + "__arsound_library_" + row, "drawable");
         } catch (Exception ex) {
             Logger.printException(() -> "Theme: no library row icon", ex);
             return 0;
@@ -227,17 +217,15 @@ public final class ArsoundTheme {
      * Call from {@code attachBaseContext}, after the super call: the activity then reads night resources.
      */
     public static void forceDark(Activity activity, Context base) {
-        android.content.res.Configuration override = new android.content.res.Configuration();
-        int mode = base.getResources().getConfiguration().uiMode;
-        override.uiMode = (mode & ~android.content.res.Configuration.UI_MODE_NIGHT_MASK)
-                | android.content.res.Configuration.UI_MODE_NIGHT_YES;
-        activity.applyOverrideConfiguration(override);
+        // A light theme chosen by the user is light on Arsound's screens too.
+        Theme theme = appContext == null ? null : currentTheme(appContext);
+        if (theme != null && theme.lightOnly) return;
+        NightMode.forceDark(activity, base);
     }
 
     /** True when the app draws its dark look now. */
     public static boolean isNight(Context context) {
-        return (context.getResources().getConfiguration().uiMode
-                & android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        return NightMode.isNight(context);
     }
 
     /**
@@ -251,24 +239,9 @@ public final class ArsoundTheme {
         if (theme != null) {
             JSONObject colors = theme.json.optJSONObject(night ? "dark" : "light");
             String value = colors == null ? "" : colors.optString(role);
-            if (value.startsWith("#")) return parse(value);
+            if (value.startsWith("#")) return ThemeColors.parse(value);
         }
-        switch (role) {
-            case "surface":
-                return night ? 0xFF121212 : 0xFFFFFFFF;
-            case "primary":
-                return night ? 0xFFFFFFFF : 0xFF121212;
-            case "secondary":
-                return night ? 0xFF999999 : 0xFF666666;
-            case "highlight":
-                return night ? 0xFF2A2A2A : 0xFFF2F2F2;
-            case "error":
-                return night ? 0xFFFF6B6B : 0xFFD32F2F;
-            case "dialog":
-                return night ? 0xFF1E1E1E : 0xFFFFFFFF;
-            default:
-                return 0xFFFF5500;
-        }
+        return ThemeColors.original(role, night);
     }
 
     /**
@@ -288,12 +261,8 @@ public final class ArsoundTheme {
 
     /** A colour written as in themes.json: #rrggbb or #rrggbbaa. */
     public static int color(String hex) {
-        return parse(hex);
+        return ThemeColors.parse(hex);
     }
-
-    /** The setting of the new player: the "playerSkin" part of the themes, a beta that is off by default. */
-    public static final String PLAYER_SKIN_KEY = "arsound_player_skin";
-    private static final String PLAYER_SKIN_PART = "playerSkin";
 
     /** Whether the player is drawn in the theme's own style; applies after {@link #restartApp}. */
     public static boolean isPlayerSkinEnabled() {
@@ -305,10 +274,22 @@ public final class ArsoundTheme {
         return Settings.getString(KEY, SOUNDCLOUD);
     }
 
-    private static Theme currentTheme(Context context) {
-        String id = current();
-        for (Theme theme : all(context)) if (theme.id.equals(id)) return theme;
-        return null;
+    static Theme currentTheme(Context context) {
+        return currentTheme(context, context.getResources());
+    }
+
+    /** @param resources Where a runtime theme reads the system palette, the newest the caller has. */
+    static Theme currentTheme(Context context, Resources resources) {
+        return ThemeCatalog.find(context, resources, current());
+    }
+
+    /**
+     * Tells when the chosen theme's colours change: the id for the shipped themes, more for the ones made on the
+     * phone. For screens that draw with the palette and must be drawn again when it changes.
+     */
+    public static String paletteKey(Context context) {
+        Theme theme = currentTheme(context);
+        return theme == null ? SOUNDCLOUD : theme.key();
     }
 
     /**
@@ -317,16 +298,8 @@ public final class ArsoundTheme {
      */
     public static void setCurrent(Activity activity, String id) {
         Settings.putString(KEY, id);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return;
         try {
-            int style = 0;
-            if (!SOUNDCLOUD.equals(id)) {
-                style = activity.getResources().getIdentifier("Arsound.Splash." + id, "style", activity.getPackageName());
-                if (style == 0) {
-                    style = activity.getResources().getIdentifier("Arsound.Splash." + id, "style", "com.soundcloud.android");
-                }
-            }
-            activity.getSplashScreen().setSplashScreenTheme(style);
+            SplashStyle.apply(activity, ThemeCatalog.find(activity, activity.getResources(), id));
         } catch (Exception ex) {
             Logger.printException(() -> "Theme: could not set the start screen", ex);
         }
@@ -337,449 +310,39 @@ public final class ArsoundTheme {
      * and Compose themes are created, so already open screens would keep a mix of the old and new colours.
      */
     public static void restartApp(Activity activity) {
-        android.content.Intent launch = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
+        // The widget's heart may take the theme's accent, and the widget is not built again by the restart: until the
+        // next track it would keep the old theme's colour. The app is still alive here, with the new theme chosen.
+        WidgetHeart.refresh(activity);
+        Intent launch = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
         if (launch == null) return;
-        launch.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-            activity.startActivity(launch);
-            Runtime.getRuntime().exit(0);
-        }, 400);
-    }
-
-    // region Applying
-
-    /** Injection point: the start of {@code Application.onCreate}. */
-    public static void onApplicationCreate(Application application) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return;
-        appContext = application;
-        try {
-            applyNightMode(application, currentTheme(application));
-        } catch (Throwable ex) {
-            Logger.printException(() -> "Theme: could not set the dark mode", ex);
-        }
-        try {
-            apply(application.getResources());
-        } catch (Throwable ex) {
-            Logger.printException(() -> "Theme: could not apply on start", ex);
-        }
-        application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityPreCreated(Activity activity, Bundle savedInstanceState) {
-                try {
-                    apply(activity.getResources());
-                } catch (Throwable ex) {
-                    Logger.printException(() -> "Theme: could not apply to " + activity, ex);
-                }
-            }
-
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-                ThemeBackdrop.onActivityResumed(activity);
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-            }
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Context context = activity.getApplicationContext();
+        long asked = SystemClock.uptimeMillis();
+        Utils.runOnBackgroundThread(() -> {
+            // The new theme's table is built now, in the background, not in the first frame of the new start. And the
+            // choice must be on the disk before the process ends: it was saved in the background, and exit does not wait.
+            ThemeLifecycle.prepareChosen(context);
+            Settings.flush();
+            // The toast of the restart stays a moment, as before, when all of that took no time.
+            long wait = Math.max(0, 400 - (SystemClock.uptimeMillis() - asked));
+            Utils.runOnMainThreadDelayed(() -> {
+                activity.startActivity(launch);
+                Runtime.getRuntime().exit(0);
+            }, wait);
         });
     }
 
-    /**
-     * Keeps the app dark for a dark-only theme, through Android's own per-app dark mode (Android 12 and later):
-     * every screen, the status bar and SoundCloud's night resources then follow it. Android remembers the mode,
-     * so it is given back to the phone's setting once, when another theme is chosen.
-     */
-    private static void applyNightMode(Context context, Theme theme) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return;
-        boolean dark = theme != null && theme.darkOnly;
-        boolean forced = !Settings.getString(FORCED_NIGHT_KEY, "").isEmpty();
-        if (dark == forced) return;
-        android.app.UiModeManager modes = context.getSystemService(android.app.UiModeManager.class);
-        if (modes == null) return;
-        modes.setApplicationNightMode(dark ? android.app.UiModeManager.MODE_NIGHT_YES : android.app.UiModeManager.MODE_NIGHT_AUTO);
-        Settings.putString(FORCED_NIGHT_KEY, dark ? "yes" : "");
-    }
-
-    /** How often the build of a theme is tried in one process; a failure that stays would be repeated for every screen. */
-    private static final int MAX_BUILD_ATTEMPTS = 2;
-    private static String failedTheme;
-    private static int failedBuilds;
-
-    /** Adds the loader of the chosen theme to these resources; nothing for the original look. */
-    private static synchronized void apply(Resources resources) throws Exception {
-        Theme theme = currentTheme(appContext);
-        if (theme == null) return;
-        if (loader == null || !theme.id.equals(loaderTheme)) {
-            // Each try is work on the main thread that gives no theme anyway; a later start tries again.
-            if (theme.id.equals(failedTheme) && failedBuilds >= MAX_BUILD_ATTEMPTS) return;
-            ResourcesLoader created = new ResourcesLoader();
-            try {
-                created.addProvider(provider(theme));
-            } catch (Throwable ex) {
-                failedBuilds = theme.id.equals(failedTheme) ? failedBuilds + 1 : 1;
-                failedTheme = theme.id;
-                throw ex;
-            }
-            failedTheme = null;
-            failedBuilds = 0;
-            loader = created;
-            loaderTheme = theme.id;
-        }
-        // Adding a loader that is already there changes nothing.
-        resources.addLoaders(loader);
-    }
-
-    private static ResourcesProvider provider(Theme theme) throws Exception {
-        Context context = appContext;
-        File file = new File(context.getCacheDir(), "arsound-theme-" + theme.id + ".arsc");
-        // The resource table and the files it names are the same until the app is updated (or the player skin is
-        // switched), so they are built once, not at every cold start. The stamp is written last: a build that
-        // stopped half way leaves no stamp, and its files are not trusted.
-        File stamp = new File(context.getFilesDir(), ASSETS + "theme/" + theme.id + ".stamp");
-        String key = cacheKey(context);
-        if (key != null && file.isFile() && key.equals(readText(stamp))) {
-            try {
-                return load(context, file);
-            } catch (Exception ex) {
-                // A damaged table is built again, not refused at every start.
-                Logger.printException(() -> "Theme: the kept resource table was refused, building it again", ex);
-            }
-        }
-        stamp.delete();
-        build(context, theme, file);
-        if (key != null) {
-            try {
-                write(stamp, key.getBytes("UTF-8"));
-            } catch (Exception ex) {
-                Logger.printException(() -> "Theme: could not remember the built theme", ex);
-            }
-        }
-        return load(context, file);
-    }
-
-    /** What the built files depend on: the installed app (the themes ship inside it) and the player skin switch. */
-    private static String cacheKey(Context context) {
+    /** Injection point: the start of {@code Application.onCreate}. */
+    public static void onApplicationCreate(Application application) {
+        // The widget's heart is fitted to the card of the phone's day or night look; it follows the look flipping on
+        // every Android, also those that have no themes.
         try {
-            long updated = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).lastUpdateTime;
-            return updated + "/" + isPlayerSkinEnabled();
-        } catch (Exception ex) {
-            Logger.printException(() -> "Theme: could not read when the app was installed", ex);
-            return null;
+            WidgetHeart.watchLook(application);
+        } catch (Throwable ex) {
+            Logger.printException(() -> "Theme: could not follow the day and night look", ex);
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return;
+        appContext = application;
+        ThemeLifecycle.start(application);
     }
-
-    /** Builds the resource table of a theme into {@code arsc}, with the fonts and the loading animation it names. */
-    private static void build(Context context, Theme theme, File arsc) throws Exception {
-        // Built before any loader is added, so the original loading animation is read, not a recoloured one.
-        Resources resources = context.getResources();
-        // The resources keep SoundCloud's package name although the app is installed under another one.
-        String packageName = context.getPackageName();
-        int anyId = resources.getIdentifier("dark_mode_surface", "color", packageName);
-        if (anyId == 0) {
-            packageName = "com.soundcloud.android";
-            anyId = resources.getIdentifier("dark_mode_surface", "color", packageName);
-        }
-        if (anyId == 0) throw new IllegalStateException("SoundCloud colour tokens not found");
-        ArscWriter table = new ArscWriter(anyId >>> 24, resources.getResourcePackageName(anyId));
-        Ids ids = new Ids(resources, packageName);
-
-        for (String[] token : TOKENS) {
-            ids.color(table, "dark_mode_" + token[1], theme.color(true, token[0]), null);
-            ids.color(table, "light_mode_" + token[1], theme.color(false, token[0]), null);
-        }
-        ids.color(table, "dialog_dark", theme.color(true, "dialog"), null);
-        // The accent is one colour for both modes in SoundCloud; the night value overrides it in dark mode.
-        ids.color(table, "shared_colors_special_action", theme.accent(false), theme.accent(true));
-
-        // Any other SoundCloud colour by name, such as the grey scale behind cards and the mini player's gradient.
-        JSONObject colors = theme.json.optJSONObject("colors");
-        if (colors != null) {
-            for (java.util.Iterator<String> names = colors.keys(); names.hasNext(); ) {
-                String name = names.next();
-                int color = parse(colors.optString(name));
-                ids.color(table, name, color, color);
-            }
-        }
-
-        // Whole resources (drawables, colour lists, layouts): the theme's own copy, put into the app by the
-        // theme patch as arsound_<theme>__<name> and listed in theme-resources.json, stands in for SoundCloud's.
-        // Files whose name starts with "arsound_" are the theme's additions, used by its other files.
-        JSONArray replaced = null;
-        java.util.Set<String> switchedOff = new java.util.HashSet<>();
-        try (InputStream input = context.getAssets().open(ASSETS + "theme-resources.json")) {
-            JSONObject index = new JSONObject(new String(readAll(input), "UTF-8"));
-            replaced = index.optJSONArray(theme.id);
-            // Parts switched on in the settings ("_optional": part -> its resources) stay out while off.
-            JSONObject optional = index.optJSONObject("_optional");
-            JSONArray playerSkin = optional == null ? null : optional.optJSONArray(PLAYER_SKIN_PART);
-            if (playerSkin != null && !isPlayerSkinEnabled()) {
-                for (int i = 0; i < playerSkin.length(); i++) switchedOff.add(playerSkin.optString(i));
-            }
-        } catch (Exception ex) {
-            Logger.printException(() -> "Theme: could not read the theme resources", ex);
-        }
-        if (replaced != null) {
-            for (int i = 0; i < replaced.length(); i++) {
-                if (switchedOff.contains(replaced.optString(i))) continue;
-                String[] typeAndName = replaced.optString(i).split("/", 2);
-                if (typeAndName.length != 2 || typeAndName[1].startsWith("arsound_")) continue;
-                ids.alias(table, typeAndName[0], typeAndName[1], "arsound_" + theme.id + "__" + typeAndName[1]);
-            }
-        }
-
-        JSONObject radii = theme.json.optJSONObject("radii");
-        if (radii != null) {
-            int card = radii.optInt("card", 6);
-            ids.dimen(table, "artwork_corner_radius_default", card);
-            ids.dimen(table, "artwork_corner_radius_large", card + 4);
-            ids.dimen(table, "artwork_corner_radius_medium", Math.max(2, card - 2));
-            ids.dimen(table, "mini_player_corner", radii.optInt("miniPlayer", 36));
-        }
-
-        // Fonts: files from the app's assets, given to Android through the provider below.
-        JSONObject fonts = theme.json.optJSONObject("fonts");
-        if (fonts != null) {
-            for (String[] slot : FONTS) {
-                String file = fonts.optString(slot[0], "");
-                if (file.isEmpty()) continue;
-                String path = "arsound/fonts/" + file + ".ttf";
-                // Android loads a font resource only from a path under res/.
-                if (copyAsset(context, path, new File(context.getFilesDir(), path))) ids.file(table, "font", slot[1], "res/" + path);
-            }
-        }
-
-        // The loading animation: the drawing letter in the accent.
-        int animation = resources.getIdentifier("loading_animation", "raw", packageName);
-        if (animation != 0) {
-            byte[] original = readAll(resources.openRawResource(animation));
-            String day = "arsound/theme/" + theme.id + "-loading.json";
-            String night = "arsound/theme/" + theme.id + "-loading-night.json";
-            write(new File(context.getFilesDir(), day), tintLottie(original, theme.accent(false)));
-            write(new File(context.getFilesDir(), night), tintLottie(original, theme.accent(true)));
-            table.put(animation, "raw", "loading_animation", ArscWriter.Value.file(day), false);
-            table.put(animation, "raw", "loading_animation", ArscWriter.Value.file(night), true);
-        }
-
-        // The pictures behind page titles (the hearts of "Your likes"), recoloured into the accent. Two of them have
-        // their own picture for wide screens (tablets, a phone on its side), which would win over a default-only
-        // copy: each is read at a narrow and a wide width, whatever the screen is now.
-        Resources narrow = resourcesAtWidth(context, 320);
-        Resources wide = resourcesAtWidth(context, ArscWriter.WIDE_DP);
-        for (String name : HeaderArtwork.NAMES) {
-            int picture = resources.getIdentifier(name, "drawable", packageName);
-            if (picture == 0) {
-                Logger.printInfo(() -> "Theme: no drawable " + name);
-                continue;
-            }
-            try {
-                tintPicture(context, table, theme, narrow, picture, name, false);
-                if (!sameFile(narrow, wide, picture)) tintPicture(context, table, theme, wide, picture, name, true);
-            } catch (Exception ex) {
-                Logger.printException(() -> "Theme: could not recolour " + name, ex);
-            }
-        }
-
-        write(arsc, table.build());
-    }
-
-    /** One picture behind a page title in the accent of day and night, for a narrow or a wide screen. */
-    private static void tintPicture(Context context, ArscWriter table, Theme theme, Resources source, int picture,
-                                    String name, boolean wide) throws Exception {
-        byte[] day = HeaderArtwork.tint(source, picture, theme.accent(false));
-        byte[] night = HeaderArtwork.tint(source, picture, theme.accent(true));
-        if (day == null || night == null) return;
-        // A path under res/, as for the fonts; the provider below reads it from the files folder.
-        String base = "arsound/theme/" + theme.id + "-" + name + (wide ? "-wide" : "");
-        String dayPath = base + ".png";
-        String nightPath = base + "-night.png";
-        write(new File(context.getFilesDir(), dayPath), day);
-        write(new File(context.getFilesDir(), nightPath), night);
-        table.put(picture, "drawable", name, ArscWriter.Value.file("res/" + dayPath), false, wide);
-        table.put(picture, "drawable", name, ArscWriter.Value.file("res/" + nightPath), true, wide);
-    }
-
-    /** The app's resources as on a screen this many dp wide. */
-    private static Resources resourcesAtWidth(Context context, int widthDp) {
-        android.content.res.Configuration configuration =
-                new android.content.res.Configuration(context.getResources().getConfiguration());
-        configuration.screenWidthDp = widthDp;
-        return context.createConfigurationContext(configuration).getResources();
-    }
-
-    /** True if the resource is the same file on both resources: the app has no picture of its own for one of them. */
-    private static boolean sameFile(Resources first, Resources second, int resource) {
-        android.util.TypedValue a = new android.util.TypedValue();
-        android.util.TypedValue b = new android.util.TypedValue();
-        first.getValue(resource, a, true);
-        second.getValue(resource, b, true);
-        return String.valueOf(a.string).equals(String.valueOf(b.string));
-    }
-
-    private static ResourcesProvider load(Context context, File file) throws Exception {
-        File filesDir = context.getFilesDir();
-        try (ParcelFileDescriptor descriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)) {
-            return ResourcesProvider.loadFromTable(descriptor, new AssetsProvider() {
-                @Override
-                public AssetFileDescriptor loadAssetFd(String path, int accessMode) {
-                    File asset = new File(filesDir, path.startsWith("res/arsound/") ? path.substring(4) : path);
-                    if (!asset.isFile()) return null;
-                    try {
-                        return new AssetFileDescriptor(
-                                ParcelFileDescriptor.open(asset, ParcelFileDescriptor.MODE_READ_ONLY), 0, asset.length());
-                    } catch (Exception ex) {
-                        return null;
-                    }
-                }
-            });
-        }
-    }
-
-    /** Looks up SoundCloud's resource ids by name and adds overrides for them. */
-    private static final class Ids {
-        final Resources resources;
-        final String packageName;
-
-        Ids(Resources resources, String packageName) {
-            this.resources = resources;
-            this.packageName = packageName;
-        }
-
-        int id(String type, String name) {
-            int id = resources.getIdentifier(name, type, packageName);
-            if (id == 0) Logger.printInfo(() -> "Theme: no " + type + " " + name);
-            return id;
-        }
-
-        void color(ArscWriter table, String name, int normal, Integer night) {
-            int id = id("color", name);
-            if (id == 0) return;
-            table.put(id, "color", name, ArscWriter.Value.color(normal), false);
-            if (night != null) table.put(id, "color", name, ArscWriter.Value.color(night), true);
-        }
-
-        void dimen(ArscWriter table, String name, int dp) {
-            int id = id("dimen", name);
-            if (id != 0) table.put(id, "dimen", name, ArscWriter.Value.dp(dp), false);
-        }
-
-        /** Points SoundCloud's resource at another one of the same type, in both modes. */
-        void alias(ArscWriter table, String type, String name, String replacement) {
-            int id = id(type, name);
-            int target = id(type, replacement);
-            if (id == 0 || target == 0) return;
-            table.put(id, type, name, ArscWriter.Value.reference(target), false);
-            table.put(id, type, name, ArscWriter.Value.reference(target), true);
-        }
-
-        void file(ArscWriter table, String type, String name, String path) {
-            int id = id(type, name);
-            if (id != 0) table.put(id, type, name, ArscWriter.Value.file(path), false);
-        }
-    }
-
-    // endregion
-
-    // region Files
-
-    /**
-     * The loading animation (Lottie) shows the letter as white image frames; each frame is recoloured,
-     * keeping its transparency.
-     */
-    private static byte[] tintLottie(byte[] json, int color) throws Exception {
-        JSONObject animation = new JSONObject(new String(json, "UTF-8"));
-        JSONArray assets = animation.optJSONArray("assets");
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-        String prefix = "data:image/png;base64,";
-        for (int i = 0; assets != null && i < assets.length(); i++) {
-            JSONObject asset = assets.getJSONObject(i);
-            String data = asset.optString("p");
-            if (!data.startsWith(prefix)) continue;
-            byte[] png = Base64.decode(data.substring(prefix.length()), Base64.DEFAULT);
-            Bitmap frame = BitmapFactory.decodeByteArray(png, 0, png.length);
-            if (frame == null) continue;
-            Bitmap tinted = Bitmap.createBitmap(frame.getWidth(), frame.getHeight(), Bitmap.Config.ARGB_8888);
-            new Canvas(tinted).drawBitmap(frame, 0, 0, paint);
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            tinted.compress(Bitmap.CompressFormat.PNG, 100, output);
-            asset.put("p", prefix + Base64.encodeToString(output.toByteArray(), Base64.NO_WRAP));
-            frame.recycle();
-            tinted.recycle();
-        }
-        return animation.toString().getBytes("UTF-8");
-    }
-
-    /** Copies an asset to a file once; the file is kept while it has the same size. */
-    private static boolean copyAsset(Context context, String asset, File target) {
-        try {
-            // The size is known without reading the asset, unless the APK keeps it compressed.
-            long size = assetSize(context, asset);
-            if (size >= 0 && target.isFile() && target.length() == size) return true;
-            try (InputStream input = context.getAssets().open(asset)) {
-                byte[] bytes = readAll(input);
-                if (!target.isFile() || target.length() != bytes.length) write(target, bytes);
-            }
-            return true;
-        } catch (Exception ex) {
-            Logger.printException(() -> "Theme: could not copy " + asset, ex);
-            return false;
-        }
-    }
-
-    /** The size of an asset, or -1 when it cannot be told without reading it (a compressed asset has no file descriptor). */
-    private static long assetSize(Context context, String asset) {
-        try (AssetFileDescriptor descriptor = context.getAssets().openFd(asset)) {
-            return descriptor.getLength();
-        } catch (Exception ex) {
-            return -1;
-        }
-    }
-
-    /** The text of a small file, or null when there is none. */
-    private static String readText(File file) {
-        try {
-            return new String(readAll(new FileInputStream(file)), "UTF-8");
-        } catch (Exception ex) {
-            return null;
-        }
-    }
-
-    private static void write(File file, byte[] bytes) throws Exception {
-        File parent = file.getParentFile();
-        if (parent != null) parent.mkdirs();
-        try (OutputStream output = new FileOutputStream(file)) {
-            output.write(bytes);
-        }
-    }
-
-    private static byte[] readAll(InputStream stream) throws Exception {
-        try (InputStream input = stream) {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[16384];
-            int count;
-            while ((count = input.read(buffer)) > 0) output.write(buffer, 0, count);
-            return output.toByteArray();
-        }
-    }
-
-    // endregion
 }

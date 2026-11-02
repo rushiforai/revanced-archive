@@ -56,11 +56,13 @@ final class SharedArtwork {
 
     /**
      * @param url     The cover's address, the key.
+     * @param path    The path of the address: a downloaded cover is also kept for offline use under it
+     *                ({@link OfflineArtwork}).
      * @param request The {@code okhttp3.Request} of the caller, put into a shared answer.
      * @param call    Sends the request on along the chain.
      * @return The {@code okhttp3.Response}.
      */
-    static Object load(String url, Object request, Call call) throws Throwable {
+    static Object load(String url, String path, Object request, Call call) throws Throwable {
         Entry entry;
         boolean first;
         synchronized (entries) {
@@ -100,6 +102,12 @@ final class SharedArtwork {
             Object response = call.proceed();
             byte[] data = read(entry, response);
             if (data == null) return response;
+            // A failure of the offline copy fails nothing else: the answer goes on to the screen.
+            try {
+                OfflineArtwork.keep(path, data);
+            } catch (RuntimeException ex) {
+                Logger.printException(() -> "Offline covers: could not keep " + path, ex);
+            }
             entry.response = response;
             entry.at = System.currentTimeMillis();
             // Last, and volatile: a waiter that sees the body also sees the response, the type and the time.
@@ -116,11 +124,21 @@ final class SharedArtwork {
         }
     }
 
+    /**
+     * Drops the answers kept longer than {@link #KEEP_MS}, then the oldest finished ones while there are too many. An
+     * entry still loading has waiters and is never dropped: dropped, the same cover was downloaded twice.
+     */
     private static void trim() {
+        long now = System.currentTimeMillis();
         Iterator<Entry> iterator = entries.values().iterator();
+        while (iterator.hasNext()) {
+            Entry entry = iterator.next();
+            if (entry.body != null && now - entry.at > KEEP_MS) iterator.remove();
+        }
+        iterator = entries.values().iterator();
         while (entries.size() > MAX_KEPT && iterator.hasNext()) {
-            iterator.next();
-            iterator.remove();
+            Entry entry = iterator.next();
+            if (entry.body != null) iterator.remove();
         }
     }
 

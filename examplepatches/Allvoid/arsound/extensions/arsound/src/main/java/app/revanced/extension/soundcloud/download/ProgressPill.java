@@ -1,7 +1,8 @@
 package app.revanced.extension.soundcloud.download;
 
+import static app.revanced.extension.soundcloud.shared.Dimens.dp;
+
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
+import app.revanced.extension.soundcloud.offline.NativeOffline;
+import app.revanced.extension.soundcloud.shared.Lang;
+import app.revanced.extension.soundcloud.shared.Screens;
 import app.revanced.extension.soundcloud.theme.ArsoundTheme;
 
 /**
@@ -45,7 +48,7 @@ public final class ProgressPill {
     private static int shownDone = -1, shownTotal = -1;
 
     private static String text(int done, int total) {
-        return "ru".equals(Locale.getDefault().getLanguage())
+        return Lang.russian()
                 ? done + " из " + total
                 : done + " of " + total;
     }
@@ -93,6 +96,18 @@ public final class ProgressPill {
         });
     }
 
+    /**
+     * Called when protected tracks are handed to SoundCloud's own offline library: they are part of the count like the
+     * files Arsound downloads, and are done when that library has them.
+     */
+    static void onNativeQueued(Iterable<String> trackIds) {
+        Utils.runOnMainThread(() -> {
+            if (batch.isEmpty()) pending.clear();
+            for (String id : trackIds) batch.add(id);
+            refresh();
+        });
+    }
+
     /** Called when a download of the batch was started, or could not start at all. */
     static void onDownloadStarted(String trackId, boolean started) {
         Utils.runOnMainThread(() -> {
@@ -111,7 +126,8 @@ public final class ProgressPill {
     private static int downloadedOfBatch() {
         int done = 0;
         for (String id : batch) {
-            if (!pending.contains(id) && !DownloadProgress.isDownloading(id)) done++;
+            if (!pending.contains(id) && !DownloadProgress.isDownloading(id)
+                    && !NativeOffline.isDownloading(id) && !NativeOffline.isJustRequested(id)) done++;
         }
         return done;
     }
@@ -121,7 +137,7 @@ public final class ProgressPill {
     // region Screen
 
     public static void onActivityResumed(Activity resumed) {
-        if (!resumed.getClass().getName().endsWith(".MainActivity")) return;
+        if (!Screens.isMainActivity(resumed)) return;
         activity = new WeakReference<>(resumed);
         shownDone = shownTotal = -1;
         refresh();
@@ -233,8 +249,4 @@ public final class ProgressPill {
     }
 
     // endregion
-
-    private static int dp(Context context, int value) {
-        return Math.round(value * context.getResources().getDisplayMetrics().density);
-    }
 }

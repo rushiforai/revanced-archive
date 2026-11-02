@@ -22,7 +22,7 @@ public final class Rx {
     }
 
     private static Class<?> type(ClassLoader loader, String name) throws ClassNotFoundException {
-        return Class.forName(name, false, loader);
+        return Reflect.type(loader, name);
     }
 
     /** Implements a single-method RxJava functional interface with a Java lambda. */
@@ -84,11 +84,57 @@ public final class Rx {
         return mergeMethod(loader, observable, source).invoke(null, filteredLocal, markedRemote);
     }
 
+    /**
+     * The same as {@link #localUntilRemote}, but a failure of {@code remote} after {@code local} has shown something
+     * ends the list quietly with what is on screen: the stored list stays instead of turning into an error. With
+     * nothing stored, the failure goes on to the screen, which then says so.
+     */
+    public static Object localUntilRemoteKeepingLocal(Object local, Object remote) throws Exception {
+        ClassLoader loader = remote.getClass().getClassLoader();
+        Class<?> observable = type(loader, CORE + "Observable");
+        Class<?> consumer = type(loader, FUNCTIONS + "Consumer");
+        Class<?> action = type(loader, FUNCTIONS + "Action");
+        java.util.concurrent.atomic.AtomicBoolean localShown = new java.util.concurrent.atomic.AtomicBoolean();
+        Object markLocal = function(loader, "Consumer", args -> {
+            localShown.set(true);
+            return null;
+        });
+        Object ignore = function(loader, "Consumer", args -> null);
+        Object noAction = function(loader, "Action", args -> null);
+        Object markedLocal = find(observable, false, "ObservableDoOnEach", consumer, consumer, action, action)
+                .invoke(local, markLocal, ignore, noAction, noAction);
+        Object empty = type(loader, "io.reactivex.rxjava3.internal.operators.observable.ObservableEmpty")
+                .getField("a").get(null);
+        // R8 narrowed the return type of Observable.error(Throwable) to the operator class.
+        Method error = find(observable, true, "ObservableError", Throwable.class);
+        Object resume = function(loader, "Function", args -> {
+            if (localShown.get()) return empty;
+            try {
+                return error.invoke(null, args[0]);
+            } catch (ReflectiveOperationException ex) {
+                return empty;
+            }
+        });
+        Object quietRemote = find(observable, false, "ObservableOnErrorNext", type(loader, FUNCTIONS + "Function"))
+                .invoke(remote, resume);
+        return localUntilRemote(markedLocal, quietRemote);
+    }
+
     /** {@code Observable.merge(first, second)}: both sources at once, items in the order they come. */
     public static Object merge(Object first, Object second) throws Exception {
         ClassLoader loader = second.getClass().getClassLoader();
         return mergeMethod(loader, type(loader, CORE + "Observable"), type(loader, CORE + "ObservableSource"))
                 .invoke(null, first, second);
+    }
+
+    /** A new {@code PublishRelay}: an Observable that emits whatever is passed to {@link #relayAccept}. */
+    public static Object newRelay(ClassLoader loader) throws Exception {
+        return type(loader, "com.jakewharton.rxrelay3.PublishRelay").getConstructor().newInstance();
+    }
+
+    /** Pushes a value into a relay made by {@link #newRelay}, or into SoundCloud's own relay. */
+    public static void relayAccept(Object relay, Object value) throws Exception {
+        relay.getClass().getMethod("accept", Object.class).invoke(relay, value);
     }
 
     private static volatile Method merge;
@@ -185,6 +231,90 @@ public final class Rx {
             }
         }
         return result.get();
+    }
+
+    /**
+     * Waits up to the timeout for the first item of a Single (or Maybe, Observable), like {@link #blockingFirst}, but
+     * does not give up on the source when the time runs out: {@code onEnd} runs once the source has answered (item
+     * or error), even long after the wait ended. For work that cannot be stopped, such as a read of a file in native
+     * code, whose end must be known before the next one starts.
+     *
+     * @return The item, or null on error, completion without items or timeout.
+     */
+    public static Object firstWithin(Object reactive, long timeout, java.util.concurrent.TimeUnit unit, Runnable onEnd)
+            throws Exception {
+        java.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicReference<Object> result = new java.util.concurrent.atomic.AtomicReference<>();
+        java.util.concurrent.atomic.AtomicBoolean ended = new java.util.concurrent.atomic.AtomicBoolean();
+        Runnable end = () -> {
+            if (ended.compareAndSet(false, true)) onEnd.run();
+        };
+        ClassLoader loader = reactive.getClass().getClassLoader();
+        Class<?> consumer = type(loader, FUNCTIONS + "Consumer");
+        Object onItem = function(loader, "Consumer", args -> {
+            result.compareAndSet(null, args[0]);
+            latch.countDown();
+            end.run();
+            return null;
+        });
+        Object onError = function(loader, "Consumer", args -> {
+            latch.countDown();
+            end.run();
+            return null;
+        });
+        boolean subscribed = false;
+        try {
+            for (Method method : reactive.getClass().getMethods()) {
+                Class<?>[] parameters = method.getParameterTypes();
+                if (method.getName().equals("subscribe") && parameters.length == 2
+                        && parameters[0] == consumer && parameters[1] == consumer) {
+                    method.invoke(reactive, onItem, onError);
+                    subscribed = true;
+                    break;
+                }
+            }
+        } finally {
+            if (!subscribed) end.run();
+        }
+        latch.await(timeout, unit);
+        return result.get();
+    }
+
+    /**
+     * Waits for a Completable to finish. Not {@link #blockingFirst}: a Completable has no item, and its
+     * {@code subscribe} takes an action instead of a consumer for the end.
+     *
+     * @return Null when it completed; the error when it failed or the time ran out.
+     */
+    public static Throwable awaitCompletable(Object completable, long timeout, java.util.concurrent.TimeUnit unit) throws Exception {
+        java.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicReference<Throwable> failure = new java.util.concurrent.atomic.AtomicReference<>();
+
+        ClassLoader loader = completable.getClass().getClassLoader();
+        Class<?> consumer = type(loader, FUNCTIONS + "Consumer");
+        Class<?> action = type(loader, FUNCTIONS + "Action");
+        Object onComplete = function(loader, "Action", args -> {
+            latch.countDown();
+            return null;
+        });
+        Object onError = function(loader, "Consumer", args -> {
+            Throwable error = args != null && args.length == 1 && args[0] instanceof Throwable
+                    ? (Throwable) args[0] : new IllegalStateException("Completable failed");
+            failure.compareAndSet(null, error);
+            latch.countDown();
+            return null;
+        });
+
+        for (Method method : completable.getClass().getMethods()) {
+            Class<?>[] parameters = method.getParameterTypes();
+            if (method.getName().equals("subscribe") && parameters.length == 2
+                    && parameters[0] == action && parameters[1] == consumer) {
+                method.invoke(completable, onComplete, onError);
+                // Not disposed when the time runs out: a write that is under way should finish, not stop half way.
+                return latch.await(timeout, unit) ? failure.get() : new java.util.concurrent.TimeoutException("Completable timed out");
+            }
+        }
+        throw new IllegalStateException("subscribe(onComplete, onError) not found on " + completable.getClass());
     }
 
     /** Subscribes to a Completable, Single or Observable and ignores its result and errors. */

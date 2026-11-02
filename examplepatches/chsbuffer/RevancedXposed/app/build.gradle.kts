@@ -26,7 +26,7 @@ android {
 
     defaultConfig {
         applicationId = "io.github.chsbuffer.revancedxposed"
-        versionCode = 111
+        versionCode = 112
         versionName = "2.0.$versionCode"
         val patchVersion = Properties().apply {
             rootProject.file("morphe-patches/gradle.properties").inputStream().use { load(it) }
@@ -287,6 +287,7 @@ abstract class CopyResourcesTask @Inject constructor() : DefaultTask() {
         outputDir.deleteRecursively()
 
         val resourcePaths = mapOf(
+            "change-header/drawable" to null,
             "channelsearch/drawable" to null,
             "qualitybutton/drawable" to null,
             "settings/drawable" to null,
