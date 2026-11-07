@@ -13,7 +13,6 @@ import java.util.Set;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
-import app.revanced.extension.soundcloud.recommendations.ForYou;
 import app.revanced.extension.soundcloud.settings.Settings;
 import app.revanced.extension.soundcloud.shared.Lang;
 import app.revanced.extension.soundcloud.shared.Rx;
@@ -21,13 +20,12 @@ import app.revanced.extension.soundcloud.shared.Rx;
 /**
  * The "Imported" playlist.
  * <p>
- * It is a regular, empty, private SoundCloud playlist, so the library, the playlist screen,
- * playback and shuffle work natively. Its tracks exist only on this device: every imported
- * file is appended when the app reads the playlist.
- * If the playlist is deleted, it is created again on the next start while the option is on.
+ * It lives on this phone only ({@link LocalPlaylists}), yet to the library, the playlist screen, playback and
+ * shuffle it is a playlist like any other. Its tracks exist only on this device: every imported file is appended
+ * when the app reads the playlist.
  * <p>
  * This class is the entry point and holds what the app tells us ({@link #setPlaylistOperations},
- * {@link #setPostsStorage}); the upkeep of the playlist on SoundCloud is {@link SavedPlaylistSync}.
+ * {@link #setPostsStorage}); the upkeep of the playlist is {@link SavedPlaylistSync}.
  */
 @SuppressWarnings("unused")
 public final class SavedPlaylist {
@@ -89,12 +87,13 @@ public final class SavedPlaylist {
         playlistOperations = instance;
         if (checked) return;
         checked = true;
-        ForYou.onAppStart();
+        LegacyForYou.cancelJob();
         // Give the app time to sign in and start; this never blocks the UI.
         Utils.runOnBackgroundThread(() -> {
             try {
                 Thread.sleep(CHECK_DELAY_MS);
                 SavedPlaylistSync.ensureExists();
+                LegacyForYou.removePlaylist();
             } catch (IOException ex) {
                 // No network or requests blocked by the region guard: tried again on the next start.
                 Logger.printInfo(() -> "Saved tracks playlist not checked: " + ex.getMessage());
@@ -114,6 +113,8 @@ public final class SavedPlaylist {
             try {
                 Thread.sleep(POSTS_CHECK_DELAY_MS);
                 SavedPlaylistSync.forgetDeletedCopies();
+                // The posts are known now; the first try (above) may have come before them.
+                LegacyForYou.removePlaylist();
             } catch (InterruptedException ignored) {
             }
         });
@@ -158,7 +159,7 @@ public final class SavedPlaylist {
      */
     public static boolean useStoredPlaylist(Object urn, Object response) {
         if (response == null || !isFound(response)) return false;
-        if (isSavedPlaylist(urn)) return true;
+        if (isSavedPlaylist(urn) || LocalPlaylists.isLocal(urn)) return true;
         try {
             Object playlist = response.getClass().getMethod("getItem").invoke(response);
             List<?> tracks = (List<?>) playlist.getClass().getMethod("getTracks").invoke(playlist);

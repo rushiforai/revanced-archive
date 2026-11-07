@@ -15,9 +15,9 @@ import app.revanced.extension.soundcloud.wallpaper.WallpaperStore;
 
 /**
  * The pictures behind the title of some pages: the orange hearts of "Your likes" and the golden cards of the
- * purchases page, and the hearts of the liked tracks cell in Downloads. They are images, not drawn from the colour
+ * purchases page, the arrow of the Downloads page, and the hearts of the liked tracks cell in Downloads. They are images, not drawn from the colour
  * tokens, so a theme left them in SoundCloud's colours. (The hearts on the home screen's "Your likes" bar come from
- * the server as a picture link and stay as they are.)
+ * the server as a picture link: {@link HomeLikesHeart} recolours them as they are drawn.)
  * <p>
  * The theme recolours them into its accent when it is built ({@link #tint}), and a setting hides them. The pictures
  * behind a page title lose their dark ground on the way, so over a plain page they look as designed. Over a wallpaper
@@ -25,7 +25,7 @@ import app.revanced.extension.soundcloud.wallpaper.WallpaperStore;
  */
 public final class HeaderArtwork {
     /** The pictures, by resource name. */
-    static final String[] NAMES = {"your_likes_banner", "collection_header", "liked_tracks_artwork"};
+    static final String[] NAMES = {"your_likes_banner", "collection_header", "liked_tracks_artwork", "downloads_banner"};
     /** The cell of the liked tracks is a cover in a list: it keeps its dark ground. */
     private static final String SOLID = "liked_tracks_artwork";
 
@@ -39,6 +39,15 @@ public final class HeaderArtwork {
     @SuppressWarnings("unused")
     public static float alpha(int resource) {
         return Settings.isHeaderArtworkHidden() || WallpaperStore.isActive() ? 0f : 1f;
+    }
+
+    /**
+     * Called by the header of the Downloads page for the opacity of its picture and of the veil over it (both are
+     * plain Image calls there, 1 in SoundCloud). Same rule as {@link #alpha}.
+     */
+    @SuppressWarnings("unused")
+    public static float downloadsAlpha() {
+        return alpha(0);
     }
 
     /**
@@ -90,6 +99,22 @@ public final class HeaderArtwork {
         return result;
     }
 
+    /**
+     * The colour matrix of a drawing that keeps its dark ground: the brightness of each pixel (its red channel, the
+     * brightest in SoundCloud's orange hearts) becomes that much of the accent, the transparency stays.
+     */
+    static float[] solid(int accent) {
+        float r = ((accent >> 16) & 0xFF) / 255f;
+        float g = ((accent >> 8) & 0xFF) / 255f;
+        float b = (accent & 0xFF) / 255f;
+        return new float[]{
+                r, 0, 0, 0, 0,
+                g, 0, 0, 0, 0,
+                b, 0, 0, 0, 0,
+                0, 0, 0, 1, 0,
+        };
+    }
+
     private static byte[] tinted(Bitmap bitmap, int accent, String name) {
         Bitmap tinted = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         float r = ((accent >> 16) & 0xFF) / 255f;
@@ -97,12 +122,7 @@ public final class HeaderArtwork {
         float b = (accent & 0xFF) / 255f;
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
         paint.setColorFilter(new ColorMatrixColorFilter(new ColorMatrix(SOLID.equals(name)
-                ? new float[]{
-                r, 0, 0, 0, 0,
-                g, 0, 0, 0, 0,
-                b, 0, 0, 0, 0,
-                0, 0, 0, 1, 0,
-        }
+                ? solid(accent)
                 : new float[]{
                 0, 0, 0, 0, r * 255,
                 0, 0, 0, 0, g * 255,

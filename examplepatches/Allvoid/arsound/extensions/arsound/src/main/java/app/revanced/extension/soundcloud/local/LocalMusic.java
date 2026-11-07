@@ -379,11 +379,26 @@ public final class LocalMusic {
     }
 
     /**
+     * Plays SoundCloud tracks one after another from the first, as a queue of their own ("My Wave").
+     *
+     * @param entries {@code soundcloud:tracks:ID} entries.
+     * @return False if the player is not ready yet or nothing is playable.
+     */
+    public static boolean playTracks(List<String> entries) {
+        return playEntries(entries, 0, false);
+    }
+
+    /**
      * Plays SoundCloud tracks and imported files together.
      *
      * @param entries {@code soundcloud:tracks:ID} or {@code file:path} entries.
      * @return False if the player is not ready yet or nothing is playable.
      */
+    /** False until the player has been set up in this run; nothing can be played before that. */
+    public static boolean canPlay() {
+        return playbackInitiator != null;
+    }
+
     private static boolean playEntries(List<String> entries, int startIndex, boolean shuffle) {
         Object initiator = playbackInitiator;
         if (initiator == null || entries.isEmpty()) return false;

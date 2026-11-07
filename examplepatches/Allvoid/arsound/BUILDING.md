@@ -50,10 +50,16 @@ local/                            Локальные файлы, в Git не п�
 | **Content wall over the wallpaper** | В `WallpaperSurfacesPatch`: у фона блока главной с фильтрами жанров (`ContentWallBackgroundKt` в SDUI и такая же лямбда в `sections/ui/viewholder`, их находит вызов `ShadowKt.innerShadow`) цвет `Colors.j` идёт через `screenSurface`, картинка Coil — через `backdropPicture`, а `drawWithContent` с градиентом заменён на `backdropShade` (градиент берёт цвет с собственной альфой, поэтому прозрачный цвет всё равно давал тёмную полосу). `Colors.j` в `EdgeShadowKt`, `AdjustableTabRowKt` и `LoadingKt` тоже идёт через `screenSurface`. |
 | **Top bar over the wallpaper** | В `WallpaperSurfacesPatch`: `Colors.j` в `TopAppBarKt` (b, c) заменён на `WallpaperSurfaces.topBarColour`, перед `AppBarKt.b` модификатор панели проходит через `topBarModifier` — стили `wallpaper.TopBarStyle`, заливки градиента и стекла (`TopBarLook`: размытая полоса обоев через `ShaderBrush`) строятся рефлексией по сохранённым именам Compose. |
 | **Player comments** | `PlayerSettings.a()` (настройка SoundCloud `player_popup_comments`) проходит через `PlayerComments.showPopups`; переключатель Arsound пишет и саму настройку SoundCloud, открытый плеер меняется сразу. |
+| **Home likes hearts** | Сердца на полосе «Your likes» главной приходят с сервера картинкой, поэтому перекраска ресурсов их не трогает. В обоих экземплярах полосы (`ShortcutActionHeaderKt`, `sections/ui/components/ShortcutsKt`) перед вызовом Coil `SingletonAsyncImageKt.b` фильтр цвета (шестой регистр диапазона) заменяется на `HomeLikesHeart.filter` — та же матрица, что у `HeaderArtwork` для сердец «Загрузок»; в маске параметров по умолчанию (последний регистр) снимается бит 8 фильтра (маска считает параметры Coil до урезания: бит 5 — выравнивание, его снятие роняет отрисовку). С видом SoundCloud — без фильтра. |
+| **Whole cover** | В начало `PlayerArtworkController.a()` (слушатель смены ширины обложки, ставит `TranslateXHelper` — сдвиг растянутой обложки вбок по ходу трека) вставлен вызов `WholeCover.skipSlide`: при включённой настройке сдвиг не ставится, `artwork_image_view` и `artwork_overlay_image` внутри `artwork_holder` получают размер и место квадрата между `track_page_header` и `timestamp_holder`, углы скругляются контуром (без слоя), а под `artwork_holder` встаёт своё `ImageView` с размытой затемнённой копией (24 × 24, `CoverBackdrop`). Загрузку картинки, нажатие и уменьшение на паузе по-прежнему делает SoundCloud. |
 | **Square player widget** | Виджет 2 × 2 (`SquarePlayerWidget`, ресурсы в `soundcloud/widget`, приёмник «Arsound 2×2» в манифесте). В начало `PlayerWidgetPresenter.b(RemoteViews)` вставлен вызов `SquarePlayerWidget.onPlayerWidget`: тот же построитель SoundCloud (`PlayerWidgetRemoteViewsBuilder`) запускается ещё раз с `WidgetResourceProvider` через `Proxy`, который отдаёт свой макет (с id виджета SoundCloud) и свои круглые значки. |
 | **Change account type** | Свой тип аккаунта Android, чтобы мод работал рядом с оригиналом. |
 | **Custom app name**, **Arsound branding** | Название, иконки (и 93 варианта иконки на выбор), анимации запуска и загрузки, логотипы и заглушка обложки. |
 | **Change package name** | Патч ReVanced: пакет `com.arsound.app` (до 0.9.3 включительно был `com.soundcloud.android.revanced`). |
+
+**Нижняя панель** (`navbar`, `BottomTabsPatch.kt`): убранная вкладка не вырезается, а уходит в конец списка вкладок (`TabOrder`: сначала остающиеся, потом убранные, вкладка Upgrade всегда последней) и скрывается её кнопка: номер вкладки в SoundCloud — её место в списке, так номера остаются верными, а первая видимая вкладка становится стартовой и «домашней» для кнопки «назад». Список оборачивается там, где его отдаёт `NavigationTargetsProvider.a()` и где `MainNavigationPresenter.a(...)` получает обновлённый список; кнопки скрываются в конце `MainNavigationView.setupMenuItems`; в `LibraryFragment.onPrepareOptionsMenu` добавляется кнопка поиска.
+
+**Моя волна** (`recommendations/MyWave`): первые 8 треков — быстро, только «похожие» SoundCloud двух образцов (`WaveBuilder.buildQuick`), и подбираются заранее, пока открыта вкладка (`MyWave.prepare`, свежи 15 минут); сразу после старта все источники спрашиваются параллельно (`WaveBuilder.build`: образцы — играющий трек, лайки (кэш 10 минут), дослушанные; источники — `WaveSource`) и партия ставится в конец очереди. Играет через `LocalMusic.playTracks`; всплывающих уведомлений нет, ошибка старта показывается строкой на вкладке. Кнопка вкладки — пауза и продолжение плеера (`player/MediaKeys`, состояние из `CurrentPlayState.isPlaying`); нажатие на трек списка — `MyWave.playFrom`: очередь собирается заново с этого трека и до конца волны (прошлая волна при этом продолжается); следующая партия просится, когда впереди шесть треков или меньше (по очереди плеера, а если её не прочитать — по своему списку). Пропуск в первые 15 секунд — не запрет: трек «отдыхает» `WaveLedger.SKIP_REST_MS` (3 дня) и не берётся образцом, навсегда убирает только «Не нравится». Строка «Как волна подбирает треки» с «?» открывает окно с пояснением и «Больше не показывать» (`wave_note_hidden`); следующая добавляется в конец очереди методом «Играть последним» (`PlayQueueManager.o`) на `PlaybackEvents.onPlay`, когда после играющего остаётся не больше четырёх треков; пока волна играет, автовоспроизведение SoundCloud ничего не добавляет (`DuplicateFilter.filterAutoplay`). Пропуски и дослушивания пишет `ListeningStats` в `WaveMemory`. Вкладка — свой класс вкладки SoundCloud `navbar/WaveNavigationTarget` (наследник `NavigationModel$Target$Selectable`, заглушки в `extensions/arsound/stub`): `BottomTabs.arrange` вставляет его после «Главной» в оба списка вкладок, панель берёт подпись и значок из ресурсов `arsound_tab_wave` (строка и селектор, `BottomTabsPatch`), страница — фрагмент `recommendations/WavePage` (`WaveOrb` — рисунок волны, `WaveCovers` — обложки 100 px по `artworkUrlTemplate` из `core.db`, `WaveChip` — чип источника). Исполнитель — как в плеере: `Tracks.preferredName` (это `publisher_metadata.artist`) или, если его нет, имя загрузившего. Подложек на вкладке нет: строки лежат прямо на странице, выключенный чип — контур с лёгким тоном, полоска под строкой состояния следует стилю верхней панели обоев («Без подложки» — её нет). Названия треков: сначала сохранённые в `WaveSession` (файл `arsound_wave_session`: последние 60 треков волны, играющий и их названия — вкладка показывает «В прошлый раз» после перезапуска), потом `core.db`; это показывается сразу, а `api-v2 /tracks?ids=` (`TrackTitleResolver.fetchTracks`) дополняет список, когда ответит: SoundCloud пишет трек в `core.db`, только когда сам его загрузил, поэтому следующих треков волны там ещё нет. Экран выбран `Screen.HIGHLIGHTS`: его не открывает ни один экран SoundCloud, поэтому никто не выберет вкладку по нему.
 
 ### Как устроен код расширения
 
@@ -81,15 +87,16 @@ Kotlin-патчи и хуки жизненного цикла), главные �
 | `network` | свой DNS, блокировка по стране IP, значок сети, вопрос перед DataDome, общие обложки | `NetworkPatch`, `RegionGuard` |
 | `offline` | сохранённое показывается сразу, скачанное играет из файла, повтор при сбое сети | `OfflineFirstPatch`, `InstantFilePlayback` |
 | `permissions` | приветствие при первом запуске, объяснение разрешений, переключатель языка (имя историческое) | `WelcomePermissions` |
-| `player` | эквалайзер, таймер сна, кнопка режима воспроизведения, статистика, кэш потока, обложка уведомления, плеер vivo, плавный переход, загрузка следующего трека, всплывающие комментарии | `AudioEqualizer`, `SleepTimer`, `PlayModeButton`, `PlaybackEvents` |
+| `navbar` | вкладки нижней панели (убрать «Главная», «Лента», «Поиск»; Библиотека остаётся), кнопка поиска в Библиотеке | `BottomTabs`, `TabOrder`, `LibrarySearchButton` |
+| `player` | эквалайзер, версии трека (slowed, speed up, reverb, bass boost), таймер сна, кнопка режима воспроизведения и кнопка «Не нравится», статистика, кэш потока, обложка уведомления, плеер vivo, плавный переход, загрузка следующего трека, всплывающие комментарии | `AudioEqualizer`, `TrackVersions`, `SleepTimer`, `PlayModeButton`, `PlaybackEvents` |
 | `power` | экономия энергии: реже опрос, без фоновых отчётов | `PowerSavingPatch` |
-| `recommendations` | фильтр дублей, «Не для меня», плейлист «Для вас», очередь автовоспроизведения | `DuplicateFilter`, `AutoplayQueue`, `ForYou`, `TrackDislikes` |
+| `recommendations` | фильтр дублей, «Не для меня», «Моя волна» (бесконечная очередь по вкусу), очередь автовоспроизведения | `DuplicateFilter`, `AutoplayQueue`, `ForYou`, `TrackDislikes`, `MyWave` |
 | `region` | значок «?» у пометки «Недоступно в вашей стране» | `RegionHint` |
 | `screenshot` | окно «Поделиться скриншотом» | `ScreenshotShare` |
 | `search` | поиск Arsound по YouTube Music под строкой поиска (не поиск настроек) | `SearchSourceSwitch`, `OtherSource` |
-| `settings` | значения настроек и все экраны настроек | `Settings`, `BoolSettings`, `SettingsScreens`, `SettingsEntry` |
+| `settings` | значения настроек и все экраны настроек; резервная копия настроек в файл | `Settings`, `BoolSettings`, `SettingsScreens`, `SettingsEntry`, `SettingsTransfer`, `TransferPlan` |
 | `settings/search` | движок поиска по настройкам, без Android | `SearchIndex` |
-| `shared` | общие помощники: язык, размеры, цвета, Reflect, Rx, диалоги | `Lang`, `Reflect`, `ArsoundDialog` |
+| `shared` | общие помощники: язык, размеры, цвета, Reflect, Rx, диалоги, строгий разбор JSON | `Lang`, `Reflect`, `ArsoundDialog`, `StrictJson` |
 | `transfer` | перенос из Яндекс Музыки: ссылка или аккаунт Яндекса → приватный плейлист SoundCloud | `TransferJob`, `YandexMusic`, `YandexLink` |
 | `theme` | темы поверх интерфейса SoundCloud, цвета, шрифты, стартовый экран | `ArsoundTheme`, `ThemeLifecycle` |
 | `theme/effect` | анимированные фоны тем (искры, звёзды, лепестки, снег) | `EffectKind`, `EffectScene` |
@@ -224,7 +231,7 @@ local/
   tools/apktool_*.jar, tools/jadx/       разбор APK
   arsound.keystore                       ключ подписи мода: BKS, запись «Arsound», сертификат CN=Arsound
   arsound.keystore.password              пароль ключа (один для хранилища и записи)
-  lastfm.properties                      (необязательно) api_key=... — ключ Last.fm для плейлиста «Для вас»
+  lastfm.properties                      (необязательно) api_key=... — ключ Last.fm для «Моей волны»
                                          (last.fm/api/account/create). Без него плейлист не собирается.
                                          Вместо файла можно задать переменную ARSOUND_LASTFM_API_KEY
   out/                                   готовые APK и логи
@@ -332,6 +339,10 @@ python tools/branding/icons.py <папка экспорта иконки>/palett
 на месте буквы — знак А9 (линия буквы в цвете прежней буквы, акцентная — цвет из `ACCENTS` в `design_icons.py`), передний
 слой; слои — WebP 432 px. Значки встают в конец списков между пометками `design icons`, по группе
 на цвет; к темам они не привязаны. `icons.py` при перезапуске вызывает этот скрипт сам.
+
+Тот же скрипт добавляет в начало списка одну иконку «А9 минимализм» (`a9_minimal`, группа «Минимализм»): катакана ア из
+двух толстых линий (белая и лазурная `#4c9bff`, линия 32 на сетке 512) на тёмной плитке с градиентом `#1b1b1d` → `#040404`.
+Она из набора A9 Icon Set проекта letter-a-icon, к темам не привязана и целиком векторная (не в `BITMAP_APP_ICONS`).
 
 ```bash
 python tools/branding/design_icons.py
@@ -561,6 +572,14 @@ disk.dataPartition.size=16G
   `LoginLogsButton.onActivityResumed` из `AuthLandingFragment.onViewCreated` (отдельный патч).
 - **Сразу после запуска Android блокирует сеть приложению, которое ещё не на экране**, и кэширует неудачный
   DNS-ответ на несколько секунд. Сетевые проверки при старте нужно начинать после выхода на передний план.
+
+## Номер версии и тестовые сборки
+
+Версия Arsound стоит в двух местах: `version` в `gradle.properties` (имя файла патчей) и `UpdateChecker.VERSION` (экран «Обновления и данные» и проверка обновлений); `patches.json` описывает публичный релиз на GitHub для ReVanced Manager.
+
+Тестовая сборка для приватного канала стоит между двумя публичными релизами: номер следующего релиза с суффиксом, например `1.1.0-test.1`, пока на GitHub лежит 1.0.1. `ReleaseVersion.compare` ставит версию с суффиксом перед той же версией без него, поэтому тестовой сборке не предлагается старый публичный релиз, а следующий предлагается (`ReleaseVersionTest`).
+
+Все сборки ставятся поверх друг друга с сохранением данных: у них один пакет (`com.arsound.app`, для китайских прошивок `com.kugou.viper`), одна подпись (`local/arsound.keystore`) и `versionCode` той версии SoundCloud, из которой они собраны (377050 у 2026.10.14). Пакет и ключ для тестовых сборок не менять. Обновляют друг друга только APK с этой подписью: сборка, которую человек сделал сам в ReVanced Manager, подписана его ключом.
 
 ## Обновление под новую версию SoundCloud
 

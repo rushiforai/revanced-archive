@@ -22,7 +22,7 @@ import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.download.DownloadTrackPatch;
 import app.revanced.extension.soundcloud.local.LocalAdditions;
 import app.revanced.extension.soundcloud.local.LocalMusic;
-import app.revanced.extension.soundcloud.recommendations.ForYou;
+import app.revanced.extension.soundcloud.recommendations.SongNames;
 
 /**
  * Finds the title and the artist of the tracks in the statistics. Titles of SoundCloud tracks are looked up once and
@@ -30,9 +30,9 @@ import app.revanced.extension.soundcloud.recommendations.ForYou;
  * their tags.
  * <p>
  * Uploads by others are often titled "Artist - Title" under the uploader's name: the artist is taken from the title
- * then, the same way as for the "For you" playlist.
+ * then, the same way as My Wave does.
  */
-final class TrackTitleResolver {
+public final class TrackTitleResolver {
     private static final String TITLES = "titles";
     /**
      * Tracks the server did not return when their titles were asked for (deleted, private, blocked in
@@ -96,7 +96,7 @@ final class TrackTitleResolver {
                     JSONObject track = array.getJSONObject(i);
                     JSONObject user = track.optJSONObject("user");
                     putTitle(titles, "soundcloud:tracks:" + track.getLong("id"), track.optString("title"),
-                            user == null ? "" : user.optString("username"));
+                            artistOf(track, user));
                     returned.add(String.valueOf(track.getLong("id")));
                     changed = true;
                 }
@@ -146,13 +146,17 @@ final class TrackTitleResolver {
     }
 
     private static void name(ListeningStats.Entry entry, String title, String uploader) {
-        String[] names = ForYou.artistAndTitle(title, uploader);
+        String[] names = SongNames.artistAndTitle(title, uploader);
         entry.artist = names != null ? names[0] : "";
         entry.title = names != null ? names[1] : title;
     }
 
-    /** Titles and uploaders of tracks from SoundCloud's own database, without the network. */
-    static Map<String, String[]> storedTitles(List<String> urns) {
+    /**
+     * Titles and artists of tracks from SoundCloud's own database, without the network: per track urn the title, the
+     * artist as the player shows it (the uploader when the track names none) and the address template of the cover
+     * ({@code {size}} in it stands for the size), each possibly null.
+     */
+    public static Map<String, String[]> storedTitles(List<String> urns) {
         Map<String, String[]> found = new HashMap<>();
         Context context = Utils.getContext();
         File path = context == null ? null : context.getDatabasePath("core.db");
@@ -161,13 +165,14 @@ final class TrackTitleResolver {
             // SQLite takes at most 999 values in one query.
             for (int start = 0; start < urns.size(); start += 400) {
                 List<String> part = urns.subList(start, Math.min(urns.size(), start + 400));
-                String query = "SELECT t.urn, t.title, u.username FROM Tracks t "
+                // preferredName is the artist SoundCloud's player shows (the publisher's metadata); the uploader when it has none.
+                String query = "SELECT t.urn, t.title, COALESCE(NULLIF(t.preferredName, ''), u.username), t.artworkUrlTemplate FROM Tracks t "
                         + "LEFT JOIN TrackUserJoin j ON j.trackUrn = t.urn LEFT JOIN Users u ON u.urn = j.userUrn "
                         + "WHERE t.urn IN (" + String.join(",", Collections.nCopies(part.size(), "?")) + ")";
                 try (Cursor cursor = core.rawQuery(query, part.toArray(new String[0]))) {
                     while (cursor.moveToNext()) {
                         if (cursor.getString(1) == null) continue;
-                        found.put(cursor.getString(0), new String[]{cursor.getString(1), cursor.getString(2)});
+                        found.put(cursor.getString(0), new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3)});
                     }
                 }
             }
@@ -175,5 +180,50 @@ final class TrackTitleResolver {
             Logger.printInfo(() -> "Listening stats: could not read stored track titles: " + ex);
         }
         return found;
+    }
+
+    /**
+     * Titles, artists and covers of tracks SoundCloud has not stored yet, asked from its API: per track urn the title,
+     * the artist as the player shows it and the address of the cover (the uploader's picture when the track has none), each possibly null.
+     * Blocks; a track the server does not return is left out.
+     */
+    public static Map<String, String[]> fetchTracks(List<String> urns) {
+        Map<String, String[]> found = new HashMap<>();
+        List<String> ids = new ArrayList<>();
+        for (String urn : urns) {
+            String id = DownloadTrackPatch.parseTrackId(urn);
+            if (id != null) ids.add(id);
+        }
+        for (int start = 0; start < ids.size(); start += 50) {
+            try {
+                List<String> batch = ids.subList(start, Math.min(ids.size(), start + 50));
+                String[] response = DownloadTrackPatch.apiGet("https://api-v2.soundcloud.com/tracks?ids="
+                        + String.join(",", batch));
+                if (response[1] == null) break;
+                JSONArray array = new JSONArray(response[1]);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject track = array.getJSONObject(i);
+                    JSONObject user = track.optJSONObject("user");
+                    String cover = track.isNull("artwork_url") ? null : track.optString("artwork_url", null);
+                    if ((cover == null || cover.isEmpty()) && user != null && !user.isNull("avatar_url")) {
+                        cover = user.optString("avatar_url", null);
+                    }
+                    found.put("soundcloud:tracks:" + track.getLong("id"), new String[]{track.optString("title"),
+                            artistOf(track, user), cover});
+                }
+            } catch (Exception ex) {
+                Logger.printInfo(() -> "My Wave: no track titles from SoundCloud: " + ex);
+                break;
+            }
+        }
+        return found;
+    }
+
+    /** The artist the player shows: the publisher's metadata of the track, else the uploader. */
+    private static String artistOf(JSONObject track, JSONObject user) {
+        JSONObject publisher = track.optJSONObject("publisher_metadata");
+        String artist = publisher == null || publisher.isNull("artist") ? "" : publisher.optString("artist").trim();
+        if (!artist.isEmpty()) return artist;
+        return user == null ? "" : user.optString("username");
     }
 }

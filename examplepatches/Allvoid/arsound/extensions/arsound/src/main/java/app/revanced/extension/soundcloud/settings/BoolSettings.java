@@ -12,8 +12,18 @@ public final class BoolSettings {
     public static final BoolSetting TELEMETRY_ENABLED = new BoolSetting(Settings.TELEMETRY_ENABLED, false);
     /** On by default, the offer screen cannot load its prices outside of Google Play anyway. */
     public static final BoolSetting HIDE_SUBSCRIPTION_OFFERS = new BoolSetting(Settings.HIDE_SUBSCRIPTION_OFFERS, true);
-    /** Removes the Upgrade tab from the bottom bar. Off by default. Written at once: the app restarts right after it. */
+    /**
+     * Removes the Upgrade tab from the bottom bar. Off by default. Written in the background like most settings: the
+     * Upgrade tab page only makes the main screen again, which reads the value from memory, and the "Bottom bar"
+     * screen flushes it to the disk before its restart.
+     */
     public static final BoolSetting HIDE_UPGRADE_TAB = new BoolSetting(Settings.HIDE_UPGRADE_TAB, false);
+    /** Takes the Home, Feed and Search tabs out of the bottom bar (Library stays). Off by default; written at once: the app restarts. */
+    public static final BoolSetting HIDE_TAB_HOME = new BoolSetting(Settings.HIDE_TAB_HOME, false, true);
+    public static final BoolSetting HIDE_TAB_FEED = new BoolSetting(Settings.HIDE_TAB_FEED, false, true);
+    public static final BoolSetting HIDE_TAB_SEARCH = new BoolSetting(Settings.HIDE_TAB_SEARCH, false, true);
+    /** Takes Arsound's "My Wave" tab out of the bottom bar. Off by default; the app restarts to apply. */
+    public static final BoolSetting HIDE_TAB_WAVE = new BoolSetting(Settings.HIDE_TAB_WAVE, false, true);
     /** Checks GitHub for a newer Arsound release on every launch. On by default. */
     public static final BoolSetting UPDATE_CHECK = new BoolSetting(Settings.UPDATE_CHECK, true);
     /** Shows stored playlists before the server answers. On by default. */
@@ -36,6 +46,8 @@ public final class BoolSettings {
     public static final BoolSetting SAVED_PLAYLIST_HIDDEN = new BoolSetting(Settings.SAVED_PLAYLIST_HIDDEN, false);
     /** Imported files among "Your likes", on this phone only. On by default; independent of the "Imported" playlist. */
     public static final BoolSetting IMPORTED_IN_LIKES = new BoolSetting(Settings.IMPORTED_IN_LIKES, true);
+    /** A file that is imported is liked at once: heart filled, among "Your likes". On by default; files already imported are not touched. */
+    public static final BoolSetting LIKE_ON_IMPORT = new BoolSetting(Settings.LIKE_ON_IMPORT, true);
     public static final BoolSetting REGION_GUARD = new BoolSetting(Settings.REGION_GUARD, false);
     /** Checks the IP country again when the network or the VPN changes. On by default. */
     public static final BoolSetting REGION_RECHECK_ON_CHANGE = new BoolSetting(Settings.REGION_RECHECK_ON_CHANGE, true);
@@ -68,6 +80,11 @@ public final class BoolSettings {
      * down. Off puts SoundCloud's own behaviour back. On by default.
      */
     public static final BoolSetting SMOOTH_PLAYER_COLLAPSE = new BoolSetting(Settings.SMOOTH_PLAYER_COLLAPSE, true);
+    /**
+     * The open player shows the whole cover between the title and the waveform, on a blurred copy of it, instead of
+     * SoundCloud's strip of it that slides sideways. On by default; written at once, the app restarts after a switch.
+     */
+    public static final BoolSetting WHOLE_PLAYER_COVER = new BoolSetting(Settings.WHOLE_PLAYER_COVER, true, true);
     /** The end of a track fades out and the next one fades in. Off by default. */
     public static final BoolSetting CROSSFADE = new BoolSetting(Settings.CROSSFADE, false);
     /** Every track plays slowed, unless its title says it is slowed or sped up already. Off by default. */

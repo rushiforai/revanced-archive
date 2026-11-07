@@ -75,20 +75,34 @@ final class TransferStore {
      * Marks a transfer as under way. A transfer whose app was closed in the middle stays marked, so the screen can say
      * so and offer to go on; the playlists it had made are reused then instead of made again.
      */
-    static void markRunning(String key, String title) {
+    static void markRunning(String key, String title, boolean like) {
         synchronized (LOCK) {
             JSONObject running = read(RUNNING);
             try {
+                if (running == null) running = new JSONObject();
                 // The same collection again keeps the playlists made by the try before.
-                if (running == null || !key.equals(running.optString("key"))) {
-                    running = new JSONObject().put("key", key).put("playlists", new JSONArray());
-                }
-                running.put("title", title);
+                if (!key.equals(running.optString("key"))) switchRunning(running, key);
+                running.put("title", title).put("like", like);
                 write(RUNNING, running.toString());
             } catch (Exception ex) {
                 Logger.printException(() -> "Transfer: could not mark the transfer", ex);
             }
         }
+    }
+
+    /**
+     * Another collection goes first: the playlists of the one before wait in "left", under its key, so transferring that
+     * collection again does not make them a second time.
+     */
+    private static void switchRunning(JSONObject running, String key) throws Exception {
+        JSONObject left = running.optJSONObject("left");
+        if (left == null) left = new JSONObject();
+        JSONArray made = running.optJSONArray("playlists");
+        String before = running.optString("key");
+        if (!before.isEmpty() && made != null && made.length() > 0) left.put(before, made);
+        JSONArray back = left.optJSONArray(key);
+        left.remove(key);
+        running.put("key", key).put("playlists", back == null ? new JSONArray() : back).put("left", left);
     }
 
     /** Remembers a playlist the transfer made, the moment it is made: a later failure must not lose it. */
@@ -118,20 +132,32 @@ final class TransferStore {
         return made;
     }
 
-    /** The transfer ended, finished or not: nothing more to go on with. */
+    /** The transfer ended, finished or not: nothing more to go on with. What other collections left stays. */
     static void clearRunning() {
         synchronized (LOCK) {
             File folder = folder();
-            if (folder != null) new File(folder, RUNNING).delete();
+            if (folder == null) return;
+            JSONObject running = read(RUNNING);
+            JSONObject left = running == null ? null : running.optJSONObject("left");
+            if (left == null || left.length() == 0) {
+                new File(folder, RUNNING).delete();
+                return;
+            }
+            try {
+                write(RUNNING, new JSONObject().put("left", left).toString());
+            } catch (Exception ex) {
+                Logger.printException(() -> "Transfer: could not clear the transfer", ex);
+            }
         }
     }
 
-    /** The key and title of a transfer the app was closed in the middle of, or null. */
+    /** Key, title and "true" or "false" for the likes of a transfer the app was closed in the middle of, or null. */
     static String[] interrupted() {
         synchronized (LOCK) {
             JSONObject running = read(RUNNING);
             if (running == null || running.optString("key").isEmpty()) return null;
-            return new String[]{running.optString("key"), running.optString("title")};
+            return new String[]{running.optString("key"), running.optString("title"),
+                    String.valueOf(running.optBoolean("like"))};
         }
     }
 
@@ -168,7 +194,8 @@ final class TransferStore {
             for (int i = 0; i < Math.min(HISTORY_SIZE, history.size()); i++) {
                 TransferRecord kept = history.get(i);
                 List<String> missing = kept.missing.size() > MISSING_KEPT ? kept.missing.subList(0, MISSING_KEPT) : kept.missing;
-                entries.put(new TransferRecord(kept.key, kept.title, kept.time, kept.total, kept.found, kept.playlists, missing).toJson());
+                entries.put(new TransferRecord(kept.key, kept.title, kept.time, kept.total, kept.found, kept.playlists, missing,
+                        kept.liked).toJson());
             }
             write(HISTORY, new JSONObject().put("entries", entries).toString());
         } catch (Exception ex) {

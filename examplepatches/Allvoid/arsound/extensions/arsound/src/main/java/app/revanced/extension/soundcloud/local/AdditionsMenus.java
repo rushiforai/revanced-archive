@@ -4,6 +4,7 @@ import static app.revanced.extension.soundcloud.shared.Lang.text;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -13,14 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.shared.ResourceType;
 import app.revanced.extension.shared.Utils;
 
 /** The menu rows and the pickers for tracks and covers that exist only on this phone. */
 final class AdditionsMenus {
     private static final String TRACK_ROW_TAG = "arsound_local_add_row";
     private static final String PLAYLIST_ROW_TAG = "arsound_local_additions_row";
+    /** The rows of a playlist's menu that need its page on SoundCloud. */
+    private static final java.util.Set<String> SERVER_ROWS = new java.util.HashSet<>(java.util.Arrays.asList(
+            "Edit", "MakePublic", "MakePrivate", "Repost", "Reposted", "Like", "Liked", "Copy", "Delete"));
     private static final String COVER_ROW_TAG = "arsound_cover_row";
     private static final String REMOVE_COVER_ROW_TAG = "arsound_remove_cover_row";
+    private static final String LIKE_ROW_TAG = "arsound_like_row";
 
     private AdditionsMenus() {
     }
@@ -42,11 +48,29 @@ final class AdditionsMenus {
         }
     }
 
-    /** "Set cover" in the menu of an imported file. */
+    /**
+     * "Like" or "Remove from likes" in the menu of an imported file: SoundCloud shows no heart on a track that looks like
+     * the user's own upload, so this is the way to like a file that was not liked on import, or to take the like away.
+     */
+    private static void addLikeRow(Dialog dialog, MenuRows.TrackMenu menu, File audio) {
+        menu.removeTagged(LIKE_ROW_TAG);
+        if (!ImportedLikes.isActive()) return;
+        boolean liked = ImportedLikes.isLiked(audio);
+        ViewGroup row = MenuRows.running(dialog,
+                liked ? text("Убрать из «Ваших лайков»", "Remove from Your likes") : text("Лайкнуть", "Like"),
+                liked ? "ic_actions_heart_active" : "ic_actions_heart", () -> {
+                    if (ImportedLikes.setLiked(audio, !liked)) HeartRefresh.emitAgain();
+                });
+        row.setTag(LIKE_ROW_TAG);
+        menu.addBelowItems(row);
+    }
+
+    /** "Set cover" in the menu of an imported file, and the like row. */
     static void addTrackCoverRow(Dialog dialog, File audio) {
         try {
             MenuRows.TrackMenu menu = MenuRows.TrackMenu.find(dialog);
             if (menu == null) return;
+            addLikeRow(dialog, menu, audio);
             menu.removeTagged(COVER_ROW_TAG);
 
             boolean hasCover = LocalCovers.hasUserCover(audio);
@@ -89,11 +113,31 @@ final class AdditionsMenus {
                 })));
     }
 
+    /**
+     * A playlist of this phone has no page on SoundCloud: what would put it there or ask the server about it goes from its menu. It
+     * cannot be shared or made public, and the app has nothing to fail on. The menu draws one row for each of its items, in order;
+     * rows of Arsound come after them.
+     */
+    private static void dropServerRows(Dialog dialog, LinearLayout menuItems, Object menuData) {
+        View share = dialog.findViewById(Utils.getResourceIdentifier(ResourceType.ID, "shareSection"));
+        if (share != null) share.setVisibility(View.GONE);
+        List<?> items = PlaylistMerge.menuItems(menuData);
+        if (items == null || items.size() > menuItems.getChildCount()) {
+            Logger.printInfo(() -> "Playlist menu: " + menuItems.getChildCount() + " rows for " + (items == null ? 0 : items.size()) + " items");
+            return;
+        }
+        for (int i = items.size() - 1; i >= 0; i--) {
+            String name = items.get(i).getClass().getSimpleName();
+            if (SERVER_ROWS.contains(name.substring(name.lastIndexOf('$') + 1))) menuItems.removeViewAt(i);
+        }
+    }
+
     /** @param menuData The data SoundCloud built the menu from, to see whether the playlist can be edited. */
     static void addPlaylistMenuRows(Dialog dialog, String playlistUrn, Object menuData) {
         try {
             LinearLayout menuItems = MenuRows.playlistMenuItems(dialog);
             if (menuItems == null || menuItems.findViewWithTag(PLAYLIST_ROW_TAG) != null) return;
+            if (LocalPlaylists.isLocal(playlistUrn)) dropServerRows(dialog, menuItems, menuData);
 
             int count = AdditionsStore.entries(playlistUrn).size();
             ViewGroup row = MenuRows.opening(dialog,

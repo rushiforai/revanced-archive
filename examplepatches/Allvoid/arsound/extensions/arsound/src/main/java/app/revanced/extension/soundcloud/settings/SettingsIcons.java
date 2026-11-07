@@ -24,6 +24,9 @@ final class SettingsIcons {
         put("theme", "arsound_set_appearance", "ic_actions_sliders_three");
         put("wallpaper", "ic_actions_image");
         put("home", "ic_actions_navigation_home");
+        put("search", "ic_actions_search");
+        put("feed", "ic_actions_navigation_stream", "ic_actions_playlist");
+        put("library", "ic_actions_navigation_library", "ic_actions_playlist");
         put("animation", "ic_actions_star_sparkle");
         put("player", "ic_actions_play_outlined", "ic_actions_playback_play_circle");
         put("widget", "ic_actions_heart");
@@ -47,6 +50,7 @@ final class SettingsIcons {
         put("dislike", "ic_actions_thumbs_down");
         put("music", "ic_actions_musical_note");
         put("import", "ic_actions_import");
+        put("export", "ic_actions_upload", "ic_actions_share");
         put("order", "ic_actions_move_handle");
         put("folder", "ic_actions_playlist");
         put("storage", "ic_actions_downloaded");

@@ -12,6 +12,7 @@ import app.arsound.patches.soundcloud.download.headerDownloadButtonPatch
 import app.arsound.patches.soundcloud.library.hideImportBannerPatch
 import app.arsound.patches.soundcloud.local.localMusicPatch
 import app.arsound.patches.soundcloud.misc.SOUNDCLOUD_VERSION
+import app.arsound.patches.soundcloud.navbar.bottomTabsPatch
 import app.arsound.patches.soundcloud.misc.account.accountTypePatch
 import app.arsound.patches.soundcloud.misc.permissions.removePhonePermissionPatch
 import app.arsound.patches.soundcloud.misc.playservices.playServicesDialogPatch
@@ -21,7 +22,6 @@ import app.arsound.patches.soundcloud.misc.branding.brandingPatch
 import app.arsound.patches.soundcloud.misc.translation.russianTranslationPatch
 import app.arsound.patches.soundcloud.misc.theme.themePatch
 import app.arsound.patches.soundcloud.misc.theme.waveformColourPatch
-import app.arsound.patches.soundcloud.recommendations.forYouPatch
 import app.arsound.patches.soundcloud.misc.settings.settingsPatch
 import app.arsound.patches.soundcloud.network.networkPatch
 import app.arsound.patches.soundcloud.offline.downloadedPlaybackPatch
@@ -31,21 +31,26 @@ import app.arsound.patches.soundcloud.offline.offlineFirstPatch
 import app.arsound.patches.soundcloud.power.powerSavingPatch
 import app.arsound.patches.soundcloud.player.currentPlayStatePatch
 import app.arsound.patches.soundcloud.player.equalizerPatch
+import app.arsound.patches.soundcloud.player.feedMarqueePatch
+import app.arsound.patches.soundcloud.player.feedMuteIconPatch
 import app.arsound.patches.soundcloud.player.listeningStatsPatch
 import app.arsound.patches.soundcloud.player.lyricsPatch
 import app.arsound.patches.soundcloud.player.mixWithOtherAppsPatch
 import app.arsound.patches.soundcloud.player.notificationArtworkPatch
 import app.arsound.patches.soundcloud.player.playModePatch
 import app.arsound.patches.soundcloud.player.playerCommentsPatch
+import app.arsound.patches.soundcloud.player.progressRingPatch
 import app.arsound.patches.soundcloud.player.smoothSheetPatch
 import app.arsound.patches.soundcloud.player.streamCachePatch
 import app.arsound.patches.soundcloud.player.trackTransitionsPatch
 import app.arsound.patches.soundcloud.player.vivoMusicCardPatch
+import app.arsound.patches.soundcloud.player.wholeCoverPatch
 import app.arsound.patches.soundcloud.recommendations.duplicateFilterPatch
 import app.arsound.patches.soundcloud.region.regionHintPatch
 import app.arsound.patches.soundcloud.upsell.hideSubscriptionOffersPatch
 import app.arsound.patches.soundcloud.widget.likesWidgetPatch
 import app.arsound.patches.soundcloud.widget.playerWidgetHeartPatch
+import app.arsound.patches.soundcloud.widget.widgetDiagnosticsPatch
 import app.arsound.patches.soundcloud.widget.squarePlayerWidgetPatch
 import app.revanced.patcher.patch.Patch
 import app.revanced.patcher.patch.bytecodePatch
@@ -71,7 +76,6 @@ private val basePatch = bytecodePatch {
         russianTranslationPatch,
         themePatch,
         waveformColourPatch,
-        forYouPatch,
         // Renames the package after every other patch.
         changePackageNamePatch,
     )
@@ -94,11 +98,13 @@ val arsoundBaseGroup = arsoundGroup(
     playerBarLogPatch,
     playbackTimelinePatch,
     notificationArtworkPatch,
+    bottomTabsPatch,
     playModePatch,
     currentPlayStatePatch,
     vivoMusicCardPatch,
     likesWidgetPatch,
     playerWidgetHeartPatch,
+    widgetDiagnosticsPatch,
     squarePlayerWidgetPatch,
 )
 
@@ -161,14 +167,18 @@ val arsoundRecommendationsGroup = arsoundGroup(
 val arsoundPlayerGroup = arsoundGroup(
     "Arsound: плеер",
     "Эквалайзер, размер и срок хранения кэша потоков, статистика прослушиваний, игра вместе с другими приложениями, " +
-        "плавное сворачивание плеера, тексты песен, плавный переход между треками, загрузка следующего трека заранее, " +
-        "скрытие всплывающих комментариев.",
+        "плавное сворачивание плеера, кольцо прогресса без лишних кадров, Лента без бегущей строки и без мигания подсказки, тексты песен, плавный переход между треками, загрузка следующего трека заранее, " +
+        "скрытие всплывающих комментариев, обложка целиком в полноэкранном плеере.",
     streamCachePatch,
     listeningStatsPatch,
     equalizerPatch,
     mixWithOtherAppsPatch,
     smoothSheetPatch,
+    progressRingPatch,
+    feedMarqueePatch,
+    feedMuteIconPatch,
     lyricsPatch,
     trackTransitionsPatch,
     playerCommentsPatch,
+    wholeCoverPatch,
 )

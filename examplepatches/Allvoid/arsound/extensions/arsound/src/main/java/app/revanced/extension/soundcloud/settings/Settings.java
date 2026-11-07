@@ -7,6 +7,11 @@ import app.revanced.extension.shared.Utils;
 
 /**
  * Settings of the ReVanced SoundCloud patches, stored in a separate preferences file.
+ * <p>
+ * The settings backup ({@link TransferPlan}) carries every key of this file except {@link TransferPlan#SETTINGS_NEVER}:
+ * a new key that is tied to this phone (a path, a cache, a running state) or holds a secret must be added there. Names
+ * ending in {@code _key} or holding words like token, secret, password, cookie, session or auth are kept out by
+ * themselves.
  */
 @SuppressWarnings("unused")
 public final class Settings {
@@ -43,10 +48,20 @@ public final class Settings {
         return BoolSettings.HIDE_UPGRADE_TAB.get();
     }
 
-    /** Written at once, not in the background: the Upgrade tab page restarts the app right after it. */
+    /**
+     * Written in the background: the Upgrade tab page does not restart the app, it makes the main screen again, and
+     * that reads the new value from memory. The "Bottom bar" screen flushes it before its restart.
+     */
     public static void setHideUpgradeTabEnabled(boolean enabled) {
         BoolSettings.HIDE_UPGRADE_TAB.set(enabled);
     }
+
+    /** Bottom bar tabs the user took out (Library is never one of them). Off by default; the app restarts to apply. */
+    /** Arsound's "My Wave" tab of the bottom bar, taken out by the user. */
+    public static final String HIDE_TAB_WAVE = "hide_tab_wave";
+    public static final String HIDE_TAB_HOME = "hide_tab_home";
+    public static final String HIDE_TAB_FEED = "hide_tab_feed";
+    public static final String HIDE_TAB_SEARCH = "hide_tab_search";
 
     public static final String UPDATE_CHECK = "update_check";
 
@@ -103,23 +118,19 @@ public final class Settings {
     }
 
     public static String getDnsPreset() {
-        SharedPreferences preferences = preferences();
-        return preferences == null ? "xbox" : preferences.getString(DNS_PRESET, "xbox");
+        return getString(DNS_PRESET, "xbox");
     }
 
     public static String getDnsMode() {
-        SharedPreferences preferences = preferences();
-        return preferences == null ? "auto" : preferences.getString(DNS_MODE, "auto");
+        return getString(DNS_MODE, "auto");
     }
 
     public static String getCustomDohUrl() {
-        SharedPreferences preferences = preferences();
-        return preferences == null ? "" : preferences.getString(CUSTOM_DOH_URL, "");
+        return getString(CUSTOM_DOH_URL, "");
     }
 
     public static String getCustomDnsServers() {
-        SharedPreferences preferences = preferences();
-        return preferences == null ? "" : preferences.getString(CUSTOM_DNS_SERVERS, "");
+        return getString(CUSTOM_DNS_SERVERS, "");
     }
 
     public static void putBoolean(String key, boolean value) {
@@ -147,19 +158,38 @@ public final class Settings {
         if (preferences != null) preferences.edit().putString(key, value).commit();
     }
 
+    /**
+     * The reads below take a value of another type as not set: a settings file edited by hand can bring one, for a key
+     * this phone had not saved yet, and {@code SharedPreferences} throws on it at every read, at the start of the app too.
+     */
     public static boolean getBoolean(String key, boolean defaultValue) {
         SharedPreferences preferences = preferences();
-        return preferences == null ? defaultValue : preferences.getBoolean(key, defaultValue);
+        if (preferences == null) return defaultValue;
+        try {
+            return preferences.getBoolean(key, defaultValue);
+        } catch (ClassCastException ex) {
+            return defaultValue;
+        }
     }
 
     public static String getString(String key, String defaultValue) {
         SharedPreferences preferences = preferences();
-        return preferences == null ? defaultValue : preferences.getString(key, defaultValue);
+        if (preferences == null) return defaultValue;
+        try {
+            return preferences.getString(key, defaultValue);
+        } catch (ClassCastException ex) {
+            return defaultValue;
+        }
     }
 
     public static long getLong(String key, long defaultValue) {
         SharedPreferences preferences = preferences();
-        return preferences == null ? defaultValue : preferences.getLong(key, defaultValue);
+        if (preferences == null) return defaultValue;
+        try {
+            return preferences.getLong(key, defaultValue);
+        } catch (ClassCastException ex) {
+            return defaultValue;
+        }
     }
 
     public static void putLong(String key, long value) {
@@ -213,6 +243,8 @@ public final class Settings {
     }
 
     public static final String IMPORTED_IN_LIKES = "imported_in_likes";
+    /** Whether a file is liked by itself when it is imported. */
+    public static final String LIKE_ON_IMPORT = "like_on_import";
 
     /** Imported files among "Your likes", on this phone only. On by default; independent of the "Imported" playlist. */
     public static boolean isImportedInLikesEnabled() {
@@ -364,6 +396,11 @@ public final class Settings {
     public static final String WALLHAVEN_ADULT = "arsound_wallhaven_adult";
     /** The last search of the Wallhaven browser as JSON (wallpaper/Wallhaven.Query), so it opens where it was left. */
     public static final String WALLHAVEN_LAST = "arsound_wallhaven_last";
+    /**
+     * Which catalogue the wallpaper browser shows: {@code wallhaven} or {@code commons} (wallpaper/WallpaperSources). A
+     * plain choice of the user, so it travels with the other settings.
+     */
+    public static final String WALLPAPER_SOURCE = "arsound_wallpaper_source";
 
     public static final String HIDE_HEADER_ARTWORK = "hide_header_artwork";
     public static final String HIDE_HOME_GREETING = "hide_home_greeting";
@@ -377,6 +414,8 @@ public final class Settings {
     public static final String THEME_EFFECTS_DENSITY = "theme_effects_density";
 
     public static final String SMOOTH_PLAYER_COLLAPSE = "smooth_player_collapse";
+    /** The open player shows the whole cover on a blurred copy of it (player/WholeCover). On by default. */
+    public static final String WHOLE_PLAYER_COVER = "whole_player_cover";
 
     /** The end of a track fades out and the next one fades in (player/Crossfade). Off by default. */
     public static final String CROSSFADE = "crossfade";

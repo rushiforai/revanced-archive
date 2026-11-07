@@ -15,19 +15,25 @@ import java.util.Set;
 import app.revanced.extension.soundcloud.theme.ArsoundTheme;
 
 /**
- * The results of the Wallhaven browser for a {@link android.widget.GridView}: the list of pictures and a
- * {@link WallhavenCell} for each. The pictures are loaded and kept by a {@link ThumbnailLoader}: thumbnails first, and
+ * The results of the wallpaper catalogue for a {@link android.widget.GridView}: the list of pictures (of the source the
+ * screen shows, {@link WallpaperSource}) and a {@link WallhavenCell} for each. Nothing here depends on which source the
+ * pictures are from; an item carries its own source. The pictures are loaded and kept by a {@link ThumbnailLoader}: thumbnails first, and
  * once scrolling has settled {@link #sharpenVisible} asks for the sharp version of the cells in view.
  * <p>
  * The screen tells the grid how many columns it has and how big a cell is in pixels ({@link #setLayout}); the sharp
  * pictures are made at exactly that size.
+ * <p>
+ * A search for phone-shaped pictures goes on with wide ones when the tall ones run out ({@link Wallhaven.Query#widened}),
+ * so wide and tall pictures meet in the same tall cells: both are cut to their middle (the cell does it, the sharp
+ * picture does it by {@link CoverCrop}) and the cell marks the wide ones. Tall pages come first and wide ones after them,
+ * so a picture is never listed twice; {@link #add} drops a repeat anyway.
  */
 public final class WallhavenGrid extends BaseAdapter {
     /** Rows of skeleton cells shown while the next page is on its way. */
     private static final int PLACEHOLDER_ROWS = 2;
 
     private final Context context;
-    private final List<Wallhaven.Item> items = new ArrayList<>();
+    private final List<WallpaperItem> items = new ArrayList<>();
     private final ThumbnailLoader thumbnails;
     private final int placeholderColor;
     /** Height of a cell as a part of its width. */
@@ -79,11 +85,11 @@ public final class WallhavenGrid extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void add(List<Wallhaven.Item> more) {
-        // The service can repeat a picture on the next page when the list changes meanwhile.
+    public void add(List<WallpaperItem> more) {
+        // The service can repeat a picture on the next page when the list changes meanwhile (Commons: a random order does).
         Set<String> known = new HashSet<>();
-        for (Wallhaven.Item item : items) known.add(item.id);
-        for (Wallhaven.Item item : more) if (known.add(item.id)) items.add(item);
+        for (WallpaperItem item : items) known.add(item.id);
+        for (WallpaperItem item : more) if (known.add(item.id)) items.add(item);
         notifyDataSetChanged();
     }
 
@@ -98,7 +104,7 @@ public final class WallhavenGrid extends BaseAdapter {
         return items.size();
     }
 
-    public Wallhaven.Item item(int position) {
+    public WallpaperItem item(int position) {
         return position >= 0 && position < items.size() ? items.get(position) : null;
     }
 
@@ -108,7 +114,7 @@ public final class WallhavenGrid extends BaseAdapter {
     }
 
     /** The thumbnail of a picture if it is in memory, else null. */
-    public Bitmap thumbnail(Wallhaven.Item item) {
+    public Bitmap thumbnail(WallpaperItem item) {
         return thumbnails.cached(item.thumbnail);
     }
 

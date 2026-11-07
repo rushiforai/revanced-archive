@@ -1,6 +1,8 @@
 package app.revanced.extension.soundcloud.player;
 
 import app.revanced.extension.shared.Logger;
+import app.revanced.extension.soundcloud.recommendations.MyWave;
+import app.revanced.extension.soundcloud.recommendations.WaveMemory;
 
 /**
  * Injection points of SoundCloud's player that more than one feature follows: an item starts, the player reports its
@@ -15,6 +17,11 @@ public final class PlaybackEvents {
     private PlaybackEvents() {
     }
 
+    /** The urn of the item that started last, or null before any. */
+    public static String playingUrn() {
+        return playingUrn;
+    }
+
     /** Injection point: start of {@code BaseExoPlayer.f(PlaybackItem)}, an item starts or resumes. Player thread. */
     public static void onPlay(Object exoPlayer, Object item) {
         String urn;
@@ -27,7 +34,10 @@ public final class PlaybackEvents {
         boolean newTrack = !urn.equals(playingUrn);
         playingUrn = urn;
         Crossfade.onPlay(exoPlayer, newTrack);
-        if (newTrack) NextTrackPreload.onTrackChanged();
+        if (newTrack) {
+            NextTrackPreload.onTrackChanged();
+            MyWave.onTrackChanged(urn);
+        }
         SlowedPlayback.onPlay(exoPlayer, urn);
     }
 
@@ -36,5 +46,6 @@ public final class PlaybackEvents {
         Crossfade.onProgress(position, duration);
         SlowedPlayback.reassert();
         NextTrackPreload.onProgress(position, duration);
+        WaveMemory.onProgress(duration);
     }
 }

@@ -12,7 +12,8 @@ import java.util.Map;
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.download.UnplayedDownloads;
-import app.revanced.extension.soundcloud.recommendations.ForYou;
+import app.revanced.extension.soundcloud.recommendations.SongNames;
+import app.revanced.extension.soundcloud.recommendations.WaveMemory;
 import app.revanced.extension.soundcloud.settings.Settings;
 
 /**
@@ -21,6 +22,9 @@ import app.revanced.extension.soundcloud.settings.Settings;
  * file ({@link HistoryFile}), one {@link ListenRecord} per listen: start time, track urn, milliseconds played.
  * <p>
  * A listen counts as a play from {@link #PLAY_THRESHOLD_MS} on, shorter ones only add time.
+ * <p>
+ * The listen is followed with the statistics turned off too: "My Wave" learns from it ({@link WaveMemory}). Then
+ * nothing is written to the history file or kept for a restart.
  */
 @SuppressWarnings("unused")
 public final class ListeningStats {
@@ -66,11 +70,14 @@ public final class ListeningStats {
             String value = String.valueOf(urn);
             // Kept even with the statistics off: unplayed downloads are counted from it.
             UnplayedDownloads.onTrackStarted(value);
+            // Before the resume check: a listen taken up again after a restart still needs its length. A preview item
+            // gives the preview's length, so a preview heard through counts as heard.
+            if (value.contains(":tracks:")) WaveMemory.onTrackStarted(value, itemLength(item));
             if (isResume(item, value)) return;
             finishListen();
-            if (!isEnabled()) return;
             // Ads and other items that are not tracks are not counted.
             if (!value.contains(":tracks:")) return;
+            // Followed with the statistics off too, for the wave: only the history is not kept then.
             SESSION.begin(value, System.currentTimeMillis());
         } catch (Exception ex) {
             Logger.printException(() -> "Listening stats: could not read the playback item", ex);
@@ -111,6 +118,20 @@ public final class ListeningStats {
     }
 
     /**
+     * The length SoundCloud's data gives for the track of the item ({@code PlaybackItem.a()}: the full length, or the
+     * length of the preview for a preview item). The wave needs it to judge a short track.
+     *
+     * @return Milliseconds, 0 if the item does not say.
+     */
+    private static long itemLength(Object item) {
+        try {
+            return ((Number) item.getClass().getMethod("a").invoke(item)).longValue();
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    /**
      * Injection point: {@code onPlayerStateChanged} of the player listener.
      *
      * @param playWhenReady Whether the user wants the track to play.
@@ -119,7 +140,8 @@ public final class ListeningStats {
     public static synchronized void onPlayerState(boolean playWhenReady, int state) {
         if (!SESSION.isActive()) return;
         boolean playing = playWhenReady && state == STATE_READY;
-        if (SESSION.onPlayingChanged(playing, System.currentTimeMillis())) savePending();
+        // The mark that survives a restart is a part of the history: not kept with the statistics off.
+        if (SESSION.onPlayingChanged(playing, System.currentTimeMillis()) && isEnabled()) savePending();
         // The track ended by itself.
         if (state == STATE_ENDED) finishListen();
     }
@@ -132,7 +154,10 @@ public final class ListeningStats {
         ListenRecord ended = SESSION.end(System.currentTimeMillis());
         SharedPreferences preferences = preferences();
         if (preferences != null) preferences.edit().remove(PENDING).apply();
-        if (ended.playedMs >= MIN_LISTEN_MS) append(ended);
+        if (ended.playedMs >= MIN_LISTEN_MS && isEnabled()) append(ended);
+        // The taste of the wave, with the statistics on or off: a track switched off in the first seconds, or heard
+        // to a good length (the length of the track was noted when it started).
+        WaveMemory.onListen(ended.urn, ended.playedMs);
     }
 
     private static void savePending() {
@@ -147,6 +172,8 @@ public final class ListeningStats {
         String pending = preferences == null ? null : preferences.getString(PENDING, null);
         if (pending == null) return;
         preferences.edit().remove(PENDING).apply();
+        // A mark left from before the statistics were turned off is dropped, not written.
+        if (!isEnabled()) return;
         ListenRecord saved = ListenRecord.parse(pending);
         if (saved != null) append(saved);
     }
@@ -257,7 +284,7 @@ public final class ListeningStats {
         Map<String, Map<String, Long>> spellings = new HashMap<>();
         for (Entry track : tracks) {
             if (track.artist == null || track.artist.trim().isEmpty()) continue;
-            String key = ForYou.artistKey(track.artist);
+            String key = SongNames.artistKey(track.artist);
             if (key.isEmpty()) key = track.artist.trim().toLowerCase(Locale.ROOT);
             Entry artist = entry(artists, key);
             artist.plays += track.plays;
@@ -280,6 +307,8 @@ public final class ListeningStats {
 
     /** The listen still going on or paused: it is written only when the next track starts. */
     private static void addCurrent(Summary summary, Map<String, Entry> tracks, long since) {
+        // With the statistics off the listen is followed only for the wave and never written: it is no part of them.
+        if (!isEnabled()) return;
         ListenRecord current;
         synchronized (ListeningStats.class) {
             current = SESSION.progress(System.currentTimeMillis());
