@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-07 04:39 UTC",
+  "generatedAt": "2026-11-08 04:08 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 875,
-  "patchCount": 3296,
+  "patchCount": 3315,
   "universalPatchCount": 150,
   "hostCounts": {
     "github.com": 122,
@@ -68,12 +68,20 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.48.2 (2026-11-02)",
-        "date": "2026-11-02",
+        "title": "1.50.3 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+            "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+          },
+          {
+            "category": "Bug Fixes",
+            "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
           }
         ]
       },
@@ -665,16 +673,20 @@
       "createdDate": "2026-07-26",
       "updatedDate": "2026-07-26",
       "latestChanges": {
-        "title": "3.10.0 (2026-11-03)",
-        "date": "2026-11-03",
+        "title": "3.11.0 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Facebook:** add Andrew's Patch Setting"
+            "text": "**Facebook - AMOLED black theme:** add a switch and turn it on by default"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**LINE - Hide Agent i buttons:** hide Agent i in chats permanently (4ba9872), closes #208"
+            "text": "**Facebook:** turn on three Stories and Reels patches by default"
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**LINE - Restore biometric login:** turn it on by default"
           }
         ]
       },
@@ -2169,27 +2181,19 @@
       "webUrl": "https://github.com/ch3thanhs/stylus",
       "addUrl": "https://Revanced.software/add-source?github=ch3thanhs/stylus",
       "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
-      "patchCount": 10,
-      "appCount": 5,
+      "patchCount": 9,
+      "appCount": 3,
       "createdAt": 1784837694852,
       "updatedAt": 1784837694852,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.9.3 (2026-11-07)",
+        "title": "1.11.0 (2026-11-07)",
         "date": "2026-11-07",
         "items": [
           {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**GitHub:** Update app support to 1.283.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Telegram web:** Update app support to 13.2.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Telegram:** Update app support to 13.2.0"
+            "category": "\u2728 New Features",
+            "text": "**github:** support variable font weights and font feature settings"
           }
         ]
       },
@@ -2207,20 +2211,6 @@
           "patchCount": 4,
           "iconUrl": "",
           "iconColor": "#181C20"
-        },
-        {
-          "name": "Telegram",
-          "packageName": "org.telegram.messenger",
-          "patchCount": 1,
-          "iconUrl": "",
-          "iconColor": "#2CA5E0"
-        },
-        {
-          "name": "Telegram (web version)",
-          "packageName": "org.telegram.messenger.web",
-          "patchCount": 1,
-          "iconUrl": "",
-          "iconColor": "#2CA5E0"
         },
         {
           "name": "Where is my Train",
@@ -7077,40 +7067,32 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.28.0 (2026-10-24)",
-        "date": "2026-10-24",
+        "title": "1.28.2 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "allow sentence-case subjects for release commits"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "add Play version check workflow and APK download scripts"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "enforce conventional commits with commitlint hook"
+            "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**fatsecret:** update to 11.8.2.1"
+            "text": "**lyfta:** update to 1.612"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**lifesum:** update to 20.9.2"
+            "text": "**musclemotion:** update to 3.5.6"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**musclemotion:** update to 3.5.5"
+            "text": "**ornament:** update to 4.23.1"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**ornament:** update to 4.22.1"
+            "text": "**pillo:** update to 0.6.27"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**pillo:** update to 0.6.25"
+            "text": "**yazio:** update to 26.44.2"
           }
         ]
       },
@@ -10592,16 +10574,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.11.0 (2026-10-11)",
-        "date": "2026-10-11",
+        "title": "1.11.4 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "upgrade Gradle, dependencies, and update patch generator"
-          },
-          {
-            "category": "\ud83d\udd27 Improvements",
-            "text": "release v1.10.3"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**Remove pairip protection:** restore original Application in manifest"
           }
         ]
       },
@@ -11028,27 +11006,19 @@
       "webUrl": "https://github.com/variablenine/morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=variablenine/morphe-patches",
       "avatarUrl": "https://github.com/variablenine.png?size=96",
-      "patchCount": 196,
+      "patchCount": 202,
       "appCount": 3,
       "createdAt": 1784837695652,
       "updatedAt": 1784837695652,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.4.10 (2026-10-31)",
-        "date": "2026-10-31",
+        "title": "1.4.11 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Point findFreeRegister import at app.morphe.patcher.util"
-          },
-          {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v2.0.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v2.0.0 (#81)"
+            "text": "Sync upstream Morphe patches v2.1.0"
           }
         ]
       },
@@ -11063,14 +11033,14 @@
         {
           "name": "YouTube",
           "packageName": "com.google.android.youtube",
-          "patchCount": 110,
+          "patchCount": 114,
           "iconUrl": "",
           "iconColor": "#FF0033"
         },
         {
           "name": "YouTube Music",
           "packageName": "com.google.android.apps.youtube.music",
-          "patchCount": 49,
+          "patchCount": 51,
           "iconUrl": "",
           "iconColor": "#FF0000"
         }
@@ -11122,7 +11092,7 @@
       "webUrl": "https://github.com/wchill/patcheddit",
       "addUrl": "https://Revanced.software/add-source?github=wchill/patcheddit",
       "avatarUrl": "https://github.com/wchill.png?size=96",
-      "patchCount": 76,
+      "patchCount": 90,
       "appCount": 17,
       "createdAt": 1784836042463,
       "updatedAt": 1784836042463,
@@ -11142,14 +11112,14 @@
         {
           "name": "BaconReader",
           "packageName": "com.onelouder.baconreader",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "BaconReader Premium",
           "packageName": "com.onelouder.baconreader.premium",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
@@ -11163,98 +11133,98 @@
         {
           "name": "Infinity for Reddit (Patreon)",
           "packageName": "ml.docilealligator.infinityforreddit.patreon",
-          "patchCount": 2,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Infinity for Reddit+",
           "packageName": "ml.docilealligator.infinityforreddit.plus",
-          "patchCount": 2,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Infinity for Reddit++",
           "packageName": "ml.docilealligator.infinityforreddit.plus2",
-          "patchCount": 2,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Joey for Reddit",
           "packageName": "o.o.joey",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Joey for Reddit Dev",
           "packageName": "o.o.joey.dev",
-          "patchCount": 4,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Joey for Reddit Pro",
           "packageName": "o.o.joey.pro",
-          "patchCount": 4,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Relay for Reddit",
           "packageName": "free.reddit.news",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Relay for Reddit Pro",
           "packageName": "reddit.news",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "rif is fun",
           "packageName": "com.andrewshu.android.reddit",
-          "patchCount": 6,
+          "patchCount": 8,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "rif is fun golden platinum",
           "packageName": "com.andrewshu.android.redditdonation",
-          "patchCount": 5,
+          "patchCount": 7,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Lemmy",
           "packageName": "io.syncapps.lemmy_sync",
-          "patchCount": 1,
+          "patchCount": 3,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit",
           "packageName": "com.laurencedawson.reddit_sync",
-          "patchCount": 11,
+          "patchCount": 13,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Dev",
           "packageName": "com.laurencedawson.reddit_sync.dev",
-          "patchCount": 10,
+          "patchCount": 12,
           "iconUrl": "",
           "iconColor": ""
         },
         {
           "name": "Sync for Reddit Pro",
           "packageName": "com.laurencedawson.reddit_sync.pro",
-          "patchCount": 10,
+          "patchCount": 12,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -16296,8 +16266,8 @@
       ],
       "patches": [
         "Disable PairIP DRM",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -16305,12 +16275,12 @@
           "description": "Disables PairIP signature verification and Google Play LVL license check. Required for the app to launch after re-signing."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all premium features by forcing the premium state to true in the purchase manager."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all AT4K premium features by forcing the premium status to true."
         }
       ],
       "versions": [
@@ -19235,6 +19205,10 @@
           },
           "patches": [
             {
+              "name": "BaconReader Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
               "name": "Fix loading more comments",
               "description": "Fixes 403 error when loading child comments."
             },
@@ -19245,6 +19219,10 @@
             {
               "name": "Fix Redgifs API",
               "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
             },
             {
               "name": "Modify login WebView",
@@ -19261,13 +19239,19 @@
         }
       ],
       "patches": [
+        "BaconReader Morphe settings",
         "Fix loading more comments",
         "Fix Reddit API lookups",
         "Fix Redgifs API",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "BaconReader Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
         {
           "name": "Fix loading more comments",
           "description": "Fixes 403 error when loading child comments."
@@ -19279,6 +19263,10 @@
         {
           "name": "Fix Redgifs API",
           "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
         },
         {
           "name": "Modify login WebView",
@@ -19329,6 +19317,10 @@
           },
           "patches": [
             {
+              "name": "BaconReader Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
               "name": "Fix loading more comments",
               "description": "Fixes 403 error when loading child comments."
             },
@@ -19339,6 +19331,10 @@
             {
               "name": "Fix Redgifs API",
               "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
             },
             {
               "name": "Modify login WebView",
@@ -19355,13 +19351,19 @@
         }
       ],
       "patches": [
+        "BaconReader Morphe settings",
         "Fix loading more comments",
         "Fix Reddit API lookups",
         "Fix Redgifs API",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "BaconReader Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
         {
           "name": "Fix loading more comments",
           "description": "Fixes 403 error when loading child comments."
@@ -19373,6 +19375,10 @@
         {
           "name": "Fix Redgifs API",
           "description": "Fetches a fresh Redgifs API token so Redgifs videos load."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
         },
         {
           "name": "Modify login WebView",
@@ -20760,20 +20766,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.9.3 (2026-11-07)",
+            "title": "1.11.0 (2026-11-07)",
             "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.283.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram web:** Update app support to 13.2.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.2.0"
+                "category": "\u2728 New Features",
+                "text": "**github:** support variable font weights and font feature settings"
               }
             ]
           },
@@ -21720,8 +21718,8 @@
       "patches": [
         "AMOLED dark theme",
         "Disable tracking",
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
@@ -21733,12 +21731,12 @@
           "description": "Stops the Google Mobile Ads SDK from starting and reading the advertising ID."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks the HalfBlur effect."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlock Premium Features in app."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks the HalfBlur effect."
         }
       ],
       "versions": [
@@ -22149,7 +22147,7 @@
             }
           ],
           "versions": [
-            "1.14.1"
+            "1.14.3"
           ]
         }
       ],
@@ -22358,7 +22356,7 @@
         }
       ],
       "versions": [
-        "1.14.1"
+        "1.14.3"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -27199,12 +27197,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -27529,12 +27535,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -27719,12 +27733,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -28132,12 +28154,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -28446,12 +28476,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -28590,12 +28628,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -28648,12 +28694,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -28719,20 +28773,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.9.3 (2026-11-07)",
+            "title": "1.11.0 (2026-11-07)",
             "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.283.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram web:** Update app support to 13.2.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.2.0"
+                "category": "\u2728 New Features",
+                "text": "**github:** support variable font weights and font feature settings"
               }
             ]
           },
@@ -30547,12 +30593,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -31586,12 +31640,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -31653,12 +31715,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -32627,12 +32697,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -32771,12 +32849,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -32794,7 +32880,7 @@
             },
             {
               "name": "HBO Max - Disable Ads",
-              "description": "Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types."
+              "description": "Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types. Best paired with 'Remove Ad Periods (keep 5.1)': on its own, suppressing the ad-break registration can shift the skip-intro / next-episode markers earlier (the app maps those content-time chapters through the ad breaks)."
             },
             {
               "name": "HBO Max - Playback Speed",
@@ -32831,7 +32917,7 @@
         },
         {
           "name": "HBO Max - Disable Ads",
-          "description": "Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types."
+          "description": "Suppresses nonlinear overlay ads (Bolt), SSAI linear ad timeline registration (GMSS/AdSparx), and live stream preroll ad timeline entry generation for all content types. Best paired with 'Remove Ad Periods (keep 5.1)': on its own, suppressing the ad-break registration can shift the skip-intro / next-episode markers earlier (the app maps those content-time chapters through the ad breaks)."
         },
         {
           "name": "HBO Max - Playback Speed",
@@ -32938,12 +33024,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -37132,12 +37226,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -37155,15 +37257,12 @@
             },
             {
               "name": "Suppress Household Prompt",
-              "description": "Hides the Disney+ \"Verify Household Network\" / out-of-household prompt by forcing the client's out-of-household check to report in-household, so the app routes straight to home. Does NOT change what Disney's servers detect (that's driven by your public IP \u2014 use a VPN for that); it only suppresses the on-screen prompt/routing. Opt-in / experimental; only takes visible effect when the device would otherwise be prompted."
+              "description": "Hides the Disney+ \"Verify Household Network\" / out-of-household prompt by forcing the client's out-of-household check to report in-household, so the app routes straight to home. Does NOT change what Disney's servers detect (that's driven by your public IP \u2014 use a VPN for that); it only suppresses the on-screen prompt/routing. Opt-in / experimental; only takes visible effect when the device would otherwise be prompted. Works on 26.12.1+rc1-2026.07.15 ONLY \u2014 it targets an obfuscated method whose name changes every release, so it cannot be applied to other builds."
             }
           ],
           "versions": [
             "26.12.1+rc1-2026.07.15",
-            "26.16.0+rc2-2026.09.08",
-            "26.6.0+rc5-2026.04.21",
-            "26.8.0+rc6-2026.05.20",
-            "26.9.2+rc1-2026.06.12"
+            "26.16.0+rc2-2026.09.08"
           ]
         },
         {
@@ -37220,15 +37319,12 @@
         },
         {
           "name": "Suppress Household Prompt",
-          "description": "Hides the Disney+ \"Verify Household Network\" / out-of-household prompt by forcing the client's out-of-household check to report in-household, so the app routes straight to home. Does NOT change what Disney's servers detect (that's driven by your public IP \u2014 use a VPN for that); it only suppresses the on-screen prompt/routing. Opt-in / experimental; only takes visible effect when the device would otherwise be prompted."
+          "description": "Hides the Disney+ \"Verify Household Network\" / out-of-household prompt by forcing the client's out-of-household check to report in-household, so the app routes straight to home. Does NOT change what Disney's servers detect (that's driven by your public IP \u2014 use a VPN for that); it only suppresses the on-screen prompt/routing. Opt-in / experimental; only takes visible effect when the device would otherwise be prompted. Works on 26.12.1+rc1-2026.07.15 ONLY \u2014 it targets an obfuscated method whose name changes every release, so it cannot be applied to other builds."
         }
       ],
       "versions": [
         "26.12.1+rc1-2026.07.15",
-        "26.16.0+rc2-2026.09.08",
-        "26.6.0+rc5-2026.04.21",
-        "26.8.0+rc6-2026.05.20",
-        "26.9.2+rc1-2026.06.12"
+        "26.16.0+rc2-2026.09.08"
       ],
       "iconColor": "#09A9B8",
       "iconUrl": ""
@@ -39295,16 +39391,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.10.0 (2026-11-03)",
-            "date": "2026-11-03",
+            "title": "3.11.0 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Facebook:** add Andrew's Patch Setting"
+                "text": "**Facebook - AMOLED black theme:** add a switch and turn it on by default"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**LINE - Hide Agent i buttons:** hide Agent i in chats permanently (4ba9872), closes #208"
+                "text": "**Facebook:** turn on three Stories and Reels patches by default"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**LINE - Restore biometric login:** turn it on by default"
               }
             ]
           },
@@ -39350,7 +39450,7 @@
             },
             {
               "name": "[General] AMOLED black theme",
-              "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first."
+              "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first. You can turn it off in Andrew's Patch Setting."
             },
             {
               "name": "[General] Andrew's Patch Setting",
@@ -39648,7 +39748,7 @@
         },
         {
           "name": "[General] AMOLED black theme",
-          "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first."
+          "description": "Makes Facebook's dark mode black instead of dark grey. Turn on dark mode in Facebook first. You can turn it off in Andrew's Patch Setting."
         },
         {
           "name": "[General] Andrew's Patch Setting",
@@ -40186,40 +40286,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -47073,6 +47165,14 @@
           },
           "patches": [
             {
+              "name": "Infinity Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -47085,10 +47185,20 @@
         }
       ],
       "patches": [
+        "Infinity Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Infinity Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -47136,6 +47246,14 @@
           },
           "patches": [
             {
+              "name": "Infinity Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -47148,10 +47266,20 @@
         }
       ],
       "patches": [
+        "Infinity Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Infinity Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -47199,6 +47327,14 @@
           },
           "patches": [
             {
+              "name": "Infinity Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -47211,10 +47347,20 @@
         }
       ],
       "patches": [
+        "Infinity Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
       "patchDetails": [
+        {
+          "name": "Infinity Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
         {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
@@ -49296,12 +49442,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -50134,6 +50288,14 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Joey Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -50149,6 +50311,8 @@
         "Disable ads",
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Joey Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -50164,6 +50328,14 @@
         {
           "name": "Fix Reddit API lookups",
           "description": "Fixes blocked post, comment, and community info requests."
+        },
+        {
+          "name": "Joey Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
         },
         {
           "name": "Modify login WebView",
@@ -50220,6 +50392,14 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Joey Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -50234,6 +50414,8 @@
       "patches": [
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Joey Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -50245,6 +50427,14 @@
         {
           "name": "Fix Reddit API lookups",
           "description": "Fixes blocked post, comment, and community info requests."
+        },
+        {
+          "name": "Joey Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
         },
         {
           "name": "Modify login WebView",
@@ -50301,6 +50491,14 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Joey Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
@@ -50315,6 +50513,8 @@
       "patches": [
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Joey Morphe settings",
+        "Log exceptions",
         "Modify login WebView",
         "Spoof client"
       ],
@@ -50326,6 +50526,14 @@
         {
           "name": "Fix Reddit API lookups",
           "description": "Fixes blocked post, comment, and community info requests."
+        },
+        {
+          "name": "Joey Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
         },
         {
           "name": "Modify login WebView",
@@ -53006,40 +53214,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -53337,16 +53537,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/andrewliang25/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/andrewliang25.png?size=96",
           "latestChanges": {
-            "title": "3.10.0 (2026-11-03)",
-            "date": "2026-11-03",
+            "title": "3.11.0 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Facebook:** add Andrew's Patch Setting"
+                "text": "**Facebook - AMOLED black theme:** add a switch and turn it on by default"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**LINE - Hide Agent i buttons:** hide Agent i in chats permanently (4ba9872), closes #208"
+                "text": "**Facebook:** turn on three Stories and Reels patches by default"
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**LINE - Restore biometric login:** turn it on by default"
               }
             ]
           },
@@ -54577,40 +54781,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -54633,7 +54829,7 @@
           ],
           "versions": [
             "1.575",
-            "1.600"
+            "1.612"
           ]
         }
       ],
@@ -54659,7 +54855,7 @@
       "versions": [
         "1.575",
         "1.599",
-        "1.600"
+        "1.612"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -56327,40 +56523,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -58599,17 +58787,17 @@
         }
       ],
       "patches": [
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks Monet Premium."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Unlocks all Monet Launcher premium features by forcing the billing cache to always report premium as active."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks Monet Premium."
         }
       ],
       "versions": [
@@ -59445,40 +59633,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -59496,7 +59676,7 @@
             }
           ],
           "versions": [
-            "3.5.5"
+            "3.5.6"
           ]
         }
       ],
@@ -59510,7 +59690,7 @@
         }
       ],
       "versions": [
-        "3.5.5"
+        "3.5.6"
       ],
       "iconColor": "#000000",
       "iconUrl": ""
@@ -64825,40 +65005,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -64876,7 +65048,7 @@
             }
           ],
           "versions": [
-            "4.22.1"
+            "4.23.1"
           ]
         }
       ],
@@ -64890,7 +65062,7 @@
         }
       ],
       "versions": [
-        "4.22.1"
+        "4.23.1"
       ],
       "iconColor": "#6750A4",
       "iconUrl": ""
@@ -65672,40 +65844,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -66175,12 +66339,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -67510,40 +67682,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -67569,7 +67733,7 @@
             }
           ],
           "versions": [
-            "0.6.25"
+            "0.6.27"
           ]
         },
         {
@@ -67633,7 +67797,7 @@
       ],
       "versions": [
         "0.6.24",
-        "0.6.25"
+        "0.6.27"
       ],
       "iconColor": "#7C4DFF",
       "iconUrl": ""
@@ -72331,17 +72495,17 @@
         }
       ],
       "patches": [
-        "Unlock premium",
-        "Unlock Premium"
+        "Unlock Premium",
+        "Unlock premium"
       ],
       "patchDetails": [
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all regions. Removes ads and the upgrade button."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Forces the subscription gate to report an unlimited subscription, removing ads and the upgrade prompt. Constructs a minimal fake Purchase to prevent NPE/IOOB in call sites that dereference getProducts().get(0)."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all regions. Removes ads and the upgrade button."
         }
       ],
       "versions": [
@@ -74660,20 +74824,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.10 (2026-10-31)",
-            "date": "2026-10-31",
+            "title": "1.4.11 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Point findFreeRegister import at app.morphe.patcher.util"
-              },
-              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0 (#81)"
+                "text": "Sync upstream Morphe patches v2.1.0"
               }
             ]
           },
@@ -74819,9 +74975,9 @@
             "2026.10.0",
             "2026.24.0",
             "2026.40.0",
-            "2026.42.0",
             "2026.43.0",
-            "2026.44.0"
+            "2026.44.0",
+            "2026.45.0"
           ]
         }
       ],
@@ -75210,8 +75366,16 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
+            },
+            {
+              "name": "Relay Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Spoof client",
@@ -75227,7 +75391,9 @@
         "Fix /s/ links",
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Log exceptions",
         "Modify login WebView",
+        "Relay Morphe settings",
         "Spoof client"
       ],
       "patchDetails": [
@@ -75244,8 +75410,16 @@
           "description": "Fixes blocked post, comment, and community info requests."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
+        },
+        {
+          "name": "Relay Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Spoof client",
@@ -75304,8 +75478,16 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
+            },
+            {
+              "name": "Relay Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Spoof client",
@@ -75321,7 +75503,9 @@
         "Fix /s/ links",
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Log exceptions",
         "Modify login WebView",
+        "Relay Morphe settings",
         "Spoof client"
       ],
       "patchDetails": [
@@ -75338,8 +75522,16 @@
           "description": "Fixes blocked post, comment, and community info requests."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
+        },
+        {
+          "name": "Relay Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Spoof client",
@@ -75690,8 +75882,16 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
+            },
+            {
+              "name": "RIF Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Spoof client",
@@ -75711,7 +75911,9 @@
         "Fake reddit premium",
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Log exceptions",
         "Modify login WebView",
+        "RIF Morphe settings",
         "Spoof client",
         "Use public imgur API"
       ],
@@ -75729,8 +75931,16 @@
           "description": "Fixes blocked post, comment, and community info requests."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
+        },
+        {
+          "name": "RIF Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Spoof client",
@@ -75789,8 +75999,16 @@
               "description": "Fixes blocked post, comment, and community info requests."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
+            },
+            {
+              "name": "RIF Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Spoof client",
@@ -75809,7 +76027,9 @@
       "patches": [
         "Fix loading more comments",
         "Fix Reddit API lookups",
+        "Log exceptions",
         "Modify login WebView",
+        "RIF Morphe settings",
         "Spoof client",
         "Use public imgur API"
       ],
@@ -75823,8 +76043,16 @@
           "description": "Fixes blocked post, comment, and community info requests."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
+        },
+        {
+          "name": "RIF Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Spoof client",
@@ -80636,40 +80864,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -83795,8 +84015,8 @@
       "patches": [
         "Disable Symfonium beta expiry",
         "Disable Symfonium trial expiry",
-        "Unlock premium",
         "Unlock Premium",
+        "Unlock premium",
         "Unlock Symfonium"
       ],
       "patchDetails": [
@@ -83809,12 +84029,12 @@
           "description": "Neutralises the expired-trial block screen. The welcome screen gates entry with a single `state instanceof ExpiredTrial` check; this forces that check to false, so the app proceeds on every launch (online, offline, or with a server-expired trial). The server handshake, billing/licence machinery and the offline fail-open path are left untouched. Validated on 15.0.1 (versionCode 127798)."
         },
         {
-          "name": "Unlock premium",
-          "description": "Unlocks all premium features."
-        },
-        {
           "name": "Unlock Premium",
           "description": "Turns on Symfonium's paid features. The build ships as a public beta with a built-in trial, so this also prevents the expired-beta screen. The license is checked locally and the unlock does not require an account. Connecting Plex, Jellyfin and other media servers is untouched."
+        },
+        {
+          "name": "Unlock premium",
+          "description": "Unlocks all premium features."
         },
         {
           "name": "Unlock Symfonium",
@@ -83868,18 +84088,36 @@
             {
               "name": "Disable ads",
               "description": ""
+            },
+            {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
+              "name": "Sync for Lemmy Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             }
           ],
           "versions": []
         }
       ],
       "patches": [
-        "Disable ads"
+        "Disable ads",
+        "Log exceptions",
+        "Sync for Lemmy Morphe settings"
       ],
       "patchDetails": [
         {
           "name": "Disable ads",
           "description": ""
+        },
+        {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
+          "name": "Sync for Lemmy Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         }
       ],
       "versions": [],
@@ -84068,12 +84306,20 @@
               "description": "Fixes a bug in Sync's MPD parser resulting in only the audio-track being saved."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
             {
               "name": "Spoof client",
               "description": "Restores functionality of the app by using custom client ID."
+            },
+            {
+              "name": "Sync Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Use /user/ endpoint",
@@ -84103,9 +84349,11 @@
         "Fix Redgifs API",
         "Fix video downloads",
         "Hacker News Feed",
+        "Log exceptions",
         "Modify login WebView",
         "Predictive back gesture (Reddit Sync)",
         "Spoof client",
+        "Sync Morphe settings",
         "Unlock Sync Ultra",
         "Use /user/ endpoint"
       ],
@@ -84179,6 +84427,10 @@
           "description": "Integrates Hacker News (news.ycombinator.com) into Reddit Sync as a custom feed."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
         },
@@ -84189,6 +84441,10 @@
         {
           "name": "Spoof client",
           "description": "Restores functionality of the app by using custom client ID."
+        },
+        {
+          "name": "Sync Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Unlock Sync Ultra",
@@ -84347,12 +84603,20 @@
               "description": "Fixes a bug in Sync's MPD parser resulting in only the audio-track being saved."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
             {
               "name": "Spoof client",
               "description": "Restores functionality of the app by using custom client ID."
+            },
+            {
+              "name": "Sync Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Use /user/ endpoint",
@@ -84378,9 +84642,11 @@
         "Fix Redgifs API",
         "Fix video downloads",
         "Hacker News Feed",
+        "Log exceptions",
         "Modify login WebView",
         "Predictive back gesture (Reddit Sync)",
         "Spoof client",
+        "Sync Morphe settings",
         "Unlock Sync Ultra",
         "Use /user/ endpoint"
       ],
@@ -84446,6 +84712,10 @@
           "description": "Integrates Hacker News (news.ycombinator.com) into Reddit Sync as a custom feed."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
         },
@@ -84456,6 +84726,10 @@
         {
           "name": "Spoof client",
           "description": "Restores functionality of the app by using custom client ID."
+        },
+        {
+          "name": "Sync Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Unlock Sync Ultra",
@@ -84614,12 +84888,20 @@
               "description": "Fixes a bug in Sync's MPD parser resulting in only the audio-track being saved."
             },
             {
+              "name": "Log exceptions",
+              "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+            },
+            {
               "name": "Modify login WebView",
               "description": "Adjusts the Reddit login page to prevent sign-in problems."
             },
             {
               "name": "Spoof client",
               "description": "Restores functionality of the app by using custom client ID."
+            },
+            {
+              "name": "Sync Morphe settings",
+              "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
             },
             {
               "name": "Use /user/ endpoint",
@@ -84645,9 +84927,11 @@
         "Fix Redgifs API",
         "Fix video downloads",
         "Hacker News Feed",
+        "Log exceptions",
         "Modify login WebView",
         "Predictive back gesture (Reddit Sync)",
         "Spoof client",
+        "Sync Morphe settings",
         "Unlock Sync Ultra",
         "Use /user/ endpoint"
       ],
@@ -84713,6 +84997,10 @@
           "description": "Integrates Hacker News (news.ycombinator.com) into Reddit Sync as a custom feed."
         },
         {
+          "name": "Log exceptions",
+          "description": "Logs reported errors and fatal crashes, viewable in Morphe settings."
+        },
+        {
           "name": "Modify login WebView",
           "description": "Adjusts the Reddit login page to prevent sign-in problems."
         },
@@ -84723,6 +85011,10 @@
         {
           "name": "Spoof client",
           "description": "Restores functionality of the app by using custom client ID."
+        },
+        {
+          "name": "Sync Morphe settings",
+          "description": "Adds a Morphe settings menu for included patches, with exception and fatal crash log viewers."
         },
         {
           "name": "Unlock Sync Ultra",
@@ -85408,55 +85700,11 @@
       "packageName": "org.telegram.messenger.web",
       "name": "Telegram",
       "repos": [
-        "ch3thanhs/stylus",
         "MoonShadowKeeper/Telegram-patchesMorphe",
         "Paresh-Maheshwari/paresh-patches",
         "rushiranpise/morphe-patches"
       ],
       "sources": [
-        {
-          "repo": "ch3thanhs/stylus",
-          "host": "github.com",
-          "webUrl": "https://github.com/ch3thanhs/stylus",
-          "addUrl": "https://Revanced.software/add-source?github=ch3thanhs/stylus",
-          "source": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
-          "latestChanges": {
-            "title": "1.9.3 (2026-11-07)",
-            "date": "2026-11-07",
-            "items": [
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.283.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram web:** Update app support to 13.2.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.2.0"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "org-telegram-messenger-web-ch3thanhs-stylus",
-            "releaseTag": "app-org-telegram-messenger-web-ch3thanhs-stylus",
-            "assetName": "telegram-ch3thanhs-stylus.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Force system font",
-              "description": "Uses the device's system font for all app text."
-            }
-          ],
-          "versions": [
-            "13.1.0"
-          ]
-        },
         {
           "repo": "MoonShadowKeeper/Telegram-patchesMorphe",
           "host": "github.com",
@@ -85712,7 +85960,6 @@
         "Disable auto-update",
         "Disable channel switching",
         "Download speed boost",
-        "Force system font",
         "Hide typing indicator",
         "Remove ads",
         "Telegram Premium",
@@ -85766,10 +86013,6 @@
           "description": "Increases download chunk size to 1 MB and max concurrent requests to 12."
         },
         {
-          "name": "Force system font",
-          "description": "Uses the device's system font for all app text."
-        },
-        {
           "name": "Hide typing indicator",
           "description": "Hides your typing indicator from other users in all chats. On Telegram Plus also silences the controller-level sendTyping dispatcher."
         },
@@ -85797,8 +86040,7 @@
       "versions": [
         "12.10.1",
         "12.8.3",
-        "12.9.2",
-        "13.1.0"
+        "12.9.2"
       ],
       "iconColor": "#2AABEE",
       "iconUrl": ""
@@ -85807,53 +86049,9 @@
       "packageName": "org.telegram.messenger",
       "name": "Telegram",
       "repos": [
-        "ch3thanhs/stylus",
         "rushiranpise/morphe-patches"
       ],
       "sources": [
-        {
-          "repo": "ch3thanhs/stylus",
-          "host": "github.com",
-          "webUrl": "https://github.com/ch3thanhs/stylus",
-          "addUrl": "https://Revanced.software/add-source?github=ch3thanhs/stylus",
-          "source": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/patches-bundle.json",
-          "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
-          "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
-          "latestChanges": {
-            "title": "1.9.3 (2026-11-07)",
-            "date": "2026-11-07",
-            "items": [
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.283.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram web:** Update app support to 13.2.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.2.0"
-              }
-            ]
-          },
-          "builder": {
-            "buildId": "org-telegram-messenger-ch3thanhs-stylus",
-            "releaseTag": "app-org-telegram-messenger-ch3thanhs-stylus",
-            "assetName": "telegram-ch3thanhs-stylus.apk",
-            "repo": "rushiforai/Revanced-builder",
-            "webUrl": "https://github.com/rushiforai/Revanced-builder"
-          },
-          "patches": [
-            {
-              "name": "Force system font",
-              "description": "Uses the device's system font for all app text."
-            }
-          ],
-          "versions": [
-            "13.1.1"
-          ]
-        },
         {
           "repo": "rushiranpise/morphe-patches",
           "host": "github.com",
@@ -85956,7 +86154,6 @@
         "Disable auto-update",
         "Disable channel switching",
         "Download speed boost",
-        "Force system font",
         "Hide typing indicator",
         "Remove ads",
         "Unlock Premium",
@@ -86001,10 +86198,6 @@
           "description": "Increases download chunk size to 1 MB and max concurrent requests to 12."
         },
         {
-          "name": "Force system font",
-          "description": "Uses the device's system font for all app text."
-        },
-        {
           "name": "Hide typing indicator",
           "description": "Hides your typing indicator from other users in all chats. On Telegram Plus also silences the controller-level sendTyping dispatcher."
         },
@@ -86026,8 +86219,7 @@
         }
       ],
       "versions": [
-        "12.10.1",
-        "13.1.1"
+        "12.10.1"
       ],
       "iconColor": "#2CA5E0",
       "iconUrl": ""
@@ -88933,12 +89125,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -89039,12 +89239,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.48.2 (2026-11-02)",
-            "date": "2026-11-02",
+            "title": "1.50.3 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** disambiguate v17 Skip ads patch name (#279) (#281)"
+                "text": "**primevideo:** close truncated regolith playlist in front of the tail object (#260) (a531e13), closes #263"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** empty a truncated regolith playlist across contiguous chunks (#260)"
+              },
+              {
+                "category": "Bug Fixes",
+                "text": "**primevideo:** ship split-tail native hook in bundled resource .so (#260) (83c8c85), closes #120-era"
               }
             ]
           },
@@ -92928,20 +93136,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.9.3 (2026-11-07)",
+            "title": "1.11.0 (2026-11-07)",
             "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.283.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram web:** Update app support to 13.2.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Telegram:** Update app support to 13.2.0"
+                "category": "\u2728 New Features",
+                "text": "**github:** support variable font weights and font feature settings"
               }
             ]
           },
@@ -94390,40 +94590,32 @@
           "changelogUrl": "https://raw.githubusercontent.com/kondratjev/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/kondratjev.png?size=96",
           "latestChanges": {
-            "title": "1.28.0 (2026-10-24)",
-            "date": "2026-10-24",
+            "title": "1.28.2 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "allow sentence-case subjects for release commits"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "add Play version check workflow and APK download scripts"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "enforce conventional commits with commitlint hook"
+                "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fatsecret:** update to 11.8.2.1"
+                "text": "**lyfta:** update to 1.612"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**lifesum:** update to 20.9.2"
+                "text": "**musclemotion:** update to 3.5.6"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**musclemotion:** update to 3.5.5"
+                "text": "**ornament:** update to 4.23.1"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**ornament:** update to 4.22.1"
+                "text": "**pillo:** update to 0.6.27"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**pillo:** update to 0.6.25"
+                "text": "**yazio:** update to 26.44.2"
               }
             ]
           },
@@ -94441,7 +94633,7 @@
             }
           ],
           "versions": [
-            "26.36.1"
+            "26.44.2"
           ]
         }
       ],
@@ -94455,7 +94647,7 @@
         }
       ],
       "versions": [
-        "26.36.1"
+        "26.44.2"
       ],
       "iconColor": "#00C853",
       "iconUrl": ""
@@ -95678,20 +95870,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.10 (2026-10-31)",
-            "date": "2026-10-31",
+            "title": "1.4.11 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Point findFreeRegister import at app.morphe.patcher.util"
-              },
-              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0 (#81)"
+                "text": "Sync upstream Morphe patches v2.1.0"
               }
             ]
           },
@@ -95733,7 +95917,7 @@
             },
             {
               "name": "Captions",
-              "description": "Adds options to disable captions from being automatically enabled, select a preferred caption language, add more auto-translate languages, and show captions in picture-in-picture."
+              "description": "Adds options to disable captions from being automatically enabled, select a preferred and a secondary caption language, add more auto-translate languages, and show captions in stable blocks and in picture-in-picture. Stable blocks and bilingual captions work with YouTube 21.15 and newer, on Android 10 and newer."
             },
             {
               "name": "Cat lock",
@@ -95746,6 +95930,10 @@
             {
               "name": "Change header",
               "description": "Adds an option to change the header logo in the top left corner of the app."
+            },
+            {
+              "name": "Change picture-in-picture actions",
+              "description": "Adds options to change the buttons shown in picture-in-picture mode."
             },
             {
               "name": "Change start page",
@@ -95765,7 +95953,7 @@
             },
             {
               "name": "Copy text",
-              "description": "Adds options to copy the video title and comments by tapping and holding them."
+              "description": "Adds options to copy the video title and comments, and to select text of video descriptions and posts, by tapping and holding them."
             },
             {
               "name": "Copy video link",
@@ -95857,7 +96045,7 @@
             },
             {
               "name": "Downloads",
-              "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, and adds an option to download videos in-app."
+              "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, adds an option to download videos in-app, and exports saved videos to the device."
             },
             {
               "name": "Enable debugging",
@@ -95929,7 +96117,7 @@
             },
             {
               "name": "Hide player overlay buttons",
-              "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
+              "description": "Adds options to hide the Cast button, the player Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
             },
             {
               "name": "Hide related video overlay",
@@ -96100,6 +96288,10 @@
               "description": "Adds an option to automatically skip silent pauses in audio playback."
             },
             {
+              "name": "Snackbar",
+              "description": "Adds options to hide the snackbar or change its colors and shape."
+            },
+            {
               "name": "SponsorBlock",
               "description": "Adds options to enable and configure SponsorBlock, which can skip undesired video segments such as sponsored content."
             },
@@ -96124,6 +96316,10 @@
               "description": "Adds options for theming, and settings to change the app foreground and background colors."
             },
             {
+              "name": "Translate live chat",
+              "description": "Adds an option to translate live chat and live chat replay messages."
+            },
+            {
               "name": "Translate posts",
               "description": "Adds a menu item to translate the text of posts."
             },
@@ -96140,6 +96336,10 @@
               "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
             },
             {
+              "name": "Watch later improvements",
+              "description": "Adds options to widen the drag handles of the Watch later videos and to hide the snackbar shown after removing a video."
+            },
+            {
               "name": "Wide search bar",
               "description": "Adds a wide search bar to the top of the home and subscription feed."
             }
@@ -96150,8 +96350,8 @@
             "21.23.492",
             "21.28.208",
             "21.30.216",
-            "21.42.241",
-            "21.43.523"
+            "21.43.523",
+            "21.44.528"
           ]
         },
         {
@@ -96603,8 +96803,8 @@
         "Seekbar",
         "Seekbar components",
         "Series tracking",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -96629,8 +96829,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -96682,7 +96882,7 @@
         },
         {
           "name": "Captions",
-          "description": "Adds options to disable captions from being automatically enabled, select a preferred caption language, add more auto-translate languages, and show captions in picture-in-picture."
+          "description": "Adds options to disable captions from being automatically enabled, select a preferred and a secondary caption language, add more auto-translate languages, and show captions in stable blocks and in picture-in-picture. Stable blocks and bilingual captions work with YouTube 21.15 and newer, on Android 10 and newer."
         },
         {
           "name": "Cat lock",
@@ -96734,7 +96934,7 @@
         },
         {
           "name": "Copy text",
-          "description": "Adds options to copy the video title and comments by tapping and holding them."
+          "description": "Adds options to copy the video title and comments, and to select text of video descriptions and posts, by tapping and holding them."
         },
         {
           "name": "Copy video link",
@@ -96878,7 +97078,7 @@
         },
         {
           "name": "Downloads",
-          "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, and adds an option to download videos in-app."
+          "description": "Adds support to download videos with an external downloader app using the in-app download button or a video player action button, adds an option to download videos in-app, and exports saved videos to the device."
         },
         {
           "name": "Enable debug logging",
@@ -97002,7 +97202,7 @@
         },
         {
           "name": "Hide player overlay buttons",
-          "description": "Adds options to hide the player Cast, Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
+          "description": "Adds options to hide the Cast button, the player Autoplay, Captions, Previous & Next buttons, and to hide or change the opacity of the player control buttons background."
         },
         {
           "name": "Hide related video overlay",
@@ -97197,11 +97397,11 @@
           "description": "Adds a series library to History with local progress and episode continuation. This patch works with YouTube 21.02 and newer."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -97301,12 +97501,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
@@ -97364,7 +97564,6 @@
         "21.28.208",
         "21.29.366",
         "21.30.216",
-        "21.42.241",
         "21.43.523",
         "21.44.528"
       ],
@@ -98022,20 +98221,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "1.4.10 (2026-10-31)",
-            "date": "2026-10-31",
+            "title": "1.4.11 (2026-11-07)",
+            "date": "2026-11-07",
             "items": [
               {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Point findFreeRegister import at app.morphe.patcher.util"
-              },
-              {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "Sync upstream Morphe patches v2.0.0 (#81)"
+                "text": "Sync upstream Morphe patches v2.1.0"
               }
             ]
           },
@@ -98097,7 +98288,7 @@
             },
             {
               "name": "Downloads",
-              "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
+              "description": "Adds support to download songs, albums and playlists using the in-app download button, either with an external downloader app or inside YouTube Music."
             },
             {
               "name": "Enable audio/video switch",
@@ -98180,6 +98371,10 @@
               "description": "Adds options to change the playback speed and pitch of tracks."
             },
             {
+              "name": "Playlist tags",
+              "description": "Adds an option to tag playlists from their menu, and to filter the Library playlists by tag."
+            },
+            {
               "name": "Playlist track tap action",
               "description": "Adds an option to play only the tapped track of a playlist or album, or to add it to the queue, instead of replacing the queue with the whole playlist."
             },
@@ -98224,6 +98419,10 @@
               "description": "Adds an option to automatically skip silent pauses in audio playback."
             },
             {
+              "name": "SoundProof",
+              "description": "Adds an option to skip tracks of artists reported as AI in the SoundProof community database."
+            },
+            {
               "name": "SponsorBlock",
               "description": "Adds options to enable and configure SponsorBlock, which can skip non-music segments."
             },
@@ -98241,16 +98440,16 @@
             },
             {
               "name": "Third-party lyrics",
-              "description": "Adds an option to show synced lyrics with experience enhancement from 18+ providers in the lyrics panel."
+              "description": "Adds an option to show synced lyrics with experience enhancement from 19+ providers in the lyrics panel."
             }
           ],
           "versions": [
             "9.15.51",
             "9.20.53",
             "9.30.53",
-            "9.41.52",
             "9.42.52",
-            "9.43.51"
+            "9.43.51",
+            "9.44.52"
           ]
         },
         {
@@ -98651,7 +98850,7 @@
         },
         {
           "name": "Downloads",
-          "description": "Adds support to download songs using the in-app download button, either with an external downloader app or inside YouTube Music."
+          "description": "Adds support to download songs, albums and playlists using the in-app download button, either with an external downloader app or inside YouTube Music."
         },
         {
           "name": "Enable audio/video switch",
@@ -98859,7 +99058,7 @@
         },
         {
           "name": "Third-party lyrics",
-          "description": "Adds an option to show synced lyrics with experience enhancement from 18+ providers in the lyrics panel."
+          "description": "Adds an option to show synced lyrics with experience enhancement from 19+ providers in the lyrics panel."
         },
         {
           "name": "Track crossfade",
@@ -98912,7 +99111,6 @@
         "9.23.52",
         "9.24.51",
         "9.30.53",
-        "9.41.52",
         "9.42.52",
         "9.43.51",
         "9.44.52"
@@ -100313,40 +100511,32 @@
       "avatarUrl": "https://github.com/kondratjev.png?size=96",
       "patchCount": 3,
       "latestChanges": {
-        "title": "1.28.0 (2026-10-24)",
-        "date": "2026-10-24",
+        "title": "1.28.2 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "allow sentence-case subjects for release commits"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "add Play version check workflow and APK download scripts"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "enforce conventional commits with commitlint hook"
+            "text": "**fatsecret:** suppress unverifiable-purchase dialog on server 403"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**fatsecret:** update to 11.8.2.1"
+            "text": "**lyfta:** update to 1.612"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**lifesum:** update to 20.9.2"
+            "text": "**musclemotion:** update to 3.5.6"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**musclemotion:** update to 3.5.5"
+            "text": "**ornament:** update to 4.23.1"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**ornament:** update to 4.22.1"
+            "text": "**pillo:** update to 0.6.27"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**pillo:** update to 0.6.25"
+            "text": "**yazio:** update to 26.44.2"
           }
         ]
       },
@@ -100358,7 +100548,7 @@
         },
         {
           "name": "Disable analytics",
-          "description": "Disables analytics and tracking from multiple SDKs, including AppMetrica, MyTracker, Firebase, Sentry, Google Analytics, Amplitude, Mixpanel, Adjust, AppsFlyer, Facebook, MoEngage, and comScore.",
+          "description": "Disables analytics and tracking from multiple SDKs, including AppMetrica, MyTracker, Firebase, Sentry, Google Analytics, Amplitude, Mixpanel, Adjust, AppsFlyer, Facebook, MoEngage, comScore, and Braze. Note: Braze-powered push campaigns, content cards, and in-app messages stop working as a side effect.",
           "default": false
         },
         {
@@ -100835,16 +101025,12 @@
       "avatarUrl": "https://github.com/sjshb57.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "1.11.0 (2026-10-11)",
-        "date": "2026-10-11",
+        "title": "1.11.4 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "upgrade Gradle, dependencies, and update patch generator"
-          },
-          {
-            "category": "\ud83d\udd27 Improvements",
-            "text": "release v1.10.3"
+            "category": "\ud83d\udc1b Bug Fixes",
+            "text": "**Remove pairip protection:** restore original Application in manifest"
           }
         ]
       },
@@ -100881,20 +101067,12 @@
       "avatarUrl": "https://github.com/variablenine.png?size=96",
       "patchCount": 5,
       "latestChanges": {
-        "title": "1.4.10 (2026-10-31)",
-        "date": "2026-10-31",
+        "title": "1.4.11 (2026-11-07)",
+        "date": "2026-11-07",
         "items": [
           {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Point findFreeRegister import at app.morphe.patcher.util"
-          },
-          {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v2.0.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "Sync upstream Morphe patches v2.0.0 (#81)"
+            "text": "Sync upstream Morphe patches v2.1.0"
           }
         ]
       },
