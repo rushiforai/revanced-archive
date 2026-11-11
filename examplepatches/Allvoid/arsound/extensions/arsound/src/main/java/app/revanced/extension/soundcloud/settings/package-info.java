@@ -8,10 +8,11 @@
  * <p>Entry points (Kotlin: {@code misc/settings/SettingsPatch.kt}, {@code local/ImportEntryPatch.kt}):
  * <ul>
  * <li>{@code SettingsEntry.addEntry(Composer)} - adds the "Arsound" row to SoundCloud's Compose settings list;
- * {@code SettingsEntry.addImportEntry(Composer)} - the rows "Import files from this phone" and "Transfer from Yandex Music"
- * on "Import my music". Both call SoundCloud's own row composable, so the rows look native.</li>
- * <li>{@code YandexImportTile.rows/drawTile} - a "Yandex Music" tile among the apps of SoundCloud's "Import from another
- * app", drawn like SoundCloud's tiles; it opens {@code TransferScreen}.</li>
+ * {@code SettingsEntry.addImportEntry(Composer)} - the rows "Import files from this phone" and "Transfer from Yandex Music,
+ * VK and YouTube Music" on "Import my music". Both call SoundCloud's own row composable, so the rows look native.</li>
+ * <li>{@code TransferTiles.rows/drawTile} - the tiles of Yandex Music, VK Music and YouTube Music among the apps of
+ * SoundCloud's "Import from another app", drawn like SoundCloud's tiles; each opens {@code TransferScreen} with its
+ * own service picked.</li>
  * <li>Settings backup: {@code SettingsTransferRows} (the rows and dialogs on "Updates and data"), {@code SettingsTransfer}
  * (the JSON format and the import plan, pure), {@code TransferPlan} (what travels and what never does),
  * {@code TransferFiles} (the Android part).</li>
@@ -37,7 +38,10 @@
  * <li>Other: theme and wallpaper widgets ({@code ThemeSheet}, {@code ColorPickerSheet}, {@code HsvColorPicker},
  * {@code WallhavenScreen}), equalizer UI ({@code EqualizerPanel}, {@code EqualizerGraph}), {@code DataReset}
  * ("Reset data" keeps logins, settings and imports), {@code StorageUsage}, {@code TransferScreen} (the transfer from
- * Yandex Music, opened from "Your music"; the work itself is in {@code transfer}).</li>
+ * Yandex Music, VK and YouTube Music, opened from "Your music"; one "Service" row picks whose account is shown; the
+ * work itself is in {@code transfer}), {@code MotionBlurScreen} (the motion blur, opened from Appearance; the work is in
+ * {@code motion}). The settings backup file is {@code SettingsTransfer} (pure) with {@code TransferFiles} (the disk);
+ * the covers of playlists travel in it as one made-up value ({@code PlaylistCoversMerge}).</li>
  * </ul>
  *
  * <p>Gotchas: saved keys must never change; users already have them. A section that is not listed in

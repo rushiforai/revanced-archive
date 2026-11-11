@@ -1,5 +1,7 @@
 # 調査知見
 
+- Manager登録用のraw URLは既定ブランチ直下の `patches.json` を読む。release workflowの最後で、最新リリースのJSONだけを同ブランチへ同期する。旧リリース再実行は更新対象外で、JSONの版と現在のblob SHAを検証するため、URLだけを変更してJSON配置・同期を省略しない。
+
 - 保存済み入力はAPKM bundle。単一APKへ統合してからpatchし、native ABI、split必須metadata除去、v2/v3署名、16KiB alignmentを確認する。
 - RVPは `buildAndroid` でAndroid `classes.dex` を同梱する。通常 `build` だけのRVPを配布しない。
 - 新版fingerprintは難読化名でなく、`promoCode` + String引数、PromoCodeModel結果、addon parserのfield、Application/Koinの安定文字列で複数世代確認する。
