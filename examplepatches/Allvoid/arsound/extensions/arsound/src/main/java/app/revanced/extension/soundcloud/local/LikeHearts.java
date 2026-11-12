@@ -37,12 +37,22 @@ public final class LikeHearts {
      * @return True if the track is an imported file and the toggle was handled here: nothing may be written for it.
      */
     public static boolean toggle(Object urn, boolean like) {
-        if (!LikeObjects.isLocal(urn)) return false;
-        // With "Imported tracks in Your likes" off the heart does nothing: the files hidden from the likes stay as the
-        // user left them. Still handled here, so nothing is written for the file.
-        if (!ImportedLikes.isActive()) return true;
-        File file = LikeObjects.fileOf(urn);
-        if (file != null && ImportedLikes.setLiked(file, like)) HeartRefresh.emitAgain();
+        if (!LikeObjects.isLocal(urn)) {
+            // A SoundCloud track: counted for the warning about SoundCloud's limit of likes, and looked at a while after.
+            LikeLimit.onToggle(urn, like);
+            return false;
+        }
+        // A hook in the tap on a heart, often on the main thread: a failure must not close the app. The tap then does
+        // nothing, and it is still handled here, so nothing is written for the file.
+        try {
+            // With "Imported tracks in Your likes" off the heart does nothing: the files hidden from the likes stay as
+            // the user left them.
+            if (!ImportedLikes.isActive()) return true;
+            File file = LikeObjects.fileOf(urn);
+            if (file != null && ImportedLikes.setLiked(file, like)) HeartRefresh.emitAgain();
+        } catch (Exception ex) {
+            Logger.printException(() -> "Could not like an imported file", ex);
+        }
         return true;
     }
 

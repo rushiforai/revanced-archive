@@ -19,6 +19,7 @@ import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.settings.Settings;
 import app.revanced.extension.soundcloud.shared.AppResources;
 import app.revanced.extension.soundcloud.shared.Lang;
+import app.revanced.extension.soundcloud.widget.WidgetDiagnostics;
 import app.revanced.extension.soundcloud.widget.WidgetHeart;
 
 /**
@@ -187,6 +188,8 @@ public final class ArsoundTheme {
      * library_header_<row>. 0 keeps the row without an icon.
      */
     public static int libraryRowIcon(View row) {
+        // The same moment, when the row is bound, gives it its card ("Cards and outlines"); nothing when that is off.
+        CardSurfaces.styleRow(row);
         try {
             if (row.getId() == View.NO_ID) return 0;
             return libraryRowIcon(row.getResources().getResourceEntryName(row.getId()).replace("library_header_", ""));
@@ -284,6 +287,18 @@ public final class ArsoundTheme {
     }
 
     /**
+     * Gives Android the start screen that fits what is chosen now: the theme, or SoundCloud's own picture with one of
+     * SoundCloud's app icons. Called when the app icon was changed; the screens also check it when they come back.
+     */
+    public static void syncStartScreen(Activity activity) {
+        try {
+            SplashStyle.sync(activity, currentTheme(activity));
+        } catch (Throwable ex) {
+            Logger.printException(() -> "Theme: could not keep the start screen", ex);
+        }
+    }
+
+    /**
      * Tells when the chosen theme's colours change: the id for the shipped themes, more for the ones made on the
      * phone. For screens that draw with the palette and must be drawn again when it changes.
      */
@@ -341,6 +356,8 @@ public final class ArsoundTheme {
         } catch (Throwable ex) {
             Logger.printException(() -> "Theme: could not follow the day and night look", ex);
         }
+        // Why this process started and what the widgets look like: the widget's log lines for a tap that did nothing.
+        WidgetDiagnostics.onApplicationStart(application);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return;
         appContext = application;
         ThemeLifecycle.start(application);

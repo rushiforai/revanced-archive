@@ -24,13 +24,22 @@
  * {@code PlayerWidgetPresenter.b(RemoteViews)}; when a square is on the home screen, runs SoundCloud's builder once
  * more with a proxy of its resource provider that gives the square's layout and icons.</li>
  * <li>{@code WidgetDiagnostics.onButtonsWired}, {@code onTap}, {@code onProviderReceive} - log lines about the player
- * widget (buttons built, a tap that arrived, what the phone allows in the background); the Kotlin patch is
- * {@code widget/WidgetDiagnosticsPatch.kt}.</li>
+ * widget (buttons built, a tap that arrived and what the player did with it, what the phone allows in the
+ * background); the Kotlin patch is {@code widget/WidgetDiagnosticsPatch.kt}. {@code onTap} gets the receiver itself,
+ * to read the player's state after the tap.</li>
+ * <li>{@code WidgetDiagnostics.runSelfTest(Context, String)} - sends the app's own {@code player.PlayModeReceiver} a
+ * harmless broadcast (plain and through a PendingIntent) and logs whether it arrived; run at a process start and by
+ * {@code debug.sections.WidgetStateSection}. {@code PlayModeReceiver} hands the broadcast to
+ * {@code WidgetDiagnostics.onSelfTest}. Never send SoundCloud's own widget receiver a test: with no action it throws.</li>
+ * <li>{@code WidgetDiagnostics.onApplicationStart(Application)} - called by {@code theme.ArsoundTheme.onApplicationCreate}
+ * at every process start: why the process started (Android 15 start history) and what the widgets look like.</li>
  * </ul>
  *
  * <p>Other classes: {@code CoverColor} (hue of a cover), {@code HeartColor} (fits it to the card),
  * {@code WidgetLook} (day/night, forced refresh), {@code CoverFiles} and {@code CoverDownloader} (cover files and
- * refusals).
+ * refusals), {@code WidgetLog} (the widget's own log file, kept whatever the log settings are; its text goes into
+ * the saved logs through {@code debug.sections.WidgetLogSection}, and {@code WidgetStateSection} writes the state
+ * of the widgets at the moment of saving).
  *
  * <p>Settings: {@code widget_heart_cover} ({@code WidgetHeart.COVER_COLOR_KEY}, default on), read with
  * {@code Settings.getBoolean}; the switch is on the appearance screen ({@code settings.AppearanceScreen}).

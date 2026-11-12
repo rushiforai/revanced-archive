@@ -118,7 +118,9 @@ val bottomTabsPatch = bytecodePatch {
         initialTargetsMethod.wrapLastReturnedObject(ARRANGE)
 
         // The list the controller and the model are given after the server answered: arranged before it is compared
-        // with the list applied before (which was arranged the same way).
+        // with the list applied before (which was arranged the same way). By the method's signature p3 is the
+        // continuation, but at the comparison the register holds the new list: the method puts the answer there
+        // ("move-result-object p3", "check-cast p3, Ljava/util/List;") right before "areEqual(p3, p2)".
         val compare = applyTargetsMethod.indexOfFirstInstructionOrThrow {
             opcode == Opcode.INVOKE_STATIC && methodReference?.toString() ==
                 "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
@@ -129,6 +131,23 @@ val bottomTabsPatch = bytecodePatch {
                 invoke-static { p3 }, $ARRANGE
                 move-result-object p3
             """,
+        )
+        // The comparison itself: lists that differ only by the Upgrade tab (which the bar drops anyway) are the same, so the
+        // bar is not rebuilt for nothing. A rebuild puts the highlight back on Home while another tab is open.
+        // The two inserted instructions are the call and its move-result: areEqual moved down by two.
+        val areEqualIndex = compare + 2
+        check(applyTargetsMethod.getInstruction(areEqualIndex).methodReference?.name == "areEqual") {
+            "The comparison of the tab lists is not where it was expected"
+        }
+        applyTargetsMethod.replaceInstruction(
+            areEqualIndex,
+            "invoke-static { p3, p2 }, $BOTTOM_TABS->sameTabs(Ljava/lang/Object;Ljava/lang/Object;)Z",
+        )
+
+        // The selected tab is remembered before the menu is cleared and given back after it is rebuilt.
+        setupMenuItemsMethod.addInstructions(
+            0,
+            "invoke-static { p1 }, $BOTTOM_TABS->rememberSelection(Landroid/view/View;)V",
         )
 
         setupMenuItemsMethod.insertBeforeLastReturnVoid(
