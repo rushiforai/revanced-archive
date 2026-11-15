@@ -13,6 +13,9 @@ private val APKMIRROR_EDITION_SLUG_REGEX = Regex(
     RegexOption.IGNORE_CASE
 )
 
+private const val APKMIRROR_BROWSER_NOTE =
+    "Complete any browser check, then choose the file on the APKMirror page."
+
 internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSourceParser {
     override val source: DownloadSource = DownloadSource.APK_MIRROR
 
@@ -111,29 +114,35 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             ?.firstOrNull { it.directDownload }
     }
 
-    private fun apkMirrorRequested(request: HelperRequest) = DownloadCandidate(
-        source = DownloadSource.APK_MIRROR,
-        name = request.appName,
-        packageName = request.packageName,
-        versionName = request.versionName,
-        versionCode = request.versionCode ?: request.versionCodes.singleOrNull(),
-        url = request.sourceHintUrlsFor(DownloadSource.APK_MIRROR).firstOrNull() ?: request.fallbackWebUrl,
-        fileKind = request.requestedFormatLabel,
-        option = CandidateOption.REQUESTED,
-        directDownload = false,
-        versionStatus = VersionStatus.REQUESTED,
-        formatMatches = true
-    )
+    private fun apkMirrorRequested(request: HelperRequest): DownloadCandidate {
+        val browserUrl = apkMirrorBrowserUrl(request)
+        return DownloadCandidate(
+            source = DownloadSource.APK_MIRROR,
+            name = request.appName,
+            packageName = request.packageName,
+            versionName = request.versionName,
+            versionCode = request.versionCode ?: request.versionCodes.singleOrNull(),
+            url = browserUrl,
+            fileKind = request.requestedFormatLabel,
+            option = CandidateOption.REQUESTED,
+            directDownload = false,
+            versionStatus = VersionStatus.REQUESTED,
+            formatMatches = true,
+            note = APKMIRROR_BROWSER_NOTE,
+            captchaUrl = browserUrl
+        )
+    }
 
     private fun apkMirrorLatest(request: HelperRequest): DownloadCandidate =
         apkMirrorLatestWebCandidate(request, runCatching {
             resolveApkMirrorLatestInfo(request, apkMirrorPackageSearchUrl(request.packageName))
         }.getOrNull())
 
-    private fun findApkMirrorLatest(request: HelperRequest): List<DownloadCandidate> {
+    private suspend fun findApkMirrorLatest(request: HelperRequest): List<DownloadCandidate> {
         // The resolver often hands back the exact variant page, which is two fetches
         // instead of the search -> app -> uploads -> release walk below.
         apkMirrorFastPath(request, CandidateOption.LATEST)?.let { return it }
+        apkMirrorApiLatestCandidates(request)?.let { return it }
 
         val latestInfo = resolveApkMirrorLatestInfo(
             request = request,
@@ -156,6 +165,114 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
     }
 
     /**
+     * APKMirror's own app-exists API, used before the search -> app -> uploads -> release walk.
+     *
+     * The endpoint names the latest stable release and its variant pages in one request, so
+     * this skips the search, app, uploads and release pages. It is private and can
+     * disappear, and it has no per-version
+     * history, so it is only consulted for "latest" and any failure falls through to scraping.
+     * Secondary builds are skipped here for the same reason [apkMirrorLatestReleaseUrl] ignores
+     * them: a "-SECONDARY" release is not the build the latest tab is meant to offer.
+     */
+    private suspend fun apkMirrorApiLatestCandidates(
+        request: HelperRequest
+    ): List<DownloadCandidate>? {
+        val api = ctx.apkMirrorApi ?: return null
+        val data = runCatching {
+            api.appExists(ApkMirrorAppExistsRequest(pnames = listOf(request.packageName)))
+                .data
+                .firstOrNull { it.pname == request.packageName && it.exists }
+        }
+            .onFailure { Log.w(TAG, "APKMirror API latest lookup failed", it) }
+            .getOrNull()
+            ?: return null
+
+        val version = data.release.version.trim()
+        if (version.isEmpty()) return null
+        if (listOf("alpha", "beta", "secondary").any { version.contains(it, ignoreCase = true) }) {
+            return null
+        }
+        val releaseUrl = apkMirrorAbsoluteUrl(data.release.link)
+            ?.takeIf(::apkMirrorLooksLikeReleaseUrl)
+            ?: return null
+        val variants = data.apks
+            .flatMap { it.toApkMirrorVariants() }
+            .mapIndexed { index, variant -> variant.copy(number = index + 1) }
+        if (variants.isEmpty()) return null
+
+        val selected = apkMirrorSelectableVariants(request, variants, CandidateOption.LATEST)
+        if (selected.isEmpty()) return null
+        val multiVariant = selected.size > 1
+        return selected.mapNotNull { variant ->
+            runCatching {
+                apkMirrorDirectCandidateFromReleaseUrl(
+                    request = request,
+                    releaseUrl = releaseUrl,
+                    versionName = version,
+                    option = CandidateOption.LATEST,
+                    variant = variant,
+                    variantNumber = variant.number.takeIf { multiVariant }
+                )
+            }
+                .onFailure { Log.w(TAG, "APKMirror API variant failed: ${variant.url}", it) }
+                .getOrNull()
+        }
+            .distinctBy(DownloadCandidate::identityKey)
+            .takeIf(List<DownloadCandidate>::isNotEmpty)
+    }
+
+    private fun ApkMirrorAppExistsApk.toApkMirrorVariants(): List<ApkMirrorVariant> {
+        val url = apkMirrorAbsoluteUrl(link) ?: return emptyList()
+        val kinds = downloadTypes.mapNotNull { type ->
+            when (type.trim().lowercase(Locale.US)) {
+                "apk" -> "apk"
+                "bundle", "apkm" -> "apkm"
+                "apks" -> "apks"
+                else -> null
+            }
+        }.distinct().ifEmpty { listOf("apk") }
+        val arch = apkMirrorApiArchLabel(arches)
+        val dpi = apkMirrorApiDpiLabel(dpis)
+        val code = versionCode.toLongOrNull()?.takeIf { it > 0L }
+        return kinds.map { kind ->
+            ApkMirrorVariant(
+                url = url,
+                type = if (kind == "apk") "APK" else "BUNDLE",
+                fileKind = kind,
+                arch = arch,
+                dpi = dpi,
+                isBundle = kind != "apk",
+                versionCode = code
+            )
+        }
+    }
+
+    private fun apkMirrorApiArchLabel(arches: List<String>): String? {
+        val labels = arches.map { it.trim() }.filter(String::isNotBlank).distinct()
+        if (labels.isEmpty()) return null
+        val allAbis = setOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        if (labels.map { it.lowercase(Locale.US) }.containsAll(allAbis)) return "Universal"
+        return labels.joinToString(", ")
+    }
+
+    private fun apkMirrorApiDpiLabel(dpis: List<String>?): String? {
+        val labels = dpis.orEmpty()
+            .map { it.trim().lowercase(Locale.US) }
+            .filter(String::isNotBlank)
+        if (labels.isEmpty()) return null
+        if (labels.any { it == "nodpi" || it == "anydpi" }) return "nodpi"
+        val numbers = labels.mapNotNull { label ->
+            Regex("""\d+""").find(label)?.value?.toIntOrNull()
+        }.sorted()
+        if (numbers.isEmpty()) return labels.joinToString("-")
+        return if (numbers.size == 1) {
+            "${numbers.first()}dpi"
+        } else {
+            "${numbers.first()}-${numbers.last()}dpi"
+        }
+    }
+
+    /**
      * Morphe's resolver shortcut: the page its own download dialog would open, used directly.
      *
      * Returns null whenever the resolver is off, answers with something this helper cannot
@@ -167,6 +284,20 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         option: CandidateOption
     ): List<DownloadCandidate>? {
         val resolved = ctx.resolveViaMorphe?.invoke(request) ?: return null
+        return apkMirrorCandidatesFromResolvedUrl(request, resolved, option)
+    }
+
+    override suspend fun findCandidatesFromResolvedUrl(
+        request: HelperRequest,
+        url: String,
+        option: CandidateOption
+    ): List<DownloadCandidate>? = apkMirrorCandidatesFromResolvedUrl(request, url, option)
+
+    private fun apkMirrorCandidatesFromResolvedUrl(
+        request: HelperRequest,
+        resolved: String,
+        option: CandidateOption
+    ): List<DownloadCandidate>? {
         if (resolved.isBlank()) return null
 
         return when (apkMirrorPageOf(resolved)) {
@@ -178,21 +309,23 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
                         releaseUrl,
                         appPageUrl = apkMirrorAppPageOfReleaseUrl(releaseUrl)
                     )
-                listOfNotNull(
-                    runCatching {
-                        apkMirrorDirectCandidateFromReleaseUrl(
-                            request = request,
-                            // A variant page is treated as the page to read: the variant
-                            // page carries its own download button.
-                            releaseUrl = resolved,
-                            versionName = version,
-                            option = option,
-                            variant = null
-                        )
-                    }
-                        .onFailure { Log.w(TAG, "Morphe resolver variant page failed: $resolved", it) }
-                        .getOrNull()
-                ).takeIf { it.isNotEmpty() }
+                val direct = runCatching {
+                    apkMirrorDirectCandidateFromReleaseUrl(
+                        request = request,
+                        // A variant page is treated as the page to read: the variant
+                        // page carries its own download button.
+                        releaseUrl = resolved,
+                        versionName = version,
+                        option = option,
+                        variant = null
+                    )
+                }
+                    .onFailure { Log.w(TAG, "Morphe resolver variant page failed: $resolved", it) }
+                    .getOrNull()
+                // APKMirror now answers the helper's HTTP client with a Cloudflare
+                // challenge. Keep the exact page the resolver named and open it in
+                // the in-app browser instead of discarding the shortcut.
+                listOf(direct ?: apkMirrorResolvedWebCandidate(request, resolved, version, option))
             }
 
             ApkMirrorPage.RELEASE -> {
@@ -201,7 +334,7 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
                         resolved,
                         appPageUrl = apkMirrorAppPageOfReleaseUrl(resolved)
                     )
-                runCatching {
+                val candidates = runCatching {
                     apkMirrorCandidatesFromReleaseUrl(
                         request = request,
                         releaseUrl = resolved,
@@ -211,30 +344,57 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
                 }
                     .onFailure { Log.w(TAG, "Morphe resolver release page failed: $resolved", it) }
                     .getOrNull()
-                    ?.takeIf { it.isNotEmpty() }
+                    .orEmpty()
+                candidates.ifEmpty {
+                    listOf(apkMirrorResolvedWebCandidate(request, resolved, version, option))
+                }
             }
 
             null -> null
         }
     }
 
+    /** The exact APKMirror page the resolver named, offered to the in-app browser. */
+    private fun apkMirrorResolvedWebCandidate(
+        request: HelperRequest,
+        pageUrl: String,
+        versionName: String?,
+        option: CandidateOption
+    ): DownloadCandidate = DownloadCandidate(
+        source = DownloadSource.APK_MIRROR,
+        name = request.appName,
+        packageName = request.packageName,
+        versionName = versionName,
+        versionCode = request.versionCode ?: request.versionCodes.singleOrNull(),
+        url = pageUrl,
+        fileKind = "web",
+        option = option,
+        directDownload = false,
+        versionStatus = request.versionStatus(versionName, null),
+        formatMatches = true,
+        note = APKMIRROR_BROWSER_NOTE,
+        captchaUrl = pageUrl
+    )
+
     private fun apkMirrorLatestWebCandidate(
         request: HelperRequest,
         latestInfo: ApkMirrorLatestInfo?
     ): DownloadCandidate {
-        val searchUrl = apkMirrorPackageSearchUrl(request.packageName)
+        val browserUrl = latestInfo?.openUrl ?: apkMirrorPackageSearchUrl(request.packageName)
         return DownloadCandidate(
             source = DownloadSource.APK_MIRROR,
             name = request.appName,
             packageName = request.packageName,
             versionName = latestInfo?.versionName,
             versionCode = null,
-            url = latestInfo?.openUrl ?: searchUrl,
+            url = browserUrl,
             fileKind = "web",
             option = CandidateOption.LATEST,
             directDownload = false,
             versionStatus = VersionStatus.LATEST,
-            formatMatches = true
+            formatMatches = true,
+            note = APKMIRROR_BROWSER_NOTE,
+            captchaUrl = browserUrl
         )
     }
 
@@ -463,6 +623,9 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         apkMirrorPreferredReleaseUrl(apkMirrorReleaseLinks(appDoc, appPageUrl), requestedVersions)
             ?.let { return it }
 
+        apkMirrorConstructedReleaseUrl(appPageUrl, appDoc, requestedVersions)
+            ?.let { return it }
+
         val category = appPageUrl.trimEnd('/').substringAfterLast('/').takeIf(String::isNotBlank)
             ?: return null
         val uploadsUrl = "https://www.apkmirror.com/uploads/?appcategory=$category"
@@ -502,6 +665,67 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             requestedVersions.any { version -> apkMirrorReleaseUrlMatchesVersion(url, version) }
         }
         return matching.firstOrNull { !it.hasVariantBuildMarker() } ?: matching.firstOrNull()
+    }
+
+    /**
+     * Builds a release URL from the app page's latest slug when the requested
+     * version is no longer listed on the app or uploads pages.
+     *
+     * APKMirror release slugs are predictable: an app page whose latest release
+     * is `example-app-2-0-0-release` can be probed for
+     * `example-app-1-5-0-release`. The app slug is stripped first because it can
+     * itself end in a digit (`file-manager-7-3-5-4-release`).
+     */
+    private fun apkMirrorConstructedReleaseUrl(
+        appPageUrl: String,
+        appDoc: Document,
+        requestedVersions: List<String>
+    ): String? {
+        val releases = apkMirrorReleaseLinks(appDoc, appPageUrl)
+        val base = releases.firstOrNull { !it.hasVariantBuildMarker() } ?: releases.firstOrNull()
+            ?: return null
+        val appPath = runCatching { java.net.URI(appPageUrl).path.trimEnd('/') }.getOrNull()
+            ?.takeIf(String::isNotBlank)
+            ?: return null
+        val appSlug = appPath.substringAfterLast('/').takeIf(String::isNotBlank) ?: return null
+        val baseSegment = runCatching {
+            java.net.URI(base).path.trimEnd('/').substringAfterLast('/')
+        }.getOrNull()
+            ?.removeSuffix("-release")
+            ?.takeIf(String::isNotBlank)
+            ?: return null
+        val versionOnly = Regex(
+            """^\d+(?:-\d+)*(?:-(?:secondary|alpha|beta|rc)\d*)?$""",
+            RegexOption.IGNORE_CASE
+        )
+        val prefix = when {
+            baseSegment.startsWith("$appSlug-") -> "$appSlug-"
+            // Some release URLs end in just the version (no app slug prefix).
+            versionOnly.matches(baseSegment) -> "$appSlug-"
+            else -> Regex("""^(.*?-)\d+(?:-\d+)*(?:-(?:alpha|beta|rc)\d*)?$""", RegexOption.IGNORE_CASE)
+                .find(baseSegment)
+                ?.groupValues
+                ?.getOrNull(1)
+        } ?: return null
+
+        for (requested in requestedVersions) {
+            val versionSlug = requested.apkMirrorVersionSlug()
+            if (versionSlug.isBlank()) continue
+            val candidate = "https://www.apkmirror.com$appPath/$prefix$versionSlug-release/"
+            val exists = try {
+                val doc = fetchDocument(candidate, referer = appPageUrl)
+                !doc.isCloudflareChallenge()
+            } catch (e: HttpRateLimitedException) {
+                throw e
+            } catch (e: Exception) {
+                false
+            }
+            if (exists) {
+                Log.i(TAG, "APKMirror constructed missing release URL: $candidate")
+                return candidate
+            }
+        }
+        return null
     }
 
     private fun apkMirrorUploadsUrl(appPageUrl: String): String {
@@ -564,7 +788,7 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         val selectedVariants = if (variants.isEmpty()) {
             listOf(null)
         } else {
-            apkMirrorSelectableVariants(request, variants)
+            apkMirrorSelectableVariants(request, variants, option)
         }
         if (selectedVariants.isEmpty()) return emptyList()
 
@@ -607,7 +831,28 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         }
 
         val isBundle = variant?.isBundle ?: apkMirrorPageLooksBundle(variantDoc)
-        val downloadButtonUrl = apkMirrorDownloadButtonUrl(variantDoc, isBundle) ?: return null
+        val versionCode = variant?.versionCode ?: apkMirrorVersionCodeFromVariantPage(variantDoc)
+        val requestedCodes = request.requestedVersionCodes
+        if (
+            option == CandidateOption.REQUESTED &&
+            requestedCodes.isNotEmpty() &&
+            versionCode != null &&
+            versionCode !in requestedCodes
+        ) {
+            Log.w(
+                TAG,
+                "Skipping APKMirror build $versionCode at $variantPageUrl: " +
+                    "requested ${requestedCodes.joinToString()}."
+            )
+            return null
+        }
+        // APKMirror can serve a split bundle even from an APK variant page.
+        // When the request only wants a plain APK, both the button and the
+        // final link have to ask for the base APK explicitly.
+        val forceBaseApk = !request.allowSplitArchive &&
+            request.requestedFileKinds.isNotEmpty() &&
+            request.requestedFileKinds.all { it == "apk" }
+        val downloadButtonUrl = apkMirrorDownloadButtonUrl(variantDoc, forceBaseApk) ?: return null
         val downloadDoc = fetchDocument(downloadButtonUrl, referer = variantPageUrl)
         if (downloadDoc.isCloudflareChallenge()) {
             throw SourceChallengeException(
@@ -615,10 +860,19 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             )
         }
 
-        val finalUrl = apkMirrorFinalDownloadUrl(downloadDoc) ?: return null
+        val rawFinalUrl = apkMirrorFinalDownloadUrl(downloadDoc) ?: return null
+        val finalUrl = if (forceBaseApk) apkMirrorForceBaseApkUrl(rawFinalUrl) else rawFinalUrl
+        if (forceBaseApk) {
+            Log.i(TAG, "APKMirror forcing base APK for ${request.packageName} from $variantPageUrl")
+        }
         val resolvedVersion = versionName
             ?: apkMirrorVersionFromReleaseUrl(releaseUrl)
-        val fileKind = variant?.fileKind ?: if (isBundle) "apkm" else fileKindFromUrl(finalUrl)
+        val fileKind = when {
+            forceBaseApk -> "apk"
+            variant != null -> variant.fileKind
+            isBundle -> "apkm"
+            else -> fileKindFromUrl(finalUrl)
+        }
         val variantLabel = variant?.displayLabel()
         val variantFileSuffix = variantLabel.variantFileSuffix()
         // APKMirror publishes the file's SHA-256 in the variant page's safe-
@@ -631,12 +885,12 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             name = request.appName,
             packageName = request.packageName,
             versionName = resolvedVersion,
-            versionCode = null,
+            versionCode = versionCode,
             url = finalUrl,
             fileKind = fileKind,
             option = option,
             directDownload = true,
-            versionStatus = request.versionStatus(resolvedVersion, null),
+            versionStatus = request.versionStatus(resolvedVersion, versionCode),
             formatMatches = request.acceptsFormat(fileKind),
             variantLabel = variantLabel,
             variantTag = variant?.uiTag(),
@@ -696,8 +950,15 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         directDownload = false,
         versionStatus = request.versionStatus(versionName ?: apkMirrorVersionFromReleaseUrl(releaseUrl), null),
         formatMatches = true,
-        note = note
+        note = note,
+        captchaUrl = releaseUrl
     )
+
+    private fun apkMirrorBrowserUrl(request: HelperRequest): String =
+        request.sourceHintUrlsFor(DownloadSource.APK_MIRROR)
+            .firstOrNull { it.contains("apkmirror.com", ignoreCase = true) }
+            ?.let(::apkMirrorAbsoluteUrl)
+            ?: apkMirrorPackageSearchUrl(request.packageName)
 
     /**
      * The release page's variant rows, numbered in the order it lists them.
@@ -713,11 +974,35 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
 
     private fun apkMirrorSelectableVariants(
         request: HelperRequest,
-        variants: List<ApkMirrorVariant>
+        variants: List<ApkMirrorVariant>,
+        option: CandidateOption
     ): List<ApkMirrorVariant> {
+        // A requested build pins the numeric code. Once the page publishes any
+        // code, a row without the requested one is rejected before its variant
+        // page is fetched, rather than downloading a mismatched build and
+        // relying on file validation afterwards.
+        val candidates = if (option == CandidateOption.REQUESTED) {
+            val requestedCodes = request.requestedVersionCodes
+            if (requestedCodes.isEmpty()) {
+                variants
+            } else {
+                val exact = variants.filter {
+                    it.versionCode != null && it.versionCode in requestedCodes
+                }
+                when {
+                    exact.isNotEmpty() -> exact
+                    variants.any { it.versionCode != null } -> emptyList()
+                    else -> variants
+                }
+            }
+        } else {
+            variants
+        }
+        if (candidates.isEmpty()) return emptyList()
+
         val wantedKinds = apkMirrorWantedVariantKinds(request)
         for (kind in wantedKinds) {
-            val typedVariants = variants.filter {
+            val typedVariants = candidates.filter {
                 it.fileKind == kind &&
                     request.acceptsFormat(it.fileKind)
             }
@@ -727,10 +1012,10 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         // No variant matches the requested format (e.g. APKS requested but the
         // release is only offered as an APKM bundle): offer the best variant anyway
         // and let the UI flag the format mismatch, like other sources do.
-        variants.filter { request.acceptsFormat(it.fileKind) }
+        candidates.filter { request.acceptsFormat(it.fileKind) }
             .preferRunnableArch(request)
             ?.let { return it }
-        return variants.preferRunnableArch(request) ?: variants
+        return candidates.preferRunnableArch(request) ?: candidates
     }
 
     /**
@@ -745,13 +1030,38 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         request: HelperRequest
     ): List<ApkMirrorVariant>? {
         if (isEmpty()) return null
-        val ranked = sortedBy { archMatchRank(it.arch, request.availableAbis) }
+        val ranked = sortedWith(
+            compareBy(
+                { archMatchRank(it.arch, request.availableAbis) },
+                {
+                    apkMirrorDpiRank(
+                        it.dpi,
+                        request.deviceDpi,
+                        request.preferDensitySpecificVariants
+                    )
+                }
+            )
+        )
         val runnable = ranked.filter {
             archMatchRank(it.arch, request.availableAbis) < ARCH_RANK_MISMATCH
         }
         val pool = runnable.ifEmpty { ranked }
-        val dpiPreferred = pool.filter { apkMirrorDpiMatches(it.dpi) }
-        return dpiPreferred.ifEmpty { pool }
+        // nodpi is the safe default. A density-specific row is only preferred
+        // when the user opts in, as those rows can be split APKs.
+        val bestDpiRank = pool.minOf {
+            apkMirrorDpiRank(
+                it.dpi,
+                request.deviceDpi,
+                request.preferDensitySpecificVariants
+            )
+        }
+        return pool.filter {
+            apkMirrorDpiRank(
+                it.dpi,
+                request.deviceDpi,
+                request.preferDensitySpecificVariants
+            ) == bestDpiRank
+        }
     }
 
     private fun apkMirrorVariantFromRow(row: Element): ApkMirrorVariant? {
@@ -769,6 +1079,7 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         val cells = row.select("div.table-cell")
         val arch = cells.getOrNull(1)?.text()?.trim()?.takeIf(String::isNotBlank)
         val dpi = cells.getOrNull(3)?.text()?.trim()?.takeIf(String::isNotBlank)
+        val versionCode = apkMirrorVariantVersionCode(row)
 
         return ApkMirrorVariant(
             url = url,
@@ -776,8 +1087,37 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             fileKind = fileKind,
             arch = arch,
             dpi = dpi,
-            isBundle = fileKind != "apk"
+            isBundle = fileKind != "apk",
+            versionCode = versionCode
         )
+    }
+
+    /**
+     * The build code APKMirror prints under the variant's version name. The
+     * first table cell also carries the upload date in a `.wrapText` span, so
+     * only a plain numeric `.colorLightBlack` span is the code.
+     */
+    private fun apkMirrorVariantVersionCode(row: Element): Long? {
+        val firstCell = row.selectFirst("div.table-cell") ?: return null
+        return firstCell.select("span.colorLightBlack")
+            .asSequence()
+            .filterNot { it.hasClass("wrapText") }
+            .filterNot { it.select(".dateyear_utc").isNotEmpty() }
+            .mapNotNull { span -> span.text().trim().toLongOrNull() }
+            .firstOrNull { code -> code > 0L }
+    }
+
+    /** The build code on a variant page, e.g. "Version: 1.2.3 (45) (123456)". */
+    private fun apkMirrorVersionCodeFromVariantPage(doc: Document): Long? {
+        val value = parseInfoTableValue(doc, "Version")
+            ?: parseInfoTableValue(doc, "Version code")
+            ?: return null
+        return Regex("""\((\d{1,12})\)""")
+            .findAll(value)
+            .lastOrNull()
+            ?.groupValues
+            ?.getOrNull(1)
+            ?.toLongOrNull()
     }
 
     /**
@@ -820,12 +1160,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             .takeIf(String::isNotBlank)
     }
 
-    private fun apkMirrorDpiMatches(dpi: String?): Boolean {
-        val normalized = dpi?.lowercase(Locale.US)?.takeIf(String::isNotBlank) ?: return true
-        return normalized == "nodpi" || normalized == "anydpi"
-    }
 
-    private fun apkMirrorDownloadButtonUrl(doc: Document, isBundle: Boolean): String? {
+    private fun apkMirrorDownloadButtonUrl(doc: Document, forceBaseApk: Boolean): String? {
         val urls = (
             doc.select("a.downloadButton[href]").map { it.attr("href") } +
                 doc.select("a[href*=/download/?key][href]").map { it.attr("href") }
@@ -833,11 +1169,21 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             .mapNotNull(::apkMirrorAbsoluteUrl)
             .distinct()
 
-        return if (isBundle) {
-            urls.firstOrNull { !it.contains("forcebaseapk", ignoreCase = true) } ?: urls.firstOrNull()
-        } else {
+        return if (forceBaseApk) {
             urls.firstOrNull { it.contains("forcebaseapk", ignoreCase = true) } ?: urls.firstOrNull()
+        } else {
+            urls.firstOrNull { !it.contains("forcebaseapk", ignoreCase = true) } ?: urls.firstOrNull()
         }
+    }
+
+    private fun apkMirrorForceBaseApkUrl(url: String): String {
+        if (url.contains("forcebaseapk=", ignoreCase = true)) return url
+        val host = runCatching { java.net.URI(url).host }.getOrNull() ?: return url
+        val isApkMirror = host.equals("apkmirror.com", ignoreCase = true) ||
+            host.endsWith(".apkmirror.com", ignoreCase = true)
+        if (!isApkMirror) return url
+        val separator = if ('?' in url) "&" else "?"
+        return "$url${separator}forcebaseapk=true"
     }
 
     private fun apkMirrorFinalDownloadUrl(doc: Document): String? =
@@ -928,4 +1274,33 @@ private fun apkMirrorReleaseUrlMatchesVersion(url: String, version: String): Boo
 
     private fun fetchDocument(url: String, referer: String? = null): Document =
         ctx.document(url, referer)
+}
+
+/**
+ * Orders APKMirror's density variants for a device. Lower is better.
+ *
+ * nodpi wins by default. When [preferDensitySpecific] is on, a range that
+ * covers the screen wins, then the closest density-specific range, then nodpi.
+ * Density-specific rows can be split APKs, so that choice is opt-in.
+ */
+internal fun apkMirrorDpiRank(
+    dpi: String?,
+    deviceDpi: Int?,
+    preferDensitySpecific: Boolean = false
+): Int {
+    val normalized = dpi?.trim()?.lowercase(Locale.US).orEmpty()
+    val isNodpi = normalized == "nodpi" || normalized == "anydpi"
+    if (!preferDensitySpecific) return if (isNodpi) 0 else 1
+    if (isNodpi) return 10_000
+
+    val range = Regex("""(\d+)(?:\s*-\s*(\d+))?""").find(normalized)
+        ?: return Int.MAX_VALUE
+    if (deviceDpi == null || deviceDpi <= 0) return 1
+    val low = range.groupValues[1].toIntOrNull() ?: return Int.MAX_VALUE
+    val high = range.groupValues[2].toIntOrNull() ?: low
+    return when {
+        deviceDpi in low..high -> 0
+        deviceDpi < low -> 1 + (low - deviceDpi)
+        else -> 1 + (deviceDpi - high)
+    }
 }

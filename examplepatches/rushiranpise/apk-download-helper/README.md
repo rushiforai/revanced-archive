@@ -31,7 +31,7 @@ When Morphe needs an original APK it opens this app with the package and version
 | Format | `APK`, `APKS` or `XAPK`, as the source publishes it |
 | Architecture | Which CPU splits the source offers, when it publishes per-architecture builds |
 
-**Selected source** is where the file comes from. Tap **Download source** to switch to another enabled source; the number beside it is how many are available. Per-source reachability is checked in Settings -> Advanced.
+**Selected source** is where the file comes from. Tap **Download source** to switch to another enabled source; the number beside it is how many are available. Enabled sources and their order are managed in Settings -> Sources.
 
 **Version type** decides which file is fetched:
 
@@ -59,21 +59,27 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 
 - Handles `app.morphe.manager.action.DOWNLOAD_ORIGINAL_APK` requests, including split-archive requests (APK/APKM/APKS/XAPK), ABI hints, compatible version lists, and stock-install requirements.
 - Shows the requested app's **real icon** (Android default when not installed), name, package, version, build, format, and ABI in a compact stat-card header. File-format and architecture hints are shown as `+N` pills when multiple values are allowed.
-- Lets you narrow a multi-format request to a single file kind (APK / APKM / APKS / XAPK).
+- Lets you choose one or more file kinds (APK / APKM / APKS / XAPK); Fast Mode tries them in the order you select.
 - **Reuse instead of re-download**: when a matching file from a previous run still exists (and auto-clear is off), Helper offers it — listing every candidate by source and file size, with the VirusTotal verdict if one exists — so a failed patch or an identical re-request is instant. The offer also works in Fast Mode (which pauses until you decide). "Download new" always wins if you prefer a fresh copy.
 
 ### Sources
 
-- Ten sources: **APKMirror, Uptodown, APKPure, APKCombo, Aptoide, Evozi, Mi9, APK Downloader, Aurora, Play**.
+- Nine sources: **APKMirror, Uptodown, APKPure, APKCube, Aptoide, Evozi, Morphe Link, Aurora, Play**.
 - Every source can be individually **enabled/disabled** from Settings → Sources; disabled sources disappear from the picker, manual links, Fast Mode, and the default-source dropdown. If you disable *everything*, Play Store remains as the fallback.
 
-- **Five start enabled**: APKMirror, Uptodown, APKPure, APKCombo and Aurora. Aptoide,
-  Evozi, Mi9, APK Downloader and Play are available but off until you turn them on.
+- **Six start enabled**: APKMirror, Uptodown, APKPure, APKCube, Morphe Link and Aurora.
+  Aptoide, Evozi and Play are available but off until you turn them on.
 
 - **Morphe's resolver first**: before walking a site, the helper asks Morphe's own resolver
   (`api.morphe.software`) where its download dialog would go, and opens that page
   directly - one request instead of a search, app page and uploads walk. On by default;
   Settings -> System turns it off to always scrape every source itself.
+- **APKMirror latest is API-backed**: the helper asks APKMirror for the newest stable
+  release and its variant links in one request, then fetches only the variant and download
+  pages. If the API is unavailable, it scrapes as before. APKMirror requests identify as
+  Helper rather than a browser, which avoids its Cloudflare challenge.
+- **Density-specific APKMirror variants are opt-in** in Settings -> Downloads and storage.
+  `nodpi` stays the safe default because density rows can be split APKs.
 - A **default source** can be set so the picker opens on your preferred provider instead of the first one.
 - Each source offers up to four flows: **Manual** (open the site), **Recommended** (exact requested version), **Latest** (newest compatible), and **History** (browse every version).
 - The source picker is a compact **dropdown** with a live enabled-source count; selecting a source collapses it so the page stays clean.
@@ -85,6 +91,8 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 - **On by default.** The helper exists to hand a file back to Morphe, so Fast Mode
   starts enabled for anyone who has never touched the switch; turning it off is
   remembered and upgrades never re-enable it.
+- **Multiple formats**: select more than one format and Fast Mode tries them in your
+  chosen order instead of stopping at the first format.
 - **Version policy** — requested, latest, or always ask:
   - **Requested version**: finds the exact requested version *and* version code across sources (build mismatches are surfaced for you to accept or skip, never silently downloaded).
   - **Latest version**: fetches the newest version any enabled source offers, and only calls it "latest" when it actually is newer than the requested version.
@@ -104,9 +112,11 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 ### Download & handoff
 
 - **Live speed + ETA** in both the progress notification and the in-app card (`45% · 5.9 MB/s · 0:52 left`), smoothed so readings stay stable.
+- **Segmented downloads** with 2 to 32 parallel connections, pause/resume, and source switching that keeps the version you picked.
+- **Custom download folders and retention**: save to a folder you choose and clean files up after 1 hour, 24 hours, 7 days, or keep them until you clear storage.
 - Download progress is followed by distinct **extracting / scanning** phases with their own percent bars instead of sitting at a stuck 100%.
 - Files are validated against the source-published **SHA-256** when available (shown as a verified badge), and against the real APK manifest before handoff.
-- Downloads land in Helper's cache by default (honouring the auto-clear-after-handoff toggle) or as a visible copy in `Downloads/Morphe Helper`. A storage card shows both sizes and clears each with one tap; a startup sweep clears stale cache and reports how much it freed.
+- Downloads are staged in Helper's private storage by default, or saved as a visible copy in `Downloads/Morphe Helper` or a custom folder. Retention can clear them after 1 hour, 24 hours, or 7 days. A storage card shows both sizes and clears each with one tap; a startup sweep clears stale files and reports how much it freed.
 
 - **Game data (OBB) is reported, never installed.** Android serves expansion files only from `Android/obb/<package>/`, which no other app may write on Android 11 and later, so no helper can place them for you. When the file handed over carries them, the history entry says `Includes game data (2 files · 1.2 GB)` and the request log records it. Copy those files into `Android/obb/<package>/` if a patched game closes on launch. A bare `APK` never contains expansion data, so pick a container format (`XAPK`, `APKS`) for games that need it.
 ### Find New Apps
@@ -119,17 +129,20 @@ With VirusTotal enabled the file is also scanned, and the verdict is recorded in
 ### Appearance, DNS & logs
 
 - **Themes**: dark, light, or follow-the-system, plus optional **Material You** wallpaper-tinted accents and surfaces (Android 12+). A quick theme toggle lives in the home header.
-- **AdGuard DNS**: resolve app traffic through AdGuard DNS to block ads/trackers on download pages and in the captcha browser, with automatic fallback to the system resolver on failure.
-- **Tabs in Settings** (Settings / Health / History / Logs): per-source health checks, every past hand-off (with scan verdicts), and the full in-app request + HTTP log — every URL, status code, redirect, and timing — with a **Share** button exporting it for bug reports (app version and device info included). Logcat mirroring is optional.
+- **AdGuard DNS**: resolve app traffic through AdGuard DNS to block ads/trackers on download pages and in the captcha browser, with automatic fallback to the system resolver on failure. On by default.
+- **Tabs in Settings** (Appearance / System / Advanced / Logs), with the Logs tab split into **History**, **Logging** and **Request logs** sub-tabs. History records every past hand-off (with scan verdicts), and Request logs show the full in-app request + HTTP log - every URL, status code, redirect, and timing - with a **Share** button exporting it for bug reports (app version and device info included). Logcat mirroring is optional.
 
 ## Helper Settings
 
-- **Save downloads**: cache (honouring auto-clear) or a visible copy in `Downloads/Morphe Helper`; a storage card shows cache and Downloads sizes and clears both with one tap.
+- **Save downloads**: private storage, a visible copy in `Downloads/Morphe Helper`, or a custom folder; retention can clear files after 1 hour, 24 hours, 7 days, or keep them until you clear storage. A storage card shows cache and Downloads sizes and clears both with one tap.
 - **Connection**: Wi-Fi only, mobile data only, or both.
-- **Sources**: toggle each APK source, or set a **default source**.
+- **Sources**: enable, disable, reorder or set a **default source**.
 - **Fast Mode**: enable auto-resolve and choose the version policy (Requested / Latest / Always ask).
+- **Updates**: stable or beta channel, notify or automatic install through Shizuku.
+- **Launcher icon**: hide it while keeping the helper available to Morphe.
+- **Downloads and storage**: choose the folder, retention, and APKMirror density preference.
 - **Security**: VirusTotal scanning with API key and scan mode.
-- **AdGuard DNS**: on/off.
+- **AdGuard DNS**: on by default; can be turned off.
 - **Appearance**: System / Dark / Light and Material You colors.
 - **Logging**: mirror request/HTTP details to Logcat.
 
@@ -206,8 +219,8 @@ python tools\audit_helper_sources.py --output reports\source-audit.csv
 Useful targeted checks:
 
 ```powershell
-python tools\audit_helper_sources.py --package club.boxbox.android --sources apkpure,aptoide,apkcombo
-python tools\audit_helper_sources.py --limit 20 --sources apkmirror,uptodown,apkpure,apkcombo,aptoide
+python tools\audit_helper_sources.py --package club.boxbox.android --sources apkpure,aptoide
+python tools\audit_helper_sources.py --limit 20 --sources apkmirror,uptodown,apkpure,aptoide
 ```
 
 The CSV/JSON output reports whether each source matched the requested version, only found latest, found the wrong file format, or failed to resolve the package.
@@ -216,7 +229,7 @@ The CSV/JSON output reports whether each source matched the requested version, o
 
 - [APKUpdater](https://github.com/rumboalla/apkupdater)
 - [Aurora Store](https://gitlab.com/AuroraOSS/AuroraStore)
-- Public web pages and APIs exposed by APKMirror, Uptodown, APKPure, APKCombo, and Aptoide
+- Public web pages and APIs exposed by APKMirror, Uptodown, APKPure, and Aptoide
 
 This helper does not claim ownership of source website data, packages, trademarks, or services.
 
@@ -227,7 +240,6 @@ APK hosting and indexing costs money. If this helper saves you time, consider su
 - [APKMirror](https://www.apkmirror.com/premium/)
 - [Uptodown](https://en.uptodown.com/turbo)
 - [APKPure](https://apkpure.com/premium)
-- [APKCombo](https://apkcombo.com/premium/)
 - [Aptoide](https://en.aptoide.com/premium)
 - [Aurora Store](https://gitlab.com/AuroraOSS/AuroraStore/#donations)
 

@@ -57,4 +57,61 @@ class BrowserCaptureUrlTest {
         // Callers that know nothing else must keep getting a usable extension.
         assertEquals("apk", fileKindFromUrl("https://dw.uptodown.com/dwn/abc123"))
     }
+
+    @Test
+    fun `only APKCube and Evozi use the APKCube browser guard`() {
+        assertTrue(DownloadSource.APK_CUBE.isApkCubeBrowserFlow())
+        assertTrue(DownloadSource.EVOZI.isApkCubeBrowserFlow())
+        assertFalse(DownloadSource.APK_MIRROR.isApkCubeBrowserFlow())
+        assertFalse(DownloadSource.UPTODOWN.isApkCubeBrowserFlow())
+    }
+
+    @Test
+    fun `the APKCube host check rejects off-site prelanders`() {
+        assertTrue("https://apkcube.com/whatsapp/com.whatsapp/download".isApkCubeHostedUrl())
+        assertTrue("https://www.apkcube.com/whatsapp/com.whatsapp/download".isApkCubeHostedUrl())
+        assertTrue("https://icons.apkcube.com/com.whatsapp".isApkCubeHostedUrl())
+        assertFalse("https://apkcube.com.evil.example/download".isApkCubeHostedUrl())
+        assertFalse("https://s.shopee.com.my/8pnI7nf4Kp".isApkCubeHostedUrl())
+        assertFalse("not a url".isApkCubeHostedUrl())
+    }
+
+    @Test
+    fun `build mismatch navigation is recognised`() {
+        assertTrue("morphe-helper://build-mismatch?code=123".isBrowserBuildMismatchUrl())
+        assertFalse("morphe-helper://download?code=123".isBrowserBuildMismatchUrl())
+        assertEquals(
+            "Download page is build 123, expected 456.",
+            "123".browserBuildMismatchMessage("456")
+        )
+        assertEquals(
+            "Download page is build unknown, expected the requested build.",
+            (null as String?).browserBuildMismatchMessage(null)
+        )
+    }
+
+    @Test
+    fun `challenge probe results are classified`() {
+        assertTrue("\"challenge\"".reportsBrowserChallenge())
+        assertFalse("\"ready\"".reportsBrowserChallenge())
+        assertFalse((null as String?).reportsBrowserChallenge())
+    }
+
+    @Test
+    fun `APKCube navigation allows its file hosts and blocks prelanders`() {
+        assertTrue("https://apkcube.com/whatsapp/com.whatsapp/download".isApkCubeAllowedNavigation())
+        assertTrue(
+            "https://bucket.account.cloudflarestorage.com/app.apk?X-Amz-Signature=x"
+                .isApkCubeAllowedNavigation()
+        )
+        assertTrue("https://pub-123.r2.dev/files/build".isApkCubeAllowedNavigation())
+        assertTrue("https://cdn.example.com/app-1.0.xapk".isApkCubeAllowedNavigation())
+        assertTrue("https://files.example.com/download.php?id=1".isApkCubeAllowedNavigation())
+
+        assertFalse("https://cdn.example.com/download/token".isApkCubeAllowedNavigation())
+        assertFalse("https://s.shopee.com.my/8pnI7nf4Kp".isApkCubeAllowedNavigation())
+        assertFalse("https://prelander.example/go".isApkCubeAllowedNavigation())
+        assertFalse("https://cloudflarestorage.com.evil.example/download".isApkCubeAllowedNavigation())
+        assertFalse("https://r2.dev.evil.example/download".isApkCubeAllowedNavigation())
+    }
 }

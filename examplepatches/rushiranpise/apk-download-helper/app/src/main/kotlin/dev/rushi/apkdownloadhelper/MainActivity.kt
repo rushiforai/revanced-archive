@@ -3,6 +3,7 @@ package dev.rushi.apkdownloadhelper
 import android.Manifest
 import android.app.Activity
 import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ContentValues
 import android.content.Context
 import android.widget.Toast
@@ -76,6 +77,7 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.outlined.ViewList
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.AutoAwesome
@@ -111,6 +113,9 @@ import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.OpenInBrowser
+import androidx.compose.material.icons.outlined.Pause
+import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material.icons.outlined.SwapHoriz
 import androidx.compose.material.icons.outlined.NetworkCheck
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Refresh
@@ -135,6 +140,7 @@ import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Wifi
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -166,6 +172,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -181,9 +188,11 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
@@ -193,10 +202,12 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
@@ -209,6 +220,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.lifecycleScope
 import com.aurora.gplayapi.data.models.App
 import com.aurora.gplayapi.data.models.AuthData
@@ -220,18 +232,30 @@ import com.google.gson.annotations.SerializedName
 import dev.rushi.apkdownloadhelper.VirusTotalScanner.isEntirelyClean
 import dev.rushi.apkdownloadhelper.play.NativeDeviceInfoProvider
 import dev.rushi.apkdownloadhelper.play.PlayHttpClient
+import java.io.BufferedInputStream
 import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.InputStream
 import java.io.SequenceInputStream
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
+import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import net.dongliu.apk.parser.parser.BinaryXmlParser
+import net.dongliu.apk.parser.parser.XmlStreamer
+import net.dongliu.apk.parser.struct.xml.XmlCData
+import net.dongliu.apk.parser.struct.xml.XmlNamespaceEndTag
+import net.dongliu.apk.parser.struct.xml.XmlNamespaceStartTag
+import net.dongliu.apk.parser.struct.xml.XmlNodeEndTag
+import net.dongliu.apk.parser.struct.xml.XmlNodeStartTag
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlinx.coroutines.CompletableDeferred
@@ -242,6 +266,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 import org.jsoup.nodes.Document
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -255,7 +280,6 @@ import retrofit2.http.Query
 internal const val AURORA_AUTH_URL = "https://auroraoss.com/api/auth"
 internal const val TAG = "ApkDownloadHelper"
 internal val DOWNLOAD_FILE_KIND_ORDER = listOf("apk", "apkm", "apks", "xapk")
-internal val APK_COMBO_FILE_KIND_ORDER = listOf("apk", "xapk", "apks")
 internal val DOWNLOAD_FILE_KIND_SET = DOWNLOAD_FILE_KIND_ORDER.toSet()
 internal val SPLIT_ARCHIVE_FILE_KINDS = setOf("apkm", "apks", "xapk")
 internal val DOWNLOAD_FILE_KIND_REGEX = Regex("""apkm|apks|xapk|apk""", RegexOption.IGNORE_CASE)
@@ -287,15 +311,25 @@ class MainActivity : ComponentActivity() {
     private val browserUserAgent =
         "Mozilla/5.0 (Linux; Android ${Build.VERSION.RELEASE}; ${Build.MODEL}) AppleWebKit/537.36 " +
             "(KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
+
+    /** APKMirror challenges browser user agents but serves this one normally. */
+    private val apkMirrorUserAgent = "HelperForMorphe/1.0"
+
     private val client = OkHttpClient.Builder()
         .followRedirects(true)
         .followSslRedirects(true)
         .dns(AdGuardDns)
         .cookieJar(SessionCookies)
         .addInterceptor { chain ->
+            val host = chain.request().url.host.lowercase(Locale.US)
+            val userAgent = if (host == "apkmirror.com" || host.endsWith(".apkmirror.com")) {
+                apkMirrorUserAgent
+            } else {
+                browserUserAgent
+            }
             chain.proceed(
                 chain.request().newBuilder()
-                    .header("User-Agent", browserUserAgent)
+                    .header("User-Agent", userAgent)
                     .build()
             )
         }
@@ -346,6 +380,13 @@ class MainActivity : ComponentActivity() {
         .build()
         .create(AptoideApi::class.java)
 
+    private val apkMirrorApi = Retrofit.Builder()
+        .client(client)
+        .baseUrl("https://www.apkmirror.com/")
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+        .create(ApkMirrorApi::class.java)
+
     private val parsers: Map<DownloadSource, ApkSourceParser> by lazy {
         val playHttpClient = PlayHttpClient(Cache(File(cacheDir, "play-cache"), 64L * 1024L * 1024L))
         val parserContext = SourceParserContext(
@@ -357,6 +398,7 @@ class MainActivity : ComponentActivity() {
             ),
             apkPureApi = apkPureApi,
             aptoideApi = aptoideApi,
+            apkMirrorApi = apkMirrorApi,
             playHttpClient = playHttpClient,
             appContext = this,
             // Read through the settings each time, so flipping the switch takes effect on
@@ -364,6 +406,7 @@ class MainActivity : ComponentActivity() {
             resolveViaMorphe = { request ->
                 if (helperSettings.useMorpheResolver) MorpheResolver.resolve(request) else null
             },
+            isSourceEnabled = { source -> source !in effectiveDisabledSources },
             // APKPure's direct endpoint names the file itself in one hop.
             resolveRedirect = { url ->
                 apkPureDirectClient.newCall(
@@ -371,15 +414,30 @@ class MainActivity : ComponentActivity() {
                 ).execute().use { response -> response.header("Location") }
             }
         )
+        val apkMirrorParser = ApkMirrorParser(parserContext)
+        val uptodownParser = UptodownParser(parserContext)
+        val apkPureParser = ApkPureParser(parserContext)
+        val apkCubeParser = ApkCubeParser(parserContext)
+        val aptoideParser = AptoideParser(parserContext)
+        val evoziParser = EvoziParser(parserContext)
         listOf(
-            ApkMirrorParser(parserContext),
-            UptodownParser(parserContext),
-            ApkPureParser(parserContext),
-            ApkComboParser(parserContext),
-            AptoideParser(parserContext),
-            EvoziParser(parserContext),
-            Mi9Parser(),
-            ApkDownloaderPagesParser(),
+            apkMirrorParser,
+            uptodownParser,
+            apkPureParser,
+            apkCubeParser,
+            aptoideParser,
+            evoziParser,
+            MorpheLinkParser(
+                ctx = parserContext,
+                delegates = listOf(
+                    apkMirrorParser,
+                    uptodownParser,
+                    apkPureParser,
+                    apkCubeParser,
+                    aptoideParser,
+                    evoziParser
+                )
+            ),
             AuroraParser(parserContext)
         ).associateBy { it.source }
     }
@@ -388,8 +446,20 @@ class MainActivity : ComponentActivity() {
     private var uiState by mutableStateOf<UiState>(UiState.Idle)
     private var helperSettings by mutableStateOf(HelperSettings())
     private var installedPackageRefreshToken by mutableIntStateOf(0)
+    private var showUpdates by mutableStateOf(false)
+    private var updatePrompt by mutableStateOf<UpdateInfo?>(null)
+    private var updateRefreshToken by mutableIntStateOf(0)
     private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
     private var pendingDownload: PendingDownload? = null
+    // Source picked from the download screen; the next Cancelled event starts it.
+    private var pendingSwitchSource: DownloadSource? = null
+    // The file the current download was fetching, kept so a source switch can
+    // resolve the same version mode and variant instead of starting over from
+    // whatever the new source lists first.
+    private var activeDownloadCandidate: DownloadCandidate? = null
+    private var pendingSwitchTarget: DownloadCandidate? = null
+    private var pendingSwitchOption: CandidateOption? = null
+    private var switchCandidatePrompt by mutableStateOf<SwitchCandidatePrompt?>(null)
     // Non-null while the in-app browser is open for a candidate whose source
     // needs a real browser to reach the APK download.
     private var captchaBrowser by mutableStateOf<DownloadCandidate?>(null)
@@ -397,6 +467,14 @@ class MainActivity : ComponentActivity() {
     // the user picks one to reuse or chooses to download a fresh copy.
     private var reuseOffer by mutableStateOf<List<ReuseOption>?>(null)
     private var selectedPagerPage by mutableIntStateOf(0)
+    private var failedAttempts by mutableStateOf<Set<FailedAttempt>>(emptySet())
+    private var lastFailureMessage by mutableStateOf<String?>(null)
+    private var lastFailureOption by mutableStateOf<CandidateOption?>(null)
+    // Set while Retry all / Retry failed sources is walking sources and
+    // downloading. Fast Mode failures keep using fastModeActive instead.
+    private var autoRetryActive = false
+    private var autoRetryQueue: MutableList<FailedAttempt>? = null
+    private var autoRetryTarget: DownloadCandidate? = null
     private var fastModeActive = false
     private var fastModeQueue: MutableList<DownloadSource>? = null
     private var fastModeDecision: CompletableDeferred<FastModeChoice?>? = null
@@ -428,15 +506,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         restoreAndPersistRateLimiter()
         helperSettings = loadHelperSettings()
-        request = HelperRequest.from(intent)
+        ensureLauncherIconState()
+        request = HelperRequest.from(intent)?.withDeviceDpi(
+            resources.displayMetrics.densityDpi,
+            helperSettings.preferDensitySpecificVariants
+        )
+        if (intent?.getBooleanExtra(UpdateManager.EXTRA_OPEN_UPDATES, false) == true) {
+            showUpdates = true
+        }
+        // A Morphe request takes over the screen as soon as it arrives. Its
+        // update check still runs and can post a notification, but it must not
+        // put an update popup on top of the download flow.
+        val normalLaunch = request == null &&
+            intent?.action != DownloadHelperContract.ACTION_DOWNLOAD_ORIGINAL_APK
+        lifecycleScope.launch {
+            val prompt = UpdateManager.checkOnLaunch(applicationContext)
+            if (prompt != null &&
+                normalLaunch &&
+                helperSettings.updatePopup &&
+                helperSettings.updateMode == UpdateMode.NOTIFY &&
+                !showUpdates
+            ) {
+                updatePrompt = prompt
+            }
+        }
         startRequestLog(request)
         lifecycleScope.launch(Dispatchers.IO) {
-            val freed = cleanupTemporaryDownloads(helperSettings)
+            val freed = cleanupDownloads(helperSettings)
             if (freed > 0L) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         this@MainActivity,
-                        "Cleared ${freed.formatBytes()} of old cache",
+                        "Cleared ${freed.formatBytes()} of old downloads",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -449,6 +550,10 @@ class MainActivity : ComponentActivity() {
         if (request != null) offerExistingDownloadIfPresent(request!!)
 
         setContent {
+            val focusManager = LocalFocusManager.current
+            LaunchedEffect(showUpdates) {
+                if (showUpdates) focusManager.clearFocus(force = true)
+            }
             HelperTheme(
                 themeMode = helperSettings.themeMode,
                 themeStyle = helperSettings.themeStyle,
@@ -460,16 +565,36 @@ class MainActivity : ComponentActivity() {
                 // each site's rate-limit pool, spent before the user has asked for
                 // anything, and it competes with the download that prompted the app to
                 // open. The Settings card keeps a Re-check button for when it is wanted.
+                Box(modifier = Modifier.fillMaxSize()) {
                 val captcha = captchaBrowser
                 if (captcha != null) {
                     CaptchaBrowserScreen(
                         candidate = captcha,
+                        request = request,
                         requiredAppName = request?.appName,
                         requiredVersion = request?.requestedVersionName,
                         onClose = ::closeCaptchaBrowser,
-                        onDownloadCaptured = ::onBrowserDownloadCaptured
+                        onDownloadCaptured = ::onBrowserDownloadCaptured,
+                        onBuildMismatch = ::onBrowserBuildMismatch,
+                        onChallengeTimeout = ::onBrowserChallengeTimeout
                     )
                 } else {
+                    // Updates is pushed over this screen instead of replacing it, so
+                    // tab order and screen readers must not reach the covered Settings
+                    // UI. Clearing semantics removes the whole subtree while leaving it
+                    // composed, which keeps its tab, scroll position and dialogs intact.
+                    val backgroundModifier = if (showUpdates) {
+                        Modifier
+                            .focusProperties { canFocus = false }
+                            .clearAndSetSemantics {}
+                    } else {
+                        Modifier
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .then(backgroundModifier)
+                    ) {
                     HelperScreen(
                         request = request,
                         state = uiState,
@@ -484,7 +609,12 @@ class MainActivity : ComponentActivity() {
                         selectedPagerPage = selectedPagerPage,
                         onPagerPageChanged = { selectedPagerPage = it },
                         onSettingsChange = ::updateHelperSettings,
+                        onOpenUpdates = { showUpdates = true },
                         onRefresh = ::loadCandidates,
+                        canRetryFailedSources = failedAttempts.isNotEmpty(),
+                        onRetryAll = ::retryAllSources,
+                        onRetryFailedSources = ::retryFailedSources,
+                        onCopyFailureDetails = ::copyFailureDetails,
                         onResolve = ::resolveCandidates,
                         onDownload = ::downloadAndReturn,
                         onPickDownloadedFile = ::returnPickedFile,
@@ -501,6 +631,9 @@ class MainActivity : ComponentActivity() {
                             finish()
                         },
                         onCancelDownload = ::cancelDownload,
+                        onPauseDownload = ::pauseDownload,
+                        onResumeDownload = ::resumeDownload,
+                        onSwitchDownloadSource = ::switchDownloadSource,
                         onSkipScanWait = { VirusTotalScanner.rateLimiter.requestSkip() },
                         onCancelFastMode = ::cancelFastMode,
                         onUseFastModeMismatch = { fastModeChoose(FastModeChoice.USE) },
@@ -508,11 +641,12 @@ class MainActivity : ComponentActivity() {
                         onChooseVersion = ::fastModeChooseVersion,
                         onOpenMorphe = ::openMorpheManager,
                         onSolveCaptcha = ::openCaptchaBrowser,
-                        onRequestFileTypeChange = ::changeRequestedFileType,
+                        onFormatToggle = ::toggleRequestedFileKind,
                         onProceedAfterScan = ::proceedAfterScan,
                         onCancelAfterScan = ::cancelAfterScan,
                         onSkipScan = ::skipScanAndHandoff
                     )
+                    }
                 }
                 val offer = reuseOffer
                 if (offer != null) {
@@ -528,6 +662,55 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
+                // Keep the screen beneath Updates composed so Back returns to
+                // the exact Settings tab, scroll position and dialogs the user
+                // left, instead of rebuilding the main screen.
+                AnimatedVisibility(
+                    visible = showUpdates,
+                    enter = MorpheAnimations.pushEnter,
+                    exit = MorpheAnimations.pushExit
+                ) {
+                    MorphePushedScreen {
+                        UpdateScreen(
+                            settings = helperSettings,
+                            onSettingsChange = ::updateHelperSettings,
+                            refreshToken = updateRefreshToken,
+                            onBack = { showUpdates = false }
+                        )
+                    }
+                }
+                }
+                val prompt = updatePrompt
+                if (prompt != null) {
+                    UpdatePromptDialog(
+                        info = prompt,
+                        currentVersion = BuildConfig.VERSION_NAME,
+                        onView = {
+                            updatePrompt = null
+                            showUpdates = true
+                        },
+                        onLater = {
+                            UpdateManager.snooze(applicationContext)
+                            updatePrompt = null
+                        },
+                        onSkip = {
+                            UpdateManager.skipVersion(applicationContext, prompt.version)
+                            updatePrompt = null
+                        },
+                        onDismiss = {
+                            UpdateManager.snooze(applicationContext)
+                            updatePrompt = null
+                        }
+                    )
+                }
+                val switchPrompt = switchCandidatePrompt
+                if (switchPrompt != null) {
+                    SwitchCandidateDialog(
+                        prompt = switchPrompt,
+                        onChoose = ::chooseSwitchCandidate,
+                        onDismiss = { switchCandidatePrompt = null }
+                    )
+                }
             }
         }
 
@@ -541,11 +724,18 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         installedPackageRefreshToken++
+        updateRefreshToken++
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        if (intent.getBooleanExtra(UpdateManager.EXTRA_OPEN_UPDATES, false)) {
+            showUpdates = true
+            updatePrompt = null
+            installedPackageRefreshToken++
+            return
+        }
         // singleTask routes a launcher-icon tap (bare MAIN intent) to this
         // existing instance instead of creating a second task. Ignore it and
         // keep the in-flight request on screen: only a fresh Morphe request
@@ -554,7 +744,10 @@ class MainActivity : ComponentActivity() {
             installedPackageRefreshToken++
             return
         }
-        request = HelperRequest.from(intent)
+        request = HelperRequest.from(intent)?.withDeviceDpi(
+            resources.displayMetrics.densityDpi,
+            helperSettings.preferDensitySpecificVariants
+        )
         startRequestLog(request)
         val activeRequest = request
         if (activeRequest != null) {
@@ -582,7 +775,9 @@ class MainActivity : ComponentActivity() {
         val activeRequest = request ?: return
         helperSettings.networkPolicy.blockReason(this)?.let { message ->
             appendLog(message, LogLevel.Warning)
-            updateResolveState(source, option, ResolveState.Error(message))
+            val state = ResolveState.Error(message)
+            recordResolveState(source, option, state)
+            updateResolveState(source, option, state)
             return
         }
         appendLog("Checking ${option.labelForLogs} from ${source.label}.")
@@ -593,23 +788,45 @@ class MainActivity : ComponentActivity() {
             }
             logResolveOutcome(source, option, resolved)
 
-            updateResolveState(
-                source = source,
-                option = option,
-                state = resolved.notFoundMessage
+            val state = resolved.notFoundMessage
+                ?.takeIf { resolved.candidates.isEmpty() }
+                ?.let { ResolveState.Done(emptyList()) }
+                ?: resolved.errorMessage
                     ?.takeIf { resolved.candidates.isEmpty() }
-                    ?.let { ResolveState.Done(emptyList()) }
-                    ?: resolved.errorMessage
-                        ?.takeIf { resolved.candidates.isEmpty() }
-                        ?.let { message ->
-                            ResolveState.Error(
-                                message = message,
-                                fallbackCandidate = resolved.fallbackCandidate
-                            )
-                        }
-                        ?: ResolveState.Done(resolved.candidates)
-            )
+                    ?.let { message ->
+                        ResolveState.Error(
+                            message = message,
+                            fallbackCandidate = resolved.fallbackCandidate
+                        )
+                    }
+                    ?: ResolveState.Done(resolved.candidates)
+            recordResolveState(source, option, state)
+            updateResolveState(source, option, state)
         }
+    }
+
+    private fun recordResolveState(
+        source: DownloadSource,
+        option: CandidateOption,
+        state: ResolveState
+    ) {
+        val attempt = FailedAttempt(source, option)
+        when (state) {
+            is ResolveState.Error -> recordFailedAttempt(source, option)
+            is ResolveState.Done -> failedAttempts = failedAttempts - attempt
+            ResolveState.Idle,
+            ResolveState.Loading -> Unit
+        }
+    }
+
+    private fun recordFailedAttempt(source: DownloadSource, option: CandidateOption) {
+        val retryOption = if (option == CandidateOption.MANUAL) {
+            defaultRetryOption()
+        } else {
+            option
+        }
+        failedAttempts = failedAttempts + FailedAttempt(source, retryOption)
+        lastFailureOption = retryOption
     }
 
     private fun updateResolveState(
@@ -620,6 +837,248 @@ class MainActivity : ComponentActivity() {
         val activeRequest = request ?: return
         val current = (uiState as? UiState.Ready)?.result ?: initialCandidateResult(activeRequest)
         uiState = UiState.Ready(current.withResolveState(source, option, state))
+    }
+
+    private fun showFailure(
+        message: String,
+        source: DownloadSource? = null,
+        option: CandidateOption? = null
+    ) {
+        autoRetryActive = false
+        autoRetryQueue = null
+        autoRetryTarget = null
+        lastFailureMessage = message
+        if (source != null) {
+            recordFailedAttempt(source, option ?: defaultRetryOption())
+        }
+        uiState = UiState.Error(message)
+    }
+
+    private fun defaultRetryOption(): CandidateOption =
+        if (request?.hasRequestedVersionRequest == true) {
+            CandidateOption.REQUESTED
+        } else {
+            CandidateOption.LATEST
+        }
+
+    private fun retryAllSources() {
+        val option = sequenceOf(
+            activeDownloadCandidate?.option,
+            lastFailureOption,
+            defaultRetryOption()
+        ).filterNotNull().first { it != CandidateOption.MANUAL }
+        val attempts = helperSettings.orderedSources
+            .filter { it !in effectiveDisabledSources }
+            .map { source -> FailedAttempt(source, option) }
+        retrySources(attempts, "all sources")
+    }
+
+    private fun retryFailedSources() {
+        val attempts = failedAttempts.toList()
+        if (attempts.isEmpty()) {
+            Toast.makeText(this, "No failed sources to retry.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        retrySources(attempts, "failed sources")
+    }
+
+    private fun retrySources(attempts: List<FailedAttempt>, label: String) {
+        val activeRequest = request ?: return
+        val unique = attempts
+            .filter { it.source !in effectiveDisabledSources }
+            .distinct()
+        if (unique.isEmpty()) return
+
+        if (uiState is UiState.FastMode) {
+            retryInFastMode(unique, label, activeRequest)
+            return
+        }
+        retryNormally(unique, label, activeRequest)
+    }
+
+    private fun retryInFastMode(
+        attempts: List<FailedAttempt>,
+        label: String,
+        activeRequest: HelperRequest
+    ) {
+        val sources = attempts.map { it.source }.distinct()
+        if (sources.isEmpty()) return
+        autoRetryActive = false
+        autoRetryQueue = null
+        autoRetryTarget = null
+        fastModeActive = true
+        fastModeQueue = sources.toMutableList()
+        failedAttempts = emptySet()
+        lastFailureMessage = null
+        lastFailureOption = null
+        DownloadJobManager.clearEvent()
+        val policy = if (fastModeRunPolicy == FastModePolicy.LATEST) {
+            FastModePolicy.LATEST
+        } else {
+            FastModePolicy.REQUESTED
+        }
+        fastModeRunPolicy = policy
+        appendLog(
+            "Fast Mode retry for $label: " + sources.joinToString { it.label } + "."
+        )
+        uiState = UiState.FastMode(FastModeProgress(detail = "Retrying $label…"))
+        lifecycleScope.launch {
+            fastModeRun(activeRequest, policy)
+        }
+    }
+
+    private fun retryNormally(
+        attempts: List<FailedAttempt>,
+        label: String,
+        activeRequest: HelperRequest
+    ) {
+        autoRetryActive = true
+        autoRetryQueue = attempts.toMutableList()
+        autoRetryTarget = activeDownloadCandidate
+        fastModeActive = false
+        fastModeQueue = null
+        failedAttempts = emptySet()
+        lastFailureMessage = null
+        lastFailureOption = null
+        DownloadJobManager.clearEvent()
+        appendLog(
+            "Retrying $label: " +
+                attempts.joinToString { "${it.source.label} ${it.option.labelForLogs}" } + "."
+        )
+        uiState = UiState.FastMode(
+            FastModeProgress(title = "Retrying", detail = "Retrying $label…")
+        )
+        lifecycleScope.launch {
+            retryNextNormally(activeRequest)
+        }
+    }
+
+    private suspend fun retryNextNormally(activeRequest: HelperRequest) {
+        val queue = autoRetryQueue ?: return
+        while (autoRetryActive && queue.isNotEmpty()) {
+            val attempt = queue.removeAt(0)
+            if (attempt.source in effectiveDisabledSources) continue
+            val option = when (attempt.option) {
+                CandidateOption.LATEST,
+                CandidateOption.REQUESTED -> attempt.option
+                CandidateOption.MANUAL -> defaultRetryOption()
+            }
+            appendLog("Retrying ${attempt.source.label} for ${option.labelForLogs}…")
+            uiState = UiState.FastMode(
+                FastModeProgress(
+                    title = "Retrying",
+                    sourceLabel = attempt.source.label,
+                    detail = "Checking ${attempt.source.label}…"
+                )
+            )
+            val outcome = withContext(Dispatchers.IO) {
+                resolveSourceSection(activeRequest, attempt.source, option)
+            }
+            if (!autoRetryActive) return
+            logResolveOutcome(attempt.source, option, outcome)
+
+            val targetMatches = autoRetryTarget
+                ?.let { target ->
+                    matchingSourceSwitchCandidates(outcome.candidates, target, activeRequest)
+                }
+                .orEmpty()
+            val candidate = targetMatches.singleOrNull()
+                ?: retryCandidateForSource(outcome.candidates, activeRequest, option)
+            if (candidate == null) {
+                recordFailedAttempt(attempt.source, option)
+                appendLog(
+                    "Retry: ${attempt.source.label} did not offer a direct file.",
+                    LogLevel.Warning
+                )
+                continue
+            }
+            appendLog(
+                "Retry: downloading ${candidate.versionDisplay} from " +
+                    "${attempt.source.label} (${candidate.fileKind.uppercase(Locale.US)})."
+            )
+            downloadAndReturn(candidate)
+            return
+        }
+
+        if (!autoRetryActive) return
+        autoRetryActive = false
+        autoRetryQueue = null
+        autoRetryTarget = null
+        val message = "No source could download ${activeRequest.appName} after retrying."
+        appendLog("Retry failed: $message", LogLevel.Error)
+        showFailure(message)
+    }
+
+    /**
+     * Best direct file to start when a retry source has no exact match for the
+     * failed target. Requested retries stay on the exact version and build;
+     * latest retries prefer the newest candidate the source returned.
+     */
+    private fun retryCandidateForSource(
+        candidates: List<DownloadCandidate>,
+        request: HelperRequest,
+        option: CandidateOption
+    ): DownloadCandidate? {
+        val direct = candidates.filter {
+            it.directDownload && request.acceptsFormat(it.fileKind)
+        }
+        val usable = direct.filter {
+            archMatchRank(it.variantLabel ?: it.variantTag, request.availableAbis) !=
+                ARCH_RANK_MISMATCH
+        }
+        if (usable.isEmpty()) return null
+        fun archRank(candidate: DownloadCandidate): Int =
+            archMatchRank(candidate.variantLabel ?: candidate.variantTag, request.availableAbis)
+
+        return when (option) {
+            CandidateOption.REQUESTED -> usable
+                .filter { candidate -> request.matchesRequestedVersionStrict(candidate) }
+                .minWithOrNull(compareBy({ archRank(it) }, { it.sortIndex }))
+
+            CandidateOption.LATEST -> usable
+                .filter { candidate ->
+                    candidate.versionName != null &&
+                        (request.requestsVariantBuild || !candidate.hasVariantBuildMarker)
+                }
+                .maxWithOrNull(
+                    Comparator { a, b ->
+                        val byVersion = compareVersionNames(b.versionName, a.versionName)
+                        if (byVersion != 0) byVersion else a.sortIndex.compareTo(b.sortIndex)
+                    }
+                )
+                ?: usable.minWithOrNull(compareBy({ archRank(it) }, { it.sortIndex }))
+
+            CandidateOption.MANUAL -> usable
+                .minWithOrNull(compareBy({ archRank(it) }, { it.sortIndex }))
+        }
+    }
+
+    private fun copyFailureDetails() {
+        val clipboard = getSystemService(ClipboardManager::class.java)
+        if (clipboard == null) {
+            Toast.makeText(this, "Clipboard is unavailable.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val details = buildString {
+            lastFailureMessage?.let { message ->
+                append("Failure: ").append(message).append("\n\n")
+            }
+            if (failedAttempts.isNotEmpty()) {
+                append("Failed sources:\n")
+                failedAttempts
+                    .sortedBy { it.source.ordinal }
+                    .forEach { attempt ->
+                        append("- ").append(attempt.source.label)
+                            .append(" (").append(attempt.option.labelForLogs).append(")\n")
+                    }
+                append("\n")
+            }
+            append(AppLog.exportText())
+        }
+        clipboard.setPrimaryClip(
+            ClipData.newPlainText("Morphe Helper failure details", details)
+        )
+        Toast.makeText(this, "Failure details copied.", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadVersionHistory(source: DownloadSource) {
@@ -690,7 +1149,7 @@ class MainActivity : ComponentActivity() {
                 .onFailure { error ->
                     val message = downloadFailureMessage(candidate, error)
                     appendLog(message, LogLevel.Error)
-                    uiState = UiState.Error(message)
+                    showFailure(message, candidate.source, candidate.option)
                 }
         }
     }
@@ -708,6 +1167,17 @@ class MainActivity : ComponentActivity() {
         parsers[candidate.source]?.resolveHistoryCandidate(request, candidate)
 
     private fun startRequestLog(request: HelperRequest?) {
+        failedAttempts = emptySet()
+        lastFailureMessage = null
+        lastFailureOption = null
+        pendingSwitchSource = null
+        pendingSwitchTarget = null
+        pendingSwitchOption = null
+        activeDownloadCandidate = null
+        switchCandidatePrompt = null
+        autoRetryActive = false
+        autoRetryQueue = null
+        autoRetryTarget = null
         AppLog.clear()
         if (request == null) {
             AppLog.setRequestSummary(null)
@@ -782,38 +1252,66 @@ class MainActivity : ComponentActivity() {
         AppLog.record(level, message)
     }
 
-    private fun changeRequestedFileType(kind: String) {
+    private fun toggleRequestedFileKind(kind: String) {
         val active = request ?: return
-        if (active.requestedFileType?.equals(kind, ignoreCase = true) == true) return
-        // Pin the request to a single format so resolution only looks for it.
+        val normalized = kind.lowercase(Locale.US)
+        val available = active.availableFileKinds
+        if (normalized !in available) return
+
+        val selected = active.requestedFileKinds
+        val updated = if (normalized in selected) {
+            // Keep at least one format selected; an empty set would accept anything.
+            if (selected.size == 1) return
+            selected - normalized
+        } else {
+            selected + normalized
+        }
+        if (updated == selected) return
+
         request = active.copy(
-            requestedFileType = kind,
-            allowSplitArchive = false
+            requestedFileKindsOverride = updated.takeUnless { it == available }
         )
-        appendLog("Request format narrowed to ${kind.uppercase(Locale.US)}.", LogLevel.Info)
+        appendLog(
+            "Request formats: ${updated.orderedFileKinds().joinToString("/") { it.uppercase(Locale.US) }}.",
+            LogLevel.Info
+        )
         loadCandidates()
     }
 
     private fun updateHelperSettings(settings: HelperSettings) {
-        val sourcesChanged = helperSettings.disabledSources != settings.disabledSources
+        val sourcesChanged = helperSettings.disabledSources != settings.disabledSources ||
+            helperSettings.sourceOrder != settings.sourceOrder ||
+            helperSettings.preferredSource != settings.preferredSource
+        val launcherChanged = helperSettings.showLauncherIcon != settings.showLauncherIcon
+        val densityPreferenceChanged =
+            helperSettings.preferDensitySpecificVariants != settings.preferDensitySpecificVariants
         helperSettings = settings
         saveHelperSettings(settings)
-        // Rebuild the picker so enabled/disabled sources take effect immediately.
-        if (sourcesChanged && request != null && uiState is UiState.Ready) {
-            uiState = UiState.Ready(initialCandidateResult(request!!))
+        if (launcherChanged) {
+            setLauncherIconVisible(settings.showLauncherIcon)
         }
-        lifecycleScope.launch(Dispatchers.IO) {
-            cleanupTemporaryDownloads(settings)
+        if (densityPreferenceChanged) {
+            request = request?.copy(
+                preferDensitySpecificVariants = settings.preferDensitySpecificVariants
+            )
+        }
+        // Rebuild the picker so enabled/disabled sources take effect immediately.
+        if (
+            (sourcesChanged || densityPreferenceChanged) &&
+            request != null &&
+            uiState is UiState.Ready
+        ) {
+            uiState = UiState.Ready(initialCandidateResult(request!!))
         }
     }
 
     private fun initialCandidateResult(request: HelperRequest): CandidateResult {
         val manual = manualCandidates(request)
-        val enabled = DownloadSource.entries
+        val enabled = helperSettings.orderedSources
             .filter { it !in effectiveDisabledSources }
         // Put the user's preferred source first so the picker's pager opens on
-        // it (page 0) instead of always the first enabled source. Falls back to
-        // the default order when no preference is set or it's disabled.
+        // it (page 0) instead of the first source in the custom order. Falls
+        // back to that order when no preference is set or it's disabled.
         val ordered = helperSettings.preferredSource
             ?.takeIf { it in enabled }
             ?.let { preferred -> listOf(preferred) + enabled.filterNot { it == preferred } }
@@ -936,7 +1434,27 @@ class MainActivity : ComponentActivity() {
         val manual = manualCandidates(request).firstOrNull { it.source == source } ?: return null
         val requestedVersionName = request.requestedVersionNames.firstOrNull()
         val requestedVersionCode = request.versionCode ?: request.versionCodes.singleOrNull()
-        val url = when (option) {
+        // Keep the browser on the source itself when its search page is the
+        // thing that hit Cloudflare, instead of sending the user to a Google
+        // result for the app.
+        val browserUrl = when (source) {
+            DownloadSource.APK_MIRROR -> request.sourceHintUrlsFor(source)
+                .firstOrNull { it.contains("apkmirror.com", ignoreCase = true) }
+                ?: parsers[source]?.searchUrl(request.packageName)
+            DownloadSource.APK_PURE -> request.sourceHintUrlsFor(source)
+                .firstOrNull { it.contains("apkpure.com", ignoreCase = true) }
+                ?: parsers[source]?.searchUrl(request.packageName)
+            DownloadSource.APK_CUBE, DownloadSource.EVOZI -> {
+                val parser = parsers[source]
+                if (option == CandidateOption.REQUESTED) {
+                    parser?.requestedFallbackCandidate(request)?.url
+                } else {
+                    parser?.latestFallbackCandidate(request)?.url
+                }
+            }
+            else -> null
+        }
+        val url = browserUrl ?: when (option) {
             CandidateOption.REQUESTED -> request.sourceHintUrlsFor(source).firstOrNull()
                 ?: sourceVersionSearchUrl(request, source)
                 ?: manual.url
@@ -955,7 +1473,8 @@ class MainActivity : ComponentActivity() {
             formatMatches = true,
             note = null,
             variantLabel = null,
-            files = emptyList()
+            files = emptyList(),
+            captchaUrl = browserUrl
         )
     }
 
@@ -1037,9 +1556,10 @@ class MainActivity : ComponentActivity() {
         val settings = helperSettings
         settings.networkPolicy.blockReason(this)?.let { message ->
             appendLog(message, LogLevel.Warning)
-            uiState = UiState.Error(message)
+            showFailure(message)
             return
         }
+        activeDownloadCandidate = candidate
         appendLog(
             "Downloading ${candidate.source.label} ${candidate.option.labelForLogs} " +
                 "${candidate.versionDisplay} (${candidate.fileKind.uppercase(Locale.US)})."
@@ -1094,20 +1614,243 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun pauseDownload() {
+        appendLog("Pausing download…", LogLevel.Info)
+        runCatching {
+            startService(
+                Intent(this, DownloadService::class.java).setAction(ACTION_PAUSE_DOWNLOAD)
+            )
+        }.onFailure {
+            appendLog("Could not pause the download.", LogLevel.Error)
+        }
+    }
+
+    private fun resumeDownload() {
+        appendLog("Resuming download…", LogLevel.Info)
+        runCatching {
+            startService(
+                Intent(this, DownloadService::class.java).setAction(ACTION_RESUME_DOWNLOAD)
+            )
+        }.onFailure {
+            appendLog("Could not resume the download.", LogLevel.Error)
+        }
+    }
+
+    private fun switchDownloadSource(source: DownloadSource) {
+        if (pendingSwitchSource != null) return
+        if (request == null) return
+        pendingSwitchSource = source
+        val currentCandidate = (uiState as? UiState.Downloading)?.candidate
+            ?: activeDownloadCandidate
+        pendingSwitchTarget = currentCandidate
+        pendingSwitchOption = when (currentCandidate?.option) {
+            CandidateOption.LATEST -> CandidateOption.LATEST
+            CandidateOption.REQUESTED -> CandidateOption.REQUESTED
+            else -> when {
+                fastModeActive && fastModeRunPolicy == FastModePolicy.LATEST -> CandidateOption.LATEST
+                fastModeActive -> defaultRetryOption()
+                lastFailureOption != null -> lastFailureOption
+                else -> defaultRetryOption()
+            }
+        }
+        appendLog("Switching source to ${source.label}…", LogLevel.Warning)
+        fastModeActive = false
+        fastModeQueue = null
+        fastModeDecision?.complete(null)
+        fastModeDecision = null
+        fastModeVersionDecision?.complete(null)
+        fastModeVersionDecision = null
+        if (DownloadJobManager.activeJob != null) {
+            cancelDownload()
+            // If the service already stopped and no Cancelled event comes back,
+            // start the new source without waiting forever.
+            lifecycleScope.launch {
+                delay(2_000)
+                if (pendingSwitchSource == source) startPendingSwitch()
+            }
+        } else {
+            startPendingSwitch()
+        }
+    }
+
+    private fun startPendingSwitch() {
+        val source = pendingSwitchSource ?: return
+        pendingSwitchSource = null
+        val activeRequest = request ?: return
+        val target = pendingSwitchTarget
+        val option = pendingSwitchOption ?: defaultRetryOption()
+        pendingSwitchTarget = null
+        pendingSwitchOption = null
+        appendLog("Resolving ${source.label} for ${option.labelForLogs} again…", LogLevel.Info)
+        uiState = UiState.Loading
+        lifecycleScope.launch {
+            val outcome = withContext(Dispatchers.IO) {
+                resolveSourceSection(activeRequest, source, option)
+            }
+            if (outcome.candidates.isEmpty()) {
+                val message = outcome.notFoundMessage
+                    ?: outcome.errorMessage
+                    ?: "No downloadable file from ${source.label}."
+                appendLog(message, LogLevel.Error)
+                showFailure(message, source, option)
+                return@launch
+            }
+
+            val matching = if (target == null) {
+                outcome.candidates.filter { it.directDownload }
+            } else {
+                matchingSourceSwitchCandidates(outcome.candidates, target, activeRequest)
+            }
+            val candidate = matching.singleOrNull()
+            if (candidate != null) {
+                appendLog(
+                    "Continuing on ${source.label} with ${candidate.versionDisplay} " +
+                        "(${candidate.variantLabel ?: candidate.variantTag ?: candidate.fileKind.uppercase(Locale.US)})."
+                )
+                downloadAndReturn(candidate)
+                return@launch
+            }
+
+            val detail = when {
+                target == null -> "Pick a file from ${source.label} to continue the download."
+                matching.isEmpty() ->
+                    "No matching variant was found on ${source.label}. Pick a file to continue."
+                else -> "More than one file matched on ${source.label}. Pick the one you want."
+            }
+            showSwitchCandidatePrompt(outcome.candidates, source, option, detail)
+        }
+    }
+
+    /**
+     * A source switch should keep the file kind and ABI/variant of the download
+     * in flight. If no candidate matches, the caller shows the resolved list so
+     * the user can pick a variant instead of silently taking the first one.
+     */
+    private fun showSwitchCandidatePrompt(
+        candidates: List<DownloadCandidate>,
+        source: DownloadSource,
+        option: CandidateOption,
+        detail: String
+    ) {
+        val activeRequest = request ?: return
+        val choices = candidates
+            .filter { it.directDownload || it.captchaUrl != null }
+            .distinctBy(DownloadCandidate::identityKey)
+        if (choices.isEmpty()) {
+            appendLog(
+                "${source.label} has no selectable file for ${option.labelForLogs}.",
+                LogLevel.Warning
+            )
+            uiState = UiState.Ready(initialCandidateResult(activeRequest))
+            return
+        }
+        appendLog(
+            "${source.label} needs a choice: ${choices.size} candidate(s) for ${option.labelForLogs}.",
+            LogLevel.Warning
+        )
+        uiState = UiState.Ready(initialCandidateResult(activeRequest))
+        switchCandidatePrompt = SwitchCandidatePrompt(
+            source = source,
+            detail = detail,
+            candidates = choices
+        )
+    }
+
+    private fun chooseSwitchCandidate(candidate: DownloadCandidate) {
+        switchCandidatePrompt = null
+        if (candidate.directDownload) {
+            downloadAndReturn(candidate)
+        } else {
+            openCaptchaBrowser(candidate)
+        }
+    }
+
     // ---- In-app captcha browser: let the user solve a captcha in a real
     // browser and capture the download URL it produces ----
 
     private fun openCaptchaBrowser(candidate: DownloadCandidate) {
         if (candidate.source == DownloadSource.AURORA || candidate.source == DownloadSource.PLAY) return
         appendLog(
-            "Opening in-app browser for ${candidate.source.label} to solve the captcha.",
+            "Opening in-app browser for ${candidate.source.label} to continue the download.",
             LogLevel.Info
         )
         captchaBrowser = candidate
     }
 
     private fun closeCaptchaBrowser() {
+        val candidate = captchaBrowser
         captchaBrowser = null
+        if (candidate == null || !fastModeActive) return
+        abandonFastModeCaptcha(
+            candidate,
+            "Fast Mode: browser closed before ${candidate.source.label} started a download."
+        )
+    }
+
+    /**
+     * A Fast Mode captcha route that did not produce a file (closed browser, challenge
+     * timeout or build mismatch) must release the source queue instead of leaving the
+     * card waiting forever. The source is marked failed and the next one is tried.
+     */
+    private fun abandonFastModeCaptcha(
+        candidate: DownloadCandidate,
+        message: String
+    ) {
+        val activeRequest = request
+        val hasNextSource = activeRequest != null && !fastModeQueue.isNullOrEmpty()
+        appendLog(
+            if (hasNextSource) "$message Trying the next source." else message,
+            LogLevel.Warning
+        )
+        recordFailedAttempt(candidate.source, candidate.option)
+        if (activeRequest != null && hasNextSource) {
+            lifecycleScope.launch { fastModeNext(activeRequest) }
+            return
+        }
+        fastModeActive = false
+        fastModeQueue = null
+        lastFailureMessage = message
+        uiState = if (activeRequest != null) {
+            UiState.FastMode(
+                FastModeProgress(
+                    sourceLabel = candidate.source.label,
+                    detail = message,
+                    done = true,
+                    succeeded = false,
+                    result = initialCandidateResult(activeRequest)
+                )
+            )
+        } else {
+            UiState.Idle
+        }
+    }
+
+    /**
+     * The browser rejected a page whose build does not match the request.
+     * Mark the wrapper source as failed, not the provider whose page it was.
+     */
+    private fun onBrowserBuildMismatch(code: String?) {
+        val candidate = captchaBrowser ?: return
+        captchaBrowser = null
+        val message = code.browserBuildMismatchMessage(request?.versionCodeSummary)
+        if (fastModeActive) {
+            abandonFastModeCaptcha(candidate, message)
+        } else {
+            appendLog(message, LogLevel.Warning)
+            showFailure(message, candidate.source, candidate.option)
+        }
+    }
+
+    private fun onBrowserChallengeTimeout() {
+        val candidate = captchaBrowser ?: return
+        captchaBrowser = null
+        val message = "Verification on ${candidate.source.label} did not finish within five minutes."
+        if (fastModeActive) {
+            abandonFastModeCaptcha(candidate, message)
+        } else {
+            appendLog(message, LogLevel.Warning)
+            showFailure(message, candidate.source, candidate.option)
+        }
     }
 
     private fun onBrowserDownloadCaptured(capture: BrowserDownloadCapture) {
@@ -1182,12 +1925,15 @@ class MainActivity : ComponentActivity() {
         // ALWAYS_ASK can resolve the newest version even with no request fields.
         val policy = helperSettings.fastModePolicy
         if (policy == FastModePolicy.REQUESTED && !request.hasRequestedVersionRequest) return
+        failedAttempts = emptySet()
+        lastFailureMessage = null
+        lastFailureOption = null
         fastModeActive = true
         fastModeRunPolicy = if (policy == FastModePolicy.ALWAYS_ASK) FastModePolicy.REQUESTED else policy
         // Walk whatever the user has enabled globally; sources that cannot
         // deliver a direct APK (Play/Aurora links, captcha-gated services)
         // simply resolve to nothing and the walk moves on.
-        fastModeQueue = DownloadSource.entries
+        fastModeQueue = helperSettings.orderedSources
             .filter { it !in effectiveDisabledSources }
             .toMutableList()
         if (policy == FastModePolicy.ALWAYS_ASK) {
@@ -1240,7 +1986,14 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun cancelFastMode() {
-        appendLog("Fast Mode cancelled  taking over manually.", LogLevel.Warning)
+        if (autoRetryActive) {
+            appendLog("Retry cancelled  taking over manually.", LogLevel.Warning)
+            autoRetryActive = false
+            autoRetryQueue = null
+            autoRetryTarget = null
+        } else {
+            appendLog("Fast Mode cancelled  taking over manually.", LogLevel.Warning)
+        }
         fastModeActive = false
         fastModeQueue = null
         // Unblock a pending "use this version?" question so the loop exits.
@@ -1303,6 +2056,42 @@ class MainActivity : ComponentActivity() {
             when (result) {
                 is FastModeFindResult.Exact -> {
                     val candidate = result.candidate
+                    if (!candidate.directDownload) {
+                        appendLog(
+                            "Fast Mode: ${source.label} has ${candidate.versionDisplay} behind a captcha. " +
+                                "Waiting for the user to solve it.",
+                            LogLevel.Info
+                        )
+                        val decisionGate = CompletableDeferred<FastModeChoice?>()
+                        fastModeDecision = decisionGate
+                        uiState = UiState.FastMode(
+                            FastModeProgress(
+                                sourceLabel = source.label,
+                                detail = "Exact version found, captcha needed",
+                                awaitingDecision = true,
+                                awaitingCaptcha = true,
+                                mismatchDetail = "${source.label} has ${candidate.versionDisplay}, but the " +
+                                    "download needs a captcha. Solve it in the in-app browser to continue."
+                            )
+                        )
+                        val decision = decisionGate.await()
+                        fastModeDecision = null
+                        if (!fastModeActive || decision == null) return
+                        if (decision == FastModeChoice.USE) {
+                            appendLog(
+                                "Fast Mode: opening ${source.label} to solve the captcha.",
+                                LogLevel.Info
+                            )
+                            openCaptchaBrowser(candidate)
+                            return
+                        }
+                        appendLog(
+                            "Fast Mode: user skipped the ${source.label} captcha  trying the next source.",
+                            LogLevel.Info
+                        )
+                        recordFailedAttempt(source, CandidateOption.REQUESTED)
+                        continue
+                    }
                     appendLog(
                         "Fast Mode: found ${candidate.versionDisplay} on ${source.label} " +
                             "(${candidate.fileKind.uppercase(Locale.US)})  downloading.",
@@ -1355,21 +2144,25 @@ class MainActivity : ComponentActivity() {
                         return
                     }
                     appendLog("Fast Mode: user skipped ${source.label}  trying the next source.", LogLevel.Info)
+                    recordFailedAttempt(source, CandidateOption.REQUESTED)
                     continue
                 }
                 FastModeFindResult.None -> {
+                    recordFailedAttempt(source, CandidateOption.REQUESTED)
                     appendLog("Fast Mode: no exact match on ${source.label}.", LogLevel.Info)
                 }
             }
         }
         fastModeActive = false
         fastModeQueue = null
+        val message = "No source had the exact version ${request.requestedVersionLabel}."
+        lastFailureMessage = message
         appendLog("Fast Mode: no source had the exact version. Use the sources below.", LogLevel.Warning)
         val activeRequest = request
         uiState = if (activeRequest != null) {
             UiState.FastMode(
                 FastModeProgress(
-                    detail = "No source had the exact version ${request.requestedVersionLabel}.",
+                    detail = message,
                     done = true,
                     succeeded = false,
                     result = initialCandidateResult(activeRequest)
@@ -1412,16 +2205,19 @@ class MainActivity : ComponentActivity() {
                 downloadAndReturn(best)
                 return
             }
+            recordFailedAttempt(source, CandidateOption.LATEST)
             appendLog("Fast Mode: no newer latest on ${source.label}.", LogLevel.Info)
         }
         fastModeActive = false
         fastModeQueue = null
+        val message = "No source offered a newer version than ${request.requestedVersionLabel}."
+        lastFailureMessage = message
         appendLog("Fast Mode: no source offered a newer version than requested. Use the sources below.", LogLevel.Warning)
         val activeRequest = request
         uiState = if (activeRequest != null) {
             UiState.FastMode(
                 FastModeProgress(
-                    detail = "No source offered a newer version than ${request.requestedVersionLabel}.",
+                    detail = message,
                     done = true,
                     succeeded = false,
                     result = initialCandidateResult(activeRequest)
@@ -1465,15 +2261,28 @@ class MainActivity : ComponentActivity() {
         request: HelperRequest,
         source: DownloadSource
     ): FastModeFindResult {
-        val outcome = resolveSourceSection(request, source, CandidateOption.REQUESTED)
-        val exact = outcome.candidates.firstOrNull { candidate ->
-            // Format differences are fine, but the exact version name AND
-            // version code are both required. A candidate that reports a code
-            // outside the request is surfaced as a mismatch the user can
-            // accept or skip  never silently downloaded.
-            candidate.directDownload &&
-                request.matchesRequestedVersionStrict(candidate)
-        }
+                val outcome = resolveSourceSection(request, source, CandidateOption.REQUESTED)
+        // Multiple formats can be selected now, so take the first one in the
+        // picker's order (APK before APKM/APKS/XAPK) instead of whichever order
+        // the source happened to list.
+        val exact = outcome.candidates.withIndex()
+            .filter { (_, candidate) ->
+                // Format differences are fine, but the exact version name AND
+                // version code are both required. A captcha-gated page is still an
+                // exact match: the in-app browser can reveal its file after the user
+                // solves the challenge. A candidate that reports a code outside the
+                // request is surfaced as a mismatch the user can accept or skip 
+                // never silently downloaded.
+                (candidate.directDownload || candidate.captchaUrl != null) &&
+                    request.matchesRequestedVersionStrict(candidate)
+            }
+            .minWithOrNull(
+                compareBy(
+                    { request.fileKindPriority(it.value.fileKind) },
+                    { it.index }
+                )
+            )
+            ?.value
         if (exact != null) return FastModeFindResult.Exact(exact)
 
         // The version name exists on this source but with a different build 
@@ -1499,7 +2308,20 @@ class MainActivity : ComponentActivity() {
     private fun handleDownloadEvent(event: DownloadJobManager.Event?) {
         when (event) {
             null -> Unit
+            is DownloadJobManager.Event.Paused -> {
+                val current = uiState
+                uiState = when (current) {
+                    is UiState.Downloading -> current.copy(paused = event.paused)
+                    is UiState.FastMode -> current.copy(
+                        progress = current.progress.copy(paused = event.paused)
+                    )
+                    else -> current
+                }
+            }
             is DownloadJobManager.Event.Progress -> {
+                val wasPaused = (uiState as? UiState.Downloading)?.paused
+                    ?: (uiState as? UiState.FastMode)?.progress?.paused
+                    ?: false
                 uiState = if (fastModeActive) {
                     UiState.FastMode(
                         FastModeProgress(
@@ -1507,7 +2329,9 @@ class MainActivity : ComponentActivity() {
                             detail = "Downloading from ${event.candidate.source.label}…",
                             percent = event.percent,
                             speedBytesPerSec = event.speedBytesPerSec,
-                            etaMs = event.etaMs
+                            etaMs = event.etaMs,
+                            paused = wasPaused,
+                            connections = event.connections
                         )
                     )
                 } else {
@@ -1515,7 +2339,9 @@ class MainActivity : ComponentActivity() {
                         event.candidate,
                         event.percent,
                         event.speedBytesPerSec,
-                        event.etaMs
+                        event.etaMs,
+                        paused = wasPaused,
+                        connections = event.connections
                     )
                 }
             }
@@ -1603,6 +2429,9 @@ class MainActivity : ComponentActivity() {
                 // must still be returned instead of leaving the UI stuck at
                 // 100%.
                 if (event.result.belongsToCurrentSession(request, event.epoch)) {
+                    autoRetryActive = false
+                    autoRetryQueue = null
+                    autoRetryTarget = null
                     appendLog("Download validated: ${event.result.fileName}.")
                     if (!deliverResult(event.result)) {
                         appendLog(
@@ -1679,6 +2508,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
             is DownloadJobManager.Event.Failed -> {
+                if (event.epoch != 0L && event.epoch != DownloadJobManager.currentEpoch) return
+                if (pendingSwitchSource != null) {
+                    startPendingSwitch()
+                    return
+                }
                 // Only the owning activity may act on a failure. A stale
                 // instance (no request, or a different package) must ignore
                 // it  and must NOT clear it first, or the owner's collector
@@ -1687,33 +2521,74 @@ class MainActivity : ComponentActivity() {
                 val failedRequest = request
                 if (failedRequest == null || event.candidate.packageName != failedRequest.packageName) return
                 appendLog(event.message, LogLevel.Error)
+                if (autoRetryActive) {
+                    recordFailedAttempt(event.candidate.source, event.candidate.option)
+                    if (autoRetryQueue.isNullOrEmpty()) {
+                        autoRetryActive = false
+                        autoRetryQueue = null
+                        autoRetryTarget = null
+                        showFailure(
+                            event.message,
+                            event.candidate.source,
+                            event.candidate.option
+                        )
+                    } else {
+                        appendLog(
+                            "Retry: ${event.candidate.source.label} did not work  trying the next source.",
+                            LogLevel.Warning
+                        )
+                        DownloadJobManager.clearEvent()
+                        lifecycleScope.launch {
+                            retryNextNormally(failedRequest)
+                        }
+                    }
+                    return
+                }
                 if (fastModeActive) {
+                    recordFailedAttempt(event.candidate.source, event.candidate.option)
                     val activeRequest = request
                     if (activeRequest != null && !fastModeQueue.isNullOrEmpty()) {
                         appendLog(
                             "Fast Mode: ${event.candidate.source.label} did not work  trying the next source.",
                             LogLevel.Warning
                         )
-                        lifecycleScope.launch { fastModeNext(activeRequest) }
+                        lifecycleScope.launch {
+                            if (fastModeRunPolicy == FastModePolicy.LATEST) {
+                                fastModeNextLatest(activeRequest)
+                            } else {
+                                fastModeNext(activeRequest)
+                            }
+                        }
                     } else {
                         fastModeActive = false
                         fastModeQueue = null
-                        uiState = if (activeRequest != null) {
-                            UiState.FastMode(
+                        val failureDetail = "Fast Mode failed: " +
+                            event.message.lineSequence().firstOrNull().orEmpty().take(160)
+                        lastFailureMessage = event.message
+                        if (activeRequest != null) {
+                            uiState = UiState.FastMode(
                                 FastModeProgress(
                                     sourceLabel = event.candidate.source.label,
-                                    detail = "Fast Mode failed: ${event.message.lineSequence().firstOrNull().orEmpty().take(160)}",
+                                    detail = failureDetail,
                                     done = true,
                                     succeeded = false,
                                     result = initialCandidateResult(activeRequest)
                                 )
                             )
                         } else {
-                            UiState.Error(event.message)
+                            showFailure(
+                                event.message,
+                                event.candidate.source,
+                                event.candidate.option
+                            )
                         }
                     }
                 } else {
-                    uiState = UiState.Error(event.message)
+                    showFailure(
+                        event.message,
+                        event.candidate.source,
+                        event.candidate.option
+                    )
                 }
             }
             is DownloadJobManager.Event.ValidationMismatch -> {
@@ -1786,10 +2661,19 @@ class MainActivity : ComponentActivity() {
                     val message = "Downloaded version code does not match the request " +
                         "(found ${event.foundVersionCode ?: "unknown"})."
                     appendLog(message, LogLevel.Error)
-                    uiState = UiState.Error(message)
+                    showFailure(
+                        message,
+                        event.candidate.source,
+                        event.candidate.option
+                    )
                 }
             }
             is DownloadJobManager.Event.Cancelled -> {
+                if (event.epoch != 0L && event.epoch != DownloadJobManager.currentEpoch) return
+                if (pendingSwitchSource != null) {
+                    startPendingSwitch()
+                    return
+                }
                 // Only the owning activity may act on a cancellation. A stale
                 // instance (no request, or a different package) must ignore
                 // it  and must NOT clear it first, or the owner's collector
@@ -1798,6 +2682,9 @@ class MainActivity : ComponentActivity() {
                 val cancelledRequest = request
                 if (cancelledRequest == null || event.candidate.packageName != cancelledRequest.packageName) return
                 appendLog("Download cancelled.", LogLevel.Warning)
+                autoRetryActive = false
+                autoRetryQueue = null
+                autoRetryTarget = null
                 fastModeActive = false
                 fastModeQueue = null
                 val activeRequest = request
@@ -1961,18 +2848,33 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun returnPreparedFile(
+    private suspend fun returnPreparedFile(
         request: HelperRequest,
         candidate: DownloadCandidate,
         file: File,
         settings: HelperSettings
     ) {
-        val uri = when (settings.downloadLocation) {
-            DownloadLocation.TEMPORARY -> FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.files", file)
-            DownloadLocation.DOWNLOADS -> copyToDownloads(file)
+        val handoff = withContext(Dispatchers.IO) {
+            var prepared = prepareDownloadHandoff(file, settings)
+            val canGrant = runCatching {
+                grantUriPermission(
+                    request.callerPackage,
+                    prepared.uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }.isSuccess
+            if (!canGrant) {
+                AppLog.record(
+                    LogLevel.Warning,
+                    "Morphe could not be granted access to the saved copy; handing off the cache file."
+                )
+                prepared = cacheHandoff(file)
+            }
+            recordHandOff(request, candidate, file, prepared.uri)
+            prepared
         }
         val pending = PendingDownloadResult(
-            uri = uri.toString(),
+            uri = handoff.uri.toString(),
             fileName = file.name,
             packageName = candidate.packageName,
             versionName = candidate.versionName,
@@ -1981,13 +2883,7 @@ class MainActivity : ComponentActivity() {
             callerPackage = request.callerPackage
         )
         DownloadJobManager.persistPendingResult(pending, applicationContext)
-        recordHandOff(request, candidate, file, uri)
-        if (
-            settings.downloadLocation == DownloadLocation.DOWNLOADS ||
-            settings.deleteTemporaryAfterHandoff
-        ) {
-            scheduleTemporaryDelete(file)
-        }
+        scheduleHandoffCleanup(file, handoff, settings)
         if (!deliverResult(pending)) {
             appendLog(
                 "File is ready; ${request.callerPackage} can request it again to receive it.",
@@ -2026,7 +2922,7 @@ class MainActivity : ComponentActivity() {
                         val message = (error.message ?: "Could not return selected APK to Morphe.")
                             .withManualModeHint()
                         appendLog(message, LogLevel.Error)
-                        uiState = UiState.Error(message)
+                        showFailure(message, candidate.source, candidate.option)
                     }
                 }
                 .onFailure { error ->
@@ -2038,7 +2934,7 @@ class MainActivity : ComponentActivity() {
                     val message = (error.message ?: "Selected file could not be used.")
                         .withManualModeHint()
                     appendLog(message, LogLevel.Error)
-                    uiState = UiState.Error(message)
+                    showFailure(message, candidate.source, candidate.option)
                 }
         }
     }
@@ -2112,12 +3008,12 @@ private val historyTimeFormat = SimpleDateFormat("MMM d, HH:mm", Locale.US)
 private fun formatHistoryTimestamp(timestamp: Long): String =
     synchronized(historyTimeFormat) { historyTimeFormat.format(Date(timestamp)) }
 
-private fun fileNameMimeType(fileName: String): String =
+internal fun fileNameMimeType(fileName: String): String =
     when (fileName.substringAfterLast('.', "").lowercase(Locale.US)) {
         "apk" -> "application/vnd.android.package-archive"
-        "apks",
-        "apkm",
-        "xapk" -> "application/zip"
+        // Not application/zip: MediaStore and SAF append .zip when the display
+        // name does not already end in the MIME type's extension, turning
+        // app.apkm into app.apkm.zip. The generic type keeps the real suffix.
         else -> "application/octet-stream"
     }
 
@@ -2130,9 +3026,8 @@ private fun Context.isHistoryUriUsable(uriString: String): Boolean {
 
 internal fun File.mimeType(): String = when (extension.lowercase(Locale.US)) {
     "apk" -> "application/vnd.android.package-archive"
-    "apks",
-    "apkm",
-    "xapk" -> "application/zip"
+    // Keep the archive's own extension. Using application/zip here makes the
+    // Downloads provider save app.apkm as app.apkm.zip.
     else -> "application/octet-stream"
 }
 
@@ -2271,23 +3166,49 @@ private fun HelperOutlinedButton(
 @Composable
 private fun CaptchaBrowserScreen(
     candidate: DownloadCandidate,
+    request: HelperRequest?,
     requiredAppName: String?,
     requiredVersion: String?,
     onClose: () -> Unit,
-    onDownloadCaptured: (BrowserDownloadCapture) -> Unit
+    onDownloadCaptured: (BrowserDownloadCapture) -> Unit,
+    onBuildMismatch: (String?) -> Unit,
+    onChallengeTimeout: () -> Unit
 ) {
     val context = LocalContext.current
     var progress by remember { mutableIntStateOf(0) }
+    var verificationHintVisible by remember { mutableStateOf(false) }
+    var challengeActive by remember { mutableStateOf(false) }
+    var challengeProbeKnown by remember { mutableStateOf(false) }
+    var challengeStartedAt by remember { mutableStateOf(0L) }
+    var pageFinishedCount by remember { mutableIntStateOf(0) }
+    var injectedPage by remember { mutableIntStateOf(-1) }
+    var readyLogged by remember { mutableStateOf(false) }
+    var lastProgressAt by remember { mutableStateOf(System.currentTimeMillis()) }
+    var reloadAttempts by remember { mutableIntStateOf(0) }
+    val webFlowStartedAt = remember { System.currentTimeMillis() }
+
+    fun logWebFlowState(state: String, detail: String = "") {
+        val source = (candidate.viaSource ?: candidate.source).name.lowercase(Locale.US)
+        val elapsed = System.currentTimeMillis() - webFlowStartedAt
+        Log.i(
+            TAG,
+            "webflow state $source $state" +
+                (detail.takeIf(String::isNotBlank)?.let { " $it" } ?: "") +
+                " (+${elapsed}ms)"
+        )
+    }
+    // The page that produced the link is the referer APKMirror and APKPure
+    // expect. It changes as their scripts walk search -> release -> download.
+    val browserPageUrl = remember { mutableStateOf(candidate.captchaUrl ?: candidate.url) }
     val bridge = remember {
         CaptchaCaptureBridge { url ->
             Handler(Looper.getMainLooper()).post {
+                val referer = browserPageUrl.value
                 onDownloadCaptured(
                     BrowserDownloadCapture(
                         downloadUrl = url,
-                        refererUrl = candidate.captchaUrl ?: candidate.url,
-                        cookieHeader = CookieManager.getInstance().getCookie(
-                            candidate.captchaUrl ?: candidate.url
-                        )
+                        refererUrl = referer,
+                        cookieHeader = CookieManager.getInstance().getCookie(referer)
                     )
                 )
             }
@@ -2299,6 +3220,34 @@ private fun CaptchaBrowserScreen(
             settings.domStorageEnabled = true
             settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             addJavascriptInterface(bridge, CAPTCHA_BRIDGE_NAME)
+            fun handleBrowserNavigation(view: WebView?, rawUrl: String?): Boolean {
+                val url = rawUrl ?: return false
+                if (url.isBrowserBuildMismatchUrl()) {
+                    onBuildMismatch(
+                        runCatching { Uri.parse(url).getQueryParameter("code") }.getOrNull()
+                    )
+                    return true
+                }
+                if (url.isCapturableDownload()) {
+                    val referer = view?.url ?: view?.originalUrl ?: browserPageUrl.value
+                    onDownloadCaptured(
+                        BrowserDownloadCapture(
+                            downloadUrl = url,
+                            refererUrl = referer,
+                            cookieHeader = CookieManager.getInstance().getCookie(referer)
+                        )
+                    )
+                    return true
+                }
+                val browserSource = candidate.viaSource ?: candidate.source
+                if (browserSource.isApkCubeBrowserFlow() &&
+                    !url.isApkCubeAllowedNavigation()
+                ) {
+                    Log.i(TAG, "Blocked off-site APKCube navigation: $url")
+                    return true
+                }
+                return false
+            }
             webViewClient = object : WebViewClient() {
                 override fun shouldInterceptRequest(
                     view: WebView?,
@@ -2323,31 +3272,33 @@ private fun CaptchaBrowserScreen(
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     request: WebResourceRequest?
-                ): Boolean {
-                    val url = request?.url?.toString() ?: return false
-                    if (url.isCapturableDownload()) {
-                        val referer = view?.url ?: view?.originalUrl ?: candidate.captchaUrl ?: candidate.url
-                        onDownloadCaptured(
-                            BrowserDownloadCapture(
-                                downloadUrl = url,
-                                refererUrl = referer,
-                                cookieHeader = CookieManager.getInstance().getCookie(referer)
-                            )
-                        )
-                        return true
-                    }
-                    return false
+                ): Boolean = handleBrowserNavigation(view, request?.url?.toString())
+
+                @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    url: String?
+                ): Boolean = handleBrowserNavigation(view, url)
+
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    browserPageUrl.value = url ?: browserPageUrl.value
+                    readyLogged = false
+                    challengeProbeKnown = false
+                    lastProgressAt = System.currentTimeMillis()
                 }
 
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
+                    browserPageUrl.value = url ?: browserPageUrl.value
+                    pageFinishedCount++
+                    lastProgressAt = System.currentTimeMillis()
                     view?.evaluateJavascript(CAPTCHA_CAPTURE_JS, null)
-                    view?.evaluateJavascript(CAPTCHA_AUTOPRESS_JS, null)
                 }
             }
             setDownloadListener { url, _, _, _, _ ->
                 // Authoritative signal: the page started a real download.
-                val referer = candidate.captchaUrl ?: candidate.url
+                val referer = browserPageUrl.value
                 onDownloadCaptured(
                     BrowserDownloadCapture(
                         downloadUrl = url,
@@ -2365,7 +3316,102 @@ private fun CaptchaBrowserScreen(
         }
     }
     LaunchedEffect(candidate.captchaUrl ?: candidate.url) {
-        webView.loadUrl(candidate.captchaUrl ?: candidate.url)
+        val startUrl = candidate.captchaUrl ?: candidate.url
+        browserPageUrl.value = startUrl
+        webView.loadUrl(startUrl)
+    }
+    LaunchedEffect(webView) {
+        while (true) {
+            delay(1_200)
+            webView.evaluateJavascript(BROWSER_CHALLENGE_PROBE_JS) { value ->
+                val detected = value.reportsBrowserChallenge()
+                challengeProbeKnown = true
+                if (!detected && !readyLogged && pageFinishedCount > 0) {
+                    readyLogged = true
+                    logWebFlowState("READY")
+                }
+                if (detected != challengeActive) {
+                    challengeActive = detected
+                    verificationHintVisible = detected
+                    if (detected) {
+                        challengeStartedAt = System.currentTimeMillis()
+                        logWebFlowState("CHALLENGE")
+                    } else {
+                        logWebFlowState("CHALLENGE_CLEARED")
+                    }
+                }
+            }
+        }
+    }
+    LaunchedEffect(webView, pageFinishedCount, challengeActive, challengeProbeKnown) {
+        if (pageFinishedCount == 0 ||
+            challengeActive ||
+            !challengeProbeKnown ||
+            injectedPage == pageFinishedCount
+        ) {
+            return@LaunchedEffect
+        }
+        injectedPage = pageFinishedCount
+        when (candidate.viaSource ?: candidate.source) {
+            DownloadSource.APK_MIRROR -> webView.evaluateJavascript(
+                apkMirrorBrowserScript(
+                    candidate = candidate,
+                    request = request,
+                    appName = requiredAppName ?: candidate.name,
+                    version = requiredVersion ?: candidate.versionName
+                ),
+                null
+            )
+            DownloadSource.APK_PURE -> webView.evaluateJavascript(
+                apkPureBrowserScript(
+                    candidate = candidate,
+                    appName = requiredAppName ?: candidate.name,
+                    version = requiredVersion ?: candidate.versionName
+                ),
+                null
+            )
+            else -> webView.evaluateJavascript(CAPTCHA_AUTOPRESS_JS, null)
+        }
+    }
+    LaunchedEffect(challengeActive, challengeStartedAt) {
+        if (!challengeActive || challengeStartedAt <= 0L) return@LaunchedEffect
+        delay(BROWSER_CHALLENGE_TIMEOUT_MS)
+        if (challengeActive) {
+            logWebFlowState("CHALLENGE_TIMEOUT")
+            onChallengeTimeout()
+        }
+    }
+    LaunchedEffect(webView, pageFinishedCount, challengeActive) {
+        val browserSource = candidate.viaSource ?: candidate.source
+        if (browserSource != DownloadSource.UPTODOWN ||
+            pageFinishedCount == 0 ||
+            challengeActive ||
+            reloadAttempts >= 2
+        ) {
+            return@LaunchedEffect
+        }
+        delay(10_000)
+        if (!challengeActive && reloadAttempts < 2) {
+            val idle = System.currentTimeMillis() - lastProgressAt
+            reloadAttempts++
+            logWebFlowState("STALLED", "idle=${idle}ms reload $reloadAttempts/2")
+            webView.reload()
+        }
+    }
+
+    fun verifyNow() {
+        webView.requestFocus()
+        webView.evaluateJavascript(
+            """
+            (function () {
+              var el = document.querySelector(
+                'iframe[src*=turnstile], .cf-turnstile, #cf-turnstile, ' +
+                'iframe[src*=captcha], [class*=captcha], input[name*=captcha]');
+              if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            })();
+            """.trimIndent(),
+            null
+        )
     }
     BackHandler {
         if (webView.canGoBack()) {
@@ -2393,13 +3439,15 @@ private fun CaptchaBrowserScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    val browserTitle = if (candidate.captchaUrl != null && !candidate.directDownload) {
-                        "Solve captcha"
-                    } else {
-                        "Open in app"
+                    val browserTitle = when {
+                        candidate.source == DownloadSource.APK_MIRROR ||
+                            candidate.source == DownloadSource.APK_PURE -> candidate.source.label
+                        candidate.captchaUrl != null && !candidate.directDownload ->
+                            "Solve captcha  ${candidate.source.label}"
+                        else -> "Open in app  ${candidate.source.label}"
                     }
                     Text(
-                        text = "$browserTitle  ${candidate.source.label}",
+                        text = browserTitle,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -2434,7 +3482,18 @@ private fun CaptchaBrowserScreen(
                     modifier = Modifier.widthIn(min = MorpheDefaults.CompactButtonWidth)
                 )
             }
-            if (candidate.captchaUrl != null && !candidate.directDownload) {
+            if (candidate.source == DownloadSource.APK_MIRROR ||
+                candidate.source == DownloadSource.APK_PURE
+            ) {
+                InfoBox(title = "Download from ${candidate.source.label}", icon = Icons.Outlined.OpenInBrowser) {
+                    Text(
+                        text = "Complete any browser check on the page. The file returns to " +
+                            "Morphe automatically when its download starts.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            } else if (candidate.captchaUrl != null && !candidate.directDownload) {
                 InfoBox(title = stringResource(R.string.solve_the_captcha), icon = Icons.Outlined.Shield) {
                     Text(
                         text = stringResource(R.string.when_the_page_starts_the_download) +
@@ -2463,6 +3522,28 @@ private fun CaptchaBrowserScreen(
                     progress = { progress / 100f },
                     modifier = Modifier.fillMaxWidth()
                 )
+            }
+            if (verificationHintVisible) {
+                InfoBox(
+                    title = stringResource(R.string.download_verification_title),
+                    modifier = Modifier.clickable { verifyNow() },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    titleColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    icon = Icons.Outlined.Warning,
+                    iconTint = MaterialTheme.colorScheme.onSecondaryContainer
+                ) {
+                    Text(
+                        text = stringResource(R.string.download_verification_body),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                    HelperOutlinedButton(
+                        text = stringResource(R.string.download_verify_now),
+                        onClick = { verifyNow() },
+                        icon = Icons.Outlined.Shield,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
             SectionCard(
                 modifier = Modifier
@@ -2503,10 +3584,17 @@ private const val CAPTCHA_CAPTURE_JS = """
   function isDw(u) {
     return /^https?:\/\/[^\/]*uptodown\.(com|net)\//i.test(u) && /\/dwn\//i.test(u);
   }
+  function isApkMirrorFile(u) {
+    return /^https?:\/\/([^\/]*\.)?apkmirror\.com\//i.test(u) && /download\.php/i.test(u);
+  }
+  function isApkPureFile(u) {
+    return /^https?:\/\/([^\/]*\.)?apkpure\.com\/b\//i.test(u);
+  }
   function looksLike(u) {
     if (!u) return false;
     try { u = decodeURIComponent(u); } catch (e) {}
-    return re.test(u) || /filename[^.]*\.(apk|apks|apkm|xapk)/i.test(u) || isDw(u);
+    return re.test(u) || /filename[^.]*\.(apk|apks|apkm|xapk)/i.test(u)
+      || isDw(u) || isApkMirrorFile(u) || isApkPureFile(u);
   }
   function capture(u) {
     window.__captured = true;
@@ -2525,6 +3613,40 @@ private const val CAPTCHA_CAPTURE_JS = """
 })();
 """
 
+private const val BROWSER_CHALLENGE_TIMEOUT_MS = 5 * 60_000L
+
+/**
+ * Reports whether the page is currently showing a Cloudflare-style challenge.
+ * The probe is polled while the browser is open so a stalled page can be
+ * reloaded only after its challenge clears.
+ */
+private const val BROWSER_CHALLENGE_PROBE_JS = """
+(function () {
+  var frames = document.querySelectorAll('iframe');
+  for (var i = 0; i < frames.length; i++) {
+    var src = (frames[i].src || '').toLowerCase();
+    if (src.indexOf('challenges.cloudflare.com') < 0) continue;
+    var rect = frames[i].getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) return 'challenge';
+  }
+  var text = ((document.title || '') + ' ' +
+    (document.body ? document.body.innerText : '')).toLowerCase();
+  if (text.indexOf('verify you are human') >= 0
+      || text.indexOf('security verification') >= 0
+      || text.indexOf('checking your browser') >= 0
+      || text.indexOf('just a moment') >= 0
+      || text.indexOf('attention required') >= 0
+      || text.indexOf('enable javascript and cookies to continue') >= 0) {
+    return 'challenge';
+  }
+  return 'ready';
+})();
+"""
+
+/** The probe returns the JSON-quoted string `"challenge"` or `"ready"`. */
+internal fun String?.reportsBrowserChallenge(): Boolean =
+    this?.contains("challenge", ignoreCase = true) == true
+
 /**
  * Uptodown keeps its file behind a Turnstile widget: the page's own download button only
  * starts the file once that is solved. This clears the decoys and presses the real button
@@ -2535,8 +3657,50 @@ private const val CAPTCHA_CAPTURE_JS = """
  */
 private const val CAPTCHA_AUTOPRESS_JS = """
 (function () {
+  if (!/(^|\.)uptodown\.(com|net)$/i.test(location.hostname)) return;
   var decoys = '#detail-download-button-know-native, [data-url*="uptodown-app-store"]';
   document.querySelectorAll(decoys).forEach(function (el) { el.style.display = 'none'; });
+
+  // Uptodown's cookie banner can sit over the download button. Reject it
+  // automatically, including inside the banner's same-origin iframe.
+  function rejectCookies(doc) {
+    var selectors = ['#onetrust-reject-all-handler', '.onetrust-reject-all-handler',
+      '.cky-btn-reject', '.fc-cta-do-not-consent', '.osano-cm-deny',
+      '[data-testid=uc-reject-all-button]'];
+    for (var s = 0; s < selectors.length; s++) {
+      var direct = doc.querySelector(selectors[s]);
+      if (direct) {
+        try { direct.click(); return true; } catch (e) {}
+      }
+    }
+    var els = doc.querySelectorAll('button,a,[role=button],[role=link]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var text = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+      if (!text || text.length > 40) continue;
+      if (text === 'reject all' || text === 'reject' || text === 'decline'
+          || text === 'refuse' || text === 'only necessary'
+          || text === 'necessary only' || text.indexOf('reject all') >= 0
+          || text.indexOf('only necessary') >= 0) {
+        try { el.click(); return true; } catch (e) {}
+      }
+    }
+    var frames = doc.querySelectorAll('iframe');
+    for (var j = 0; j < frames.length; j++) {
+      try {
+        if (frames[j].contentDocument && rejectCookies(frames[j].contentDocument)) return true;
+      } catch (e) {}
+    }
+    return false;
+  }
+
+  var consentTries = 0;
+  var consentTimer = setInterval(function () {
+    consentTries++;
+    rejectCookies(document);
+    if (consentTries > 60 || window.__captured) clearInterval(consentTimer);
+  }, 500);
+
   var tries = 0;
   function press() {
     if (window.__captured || tries >= 4) return;
@@ -2553,6 +3717,381 @@ private const val CAPTCHA_AUTOPRESS_JS = """
 """
 
 /**
+ * Walks APKMirror's search -> release -> variant -> download chain in the
+ * in-app browser. The HTTP parser already does this with plain requests; this
+ * is the same walk on a page that can pass Cloudflare, with the requested
+ * version, ABI and build code used to pick the right variant.
+ */
+private fun apkMirrorBrowserScript(
+    candidate: DownloadCandidate,
+    request: HelperRequest?,
+    appName: String?,
+    version: String?
+): String {
+    val fileType = candidate.fileKind.lowercase(Locale.US)
+        .takeIf { it in DOWNLOAD_FILE_KIND_SET }
+        ?: request?.requestedFileKinds?.orderedFileKinds()?.firstOrNull()
+        ?: "apk"
+    return """
+        (function () {
+        if (window.__mhApkMirrorStarted) return;
+        window.__mhApkMirrorStarted = true;
+        var pkg=__MH_PKG__,ver=__MH_VER__,name=__MH_NAME__,fileType=__MH_TYPE__,abi=__MH_ABI__;
+        var codes=__MH_CODES__;
+        var nameLower=(name||'').toLowerCase();
+        var nameSlug=nameLower.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+        var pkgParts=(pkg||'').toLowerCase().split('.').filter(function(p){
+            return p.length>2&&p!=='com'&&p!=='org'&&p!=='net'&&p!=='android';
+        });
+        var verSlug=(ver||'').toLowerCase().split('.').join('-');
+        var verCore=(ver||'').split('-')[0];
+        var verCoreSlug=(verCore||'').toLowerCase().split('.').join('-');
+        function txt(el){return (el&&el.innerText||'').trim();}
+        function digits(s){return (s||'').replace(/[^0-9]/g,'');}
+        function hasVer(s){
+            var d=digits(s);
+            if(ver&&d.indexOf(digits(ver))>=0)return true;
+            return verCore&&verCore!==ver&&d.indexOf(digits(verCore))>=0;
+        }
+        function pathOf(href){
+            try{return new URL(href,location.href).pathname.toLowerCase();}
+            catch(e){return (href||'').toLowerCase();}
+        }
+        function segments(p){return p.split('/').filter(function(s){return s.length>0;});}
+        function isApkPath(p){var s=segments(p);return s.length>=3&&s[0]==='apk';}
+        function isRelease(p){return /-release\/?$/.test(p);}
+        function isVariant(p){
+            return /-android-(apk|apkm|apks)-download\/?$/.test(p);
+        }
+        function isAppPage(p){var s=segments(p);return s.length===3&&s[0]==='apk';}
+        function rowCode(row){
+            if(!row)return -1;
+            var spans=row.querySelectorAll('span.colorLightBlack');
+            for(var i=0;i<spans.length;i++){
+                var span=spans[i];
+                if(span.classList.contains('wrapText'))continue;
+                if(span.querySelector('.dateyear_utc'))continue;
+                var t=txt(span);
+                if(/^\d+$/.test(t)){
+                    var v=parseInt(t,10);
+                    if(!isNaN(v)&&v>0)return v;
+                }
+            }
+            var cells=row.querySelectorAll('.table-cell');
+            for(var c=0;c<cells.length;c++){
+                var cellText=txt(cells[c]);
+                if(/^\d+$/.test(cellText)){
+                    var cv=parseInt(cellText,10);
+                    if(!isNaN(cv)&&cv>0)return cv;
+                }
+            }
+            var parts=(row.innerText||'').split(/[^0-9]+/);
+            for(var k=0;k<codes.length;k++){
+                if(parts.indexOf(String(codes[k]))>=0)return codes[k];
+            }
+            var m=(row.innerText||'').match(/\b\d{6,}\b/g);
+            if(!m)return -1;
+            for(var j=0;j<m.length;j++){
+                var mv=parseInt(m[j],10);
+                if(!isNaN(mv)&&mv>0)return mv;
+            }
+            return -1;
+        }
+        function pageCode(){
+            var vals=document.querySelectorAll('.appspec-value');
+            for(var i=0;i<vals.length;i++){
+                var m=txt(vals[i]).match(/\((\d{1,18})\)\s*$/);
+                if(m){
+                    var v=parseInt(m[1],10);
+                    if(!isNaN(v)&&v>0)return v;
+                }
+            }
+            var rows=document.querySelectorAll('tr');
+            for(var r=0;r<rows.length;r++){
+                var th=rows[r].querySelector('th'),td=rows[r].querySelector('td');
+                if(!th||!td)continue;
+                if(txt(th).toLowerCase()!=='version')continue;
+                var tm=txt(td).match(/\((\d{1,18})\)\s*$/);
+                if(tm){
+                    var tv=parseInt(tm[1],10);
+                    if(!isNaN(tv)&&tv>0)return tv;
+                }
+            }
+            return -1;
+        }
+        function pickSearch(){
+            var bestRelease=null,bestReleaseScore=-1,bestApp=null,bestAppScore=-1;
+            var firstRelease=null,ls=document.querySelectorAll('a[href]');
+            for(var i=0;i<ls.length;i++){
+                var a=ls[i],h=a.href||'';
+                if(!h||h.indexOf('#')>=0)continue;
+                var hp=pathOf(h);
+                if(!isApkPath(hp))continue;
+                var rel=isRelease(hp),appPage=isAppPage(hp);
+                if(!rel&&!appPage)continue;
+                var t=txt(a).toLowerCase();
+                if(!t)continue;
+                var seg=segments(hp);
+                var app=seg.length>2?seg[2]:'';
+                var score=0;
+                if(nameSlug&&app===nameSlug)score+=120;
+                else if(nameSlug&&app.indexOf(nameSlug)>=0)score+=60;
+                for(var j=0;j<pkgParts.length;j++){
+                    if(app===pkgParts[j])score+=80;
+                    else if(app.indexOf(pkgParts[j])>=0)score+=30;
+                }
+                if(nameLower&&t.indexOf(nameLower)>=0)score+=60;
+                if(rel){
+                    if(!firstRelease)firstRelease=a;
+                    if(ver&&!(hp.indexOf(verSlug)>=0||hp.indexOf(verCoreSlug)>=0
+                        ||hasVer(t)||hasVer(hp)))continue;
+                    score+=20;
+                    if(score>bestReleaseScore){bestReleaseScore=score;bestRelease=a;}
+                }else if(appPage){
+                    if(score>bestAppScore){bestAppScore=score;bestApp=a;}
+                }
+            }
+            if(bestRelease&&bestReleaseScore>=60)return bestRelease;
+            if(bestApp&&bestAppScore>=60)return bestApp;
+            if(!ver&&bestRelease)return bestRelease;
+            if(firstRelease){
+                var relPath=pathOf(firstRelease.href);
+                var slash=relPath.lastIndexOf('/');
+                if(slash>0)return relPath.substring(0,slash+1);
+            }
+            return null;
+        }
+        function pickRelease(){
+            if(ver&&!(location.pathname.toLowerCase().indexOf(verSlug)>=0
+                ||location.pathname.toLowerCase().indexOf(verCoreSlug)>=0
+                ||hasVer(location.pathname)))return null;
+            var vs=document.querySelectorAll('a[href]');
+            var fallback=null,plain=null,plainAbi=null,plainExact=null;
+            var plainExactAbi=null,plainUniversal=null,bundle=null,bundleAbi=null;
+            var bundleExact=null,bundleExactAbi=null;
+            for(var v=0;v<vs.length;v++){
+                var va=vs[v],vh=va.href||'';
+                if(!vh||vh.indexOf('#')>=0)continue;
+                var vp=pathOf(vh);
+                if(!isVariant(vp))continue;
+                var row=va.closest('.table-row'),rt=txt(row).toLowerCase();
+                if(!rt){
+                    var par=va.parentElement;
+                    for(var u=0;u<4&&par;u++){
+                        rt=txt(par).toLowerCase();
+                        if(rt.indexOf('apk')>=0||rt.indexOf('bundle')>=0)break;
+                        par=par.parentElement;
+                    }
+                }
+                var isBundle=rt.indexOf('bundle')>=0||rt.indexOf('apkm')>=0
+                    ||rt.indexOf('apks')>=0;
+                var isPlain=!isBundle;
+                var universal=rt.indexOf('universal')>=0;
+                var hasAbi=abi&&rt.indexOf(abi.toLowerCase())>=0;
+                var rc=rowCode(row);
+                if(codes.length&&(rc<=0||codes.indexOf(rc)<0))continue;
+                var exact=rc>0&&codes.indexOf(rc)>=0;
+                if(!fallback)fallback=va;
+                if(isPlain&&exact&&hasAbi&&!plainExactAbi)plainExactAbi=va;
+                if(isPlain&&exact&&!plainExact)plainExact=va;
+                if(isPlain&&universal&&!plainUniversal)plainUniversal=va;
+                if(isPlain&&hasAbi&&!plainAbi)plainAbi=va;
+                if(isPlain&&!plain)plain=va;
+                if(isBundle&&exact&&hasAbi&&!bundleExactAbi)bundleExactAbi=va;
+                if(isBundle&&exact&&!bundleExact)bundleExact=va;
+                if(isBundle&&hasAbi&&!bundleAbi)bundleAbi=va;
+                if(isBundle&&!bundle)bundle=va;
+            }
+            var wantBundle=fileType&&fileType.toLowerCase()!=='apk';
+            if(wantBundle){
+                if(bundleExactAbi)return bundleExactAbi;
+                if(bundleExact)return bundleExact;
+                if(plainExactAbi)return plainExactAbi;
+                if(plainExact)return plainExact;
+                return bundleAbi||bundle||plain||fallback;
+            }
+            if(plainExactAbi)return plainExactAbi;
+            if(plainExact)return plainExact;
+            return plainUniversal||plainAbi||plain||fallback;
+        }
+        function pickApp(){
+            var rs=document.querySelectorAll('a[href]'),picked=null,first=null;
+            for(var r=0;r<rs.length;r++){
+                var ra=rs[r],rh=ra.href||'';
+                if(!rh||rh.indexOf('#')>=0)continue;
+                if(!isRelease(pathOf(rh)))continue;
+                if(!first)first=ra;
+                if(ver&&(rh.toLowerCase().indexOf(verSlug)>=0
+                    ||rh.toLowerCase().indexOf(verCoreSlug)>=0
+                    ||hasVer(txt(ra)))){picked=ra;break;}
+            }
+            return picked||(ver?null:first);
+        }
+        function pickDownload(){
+            if(codes.length){
+                var pc=pageCode();
+                if(pc>0&&codes.indexOf(pc)<0){
+                    if(!window.__mhBuildMismatch){
+                        window.__mhBuildMismatch=true;
+                        location.href='morphe-helper://build-mismatch?code='
+                            +encodeURIComponent(pc);
+                    }
+                    return null;
+                }
+            }
+            var ds=document.querySelectorAll('a,button');
+            for(var d=0;d<ds.length;d++){
+                var dh=ds[d].href||'';
+                if(dh.indexOf('download.php')>=0
+                    ||dh.indexOf('/download/?key=')>=0)return ds[d];
+                var dt=txt(ds[d]).toLowerCase();
+                if(dt.indexOf('download apk')>=0)return ds[d];
+            }
+            return null;
+        }
+        function pick(){
+            var p=location.pathname.toLowerCase();
+            var q=location.search.toLowerCase();
+            if(q.indexOf('searchtype=')>=0)return pickSearch();
+            if(isRelease(p))return pickRelease();
+            if(isAppPage(p))return pickApp();
+            if(isVariant(p))return pickDownload();
+            return pickDownload();
+        }
+        var n=0,t=setInterval(function(){
+            n++;
+            var target=pick();
+            if(target){
+                clearInterval(t);
+                if(typeof target==='string'){location.href=target;return;}
+                try{target.scrollIntoView({block:'center'});}catch(e){}
+                setTimeout(function(){try{target.click();}catch(e){}},300);
+                return;
+            }
+            if(n>900)clearInterval(t);
+        },400);
+        })();
+    """.trimIndent()
+        .replace("__MH_PKG__", JSONObject.quote(candidate.packageName))
+        .replace("__MH_VER__", JSONObject.quote(version.orEmpty()))
+        .replace("__MH_NAME__", JSONObject.quote(appName.orEmpty()))
+        .replace("__MH_TYPE__", JSONObject.quote(fileType))
+        .replace(
+            "__MH_ABI__",
+            JSONObject.quote(request?.availableAbis?.firstOrNull().orEmpty())
+        )
+        .replace(
+            "__MH_CODES__",
+            request?.requestedVersionCodes
+                ?.joinToString(separator = ",", prefix = "[", postfix = "]")
+                ?: "[]"
+        )
+}
+
+/**
+ * Walks APKPure's search -> versions -> app -> download chain in the in-app
+ * browser, the last resort after the direct endpoint and web parsers fail.
+ */
+private fun apkPureBrowserScript(
+    candidate: DownloadCandidate,
+    appName: String?,
+    version: String?
+): String = """
+    (function () {
+      if (window.__mhApkPureStarted) return;
+      window.__mhApkPureStarted = true;
+      var pkg=__MH_PKG__,ver=__MH_VER__,name=__MH_NAME__;
+      var nameLower=(name||'').toLowerCase();
+      var pkgLower=(pkg||'').toLowerCase();
+      function txt(el){return (el&&el.innerText||'').trim();}
+      function digits(s){return (s||'').replace(/[^0-9]/g,'');}
+      function hasVer(s){
+        var d=digits(s);
+        return !!ver&&d.indexOf(digits(ver))>=0;
+      }
+      function pathOf(href){
+        try{return new URL(href,location.href).pathname.toLowerCase();}
+        catch(e){return (href||'').toLowerCase();}
+      }
+      function pickSearch(){
+        var ls=document.querySelectorAll('a');
+        for(var i=0;i<ls.length;i++){
+          var h=ls[i].href||'',t=txt(ls[i]).toLowerCase();
+          if(!h||h.indexOf('/search')>=0)continue;
+          if(h.toLowerCase().indexOf(pkgLower)>=0
+            ||(nameLower.length>2&&t.indexOf(nameLower)>=0&&t.length<100))return ls[i];
+        }
+        return null;
+      }
+      function pickVersions(){
+        var vs=document.querySelectorAll('a');
+        for(var j=0;j<vs.length;j++){
+          var vt=txt(vs[j]),vh=vs[j].href||'';
+          if(hasVer(vt)||hasVer(vh))return vs[j];
+        }
+        return null;
+      }
+      function pickInfo(){
+        var canonical=document.querySelector('link[rel=canonical]');
+        if(canonical&&canonical.href
+          &&canonical.href.toLowerCase().indexOf(pkgLower)>=0
+          &&canonical.href.toLowerCase().indexOf('/apk-info')<0)return canonical.href;
+        var ls=document.querySelectorAll('a[href]');
+        for(var i=0;i<ls.length;i++){
+          var h=ls[i].href||'';
+          if(h.toLowerCase().indexOf(pkgLower)>=0
+            &&h.toLowerCase().indexOf('/apk-info')<0)return ls[i];
+        }
+        return null;
+      }
+      function pickDownloadLink(){
+        var a=document.querySelector('a[href*="d.apkpure.com"]');
+        if(a)return a;
+        var vs=document.querySelectorAll(
+          'a.go-version-btn[href],a.dt-version-name-link[href],a#download_link[href]');
+        for(var v=0;v<vs.length;v++){
+          var vh=vs[v].href||'';
+          if(!ver||hasVer(txt(vs[v]))||hasVer(vh))return vs[v];
+        }
+        var bs=document.querySelectorAll('a,button');
+        for(var k=0;k<bs.length;k++){
+          var bt=txt(bs[k]).toLowerCase();
+          if(bt.indexOf('download apk')>=0&&bt.indexOf('apkpure app')<0)return bs[k];
+        }
+        return null;
+      }
+      function pick(){
+        var p=location.pathname.toLowerCase();
+        if(p.indexOf('/search')>=0)return pickSearch();
+        if(p.indexOf('/apk-info')>=0)return pickInfo();
+        if(p.indexOf('/versions')>=0)return pickVersions();
+        var direct=pickDownloadLink();
+        if(direct)return direct;
+        if(p.indexOf('/download')<0&&ver&&!hasVer(document.body.innerText)){
+          var old=document.querySelector('a[href*="/versions"]');
+          if(old)return old;
+        }
+        return null;
+      }
+      var n=0,t=setInterval(function(){
+        n++;
+        var target=pick();
+        if(target){
+          clearInterval(t);
+          if(typeof target==='string'){location.href=target;return;}
+          try{target.scrollIntoView({block:'center'});}catch(e){}
+          setTimeout(function(){try{target.click();}catch(e){}},500);
+          return;
+        }
+        if(n>80)clearInterval(t);
+      },700);
+    })();
+""".trimIndent()
+    .replace("__MH_PKG__", JSONObject.quote(candidate.packageName))
+    .replace("__MH_VER__", JSONObject.quote(version.orEmpty()))
+    .replace("__MH_NAME__", JSONObject.quote(appName.orEmpty()))
+
+/**
  * Percent-decodes a URL without touching `+` (which is a literal plus in a path) and
  * without `Uri.decode`, so these predicates stay usable off-device in unit tests.
  */
@@ -2561,7 +4100,7 @@ private fun String.urlDecoded(): String = runCatching {
 }.getOrDefault(this)
 
 /** True for URLs that point at an APK-family file (extension or filename hint). */
-private fun String.looksLikeApkDownload(): Boolean {
+internal fun String.looksLikeApkDownload(): Boolean {
     val decoded = urlDecoded().lowercase(Locale.US)
     return Regex("""\.(apk|apks|apkm|xapk)(\?|#|$)""").containsMatchIn(decoded) ||
         Regex("""filename[^.]*\.(apk|apks|apkm|xapk)""").containsMatchIn(decoded)
@@ -2579,9 +4118,80 @@ internal fun String.isUptodownFileUrl(): Boolean {
     return uri.path.orEmpty().contains("/dwn/", ignoreCase = true)
 }
 
+/**
+ * APKMirror's final file endpoint. The link carries no extension; the site
+ * answers it with a redirect to the CDN, so it is safe to capture here.
+ */
+internal fun String.isApkMirrorFileUrl(): Boolean {
+    val uri = runCatching { java.net.URI(urlDecoded()) }.getOrNull() ?: return false
+    val host = uri.host?.lowercase(Locale.US) ?: return false
+    val apkMirrorHost = host == "apkmirror.com" || host.endsWith(".apkmirror.com")
+    return apkMirrorHost && uri.path.orEmpty().contains("download.php", ignoreCase = true)
+}
+
+/**
+ * APKPure's direct file endpoint (`d.apkpure.com/b/APK/<pkg>`). Capturing it
+ * lets the downloader follow the signed CDN redirect with the page's cookies.
+ */
+internal fun String.isApkPureFileUrl(): Boolean {
+    val uri = runCatching { java.net.URI(urlDecoded()) }.getOrNull() ?: return false
+    val host = uri.host?.lowercase(Locale.US) ?: return false
+    val apkPureHost = host == "apkpure.com" || host.endsWith(".apkpure.com")
+    return apkPureHost && uri.path.orEmpty().trim('/').startsWith("b/", ignoreCase = true)
+}
+
 /** A URL the in-app browser should treat as the file it was opened to capture. */
 internal fun String.isCapturableDownload(): Boolean =
-    looksLikeApkDownload() || isUptodownFileUrl()
+    looksLikeApkDownload() || isUptodownFileUrl() || isApkMirrorFileUrl() || isApkPureFileUrl()
+
+/** Navigation sent by a page script when its build code is not the requested one. */
+internal fun String.isBrowserBuildMismatchUrl(): Boolean =
+    startsWith("morphe-helper://build-mismatch", ignoreCase = true)
+
+internal fun String?.browserBuildMismatchMessage(expected: String?): String =
+    "Download page is build ${this?.takeIf(String::isNotBlank) ?: "unknown"}, " +
+        "expected ${expected?.takeIf(String::isNotBlank) ?: "the requested build"}."
+
+/** APKCube and Evozi share the APKCube catalogue and its browser flow. */
+internal fun DownloadSource.isApkCubeBrowserFlow(): Boolean =
+    this == DownloadSource.APK_CUBE || this == DownloadSource.EVOZI
+
+/**
+ * APKCube's download flow stays on its own site. Off-site links on the download
+ * page are prelander ads, so the in-app browser must not follow them.
+ */
+internal fun String.isApkCubeHostedUrl(): Boolean {
+    val uri = runCatching { java.net.URI(urlDecoded()) }.getOrNull() ?: return false
+    val host = uri.host?.lowercase(Locale.US) ?: return false
+    return host == "apkcube.com" || host.endsWith(".apkcube.com")
+}
+
+/**
+ * Navigation allowed during an APKCube download: the catalogue itself, its
+ * file hosts, and direct file links. Every other host is a prelander ad.
+ */
+internal fun String.isApkCubeAllowedNavigation(): Boolean {
+    if (isApkCubeHostedUrl() || looksLikeApkDownload()) return true
+    val uri = runCatching { java.net.URI(urlDecoded()) }.getOrNull() ?: return false
+    val host = uri.host?.lowercase(Locale.US) ?: return false
+    if (
+        host == "cloudflarestorage.com" ||
+        host.endsWith(".cloudflarestorage.com") ||
+        host == "r2.dev" ||
+        host.endsWith(".r2.dev")
+    ) {
+        return true
+    }
+    // APKCube's file endpoint is not always on a CDN host and can carry no
+    // extension. Only a real file endpoint is allowed here; generic `/download`
+    // paths on unknown hosts are prelander pages.
+    val path = uri.path.orEmpty().lowercase(Locale.US)
+    return path.endsWith(".apk") ||
+        path.endsWith(".apks") ||
+        path.endsWith(".apkm") ||
+        path.endsWith(".xapk") ||
+        path.contains("download.php")
+}
 
 @Composable
 private fun HelperScreen(
@@ -2593,7 +4203,12 @@ private fun HelperScreen(
     selectedPagerPage: Int,
     onPagerPageChanged: (Int) -> Unit,
     onSettingsChange: (HelperSettings) -> Unit,
+    onOpenUpdates: () -> Unit,
     onRefresh: () -> Unit,
+    canRetryFailedSources: Boolean,
+    onRetryAll: () -> Unit,
+    onRetryFailedSources: () -> Unit,
+    onCopyFailureDetails: () -> Unit,
     // VirusTotal API key, threaded into the scan-flow cards (ask, progress,
     // result) so quota is shown where scanning actually happens instead of
     // cluttering the home screen. Empty when VirusTotal is disabled.
@@ -2610,6 +4225,9 @@ private fun HelperScreen(
     onClearLogs: () -> Unit,
     onCancel: () -> Unit,
     onCancelDownload: () -> Unit,
+    onPauseDownload: () -> Unit,
+    onResumeDownload: () -> Unit,
+    onSwitchDownloadSource: (DownloadSource) -> Unit,
     onSkipScanWait: () -> Unit,
     onCancelFastMode: () -> Unit,
     onUseFastModeMismatch: () -> Unit,
@@ -2617,13 +4235,14 @@ private fun HelperScreen(
     onChooseVersion: (FastModePolicy) -> Unit,
     onOpenMorphe: () -> Unit,
     onSolveCaptcha: (DownloadCandidate) -> Unit,
-    onRequestFileTypeChange: (String) -> Unit,
+    onFormatToggle: (String) -> Unit,
     onProceedAfterScan: () -> Unit,
     onCancelAfterScan: () -> Unit,
     onSkipScan: () -> Unit
 ) {
     var showSettings by remember { mutableStateOf(false) }
     var showAppBrowser by remember { mutableStateOf(false) }
+    val availableSources = settings.orderedSources.filter { it !in settings.disabledSources }
     var pendingFilePick by remember { mutableStateOf<DownloadCandidate?>(null) }
     var primaryAction by remember { mutableStateOf<PrimaryAction?>(null) }
     val context = LocalContext.current
@@ -2764,7 +4383,7 @@ private fun HelperScreen(
                     MorpheSectionTitle(text = "App info", icon = Icons.Outlined.Smartphone)
                     AppInfoCard(
                         request = request,
-                        onFormatSelected = onRequestFileTypeChange
+                        onFormatToggle = onFormatToggle
                     )
                 }
             }
@@ -2799,7 +4418,11 @@ private fun HelperScreen(
                     item {
                         DownloadingState(
                             state = state,
+                            availableSources = availableSources,
                             onCancel = onCancelDownload,
+                            onPause = onPauseDownload,
+                            onResume = onResumeDownload,
+                            onSwitchSource = onSwitchDownloadSource,
                             onSkipWait = onSkipScanWait,
                             onSkipScan = onSkipScan
                         )
@@ -2832,19 +4455,34 @@ private fun HelperScreen(
                     item { VirusTotalQuotaCard(virusTotalApiKey) }
                 }
                 is UiState.Error -> item {
-                    ErrorState(message = state.message, onRefresh = onRefresh, onCancel = onCancel)
+                    ErrorState(
+                        message = state.message,
+                        canRetryFailedSources = canRetryFailedSources,
+                        onRetryAll = onRetryAll,
+                        onRetryFailedSources = onRetryFailedSources,
+                        onCopyDetails = onCopyFailureDetails,
+                        onCancel = onCancel
+                    )
                 }
 
                 is UiState.FastMode -> {
                     item {
                         FastModeCard(
                             progress = state.progress,
+                            availableSources = availableSources,
                             onCancel = onCancelFastMode,
+                            onPause = onPauseDownload,
+                            onResume = onResumeDownload,
+                            onSwitchSource = onSwitchDownloadSource,
                             onSkipWait = onSkipScanWait,
                             onUseMismatch = onUseFastModeMismatch,
                             onSkipMismatch = onSkipFastModeMismatch,
                             onSkipScan = onSkipScan,
-                            onChooseVersion = onChooseVersion
+                            onChooseVersion = onChooseVersion,
+                            canRetryFailedSources = canRetryFailedSources,
+                            onRetryAll = onRetryAll,
+                            onRetryFailedSources = onRetryFailedSources,
+                            onCopyFailureDetails = onCopyFailureDetails
                         )
                     }
                     if (isScanStatus(state.progress.detail)) {
@@ -2892,6 +4530,7 @@ private fun HelperScreen(
                 HelperSettingsScreen(
                     settings = settings,
                     onSettingsChange = onSettingsChange,
+                    onOpenUpdates = onOpenUpdates,
                     logs = logs,
                     onClearLogs = onClearLogs,
                     historyEntries = historyEntries,
@@ -3102,6 +4741,7 @@ private fun HistoryEntryCard(
 private fun HelperSettingsScreen(
     settings: HelperSettings,
     onSettingsChange: (HelperSettings) -> Unit,
+    onOpenUpdates: () -> Unit,
     logs: List<RequestLogEntry>,
     onClearLogs: () -> Unit,
     historyEntries: List<DownloadHistoryEntry>,
@@ -3113,6 +4753,15 @@ private fun HelperSettingsScreen(
     val context = LocalContext.current
     val swipeThresholdPx = with(LocalDensity.current) { 72.dp.toPx() }
     var tab by rememberSaveable { mutableStateOf(SettingsTab.SYSTEM) }
+    var showSources by rememberSaveable { mutableStateOf(false) }
+    if (showSources) {
+        SourcesSettingsScreen(
+            settings = settings,
+            onSettingsChange = onSettingsChange,
+            onBack = { showSources = false }
+        )
+        return
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -3182,7 +4831,9 @@ private fun HelperSettingsScreen(
             SettingsTab.SYSTEM -> item {
                 SystemTabContent(
                     settings = settings,
-                    onSettingsChange = onSettingsChange
+                    onSettingsChange = onSettingsChange,
+                    onOpenUpdates = onOpenUpdates,
+                    onOpenSources = { showSources = true }
                 )
             }
 
@@ -3212,43 +4863,131 @@ private fun HelperSettingsScreen(
 @Composable
 private fun SystemTabContent(
     settings: HelperSettings,
-    onSettingsChange: (HelperSettings) -> Unit
+    onSettingsChange: (HelperSettings) -> Unit,
+    onOpenUpdates: () -> Unit,
+    onOpenSources: () -> Unit
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     var cacheBytes by remember(context) { mutableStateOf(context.temporaryDownloadsSize()) }
     var downloadsBytes by remember(context) { mutableStateOf(context.downloadsCopySize()) }
+    var externalBytes by remember(context) { mutableStateOf(context.externalDownloadsSize()) }
+    var customBytes by remember(context) { mutableStateOf(context.customDownloadsSize()) }
     var locationDialog by remember { mutableStateOf(false) }
-    var policyDialog by remember { mutableStateOf(false) }
+    var retentionDialog by remember { mutableStateOf(false) }
     var fastModePolicyDialog by remember { mutableStateOf(false) }
-    var sourceDialog by remember { mutableStateOf(false) }
+    var pendingLocation by remember { mutableStateOf<DownloadLocation?>(null) }
+    val latestSettings by rememberUpdatedState(settings)
 
     val locations = DownloadLocation.entries
-    val policies = NetworkPolicy.entries
+    val retentions = DownloadRetention.entries
     val fastPolicies = FastModePolicy.entries
+
+    val folderPicker = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        val data = result.data ?: return@rememberLauncherForActivityResult
+        val uri = data.data ?: return@rememberLauncherForActivityResult
+        val requestedFlags = data.flags and (
+            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        )
+        val flags = requestedFlags.takeIf { it != 0 }
+            ?: (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        val persisted = runCatching {
+            context.contentResolver.takePersistableUriPermission(uri, flags)
+        }.isSuccess
+        val writable = runCatching {
+            DocumentFile.fromTreeUri(context, uri)?.canWrite() == true
+        }.getOrDefault(false)
+        if (!persisted || !writable) {
+            Toast.makeText(
+                context,
+                "Helper could not keep write access to that folder.",
+                Toast.LENGTH_LONG
+            ).show()
+            return@rememberLauncherForActivityResult
+        }
+        onSettingsChange(
+            latestSettings.copy(
+                downloadLocation = DownloadLocation.CUSTOM,
+                downloadCustomTreeUri = uri.toString()
+            )
+        )
+    }
+
+    val storagePermission = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        val target = pendingLocation
+        pendingLocation = null
+        if (granted && target != null) {
+            onSettingsChange(latestSettings.copy(downloadLocation = target))
+        } else if (!granted) {
+            Toast.makeText(
+                context,
+                "Storage permission is needed to save in Downloads on this Android version.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    val folderPickerIntent = remember {
+        Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+            addFlags(
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or
+                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+            )
+        }
+    }
+
+    fun chooseLocation(location: DownloadLocation) {
+        when {
+            location == DownloadLocation.CUSTOM -> {
+                runCatching { folderPicker.launch(folderPickerIntent) }
+                    .onFailure {
+                        Toast.makeText(
+                            context,
+                            "No system folder picker is available.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+            location == DownloadLocation.DOWNLOADS &&
+                Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+                context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED -> {
+                pendingLocation = location
+                storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+            else -> onSettingsChange(latestSettings.copy(downloadLocation = location))
+        }
+    }
 
     if (locationDialog) {
         SettingsChoiceDialog(
             title = stringResource(R.string.save_downloads),
             choices = locations.map { SettingsChoice(it.icon(), it.title, it.description) },
-            selectedIndex = locations.indexOf(settings.downloadLocation),
+            selectedIndex = locations.indexOf(latestSettings.downloadLocation),
             onSelect = { index ->
-                onSettingsChange(settings.copy(downloadLocation = locations[index]))
                 locationDialog = false
+                chooseLocation(locations[index])
             },
             onDismiss = { locationDialog = false }
         )
     }
 
-    if (policyDialog) {
+    if (retentionDialog) {
         SettingsChoiceDialog(
-            title = stringResource(R.string.connection),
-            choices = policies.map { SettingsChoice(it.icon(), it.title, it.description) },
-            selectedIndex = policies.indexOf(settings.networkPolicy),
+            title = "Keep downloads",
+            choices = retentions.map { SettingsChoice(it.icon(), it.title, it.description) },
+            selectedIndex = retentions.indexOf(latestSettings.downloadRetention),
             onSelect = { index ->
-                onSettingsChange(settings.copy(networkPolicy = policies[index]))
-                policyDialog = false
+                onSettingsChange(latestSettings.copy(downloadRetention = retentions[index]))
+                retentionDialog = false
             },
-            onDismiss = { policyDialog = false }
+            onDismiss = { retentionDialog = false }
         )
     }
 
@@ -3275,39 +5014,6 @@ private fun SystemTabContent(
         )
     }
 
-    if (sourceDialog) {
-        val choices = buildList {
-            add(SettingsChoice(Icons.Outlined.AutoAwesome, "Automatic", "Use the first enabled source"))
-            addAll(sourceCategories.flatMap { (_, sources) -> sources }
-                .map {
-                    SettingsChoice(
-                        icon = null,
-                        title = it.label,
-                        description = "Prefer this source when it has the file",
-                        source = it
-                    )
-                })
-        }
-        SettingsChoiceDialog(
-            title = stringResource(R.string.default_source),
-            choices = choices,
-            selectedIndex = settings.preferredSource?.let { source -> choices.indexOfFirst { it.title == source.label } } ?: 0,
-            onSelect = { index ->
-                onSettingsChange(
-                    settings.copy(
-                        preferredSource = if (index == 0) {
-                            null
-                        } else {
-                            sourceCategories.flatMap { (_, sources) -> sources }[index - 1]
-                        }
-                    )
-                )
-                sourceDialog = false
-            },
-            onDismiss = { sourceDialog = false }
-        )
-    }
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingMedium)
@@ -3317,83 +5023,66 @@ private fun SystemTabContent(
                 icon = settings.downloadLocation.icon(),
                 title = stringResource(R.string.save_downloads),
                 subtitle = settings.downloadLocation.description,
-                value = settings.downloadLocation.title,
+                value = downloadLocationLabel(context, settings),
                 onClick = { locationDialog = true }
             )
             MorpheDivider()
             SettingsRow(
                 icon = Icons.Outlined.CleaningServices,
                 title = stringResource(R.string.storage_used),
-                subtitle = "Helper cache ${cacheBytes.formatBytes()}  ·  Downloads copy ${downloadsBytes.formatBytes()}",
+                subtitle = "Cache ${cacheBytes.formatBytes()}  ·  External ${externalBytes.formatBytes()}  " +
+                    "·  Downloads ${downloadsBytes.formatBytes()}  ·  Custom ${customBytes.formatBytes()}",
                 value = "Clear",
                 onClick = {
-                    context.clearTemporaryDownloads()
-                    context.clearDownloadsCopies()
-                    cacheBytes = 0L
-                    downloadsBytes = 0L
+                    scope.launch(Dispatchers.IO) {
+                        context.clearAllDownloads()
+                        val cache = context.temporaryDownloadsSize()
+                        val external = context.externalDownloadsSize()
+                        val downloads = context.downloadsCopySize()
+                        val custom = context.customDownloadsSize()
+                        withContext(Dispatchers.Main) {
+                            cacheBytes = cache
+                            externalBytes = external
+                            downloadsBytes = downloads
+                            customBytes = custom
+                        }
+                    }
                 }
             )
             MorpheDivider()
+            SettingsRow(
+                icon = settings.downloadRetention.icon(),
+                title = "Keep downloads",
+                subtitle = "${settings.downloadRetention.description} Cleanup runs when Helper opens.",
+                value = settings.downloadRetention.title,
+                onClick = { retentionDialog = true }
+            )
+            MorpheDivider()
             SettingsSwitchItem(
-                icon = Icons.Outlined.DeleteOutline,
-                title = stringResource(R.string.auto_clear_after_hand_off),
-                subtitle = "Remove temporary APKs after handing off to Morphe, and clear old cache files on launch.",
-                checked = settings.deleteTemporaryAfterHandoff,
+                icon = Icons.Outlined.PhoneAndroid,
+                title = "Prefer density-specific APKs",
+                subtitle = "Use APKMirror's variant for this screen's density instead of nodpi. " +
+                    "Some density rows are split APKs that may not patch or install on their own.",
+                checked = settings.preferDensitySpecificVariants,
                 onToggle = {
-                    onSettingsChange(settings.copy(deleteTemporaryAfterHandoff = !settings.deleteTemporaryAfterHandoff))
+                    onSettingsChange(
+                        settings.copy(
+                            preferDensitySpecificVariants = !settings.preferDensitySpecificVariants
+                        )
+                    )
                 }
             )
         }
 
         SettingsGroup(title = stringResource(R.string.sources), icon = Icons.Outlined.Dns) {
+            val enabledCount = settings.orderedSources.count { it !in settings.disabledSources }
             SettingsRow(
-                icon = Icons.Outlined.Star,
-                title = stringResource(R.string.default_source),
-                subtitle = "Used first when a request is resolved",
-                value = settings.preferredSource?.label ?: "Automatic",
-                onClick = { sourceDialog = true }
-            )
-            DownloadSource.entries.forEach { source ->
-                MorpheDivider()
-                SettingsSwitchItem(
-                    // Each source's own brand logo, the same artwork the picker uses.
-                    leading = { SourceAvatar(source = source, size = MorpheDefaults.IconSize) },
-                    title = source.label,
-                    checked = source !in settings.disabledSources,
-                    onToggle = {
-                        val enabled = source !in settings.disabledSources
-                        onSettingsChange(
-                            settings.copy(
-                                disabledSources = if (enabled) {
-                                    settings.disabledSources + source
-                                } else {
-                                    settings.disabledSources - source
-                                }
-                            )
-                        )
-                    }
-                )
-            }
-        }
-
-        SettingsGroup(title = stringResource(R.string.connection), icon = Icons.Outlined.NetworkCheck) {
-            SettingsRow(
-                icon = settings.networkPolicy.icon(),
-                title = stringResource(R.string.network_policy),
-                subtitle = settings.networkPolicy.description,
-                value = settings.networkPolicy.title,
-                onClick = { policyDialog = true }
-            )
-            MorpheDivider()
-            SettingsSwitchItem(
                 icon = Icons.Outlined.Dns,
-                title = stringResource(R.string.adguard_dns),
-                subtitle = "Blocks ads and trackers on download pages and in the captcha browser. " +
-                    "Falls back to the system resolver whenever it fails.",
-                checked = settings.adGuardDns,
-                onToggle = {
-                    onSettingsChange(settings.copy(adGuardDns = !settings.adGuardDns))
-                }
+                title = "Manage sources",
+                subtitle = "$enabledCount of ${settings.orderedSources.size} enabled, default " +
+                    (settings.preferredSource?.label ?: "Automatic"),
+                value = "Manage",
+                onClick = onOpenSources
             )
         }
 
@@ -3417,18 +5106,217 @@ private fun SystemTabContent(
                     onClick = { fastModePolicyDialog = true }
                 )
             }
-            MorpheDivider()
-            SettingsSwitchItem(
-                icon = Icons.Outlined.Explore,
-                title = "Use Morphe's resolver",
-                subtitle = "Ask Morphe where its own download dialog would go and open that " +
-                    "page directly, instead of searching the site. Faster; turn it off to " +
-                    "always fetch through this app's own source pages.",
-                checked = settings.useMorpheResolver,
-                onToggle = {
-                    onSettingsChange(settings.copy(useMorpheResolver = !settings.useMorpheResolver))
-                }
+        }
+
+        SettingsGroup(title = "Updates", icon = Icons.Outlined.Refresh) {
+            SettingsRow(
+                icon = Icons.Outlined.Refresh,
+                title = "Updates",
+                subtitle = "Check for a new release, read the changelog, or install through Shizuku.",
+                value = "v${BuildConfig.VERSION_NAME}",
+                onClick = onOpenUpdates
             )
+        }
+    }
+}
+
+/**
+ * Dedicated source management screen. The Settings tab keeps one summary row instead
+ * of repeating every provider twice (once to enable it, once to reorder it).
+ */
+@Composable
+private fun SourcesSettingsScreen(
+    settings: HelperSettings,
+    onSettingsChange: (HelperSettings) -> Unit,
+    onBack: () -> Unit
+) {
+    BackHandler(onBack = onBack)
+    var sourceDialog by remember { mutableStateOf(false) }
+    val latestSettings by rememberUpdatedState(settings)
+    val orderedSources = settings.orderedSources
+
+    fun moveSourceOrder(source: DownloadSource, delta: Int) {
+        val order = latestSettings.orderedSources.toMutableList()
+        val index = order.indexOf(source)
+        val target = index + delta
+        if (index < 0 || target !in order.indices) return
+        order.removeAt(index)
+        order.add(target, source)
+        onSettingsChange(latestSettings.copy(sourceOrder = order))
+    }
+
+    if (sourceDialog) {
+        val choices = buildList {
+            add(
+                SettingsChoice(
+                    Icons.Outlined.AutoAwesome,
+                    "Automatic",
+                    "Use the first enabled source in the custom order"
+                )
+            )
+            addAll(orderedSources.map {
+                SettingsChoice(
+                    icon = null,
+                    title = it.label,
+                    description = "Prefer this source when it has the file",
+                    source = it
+                )
+            })
+        }
+        SettingsChoiceDialog(
+            title = stringResource(R.string.default_source),
+            choices = choices,
+            selectedIndex = settings.preferredSource
+                ?.let { source -> orderedSources.indexOf(source) + 1 }
+                ?.takeIf { it > 0 }
+                ?: 0,
+            onSelect = { index ->
+                onSettingsChange(
+                    settings.copy(
+                        preferredSource = if (index == 0) null else orderedSources[index - 1]
+                    )
+                )
+                sourceDialog = false
+            },
+            onDismiss = { sourceDialog = false }
+        )
+    }
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(
+                horizontal = MorpheDefaults.ContentPadding,
+                vertical = MorpheDefaults.ContentPadding
+            ),
+        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+    ) {
+        item {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.sources),
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Text(
+                        text = "Enable providers and set their priority",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                HelperHeaderIconButton(
+                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    onClick = onBack,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                )
+            }
+        }
+
+        item {
+            SettingsGroup(
+                title = stringResource(R.string.default_source),
+                icon = Icons.Outlined.Star
+            ) {
+                SettingsRow(
+                    icon = Icons.Outlined.Star,
+                    title = stringResource(R.string.default_source),
+                    subtitle = "Used first when a request is resolved",
+                    value = settings.preferredSource?.label ?: "Automatic",
+                    onClick = { sourceDialog = true }
+                )
+            }
+        }
+
+        item {
+            SettingsGroup(title = "Providers", icon = Icons.Outlined.Dns) {
+                orderedSources.forEachIndexed { index, source ->
+                    if (index > 0) MorpheDivider()
+                    SettingsSwitchItem(
+                        leading = {
+                            SourceAvatar(source = source, size = MorpheDefaults.IconSize)
+                        },
+                        title = source.label,
+                        checked = source !in settings.disabledSources,
+                        onToggle = {
+                            val enabled = source !in settings.disabledSources
+                            onSettingsChange(
+                                settings.copy(
+                                    disabledSources = if (enabled) {
+                                        settings.disabledSources + source
+                                    } else {
+                                        settings.disabledSources - source
+                                    }
+                                )
+                            )
+                        }
+                    )
+                }
+            }
+        }
+
+        item {
+            SettingsGroup(title = "Priority", icon = Icons.Outlined.SortByAlpha) {
+                orderedSources.forEachIndexed { index, source ->
+                    if (index > 0) MorpheDivider()
+                    SettingsRow(
+                        leading = {
+                            SourceAvatar(source = source, size = MorpheDefaults.IconSize)
+                        },
+                        title = source.label,
+                        subtitle = when {
+                            source in settings.disabledSources -> "Disabled"
+                            index == 0 -> "Tried first"
+                            else -> null
+                        },
+                        trailing = {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                if (index > 0) {
+                                    HelperIconButton(
+                                        icon = Icons.Outlined.ExpandLess,
+                                        contentDescription = "Move ${source.label} up",
+                                        onClick = { moveSourceOrder(source, -1) }
+                                    )
+                                } else {
+                                    Spacer(Modifier.size(MorpheDefaults.GlassButtonHeight))
+                                }
+                                if (index < orderedSources.lastIndex) {
+                                    HelperIconButton(
+                                        icon = Icons.Outlined.ExpandMore,
+                                        contentDescription = "Move ${source.label} down",
+                                        onClick = { moveSourceOrder(source, 1) }
+                                    )
+                                } else {
+                                    Spacer(Modifier.size(MorpheDefaults.GlassButtonHeight))
+                                }
+                            }
+                        }
+                    )
+                }
+                MorpheDivider()
+                SettingsRow(
+                    icon = Icons.Outlined.Refresh,
+                    title = "Reset source order",
+                    subtitle = "Restore the default priority.",
+                    value = "Reset",
+                    onClick = {
+                        onSettingsChange(
+                            latestSettings.copy(sourceOrder = DEFAULT_SOURCE_ORDER)
+                        )
+                    }
+                )
+            }
         }
     }
 }
@@ -3443,6 +5331,8 @@ private fun AppearanceTabContent(
     onSettingsChange: (HelperSettings) -> Unit
 ) {
     var showAccentPicker by rememberSaveable { mutableStateOf(false) }
+    var confirmHideIcon by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     // Wallpaper colours need a platform palette, so the option is not offered
     // where it could not work. A stored choice still resolves on the other side.
@@ -3466,6 +5356,24 @@ private fun AppearanceTabContent(
                     trailing = { RadioDot(selected = settings.themeMode == mode) }
                 )
             }
+        }
+
+        SettingsGroup(title = "App icon", icon = Icons.Outlined.Smartphone) {
+            SettingsSwitchItem(
+                icon = Icons.Outlined.Smartphone,
+                title = "Show app icon",
+                subtitle = "Keep the app visible in your launcher. When hidden, open it " +
+                    "from Android Settings or when Morphe starts a download.",
+                checked = settings.showLauncherIcon,
+                onToggle = {
+                    if (settings.showLauncherIcon) {
+                        confirmHideIcon = true
+                    } else {
+                        onSettingsChange(settings.copy(showLauncherIcon = true))
+                        Toast.makeText(context, "App icon shown.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
         }
 
         SettingsGroup(title = stringResource(R.string.colour_style), icon = Icons.Outlined.ColorLens) {
@@ -3517,6 +5425,36 @@ private fun AppearanceTabContent(
         }
     }
 
+    if (confirmHideIcon) {
+        MorpheDialog(
+            title = "Hide app icon?",
+            onDismiss = { confirmHideIcon = false },
+            actions = {
+                HelperOutlinedButton(
+                    text = "Cancel",
+                    onClick = { confirmHideIcon = false },
+                    modifier = Modifier.weight(1f)
+                )
+                HelperButton(
+                    text = "Hide icon",
+                    onClick = {
+                        confirmHideIcon = false
+                        onSettingsChange(settings.copy(showLauncherIcon = false))
+                        Toast.makeText(context, "App icon hidden.", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        ) {
+            Text(
+                text = "The app will disappear from your launcher. You can still open it " +
+                    "from Android Settings > Apps > Morphe Helper > Open, or when Morphe " +
+                    "starts a download.",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+
     if (showAccentPicker) {
         MorpheAccentPickerDialog(
             currentColorHex = settings.customAccentColor,
@@ -3537,18 +5475,97 @@ private fun ThemeStyle.icon(): ImageVector = when (this) {
 }
 
 /**
- * Advanced tab: the scanning and reachability settings  VirusTotal and source health.
- * What has been handed off, and what the app logged doing it, live on the Logs tab.
+ * Advanced tab: connection, resolver and VirusTotal scanning. What has been
+ * handed off, and what the app logged doing it, live on the Logs tab.
  */
 @Composable
 private fun AdvancedTabContent(
     settings: HelperSettings,
     onSettingsChange: (HelperSettings) -> Unit
 ) {
+    var policyDialog by remember { mutableStateOf(false) }
+    var connectionCountDialog by remember { mutableStateOf(false) }
+    val policies = NetworkPolicy.entries
+    val connectionCounts = DownloadConnectionCount.entries
+
+    if (policyDialog) {
+        SettingsChoiceDialog(
+            title = stringResource(R.string.connection),
+            choices = policies.map { SettingsChoice(it.icon(), it.title, it.description) },
+            selectedIndex = policies.indexOf(settings.networkPolicy),
+            onSelect = { index ->
+                onSettingsChange(settings.copy(networkPolicy = policies[index]))
+                policyDialog = false
+            },
+            onDismiss = { policyDialog = false }
+        )
+    }
+
+    if (connectionCountDialog) {
+        SettingsChoiceDialog(
+            title = "Download connections",
+            choices = connectionCounts.map {
+                SettingsChoice(
+                    icon = Icons.Outlined.Bolt,
+                    title = it.title,
+                    description = it.description
+                )
+            },
+            selectedIndex = connectionCounts.indexOf(settings.downloadConnections),
+            onSelect = { index ->
+                onSettingsChange(settings.copy(downloadConnections = connectionCounts[index]))
+                connectionCountDialog = false
+            },
+            onDismiss = { connectionCountDialog = false }
+        )
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingMedium)
     ) {
+        SettingsGroup(title = stringResource(R.string.connection), icon = Icons.Outlined.NetworkCheck) {
+            SettingsRow(
+                icon = settings.networkPolicy.icon(),
+                title = stringResource(R.string.network_policy),
+                subtitle = settings.networkPolicy.description,
+                value = settings.networkPolicy.title,
+                onClick = { policyDialog = true }
+            )
+            MorpheDivider()
+            SettingsRow(
+                icon = Icons.Outlined.Bolt,
+                title = "Download connections",
+                subtitle = "Maximum parallel connections. Large files are split into 4 MiB chunks, " +
+                    "and file size can reduce the count.",
+                value = settings.downloadConnections.title,
+                onClick = { connectionCountDialog = true }
+            )
+            MorpheDivider()
+            SettingsSwitchItem(
+                icon = Icons.Outlined.Dns,
+                title = stringResource(R.string.adguard_dns),
+                subtitle = "Blocks ads and trackers on download pages and in the captcha browser. " +
+                    "Falls back to the system resolver whenever it fails.",
+                checked = settings.adGuardDns,
+                onToggle = {
+                    onSettingsChange(settings.copy(adGuardDns = !settings.adGuardDns))
+                }
+            )
+            MorpheDivider()
+            SettingsSwitchItem(
+                icon = Icons.Outlined.Explore,
+                title = "Use Morphe's resolver",
+                subtitle = "Ask Morphe where its own download dialog would go and open that " +
+                    "page directly, instead of searching the site. Faster; turn it off to " +
+                    "always fetch through this app's own source pages.",
+                checked = settings.useMorpheResolver,
+                onToggle = {
+                    onSettingsChange(settings.copy(useMorpheResolver = !settings.useMorpheResolver))
+                }
+            )
+        }
+
         SettingsGroup(title = stringResource(R.string.virustotal), icon = Icons.Outlined.Shield) {
             SettingsSwitchItem(
                 icon = Icons.Outlined.Shield,
@@ -3607,9 +5624,18 @@ private fun AdvancedTabContent(
 }
 
 /**
- * Logs tab: what the app handed off, the Logcat switch and the in-app request log,
- * given their own space so they no longer trail the scanning settings in Advanced.
+ * Logs tab: history, Logcat logging and the in-app request log each get a sub-tab
+ * so the page no longer stacks all three into one long scroll.
  */
+private enum class LogsSubTab(
+    val label: String,
+    val icon: ImageVector
+) {
+    HISTORY("History", Icons.Outlined.History),
+    LOGGING("Logging", Icons.Outlined.BugReport),
+    REQUEST_LOGS("Request logs", Icons.AutoMirrored.Outlined.ViewList)
+}
+
 @Composable
 private fun LogsTabContent(
     settings: HelperSettings,
@@ -3621,33 +5647,48 @@ private fun LogsTabContent(
     onShareHistoryEntry: (DownloadHistoryEntry) -> Unit,
     onClearHistory: () -> Unit
 ) {
+    var subTab by rememberSaveable { mutableStateOf(LogsSubTab.HISTORY) }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingMedium)
     ) {
-        DownloadHistorySection(
-            entries = historyEntries,
-            onClear = onClearHistory,
-            onOpen = onOpenHistoryEntry,
-            onShare = onShareHistoryEntry
+        MorpheSelectorRow(
+            options = LogsSubTab.entries.map {
+                MorpheSelectorOption(label = it.label, icon = it.icon)
+            },
+            selectedIndex = LogsSubTab.entries.indexOf(subTab),
+            onSelect = { subTab = LogsSubTab.entries[it] },
+            labelStyle = MaterialTheme.typography.labelLarge
         )
 
-        SettingsGroup(title = stringResource(R.string.logging), icon = Icons.Outlined.BugReport) {
-            SettingsSwitchItem(
-                icon = Icons.Outlined.BugReport,
-                title = stringResource(R.string.log_to_logcat),
-                subtitle = "Write request, result, and source HTTP details to the system log (adb logcat) for debugging.",
-                checked = settings.logcatLogging,
-                onToggle = {
-                    onSettingsChange(settings.copy(logcatLogging = !settings.logcatLogging))
-                }
+        when (subTab) {
+            LogsSubTab.HISTORY -> DownloadHistorySection(
+                entries = historyEntries,
+                onClear = onClearHistory,
+                onOpen = onOpenHistoryEntry,
+                onShare = onShareHistoryEntry
+            )
+
+            LogsSubTab.LOGGING -> SettingsGroup(
+                title = stringResource(R.string.logging),
+                icon = Icons.Outlined.BugReport
+            ) {
+                SettingsSwitchItem(
+                    icon = Icons.Outlined.BugReport,
+                    title = stringResource(R.string.log_to_logcat),
+                    subtitle = "Write request, result, and source HTTP details to the system log (adb logcat) for debugging.",
+                    checked = settings.logcatLogging,
+                    onToggle = {
+                        onSettingsChange(settings.copy(logcatLogging = !settings.logcatLogging))
+                    }
+                )
+            }
+
+            LogsSubTab.REQUEST_LOGS -> RequestLogsCard(
+                logs = logs,
+                onClearLogs = onClearLogs
             )
         }
-
-        RequestLogsCard(
-            logs = logs,
-            onClearLogs = onClearLogs
-        )
     }
 }
 
@@ -3908,7 +5949,17 @@ private fun SettingsChoiceDialog(
 
 private fun DownloadLocation.icon(): ImageVector = when (this) {
     DownloadLocation.TEMPORARY -> Icons.Outlined.SdStorage
+    DownloadLocation.EXTERNAL -> Icons.Outlined.PhoneAndroid
     DownloadLocation.DOWNLOADS -> Icons.Outlined.SaveAlt
+    DownloadLocation.CUSTOM -> Icons.Outlined.FolderOpen
+}
+
+private fun DownloadRetention.icon(): ImageVector = when (this) {
+    DownloadRetention.KEEP -> Icons.Outlined.SaveAlt
+    DownloadRetention.AFTER_HANDOFF -> Icons.Outlined.DeleteOutline
+    DownloadRetention.HOUR_1,
+    DownloadRetention.HOUR_24,
+    DownloadRetention.DAY_7 -> Icons.Outlined.CleaningServices
 }
 
 private fun NetworkPolicy.icon(): ImageVector = when (this) {
@@ -5717,7 +7768,7 @@ private fun HelperThemeButton(
 @Composable
 private fun AppInfoCard(
     request: HelperRequest,
-    onFormatSelected: (String) -> Unit
+    onFormatToggle: (String) -> Unit
 ) {
     SurfaceCard(cornerRadius = MorpheDefaults.SectionCornerRadius) {
         Column(
@@ -5726,7 +7777,7 @@ private fun AppInfoCard(
                 .padding(MorpheDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            AppInfoHeader(request, onFormatSelected)
+            AppInfoHeader(request, onFormatToggle)
         }
     }
 }
@@ -5734,7 +7785,7 @@ private fun AppInfoCard(
 @Composable
 private fun AppInfoHeader(
     request: HelperRequest,
-    onFormatSelected: (String) -> Unit
+    onFormatToggle: (String) -> Unit
 ) {
     val context = LocalContext.current
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
@@ -5835,8 +7886,9 @@ private fun AppInfoHeader(
                     .fillMaxHeight()
             )
             AppInfoFormatCard(
-                kinds = request.requestedFileKinds.orderedFileKinds(),
-                onSelect = onFormatSelected,
+                kinds = request.availableFileKinds.orderedFileKinds(),
+                selectedKinds = request.requestedFileKinds,
+                onToggle = onFormatToggle,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
@@ -5896,11 +7948,17 @@ private fun AppInfoStatCard(
 @Composable
 private fun AppInfoFormatCard(
     kinds: List<String>,
-    onSelect: (String) -> Unit,
+    selectedKinds: Set<String>,
+    onToggle: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
-    val current = kinds.firstOrNull() ?: "apk"
+    val selected = kinds.filter { it in selectedKinds }
+    val summary = when {
+        selected.isEmpty() || selected.size == kinds.size -> "Any"
+        selected.size == 1 -> selected.first().uppercase(Locale.US)
+        else -> selected.joinToString(" + ") { it.uppercase(Locale.US) }
+    }
     var expanded by rememberSaveable(kinds) { mutableStateOf(false) }
 
     Surface(
@@ -5930,7 +7988,7 @@ private fun AppInfoFormatCard(
                         style = MaterialTheme.typography.labelSmall
                     )
                     Text(
-                        text = current.uppercase(Locale.US),
+                        text = summary,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 1,
@@ -5938,7 +7996,7 @@ private fun AppInfoFormatCard(
                     )
                 }
                 if (kinds.size > 1) {
-                    // Same +N pill + chevron affordance as the Architecture card.
+                    // Same count pill + chevron affordance as the Architecture card.
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -5949,7 +8007,7 @@ private fun AppInfoFormatCard(
                     ) {
                         if (!expanded) {
                             Text(
-                                text = "+${kinds.size - 1}",
+                                text = "${selected.size}/${kinds.size}",
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.labelSmall,
                                 modifier = Modifier
@@ -5966,7 +8024,7 @@ private fun AppInfoFormatCard(
                             } else {
                                 Icons.Outlined.ExpandMore
                             },
-                            contentDescription = if (expanded) "Collapse formats" else "Choose format",
+                            contentDescription = if (expanded) "Collapse formats" else "Choose formats",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(18.dp)
                         )
@@ -5981,25 +8039,36 @@ private fun AppInfoFormatCard(
                     color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
                 )
                 kinds.forEach { kind ->
-                    val selected = kind == current
-                    Text(
-                        text = kind.uppercase(Locale.US),
-                        color = if (selected) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurface
-                        },
-                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
-                        style = MaterialTheme.typography.bodyMedium,
+                    val isSelected = kind in selectedKinds
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(MorpheDefaults.CompactCornerRadius))
-                            .clickable {
-                                onSelect(kind)
-                                expanded = false
-                            }
-                            .padding(vertical = 6.dp)
-                    )
+                            .clickable { onToggle(kind) }
+                            .padding(vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = kind.uppercase(Locale.US),
+                            color = if (isSelected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.weight(1f)
+                        )
+                        if (isSelected) {
+                            Icon(
+                                imageVector = Icons.Outlined.Check,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -6274,6 +8343,88 @@ private fun AnimatedExpand(
 }
 
 @Composable
+private fun SwitchCandidateDialog(
+    prompt: SwitchCandidatePrompt,
+    onChoose: (DownloadCandidate) -> Unit,
+    onDismiss: () -> Unit
+) {
+    MorpheDialog(
+        title = "Choose a variant from ${prompt.source.label}",
+        onDismiss = onDismiss,
+        actions = {
+            HelperOutlinedButton(
+                text = "Cancel",
+                onClick = onDismiss,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    ) {
+        Text(
+            text = prompt.detail,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 420.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            prompt.candidates.forEach { candidate ->
+                val variant = candidate.variantLabel ?: candidate.variantTag
+                SurfaceCard(
+                    onClick = { onChoose(candidate) },
+                    cornerRadius = MorpheDefaults.CompactCornerRadius,
+                    borderWidth = 1.dp,
+                    borderColor = MaterialTheme.colorScheme.outlineVariant
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(MorpheDefaults.ContentPadding),
+                        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            Text(
+                                text = candidate.versionDisplay,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = listOfNotNull(
+                                    candidate.fileKind.uppercase(Locale.US),
+                                    variant?.takeIf { it.isNotBlank() }
+                                ).joinToString(" · "),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.bodySmall,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                        Icon(
+                            imageVector = if (candidate.directDownload) {
+                                Icons.Outlined.Download
+                            } else {
+                                Icons.Outlined.OpenInBrowser
+                            },
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun LoadingState() {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -6431,26 +8582,15 @@ private fun SourcePickerFlow(
                     onDismissRequest = { sourcesExpanded = false },
                     modifier = Modifier.fillMaxWidth(0.85f)
                 ) {
-                    sourceCategories.forEach { (title, catSources) ->
-                        val visibleSources = catSources.filter { src ->
-                            groups.any { it.source == src }
-                        }
-                        if (visibleSources.isNotEmpty()) {
-                            SourceMenuHeader(title)
-                            visibleSources.forEach { src ->
-                                val index = groups.indexOfFirst { it.source == src }
-                                if (index >= 0) {
-                                    SourceMenuItem(
-                                        source = src,
-                                        selected = index == currentPage,
-                                        onClick = {
-                                            currentPage = index
-                                            sourcesExpanded = false
-                                        }
-                                    )
-                                }
+                    groups.forEachIndexed { index, group ->
+                        SourceMenuItem(
+                            source = group.source,
+                            selected = index == currentPage,
+                            onClick = {
+                                currentPage = index
+                                sourcesExpanded = false
                             }
-                        }
+                        )
                     }
                 }
             }
@@ -6567,58 +8707,29 @@ private fun buildPrimaryAction(
     }
 }
 
-private val sourceCategories: List<Pair<String, List<DownloadSource>>> = listOf(
-    "Official" to listOf(
-        DownloadSource.PLAY,
-        DownloadSource.AURORA
-    ),
-    "Trusted mirrors" to listOf(
-        DownloadSource.APK_MIRROR,
-        DownloadSource.UPTODOWN,
-        DownloadSource.APK_PURE,
-        DownloadSource.APK_COMBO
-    ),
-    "Other sources" to listOf(
-        DownloadSource.APTOIDE,
-        DownloadSource.EVOZI,
-        DownloadSource.MI9,
-        DownloadSource.APK_DOWNLOADER
-    )
-)
-
 @Composable
 private fun SourceGrid(
     groups: List<SourceCandidateGroup>,
     selectedIndex: Int,
     onSelect: (Int) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        sourceCategories.forEach { (title, sources) ->
-            val catGroups = sources.mapNotNull { source ->
-                groups.firstOrNull { it.source == source }
-            }
-            if (catGroups.isEmpty()) return@forEach
-
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                MorpheSectionTitle(text = title)
-                catGroups.chunked(2).forEach { rowGroups ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        rowGroups.forEach { group ->
-                            val index = groups.indexOfFirst { it.source == group.source }
-                            SourceCard(
-                                group = group,
-                                selected = index == selectedIndex,
-                                onClick = { onSelect(index) },
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                        if (rowGroups.size == 1) {
-                            Spacer(Modifier.weight(1f))
-                        }
-                    }
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        groups.chunked(2).forEach { rowGroups ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                rowGroups.forEach { group ->
+                    val index = groups.indexOfFirst { it.source == group.source }
+                    SourceCard(
+                        group = group,
+                        selected = index == selectedIndex,
+                        onClick = { onSelect(index) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                if (rowGroups.size == 1) {
+                    Spacer(Modifier.weight(1f))
                 }
             }
         }
@@ -6645,19 +8756,6 @@ private fun SourceMenuItem(
             }
         },
         onClick = onClick
-    )
-}
-
-/** Section header inside a dropdown menu (Official / Trusted mirrors / Other). */
-@Composable
-private fun SourceMenuHeader(title: String) {
-    Text(
-        text = title,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
     )
 }
 
@@ -6735,13 +8833,12 @@ private fun DownloadSource.brand(): SourceBrand = when (this) {
     DownloadSource.PLAY -> SourceBrand(resId = R.drawable.ic_src_play)
     DownloadSource.APK_MIRROR -> SourceBrand(resId = R.drawable.ic_src_apkmirror)
     DownloadSource.APK_PURE -> SourceBrand(resId = R.drawable.ic_src_apkpure)
-    DownloadSource.APK_COMBO -> SourceBrand(resId = R.drawable.ic_src_apkcombo)
+    DownloadSource.APK_CUBE -> SourceBrand(resId = R.drawable.ic_src_apkcube)
     DownloadSource.UPTODOWN -> SourceBrand(resId = R.drawable.ic_src_uptodown)
     DownloadSource.AURORA -> SourceBrand(resId = R.drawable.ic_src_aurora)
     DownloadSource.APTOIDE -> SourceBrand(resId = R.drawable.ic_src_aptoide)
     DownloadSource.EVOZI -> SourceBrand(resId = R.drawable.ic_src_evozi)
-    DownloadSource.MI9 -> SourceBrand(resId = R.drawable.ic_src_mi9)
-    DownloadSource.APK_DOWNLOADER -> SourceBrand(resId = R.drawable.ic_src_apkdownloader)
+    DownloadSource.MORPHE_LINK -> SourceBrand(resId = R.drawable.ic_src_morphe)
 }
 
 @Composable
@@ -6910,10 +9007,6 @@ private enum class SourceSubTab(
 /** Sources that can resolve the exact requested version from their own data. */
 private val DownloadSource.supportsRecommended: Boolean
     get() = when (this) {
-        // Mi9 exposes a real version-history page that the in-app captcha
-        // browser opens; its recommended candidate routes there. APK
-        // Downloader stays manual-only (Cloudflare-gated with no version list).
-        DownloadSource.APK_DOWNLOADER,
         DownloadSource.AURORA,
         DownloadSource.PLAY -> false
         else -> true
@@ -6922,12 +9015,10 @@ private val DownloadSource.supportsRecommended: Boolean
 /** Sources that expose a version history list. */
 private val DownloadSource.supportsHistory: Boolean
     get() = when (this) {
-        // Evozi has an old-versions page but no history list; APK Downloader
-        // is Cloudflare-gated with no version list. Mi9's history tab offers a
-        // "browse the version history in the in-app browser" row. Aurora/Play
-        // never offer originals.
+        // Evozi has an old-versions page but no history list. Aurora/Play never
+        // offer originals.
+        DownloadSource.APK_CUBE,
         DownloadSource.EVOZI,
-        DownloadSource.APK_DOWNLOADER,
         DownloadSource.AURORA,
         DownloadSource.PLAY -> false
         else -> true
@@ -7199,8 +9290,8 @@ private fun VersionHistoryRow(
                 )
                 Text(
                     text = when {
-                        // Captcha-gated rows (e.g. Mi9's version history) are
-                        // browsed in the in-app captcha browser, not downloaded.
+                        // Captcha-gated rows are browsed in the in-app captcha
+                        // browser, not downloaded.
                         candidate.captchaUrl != null && !candidate.directDownload ->
                             "Browsable in the in-app browser (version history)"
                         showOpenLink -> "No direct download  open the version page"
@@ -7704,13 +9795,63 @@ private fun CheckingPickedFileState(state: UiState.CheckingPickedFile) {
 @Composable
 private fun FastModeCard(
     progress: FastModeProgress,
+    availableSources: List<DownloadSource>,
     onCancel: () -> Unit,
+    onPause: () -> Unit,
+    onResume: () -> Unit,
+    onSwitchSource: (DownloadSource) -> Unit,
     onSkipWait: () -> Unit,
     onUseMismatch: () -> Unit,
     onSkipMismatch: () -> Unit,
     onSkipScan: () -> Unit,
-    onChooseVersion: (FastModePolicy) -> Unit
+    onChooseVersion: (FastModePolicy) -> Unit,
+    canRetryFailedSources: Boolean,
+    onRetryAll: () -> Unit,
+    onRetryFailedSources: () -> Unit,
+    onCopyFailureDetails: () -> Unit
 ) {
+    var showSwitch by remember { mutableStateOf(false) }
+    var resumeOnDismiss by remember { mutableStateOf(false) }
+
+    if (showSwitch) {
+        AlertDialog(
+            onDismissRequest = {
+                showSwitch = false
+                if (resumeOnDismiss) onResume()
+                resumeOnDismiss = false
+            },
+            title = { Text("Switch source") },
+            text = {
+                Column {
+                    availableSources
+                        .filter { it.label != progress.sourceLabel }
+                        .forEach { source ->
+                            TextButton(
+                                onClick = {
+                                    showSwitch = false
+                                    resumeOnDismiss = false
+                                    onSwitchSource(source)
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(source.label)
+                            }
+                        }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showSwitch = false
+                        if (resumeOnDismiss) onResume()
+                        resumeOnDismiss = false
+                    }
+                ) { Text("Cancel") }
+            }
+        )
+    }
+
     SurfaceCard(cornerRadius = MorpheDefaults.SectionCornerRadius) {
         Column(
             modifier = Modifier
@@ -7727,7 +9868,10 @@ private fun FastModeCard(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    Text(stringResource(R.string.fast_mode), fontWeight = FontWeight.Bold)
+                    Text(
+                        progress.title ?: stringResource(R.string.fast_mode),
+                        fontWeight = FontWeight.Bold
+                    )
                     progress.sourceLabel?.let { source ->
                         Text(
                             text = source,
@@ -7830,9 +9974,11 @@ private fun FastModeCard(
                     modifier = Modifier.fillMaxWidth()
                 )
             } else if (progress.awaitingDecision) {
+                val captchaDecision = progress.awaitingCaptcha
+                val decisionTone = if (captchaDecision) SemanticTone.Primary else SemanticTone.Error
                 Surface(
-                    color = SemanticTone.Error.container,
-                    contentColor = SemanticTone.Error.content,
+                    color = decisionTone.container,
+                    contentColor = decisionTone.content,
                     shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius)
                 ) {
                     IconTextRow(
@@ -7841,15 +9987,15 @@ private fun FastModeCard(
                             .padding(MorpheDefaults.ContentPadding),
                         leadingContent = {
                             ThemedIcon(
-                                icon = Icons.Outlined.Warning,
+                                icon = if (captchaDecision) Icons.Outlined.Shield else Icons.Outlined.Warning,
                                 size = 20.dp,
-                                tint = SemanticTone.Error.accent
+                                tint = decisionTone.accent
                             )
                         },
                         title = progress.mismatchDetail ?: "Version code mismatch.",
                         titleStyle = MaterialTheme.typography.bodyMedium,
                         titleWeight = FontWeight.Normal,
-                        titleColor = SemanticTone.Error.content
+                        titleColor = decisionTone.content
                     )
                 }
                 Row(
@@ -7857,7 +10003,7 @@ private fun FastModeCard(
                     horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
                 ) {
                     HelperButton(
-                        text = "Use this version",
+                        text = if (captchaDecision) "Solve captcha" else "Use this version",
                         onClick = onUseMismatch,
                         modifier = Modifier.weight(1f)
                     )
@@ -7886,10 +10032,17 @@ private fun FastModeCard(
                     Text(
                         text = buildString {
                             append(progress.percent).append('%')
-                            val speed = formatTransferSpeed(progress.speedBytesPerSec)
-                            if (speed.isNotEmpty()) append("  ·  ").append(speed)
-                            if (progress.etaMs != null && progress.etaMs > 0L) {
-                                append("  ·  ").append(formatTransferEta(progress.etaMs)).append(" left")
+                            if (!isScanStatus(progress.detail) && progress.percent < 100) {
+                                val connections = progress.connections
+                                append("  ·  ").append(connections)
+                                    .append(if (connections == 1) " connection" else " connections")
+                            }
+                            if (!progress.paused) {
+                                val speed = formatTransferSpeed(progress.speedBytesPerSec)
+                                if (speed.isNotEmpty()) append("  ·  ").append(speed)
+                                if (progress.etaMs != null && progress.etaMs > 0L) {
+                                    append("  ·  ").append(formatTransferEta(progress.etaMs)).append(" left")
+                                }
                             }
                         },
                         fontWeight = FontWeight.Medium
@@ -7899,6 +10052,29 @@ private fun FastModeCard(
                         onClick = onCancel,
                         icon = Icons.Outlined.Close
                     )
+                }
+                if (!isScanStatus(progress.detail) && progress.percent < 100) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        HelperOutlinedButton(
+                            text = if (progress.paused) "Resume" else "Pause",
+                            onClick = if (progress.paused) onResume else onPause,
+                            modifier = Modifier.weight(1f),
+                            icon = if (progress.paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause
+                        )
+                        HelperOutlinedButton(
+                            text = "Switch source",
+                            onClick = {
+                                resumeOnDismiss = !progress.paused
+                                if (!progress.paused) onPause()
+                                showSwitch = true
+                            },
+                            modifier = Modifier.weight(1f),
+                            icon = Icons.Outlined.SwapHoriz
+                        )
+                    }
                 }
                 SkipWaitButton(
                     active = isRateLimitWait(progress.detail),
@@ -7918,6 +10094,14 @@ private fun FastModeCard(
                     onClick = onCancel,
                     icon = Icons.Outlined.Close,
                     modifier = Modifier.fillMaxWidth()
+                )
+            } else if (!progress.succeeded) {
+                FailureActions(
+                    canRetryFailedSources = canRetryFailedSources,
+                    onRetryAll = onRetryAll,
+                    onRetryFailedSources = onRetryFailedSources,
+                    onCopyDetails = onCopyFailureDetails,
+                    onCancel = onCancel
                 )
             }
         }
@@ -8013,16 +10197,63 @@ private fun scanPhaseSplit(status: String): Pair<String, String> {
 @Composable
 private fun DownloadingState(
     state: UiState.Downloading,
+    availableSources: List<DownloadSource>,
     onCancel: () -> Unit,
+    onPause: () -> Unit,
+    onResume: () -> Unit,
+    onSwitchSource: (DownloadSource) -> Unit,
     onSkipWait: () -> Unit,
     onSkipScan: () -> Unit
 ) {
+    var showSwitch by remember { mutableStateOf(false) }
+    var resumeOnDismiss by remember { mutableStateOf(false) }
+
+    if (showSwitch) {
+        AlertDialog(
+            onDismissRequest = {
+                showSwitch = false
+                if (resumeOnDismiss) onResume()
+                resumeOnDismiss = false
+            },
+            title = { Text("Switch source") },
+            text = {
+                Column {
+                    availableSources
+                        .filter { it != state.candidate.source }
+                        .forEach { source ->
+                            TextButton(
+                                onClick = {
+                                    showSwitch = false
+                                    resumeOnDismiss = false
+                                    onSwitchSource(source)
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(source.label)
+                            }
+                        }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showSwitch = false
+                        if (resumeOnDismiss) onResume()
+                        resumeOnDismiss = false
+                    }
+                ) { Text("Cancel") }
+            }
+        )
+    }
+
     SurfaceCard {
         Column(
             modifier = Modifier.padding(MorpheDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
         ) {
-            val statusText = state.statusMessage ?: "Downloading from ${state.candidate.source.label}"
+            val statusText = state.statusMessage
+                ?: if (state.paused) "Paused" else "Downloading from ${state.candidate.source.label}"
             val isScan = isScanStatus(statusText)
             val (phase, detail) = if (isScan) scanPhaseSplit(statusText) else (statusText to "")
             Text(
@@ -8049,10 +10280,16 @@ private fun DownloadingState(
                 Text(
                     text = buildString {
                         append(state.percent).append('%')
-                        val speed = formatTransferSpeed(state.speedBytesPerSec)
-                        if (speed.isNotEmpty()) append("  ·  ").append(speed)
-                        if (state.etaMs != null && state.etaMs > 0L) {
-                            append("  ·  ").append(formatTransferEta(state.etaMs)).append(" left")
+                        if (!isScan && state.percent < 100) {
+                            append("  ·  ").append(state.connections)
+                                .append(if (state.connections == 1) " connection" else " connections")
+                        }
+                        if (!state.paused) {
+                            val speed = formatTransferSpeed(state.speedBytesPerSec)
+                            if (speed.isNotEmpty()) append("  ·  ").append(speed)
+                            if (state.etaMs != null && state.etaMs > 0L) {
+                                append("  ·  ").append(formatTransferEta(state.etaMs)).append(" left")
+                            }
                         }
                     },
                     fontWeight = FontWeight.Medium
@@ -8062,6 +10299,29 @@ private fun DownloadingState(
                     onClick = onCancel,
                     icon = Icons.Outlined.Close
                 )
+            }
+            if (!isScan && state.percent < 100) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    HelperOutlinedButton(
+                        text = if (state.paused) "Resume" else "Pause",
+                        onClick = if (state.paused) onResume else onPause,
+                        modifier = Modifier.weight(1f),
+                        icon = if (state.paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause
+                    )
+                    HelperOutlinedButton(
+                        text = "Switch source",
+                        onClick = {
+                            resumeOnDismiss = !state.paused
+                            if (!state.paused) onPause()
+                            showSwitch = true
+                        },
+                        modifier = Modifier.weight(1f),
+                        icon = Icons.Outlined.SwapHoriz
+                    )
+                }
             }
             SkipWaitButton(
                 active = isRateLimitWait(statusText),
@@ -8538,28 +10798,64 @@ private fun formatTransferEta(ms: Long): String {
 }
 
 @Composable
-private fun ErrorState(message: String, onRefresh: () -> Unit, onCancel: () -> Unit) {
+private fun FailureActions(
+    canRetryFailedSources: Boolean,
+    onRetryAll: () -> Unit,
+    onRetryFailedSources: () -> Unit,
+    onCopyDetails: () -> Unit,
+    onCancel: () -> Unit
+) {
+    HelperButton(
+        text = "Retry all",
+        onClick = onRetryAll,
+        modifier = Modifier.fillMaxWidth()
+    )
+    if (canRetryFailedSources) {
+        HelperOutlinedButton(
+            text = "Retry failed sources",
+            onClick = onRetryFailedSources,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+    ) {
+        HelperOutlinedButton(
+            text = "Copy details",
+            onClick = onCopyDetails,
+            modifier = Modifier.weight(1f)
+        )
+        HelperOutlinedButton(
+            text = "Cancel",
+            onClick = onCancel,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+private fun ErrorState(
+    message: String,
+    canRetryFailedSources: Boolean,
+    onRetryAll: () -> Unit,
+    onRetryFailedSources: () -> Unit,
+    onCopyDetails: () -> Unit,
+    onCancel: () -> Unit
+) {
     SurfaceCard {
         Column(
             modifier = Modifier.padding(MorpheDefaults.ContentPadding),
             verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
         ) {
-        Text(text = message, color = MaterialTheme.colorScheme.error)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
-        ) {
-            HelperButton(
-                text = "Retry",
-                onClick = onRefresh,
-                modifier = Modifier.weight(1f)
+            Text(text = message, color = MaterialTheme.colorScheme.error)
+            FailureActions(
+                canRetryFailedSources = canRetryFailedSources,
+                onRetryAll = onRetryAll,
+                onRetryFailedSources = onRetryFailedSources,
+                onCopyDetails = onCopyDetails,
+                onCancel = onCancel
             )
-            HelperOutlinedButton(
-                text = "Cancel",
-                onClick = onCancel,
-                modifier = Modifier.weight(1f)
-            )
-        }
         }
     }
 }
@@ -8576,10 +10872,24 @@ internal data class HelperRequest(
     val supportedAbis: List<String>,
     val requestedFileType: String?,
     val allowSplitArchive: Boolean,
+    /** Formats the on-screen picker narrowed the request to, null for all allowed kinds. */
+    val requestedFileKindsOverride: Set<String>? = null,
     val stockInstallRequired: Boolean,
     val fallbackWebUrl: String,
-    val sourceHintUrls: List<String>
+    val sourceHintUrls: List<String>,
+    /** Screen density in dpi, used to rank density-specific source variants. */
+    val deviceDpi: Int? = null,
+    /** APKMirror only: opt in to density-specific rows instead of nodpi. */
+    val preferDensitySpecificVariants: Boolean = false
 ) {
+    fun withDeviceDpi(
+        dpi: Int,
+        preferDensitySpecificVariants: Boolean = this.preferDensitySpecificVariants
+    ): HelperRequest = copy(
+        deviceDpi = dpi.takeIf { it > 0 },
+        preferDensitySpecificVariants = preferDensitySpecificVariants
+    )
+
     val availableAbis: List<String>
         get() = supportedAbis
             .ifEmpty { Build.SUPPORTED_ABIS.toList() }
@@ -8598,6 +10908,11 @@ internal data class HelperRequest(
         get() = availableAbis.joinToString().ifBlank { "Default" }
 
     val requestedFileKinds: Set<String>
+        get() = requestedFileKindsOverride?.takeIf { it.isNotEmpty() }
+            ?: requestedFileKindsFrom(requestedFileType, allowSplitArchive)
+
+    /** Every format the caller allows, before the format picker narrows them. */
+    val availableFileKinds: Set<String>
         get() = requestedFileKindsFrom(requestedFileType, allowSplitArchive)
 
     val requestedFormatLabel: String
@@ -8674,6 +10989,28 @@ internal data class HelperRequest(
         return kinds.any { it in requestedFileKinds }
     }
 
+    /** Position of [fileKind] in the selected format order, or Int.MAX_VALUE when unselected. */
+    fun fileKindPriority(fileKind: String): Int {
+        val order = requestedFileKinds.orderedFileKinds()
+        return fileKind.lowercase(Locale.US)
+            .split('/')
+            .map { it to order.indexOf(it) }
+            .filter { it.second >= 0 }
+            .minOfOrNull { it.second }
+            ?: Int.MAX_VALUE
+    }
+
+    /**
+     * A split request can use APKPure's XAPK asset: it is the same kind of
+     * split archive under a different name, and Morphe accepts it whenever
+     * split archives are allowed.
+     */
+    fun acceptsCandidateFormat(fileKind: String): Boolean =
+        acceptsFormat(fileKind) ||
+            (fileKind.equals("xapk", ignoreCase = true) &&
+                allowSplitArchive &&
+                requestedFileKinds.any { it == "apks" || it == "apkm" })
+
     fun matchesKnownVersion(candidateVersionName: String?, candidateVersionCode: Long?): Boolean =
         if (!hasKnownVersionRequest) {
             false
@@ -8745,13 +11082,12 @@ internal data class HelperRequest(
             DownloadSource.AURORA,
             DownloadSource.PLAY -> listOf("play.google.com")
             DownloadSource.APK_MIRROR -> listOf("apkmirror.com", "google.com/search")
-            DownloadSource.APK_COMBO -> listOf("apkcombo.com")
             DownloadSource.APTOIDE -> listOf("aptoide.com")
             DownloadSource.APK_PURE -> listOf("apkpure.com")
             DownloadSource.UPTODOWN -> listOf("uptodown.com")
+            DownloadSource.APK_CUBE -> listOf("apkcube.com")
             DownloadSource.EVOZI -> listOf("apkcube.com", "evozi.com")
-            DownloadSource.MI9 -> listOf("mi9.com")
-            DownloadSource.APK_DOWNLOADER -> listOf("apkdownloader.pages.dev")
+            DownloadSource.MORPHE_LINK -> listOf("morphe.software")
         }
 
         return (sourceHintUrls + fallbackWebUrl).distinct().filter { url ->
@@ -8818,6 +11154,11 @@ internal data class HelperRequest(
         }
     }
 }
+
+private data class FailedAttempt(
+    val source: DownloadSource,
+    val option: CandidateOption
+)
 
 private data class CandidateResult(
     val sourceGroups: List<SourceCandidateGroup>
@@ -8920,6 +11261,8 @@ internal data class ApkMirrorVariant(
     val arch: String?,
     val dpi: String?,
     val isBundle: Boolean,
+    /** Build code APKMirror prints in the variant row, when present. */
+    val versionCode: Long? = null,
     /** Position of this row in the release page's variant table, 1-based. */
     val number: Int = 0
 )
@@ -8981,7 +11324,11 @@ internal data class DownloadCandidate(
     // only a real browser can pass. The card then offers a "Solve captcha in
     // app" action that opens this URL in an embedded WebView and captures the
     // download the page produces.
-    val captchaUrl: String? = null
+    val captchaUrl: String? = null,
+    // The source whose page a wrapper such as Morphe Link resolved. It keeps the
+    // candidate branded as the wrapper while still selecting that source's browser
+    // script for a captcha page.
+    val viaSource: DownloadSource? = null
 ) {
     val sortIndex: Int get() = source.sortIndex
 
@@ -9008,6 +11355,60 @@ internal data class DownloadCandidate(
         }
 }
 
+/**
+ * Candidates from a newly picked source that continue the same download target:
+ * same format, same version for a requested build, and the ABI/variant already
+ * in flight. Fast Mode's latest mode deliberately leaves the version open,
+ * because the new source resolves its own newest release.
+ */
+internal fun matchingSourceSwitchCandidates(
+    candidates: List<DownloadCandidate>,
+    target: DownloadCandidate,
+    request: HelperRequest
+): List<DownloadCandidate> =
+    candidates.filter { candidate ->
+        candidate.directDownload &&
+            candidate.fileKind.equals(target.fileKind, ignoreCase = true) &&
+            sourceSwitchVersionMatches(target, candidate) &&
+            sourceSwitchVariantMatches(target, candidate, request)
+    }
+
+private fun sourceSwitchVersionMatches(
+    target: DownloadCandidate,
+    candidate: DownloadCandidate
+): Boolean {
+    if (target.option == CandidateOption.LATEST) return true
+    val targetVersion = target.versionName ?: return true
+    return candidate.versionName?.versionNameEquals(targetVersion) == true
+}
+
+private fun sourceSwitchVariantMatches(
+    target: DownloadCandidate,
+    candidate: DownloadCandidate,
+    request: HelperRequest
+): Boolean {
+    val targetLabel = target.variantLabel ?: target.variantTag
+    val candidateLabel = candidate.variantLabel ?: candidate.variantTag
+
+    if (target.source == candidate.source) {
+        if (target.variantNumber != null && candidate.variantNumber != null) {
+            return target.variantNumber == candidate.variantNumber
+        }
+        if (targetLabel != null || candidateLabel != null) {
+            return targetLabel.normalizedVariantLabel() == candidateLabel.normalizedVariantLabel()
+        }
+        return true
+    }
+
+    // Labels differ between sources ("arm64-v8a", "ARM64", "arm64"), so
+    // compare how each one fits the device instead of the wording.
+    return archMatchRank(targetLabel, request.availableAbis) ==
+        archMatchRank(candidateLabel, request.availableAbis)
+}
+
+private fun String?.normalizedVariantLabel(): String =
+    this?.trim()?.lowercase(Locale.US)?.replace(Regex("\\s+"), " ").orEmpty()
+
 private data class CandidateMatchSummary(
     val matches: Boolean,
     val title: String,
@@ -9022,7 +11423,8 @@ private fun DownloadCandidate.matchSummary(request: HelperRequest): CandidateMat
     val versionCodeMatches = requestedVersionCodes.isEmpty() ||
         versionCode == null ||
         versionCode in requestedVersionCodes
-    val formatMatches = fileKind.equals("web", ignoreCase = true) || request.acceptsFormat(fileKind)
+    val formatMatches = fileKind.equals("web", ignoreCase = true) ||
+        request.acceptsCandidateFormat(fileKind)
 
     val mismatchNames = buildList {
         if (!versionNameMatches) add("Version")
@@ -9093,7 +11495,8 @@ private fun capturedDownloadFileName(
 internal data class DownloadedApkMetadata(
     val packageName: String,
     val versionName: String?,
-    val versionCode: Long?
+    val versionCode: Long?,
+    val minSdkVersion: Int? = null
 )
 
 internal enum class DownloadSource(
@@ -9104,24 +11507,22 @@ internal enum class DownloadSource(
     APK_MIRROR("APKMirror", 0),
     UPTODOWN("Uptodown", 1),
     APK_PURE("APKPure", 2),
-    APK_COMBO("APKCombo", 3),
+    APK_CUBE("APKCube", 3),
     APTOIDE("Aptoide", 4),
     EVOZI("Evozi", 5),
-    MI9("Mi9", 6),
-    APK_DOWNLOADER("APK Downloader", 7),
-    AURORA("Aurora", 8, supportsManualArtifactPicker = false),
-    PLAY("Play", 9, supportsManualArtifactPicker = false)
+    MORPHE_LINK("Morphe Link", 6, supportsManualArtifactPicker = false),
+    AURORA("Aurora", 7, supportsManualArtifactPicker = false),
+    PLAY("Play", 8, supportsManualArtifactPicker = false)
 }
 
 internal fun DownloadSource.searchDomain(): String? = when (this) {
     DownloadSource.APK_MIRROR -> "apkmirror.com"
     DownloadSource.UPTODOWN -> "uptodown.com"
     DownloadSource.APK_PURE -> "apkpure.com"
-    DownloadSource.APK_COMBO -> "apkcombo.com"
+    DownloadSource.APK_CUBE -> "apkcube.com"
     DownloadSource.APTOIDE -> "aptoide.com"
     DownloadSource.EVOZI -> "apkcube.com"
-    DownloadSource.MI9 -> "mi9.com"
-    DownloadSource.APK_DOWNLOADER -> "apkdownloader.pages.dev"
+    DownloadSource.MORPHE_LINK -> null
     DownloadSource.PLAY -> "play.google.com"
     DownloadSource.AURORA -> null
 }
@@ -9162,7 +11563,9 @@ private sealed interface UiState {
         val percent: Int,
         val speedBytesPerSec: Double = 0.0,
         val etaMs: Long? = null,
-        val statusMessage: String? = null
+        val statusMessage: String? = null,
+        val paused: Boolean = false,
+        val connections: Int = 1
     ) : UiState
     data class Error(val message: String) : UiState
     data class FastMode(val progress: FastModeProgress) : UiState
@@ -9185,18 +11588,28 @@ private sealed interface FastModeFindResult {
     object None : FastModeFindResult
 }
 
+private data class SwitchCandidatePrompt(
+    val source: DownloadSource,
+    val detail: String,
+    val candidates: List<DownloadCandidate>
+)
+
 private data class FastModeProgress(
     val sourceLabel: String? = null,
     val detail: String = "Starting…",
     val percent: Int? = null,
     val speedBytesPerSec: Double = 0.0,
     val etaMs: Long? = null,
+    val paused: Boolean = false,
+    val connections: Int = 1,
     val done: Boolean = false,
     val succeeded: Boolean = false,
     // Present once Fast Mode finishes so the regular source list stays reachable.
     val result: CandidateResult? = null,
-    // Set while Fast Mode waits for the user to accept a version-code mismatch.
+    // Set while Fast Mode waits for the user to accept a version-code mismatch
+    // or to solve a captcha for an exact captcha-gated candidate.
     val awaitingDecision: Boolean = false,
+    val awaitingCaptcha: Boolean = false,
     val mismatchDetail: String? = null,
     // True while Fast Mode (ALWAYS_ASK) asks which version to fetch.
     val awaitingVersionChoice: Boolean = false,
@@ -9206,7 +11619,9 @@ private data class FastModeProgress(
     val versionChoiceRequested: String? = null,
     // True once the downloaded file's bytes matched the source-published SHA-256;
     // shown persistently on the card (not just the transient post-download status).
-    val shaVerified: Boolean = false
+    val shaVerified: Boolean = false,
+    // Reused by the automatic retry flow so the card does not claim Fast Mode.
+    val title: String? = null
 )
 
 internal object DownloadHelperContract {
@@ -9234,6 +11649,52 @@ internal object DownloadHelperContract {
     const val EXTRA_RESULT_SOURCE_NAME = "app.morphe.manager.extra.RESULT_SOURCE_NAME"
     const val EXTRA_RESULT_FILE_NAME = "app.morphe.manager.extra.RESULT_FILE_NAME"
 }
+
+/**
+ * APKMirror's own app-exists endpoint. It returns the latest stable release and its
+ * variant pages as JSON, so the latest flow does not have to walk the search, app and
+ * uploads pages. The endpoint is private and authenticated with APKUpdater's public
+ * client credential; every caller treats a failure as "scrape as before".
+ */
+internal interface ApkMirrorApi {
+    @Headers(
+        "Authorization: Basic YXBpLWFwa3VwZGF0ZXI6cm01cmNmcnVVakt5MDRzTXB5TVBKWFc4",
+        "Content-Type: application/json"
+    )
+    @POST("wp-json/apkm/v1/app_exists/")
+    suspend fun appExists(@Body request: ApkMirrorAppExistsRequest): ApkMirrorAppExistsResponse
+}
+
+internal data class ApkMirrorAppExistsRequest(
+    val pnames: List<String>,
+    val exclude: List<String> = listOf("alpha", "beta")
+)
+
+internal data class ApkMirrorAppExistsResponse(
+    val data: List<ApkMirrorAppExistsData> = emptyList()
+)
+
+internal data class ApkMirrorAppExistsData(
+    val pname: String = "",
+    val exists: Boolean = false,
+    val release: ApkMirrorAppExistsRelease = ApkMirrorAppExistsRelease(),
+    val apks: List<ApkMirrorAppExistsApk> = emptyList()
+)
+
+internal data class ApkMirrorAppExistsRelease(
+    val version: String = "",
+    val link: String = ""
+)
+
+internal data class ApkMirrorAppExistsApk(
+    @SerializedName("version_code")
+    val versionCode: String = "",
+    val link: String = "",
+    val arches: List<String> = emptyList(),
+    val dpis: List<String>? = null,
+    @SerializedName("download_types")
+    val downloadTypes: List<String> = emptyList()
+)
 
 internal interface ApkPureApi {
     @Headers(
@@ -9479,38 +11940,48 @@ private fun validateApkLikeStream(
     return SequenceInputStream(ByteArrayInputStream(header, 0, headerSize), input)
 }
 
-internal fun Context.readDownloadedApkMetadata(file: File): DownloadedApkMetadata? {
+internal fun Context.readDownloadedApkMetadata(
+    file: File,
+    expectedPackage: String? = null,
+    expectedVersionNames: List<String> = emptyList(),
+    expectedVersionCodes: List<Long> = emptyList()
+): DownloadedApkMetadata? {
     if (file.extension.equals("apk", ignoreCase = true)) {
         // A container can arrive named .apk (a source served the bundle under an APK
         // name, or a candidate's kind was a guess), so fall back to reading it as one.
-        return readApkMetadata(file) ?: readContainerMetadata(file)
+        return readApkMetadata(file)
+            ?: readStandaloneManifest(file)
+            ?: readContainerMetadata(file, expectedPackage, expectedVersionNames, expectedVersionCodes)
     }
 
     // Only the extension says "container" - the bytes decide. A page that serves a
     // single APK from a bundle-looking page would otherwise fail validation outright.
-    return readContainerMetadata(file) ?: readApkMetadata(file)
+    return readContainerMetadata(file, expectedPackage, expectedVersionNames, expectedVersionCodes)
+        ?: readApkMetadata(file)
 }
 
 /** The base APK's metadata from inside a split container, or null when it is not one. */
-private fun Context.readContainerMetadata(file: File): DownloadedApkMetadata? {
+private fun Context.readContainerMetadata(
+    file: File,
+    expectedPackage: String?,
+    expectedVersionNames: List<String>,
+    expectedVersionCodes: List<Long>
+): DownloadedApkMetadata? {
     return runCatching {
         val validationDir = File(cacheDir, "validation").apply { mkdirs() }
         ZipFile(file).use { zip ->
+            val manifest = readXapkManifest(zip)
             // The base APK inside split containers is not always named "base.apk":
-            // some sources (e.g. APKPure XAPKs) name it after the package. Trying
-            // the first alphabetical .apk entry is wrong  config splits like
-            // config.ar.apk carry no manifest and fail to parse. Prefer the real
-            // base: exact base.apk, then a name matching the package (derived from
-            // the output file name), then the largest entry, and take the first
-            // entry that actually reads as an APK.
-            val packageHint = file.nameWithoutExtension
-                .substringBefore('-')
+            // some sources (e.g. APKPure XAPKs) name it after the package or give
+            // every split a random name. Prefer the real base, but take the first
+            // entry whose package/version matches the request.
+            val packageHint = (expectedPackage ?: file.nameWithoutExtension.substringBefore('-'))
                 .lowercase(Locale.US)
             val apkEntries = zip.entries()
                 .asSequence()
                 .filter { !it.isDirectory && it.name.endsWith(".apk", ignoreCase = true) }
                 .sortedWith(
-                    compareBy<java.util.zip.ZipEntry> { entry ->
+                    compareBy<ZipEntry> { entry ->
                         val name = entry.name.substringAfterLast('/').lowercase(Locale.US)
                         when {
                             name == "base.apk" -> 0
@@ -9523,26 +11994,237 @@ private fun Context.readContainerMetadata(file: File): DownloadedApkMetadata? {
                         .thenBy { it.name }
                 )
                 .toList()
-            var metadata: DownloadedApkMetadata? = null
+            if (apkEntries.isEmpty()) return@use null
+
+            var firstParsed: DownloadedApkMetadata? = null
             for (entry in apkEntries) {
-                val extracted = File(
-                    validationDir,
-                    "${file.nameWithoutExtension}-${entry.name.hashCode()}.apk".sanitizeFileName()
-                )
-                zip.getInputStream(entry).use { input ->
-                    extracted.outputStream().use { output -> input.copyTo(output) }
-                }
-                val read = readApkMetadata(extracted)
-                extracted.delete()
-                if (read != null) {
-                    metadata = read
-                    break
+                val metadata = readEntryMetadata(
+                    context = this@readContainerMetadata,
+                    zip = zip,
+                    entry = entry,
+                    validationDir = validationDir,
+                    stem = file.nameWithoutExtension
+                ) ?: continue
+                if (firstParsed == null) firstParsed = metadata
+                if (
+                    matchesExpectedMetadata(
+                        metadata,
+                        expectedPackage,
+                        expectedVersionNames,
+                        expectedVersionCodes
+                    )
+                ) {
+                    return@use metadata.withManifestMinSdk(manifest)
                 }
             }
-            metadata
+
+            // A readable APK always wins over manifest.json. Only fall back to the
+            // manifest when no APK metadata could be parsed at all.
+            firstParsed?.withManifestMinSdk(manifest) ?: manifest
         }
     }.getOrNull()
 }
+
+private fun readEntryMetadata(
+    context: Context,
+    zip: ZipFile,
+    entry: ZipEntry,
+    validationDir: File,
+    stem: String
+): DownloadedApkMetadata? {
+    // Android's package parser refuses split APKs that are not a standalone
+    // base, and some XAPKs name every split randomly. Reading the nested
+    // AndroidManifest.xml directly gives us the package and version anyway,
+    // without writing the APK to the cache. If the direct read is incomplete
+    // (for example versionName is a resource reference), extract the APK and
+    // let PackageManager resolve it before falling back to the direct result.
+    val direct = readNestedManifest(zip, entry)
+    if (
+        direct != null &&
+        direct.versionName != null &&
+        direct.versionCode != null &&
+        direct.minSdkVersion != null
+    ) {
+        return direct
+    }
+
+    val extracted = File(
+        validationDir,
+        "$stem-${entry.name.hashCode()}.apk".sanitizeFileName()
+    )
+    return try {
+        zip.getInputStream(entry).use { input ->
+            extracted.outputStream().use { output -> input.copyTo(output) }
+        }
+        context.readApkMetadata(extracted)
+            ?: direct
+            ?: readStandaloneManifest(extracted)
+    } catch (error: Exception) {
+        null
+    } finally {
+        extracted.delete()
+    }
+}
+
+/** Reads package metadata from a nested APK's AndroidManifest.xml. */
+private fun readNestedManifest(zip: ZipFile, entry: ZipEntry): DownloadedApkMetadata? {
+    return try {
+        zip.getInputStream(entry).use { input ->
+            ZipInputStream(BufferedInputStream(input)).use { nested ->
+                var child = nested.nextEntry
+                while (child != null) {
+                    if (child.name == "AndroidManifest.xml") {
+                        val manifest = nested.readBytesLimited(MAX_APK_MANIFEST_BYTES)
+                            ?: return null
+                        return parseManifestBytes(manifest)
+                    }
+                    nested.closeEntry()
+                    child = nested.nextEntry
+                }
+            }
+        }
+        null
+    } catch (error: Exception) {
+        null
+    }
+}
+
+/** Reads AndroidManifest.xml from a standalone APK whose package could not be parsed. */
+private fun readStandaloneManifest(file: File): DownloadedApkMetadata? {
+    return runCatching {
+        ZipFile(file).use { apk ->
+            val entry = apk.getEntry("AndroidManifest.xml") ?: return@use null
+            val manifest = apk.getInputStream(entry).use {
+                it.readBytesLimited(MAX_APK_MANIFEST_BYTES)
+            } ?: return@use null
+            parseManifestBytes(manifest)
+        }
+    }.getOrNull()
+}
+
+private fun parseManifestBytes(manifest: ByteArray): DownloadedApkMetadata? {
+    return runCatching {
+        val streamer = ApkManifestStreamer()
+        BinaryXmlParser(ByteBuffer.wrap(manifest), null).apply {
+            setXmlStreamer(streamer)
+            parse()
+        }
+        val packageName = streamer.packageName?.takeIf { it.isNotBlank() }
+            ?: return@runCatching null
+        DownloadedApkMetadata(
+            packageName = packageName,
+            versionName = streamer.versionName?.takeIf { it.isNotBlank() },
+            versionCode = streamer.versionCode.takeIf { it > 0L },
+            minSdkVersion = streamer.minSdkVersion.takeIf { it > 0 }
+        )
+    }.getOrNull()
+}
+
+/** Package/version/minSdk attributes from the root manifest and its uses-sdk node. */
+private class ApkManifestStreamer : XmlStreamer {
+    var packageName: String? = null
+    var versionName: String? = null
+    var versionCode: Long = -1L
+    var minSdkVersion: Int = -1
+
+    override fun onStartTag(tag: XmlNodeStartTag) {
+        val attributes = tag.attributes ?: return
+        if (tag.name == "manifest" && packageName == null) {
+            packageName = attributes.getString("package")
+            versionName = attributes.getString("versionName")
+            versionCode = attributes.getString("versionCode")?.toLongOrNull() ?: -1L
+            if (versionName?.startsWith("resourceId:") == true) {
+                versionName = null
+            }
+        } else if (tag.name == "uses-sdk") {
+            minSdkVersion = attributes.getString("minSdkVersion")?.toIntOrNull()
+                ?: minSdkVersion
+        }
+    }
+
+    override fun onEndTag(tag: XmlNodeEndTag) = Unit
+
+    override fun onCData(cData: XmlCData) = Unit
+
+    override fun onNamespaceStart(tag: XmlNamespaceStartTag) = Unit
+
+    override fun onNamespaceEnd(tag: XmlNamespaceEndTag) = Unit
+}
+
+/** Package/version metadata from an XAPK's manifest.json. */
+private fun readXapkManifest(zip: ZipFile): DownloadedApkMetadata? {
+    val entry = zip.getEntry("manifest.json") ?: return null
+    return runCatching {
+        val bytes = zip.getInputStream(entry).use {
+            it.readBytesLimited(MAX_XAPK_MANIFEST_BYTES)
+        } ?: return@runCatching null
+        val text = String(bytes, Charsets.UTF_8).trimStart('\uFEFF')
+        val root = JSONObject(text)
+        val packageName = root.optString("package_name", "").trim()
+        if (packageName.isEmpty()) return@runCatching null
+        DownloadedApkMetadata(
+            packageName = packageName,
+            versionName = root.optString("version_name", "").trim()
+                .takeIf { it.isNotEmpty() },
+            versionCode = parseJsonLong(root.opt("version_code")),
+            minSdkVersion = parseJsonInt(root.opt("min_sdk_version"))
+        )
+    }.getOrNull()
+}
+
+private fun parseJsonLong(value: Any?): Long? = when (value) {
+    is Number -> value.toLong().takeIf { it > 0L }
+    is String -> value.trim().toLongOrNull()?.takeIf { it > 0L }
+    else -> null
+}
+
+private fun parseJsonInt(value: Any?): Int? = when (value) {
+    is Number -> value.toInt().takeIf { it > 0 }
+    is String -> value.trim().toIntOrNull()?.takeIf { it > 0 }
+    else -> null
+}
+
+private fun InputStream.readBytesLimited(maxBytes: Int): ByteArray? {
+    val output = ByteArrayOutputStream()
+    val buffer = ByteArray(16 * 1024)
+    var total = 0
+    while (true) {
+        val read = read(buffer)
+        if (read < 0) break
+        total += read
+        if (total > maxBytes) return null
+        output.write(buffer, 0, read)
+    }
+    return output.toByteArray()
+}
+
+private fun matchesExpectedMetadata(
+    metadata: DownloadedApkMetadata,
+    expectedPackage: String?,
+    expectedVersionNames: List<String>,
+    expectedVersionCodes: List<Long>
+): Boolean {
+    if (expectedPackage != null && metadata.packageName != expectedPackage) return false
+    if (expectedVersionCodes.isNotEmpty()) {
+        val code = metadata.versionCode ?: return false
+        if (code !in expectedVersionCodes) return false
+    }
+    if (expectedVersionNames.isNotEmpty()) {
+        val name = metadata.versionName ?: return false
+        if (expectedVersionNames.none { name.versionNameEquals(it) }) return false
+    }
+    return true
+}
+
+private fun DownloadedApkMetadata.withManifestMinSdk(
+    manifest: DownloadedApkMetadata?
+): DownloadedApkMetadata {
+    val manifestSdk = manifest?.minSdkVersion ?: return this
+    return copy(minSdkVersion = maxOf(minSdkVersion ?: 0, manifestSdk))
+}
+
+private const val MAX_APK_MANIFEST_BYTES = 8 * 1024 * 1024
+private const val MAX_XAPK_MANIFEST_BYTES = 512 * 1024
 
 @Suppress("DEPRECATION")
 private fun Context.readApkMetadata(file: File): DownloadedApkMetadata? {
@@ -9554,10 +12236,14 @@ private fun Context.readApkMetadata(file: File): DownloadedApkMetadata? {
         info.versionCode.toLong()
     }.takeIf { it > 0L }
 
+    val minSdkVersion = info.applicationInfo?.minSdkVersion?.takeIf { it > 0 }
+        ?: readStandaloneManifest(file)?.minSdkVersion
+
     return DownloadedApkMetadata(
         packageName = info.packageName,
         versionName = info.versionName,
-        versionCode = versionCode
+        versionCode = versionCode,
+        minSdkVersion = minSdkVersion
     )
 }
 
@@ -9776,6 +12462,10 @@ internal fun sourceFailureMessage(sourceLabel: String, error: Throwable, action:
         httpCode != null -> {
             "$sourceLabel returned HTTP $httpCode during $actionText. Use Manual mode for this source instead."
         }
+        details.contains("requires Android SDK", ignoreCase = true) &&
+            details.contains("device is SDK", ignoreCase = true) -> {
+            "$sourceLabel has no build compatible with this device: $details"
+        }
         details.contains("cloudflare", ignoreCase = true) -> {
             "$sourceLabel showed a browser verification page, so direct access is blocked. Open the link and download manually."
         }
@@ -9865,3 +12555,505 @@ internal fun String?.variantFileSuffix(): String =
 
 internal fun String.sanitizeFileName(): String =
     replace(Regex("[^A-Za-z0-9._-]"), "_")
+
+private val PACKAGE_PATTERN = Regex("""^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$""")
+
+@Composable
+private fun UpdateScreen(
+    settings: HelperSettings,
+    onSettingsChange: (HelperSettings) -> Unit,
+    refreshToken: Int,
+    onBack: () -> Unit
+) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var latest by remember { mutableStateOf(UpdateManager.cachedLatest(context)) }
+    var checking by remember { mutableStateOf(false) }
+    var checkToken by remember { mutableIntStateOf(0) }
+    var checkMessage by remember { mutableStateOf<String?>(null) }
+    var installing by remember { mutableStateOf(false) }
+    var installMessage by remember { mutableStateOf<String?>(null) }
+    var modeDialog by remember { mutableStateOf(false) }
+    var channelDialog by remember { mutableStateOf(false) }
+    var packageDialog by remember { mutableStateOf(false) }
+
+    val shizukuStatus = remember(refreshToken, settings.shizukuPackage) {
+        ShizukuHelper.status(context)
+    }
+    val batteryUnrestricted = remember(refreshToken) {
+        UpdateManager.isBatteryUnrestricted(context)
+    }
+    val updateAvailable = latest?.isNewerThan(BuildConfig.VERSION_NAME) == true
+
+    fun checkNow(channel: UpdateChannel = settings.updateChannel) {
+        if (checking && channel == settings.updateChannel) return
+        val token = checkToken + 1
+        checkToken = token
+        checking = true
+        checkMessage = "Checking for updates…"
+        scope.launch {
+            val result = UpdateManager.checkForUpdates(
+                context = context,
+                manual = true,
+                settings = settings.copy(updateChannel = channel)
+            )
+            if (token != checkToken) return@launch
+            latest = result.info ?: latest
+            checkMessage = result.message
+            checking = false
+        }
+    }
+
+    fun install(useShizuku: Boolean) {
+        val info = latest ?: return
+        if (installing) return
+        if (info.assetUrl.isBlank()) {
+            installMessage = "This release has no APK asset."
+            return
+        }
+        scope.launch {
+            installing = true
+            installMessage = "Downloading v${info.version}…"
+            try {
+                val file = UpdateManager.download(context, info)
+                val verification = UpdateManager.verifyDownloadedApk(context, file, info)
+                if (verification != null) {
+                    file.delete()
+                    installMessage = verification
+                } else if (
+                    useShizuku &&
+                    ShizukuHelper.status(context) == ShizukuHelper.READY
+                ) {
+                    installMessage = "Installing with Shizuku…"
+                    val (ok, detail) = UpdateManager.installWithShizuku(context, file)
+                    if (ok) {
+                        installMessage = "Update installed. Reopen the helper."
+                    } else {
+                        installMessage = "Shizuku failed: $detail. Opening the Android installer…"
+                        UpdateManager.openInstaller(context, file)
+                    }
+                } else {
+                    val opened = UpdateManager.openInstaller(context, file)
+                    installMessage = if (opened) {
+                        "Android installer opened. Follow the prompt."
+                    } else {
+                        "Allow installs from this app, then tap Install again."
+                    }
+                }
+            } catch (error: Throwable) {
+                installMessage = "Update failed: ${error.message ?: "unknown error"}"
+            } finally {
+                installing = false
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        latest = UpdateManager.cachedLatest(context)
+        if (latest != null) return@LaunchedEffect
+        if (!settings.checkUpdates) {
+            checkMessage = "Update checks are disabled."
+            return@LaunchedEffect
+        }
+        checkNow()
+    }
+
+    BackHandler(onBack = onBack)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(
+                    horizontal = MorpheDefaults.ContentPadding,
+                    vertical = MorpheDefaults.ContentPadding
+                ),
+            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+        ) {
+            item {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
+                    ) {
+                        Text(
+                            text = "Updates",
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Version ${BuildConfig.VERSION_NAME}",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    HelperHeaderIconButton(
+                        icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = "Back",
+                        onClick = onBack,
+                        modifier = Modifier.align(Alignment.CenterStart)
+                    )
+                }
+            }
+
+            item {
+                SettingsGroup(title = "Release", icon = Icons.Outlined.Refresh) {
+                    SettingsRow(
+                        icon = Icons.Outlined.PhoneAndroid,
+                        title = "Current version",
+                        value = "v${BuildConfig.VERSION_NAME}"
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.Refresh,
+                        title = if (checking) "Checking for updates…" else "Check for updates",
+                        subtitle = checkMessage ?: "Look for a newer release on GitHub.",
+                        value = if (checking) null else "Check",
+                        onClick = { checkNow() }
+                    )
+                    latest?.let { info ->
+                        MorpheDivider()
+                        SettingsRow(
+                            icon = Icons.Outlined.Verified,
+                            title = "Latest version",
+                            value = "v${info.version}",
+                            subtitle = if (updateAvailable) {
+                                val channel = if (UpdateInfo.isPrerelease(info.version)) {
+                                    "Beta"
+                                } else {
+                                    "Stable"
+                                }
+                                "$channel update available"
+                            } else {
+                                "You are up to date"
+                            }
+                        )
+                    }
+                }
+            }
+
+            latest?.let { info ->
+                item {
+                    SettingsGroup(title = "Changelog", icon = Icons.Outlined.History) {
+                        SelectionContainer {
+                            Text(
+                                text = cleanReleaseNotes(info.notes)
+                                    .ifBlank { "No release notes for this version." },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(MorpheDefaults.ContentPadding),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        if (info.releaseUrl.isNotBlank()) {
+                            MorpheDivider()
+                            SettingsRow(
+                                icon = Icons.Outlined.OpenInNew,
+                                title = "Open release page",
+                                onClick = { openExternal(context, info.releaseUrl) }
+                            )
+                        }
+                    }
+                }
+            }
+
+            if (updateAvailable && latest != null) {
+                item {
+                    val info = latest!!
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
+                    ) {
+                        HelperButton(
+                            text = if (installing) "Working…" else "Download and install",
+                            onClick = { install(false) },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        if (shizukuStatus == ShizukuHelper.READY) {
+                            HelperOutlinedButton(
+                                text = "Install via Shizuku",
+                                onClick = { install(true) },
+                                icon = Icons.Outlined.Shield,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        if (info.assetUrl.isBlank()) {
+                            Text(
+                                text = "This release has no APK attached.",
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                        installMessage?.let { message ->
+                            Text(
+                                text = message,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
+                }
+            }
+
+            item {
+                SettingsGroup(title = "Update settings", icon = Icons.Outlined.Settings) {
+                    SettingsSwitchItem(
+                        icon = Icons.Outlined.Refresh,
+                        title = "Check for updates",
+                        subtitle = "Look for a newer release when the helper starts.",
+                        checked = settings.checkUpdates,
+                        onToggle = {
+                            onSettingsChange(settings.copy(checkUpdates = !settings.checkUpdates))
+                        }
+                    )
+                    MorpheDivider()
+                    SettingsSwitchItem(
+                        icon = Icons.Outlined.HelpOutline,
+                        title = "In-app update popup",
+                        subtitle = "Show a dialog on launch when a newer release is available.",
+                        checked = settings.updatePopup,
+                        onToggle = {
+                            onSettingsChange(settings.copy(updatePopup = !settings.updatePopup))
+                        }
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.TrendingUp,
+                        title = "Update channel",
+                        subtitle = settings.updateChannel.description,
+                        value = settings.updateChannel.title,
+                        onClick = { channelDialog = true }
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.Download,
+                        title = "Update mode",
+                        subtitle = settings.updateMode.description,
+                        value = settings.updateMode.title,
+                        onClick = { modeDialog = true }
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.Shield,
+                        title = "Shizuku",
+                        subtitle = "Silent installs need Shizuku running and this app approved.",
+                        value = ShizukuHelper.statusLabel(context, shizukuStatus),
+                        onClick = { handleShizukuAction(context, shizukuStatus) }
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.PhoneAndroid,
+                        title = "Shizuku app package",
+                        subtitle = "Only needed for a Shizuku fork with a different package name.",
+                        value = settings.shizukuPackage.ifBlank { "Default" },
+                        onClick = { packageDialog = true }
+                    )
+                    MorpheDivider()
+                    SettingsRow(
+                        icon = Icons.Outlined.Settings,
+                        title = "Battery optimization",
+                        subtitle = "Keep update checks reliable when Android restricts background work.",
+                        value = if (batteryUnrestricted) "Unrestricted" else "Optimized",
+                        onClick = { UpdateManager.requestBatteryExemption(context) }
+                    )
+                }
+            }
+
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+        }
+    }
+
+    if (channelDialog) {
+        val channels = UpdateChannel.entries
+        SettingsChoiceDialog(
+            title = "Update channel",
+            choices = channels.map { channel ->
+                SettingsChoice(
+                    icon = if (channel == UpdateChannel.BETA) {
+                        Icons.Outlined.TrendingUp
+                    } else {
+                        Icons.Outlined.CheckCircle
+                    },
+                    title = channel.title,
+                    description = channel.description
+                )
+            },
+            selectedIndex = channels.indexOf(settings.updateChannel),
+            onSelect = { index ->
+                val channel = channels[index]
+                channelDialog = false
+                if (channel != settings.updateChannel) {
+                    UpdateManager.resetForChannelSwitch(context)
+                    latest = null
+                    checkMessage = null
+                    installMessage = null
+                    onSettingsChange(settings.copy(updateChannel = channel))
+                    checkNow(channel)
+                }
+            },
+            onDismiss = { channelDialog = false }
+        )
+    }
+
+    if (modeDialog) {
+        val modes = UpdateMode.entries
+        SettingsChoiceDialog(
+            title = "Update mode",
+            choices = modes.map { mode ->
+                SettingsChoice(
+                    icon = when (mode) {
+                        UpdateMode.NOTIFY -> Icons.Outlined.HelpOutline
+                        UpdateMode.SHIZUKU -> Icons.Outlined.Shield
+                    },
+                    title = mode.title,
+                    description = mode.description
+                )
+            },
+            selectedIndex = modes.indexOf(settings.updateMode),
+            onSelect = { index ->
+                onSettingsChange(settings.copy(updateMode = modes[index]))
+                modeDialog = false
+            },
+            onDismiss = { modeDialog = false }
+        )
+    }
+
+    if (packageDialog) {
+        ShizukuPackageDialog(
+            initial = settings.shizukuPackage,
+            onSave = { value ->
+                onSettingsChange(settings.copy(shizukuPackage = value))
+                packageDialog = false
+            },
+            onDismiss = { packageDialog = false }
+        )
+    }
+}
+
+@Composable
+private fun ShizukuPackageDialog(
+    initial: String,
+    onSave: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var value by remember { mutableStateOf(initial) }
+    var error by remember { mutableStateOf<String?>(null) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.background,
+        title = { Text("Shizuku app package", fontWeight = FontWeight.Bold) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)) {
+                Text(
+                    text = "Leave blank for the default package. Only change this for a Shizuku fork with a different package name.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                OutlinedTextField(
+                    value = value,
+                    onValueChange = {
+                        value = it
+                        error = null
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    isError = error != null,
+                    placeholder = { Text(ShizukuHelper.DEFAULT_PACKAGE) }
+                )
+                error?.let { message ->
+                    Text(
+                        text = message,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                val trimmed = value.trim()
+                if (trimmed.isNotEmpty() && !PACKAGE_PATTERN.matches(trimmed)) {
+                    error = "Enter a valid package name, for example ${ShizukuHelper.DEFAULT_PACKAGE}."
+                } else {
+                    onSave(trimmed)
+                }
+            }) { Text("Save") }
+        },
+        dismissButton = {
+            Row {
+                TextButton(onClick = { onSave("") }) { Text("Use default") }
+                TextButton(onClick = onDismiss) { Text("Cancel") }
+            }
+        }
+    )
+}
+
+@Composable
+private fun UpdatePromptDialog(
+    info: UpdateInfo,
+    currentVersion: String,
+    onView: () -> Unit,
+    onLater: () -> Unit,
+    onSkip: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.background,
+        title = { Text("Update available", fontWeight = FontWeight.Bold) },
+        text = {
+            Text(
+                "Helper v${info.version} is available. You have v$currentVersion."
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onView) { Text("View update") }
+        },
+        dismissButton = {
+            Row {
+                TextButton(onClick = onSkip) { Text("Skip") }
+                TextButton(onClick = onLater) { Text("Later") }
+            }
+        }
+    )
+}
+
+private fun handleShizukuAction(context: Context, status: Int) {
+    when (status) {
+        ShizukuHelper.READY -> {
+            Toast.makeText(context, "Shizuku is ready.", Toast.LENGTH_SHORT).show()
+        }
+        ShizukuHelper.PERMISSION_REQUIRED -> ShizukuHelper.requestPermission()
+        ShizukuHelper.NOT_RUNNING,
+        ShizukuHelper.NOT_INSTALLED -> ShizukuHelper.openManager(context)
+        else -> {
+            Toast.makeText(context, "This Shizuku version is not supported.", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+private fun openExternal(context: Context, url: String) {
+    runCatching {
+        context.startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+    }
+}
+
+private fun cleanReleaseNotes(value: String): String =
+    value.replace("\r\n", "\n")
+        .replace(Regex("""(?m)^#{1,6}\s*"""), "")
+        .replace(Regex("""\[([^\]]+)\]\([^)]+\)"""), "\$1")
+        .replace("**", "")
+        .replace("__", "")
+        .replace("`", "")
+        .replace(Regex("""(?m)^- """), "• ")
+        .replace(Regex("""\n{3,}"""), "\n\n")
+        .trim()

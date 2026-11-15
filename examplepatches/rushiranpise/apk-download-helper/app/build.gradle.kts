@@ -84,6 +84,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        aidl = true
     }
 
     testOptions {
@@ -111,14 +112,18 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.documentfile:documentfile:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("com.auroraoss:gplayapi:3.5.8")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("com.google.re2j:re2j:1.8")
+    implementation("net.dongliu:apk-parser:2.6.10")
     implementation("com.squareup.okhttp3:okhttp:5.3.2")
     implementation("com.squareup.okhttp3:okhttp-dnsoverhttps:5.3.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("dev.rikka.shizuku:api:13.1.5")
+    implementation("dev.rikka.shizuku:provider:13.1.5")
     implementation("org.jsoup:jsoup:1.22.1")
 
     testImplementation("junit:junit:4.13.2")

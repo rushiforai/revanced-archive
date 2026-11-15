@@ -21,8 +21,8 @@ class EvoziParserTest {
 
     private fun oldVersionsPage(): String = """
         <!DOCTYPE html><html><head><title>Old versions</title></head><body>
-        <script>self.__next_f.push([1,"39:[\"R\",\"RL38\",null,{\"versionName\":\"2.5.0.6\"}]"])</script>
-        <script>self.__next_f.push([1,"3a:[\"R\",\"RL38\",null,{\"versionName\":\"2.5.0.5\"}]"])</script>
+        <script>self.__next_f.push([1,"39:[\"R\",\"RL38\",null,{\"versionName\":\"2.5.0.6\",\"versionCode\":2506,\"arch\":\"arm64-v8a\"}]"])</script>
+        <script>self.__next_f.push([1,"3a:[\"R\",\"RL38\",null,{\"versionName\":\"2.5.0.5\",\"versionCode\":2505,\"arch\":\"armeabi-v7a\"}]"])</script>
         <a href="/battery-guru-battery-health/com.paget96.batteryguru/download?version=2.5.0.6">2.5.0.6</a>
         <a href="/battery-guru-battery-health/com.paget96.batteryguru/download?version=2.5.0.5">2.5.0.5</a>
         </body></html>
@@ -32,6 +32,7 @@ class EvoziParserTest {
         EvoziParser(testParserContext(pages))
 
     private val downloaderUrl = "https://apkcube.com/apk-downloader?url=$packageName"
+    private val downloadUrl = "https://apkcube.com/battery-guru-battery-health/$packageName/download"
     private val oldVersionsUrl = "https://apkcube.com/battery-guru-battery-health/$packageName/old-versions"
 
     private fun latestRequest() = testRequest(
@@ -47,6 +48,47 @@ class EvoziParserTest {
     )
 
     @Test
+    fun apkcube_usesTheSameCatalogue() {
+        val result = runBlocking {
+            ApkCubeParser(testParserContext(mapOf(downloaderUrl to downloaderPage())))
+                .findCandidates(latestRequest(), CandidateOption.LATEST)
+        }
+        assertEquals(1, result.size)
+        assertEquals(DownloadSource.APK_CUBE, result.first().source)
+        assertEquals("2.5.0.6", result.first().versionName)
+    }
+
+    @Test
+    fun latest_readsVersionFromTheDownloadPageTitle() {
+        // The live downloader page can name the app without carrying a version;
+        // the download page title still has it.
+        val downloaderWithoutVersion = """
+            <script>self.__next_f.push([1,"3a:[\"R\",\"RL3\",null,{\"href\":\"/battery-guru-battery-health/com.paget96.batteryguru/download\"}]"])</script>
+        """.trimIndent()
+        val downloadPage = """
+            <!DOCTYPE html><html><head>
+            <title>Download Battery Guru 2.5.0.6 APK for Android - APKCube</title>
+            <script>self.__next_f.push([1,"39:[\"R\",\"RL38\",null,{\"playVersionCode\":2506}]"])</script>
+            </head></html>
+        """.trimIndent()
+        val result = runBlocking {
+            parser(
+                mapOf(
+                    downloaderUrl to downloaderWithoutVersion,
+                    downloadUrl to downloadPage
+                )
+            ).findCandidates(latestRequest(), CandidateOption.LATEST)
+        }
+        assertEquals(1, result.size)
+        assertEquals("2.5.0.6", result.first().versionName)
+        assertEquals(2506L, result.first().versionCode)
+        assertEquals(
+            "$downloadUrl?target=version&vc=2506&arch=arm64-v8a&langs=standard&dpi=all",
+            result.first().url
+        )
+    }
+
+    @Test
     fun latest_findsVersionAndDownloadPage() {
         val result = runBlocking {
             parser(mapOf(downloaderUrl to downloaderPage())).findCandidates(latestRequest(), CandidateOption.LATEST)
@@ -55,7 +97,7 @@ class EvoziParserTest {
         val candidate = result.first()
         assertEquals("2.5.0.6", candidate.versionName)
         assertEquals(
-            "https://apkcube.com/battery-guru-battery-health/$packageName/download",
+            "https://apkcube.com/battery-guru-battery-health/$packageName/download?arch=arm64-v8a&langs=standard&dpi=all",
             candidate.url
         )
         assertFalse(candidate.directDownload)
@@ -81,6 +123,36 @@ class EvoziParserTest {
     }
 
     @Test
+    fun requestedFallbackTargetsTheBuildAndAbi() {
+        val request = testRequest(
+            packageName = packageName,
+            appName = "Battery Guru",
+            versionName = "2.5.0.6",
+            versionCode = 2506L
+        )
+
+        val candidate = parser(emptyMap()).requestedFallbackCandidate(request)
+
+        assertEquals(
+            "$downloaderUrl&target=version&vc=2506&arch=arm64-v8a&langs=standard&dpi=all",
+            candidate?.url
+        )
+        assertEquals(candidate?.url, candidate?.captchaUrl)
+        assertEquals(CandidateOption.REQUESTED, candidate?.option)
+    }
+
+    @Test
+    fun latestFallbackKeepsTheAbiAndLanguageParameters() {
+        val candidate = parser(emptyMap()).latestFallbackCandidate(latestRequest())
+
+        assertEquals(
+            "$downloaderUrl&arch=arm64-v8a&langs=standard&dpi=all",
+            candidate?.url
+        )
+        assertEquals(CandidateOption.LATEST, candidate?.option)
+    }
+
+    @Test
     fun requested_matchesListedVersion() {
         val result = runBlocking {
             parser(
@@ -93,13 +165,85 @@ class EvoziParserTest {
         assertEquals(1, result.size)
         val candidate = result.first()
         assertEquals("2.5.0.6", candidate.versionName)
+        assertEquals(2506L, candidate.versionCode)
         assertEquals(
-            "https://apkcube.com/battery-guru-battery-health/$packageName/download?version=2.5.0.6",
+            "https://apkcube.com/battery-guru-battery-health/$packageName/download?version=2.5.0.6&target=version&vc=2506&arch=arm64-v8a&langs=standard&dpi=all",
             candidate.url
         )
         assertEquals(VersionStatus.REQUESTED, candidate.versionStatus)
         assertFalse(candidate.directDownload)
         assertEquals(candidate.url, candidate.captchaUrl)
+    }
+
+    @Test
+    fun requested_explicitBuildCodeWins() {
+        val request = testRequest(
+            packageName = packageName,
+            appName = "Battery Guru",
+            versionName = "2.5.0.6",
+            versionCode = 999L
+        )
+        val result = runBlocking {
+            parser(
+                mapOf(
+                    downloaderUrl to downloaderPage(),
+                    oldVersionsUrl to oldVersionsPage()
+                )
+            ).findCandidates(request, CandidateOption.REQUESTED)
+        }
+        assertEquals(1, result.size)
+        assertEquals(999L, result.first().versionCode)
+        assertTrue(
+            result.first().url.endsWith(
+                "target=version&vc=999&arch=arm64-v8a&langs=standard&dpi=all"
+            )
+        )
+    }
+
+    @Test
+    fun requested_targetsAnArmv7Device() {
+        val request = testRequest(
+            packageName = packageName,
+            appName = "Battery Guru",
+            versionName = "2.5.0.6"
+        ).copy(supportedAbis = listOf("armeabi-v7a"))
+        val result = runBlocking {
+            parser(
+                mapOf(
+                    downloaderUrl to downloaderPage(),
+                    oldVersionsUrl to oldVersionsPage()
+                )
+            ).findCandidates(request, CandidateOption.REQUESTED)
+        }
+        assertEquals(1, result.size)
+        assertTrue(
+            result.first().url.endsWith(
+                "target=version&vc=2506&arch=armeabi-v7a&langs=standard&dpi=all"
+            )
+        )
+    }
+
+    @Test
+    fun requested_fallsBackToUniversalForNonArmDevices() {
+        val request = testRequest(
+            packageName = packageName,
+            appName = "Battery Guru",
+            versionName = "2.5.0.6"
+        ).copy(supportedAbis = listOf("x86_64"))
+        val result = runBlocking {
+            parser(
+                mapOf(
+                    downloaderUrl to downloaderPage(),
+                    oldVersionsUrl to oldVersionsPage()
+                )
+            ).findCandidates(request, CandidateOption.REQUESTED)
+        }
+        assertEquals(1, result.size)
+        assertTrue(
+            result.first().url.endsWith(
+                "target=version&vc=2506&arch=universal&langs=standard&dpi=all"
+            )
+        )
     }
 
     @Test
@@ -125,48 +269,4 @@ class EvoziParserTest {
         assertTrue("expected SourceAppNotFoundException, got $error", error is SourceAppNotFoundException)
     }
 
-    // ---- blocked downloader services ----
-
-    @Test
-    fun mi9_fallbacksAreOpenLinkWithBlockedNote() {
-        val parser = Mi9Parser()
-        val request = testRequest(packageName = packageName, versionName = "2.5.0.6")
-        val requested = parser.requestedFallbackCandidate(request)
-        assertEquals(CandidateOption.REQUESTED, requested.option)
-        assertFalse(requested.directDownload)
-        assertEquals("https://mi9.com/package/$packageName/versions/", requested.url)
-        assertEquals(requested.url, requested.captchaUrl)
-        assertTrue(requested.note.orEmpty().contains("Cloudflare", ignoreCase = true))
-        val latest = parser.latestFallbackCandidate(request)
-        assertEquals(CandidateOption.LATEST, latest.option)
-        assertFalse(latest.directDownload)
-        assertEquals(latest.url, latest.captchaUrl)
-        assertEquals("https://mi9.com/package/$packageName/versions/", latest.url)
-        assertTrue(latest.note.orEmpty().contains("Cloudflare", ignoreCase = true))
-    }
-
-    @Test
-    fun mi9_history_offersVersionHistoryBrowseRow() {
-        val parser = Mi9Parser()
-        val request = testRequest(packageName = packageName, versionName = "2.5.0.6")
-        val result = runBlocking { parser.resolveHistory(request) }
-        assertEquals(1, result.size)
-        val row = result.first()
-        assertEquals("Version history", row.versionName)
-        assertFalse(row.directDownload)
-        assertEquals("https://mi9.com/package/$packageName/versions/", row.url)
-        assertEquals(row.url, row.captchaUrl)
-        assertTrue(row.note.orEmpty().contains("Cloudflare", ignoreCase = true))
-    }
-
-    @Test
-    fun pagesDev_fallbacksAreOpenLinkWithBlockedNote() {
-        val parser = ApkDownloaderPagesParser()
-        val request = testRequest(packageName = packageName, versionName = "2.5.0.6")
-        val requested = parser.requestedFallbackCandidate(request)
-        assertFalse(requested.directDownload)
-        assertEquals("https://apkdownloader.pages.dev/?package=$packageName", requested.url)
-        assertEquals(requested.url, requested.captchaUrl)
-        assertTrue(requested.note.orEmpty().contains("Cloudflare", ignoreCase = true))
-    }
 }

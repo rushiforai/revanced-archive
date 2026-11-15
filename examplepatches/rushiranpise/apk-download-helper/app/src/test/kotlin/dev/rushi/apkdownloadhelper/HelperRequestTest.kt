@@ -48,6 +48,43 @@ class HelperRequestTest {
         assertTrue(request.acceptsFormat("APK/APKM/APKS/XAPK"))
     }
 
+    @Test
+    fun selectedFormats_narrowResolutionWithoutLosingAvailableKinds() {
+        val request = testRequest(requestedFileType = "APK", allowSplitArchive = true)
+        assertEquals(setOf("apk", "apkm", "apks", "xapk"), request.availableFileKinds)
+
+        val narrowed = request.copy(requestedFileKindsOverride = setOf("apkm", "apk"))
+        assertEquals(setOf("apkm", "apk"), narrowed.requestedFileKinds)
+        assertTrue(narrowed.acceptsFormat("apk"))
+        assertTrue(narrowed.acceptsFormat("apkm"))
+        assertFalse(narrowed.acceptsFormat("apks"))
+        assertEquals(0, narrowed.fileKindPriority("apk"))
+        assertEquals(1, narrowed.fileKindPriority("apkm"))
+        assertEquals(Int.MAX_VALUE, narrowed.fileKindPriority("apks"))
+        assertEquals(setOf("apk", "apkm", "apks", "xapk"), narrowed.availableFileKinds)
+    }
+
+    @Test
+    fun fileKindPriority_usesPickerOrderForMultiKindLabels() {
+        val request = multiFormatRequest()
+        assertEquals(0, request.fileKindPriority("APK/APKM/APKS/XAPK"))
+        assertEquals(1, request.fileKindPriority("APKM"))
+        assertEquals(3, request.fileKindPriority("XAPK"))
+    }
+
+    @Test
+    fun acceptsCandidateFormat_acceptsXapkAsSplitSubstitute() {
+        for (kind in listOf("APKS", "APKM")) {
+            val request = testRequest(requestedFileType = kind, allowSplitArchive = true)
+            assertTrue(request.acceptsCandidateFormat("xapk"))
+        }
+
+        // Without permission to install split archives, XAPK is not a substitute.
+        val noSplit = testRequest(requestedFileType = "APKS", allowSplitArchive = false)
+        assertFalse(noSplit.acceptsCandidateFormat("xapk"))
+        assertFalse(testRequest(requestedFileType = "APK").acceptsCandidateFormat("xapk"))
+    }
+
     // ---- Fast Mode strict version matching (exact name AND code) ----
 
     @Test

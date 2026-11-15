@@ -8,7 +8,7 @@ import org.junit.Test
 class DefaultDisabledSourcesTest {
 
     @Test
-    fun `the five built-around sources start enabled`() {
+    fun `the built-around sources start enabled`() {
         val enabled = DownloadSource.entries.filterNot { it in DEFAULT_DISABLED_SOURCES }
 
         assertEquals(
@@ -16,7 +16,8 @@ class DefaultDisabledSourcesTest {
                 DownloadSource.APK_MIRROR,
                 DownloadSource.UPTODOWN,
                 DownloadSource.APK_PURE,
-                DownloadSource.APK_COMBO,
+                DownloadSource.APK_CUBE,
+                DownloadSource.MORPHE_LINK,
                 DownloadSource.AURORA
             ),
             enabled.sortedBy { it.sortIndex }
@@ -28,8 +29,6 @@ class DefaultDisabledSourcesTest {
         listOf(
             DownloadSource.APTOIDE,
             DownloadSource.EVOZI,
-            DownloadSource.MI9,
-            DownloadSource.APK_DOWNLOADER,
             DownloadSource.PLAY
         ).forEach { source ->
             assertTrue("$source should start disabled", source in DEFAULT_DISABLED_SOURCES)

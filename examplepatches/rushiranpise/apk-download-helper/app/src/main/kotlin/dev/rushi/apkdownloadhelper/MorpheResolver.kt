@@ -2,6 +2,8 @@ package dev.rushi.apkdownloadhelper
 
 import java.net.URLEncoder
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.FutureTask
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -18,14 +20,65 @@ internal enum class ApkMirrorPage { VARIANT, RELEASE }
 
 private const val APKMIRROR_HOST = "www.apkmirror.com"
 private const val RESOLVER_HOST = "api.morphe.software"
+private const val RESOLVED_LINK_TTL_MILLIS = 10L * 60L * 1000L
+private const val RESOLVED_LINK_CACHE_SIZE = 64
 
-/** `pkg~version~abi`, the query form Morphe's own download dialog uses. */
+/**
+ * Small in-memory cache for resolver answers.
+ *
+ * Every source asks the same question for one request, and a fallback source asks it
+ * again after the first source fails. The TTL stays short because a resolver answer can
+ * be a signed CDN link whose signature expires.
+ */
+internal class ResolvedLinkCache(
+    private val ttlMillis: Long = RESOLVED_LINK_TTL_MILLIS,
+    private val maxEntries: Int = RESOLVED_LINK_CACHE_SIZE
+) {
+    private data class Entry(val url: String, val storedAt: Long)
+
+    // Access order makes the first key the least recently used one, so eviction does
+    // not throw away a link that a later source is about to ask for again.
+    private val entries = LinkedHashMap<String, Entry>(16, 0.75f, true)
+
+    @Synchronized
+    fun get(key: String, now: Long = System.currentTimeMillis()): String? {
+        val entry = entries[key] ?: return null
+        if (now - entry.storedAt > ttlMillis) {
+            entries.remove(key)
+            return null
+        }
+        return entry.url
+    }
+
+    @Synchronized
+    fun put(key: String, url: String, now: Long = System.currentTimeMillis()) {
+        entries[key] = Entry(url, now)
+        while (entries.size > maxEntries) {
+            entries.remove(entries.keys.first())
+        }
+    }
+
+    @Synchronized
+    fun clear() = entries.clear()
+}
+
+/**
+ * `pkg~version~abi` plus the build code when the request names exactly one.
+ *
+ * Morphe added the build code (and an optional form factor after it) so the resolver
+ * can pick one APKMirror variant instead of a release page. The helper has no form
+ * factor in the intent, and a request with several candidate build codes cannot name
+ * one safely, so those requests keep the shorter three-part form.
+ */
 internal fun morpheResolveQuery(request: HelperRequest): String {
     val version = request.requestedVersionNames.firstOrNull()?.takeIf(String::isNotBlank)
         ?: request.versionName?.trim()?.takeIf(String::isNotBlank)
         ?: "any"
     val abi = request.availableAbis.firstOrNull()?.takeIf(String::isNotBlank) ?: "arm64-v8a"
-    return "${request.packageName}~$version~$abi"
+    val parts = mutableListOf(request.packageName, version, abi)
+    val buildCode = request.versionCode ?: request.versionCodes.singleOrNull()
+    if (buildCode != null && buildCode > 0L) parts += buildCode.toString()
+    return parts.joinToString("~")
 }
 
 /** The host of [url], lowercased, or null when it cannot be read. */
@@ -128,8 +181,34 @@ internal object MorpheResolver {
         .readTimeout(8, TimeUnit.SECONDS)
         .build()
 
-    fun resolve(request: HelperRequest): String? = runCatching {
-        var url = "$API/v2/web-search/" + URLEncoder.encode(morpheResolveQuery(request), "UTF-8")
+    private val cache = ResolvedLinkCache()
+    private val inFlight = ConcurrentHashMap<String, FutureTask<String?>>()
+
+    fun resolve(request: HelperRequest): String? {
+        val query = morpheResolveQuery(request)
+        cache.get(query)?.let { return it }
+
+        // Sources can resolve in parallel. Coalesce the same query so they wait
+        // for one resolver chain instead of each starting their own.
+        val task = FutureTask { resolveUncached(query) }
+        val running = inFlight.putIfAbsent(query, task)
+        if (running != null) {
+            return runCatching { running.get() }.getOrNull()
+        }
+        return try {
+            task.run()
+            val resolved = task.get()
+            if (resolved != null) cache.put(query, resolved)
+            resolved
+        } catch (error: Exception) {
+            null
+        } finally {
+            inFlight.remove(query, task)
+        }
+    }
+
+    private fun resolveUncached(query: String): String? = runCatching {
+        var url = "$API/v2/web-search/" + URLEncoder.encode(query, "UTF-8")
             .replace("+", "%20")
             .replace("%7E", "~")
 

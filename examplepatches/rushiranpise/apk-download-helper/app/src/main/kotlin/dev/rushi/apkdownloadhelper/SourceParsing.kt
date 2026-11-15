@@ -93,6 +93,8 @@ internal class SourceParserContext(
     val fetcher: SourceTextFetcher,
     val apkPureApi: ApkPureApi,
     val aptoideApi: AptoideApi,
+    /** APKMirror's latest-release JSON endpoint; null keeps tests on the scrape path. */
+    val apkMirrorApi: ApkMirrorApi? = null,
     val playHttpClient: PlayHttpClient? = null,
     val appContext: Context? = null,
     /**
@@ -101,6 +103,8 @@ internal class SourceParserContext(
      * tests and any caller that does not opt in are unaffected.
      */
     val resolveViaMorphe: ((HelperRequest) -> String?)? = null,
+    /** Whether a delegated resolver page may use this source. */
+    val isSourceEnabled: (DownloadSource) -> Boolean = { true },
     /**
      * Follows [url] without following its redirect, returning the `Location` it answers
      * with (or null). APKPure's direct endpoint puts the whole file description in that
@@ -197,6 +201,19 @@ internal interface ApkSourceParser {
         request: HelperRequest,
         option: CandidateOption
     ): List<DownloadCandidate>
+
+    /**
+     * Continue from a page the Morphe resolver named for this source.
+     *
+     * The resolver-backed source delegates to the matching parser instead of
+     * duplicating every site walk. Returning null means this parser cannot continue
+     * from that URL, and the caller falls back to the in-app browser.
+     */
+    suspend fun findCandidatesFromResolvedUrl(
+        request: HelperRequest,
+        url: String,
+        option: CandidateOption
+    ): List<DownloadCandidate>? = null
 
     /** Web search/info URL for manual mode; null when the source has no web page. */
     fun searchUrl(packageName: String): String? = null

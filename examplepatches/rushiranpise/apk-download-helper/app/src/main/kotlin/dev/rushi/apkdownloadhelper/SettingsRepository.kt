@@ -1,6 +1,8 @@
 package dev.rushi.apkdownloadhelper
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -26,15 +28,15 @@ internal var logcatLoggingEnabled = true
  * settings load) can route lookups per request without holding a Context.
  */
 @Volatile
-internal var adGuardDnsEnabled = false
+internal var adGuardDnsEnabled = true
 
 /**
  * Sources that start switched off.
  *
- * The five the helper is built around (APKMirror, Uptodown, APKPure, APKCombo, Aurora)
- * are enabled; the rest are theirs to discover in Settings. Like the Fast Mode default,
- * this only decides what somebody who never touched the source toggles gets - a stored
- * set is used as it is.
+ * The six the helper is built around (APKMirror, Uptodown, APKPure, APKCube,
+ * Morphe Link and Aurora) are enabled; the rest are theirs to discover in Settings.
+ * Like the Fast Mode default, this only decides what somebody who never touched the
+ * source toggles gets - a stored set is used as it is.
  */
 /**
  * Bumped when a default changes in a way existing installs should feel.
@@ -44,20 +46,32 @@ internal var adGuardDnsEnabled = false
  * by version rather than inferred from what is on disk.
  */
 private const val SETTINGS_VERSION_KEY = "settings_version"
-private const val SETTINGS_VERSION = 2
+private const val SETTINGS_VERSION = 6
 
 internal val DEFAULT_DISABLED_SOURCES: Set<DownloadSource> = setOf(
     DownloadSource.APTOIDE,
     DownloadSource.EVOZI,
-    DownloadSource.MI9,
-    DownloadSource.APK_DOWNLOADER,
     DownloadSource.PLAY
 )
 
+/**
+ * Morphe Link is the resolver-backed fallback, so try it before walking the
+ * individual sites. It can hand the request to any of them in one step.
+ */
+internal val DEFAULT_SOURCE_ORDER: List<DownloadSource> =
+    listOf(DownloadSource.MORPHE_LINK) +
+        DownloadSource.entries.filterNot { it == DownloadSource.MORPHE_LINK }
+
 internal data class HelperSettings(
     val downloadLocation: DownloadLocation = DownloadLocation.TEMPORARY,
+    val downloadRetention: DownloadRetention = DownloadRetention.KEEP,
+    val downloadCustomTreeUri: String = "",
+    /** APKMirror only: pick a density-specific row instead of nodpi. */
+    val preferDensitySpecificVariants: Boolean = false,
+    val showLauncherIcon: Boolean = true,
     val networkPolicy: NetworkPolicy = NetworkPolicy.WIFI_AND_MOBILE,
-    val deleteTemporaryAfterHandoff: Boolean = true,
+    /** Maximum workers for a segmented download. File size can lower this. */
+    val downloadConnections: DownloadConnectionCount = DownloadConnectionCount.FOUR,
     val logcatLogging: Boolean = true,
     // On by default: the helper exists to hand a file back to Morphe, and Fast Mode is
     // the path that does that in one step. An explicit off is stored and respected, so
@@ -72,6 +86,8 @@ internal data class HelperSettings(
      */
     val useMorpheResolver: Boolean = true,
     val disabledSources: Set<DownloadSource> = DEFAULT_DISABLED_SOURCES,
+    /** Source priority, first tried first. Missing sources are appended in enum order. */
+    val sourceOrder: List<DownloadSource> = DEFAULT_SOURCE_ORDER,
     val themeMode: ThemeMode = ThemeMode.DARK,
     /** Where the palette comes from: the app's own, the wallpaper's, or neutral. */
     val themeStyle: ThemeStyle = ThemeStyle.MORPHE,
@@ -79,14 +95,20 @@ internal data class HelperSettings(
     val pureBlackTheme: Boolean = false,
     /** Custom accent as `#RRGGBB`; empty keeps the style's own accent. */
     val customAccentColor: String = "",
-    val adGuardDns: Boolean = false,
+    val adGuardDns: Boolean = true,
     val virusTotalEnabled: Boolean = false,
     val virusTotalApiKey: String = "",
     val virusTotalScanMode: VirusTotalScanMode = VirusTotalScanMode.ASK,
     /** Hand the file to Morphe without showing the result when a scan comes back clean. */
     val virusTotalAutoProceed: Boolean = false,
     // Source opened by default when Helper launches (null = first enabled source).
-    val preferredSource: DownloadSource? = null
+    val preferredSource: DownloadSource? = null,
+    val checkUpdates: Boolean = true,
+    val updateChannel: UpdateChannel = UpdateChannel.STABLE,
+    val updateMode: UpdateMode = UpdateMode.NOTIFY,
+    val updatePopup: Boolean = true,
+    /** Empty keeps Shizuku's default package; set for forks with another name. */
+    val shizukuPackage: String = ""
 )
 
 internal enum class VirusTotalScanMode(
@@ -104,6 +126,34 @@ internal enum class VirusTotalScanMode(
     ALWAYS(
         title = "Always scan",
         description = "Automatically scan every download before handing off."
+    )
+}
+
+internal enum class UpdateChannel(
+    val title: String,
+    val description: String
+) {
+    STABLE(
+        title = "Stable",
+        description = "Only stable releases are offered."
+    ),
+    BETA(
+        title = "Beta",
+        description = "Include pre-release builds tagged beta or rc."
+    )
+}
+
+internal enum class UpdateMode(
+    val title: String,
+    val description: String
+) {
+    NOTIFY(
+        title = "Notify me",
+        description = "Show a notification when a newer release is available."
+    ),
+    SHIZUKU(
+        title = "Automatic via Shizuku",
+        description = "Download and install updates silently when Shizuku is running and approved. Falls back to a notification."
     )
 }
 
@@ -172,13 +222,65 @@ internal enum class DownloadLocation(
     val description: String
 ) {
     TEMPORARY(
-        title = "Store in cache",
-        description = "Keep the file in Helper's cache and hand it off to Morphe  no visible copy is left behind."
+        title = "Internal app storage",
+        description = "Keep the hand-off file in Helper's private storage."
+    ),
+    EXTERNAL(
+        title = "App external storage",
+        description = "Save a copy in the app's external files folder."
     ),
     DOWNLOADS(
-        title = "Store in downloads",
-        description = "Save a visible copy in Downloads/Morphe Helper after the file checks out."
+        title = "Downloads/Morphe Helper",
+        description = "Save a visible copy in Downloads/Morphe Helper."
+    ),
+    CUSTOM(
+        title = "Custom folder",
+        description = "Save a copy in a folder you choose with the system picker."
     )
+}
+
+internal enum class DownloadRetention(
+    val title: String,
+    val description: String,
+    val durationMillis: Long = 0L
+) {
+    KEEP(
+        title = "Keep forever",
+        description = "Keep downloads until you clear storage."
+    ),
+    AFTER_HANDOFF(
+        title = "After hand-off",
+        description = "Skip the saved copy and remove the temporary file after a short delay."
+    ),
+    HOUR_1(
+        title = "1 hour",
+        description = "Delete cache and saved copies after one hour.",
+        durationMillis = 60L * 60L * 1000L
+    ),
+    HOUR_24(
+        title = "24 hours",
+        description = "Delete cache and saved copies after 24 hours.",
+        durationMillis = 24L * 60L * 60L * 1000L
+    ),
+    DAY_7(
+        title = "7 days",
+        description = "Delete cache and saved copies after 7 days.",
+        durationMillis = 7L * 24L * 60L * 60L * 1000L
+    )
+}
+
+internal enum class DownloadConnectionCount(val count: Int) {
+    TWO(2),
+    FOUR(4),
+    EIGHT(8),
+    SIXTEEN(16),
+    THIRTY_TWO(32);
+
+    val title: String
+        get() = "$count connections"
+
+    val description: String
+        get() = "Use up to $count parallel connections. File size can reduce this."
 }
 
 internal enum class NetworkPolicy(
@@ -232,11 +334,21 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             prefs.getString("download_location", null),
             DownloadLocation.TEMPORARY
         ),
+        downloadRetention = enumValueOrDefault(
+            prefs.getString("download_retention", null),
+            DownloadRetention.KEEP
+        ),
+        downloadCustomTreeUri = prefs.getString("download_custom_tree_uri", "") ?: "",
+        preferDensitySpecificVariants = prefs.getBoolean("prefer_density_specific_variants", false),
+        showLauncherIcon = prefs.getBoolean("show_launcher_icon", true),
         networkPolicy = enumValueOrDefault(
             prefs.getString("network_policy", null),
             NetworkPolicy.WIFI_AND_MOBILE
         ),
-        deleteTemporaryAfterHandoff = prefs.getBoolean("delete_temporary_after_handoff", true),
+        downloadConnections = enumValueOrDefault(
+            prefs.getString("download_connections", null),
+            DownloadConnectionCount.FOUR
+        ),
         logcatLogging = prefs.getBoolean("logcat_logging", true),
         fastMode = prefs.getBoolean("fast_mode", true),
         useMorpheResolver = prefs.getBoolean("use_morphe_resolver", true),
@@ -248,6 +360,12 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             .orEmpty()
             .mapNotNull { name -> DownloadSource.entries.firstOrNull { it.name == name } }
             .toSet(),
+        sourceOrder = prefs.getString("source_order", null)
+            ?.split(',')
+            ?.mapNotNull { name -> DownloadSource.entries.firstOrNull { it.name == name } }
+            ?.distinct()
+            ?.takeIf { it.isNotEmpty() }
+            ?: DEFAULT_SOURCE_ORDER,
         themeMode = enumValueOrDefault(
             prefs.getString("theme_mode", null),
             ThemeMode.DARK
@@ -255,7 +373,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         themeStyle = themeStyle(prefs),
         pureBlackTheme = prefs.getBoolean("pure_black_theme", false),
         customAccentColor = prefs.getString("custom_accent_color", "") ?: "",
-        adGuardDns = prefs.getBoolean("adguard_dns", false),
+        adGuardDns = prefs.getBoolean("adguard_dns", true),
         virusTotalEnabled = prefs.getBoolean("virus_total_enabled", false),
         virusTotalApiKey = prefs.getString("virus_total_api_key", "") ?: "",
         virusTotalAutoProceed = prefs.getBoolean("virus_total_auto_proceed", false),
@@ -264,17 +382,47 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             VirusTotalScanMode.ASK
         ),
         preferredSource = prefs.getString("preferred_source", null)
-            ?.let { name -> DownloadSource.entries.firstOrNull { it.name == name } }
+            ?.let { name -> DownloadSource.entries.firstOrNull { it.name == name } },
+        checkUpdates = prefs.getBoolean("check_updates", true),
+        updateChannel = enumValueOrDefault(
+            prefs.getString("update_channel", null),
+            if (UpdateInfo.isPrerelease(BuildConfig.VERSION_NAME)) {
+                UpdateChannel.BETA
+            } else {
+                UpdateChannel.STABLE
+            }
+        ),
+        updateMode = enumValueOrDefault(
+            prefs.getString("update_mode", null),
+            UpdateMode.NOTIFY
+        ),
+        updatePopup = prefs.getBoolean("update_popup", true),
+        shizukuPackage = prefs.getString("shizuku_package", "") ?: ""
     )
 
-    // Version 2 turned Fast Mode on and narrowed the enabled sources to the five the
-    // helper is built around. Applied once and saved, so from the next launch on the
-    // stored values (including a deliberate opt-out) win as usual.
+    // Version 2 turned Fast Mode on and narrowed the enabled sources to the ones the
+    // helper is built around. Version 4 moved Morphe Link to the front of the default
+    // order, but only when the saved order was still the old unmodified default.
+    // Version 5 enables APKCube by default, removing the old default-off entry. Version
+    // 6 enables AdGuard DNS by default. Each step is applied once and saved, so from the
+    // next launch on the stored values win.
     val storedVersion = prefs.getInt(SETTINGS_VERSION_KEY, 1)
-    val migrated = if (storedVersion < SETTINGS_VERSION) {
-        settings.copy(fastMode = true, disabledSources = DEFAULT_DISABLED_SOURCES)
-    } else {
-        settings
+    var migrated = settings
+    if (storedVersion < 2) {
+        migrated = migrated.copy(fastMode = true, disabledSources = DEFAULT_DISABLED_SOURCES)
+    }
+    if (storedVersion < 4 &&
+        migrated.sourceOrder == DownloadSource.entries.toList()
+    ) {
+        migrated = migrated.copy(sourceOrder = DEFAULT_SOURCE_ORDER)
+    }
+    if (storedVersion < 5) {
+        migrated = migrated.copy(
+            disabledSources = migrated.disabledSources - DownloadSource.APK_CUBE
+        )
+    }
+    if (storedVersion < 6) {
+        migrated = migrated.copy(adGuardDns = true)
     }
     if (migrated !== settings) {
         saveHelperSettings(migrated)
@@ -291,14 +439,20 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
     getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         .edit()
         .putString("download_location", settings.downloadLocation.name)
+        .putString("download_retention", settings.downloadRetention.name)
+        .putString("download_custom_tree_uri", settings.downloadCustomTreeUri)
+        .putBoolean("prefer_density_specific_variants", settings.preferDensitySpecificVariants)
+        .putBoolean("show_launcher_icon", settings.showLauncherIcon)
+        .remove("delete_temporary_after_handoff")
         .putString("network_policy", settings.networkPolicy.name)
-        .putBoolean("delete_temporary_after_handoff", settings.deleteTemporaryAfterHandoff)
+        .putString("download_connections", settings.downloadConnections.name)
         .putBoolean("logcat_logging", settings.logcatLogging)
         .putInt(SETTINGS_VERSION_KEY, SETTINGS_VERSION)
         .putBoolean("fast_mode", settings.fastMode)
         .putBoolean("use_morphe_resolver", settings.useMorpheResolver)
         .putString("fast_mode_policy", settings.fastModePolicy.name)
         .putStringSet("disabled_sources", settings.disabledSources.map { it.name }.toSet())
+        .putString("source_order", settings.orderedSources.joinToString(",") { it.name })
         .putString("theme_mode", settings.themeMode.name)
         .putString("theme_style", settings.themeStyle.name)
         .putBoolean("pure_black_theme", settings.pureBlackTheme)
@@ -309,11 +463,50 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putString("virus_total_scan_mode", settings.virusTotalScanMode.name)
         .putBoolean("virus_total_auto_proceed", settings.virusTotalAutoProceed)
         .putString("preferred_source", settings.preferredSource?.name)
+        .putBoolean("check_updates", settings.checkUpdates)
+        .putString("update_channel", settings.updateChannel.name)
+        .putString("update_mode", settings.updateMode.name)
+        .putBoolean("update_popup", settings.updatePopup)
+        .putString("shizuku_package", settings.shizukuPackage)
         .apply()
 }
 
 private inline fun <reified T : Enum<T>> enumValueOrDefault(name: String?, fallback: T): T =
     name?.let { runCatching { enumValueOf<T>(it) }.getOrNull() } ?: fallback
+
+/** Saved priority order with any newly added sources appended. */
+internal val HelperSettings.orderedSources: List<DownloadSource>
+    get() {
+        val saved = sourceOrder.filter { it in DownloadSource.entries }.distinct()
+        return saved + DownloadSource.entries.filterNot { it in saved }
+    }
+
+/** Re-applies the saved launcher icon choice without requiring a settings reload. */
+internal fun Context.ensureLauncherIconState() {
+    val shown = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        .getBoolean("show_launcher_icon", true)
+    setLauncherIconVisible(shown)
+}
+
+/**
+ * The launcher entry is an activity alias. MainActivity keeps a MAIN/INFO filter
+ * so Android Settings can still open the app while the icon is hidden.
+ */
+internal fun Context.setLauncherIconVisible(shown: Boolean) {
+    val alias = ComponentName(packageName, "$packageName.Launcher")
+    val state = if (shown) {
+        PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+    } else {
+        PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    }
+    runCatching {
+        packageManager.setComponentEnabledSetting(
+            alias,
+            state,
+            PackageManager.DONT_KILL_APP
+        )
+    }
+}
 
 /**
  * The stored colour style, or one derived from the retired `dynamic_colors`
@@ -349,7 +542,10 @@ internal fun Context.restoreAndPersistRateLimiter() {
     }
 }
 
-internal fun Context.temporaryDownloadsDir(): File = File(cacheDir, "downloads")
+// Private files rather than cacheDir: Android may clear the cache while Morphe
+// is still reading the returned URI, which made the hand-off fail.
+internal fun Context.temporaryDownloadsDir(): File =
+    File(filesDir, "downloads").apply { mkdirs() }
 
 internal fun Context.temporaryDownloadsSize(): Long =
     temporaryDownloadsDir()
@@ -421,75 +617,12 @@ internal fun Context.clearDownloadsCopies(): Long {
         }
         return freed
     }
-    val dir = File(
+        val dir = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
         "Morphe Helper"
     )
     val files = dir.listFiles()?.filter { it.isFile }.orEmpty()
     val freed = files.sumOf { it.length() }
     files.forEach { file -> runCatching { file.delete() } }
-    return freed
-}
-
-/**
- * Cleans up handed-off and stale temporary files when auto-clear is enabled,
- * returning the freed bytes (0 if nothing was removed).
- *
- * Two sources of leftovers are handled:
- *  1. Handed-off files whose in-process deleter died with the process (they were
- *     recorded in `pending_temp_deletes` at hand-off time).
- *  2. Older handed-off files that predate that record: once past the same grace
- *     period, anything in the temp dir is dropped unless it is the file the
- *     pending hand-off result still points at (Morphe can re-request it) or an
- *     in-progress download's `.part` staging file.
- */
-internal fun Context.cleanupTemporaryDownloads(settings: HelperSettings): Long {
-    if (!settings.deleteTemporaryAfterHandoff) return 0L
-    var freed = 0L
-    val now = System.currentTimeMillis()
-    val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    val deleteCutoff = now - TEMP_CLEANUP_DELAY_MS
-
-    // The file the pending hand-off result still points at must survive.
-    val pendingFile = DownloadJobManager.readPendingResult(this)
-        ?.fileName
-        ?.let { name -> File(temporaryDownloadsDir(), name).canonicalPath }
-
-    // 1) Recorded handed-off deletions the in-process deleter never ran.
-    val pending = prefs.getStringSet("pending_temp_deletes", emptySet()).orEmpty()
-    if (pending.isNotEmpty()) {
-        val remaining = pending.toMutableSet()
-        pending.forEach { entry ->
-            val path = entry.substringBeforeLast('|')
-            val recordedAt = entry.substringAfterLast('|').toLongOrNull() ?: 0L
-            val file = File(path)
-            when {
-                !file.exists() -> remaining.remove(entry)
-                now - recordedAt >= TEMP_CLEANUP_DELAY_MS -> {
-                    freed += file.length()
-                    runCatching { file.delete() }
-                    remaining.remove(entry)
-                }
-            }
-        }
-        prefs.edit().putStringSet("pending_temp_deletes", remaining).apply()
-    }
-
-    // 2) Handed-off leftovers with no record: past the grace period, drop every
-    //    temp file that is not the pending re-request target or an in-flight
-    //    download's staging file.
-    temporaryDownloadsDir()
-        .listFiles()
-        ?.filter {
-            it.isFile &&
-                it.lastModified() < deleteCutoff &&
-                it.name.endsWith(".part").not() &&
-                it.canonicalPath != pendingFile
-        }
-        ?.forEach { file ->
-            freed += file.length()
-            runCatching { file.delete() }
-        }
-
     return freed
 }

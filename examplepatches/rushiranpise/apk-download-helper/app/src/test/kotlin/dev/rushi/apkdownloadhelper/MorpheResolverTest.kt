@@ -22,6 +22,17 @@ class MorpheResolverTest {
     }
 
     @Test
+    fun `the query includes a single build code`() {
+        val request = testRequest(
+            packageName = "com.example.app",
+            versionName = "2.0.0",
+            versionCode = 123456L
+        )
+
+        assertEquals("com.example.app~2.0.0~arm64-v8a~123456", morpheResolveQuery(request))
+    }
+
+    @Test
     fun `with no requested version the resolver is asked for any`() {
         val request = testRequest(packageName = "com.example.app", versionName = null)
 
@@ -85,5 +96,28 @@ class MorpheResolverTest {
     fun `a lookalike Uptodown host is rejected`() {
         assertNull(uptodownResolvedPageOf("https://evil.example.uptodown.com.evil.example/android/download/1-x"))
         assertNull(uptodownResolvedPageOf("not a url"))
+    }
+
+    @Test
+    fun `resolved links are cached until their ttl`() {
+        val cache = ResolvedLinkCache(ttlMillis = 1_000L)
+        cache.put("com.example.app~2.0.0~arm64-v8a", variant, now = 10_000L)
+
+        assertEquals(variant, cache.get("com.example.app~2.0.0~arm64-v8a", now = 10_500L))
+        assertNull(cache.get("com.example.app~2.0.0~arm64-v8a", now = 11_001L))
+    }
+
+    @Test
+    fun `the least recently used link is evicted first`() {
+        val cache = ResolvedLinkCache(ttlMillis = 10_000L, maxEntries = 2)
+        cache.put("first", variant, now = 10_000L)
+        cache.put("second", release, now = 10_000L)
+
+        assertEquals(variant, cache.get("first", now = 10_100L))
+        cache.put("third", "https://example.com/file.apk", now = 10_200L)
+
+        assertNull(cache.get("second", now = 10_300L))
+        assertEquals(variant, cache.get("first", now = 10_300L))
+        assertEquals("https://example.com/file.apk", cache.get("third", now = 10_300L))
     }
 }
