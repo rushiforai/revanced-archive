@@ -26,6 +26,9 @@ internal fun interface SourceTextFetcher {
  */
 internal class HttpRateLimitedException(message: String) : Exception(message)
 
+/** An explicit HTTP 404, distinct from transient network or parse failures. */
+internal class HttpNotFoundException(url: String) : Exception("HTTP 404 for $url")
+
 /**
  * Thrown when a source answers a probe with a Cloudflare legal-interstitial /
  * challenge page instead of the real content. Callers surface it as a distinct
@@ -54,18 +57,41 @@ internal class OkHttpSourceTextFetcher(
     private var nextAllowedAtNanos = 0L
 
     override fun fetchText(url: String, referer: String?): String {
-        pace(gapMillisFor(url))
         val builder = Request.Builder().url(url)
         referer?.let { builder.header("Referer", it) }
-        client.newCall(builder.build()).execute().use { response ->
-            if (!response.isSuccessful) {
-                if (response.code == 429) {
+        repeat(MAX_ATTEMPTS) { attempt ->
+            pace(gapMillisFor(url))
+            var retry = false
+            client.newCall(builder.build()).execute().use { response ->
+                if (!response.isSuccessful) {
+                    if (response.code == 429 && attempt + 1 < MAX_ATTEMPTS) {
+                        retry = true
+                    } else if (response.code == 429) {
+                        throw HttpRateLimitedException("HTTP 429 Too Many Requests for $url")
+                    } else if (response.code == 404) {
+                        throw HttpNotFoundException(url)
+                    } else {
+                        throw IllegalStateException("HTTP ${response.code} for $url")
+                    }
+                } else {
+                    return response.body.string()
+                }
+            }
+            if (retry) {
+                try {
+                    Thread.sleep(RATE_LIMIT_RETRY_DELAY_MS)
+                } catch (ignored: InterruptedException) {
+                    Thread.currentThread().interrupt()
                     throw HttpRateLimitedException("HTTP 429 Too Many Requests for $url")
                 }
-                throw IllegalStateException("HTTP ${response.code} for $url")
             }
-            return response.body.string()
         }
+        throw IllegalStateException("Request failed for $url")
+    }
+
+    private companion object {
+        const val MAX_ATTEMPTS = 2
+        const val RATE_LIMIT_RETRY_DELAY_MS = 700L
     }
 
     private fun gapMillisFor(url: String): Long {
@@ -99,6 +125,10 @@ internal class SourceParserContext(
     val fetcher: SourceTextFetcher,
     val apkPureApi: ApkPureApi,
     val aptoideApi: AptoideApi,
+    /** Uptodown's mobile API; null keeps tests and callers on the HTML flow. */
+    val uptodownApi: UptodownApi? = null,
+    /** Optional probes started before Fast Mode reaches their sources. */
+    val prefetch: SourcePrefetch? = null,
     /** APKMirror's latest-release JSON endpoint; null keeps tests on the scrape path. */
     val apkMirrorApi: ApkMirrorApi? = null,
     val playHttpClient: PlayHttpClient? = null,

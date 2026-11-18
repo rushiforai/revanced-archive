@@ -7,6 +7,7 @@ import dev.rushi.apkdownloadhelper.TAG
 import dev.rushi.apkdownloadhelper.download.apkMirrorVersionSlug
 import dev.rushi.apkdownloadhelper.download.compareVersionNames
 import dev.rushi.apkdownloadhelper.download.fileKindFromUrl
+import dev.rushi.apkdownloadhelper.download.fileKindFromUrlOrNull
 import dev.rushi.apkdownloadhelper.download.hasVariantBuildMarker
 import dev.rushi.apkdownloadhelper.download.normalizedHttpUrlOrNull
 import dev.rushi.apkdownloadhelper.download.parseInfoTableValue
@@ -24,6 +25,7 @@ import dev.rushi.apkdownloadhelper.ui.DownloadSource
 import dev.rushi.apkdownloadhelper.ui.HelperRequest
 import dev.rushi.apkdownloadhelper.ui.VersionStatus
 import dev.rushi.apkdownloadhelper.ui.identityKey
+import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.net.URLEncoder
@@ -37,6 +39,9 @@ private val APKMIRROR_EDITION_SLUG_REGEX = Regex(
 
 private const val APKMIRROR_BROWSER_NOTE =
     "Complete any browser check, then choose the file on the APKMirror page."
+
+private const val APKMIRROR_SEARCH_NOTE =
+    "Open APKMirror's search results, then choose the app and version."
 
 internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSourceParser {
     override val source: DownloadSource = DownloadSource.APK_MIRROR
@@ -138,6 +143,7 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
 
     private fun apkMirrorRequested(request: HelperRequest): DownloadCandidate {
         val browserUrl = apkMirrorBrowserUrl(request)
+        val searchPage = apkMirrorIsSearchPage(browserUrl)
         return DownloadCandidate(
             source = DownloadSource.APK_MIRROR,
             name = request.appName,
@@ -150,8 +156,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             directDownload = false,
             versionStatus = VersionStatus.REQUESTED,
             formatMatches = true,
-            note = APKMIRROR_BROWSER_NOTE,
-            captchaUrl = browserUrl
+            note = if (searchPage) APKMIRROR_SEARCH_NOTE else APKMIRROR_BROWSER_NOTE,
+            captchaUrl = browserUrl.takeUnless { searchPage }
         )
     }
 
@@ -403,6 +409,7 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         latestInfo: ApkMirrorLatestInfo?
     ): DownloadCandidate {
         val browserUrl = latestInfo?.openUrl ?: apkMirrorPackageSearchUrl(request.packageName)
+        val searchPage = apkMirrorIsSearchPage(browserUrl)
         return DownloadCandidate(
             source = DownloadSource.APK_MIRROR,
             name = request.appName,
@@ -415,8 +422,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
             directDownload = false,
             versionStatus = VersionStatus.LATEST,
             formatMatches = true,
-            note = APKMIRROR_BROWSER_NOTE,
-            captchaUrl = browserUrl
+            note = if (searchPage) APKMIRROR_SEARCH_NOTE else APKMIRROR_BROWSER_NOTE,
+            captchaUrl = browserUrl.takeUnless { searchPage }
         )
     }
 
@@ -448,10 +455,8 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         return requested.orEmpty()
     }
 
-    private fun apkMirrorPackageSearchUrl(packageName: String): String {
-        val query = URLEncoder.encode(packageName, "UTF-8")
-        return "https://www.apkmirror.com/?post_type=app_release&searchtype=app&s=$query"
-    }
+    private fun apkMirrorPackageSearchUrl(packageName: String): String =
+        apkMirrorSearchUrl(packageName)
 
     private fun resolveApkMirrorLatestInfo(
         request: HelperRequest,
@@ -889,8 +894,18 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         }
         val resolvedVersion = versionName
             ?: apkMirrorVersionFromReleaseUrl(releaseUrl)
+        // A bundle variant can still serve its base APK: APKMirror sometimes
+        // puts forcebaseapk=true on the only download button, and the CDN then
+        // returns a plain .apk. The file that will actually be downloaded wins
+        // over the page badge, or Morphe gets an APK named .apkm.
+        val urlFileKind = fileKindFromUrlOrNull(finalUrl)
+        val downloadsBaseApk = forceBaseApk ||
+            downloadButtonUrl.contains("forcebaseapk=true", ignoreCase = true) ||
+            finalUrl.contains("forcebaseapk=true", ignoreCase = true) ||
+            urlFileKind == "apk"
         val fileKind = when {
-            forceBaseApk -> "apk"
+            downloadsBaseApk -> "apk"
+            urlFileKind != null -> urlFileKind
             variant != null -> variant.fileKind
             isBundle -> "apkm"
             else -> fileKindFromUrl(finalUrl)
@@ -976,11 +991,26 @@ internal class ApkMirrorParser(private val ctx: SourceParserContext) : ApkSource
         captchaUrl = releaseUrl
     )
 
-    private fun apkMirrorBrowserUrl(request: HelperRequest): String =
-        request.sourceHintUrlsFor(DownloadSource.APK_MIRROR)
-            .firstOrNull { it.contains("apkmirror.com", ignoreCase = true) }
-            ?.let(::apkMirrorAbsoluteUrl)
-            ?: apkMirrorPackageSearchUrl(request.packageName)
+    private fun apkMirrorBrowserUrl(request: HelperRequest): String {
+        val hintedPage = request.sourceHintUrlsFor(DownloadSource.APK_MIRROR)
+            .asSequence()
+            .mapNotNull(::apkMirrorAbsoluteUrl)
+            .firstOrNull(::isApkMirrorHostUrl)
+        return hintedPage ?: apkMirrorPackageSearchUrl(request.packageName)
+    }
+
+    /** Only an actual APKMirror host is a page this source can open. */
+    private fun isApkMirrorHostUrl(url: String): Boolean {
+        val host = urlHostOf(url) ?: return false
+        return host == "apkmirror.com" || host.endsWith(".apkmirror.com")
+    }
+
+    private fun apkMirrorIsSearchPage(url: String): Boolean =
+        runCatching {
+            if (!isApkMirrorHostUrl(url)) return@runCatching false
+            val query = java.net.URI(url).query.orEmpty()
+            query.contains("post_type=app_release") || query.contains("searchtype=app")
+        }.getOrDefault(false)
 
     /**
      * The release page's variant rows, numbered in the order it lists them.
@@ -1294,8 +1324,18 @@ private fun apkMirrorReleaseUrlMatchesVersion(url: String, version: String): Boo
         return hasPackageId || hasPlayPackage || tablePackage
     }
 
-    private fun fetchDocument(url: String, referer: String? = null): Document =
-        ctx.document(url, referer)
+    private fun fetchDocument(url: String, referer: String? = null): Document {
+        ctx.prefetch?.takeText(url, referer)?.let { html ->
+            return Jsoup.parse(html, url)
+        }
+        return ctx.document(url, referer)
+    }
+}
+
+/** The APKMirror search URL used by the parser and its prefetch. */
+internal fun apkMirrorSearchUrl(packageName: String): String {
+    val query = URLEncoder.encode(packageName, "UTF-8")
+    return "https://www.apkmirror.com/?post_type=app_release&searchtype=app&s=$query"
 }
 
 /**

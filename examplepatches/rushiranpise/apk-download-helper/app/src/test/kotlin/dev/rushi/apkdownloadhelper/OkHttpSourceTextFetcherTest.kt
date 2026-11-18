@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -30,9 +36,25 @@ class OkHttpSourceTextFetcherTest {
     }
 
     @Test
+    fun retriesRateLimitOnce() {
+        val server = MockWebServer()
+        server.start()
+        server.enqueue(MockResponse().setResponseCode(429))
+        server.enqueue(MockResponse().setBody("ok"))
+        val fetcher = OkHttpSourceTextFetcher(OkHttpClient(), minRequestGapMillis = 0)
+        val url = server.url("/").toString()
+
+        val result = fetcher.fetchText(url, null)
+        server.shutdown()
+
+        assertTrue(result == "ok")
+    }
+
+    @Test
     fun surfacesHttp429AsRateLimitedException() {
         val server = MockWebServer()
         server.start()
+        server.enqueue(MockResponse().setResponseCode(429))
         server.enqueue(MockResponse().setResponseCode(429))
         val fetcher = OkHttpSourceTextFetcher(OkHttpClient(), minRequestGapMillis = 0)
         val url = server.url("/").toString()
@@ -41,5 +63,19 @@ class OkHttpSourceTextFetcherTest {
         server.shutdown()
 
         assertTrue(result.exceptionOrNull() is HttpRateLimitedException)
+    }
+
+    @Test
+    fun surfacesHttp404AsNotFound() {
+        val server = MockWebServer()
+        server.start()
+        server.enqueue(MockResponse().setResponseCode(404))
+        val fetcher = OkHttpSourceTextFetcher(OkHttpClient(), minRequestGapMillis = 0)
+        val url = server.url("/").toString()
+
+        val result = runCatching { fetcher.fetchText(url, null) }
+        server.shutdown()
+
+        assertTrue(result.exceptionOrNull() is HttpNotFoundException)
     }
 }

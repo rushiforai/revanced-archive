@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -96,6 +102,35 @@ class SourceSwitchMatchTest {
 
         assertEquals(1, matches.size)
         assertEquals("2.0.0", matches.single().versionName)
+    }
+
+    @Test
+    fun requestedSwitchKeepsACodeOnlyTarget() {
+        val codeOnlyRequest = testRequest(versionName = null, versionCode = 100)
+        val target = candidate(
+            option = CandidateOption.REQUESTED,
+            versionName = null,
+            versionCode = 100
+        )
+        val candidates = listOf(
+            candidate(
+                source = DownloadSource.APK_PURE,
+                option = CandidateOption.REQUESTED,
+                versionName = null,
+                versionCode = 100
+            ),
+            candidate(
+                source = DownloadSource.APK_PURE,
+                option = CandidateOption.REQUESTED,
+                versionName = null,
+                versionCode = 200
+            )
+        )
+
+        val matches = matchingSourceSwitchCandidates(candidates, target, codeOnlyRequest)
+
+        assertEquals(1, matches.size)
+        assertEquals(100L, matches.single().versionCode)
     }
 
     @Test

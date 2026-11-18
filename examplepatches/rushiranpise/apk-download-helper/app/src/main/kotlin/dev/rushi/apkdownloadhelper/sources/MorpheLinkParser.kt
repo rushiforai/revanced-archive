@@ -13,6 +13,7 @@ import dev.rushi.apkdownloadhelper.ui.DownloadSource
 import dev.rushi.apkdownloadhelper.ui.HelperRequest
 import dev.rushi.apkdownloadhelper.ui.isApkMirrorFileUrl
 import dev.rushi.apkdownloadhelper.ui.isApkPureFileUrl
+import dev.rushi.apkdownloadhelper.ui.isCapturableDownload
 import dev.rushi.apkdownloadhelper.ui.isUptodownFileUrl
 import dev.rushi.apkdownloadhelper.ui.looksLikeApkDownload
 import java.net.URI
@@ -59,11 +60,20 @@ internal class MorpheLinkParser(
         // fallback page can be a direct file, a GitHub release or a source page,
         // so it gets the same orchestration instead of always opening a browser.
         for ((url, _) in targets) {
+            if (url.isCaptchaGatedSourcePage()) {
+                android.util.Log.i(
+                    TAG,
+                    "Morphe resolver named a captcha-gated page; only direct files are used: $url"
+                )
+                continue
+            }
             val candidates = resolvedCandidates(request, url, option)
             if (candidates.isNotEmpty()) return candidates
         }
 
-        val (browserUrl, fromFallback) = targets.firstOrNull { it.second } ?: targets.first()
+        val (browserUrl, fromFallback) = targets
+            .firstOrNull { (url, _) -> !url.isCaptchaGatedSourcePage() }
+            ?: return emptyList()
         val browser = browserCandidate(
             request = request,
             url = browserUrl,
@@ -92,6 +102,15 @@ internal class MorpheLinkParser(
 
         val resolvedSource = morpheLinkSourceOf(url) ?: return emptyList()
         if (!ctx.isSourceEnabled(resolvedSource)) return emptyList()
+        // Uptodown and APKCube only get the direct-file path above. Their pages
+        // normally need a Turnstile challenge, so handing the request to their
+        // parser here would stop the whole resolution on a captcha before the
+        // API-backed sources have run.
+        if (resolvedSource == DownloadSource.UPTODOWN ||
+            resolvedSource == DownloadSource.APK_CUBE
+        ) {
+            return emptyList()
+        }
         return runCatching {
             resolvedSource
                 .let(delegatesBySource::get)
@@ -217,6 +236,14 @@ internal class MorpheLinkParser(
     }
 }
 
+/** True for source pages that normally hide their file behind a captcha. */
+private fun String.isCaptchaGatedSourcePage(): Boolean =
+    !isCapturableDownload() && when (morpheLinkSourceOf(this)) {
+        DownloadSource.UPTODOWN,
+        DownloadSource.APK_CUBE -> true
+        else -> false
+    }
+
 /** The parser that should continue from a resolved page, based on its host. */
 internal fun morpheLinkSourceOf(url: String): DownloadSource? {
     val host = urlHostOf(url) ?: return null
@@ -228,7 +255,7 @@ internal fun morpheLinkSourceOf(url: String): DownloadSource? {
         host == "apkpure.com" || host.endsWith(".apkpure.com") -> DownloadSource.APK_PURE
         host == "aptoide.com" || host.endsWith(".aptoide.com") -> DownloadSource.APTOIDE
         host == "apkcube.com" || host.endsWith(".apkcube.com") -> DownloadSource.APK_CUBE
-        host == "evozi.com" || host.endsWith(".evozi.com") -> DownloadSource.EVOZI
+        // Evozi now redirects to APKCube, so it is no longer a separate source.
         else -> null
     }
 }

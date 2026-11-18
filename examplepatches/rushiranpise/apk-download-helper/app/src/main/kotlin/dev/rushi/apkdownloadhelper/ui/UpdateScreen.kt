@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -80,6 +82,10 @@ internal fun UpdateScreen(
     val updateAvailable = latest?.isNewerThan(BuildConfig.VERSION_NAME) == true
 
     fun checkNow(channel: UpdateChannel = settings.updateChannel) {
+        if (installing) {
+            checkMessage = "Finish the current install first."
+            return
+        }
         if (checking && channel == settings.updateChannel) return
         val token = checkToken + 1
         checkToken = token
@@ -101,12 +107,16 @@ internal fun UpdateScreen(
     fun install(useShizuku: Boolean) {
         val info = latest ?: return
         if (installing) return
+        if (checking) {
+            installMessage = "Wait for the update check to finish."
+            return
+        }
         if (info.assetUrl.isBlank()) {
             installMessage = "This release has no APK asset."
             return
         }
+        installing = true
         scope.launch {
-            installing = true
             installMessage = "Downloading v${info.version}…"
             try {
                 val file = UpdateManager.download(context, info)
@@ -209,18 +219,27 @@ internal fun UpdateScreen(
             }
         }
 
+        if (latest == null && checking) {
+            SettingsSection(title = "Changelog", icon = Icons.Outlined.History) {
+                SettingsGroup {
+                    SettingsItemCard(onClick = null) {
+                        ShimmerReleaseNotes()
+                    }
+                }
+            }
+        }
+
         latest?.let { info ->
             SettingsSection(title = "Changelog", icon = Icons.Outlined.History) {
                 SettingsGroup {
-                    SelectionContainer {
-                        Text(
-                            text = cleanReleaseNotes(info.notes).ifBlank { "No release notes for this version." },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(MorpheDefaults.ContentPadding),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    SettingsItemCard(onClick = null) {
+                        SelectionContainer {
+                            MorpheReleaseNotes(
+                                version = info.version,
+                                notes = info.notes,
+                                prerelease = UpdateInfo.isPrerelease(info.version)
+                            )
+                        }
                     }
                     if (info.releaseUrl.isNotBlank()) {
                         SettingsItem(

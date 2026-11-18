@@ -1,7 +1,14 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -22,6 +29,36 @@ class ApkMirrorParserTest {
             apkPureApi = FakeApkPureApi(),
             aptoideApi = FakeAptoideApi()
         )
+
+    @Test
+    fun requestedFallbackCandidate_ignoresSearchAndLookalikeHosts() {
+        val request = testRequest(packageName = packageName, versionName = "2.8.1").copy(
+            fallbackWebUrl = "https://google.com/search?q=%22com.example.app%22+%222.8.1%22+nodpi+%28site%3Aapkmirror.com+OR+site%3Auptodown.com%29&udm=14",
+            sourceHintUrls = listOf(
+                "https://www.apkmirror.com.evil.example/apk/example-org/example-app/"
+            )
+        )
+
+        val candidate = ApkMirrorParser(testParserContext(emptyMap()))
+            .requestedFallbackCandidate(request)
+
+        assertEquals(searchUrl, candidate.url)
+        assertNull(candidate.captchaUrl)
+    }
+
+    @Test
+    fun requestedFallbackCandidate_keepsRealApkMirrorPageAsCaptchaPage() {
+        val request = testRequest(packageName = packageName, versionName = "2.8.1").copy(
+            fallbackWebUrl = "https://google.com/search?q=%22com.example.app%22+site%3Aapkmirror.com",
+            sourceHintUrls = listOf(appPageUrl)
+        )
+
+        val candidate = ApkMirrorParser(testParserContext(emptyMap()))
+            .requestedFallbackCandidate(request)
+
+        assertEquals(appPageUrl, candidate.url)
+        assertEquals(appPageUrl, candidate.captchaUrl)
+    }
 
     private fun apkMirrorPages(
         extraPages: Map<String, String> = emptyMap()
@@ -892,5 +929,52 @@ class ApkMirrorParserTest {
         assertEquals("$finalUrl&forcebaseapk=true", candidate?.url)
         assertEquals(200L, candidate?.versionCode)
         assertEquals(DownloadSource.APK_MIRROR, candidate?.source)
+    }
+
+    @Test
+    fun findCandidatesFromResolvedUrl_labelsForceBaseApkFromBundlePageAsApk() = runBlocking {
+        val tiktokPackage = "com.zhiliaoapp.musically"
+        val variantUrl =
+            "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/" +
+                "tiktok-47-7-3-2-android-apk-download/"
+        val downloadPageUrl = "$variantUrl/download/?key=abc&forcebaseapk=true"
+        val finalUrl =
+            "https://cdn.example.com/" +
+                "com.zhiliaoapp.musically_47.7.3-2024707030_apkmirror.com.apk?token=abc"
+        val fetcher = FakeSourceTextFetcher(
+            pages = mapOf(
+                variantUrl to
+                    """<html><body>
+                         <span class="apkm-badge success">BUNDLE</span>
+                         <a class="downloadButton" href="$downloadPageUrl">Download</a>
+                       </body></html>""",
+                downloadPageUrl to
+                    """<html><body><a id="download-link" href="$finalUrl"></a></body></html>"""
+            )
+        )
+        val parser = ApkMirrorParser(parserContext(fetcher))
+        val request = testRequest(
+            packageName = tiktokPackage,
+            appName = "TikTok",
+            versionName = "47.7.3",
+            versionCode = 2024707030L,
+            requestedFileType = "APK/APKM/APKS/XAPK",
+            allowSplitArchive = true
+        )
+
+        val candidate = parser.findCandidatesFromResolvedUrl(
+            request = request,
+            url = variantUrl,
+            option = CandidateOption.REQUESTED
+        )?.single()
+
+        assertEquals("apk", candidate?.fileKind)
+        assertTrue(candidate?.formatMatches == true)
+        assertTrue(candidate?.directDownload == true)
+        assertEquals(finalUrl, candidate?.url)
+        assertEquals(
+            "$tiktokPackage-47.7.3-apkmirror.apk",
+            candidate?.files?.single()?.fileName
+        )
     }
 }

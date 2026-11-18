@@ -221,12 +221,11 @@ internal data class HelperRequest(
                 requestedVersionName,
                 ignoreVariantMarker = requestsVariantBuild
             )
-        val codeRequired = requestedVersionCodes.isNotEmpty() && candidateVersionCode != null
-        val codeMatches = requestedVersionCodes.isEmpty() ||
-            candidateVersionCode == null ||
-            (candidateVersionCode > 0L && candidateVersionCode in requestedVersionCodes)
+        if (nameRequired && !nameMatches) return false
 
-        return (!nameRequired || nameMatches) && (!codeRequired || codeMatches)
+        if (requestedVersionCodes.isEmpty()) return true
+        val candidateCode = candidateVersionCode ?: return nameMatches
+        return candidateCode > 0L && candidateCode in requestedVersionCodes
     }
 
     /**
@@ -247,7 +246,6 @@ internal data class HelperRequest(
             DownloadSource.APK_PURE -> listOf("apkpure.com")
             DownloadSource.UPTODOWN -> listOf("uptodown.com")
             DownloadSource.APK_CUBE -> listOf("apkcube.com")
-            DownloadSource.EVOZI -> listOf("apkcube.com", "evozi.com")
             DownloadSource.MORPHE_LINK -> listOf("morphe.software")
         }
 
@@ -384,6 +382,14 @@ internal data class ResolveOutcome(
     val fallbackCandidate: DownloadCandidate? = null,
     val notFoundMessage: String? = null
 )
+
+/**
+ * Only an explicit not-found answer may be cached. An empty candidate list can
+ * be the result of ABI or format filtering, and errors and cancellations are
+ * not misses.
+ */
+internal fun ResolveOutcome.definitiveNotFoundReason(): String? =
+    notFoundMessage?.takeIf { candidates.isEmpty() && errorMessage == null }
 
 internal sealed interface ResolveState {
     data object Idle : ResolveState
@@ -539,8 +545,12 @@ internal fun sourceSwitchVersionMatches(
     candidate: DownloadCandidate
 ): Boolean {
     if (target.option == CandidateOption.LATEST) return true
-    val targetVersion = target.versionName ?: return true
-    return candidate.versionName?.versionNameEquals(targetVersion) == true
+    val targetVersion = target.versionName
+    if (targetVersion != null) {
+        return candidate.versionName?.versionNameEquals(targetVersion) == true
+    }
+    val targetCode = target.versionCode ?: return true
+    return candidate.versionCode == targetCode
 }
 
 internal fun sourceSwitchVariantMatches(
@@ -639,16 +649,32 @@ internal data class BrowserDownloadCapture(
     val cookieHeader: String? = null
 )
 
+private val GENERIC_BROWSER_DOWNLOAD_NAMES = setOf(
+    "download",
+    "download.asp",
+    "download.aspx",
+    "download.cgi",
+    "download.jsp",
+    "download.php",
+    "download.pl"
+)
+
 internal fun capturedDownloadFileName(
     candidate: DownloadCandidate,
     downloadUrl: String,
     fileKind: String
 ): String {
-    val decodedUrl = runCatching { Uri.decode(downloadUrl) }.getOrDefault(downloadUrl)
+    val decodedUrl = downloadUrl.urlDecoded()
     val path = runCatching { java.net.URI(decodedUrl).path }.getOrDefault("")
     val fileName = path.substringAfterLast('/').takeIf { it.isNotBlank() && it != "/" }
-    val extension = fileName?.substringAfterLast('.', "")?.takeIf { it.isNotBlank() } ?: fileKind
-    val baseName = fileName?.takeIf { it.contains('.') }
+    val usableFileName = fileName
+        ?.takeIf { it.contains('.') }
+        ?.takeUnless { it.lowercase(Locale.US) in GENERIC_BROWSER_DOWNLOAD_NAMES }
+    val extension = usableFileName
+        ?.substringAfterLast('.', "")
+        ?.takeIf { it.isNotBlank() }
+        ?: fileKind
+    val baseName = usableFileName
         ?: "${candidate.packageName}-${candidate.versionName ?: "download"}.$extension"
     return baseName.sanitizeFileName()
 }
@@ -670,10 +696,9 @@ internal enum class DownloadSource(
     APK_PURE("APKPure", 2),
     APK_CUBE("APKCube", 3),
     APTOIDE("Aptoide", 4),
-    EVOZI("Evozi", 5),
-    MORPHE_LINK("Morphe Link", 6, supportsManualArtifactPicker = false),
-    AURORA("Aurora", 7, supportsManualArtifactPicker = false),
-    PLAY("Play", 8, supportsManualArtifactPicker = false)
+    MORPHE_LINK("Morphe Link", 5, supportsManualArtifactPicker = false),
+    AURORA("Aurora", 6, supportsManualArtifactPicker = false),
+    PLAY("Play", 7, supportsManualArtifactPicker = false)
 }
 
 internal fun DownloadSource.searchDomain(): String? = when (this) {
@@ -682,7 +707,6 @@ internal fun DownloadSource.searchDomain(): String? = when (this) {
     DownloadSource.APK_PURE -> "apkpure.com"
     DownloadSource.APK_CUBE -> "apkcube.com"
     DownloadSource.APTOIDE -> "aptoide.com"
-    DownloadSource.EVOZI -> "apkcube.com"
     DownloadSource.MORPHE_LINK -> null
     DownloadSource.PLAY -> "play.google.com"
     DownloadSource.AURORA -> null

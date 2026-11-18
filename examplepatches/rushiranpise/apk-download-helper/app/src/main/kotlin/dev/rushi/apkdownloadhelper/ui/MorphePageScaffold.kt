@@ -23,20 +23,25 @@ import androidx.compose.ui.unit.dp
 
 data class PageInsets(val top: Dp, val bottom: Dp, val horizontal: Dp)
 
+/**
+ * Pinned-header page. Opaque by default so pushed screens cannot show the page
+ * underneath. Only top-level pager pages should opt into a transparent background.
+ */
 @Composable
 fun MorphePinnedHeaderPage(
     header: @Composable ColumnScope.() -> Unit,
     scrollState: ScrollState,
     modifier: Modifier = Modifier,
+    backgroundColor: Color? = null,
     content: @Composable BoxScope.(insets: PageInsets) -> Unit
 ) {
     val density = LocalDensity.current
+    val resolvedBackground = backgroundColor ?: MaterialTheme.colorScheme.background
 
-    // Added .background here so the page is never transparent
     SubcomposeLayout(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(resolvedBackground)
     ) { constraints ->
         // 1. Measure Header first
         val headerPlaceables = subcompose("Header") {
@@ -66,11 +71,7 @@ fun MorphePinnedHeaderPage(
         )
 
         val contentPlaceables = subcompose("Content") {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-            ) {
+            Box(modifier = Modifier.fillMaxSize()) {
                 content(insets)
             }
         }.map { it.measure(constraints) }
@@ -91,7 +92,6 @@ fun MorpheSubpageScaffold(
     scrollState: ScrollState = rememberScrollState(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val scrollState = rememberScrollState()
     val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     MorphePinnedHeaderPage(
@@ -104,6 +104,7 @@ fun MorpheSubpageScaffold(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScrollFade(scrollState)
                 .verticalScroll(scrollState)
                 .padding(
                     start = insets.horizontal,
@@ -145,12 +146,13 @@ fun MorpheHeaderBar(
             Text(
                 text = title,
                 style = MaterialTheme.typography.headlineSmall,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             if (subtitle != null) {
                 Text(
                     text = subtitle,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -164,14 +166,13 @@ fun BoxScope.HeaderBand(
     shape: Shape,
     scrollState: ScrollState
 ) {
-    val density = LocalDensity.current
     Box(
         modifier = Modifier
             .matchParentSize()
             .graphicsLayer {
-                // Fade in the solid background as soon as you scroll
-                val fadeDistance = with(density) { 16.dp.toPx() }
-                alpha = (scrollState.value.toFloat() / fadeDistance).coerceIn(0f, 1f)
+                // Once content starts moving under the header it must be covered
+                // completely; a partial fade would leave text visible through it.
+                alpha = if (scrollState.value > 0) 1f else 0f
             }
             // Using solid background instead of haze to guarantee text is hidden
             .background(glass, shape)

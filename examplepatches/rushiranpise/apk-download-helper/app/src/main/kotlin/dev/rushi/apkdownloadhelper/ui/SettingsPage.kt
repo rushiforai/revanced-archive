@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.ScrollState
@@ -21,10 +22,10 @@ internal enum class SettingsCategory(
 ) {
     SOURCES("Sources", "Enable, disable and reorder providers", Icons.Outlined.Dns),
     APPEARANCE("Appearance", "Theme, colors, and app icon", Icons.Outlined.Palette),
-    DOWNLOADS("Downloads & Storage", "Save location, storage & Fast Mode", Icons.Outlined.SdStorage),
+    DOWNLOADS("Downloads", "Save location, storage & Fast Mode", Icons.Outlined.SdStorage),
     SECURITY_NETWORK("Security & Network", "Network policy, DNS & VirusTotal", Icons.Outlined.Security),
-    SYSTEM_LOGS("System & Logs", "Updates, history & diagnostics", Icons.AutoMirrored.Outlined.ViewList),
-    ABOUT("About", "Version, licenses & GitHub", Icons.Outlined.Info)
+    SYSTEM_LOGS("System & Logs", "History, logs & diagnostics", Icons.AutoMirrored.Outlined.ViewList),
+    ABOUT("About", "Version, updates & GitHub", Icons.Outlined.Info)
 }
 
 @Composable
@@ -39,12 +40,14 @@ internal fun SettingsPage(
         header = {
             MorpheHeaderBar(title = "Settings")
         },
-        scrollState = scrollState
+        scrollState = scrollState,
+        backgroundColor = Color.Transparent
     ) { insets ->
         CompositionLocalProvider(LocalSettingsSearch provides search) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .verticalScrollFade(scrollState)
                     .verticalScroll(scrollState)
                     .padding(
                         start = insets.horizontal,
@@ -77,7 +80,7 @@ internal fun SettingsPageDetail(
     content: @Composable ColumnScope.() -> Unit
 ) {
     BackHandler { onBack() }
-    MorpheSubpageScaffold(title = title, onBack = onBack) {
+    MorpheSubpageScaffold(title = title, onBack = onBack, scrollState = scrollState) {
         content()
     }
 }

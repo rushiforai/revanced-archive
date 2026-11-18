@@ -9,17 +9,18 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Smartphone
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,7 +48,6 @@ import dev.rushi.apkdownloadhelper.storage.DownloadHistoryStore
 import dev.rushi.apkdownloadhelper.storage.FastModePolicy
 import dev.rushi.apkdownloadhelper.storage.HelperSettings
 import dev.rushi.apkdownloadhelper.storage.RequestLogEntry
-import dev.rushi.apkdownloadhelper.storage.ThemeMode
 import dev.rushi.apkdownloadhelper.storage.orderedSources
 
 
@@ -127,7 +128,7 @@ internal fun HelperScreen(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        color = Color.Transparent
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
         // A pushed screen covers the home, but the focus system has no idea: leaving
@@ -140,10 +141,13 @@ internal fun HelperScreen(
             exit = fadeOut(tween(MorpheDefaults.ANIMATION_DURATION))
         ) {
         Column(modifier = Modifier.fillMaxSize()) {
+            val homeListState = rememberLazyListState()
             LazyColumn(
+                state = homeListState,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
+                    .verticalScrollFade(homeListState)
                     .statusBarsPadding()
                 .navigationBarsPadding()
                 .padding(horizontal = MorpheDefaults.ContentPadding, vertical = MorpheDefaults.ContentPadding),
@@ -155,30 +159,32 @@ internal fun HelperScreen(
                     horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
+                    Column(
                         modifier = Modifier.weight(1f),
-                        verticalAlignment = Alignment.Bottom,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(1.dp)
                     ) {
-                        Text(
-                            text = stringResource(R.string.helper),
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            // Yield space to the version label first: the version is
-                            // the last child, so without this it gets whatever the
-                            // title leaves and clips ("v1.") when the row is tight.
-                            modifier = Modifier.weight(1f, fill = false)
+                        MorpheWordmark(
+                            modifier = Modifier.height(26.dp),
+                            textColor = MaterialTheme.colorScheme.onBackground
                         )
-                        Text(
-                            text = "v${BuildConfig.VERSION_NAME}",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.titleSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Clip
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.helper),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1
+                            )
+                            Text(
+                                text = "v${BuildConfig.VERSION_NAME}",
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = MaterialTheme.typography.bodySmall,
+                                maxLines = 1,
+                                overflow = TextOverflow.Clip
+                            )
+                        }
                     }
                     HelperBoltButton(
                         fastMode = settings.fastMode,
@@ -192,35 +198,12 @@ internal fun HelperScreen(
                             ).show()
                         }
                     )
-                    HelperThemeButton(
-                        dark = when (settings.themeMode) {
-                            ThemeMode.DARK -> true
-                            ThemeMode.LIGHT -> false
-                            ThemeMode.SYSTEM -> isSystemInDarkTheme()
-                        },
-                        onToggle = {
-                            val target = if (settings.themeMode == ThemeMode.LIGHT) {
-                                ThemeMode.DARK
-                            } else {
-                                ThemeMode.LIGHT
-                            }
-                            onSettingsChange(settings.copy(themeMode = target))
-                            Toast.makeText(
-                                context,
-                                if (target == ThemeMode.LIGHT) "Light theme" else "Dark theme",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    )
                 }
             }
 
             if (request == null) {
                 item {
-                    EmptyLaunchState(
-                        onOpenMorphe = onOpenMorphe,
-                        onFindApps = { showAppBrowser = false }
-                    )
+                    EmptyLaunchState(onOpenMorphe = onOpenMorphe)
                 }
                 return@LazyColumn
             }

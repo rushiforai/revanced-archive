@@ -118,6 +118,51 @@ internal fun validateApkLikeStream(
     return SequenceInputStream(ByteArrayInputStream(header, 0, headerSize), input)
 }
 
+/**
+ * True when the file is a ZIP with at least one nested APK. A split container
+ * can be served under an `.apk` name, so scanning must inspect the bytes, not
+ * only the extension.
+ */
+internal fun File.isSplitApkContainer(): Boolean = runCatching {
+    ZipFile(this).use { zip ->
+        zip.entries().asSequence().any { entry ->
+            !entry.isDirectory && entry.name.endsWith(".apk", ignoreCase = true)
+        }
+    }
+}.getOrDefault(false)
+
+/**
+ * True when this file is a standalone APK, whatever its extension says.
+ *
+ * Some sources hand a single APK out of a bundle-looking URL, so the bytes, not
+ * the `.apkm`/`.xapk` suffix, decide how the file must be named for Morphe.
+ */
+internal fun File.isStandaloneApkArchive(): Boolean = runCatching {
+    ZipFile(this).use { zip ->
+        zip.getEntry("AndroidManifest.xml") != null &&
+            zip.entries().asSequence().none { entry ->
+                !entry.isDirectory && entry.name.endsWith(".apk", ignoreCase = true)
+            }
+    }
+}.getOrDefault(false)
+
+/**
+ * The extension this archive's bytes require, or null when its current name is
+ * already usable.
+ *
+ * A generic endpoint name such as `download.php` says nothing about the file,
+ * and an APK served from a bundle page (or the reverse) must be handed to Morphe
+ * with the extension matching its contents.
+ */
+internal fun File.normalizedArchiveExtension(): String? {
+    val current = extension.lowercase(Locale.US)
+    return when {
+        isStandaloneApkArchive() -> "apk".takeIf { current != "apk" }
+        isSplitApkContainer() -> "apkm".takeIf { current !in SPLIT_ARCHIVE_FILE_KINDS }
+        else -> null
+    }
+}
+
 internal fun Context.readDownloadedApkMetadata(
     file: File,
     expectedPackage: String? = null,
@@ -566,7 +611,8 @@ internal fun String?.versionNameEquals(
 internal fun PendingDownloadResult.belongsTo(request: HelperRequest?): Boolean {
     if (request == null) return false
     if (requestPackage != request.packageName) return false
-    val requestedName = request.requestedVersionName ?: return true
+    val requestedName = request.requestedVersionName
+        ?: return request.requestedVersionCodes.isEmpty()
     val candidateName = versionName ?: return true
     return candidateName.versionNameEquals(requestedName)
 }

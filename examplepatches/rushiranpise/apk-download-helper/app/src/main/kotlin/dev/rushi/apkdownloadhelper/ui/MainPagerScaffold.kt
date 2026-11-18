@@ -24,6 +24,7 @@ import dev.chrisbanes.haze.HazeState
 internal fun MainPagerScaffold(
     pagerState: PagerState,
     modifier: Modifier = Modifier,
+    animatedBackground: Boolean = true,
     navigationCovered: () -> Boolean = { false },
     swipeEnabled: Boolean = true,
     settingsIcon: ImageVector = MainPage.SETTINGS.icon,
@@ -40,6 +41,10 @@ internal fun MainPagerScaffold(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        if (animatedBackground) {
+            MorpheBackground(modifier = Modifier.matchParentSize())
+        }
+
         // Mark the pager as the haze source so scrolling content blurs under the pill.
         HorizontalPager(
             state = pagerState,
@@ -48,7 +53,7 @@ internal fun MainPagerScaffold(
                 .fillMaxSize()
                 .hazeSource(state = barHaze),
         ) { pageIndex ->
-            content(MainPage.entries[pageIndex], barHeight)
+            content(MainPage.entries[pageIndex], if (covered) 0.dp else barHeight)
         }
 
         // Pass barHaze into MorpheNavigationBar so glassFill blurs the pager behind it.

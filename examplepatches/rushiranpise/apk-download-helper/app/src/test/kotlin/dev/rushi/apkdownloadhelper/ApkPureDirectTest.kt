@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -34,6 +40,14 @@ class ApkPureDirectTest {
         assertEquals(
             "https://d.apkpure.com/b/XAPK/com.example.app?versionCode=385914557",
             apkPureDirectUrl("com.example.app", "XAPK", 385914557L)
+        )
+    }
+
+    @Test
+    fun `a version name without a build code is still used directly`() {
+        assertEquals(
+            "https://d.apkpure.com/b/APK/com.example.app?version=8.72.0",
+            apkPureDirectUrl("com.example.app", "APK", null, "8.72.0")
         )
     }
 

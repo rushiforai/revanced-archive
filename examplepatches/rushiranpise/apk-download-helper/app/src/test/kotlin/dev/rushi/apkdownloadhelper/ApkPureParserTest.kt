@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -126,6 +132,45 @@ class ApkPureParserTest {
         )
 
         assertTrue(candidates.isEmpty())
+    }
+
+    @Test
+    fun findCandidates_requested_usesHistoryApiForExactVersion() = runBlocking {
+        val api = FakeApkPureApi(
+            historyResponse = ApkPureHistoryResponse(
+                versionList = listOf(
+                    ApkPureHistoryVersion(
+                        versionName = "8.72.0",
+                        versionCode = "593",
+                        asset = ApkPureAsset(
+                            type = "XAPK",
+                            url = "https://download.apkpure.com/b/XAPK/$packageName?version=8.72.0",
+                            size = 987654L
+                        )
+                    )
+                )
+            )
+        )
+        val parser = ApkPureParser(testParserContext(pages = emptyMap(), apkPureApi = api))
+
+        val candidates = parser.findCandidates(
+            request = testRequest(
+                packageName = packageName,
+                versionName = "8.72.0",
+                versionCode = 593L,
+                requestedFileType = "XAPK",
+                allowSplitArchive = true
+            ),
+            option = CandidateOption.REQUESTED
+        )
+
+        assertEquals(1, candidates.size)
+        val candidate = candidates[0]
+        assertTrue(candidate.directDownload)
+        assertEquals("8.72.0", candidate.versionName)
+        assertEquals(593L, candidate.versionCode)
+        assertEquals("xapk", candidate.fileKind)
+        assertEquals(987654L, candidate.files.single().size)
     }
 
     @Test

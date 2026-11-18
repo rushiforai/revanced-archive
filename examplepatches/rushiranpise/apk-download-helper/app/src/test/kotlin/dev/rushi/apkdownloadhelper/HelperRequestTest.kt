@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -128,6 +134,14 @@ class HelperRequestTest {
         assertFalse(request.matchesRequestedVersionStrict("2.5.0.6", 721))
     }
 
+    @Test
+    fun strictMatch_rejectsUnidentifiedCandidateForCodeOnlyRequest() {
+        val request = testRequest(versionName = null, versionCode = 100)
+        assertFalse(request.matchesRequestedVersionStrict(null, null))
+        assertTrue(request.matchesRequestedVersionStrict(null, 100))
+        assertFalse(request.matchesRequestedVersionStrict(null, 200))
+    }
+
     // ---- secondary / variant builds ----
 
     @Test
@@ -242,6 +256,13 @@ class HelperRequestTest {
     fun belongsTo_acceptsWhenRequestPinsNoVersion() {
         val request = testRequest(packageName = "com.example.app", versionName = null)
         assertTrue(pendingResult(requestPackage = "com.example.app", versionName = "1.2.3").belongsTo(request))
+    }
+
+    @Test
+    fun belongsTo_rejectsCodeOnlyRequestWhenPendingFileHasNoCode() {
+        val request = testRequest(packageName = "com.example.app", versionName = null, versionCode = 100)
+        assertFalse(pendingResult(requestPackage = "com.example.app", versionName = null).belongsTo(request))
+        assertFalse(pendingResult(requestPackage = "com.example.app", versionName = "1.2.3").belongsTo(request))
     }
 
     @Test

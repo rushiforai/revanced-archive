@@ -29,6 +29,7 @@ import dev.rushi.apkdownloadhelper.download.VirusTotalScanner
 import dev.rushi.apkdownloadhelper.download.compareVersionNames
 import dev.rushi.apkdownloadhelper.download.downloadFailureMessage
 import dev.rushi.apkdownloadhelper.download.httpLoggingInterceptor
+import dev.rushi.apkdownloadhelper.download.normalizedArchiveExtension
 import dev.rushi.apkdownloadhelper.download.readDownloadedApkMetadata
 import dev.rushi.apkdownloadhelper.download.sanitizeFileName
 import dev.rushi.apkdownloadhelper.download.versionNameEquals
@@ -611,7 +612,24 @@ internal class DownloadService : Service() {
             file,
             checkVersionCode = job.fastMode
         )
-        return file
+        return normalizeDownloadedFile(file)
+    }
+
+    /**
+     * A bundle-looking URL can still lead to a plain APK, and a generic endpoint
+     * name says nothing about the bytes. The archive's contents decide the
+     * extension Morphe receives.
+     */
+    private fun normalizeDownloadedFile(file: File): File {
+        val extension = file.normalizedArchiveExtension() ?: return file
+        val target = file.parentFile?.uniqueChild("${file.nameWithoutExtension}.$extension")
+            ?: return file
+        if (!file.renameTo(target)) return file
+        AppLog.record(
+            LogLevel.Info,
+            "Downloaded file contents are $extension; renamed ${file.name} to ${target.name}."
+        )
+        return target
     }
 
     private fun handleSuccess(job: DownloadJobManager.DownloadJob, file: File) {

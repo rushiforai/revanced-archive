@@ -1,5 +1,12 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+import java.io.IOException
+
 /** Serves canned HTML/JSON responses keyed by URL so parsers run without the network. */
 internal class FakeSourceTextFetcher(
     private val pages: Map<String, String>,
@@ -17,12 +24,29 @@ internal class FakeSourceTextFetcher(
 }
 
 internal class FakeApkPureApi(
-    var response: ApkPureUpdateResponse = ApkPureUpdateResponse()
+    var response: ApkPureUpdateResponse = ApkPureUpdateResponse(),
+    var historyResponse: ApkPureHistoryResponse = ApkPureHistoryResponse()
 ) : ApkPureApi {
     override suspend fun getAppUpdate(
         header: String,
         request: ApkPureUpdateRequest
     ): ApkPureUpdateResponse = response
+
+    override suspend fun getAppHistoryVersions(
+        packageName: String,
+        header: String,
+        hl: String
+    ): ApkPureHistoryResponse = historyResponse
+}
+
+internal class FakeUptodownApi(
+    var prepared: UptodownPrepared? = null
+) : UptodownApi {
+    override fun prepare(
+        packageName: String,
+        version: String?,
+        fileType: String
+    ): UptodownPrepared = prepared ?: throw IOException("No prepared Uptodown file")
 }
 
 internal class FakeApkMirrorApi(
@@ -61,6 +85,7 @@ internal fun testParserContext(
     rateLimitedUrls: Set<String> = emptySet(),
     apkPureApi: ApkPureApi = FakeApkPureApi(),
     aptoideApi: AptoideApi = FakeAptoideApi(),
+    uptodownApi: UptodownApi? = null,
     apkMirrorApi: ApkMirrorApi? = null,
     resolveViaMorphe: ((HelperRequest) -> String?)? = null,
     isSourceEnabled: (DownloadSource) -> Boolean = { true },
@@ -70,6 +95,7 @@ internal fun testParserContext(
     fetcher = FakeSourceTextFetcher(pages, rateLimitedUrls),
     apkPureApi = apkPureApi,
     aptoideApi = aptoideApi,
+    uptodownApi = uptodownApi,
     apkMirrorApi = apkMirrorApi,
     resolveViaMorphe = resolveViaMorphe,
     isSourceEnabled = isSourceEnabled,

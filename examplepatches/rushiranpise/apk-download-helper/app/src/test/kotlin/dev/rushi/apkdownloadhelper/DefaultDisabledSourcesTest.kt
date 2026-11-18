@@ -1,5 +1,11 @@
 package dev.rushi.apkdownloadhelper
 
+import dev.rushi.apkdownloadhelper.download.*
+import dev.rushi.apkdownloadhelper.sources.*
+import dev.rushi.apkdownloadhelper.storage.*
+import dev.rushi.apkdownloadhelper.ui.*
+import dev.rushi.apkdownloadhelper.updater.*
+
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -28,7 +34,6 @@ class DefaultDisabledSourcesTest {
     fun `the remaining sources start disabled`() {
         listOf(
             DownloadSource.APTOIDE,
-            DownloadSource.EVOZI,
             DownloadSource.PLAY
         ).forEach { source ->
             assertTrue("$source should start disabled", source in DEFAULT_DISABLED_SOURCES)

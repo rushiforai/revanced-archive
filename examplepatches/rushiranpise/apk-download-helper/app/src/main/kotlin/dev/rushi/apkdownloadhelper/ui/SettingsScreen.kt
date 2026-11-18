@@ -86,7 +86,6 @@ internal fun AppearanceTabContent(
     onSettingsChange: (HelperSettings) -> Unit
 ) {
     var showAccentPicker by rememberSaveable { mutableStateOf(false) }
-    var confirmHideIcon by remember { mutableStateOf(false) }
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val styles = ThemeStyle.entries.filter { it != ThemeStyle.MATERIAL_YOU || supportsDynamicColor }
     val accent = settings.customAccentColor.toAccentColorOrNull()
@@ -144,16 +143,18 @@ internal fun AppearanceTabContent(
         if (settings.themeStyle == ThemeStyle.MORPHE) {
             SettingsSection(title = "Accent Color", icon = Icons.Outlined.Colorize) {
                 SettingsGroup {
-                    AccentGridSection {
-                        AccentSwatchGrid(
-                            colors = MorpheAccentPresets,
-                            selected = accent,
-                            onSelect = { color ->
-                                onSettingsChange(settings.copy(customAccentColor = color.toHexString()))
-                            },
-                            onClear = { onSettingsChange(settings.copy(customAccentColor = "")) },
-                            onCustomClick = { showAccentPicker = true }
-                        )
+                    SettingsItemCard(onClick = null) {
+                        AccentGridSection {
+                            AccentSwatchGrid(
+                                colors = MorpheAccentPresets,
+                                selected = accent,
+                                onSelect = { color ->
+                                    onSettingsChange(settings.copy(customAccentColor = color.toHexString()))
+                                },
+                                onClear = { onSettingsChange(settings.copy(customAccentColor = "")) },
+                                onCustomClick = { showAccentPicker = true }
+                            )
+                        }
                     }
                     SettingsItem(
                         icon = Icons.Outlined.Refresh,
@@ -166,37 +167,21 @@ internal fun AppearanceTabContent(
             }
         }
 
-        // APP ICON SECTION
-        SettingsSection(title = "App Icon", icon = Icons.Outlined.Smartphone) {
+        // BACKGROUND SECTION
+        SettingsSection(title = "Background", icon = Icons.Outlined.Wallpaper) {
             SettingsGroup {
                 SettingsSwitchItem(
-                    icon = Icons.Outlined.Smartphone,
-                    title = "Show app icon",
-                    subtitle = "Keep the app visible in your launcher.",
-                    checked = settings.showLauncherIcon,
+                    icon = Icons.Outlined.Wallpaper,
+                    title = "Animated circle backdrop",
+                    subtitle = "Drift softly behind the helper. Holds still when animations are off or battery saver is on.",
+                    checked = settings.animatedBackground,
                     onToggle = {
-                        if (settings.showLauncherIcon) confirmHideIcon = true
-                        else onSettingsChange(settings.copy(showLauncherIcon = true))
+                        onSettingsChange(settings.copy(animatedBackground = !settings.animatedBackground))
                     }
                 )
             }
         }
-    }
 
-    if (confirmHideIcon) {
-        MorpheDialog(
-            title = "Hide app icon?",
-            onDismiss = { confirmHideIcon = false },
-            actions = {
-                HelperOutlinedButton("Cancel", { confirmHideIcon = false }, Modifier.weight(1f))
-                HelperButton("Hide icon", {
-                    confirmHideIcon = false
-                    onSettingsChange(settings.copy(showLauncherIcon = false))
-                }, Modifier.weight(1f))
-            }
-        ) {
-            Text("The app will disappear from your launcher. You can still open it from Android Settings or when Morphe starts a download.")
-        }
     }
 
     if (showAccentPicker) {
@@ -313,8 +298,8 @@ internal fun SystemTabContent(
                 SettingsItem(
                     icon = Icons.Outlined.CleaningServices,
                     title = "Storage used",
-                    subtitle = "Clear cache and temporary files",
-                    onClick = { scope.launch(Dispatchers.IO) { context.clearAllDownloads() } },
+                    subtitle = "Clear temporary files",
+                    onClick = { scope.launch(Dispatchers.IO) { context.clearTemporaryDownloads() } },
                     trailingContent = { Text("Clear", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium) }
                 )
                 SettingsItem(
@@ -475,8 +460,7 @@ internal fun LogsTabContent(
     historyEntries: List<DownloadHistoryEntry>,
     onOpenHistoryEntry: (DownloadHistoryEntry) -> Unit,
     onShareHistoryEntry: (DownloadHistoryEntry) -> Unit,
-    onClearHistory: () -> Unit,
-    onOpenUpdates: () -> Unit
+    onClearHistory: () -> Unit
 ) {
     var subTab by rememberSaveable { mutableStateOf(LogsSubTab.HISTORY) }
 
@@ -484,24 +468,6 @@ internal fun LogsTabContent(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SettingsSection(title = "Updates", icon = Icons.Outlined.Refresh) {
-            SettingsGroup {
-                SettingsItem(
-                    icon = Icons.Outlined.SystemUpdate,
-                    title = "Check for updates & changelog",
-                    subtitle = "View latest release and install",
-                    onClick = onOpenUpdates
-                )
-                SettingsSwitchItem(
-                    icon = Icons.Outlined.Refresh,
-                    title = "Check automatically",
-                    subtitle = "Look for a newer release when the helper starts.",
-                    checked = settings.checkUpdates,
-                    onToggle = { onSettingsChange(settings.copy(checkUpdates = !settings.checkUpdates)) }
-                )
-            }
-        }
-
         SettingsSection(title = "Logs & History", icon = Icons.AutoMirrored.Outlined.ViewList) {
             MorpheSelectorRow(
                 options = LogsSubTab.entries.map { MorpheSelectorOption(label = it.label, icon = it.icon) },
@@ -532,7 +498,11 @@ internal fun LogsTabContent(
 // 5. ABOUT TAB
 // ==========================================
 @Composable
-internal fun AboutTabContent() {
+internal fun AboutTabContent(
+    settings: HelperSettings,
+    onSettingsChange: (HelperSettings) -> Unit,
+    onOpenUpdates: () -> Unit
+) {
     val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -551,9 +521,27 @@ internal fun AboutTabContent() {
                     title = "GitHub Repository",
                     subtitle = "View source code and report issues",
                     onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/darkbyteprojects/helper-for-morphe"))
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/rushiranpise/helper-for-morphe"))
                         context.startActivity(intent)
                     }
+                )
+            }
+        }
+
+        SettingsSection(title = "Updates", icon = Icons.Outlined.Refresh) {
+            SettingsGroup {
+                SettingsItem(
+                    icon = Icons.Outlined.SystemUpdate,
+                    title = "Check for updates & changelog",
+                    subtitle = "View latest release and install",
+                    onClick = onOpenUpdates
+                )
+                SettingsSwitchItem(
+                    icon = Icons.Outlined.Refresh,
+                    title = "Check automatically",
+                    subtitle = "Look for a newer release when the helper starts.",
+                    checked = settings.checkUpdates,
+                    onToggle = { onSettingsChange(settings.copy(checkUpdates = !settings.checkUpdates)) }
                 )
             }
         }
@@ -575,9 +563,10 @@ internal fun SourcesSettingsScreen(
     val haptics = LocalHapticFeedback.current
     val view = LocalView.current
 
-    var localOrder by remember(settings.sourceOrder) {
+    val localOrderState = remember(settings.sourceOrder) {
         mutableStateOf(settings.orderedSources)
     }
+    var localOrder by localOrderState
     var draggingSource by remember { mutableStateOf<DownloadSource?>(null) }
     var startIndex by remember { mutableIntStateOf(-1) }
     var targetIndex by remember { mutableIntStateOf(-1) }
@@ -690,14 +679,7 @@ internal fun SourcesSettingsScreen(
         }
 
         SettingsSection(title = "Providers & Priority", icon = Icons.Outlined.Dns) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-            ) {
+            SettingsGroup {
                 val draggedHeight = if (startIndex in localOrder.indices) {
                     (rowHeights[localOrder[startIndex]] ?: 180).toFloat()
                 } else 0f
@@ -803,7 +785,7 @@ internal fun SourcesSettingsScreen(
                                                 .onGloballyPositioned { coords ->
                                                     handleRootY = coords.positionInRoot().y + coords.size.height / 2f
                                                 }
-                                                .pointerInput(source) {
+                                                .pointerInput(source, localOrderState) {
                                                     detectDragGesturesAfterLongPress(
                                                         onDragStart = {
                                                             val idx = localOrder.indexOf(source)
@@ -1024,18 +1006,13 @@ internal fun VirusTotalQuotaCard(apiKey: String) {
     var minuteUsed by remember { mutableIntStateOf(0) }
     var rollingUsed by remember { mutableIntStateOf(0) }
     var secsToRollover by remember { mutableIntStateOf(60) }
-    val scope = rememberCoroutineScope()
-    val load: () -> Unit = {
-        scope.launch {
-            loading = true
-            failed = false
-            quota = withContext(Dispatchers.IO) { VirusTotalScanner.fetchQuotaUsage(apiKey) }
-            if (quota == null) failed = true
-            loading = false
-        }
-    }
-    LaunchedEffect(apiKey) {
-        load()
+    var refreshKey by remember { mutableIntStateOf(0) }
+    LaunchedEffect(apiKey, refreshKey) {
+        loading = true
+        failed = false
+        quota = withContext(Dispatchers.IO) { VirusTotalScanner.fetchQuotaUsage(apiKey) }
+        if (quota == null) failed = true
+        loading = false
         while (true) {
             minuteUsed = VirusTotalScanner.rateLimiter.callsInCurrentMinute()
             rollingUsed = VirusTotalScanner.rateLimiter.callsInLastMinute()
@@ -1054,7 +1031,7 @@ internal fun VirusTotalQuotaCard(apiKey: String) {
                 Icon(Icons.Outlined.Shield, contentDescription = null, tint = colors.onSurfaceVariant, modifier = Modifier.size(22.dp))
                 Column(modifier = Modifier.weight(1f)) { Text(stringResource(R.string.virustotal_quota), fontWeight = FontWeight.Bold, color = colors.onSurface) }
                 if (loading) CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
-                else Icon(Icons.Outlined.Refresh, contentDescription = "Refresh", tint = colors.primary, modifier = Modifier.size(20.dp).clip(MorpheDefaults.PillShape).clickable { load() }.padding(2.dp))
+                else Icon(Icons.Outlined.Refresh, contentDescription = "Refresh", tint = colors.primary, modifier = Modifier.size(20.dp).clip(MorpheDefaults.PillShape).clickable { refreshKey++ }.padding(2.dp))
             }
             QuotaBar("Per minute", minuteUsed, VirusTotalScanner.MINUTE_LOOKUP_LIMIT, flash = maxOf(minuteUsed, rollingUsed) >= VirusTotalScanner.MINUTE_LOOKUP_LIMIT - 1, caption = "rolling 60s: $rollingUsed / ${VirusTotalScanner.MINUTE_LOOKUP_LIMIT} · resets in ${secsToRollover}s")
             val current = quota

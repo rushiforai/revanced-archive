@@ -84,26 +84,28 @@ import dev.rushi.apkdownloadhelper.sources.ApkSourceParser
 import dev.rushi.apkdownloadhelper.sources.AptoideApi
 import dev.rushi.apkdownloadhelper.sources.AptoideParser
 import dev.rushi.apkdownloadhelper.sources.AuroraParser
-import dev.rushi.apkdownloadhelper.sources.EvoziParser
 import dev.rushi.apkdownloadhelper.sources.MorpheLinkParser
 import dev.rushi.apkdownloadhelper.sources.MorpheResolver
 import dev.rushi.apkdownloadhelper.sources.OkHttpSourceTextFetcher
 import dev.rushi.apkdownloadhelper.sources.SourceAppNotFoundException
 import dev.rushi.apkdownloadhelper.sources.SourceParserContext
+import dev.rushi.apkdownloadhelper.sources.SourcePrefetch
+import dev.rushi.apkdownloadhelper.sources.UptodownMobileApi
 import dev.rushi.apkdownloadhelper.sources.UptodownParser
 import dev.rushi.apkdownloadhelper.sources.archMatchRank
+import dev.rushi.apkdownloadhelper.sources.runSourceLookup
 import dev.rushi.apkdownloadhelper.storage.AppLog
 import dev.rushi.apkdownloadhelper.storage.DownloadHistoryEntry
 import dev.rushi.apkdownloadhelper.storage.DownloadHistoryStore
 import dev.rushi.apkdownloadhelper.storage.FastModePolicy
 import dev.rushi.apkdownloadhelper.storage.HelperSettings
 import dev.rushi.apkdownloadhelper.storage.LogLevel
+import dev.rushi.apkdownloadhelper.storage.SourceNegativeCache
 import dev.rushi.apkdownloadhelper.storage.ThemeMode
 import dev.rushi.apkdownloadhelper.storage.ThemeStyle
 import dev.rushi.apkdownloadhelper.storage.UpdateMode
 import dev.rushi.apkdownloadhelper.storage.cacheHandoff
 import dev.rushi.apkdownloadhelper.storage.cleanupDownloads
-import dev.rushi.apkdownloadhelper.storage.ensureLauncherIconState
 import dev.rushi.apkdownloadhelper.storage.loadHelperSettings
 import dev.rushi.apkdownloadhelper.storage.logcatLoggingEnabled
 import dev.rushi.apkdownloadhelper.storage.orderedSources
@@ -112,7 +114,6 @@ import dev.rushi.apkdownloadhelper.storage.recordHandOff
 import dev.rushi.apkdownloadhelper.storage.restoreAndPersistRateLimiter
 import dev.rushi.apkdownloadhelper.storage.saveHelperSettings
 import dev.rushi.apkdownloadhelper.storage.scheduleHandoffCleanup
-import dev.rushi.apkdownloadhelper.storage.setLauncherIconVisible
 import dev.rushi.apkdownloadhelper.storage.temporaryDownloadsDir
 import dev.rushi.apkdownloadhelper.ui.AboutTabContent
 import dev.rushi.apkdownloadhelper.ui.AdvancedTabContent
@@ -127,6 +128,7 @@ import dev.rushi.apkdownloadhelper.ui.DownloadCandidate
 import dev.rushi.apkdownloadhelper.ui.DownloadHelperContract
 import dev.rushi.apkdownloadhelper.ui.DownloadSource
 import dev.rushi.apkdownloadhelper.ui.FailedAttempt
+import dev.rushi.apkdownloadhelper.ui.definitiveNotFoundReason
 import dev.rushi.apkdownloadhelper.ui.FastModeChoice
 import dev.rushi.apkdownloadhelper.ui.FastModeFindResult
 import dev.rushi.apkdownloadhelper.ui.FastModeProgress
@@ -193,6 +195,7 @@ import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -227,9 +230,9 @@ internal val APK_PICKER_MIME_TYPES = arrayOf(
 )
 
 class MainActivity : ComponentActivity() {
-    /** APKMirror declares `Crawl-delay: 3`; stay below ~1 request/2.5s. */
+    /** Use the normal source pace for APKMirror; a 429 gets one retry. */
     companion object {
-        const val APKMIRROR_REQUEST_GAP_MS = 2500L
+        const val APKMIRROR_REQUEST_GAP_MS = 800L
     }
 
     private val browserUserAgent =
@@ -297,6 +300,16 @@ class MainActivity : ComponentActivity() {
         .addInterceptor(httpLoggingInterceptor("APKPure"))
         .build()
 
+    /** Uptodown's app API bypasses its Turnstile page; the parser keeps HTML as fallback. */
+    private val uptodownApi = UptodownMobileApi(
+        OkHttpClient.Builder()
+            .dns(AdGuardDns)
+            .cookieJar(SessionCookies)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .build()
+    )
+
     private val aptoideApi = Retrofit.Builder()
         .client(client)
         .baseUrl("https://ws75.aptoide.com/api/7/")
@@ -311,17 +324,29 @@ class MainActivity : ComponentActivity() {
         .build()
         .create(ApkMirrorApi::class.java)
 
+    private val sourceTextFetcher = OkHttpSourceTextFetcher(
+        client,
+        // APKMirror used to get a 2.5s gap after each request, which dominated
+        // its page walks. Keep the normal 800ms pace and let the fetcher retry
+        // a 429 once instead.
+        hostGapsMillis = mapOf("www.apkmirror.com" to APKMIRROR_REQUEST_GAP_MS)
+    )
+
+    private val sourcePrefetch = SourcePrefetch(
+        fetcher = sourceTextFetcher,
+        apkPureApi = apkPureApi,
+        uptodownApi = uptodownApi,
+        isSourceEnabled = { source -> source !in effectiveDisabledSources }
+    )
+
     private val parsers: Map<DownloadSource, ApkSourceParser> by lazy {
         val playHttpClient = PlayHttpClient(Cache(File(cacheDir, "play-cache"), 64L * 1024L * 1024L))
         val parserContext = SourceParserContext(
-            fetcher = OkHttpSourceTextFetcher(
-                client,
-                // APKMirror declares `Crawl-delay: 3` and answers 429 to denser
-                // probe runs, so give it a slower pace than the app-wide default.
-                hostGapsMillis = mapOf("www.apkmirror.com" to APKMIRROR_REQUEST_GAP_MS)
-            ),
+            fetcher = sourceTextFetcher,
             apkPureApi = apkPureApi,
             aptoideApi = aptoideApi,
+            uptodownApi = uptodownApi,
+            prefetch = sourcePrefetch,
             apkMirrorApi = apkMirrorApi,
             playHttpClient = playHttpClient,
             appContext = this,
@@ -343,14 +368,12 @@ class MainActivity : ComponentActivity() {
         val apkPureParser = ApkPureParser(parserContext)
         val apkCubeParser = ApkCubeParser(parserContext)
         val aptoideParser = AptoideParser(parserContext)
-        val evoziParser = EvoziParser(parserContext)
         listOf(
             apkMirrorParser,
             uptodownParser,
             apkPureParser,
             apkCubeParser,
             aptoideParser,
-            evoziParser,
             MorpheLinkParser(
                 ctx = parserContext,
                 delegates = listOf(
@@ -358,8 +381,7 @@ class MainActivity : ComponentActivity() {
                     uptodownParser,
                     apkPureParser,
                     apkCubeParser,
-                    aptoideParser,
-                    evoziParser
+                    aptoideParser
                 )
             ),
             AuroraParser(parserContext)
@@ -370,6 +392,7 @@ class MainActivity : ComponentActivity() {
     private var uiState by mutableStateOf<UiState>(UiState.Idle)
     private var helperSettings by mutableStateOf(HelperSettings())
     private var installedPackageRefreshToken by mutableIntStateOf(0)
+    private var requestResetToken by mutableIntStateOf(0)
     private var showUpdates by mutableStateOf(false)
     private var updatePrompt by mutableStateOf<UpdateInfo?>(null)
     private var updateRefreshToken by mutableIntStateOf(0)
@@ -430,7 +453,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         restoreAndPersistRateLimiter()
         helperSettings = loadHelperSettings()
-        ensureLauncherIconState()
         request = HelperRequest.from(intent)?.withDeviceDpi(
             resources.displayMetrics.densityDpi,
             helperSettings.preferDensitySpecificVariants
@@ -483,6 +505,11 @@ class MainActivity : ComponentActivity() {
             if (activeSettingsCategory != null) {
                 lastActiveCategory = activeSettingsCategory
             }
+            LaunchedEffect(requestResetToken) {
+                if (requestResetToken > 0) {
+                    activeSettingsCategory = null
+                }
+            }
 
             val focusManager = LocalFocusManager.current
             LaunchedEffect(showUpdates) {
@@ -521,6 +548,8 @@ class MainActivity : ComponentActivity() {
                                 .then(backgroundModifier)
                         ) {
                             HomePagerScreen(
+                                requestResetToken = requestResetToken,
+                                animatedBackground = helperSettings.animatedBackground,
                                 findAppsContent = { bottomBarHeight ->
                                     AppBrowserScreen(
                                         onBack = null,
@@ -653,10 +682,13 @@ class MainActivity : ComponentActivity() {
                                         historyEntries = DownloadHistoryStore.entries(applicationContext),
                                         onOpenHistoryEntry = ::openHistoryEntry,
                                         onShareHistoryEntry = ::shareHistoryEntry,
-                                        onClearHistory = { DownloadHistoryStore.clear(applicationContext) },
+                                        onClearHistory = { DownloadHistoryStore.clear(applicationContext) }
+                                    )
+                                    SettingsCategory.ABOUT -> AboutTabContent(
+                                        settings = helperSettings,
+                                        onSettingsChange = ::updateHelperSettings,
                                         onOpenUpdates = { showUpdates = true }
                                     )
-                                    SettingsCategory.ABOUT -> AboutTabContent()
                                 }
                             }
                         }
@@ -735,7 +767,7 @@ class MainActivity : ComponentActivity() {
             installedPackageRefreshToken++
             return
         }
-        // singleTask routes a launcher-icon tap (bare MAIN intent) to this
+        // singleTask routes a launcher tap (bare MAIN intent) to this
         // existing instance instead of creating a second task. Ignore it and
         // keep the in-flight request on screen: only a fresh Morphe request
         // replaces the current session.
@@ -747,6 +779,7 @@ class MainActivity : ComponentActivity() {
             resources.displayMetrics.densityDpi,
             helperSettings.preferDensitySpecificVariants
         )
+        requestResetToken++
         startRequestLog(request)
         val activeRequest = request
         if (activeRequest != null) {
@@ -902,6 +935,10 @@ class MainActivity : ComponentActivity() {
     ) {
         val sources = attempts.map { it.source }.distinct()
         if (sources.isEmpty()) return
+        sources.forEach { source ->
+            SourceNegativeCache.clear(this, source, activeRequest, CandidateOption.REQUESTED)
+            SourceNegativeCache.clear(this, source, activeRequest, CandidateOption.LATEST)
+        }
         autoRetryActive = false
         autoRetryQueue = null
         autoRetryTarget = null
@@ -1281,14 +1318,10 @@ class MainActivity : ComponentActivity() {
         val sourcesChanged = helperSettings.disabledSources != settings.disabledSources ||
             helperSettings.sourceOrder != settings.sourceOrder ||
             helperSettings.preferredSource != settings.preferredSource
-        val launcherChanged = helperSettings.showLauncherIcon != settings.showLauncherIcon
         val densityPreferenceChanged =
             helperSettings.preferDensitySpecificVariants != settings.preferDensitySpecificVariants
         helperSettings = settings
         saveHelperSettings(settings)
-        if (launcherChanged) {
-            setLauncherIconVisible(settings.showLauncherIcon)
-        }
         if (densityPreferenceChanged) {
             request = request?.copy(
                 preferDensitySpecificVariants = settings.preferDensitySpecificVariants
@@ -1332,7 +1365,7 @@ class MainActivity : ComponentActivity() {
         source: DownloadSource,
         option: CandidateOption
     ): ResolveOutcome {
-        val lookup = runCatching { findSourceCandidates(request, source, option) }
+        val lookup = runSourceLookup { findSourceCandidates(request, source, option) }
             .onFailure { error ->
                 if (error !is SourceAppNotFoundException) {
                     Log.w(TAG, "${source.label} ${option.name.lowercase(Locale.US)} lookup failed", error)
@@ -1443,7 +1476,7 @@ class MainActivity : ComponentActivity() {
             DownloadSource.APK_PURE -> request.sourceHintUrlsFor(source)
                 .firstOrNull { it.contains("apkpure.com", ignoreCase = true) }
                 ?: parsers[source]?.searchUrl(request.packageName)
-            DownloadSource.APK_CUBE, DownloadSource.EVOZI -> {
+            DownloadSource.APK_CUBE -> {
                 val parser = parsers[source]
                 if (option == CandidateOption.REQUESTED) {
                     parser?.requestedFallbackCandidate(request)?.url
@@ -1977,14 +2010,25 @@ class MainActivity : ComponentActivity() {
     }
 
     private suspend fun fastModeRun(request: HelperRequest, policy: FastModePolicy) {
-        if (policy == FastModePolicy.LATEST) {
-            fastModeNextLatest(request)
-        } else {
-            fastModeNext(request)
+        sourcePrefetch.start(
+            request,
+            preflightApkCube = fastModeQueue
+                ?.drop(1)
+                ?.contains(DownloadSource.APK_CUBE) == true
+        )
+        try {
+            if (policy == FastModePolicy.LATEST) {
+                fastModeNextLatest(request)
+            } else {
+                fastModeNext(request)
+            }
+        } finally {
+            sourcePrefetch.cancel()
         }
     }
 
     private fun cancelFastMode() {
+        sourcePrefetch.cancel()
         if (autoRetryActive) {
             appendLog("Retry cancelled  taking over manually.", LogLevel.Warning)
             autoRetryActive = false
@@ -2037,18 +2081,54 @@ class MainActivity : ComponentActivity() {
         uiState = UiState.Loading
     }
 
+    /**
+     * APKCube's downloader page can already say it has no match. In that case
+     * skip the source entirely instead of opening its WebView. A missing or
+     * uncertain preflight result keeps the normal WebView path.
+     */
+    private suspend fun skipApkCubeIfPreflightFoundNoMatch(
+        request: HelperRequest,
+        source: DownloadSource,
+        option: CandidateOption
+    ): Boolean {
+        if (source != DownloadSource.APK_CUBE) return false
+        if (!sourcePrefetch.takeApkCubeNoMatch(request)) return false
+        val reason = "no listing for ${request.packageName} (APKCube preflight)"
+        SourceNegativeCache.recordNotFound(this, source, request, option, reason)
+        appendLog("Fast Mode: APKCube preflight found no match; skipping WebView.", LogLevel.Info)
+        recordFailedAttempt(source, option)
+        return true
+    }
+
     private suspend fun fastModeNext(request: HelperRequest) {
         val queue = fastModeQueue ?: return
         while (queue.isNotEmpty()) {
             // The user may have cancelled while a source was resolving.
             if (!fastModeActive) return
             val source = queue.removeAt(0)
+            val cachedMiss = SourceNegativeCache.get(
+                this,
+                source,
+                request,
+                CandidateOption.REQUESTED
+            )
+            if (cachedMiss != null) {
+                appendLog(
+                    "Fast Mode: skipping ${source.label} from cache: $cachedMiss",
+                    LogLevel.Info
+                )
+                recordFailedAttempt(source, CandidateOption.REQUESTED)
+                continue
+            }
+            if (skipApkCubeIfPreflightFoundNoMatch(request, source, CandidateOption.REQUESTED)) {
+                continue
+            }
             appendLog("Fast Mode: checking ${source.label} for ${request.requestedVersionLabel}...")
             uiState = UiState.FastMode(
                 FastModeProgress(sourceLabel = source.label, detail = "Checking ${source.label}…")
             )
             val result = withContext(Dispatchers.IO) {
-                runCatching { fastModeFindCandidate(request, source) }
+                runSourceLookup { fastModeFindCandidate(request, source) }
                     .getOrDefault(FastModeFindResult.None)
             }
             if (!fastModeActive) return
@@ -2177,18 +2257,38 @@ class MainActivity : ComponentActivity() {
         while (queue.isNotEmpty()) {
             if (!fastModeActive) return
             val source = queue.removeAt(0)
+            val cachedMiss = SourceNegativeCache.get(
+                this,
+                source,
+                request,
+                CandidateOption.LATEST
+            )
+            if (cachedMiss != null) {
+                appendLog(
+                    "Fast Mode: skipping ${source.label} from cache: $cachedMiss",
+                    LogLevel.Info
+                )
+                recordFailedAttempt(source, CandidateOption.LATEST)
+                continue
+            }
+            if (skipApkCubeIfPreflightFoundNoMatch(request, source, CandidateOption.LATEST)) {
+                continue
+            }
+
             appendLog("Fast Mode: fetching latest from ${source.label}...", LogLevel.Info)
             uiState = UiState.FastMode(
                 FastModeProgress(sourceLabel = source.label, detail = "Checking ${source.label}…")
             )
-            val candidates = withContext(Dispatchers.IO) {
-                runCatching {
-                    resolveSourceSection(request, source, CandidateOption.LATEST).candidates
-                }.getOrDefault(emptyList())
+            val outcome = withContext(Dispatchers.IO) {
+                runSourceLookup {
+                    resolveSourceSection(request, source, CandidateOption.LATEST)
+                }.getOrNull()
             }
             if (!fastModeActive) return
+            val candidates = outcome?.candidates.orEmpty()
             val best = fastModeLatestCandidate(request, candidates)
             if (best != null) {
+                SourceNegativeCache.clear(this, source, request, CandidateOption.LATEST)
                 appendLog(
                     "Fast Mode: latest ${best.versionDisplay} on ${source.label} " +
                         "(${best.fileKind.uppercase(Locale.US)})  downloading.",
@@ -2203,6 +2303,15 @@ class MainActivity : ComponentActivity() {
                 )
                 downloadAndReturn(best)
                 return
+            }
+            outcome?.definitiveNotFoundReason()?.let { reason ->
+                SourceNegativeCache.recordNotFound(
+                    this,
+                    source,
+                    request,
+                    CandidateOption.LATEST,
+                    reason
+                )
             }
             recordFailedAttempt(source, CandidateOption.LATEST)
             appendLog("Fast Mode: no newer latest on ${source.label}.", LogLevel.Info)
@@ -2282,7 +2391,10 @@ class MainActivity : ComponentActivity() {
                 )
             )
             ?.value
-        if (exact != null) return FastModeFindResult.Exact(exact)
+        if (exact != null) {
+            SourceNegativeCache.clear(this, source, request, CandidateOption.REQUESTED)
+            return FastModeFindResult.Exact(exact)
+        }
 
         // The version name exists on this source but with a different build 
         // hand it to the loop so it can ask the user before proceeding.
@@ -2297,11 +2409,20 @@ class MainActivity : ComponentActivity() {
                 candidate.versionCode != null &&
                 !request.matchesRequestedVersionStrict(candidate.versionName, candidate.versionCode)
         }
-        return if (mismatch != null) {
-            FastModeFindResult.VersionMismatch(mismatch)
-        } else {
-            FastModeFindResult.None
+        if (mismatch != null) {
+            SourceNegativeCache.clear(this, source, request, CandidateOption.REQUESTED)
+            return FastModeFindResult.VersionMismatch(mismatch)
         }
+        outcome.definitiveNotFoundReason()?.let { reason ->
+            SourceNegativeCache.recordNotFound(
+                this,
+                source,
+                request,
+                CandidateOption.REQUESTED,
+                reason
+            )
+        }
+        return FastModeFindResult.None
     }
 
     private fun handleDownloadEvent(event: DownloadJobManager.Event?) {

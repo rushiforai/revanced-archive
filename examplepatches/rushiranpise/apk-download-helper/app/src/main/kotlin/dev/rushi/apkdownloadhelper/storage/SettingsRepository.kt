@@ -1,8 +1,6 @@
 ﻿package dev.rushi.apkdownloadhelper.storage
 
-import android.content.ComponentName
 import android.content.Context
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -50,21 +48,53 @@ internal var adGuardDnsEnabled = true
  * by version rather than inferred from what is on disk.
  */
 private const val SETTINGS_VERSION_KEY = "settings_version"
-private const val SETTINGS_VERSION = 6
+private const val SETTINGS_VERSION = 7
 
 internal val DEFAULT_DISABLED_SOURCES: Set<DownloadSource> = setOf(
     DownloadSource.APTOIDE,
-    DownloadSource.EVOZI,
+    DownloadSource.PLAY
+)
+
+/** Old source names that now point at the source serving the same catalogue. */
+private val LEGACY_SOURCE_NAMES = mapOf("EVOZI" to DownloadSource.APK_CUBE)
+
+private fun sourceFromStoredName(name: String): DownloadSource? =
+    DownloadSource.entries.firstOrNull { it.name == name } ?: LEGACY_SOURCE_NAMES[name]
+
+/**
+ * The old default kept Uptodown before APKPure. Existing installs that saved
+ * that exact list are moved to the new default below.
+ */
+private val LEGACY_DEFAULT_SOURCE_ORDER: List<DownloadSource> = listOf(
+    DownloadSource.MORPHE_LINK,
+    DownloadSource.APK_MIRROR,
+    DownloadSource.UPTODOWN,
+    DownloadSource.APK_PURE,
+    DownloadSource.APK_CUBE,
+    DownloadSource.APTOIDE,
+    DownloadSource.AURORA,
     DownloadSource.PLAY
 )
 
 /**
  * Morphe Link is the resolver-backed fallback, so try it before walking the
- * individual sites. It can hand the request to any of them in one step.
+ * individual sites. APKPure and APKCube run before Uptodown because they can
+ * resolve many requests without a captcha, while Uptodown often cannot.
  */
+private val PREFERRED_DEFAULT_SOURCE_ORDER: List<DownloadSource> = listOf(
+    DownloadSource.MORPHE_LINK,
+    DownloadSource.APK_MIRROR,
+    DownloadSource.APK_PURE,
+    DownloadSource.APK_CUBE,
+    DownloadSource.UPTODOWN,
+    DownloadSource.APTOIDE,
+    DownloadSource.AURORA,
+    DownloadSource.PLAY
+)
+
 internal val DEFAULT_SOURCE_ORDER: List<DownloadSource> =
-    listOf(DownloadSource.MORPHE_LINK) +
-        DownloadSource.entries.filterNot { it == DownloadSource.MORPHE_LINK }
+    PREFERRED_DEFAULT_SOURCE_ORDER +
+        DownloadSource.entries.filterNot { it in PREFERRED_DEFAULT_SOURCE_ORDER }
 
 internal data class HelperSettings(
     val downloadLocation: DownloadLocation = DownloadLocation.TEMPORARY,
@@ -72,7 +102,6 @@ internal data class HelperSettings(
     val downloadCustomTreeUri: String = "",
     /** APKMirror only: pick a density-specific row instead of nodpi. */
     val preferDensitySpecificVariants: Boolean = false,
-    val showLauncherIcon: Boolean = true,
     val networkPolicy: NetworkPolicy = NetworkPolicy.WIFI_AND_MOBILE,
     /** Maximum workers for a segmented download. File size can lower this. */
     val downloadConnections: DownloadConnectionCount = DownloadConnectionCount.FOUR,
@@ -99,6 +128,8 @@ internal data class HelperSettings(
     val pureBlackTheme: Boolean = false,
     /** Custom accent as `#RRGGBB`; empty keeps the style's own accent. */
     val customAccentColor: String = "",
+    /** Drifting circles behind the pager; off removes the backdrop entirely. */
+    val animatedBackground: Boolean = true,
     val adGuardDns: Boolean = true,
     val virusTotalEnabled: Boolean = false,
     val virusTotalApiKey: String = "",
@@ -234,8 +265,8 @@ internal enum class DownloadLocation(
         description = "Save a copy in the app's external files folder."
     ),
     DOWNLOADS(
-        title = "Downloads/Morphe Helper",
-        description = "Save a visible copy in Downloads/Morphe Helper."
+        title = "Downloads",
+        description = "Save a visible copy in your Downloads folder."
     ),
     CUSTOM(
         title = "Custom folder",
@@ -344,7 +375,6 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         ),
         downloadCustomTreeUri = prefs.getString("download_custom_tree_uri", "") ?: "",
         preferDensitySpecificVariants = prefs.getBoolean("prefer_density_specific_variants", false),
-        showLauncherIcon = prefs.getBoolean("show_launcher_icon", true),
         networkPolicy = enumValueOrDefault(
             prefs.getString("network_policy", null),
             NetworkPolicy.WIFI_AND_MOBILE
@@ -366,7 +396,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             .toSet(),
         sourceOrder = prefs.getString("source_order", null)
             ?.split(',')
-            ?.mapNotNull { name -> DownloadSource.entries.firstOrNull { it.name == name } }
+            ?.mapNotNull(::sourceFromStoredName)
             ?.distinct()
             ?.takeIf { it.isNotEmpty() }
             ?: DEFAULT_SOURCE_ORDER,
@@ -377,6 +407,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         themeStyle = themeStyle(prefs),
         pureBlackTheme = prefs.getBoolean("pure_black_theme", false),
         customAccentColor = prefs.getString("custom_accent_color", "") ?: "",
+        animatedBackground = prefs.getBoolean("animated_background", true),
         adGuardDns = prefs.getBoolean("adguard_dns", true),
         virusTotalEnabled = prefs.getBoolean("virus_total_enabled", false),
         virusTotalApiKey = prefs.getString("virus_total_api_key", "") ?: "",
@@ -386,7 +417,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
             VirusTotalScanMode.ASK
         ),
         preferredSource = prefs.getString("preferred_source", null)
-            ?.let { name -> DownloadSource.entries.firstOrNull { it.name == name } },
+            ?.let(::sourceFromStoredName),
         checkUpdates = prefs.getBoolean("check_updates", true),
         updateChannel = enumValueOrDefault(
             prefs.getString("update_channel", null),
@@ -408,8 +439,9 @@ internal fun Context.loadHelperSettings(): HelperSettings {
     // helper is built around. Version 4 moved Morphe Link to the front of the default
     // order, but only when the saved order was still the old unmodified default.
     // Version 5 enables APKCube by default, removing the old default-off entry. Version
-    // 6 enables AdGuard DNS by default. Each step is applied once and saved, so from the
-    // next launch on the stored values win.
+    // 6 enables AdGuard DNS by default. Version 7 moves Uptodown after APKPure and
+    // APKCube for installs that still had the old default order. Each step is applied
+    // once and saved, so from the next launch on the stored values win.
     val storedVersion = prefs.getInt(SETTINGS_VERSION_KEY, 1)
     var migrated = settings
     if (storedVersion < 2) {
@@ -427,6 +459,9 @@ internal fun Context.loadHelperSettings(): HelperSettings {
     }
     if (storedVersion < 6) {
         migrated = migrated.copy(adGuardDns = true)
+    }
+    if (storedVersion < 7 && migrated.sourceOrder == LEGACY_DEFAULT_SOURCE_ORDER) {
+        migrated = migrated.copy(sourceOrder = DEFAULT_SOURCE_ORDER)
     }
     if (migrated !== settings) {
         saveHelperSettings(migrated)
@@ -446,7 +481,7 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putString("download_retention", settings.downloadRetention.name)
         .putString("download_custom_tree_uri", settings.downloadCustomTreeUri)
         .putBoolean("prefer_density_specific_variants", settings.preferDensitySpecificVariants)
-        .putBoolean("show_launcher_icon", settings.showLauncherIcon)
+        .remove("show_launcher_icon")
         .remove("delete_temporary_after_handoff")
         .putString("network_policy", settings.networkPolicy.name)
         .putString("download_connections", settings.downloadConnections.name)
@@ -461,6 +496,7 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putString("theme_style", settings.themeStyle.name)
         .putBoolean("pure_black_theme", settings.pureBlackTheme)
         .putString("custom_accent_color", settings.customAccentColor)
+        .putBoolean("animated_background", settings.animatedBackground)
         .putBoolean("adguard_dns", settings.adGuardDns)
         .putBoolean("virus_total_enabled", settings.virusTotalEnabled)
         .putString("virus_total_api_key", settings.virusTotalApiKey)
@@ -484,33 +520,6 @@ internal val HelperSettings.orderedSources: List<DownloadSource>
         val saved = sourceOrder.filter { it in DownloadSource.entries }.distinct()
         return saved + DownloadSource.entries.filterNot { it in saved }
     }
-
-/** Re-applies the saved launcher icon choice without requiring a settings reload. */
-internal fun Context.ensureLauncherIconState() {
-    val shown = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        .getBoolean("show_launcher_icon", true)
-    setLauncherIconVisible(shown)
-}
-
-/**
- * The launcher entry is an activity alias. MainActivity keeps a MAIN/INFO filter
- * so Android Settings can still open the app while the icon is hidden.
- */
-internal fun Context.setLauncherIconVisible(shown: Boolean) {
-    val alias = ComponentName(packageName, "$packageName.Launcher")
-    val state = if (shown) {
-        PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-    } else {
-        PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-    }
-    runCatching {
-        packageManager.setComponentEnabledSetting(
-            alias,
-            state,
-            PackageManager.DONT_KILL_APP
-        )
-    }
-}
 
 /**
  * The stored colour style, or one derived from the retired `dynamic_colors`

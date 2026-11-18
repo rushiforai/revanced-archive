@@ -53,7 +53,6 @@ import androidx.compose.material.icons.outlined.Dns
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
-import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.LightMode
@@ -773,117 +772,6 @@ internal fun AppAvatar(packageName: String, initial: Char) {
     }
 }
 
-/**
- * Grabbable scrollbar for a [LazyColumn], rendered in a narrow gutter beside
- * the list (never overlapping it). The thumb keeps a minimum grab size and
- * dragging it maps finger travel proportionally across the whole list, so a
- * long list stays navigable. Compose 1.10 dropped the built-in scrollbar API
- * from the foundation artifact, so this is a dependency-free re-implementation.
- */
-@Composable
-internal fun LazyListScrollbar(
-    listState: LazyListState,
-    modifier: Modifier = Modifier
-) {
-    val info = listState.layoutInfo
-    val total = info.totalItemsCount
-    val visible = info.visibleItemsInfo.size
-    if (total <= 0 || visible !in 1 until total) return
-    val scope = rememberCoroutineScope()
-    val density = LocalDensity.current
-    var dragStartY by remember { mutableFloatStateOf(0f) }
-    var dragStartIndex by remember { mutableIntStateOf(0) }
-    BoxWithConstraints(modifier = modifier.width(20.dp)) {
-        val containerPx = with(density) { maxHeight.toPx() }
-        val fraction = visible.toFloat() / total.toFloat()
-        val thumbPx = (containerPx * fraction).coerceIn(44f, containerPx)
-        val travelPx = (containerPx - thumbPx).coerceAtLeast(0f)
-        val scrollable = (total - visible).coerceAtLeast(1)
-        val pos = listState.firstVisibleItemIndex.toFloat() / scrollable.toFloat()
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(total, visible, travelPx, scrollable) {
-                    detectVerticalDragGestures(
-                        onDragStart = { offset ->
-                            dragStartY = offset.y
-                            dragStartIndex = listState.firstVisibleItemIndex
-                        },
-                        onVerticalDrag = { change, _ ->
-                            val delta = change.position.y - dragStartY
-                            val target = dragStartIndex +
-                                (delta / travelPx * scrollable).toInt()
-                            scope.launch {
-                                listState.scrollToItem(target.coerceIn(0, total - 1))
-                            }
-                        }
-                    )
-                }
-        ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .width(3.dp)
-                    .height(with(density) { thumbPx.toDp() })
-                    .offset { IntOffset(0, (travelPx * pos).toInt()) }
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.45f))
-            )
-        }
-    }
-}
-
-/** Same grabbable indicator for a plain vertical [ScrollState] (patch lists). */
-@Composable
-internal fun ScrollStateScrollbar(
-    scrollState: ScrollState,
-    modifier: Modifier = Modifier
-) {
-    val maxPx = scrollState.maxValue
-    if (maxPx <= 0) return
-    val scope = rememberCoroutineScope()
-    val density = LocalDensity.current
-    var dragStartY by remember { mutableFloatStateOf(0f) }
-    var dragStartVal by remember { mutableIntStateOf(0) }
-    BoxWithConstraints(modifier = modifier.width(20.dp)) {
-        val containerPx = with(density) { maxHeight.toPx() }
-        val thumbFraction =
-            (containerPx / (containerPx + maxPx.toFloat())).coerceIn(0.1f, 1f)
-        val thumbPx = (containerPx * thumbFraction).coerceIn(44f, containerPx)
-        val travelPx = (containerPx - thumbPx).coerceAtLeast(0f)
-        val pos = scrollState.value.toFloat() / maxPx.toFloat()
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(maxPx, travelPx) {
-                    detectVerticalDragGestures(
-                        onDragStart = { offset ->
-                            dragStartY = offset.y
-                            dragStartVal = scrollState.value
-                        },
-                        onVerticalDrag = { change, _ ->
-                            val delta = change.position.y - dragStartY
-                            val target = dragStartVal + (delta / travelPx * maxPx).toInt()
-                            scope.launch {
-                                scrollState.scrollTo(target.coerceIn(0, maxPx))
-                            }
-                        }
-                    )
-                }
-        ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .width(3.dp)
-                    .height(with(density) { thumbPx.toDp() })
-                    .offset { IntOffset(0, (travelPx * pos).toInt()) }
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.45f))
-            )
-        }
-    }
-}
-
 /** Shared expand/collapse animation for every collapsible section. */
 @Composable
 internal fun AnimatedExpand(
@@ -993,10 +881,9 @@ internal fun SwitchCandidateDialog(
 internal fun LoadingState() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)
     ) {
-        CircularProgressIndicator()
+        repeat(3) { ShimmerListRow() }
     }
 }
 
@@ -1402,7 +1289,6 @@ internal fun DownloadSource.brand(): SourceBrand = when (this) {
     DownloadSource.UPTODOWN -> SourceBrand(resId = R.drawable.ic_src_uptodown)
     DownloadSource.AURORA -> SourceBrand(resId = R.drawable.ic_src_aurora)
     DownloadSource.APTOIDE -> SourceBrand(resId = R.drawable.ic_src_aptoide)
-    DownloadSource.EVOZI -> SourceBrand(resId = R.drawable.ic_src_evozi)
     DownloadSource.MORPHE_LINK -> SourceBrand(resId = R.drawable.ic_src_morphe)
 }
 
@@ -1580,10 +1466,9 @@ internal val DownloadSource.supportsRecommended: Boolean
 /** Sources that expose a version history list. */
 internal val DownloadSource.supportsHistory: Boolean
     get() = when (this) {
-        // Evozi has an old-versions page but no history list. Aurora/Play never
+        // APKCube has an old-versions page but no history list. Aurora/Play never
         // offer originals.
         DownloadSource.APK_CUBE,
-        DownloadSource.EVOZI,
         DownloadSource.AURORA,
         DownloadSource.PLAY -> false
         else -> true
@@ -1692,7 +1577,9 @@ internal fun VersionTypeRow(
         selectedIndex = tabs.indexOf(selected),
         onSelect = { onSelect(tabs[it]) },
         // labelLarge keeps four-in-a-row tab labels on one line at phone widths.
-        labelStyle = MaterialTheme.typography.labelLarge
+        labelStyle = MaterialTheme.typography.labelLarge,
+        // Version type is a two-way choice, so horizontal tabs are enough.
+        compact = true
     )
 }
 
@@ -1752,7 +1639,8 @@ internal fun AboutModeCard(tab: SourceSubTab) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(MorpheDefaults.CompactCornerRadius)),
         shape = RoundedCornerShape(MorpheDefaults.CompactCornerRadius),
-        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.05f)
+        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.05f),
+        contentColor = MaterialTheme.colorScheme.onSurface
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
@@ -1760,12 +1648,19 @@ internal fun AboutModeCard(tab: SourceSubTab) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(MorpheDefaults.CompactCornerRadius))
                     .clickable { expanded = !expanded }
-                    .padding(horizontal = MorpheDefaults.ContentPadding, vertical = 14.dp),
+                    .padding(horizontal = MorpheDefaults.ContentPadding, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                ThemedIcon(
+                    icon = Icons.Outlined.HelpOutline,
+                    size = 18.dp,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 Text(
                     text = title,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -2136,8 +2031,7 @@ internal fun RequestLogsCard(
 
 @Composable
 internal fun EmptyLaunchState(
-    onOpenMorphe: () -> Unit,
-    onFindApps: () -> Unit
+    onOpenMorphe: () -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing)) {
         MorpheEmptyState(
@@ -2149,12 +2043,6 @@ internal fun EmptyLaunchState(
             text = "Open Morphe Manager",
             onClick = onOpenMorphe,
             icon = Icons.Outlined.OpenInNew,
-            modifier = Modifier.fillMaxWidth()
-        )
-        HelperOutlinedButton(
-            text = "Find New Apps",
-            onClick = onFindApps,
-            icon = Icons.Outlined.Explore,
             modifier = Modifier.fillMaxWidth()
         )
     }

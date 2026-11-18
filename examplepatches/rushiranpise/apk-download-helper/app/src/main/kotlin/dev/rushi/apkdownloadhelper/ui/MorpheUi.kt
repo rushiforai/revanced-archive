@@ -36,7 +36,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +47,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -96,15 +96,16 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -132,8 +133,8 @@ internal object MorpheDefaults {
     val CardElevation = 2.dp
     val CardCornerRadius = 16.dp
     val CompactCornerRadius = 12.dp
-    val SettingsCornerRadius = 14.dp
-    val SectionCornerRadius = 18.dp
+    val SettingsCornerRadius = 16.dp
+    val SectionCornerRadius = 20.dp
     val IconSize = 24.dp
     val IconSizeSmall = 20.dp
 
@@ -174,6 +175,8 @@ internal object MorpheDefaults {
 
 /** Text colour inside Morphe-style dialogs (the manager resolves this per dialog surface). */
 internal val LocalDialogTextColor = compositionLocalOf { Color.Unspecified }
+
+/** True inside a [SettingsGroup], where rows share the group's single card surface. */
 
 // ---------------------------------------------------------------------------
 // Motion  ported from morphe-manager's ui/screen/shared/Animations.kt
@@ -320,6 +323,13 @@ internal fun morpheDarkColorScheme() = darkColorScheme(
     surfaceTint = Color(0xFFA4C9FF),
     outlineVariant = Color(0xFF43474E),
     scrim = Color(0xFF000000),
+    surfaceContainerLowest = Color(0xFF0C0E11),
+    surfaceContainerLow = Color(0xFF1A1C1E),
+    surfaceContainer = Color(0xFF1E2022),
+    surfaceContainerHigh = Color(0xFF282A2C),
+    surfaceContainerHighest = Color(0xFF333537),
+    surfaceBright = Color(0xFF37393C),
+    surfaceDim = Color(0xFF111416),
 )
 
 internal fun morpheLightColorScheme() = lightColorScheme(
@@ -352,6 +362,13 @@ internal fun morpheLightColorScheme() = lightColorScheme(
     surfaceTint = Color(0xFF005FAC),
     outlineVariant = Color(0xFFC3C6CF),
     scrim = Color(0xFF000000),
+    surfaceContainerLowest = Color(0xFFFFFFFF),
+    surfaceContainerLow = Color(0xFFF4F3F7),
+    surfaceContainer = Color(0xFFEEEDF1),
+    surfaceContainerHigh = Color(0xFFE9E8EC),
+    surfaceContainerHighest = Color(0xFFE3E2E6),
+    surfaceBright = Color(0xFFFAF9FD),
+    surfaceDim = Color(0xFFDAD9DD),
 )
 
 /**
@@ -543,25 +560,6 @@ internal val MorpheTypography = Typography(
 // Shared primitives
 // ---------------------------------------------------------------------------
 
-/** Scale-down-on-press modifier, as used by the manager's buttons and pills. */
-@Composable
-internal fun Modifier.pressScale(
-    interactionSource: MutableInteractionSource,
-    enabled: Boolean = true,
-    pressedScale: Float = 0.96f
-): Modifier {
-    val pressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (enabled && pressed) pressedScale else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
-        ),
-        label = "press_scale"
-    )
-    return graphicsLayer { scaleX = scale; scaleY = scale }
-}
-
 /** Reusable icon with the manager's standard sizing and primary tint. */
 @Composable
 internal fun ThemedIcon(
@@ -672,45 +670,94 @@ internal fun SectionCard(
         elevation = MorpheDefaults.CardElevation,
         cornerRadius = MorpheDefaults.SectionCornerRadius,
         borderWidth = 1.dp,
+        borderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
         modifier = modifier
     ) {
         content()
     }
 }
 
-/** Grouped-settings container. */
+/**
+ * Settings that belong together, each row a segment of one group: rounded on the group's own
+ * edges and nearly square where two rows meet, as Material's segmented lists are.
+ */
 @Composable
 internal fun SettingsGroup(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    SectionCard(modifier = modifier) {
-        Column(content = content)
+    val registry = remember { SegmentRegistry() }
+    CompositionLocalProvider(LocalSegmentRegistry provides registry) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .onPlaced(registry::placeGroup),
+            content = content
+        )
     }
 }
 
-/** Settings item card: tighter radius and lighter elevation than a section card. */
+/** Settings item card: a connected segment inside a group, a standalone card outside one. */
 @Composable
 internal fun SettingsItemCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     borderWidth: Dp = 0.dp,
-    borderColor: Color = MaterialTheme.colorScheme.outlineVariant,
+    borderColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
     color: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
     content: @Composable () -> Unit
 ) {
-    SurfaceCard(
-        onClick = onClick,
-        enabled = enabled,
-        elevation = 1.dp,
-        cornerRadius = MorpheDefaults.SettingsCornerRadius,
-        borderWidth = borderWidth,
-        borderColor = borderColor,
-        color = color,
-        modifier = modifier
-    ) {
-        content()
+    val group = LocalSegmentRegistry.current
+    if (group == null) {
+        SurfaceCard(
+            onClick = onClick,
+            enabled = enabled,
+            elevation = 1.dp,
+            cornerRadius = MorpheDefaults.SettingsCornerRadius,
+            borderWidth = borderWidth,
+            borderColor = borderColor,
+            color = color,
+            modifier = modifier
+        ) {
+            content()
+        }
+        return
+    }
+
+    val row = remember { Any() }
+    val shape = group.rowShape(row)
+    val rowModifier = modifier
+        .padding(vertical = SegmentGap / 2)
+        .onPlaced { group.place(row, it) }
+        .fillMaxWidth()
+    val rowContent: @Composable () -> Unit = {
+        CompositionLocalProvider(LocalSegmentRegistry provides null) {
+            content()
+        }
+    }
+    if (onClick != null) {
+        Surface(
+            onClick = onClick,
+            enabled = enabled,
+            modifier = rowModifier,
+            shape = shape,
+            color = color,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            tonalElevation = 1.dp,
+            border = BorderStroke(1.dp, borderColor),
+            content = rowContent
+        )
+    } else {
+        Surface(
+            modifier = rowModifier,
+            shape = shape,
+            color = color,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+            tonalElevation = 1.dp,
+            border = BorderStroke(1.dp, borderColor),
+            content = rowContent
+        )
     }
 }
 
@@ -799,25 +846,12 @@ internal fun SettingsItem(
             leadingContent = leadingContent ?: icon?.let { { ThemedIcon(icon = it) } },
             title = title,
             description = subtitle,
-            trailingContent = when (statusContent) {
-                null -> trailingContent
-                else -> {
-                    {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            statusContent()
-                            trailingContent?.invoke()
-                        }
-                    }
-                }
-            }
+            trailingContent = statusContent ?: trailingContent
         )
     }
 }
 
-/** Section title with the manager's gradient circle icon. */
+/** Section title in the manager's current small-icon, muted-label style. */
 @Composable
 internal fun MorpheSectionTitle(
     text: String,
@@ -826,17 +860,26 @@ internal fun MorpheSectionTitle(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing),
+        horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
-            GradientCircleIcon(icon = icon, size = 36.dp, iconSize = 20.dp)
+            Box(
+                modifier = Modifier.size(MorpheDefaults.IconSize),
+                contentAlignment = Alignment.Center
+            ) {
+                ThemedIcon(
+                    icon = icon,
+                    size = MorpheDefaults.IconSizeSmall,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
         Text(
             text = text,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
@@ -1002,7 +1045,8 @@ internal fun MorpheSelectorRow(
     selectedIndex: Int,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    labelStyle: TextStyle = MaterialTheme.typography.bodyMedium
+    labelStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+    compact: Boolean = false
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -1033,38 +1077,62 @@ internal fun MorpheSelectorRow(
                     }
                 )
             ) {
-                Column(
-                    modifier = Modifier.padding(14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    ThemedIcon(
-                        icon = option.icon,
-                        tint = if (isSelected) {
-                            MaterialTheme.colorScheme.onSurface
-                        } else {
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-                        },
-                        contentDescription = option.contentDescription
-                            ?.takeIf { option.label.isBlank() },
-                        modifier = Modifier.rotate(option.iconRotation)
-                    )
-                    // Rendered even when the label is blank here so an icon-only option keeps
-                    // the same height as its siblings.
-                    Text(
-                        text = option.label,
-                        style = labelStyle,
-                        autoSize = fittedTextAutoSize(labelStyle.fontSize),
-                        fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
-                        color = if (isSelected) {
-                            MaterialTheme.colorScheme.onSurface
-                        } else {
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        },
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center
-                    )
+                val contentColor = if (isSelected) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                }
+                if (compact) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 11.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ThemedIcon(
+                            icon = option.icon,
+                            tint = contentColor,
+                            contentDescription = option.contentDescription
+                                ?.takeIf { option.label.isBlank() },
+                            modifier = Modifier.rotate(option.iconRotation),
+                            size = 18.dp
+                        )
+                        Text(
+                            text = option.label,
+                            style = labelStyle,
+                            autoSize = fittedTextAutoSize(labelStyle.fontSize),
+                            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                            color = contentColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier.padding(14.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        ThemedIcon(
+                            icon = option.icon,
+                            tint = contentColor,
+                            contentDescription = option.contentDescription
+                                ?.takeIf { option.label.isBlank() },
+                            modifier = Modifier.rotate(option.iconRotation)
+                        )
+                        // Rendered even when the label is blank here so an icon-only option keeps
+                        // the same height as its siblings.
+                        Text(
+                            text = option.label,
+                            style = labelStyle,
+                            autoSize = fittedTextAutoSize(labelStyle.fontSize),
+                            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                            color = contentColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }

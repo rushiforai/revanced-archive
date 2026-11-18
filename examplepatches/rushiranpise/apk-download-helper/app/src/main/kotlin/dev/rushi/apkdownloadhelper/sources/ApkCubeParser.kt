@@ -9,23 +9,15 @@ import dev.rushi.apkdownloadhelper.ui.HelperRequest
 import dev.rushi.apkdownloadhelper.ui.VersionStatus
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.Locale
 
-/** APKCube's own catalogue, entered directly instead of through Evozi. */
+/** APKCube's catalogue parser. */
 internal class ApkCubeParser(
     ctx: SourceParserContext
 ) : ApkCubeSourceParser(
     ctx = ctx,
     source = DownloadSource.APK_CUBE,
     captchaNote = APKCUBE_CAPTCHA_NOTE
-)
-
-/** Evozi's APK Downloader, which hands off to the same APKCube catalogue. */
-internal class EvoziParser(
-    ctx: SourceParserContext
-) : ApkCubeSourceParser(
-    ctx = ctx,
-    source = DownloadSource.EVOZI,
-    captchaNote = EVOZI_CAPTCHA_NOTE
 )
 
 /**
@@ -91,22 +83,22 @@ internal abstract class ApkCubeSourceParser(
 
     private fun latestCandidates(request: HelperRequest): List<DownloadCandidate> {
         val searchPageUrl = searchUrl(request.packageName) ?: return emptyList()
-        val html = try {
-            ctx.text(searchPageUrl)
-        } catch (e: HttpRateLimitedException) {
-            throw e
-        } catch (e: Exception) {
-            throw SourceAppNotFoundException(request.packageName)
-        }
+        val html = ctx.apkCubeText(searchPageUrl, request.packageName)
         val flight = html.unescapeFlightPayload()
-        val downloadHref = flight.apkCubeDownloadHref(request.packageName) ?: return emptyList()
+        val downloadHref = flight.apkCubeDownloadHref(request.packageName)
+            ?: apkCubeAbsentListing(request.packageName, html)
+            ?: return emptyList()
         val downloadPageUrl = "https://apkcube.com$downloadHref"
             .normalizedHttpUrlOrNull()
             ?: return emptyList()
         // The downloader page used to carry the version in its flight payload. It now
         // often names only the app, while the download page title still has the exact
         // version, so prefer that and keep the payload as a fallback.
-        val downloadHtml = runCatching { ctx.text(downloadPageUrl) }.getOrNull()
+        val downloadHtml = try {
+            ctx.text(downloadPageUrl)
+        } catch (e: HttpNotFoundException) {
+            null
+        }
         val downloadPayload = downloadHtml?.unescapeFlightPayload()
         val versionName = downloadHtml
             ?.apkCubeVersionFromTitle()
@@ -143,14 +135,9 @@ internal abstract class ApkCubeSourceParser(
         // The old-versions page lives under the app's slug path, which only the
         // app page knows  fetch it first to learn the slug.
         val searchPageUrl = searchUrl(request.packageName) ?: return emptyList()
-        val html = try {
-            ctx.text(searchPageUrl)
-        } catch (e: HttpRateLimitedException) {
-            throw e
-        } catch (e: Exception) {
-            throw SourceAppNotFoundException(request.packageName)
-        }
+        val html = ctx.apkCubeText(searchPageUrl, request.packageName)
         val downloadHref = html.unescapeFlightPayload().apkCubeDownloadHref(request.packageName)
+            ?: apkCubeAbsentListing(request.packageName, html)
             ?: return emptyList()
         val slug = downloadHref
             .trim('/')
@@ -159,13 +146,7 @@ internal abstract class ApkCubeSourceParser(
             ?: return emptyList()
 
         val versionsUrl = "https://apkcube.com/$slug/${request.packageName}/old-versions"
-        val versionsHtml = try {
-            ctx.text(versionsUrl)
-        } catch (e: HttpRateLimitedException) {
-            throw e
-        } catch (e: Exception) {
-            return emptyList()
-        }
+        val versionsHtml = ctx.apkCubeText(versionsUrl, request.packageName)
         val matches = versionsHtml.unescapeFlightPayload().apkCubeVersionEntries()
             .filter { it.versionName.versionNameEquals(requestedName) }
         if (matches.isEmpty()) return emptyList()
@@ -205,15 +186,61 @@ internal abstract class ApkCubeSourceParser(
     }
 }
 
-private const val EVOZI_CAPTCHA_NOTE =
-    "APKCube (via Evozi) gates downloads behind a Cloudflare captcha. Solve it in the in-app browser or open the page manually."
-
 private const val APKCUBE_CAPTCHA_NOTE =
     "APKCube gates downloads behind a Cloudflare captcha. Solve it in the in-app browser or open the page manually."
 
-private fun apkCubeSearchUrl(packageName: String): String =
+internal fun apkCubeSearchUrl(packageName: String): String =
     "https://apkcube.com/apk-downloader?url=" +
         URLEncoder.encode(packageName, StandardCharsets.UTF_8.name())
+
+/**
+ * The URL the APKCube WebView opens. The preflight must use the same targeted
+ * downloader page so its no-match answer applies to the page Fast Mode would
+ * otherwise show. Target and ABI are omitted by [apkCubeSearchUrl] alone.
+ */
+internal fun apkCubePreflightUrl(request: HelperRequest): String =
+    apkCubeTargetedDownloadUrl(
+        baseUrl = apkCubeSearchUrl(request.packageName),
+        versionCode = request.versionCode ?: request.versionCodes.firstOrNull(),
+        arch = apkCubeArch(request)
+    )
+
+/**
+ * True when APKCube's server-rendered downloader page definitively reports
+ * that it has no matching app. Verification and download markers make the
+ * page ambiguous, so those pages must keep the normal WebView flow.
+ */
+internal fun apkCubeHtmlNoMatch(html: String?): Boolean {
+    if (html.isNullOrEmpty()) return false
+    val lower = html.lowercase(Locale.US)
+    val hasDownloadMarker = lower.contains("/download?")
+        || lower.contains("download.php")
+        || lower.contains("verify to download")
+        || lower.contains("checking your browser")
+        || lower.contains("turnstile")
+        || lower.contains("captcha")
+    if (hasDownloadMarker) return false
+    return lower.contains("no match")
+        || lower.contains("hold that package")
+        || lower.contains("in the catalog")
+}
+
+/**
+ * A successful APKCube page with no listing is only a miss when it explicitly
+ * says so. Other empty or changed pages stay uncertain and keep the WebView.
+ */
+private fun apkCubeAbsentListing(packageName: String, html: String): String? {
+    if (apkCubeHtmlNoMatch(html)) throw SourceAppNotFoundException(packageName)
+    return null
+}
+
+/** Maps only an explicit 404 to a source miss; all other failures propagate. */
+private fun SourceParserContext.apkCubeText(url: String, packageName: String): String =
+    try {
+        text(url)
+    } catch (e: HttpNotFoundException) {
+        throw SourceAppNotFoundException(packageName)
+    }
 
 /**
  * The Next.js flight payload JSON-escapes its content (`\"` for quotes), so
