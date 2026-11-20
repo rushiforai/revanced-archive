@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      # To use Github Actions, change the branch name from `revanced-extended` to `main`
+      - main
+      - dev
+
+jobs:
+  release:
+    name: Release
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: "zulu"
+          java-version: "17"
+
+      - name: Cache Gradle
+        uses: burrunan/gradle-cache-action@v3
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # To update `README.md` and `patches.json`, the command `./gradlew generatePatchesFiles clean` should be used instead of the command `./gradlew build clean`
+        run: ./gradlew clean :patches:buildAndroid generatePatchesFiles
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Upload Patches Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: revanced-patches-output
+          # Dùng ký tự ** để quét file .jar và .rvp ở mọi thư mục con, tránh việc sai lệch đường dẫn
+          path: |
+            **/*.rvp

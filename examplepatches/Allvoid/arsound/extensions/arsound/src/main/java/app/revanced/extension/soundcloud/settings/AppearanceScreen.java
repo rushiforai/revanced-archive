@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import app.revanced.extension.soundcloud.player.NotificationArtwork;
 import app.revanced.extension.soundcloud.settings.search.SearchEntry;
 import app.revanced.extension.soundcloud.theme.ArsoundTheme;
+import app.revanced.extension.soundcloud.theme.FontChoice;
+import app.revanced.extension.soundcloud.theme.TextColour;
 import app.revanced.extension.soundcloud.wallpaper.WallpaperStore;
 import app.revanced.extension.soundcloud.widget.WidgetHeart;
 
@@ -21,6 +23,10 @@ final class AppearanceScreen extends SectionScreen {
     }
     @Override
     void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
+        if (requestCode == REQUEST_OWN_FONT) {
+            onFontPicked(resultCode == android.app.Activity.RESULT_OK && data != null ? data.getData() : null);
+            return;
+        }
         if (requestCode != WallpaperRows.REQUEST_OWN_PICTURE || resultCode != android.app.Activity.RESULT_OK
                 || data == null || data.getData() == null) return;
         WallpaperRows.onPicturePicked(activity, data.getData());
@@ -124,10 +130,137 @@ final class AppearanceScreen extends SectionScreen {
                 new String[]{text("Меньше", "Fewer"), text("Как в макете", "As designed"), text("Больше", "More")},
                 activity::recreate));
         list.addView(effectOptions);
+        addFontRow(list);
+        addTextColourRows(list);
         list.addView(ui.openScreenRow(text("Размытие в движении", "Motion blur"),
                 text("Быстрая прокрутка и свайпы размывают список по направлению движения. Выключено по умолчанию.",
                         "Fast scrolls and swipes blur the list along the movement. Off by default."),
                 MotionBlurScreen.ID).icon("animation"));
+    }
+
+    static final int REQUEST_OWN_FONT = 7102;
+    /** The font that was chosen before "Own font file…", to go back to when no file is picked. */
+    private long fontBefore = FontChoice.THEME;
+
+    /** The font of the app's text: the theme's, SoundCloud's, one of the themes' fonts or a file of the user's. */
+    private void addFontRow(LinearLayout list) {
+        fontBefore = FontChoice.current();
+        list.addView(ui.createChoiceRow(text("Шрифт", "Font"),
+                text("Шрифт всего текста приложения. «Как в теме» — шрифт выбранной темы (у вида SoundCloud — его "
+                                + "собственный). «Свой файл» — шрифт .ttf или .otf с телефона. Приложение перезапустится.",
+                        "The font of all the app's text. \"As in the theme\" is the chosen theme's font (SoundCloud's own "
+                                + "with SoundCloud's look). \"Own file\" is a .ttf or .otf font from the phone. The app restarts."),
+                FontChoice.KEY, FontChoice.THEME, FontChoice.VALUES,
+                new String[]{text("Как в теме", "As in the theme"), "SoundCloud (Söhne)", "Golos", "Manrope", "Geologica",
+                        "Nunito", "Onest", text("Свой файл…", "Own file…")},
+                this::onFontChosen).icon("theme"));
+    }
+
+    /**
+     * The colour of the app's text: the theme's own by default, or a ready colour or any colour of the picker. It goes
+     * into the same table as the font, so the app restarts after a change.
+     */
+    private void addTextColourRows(LinearLayout list) {
+        String chosen = TextColour.hex();
+        ActionRow row = ui.createActionRow(text("Цвет текста", "Text colour"),
+                (chosen.isEmpty() ? text("Как в теме", "As in the theme") : chosen) + text(
+                        ". Цвет всего текста приложения; подписи и подсказки чуть бледнее. Значки того же цвета меняются "
+                                + "вместе с ним. Приложение перезапустится.",
+                        ". The colour of all the app's text; captions and hints are a little paler. Icons of that colour "
+                                + "change with it. The app restarts."),
+                v -> pickTextColour());
+        row.icon("theme").chevron();
+        list.addView(row);
+        if (chosen.isEmpty()) return;
+        list.addView(ui.createActionRow(text("Вернуть цвет текста темы", "Back to the theme's text colour"), null, v -> {
+            TextColour.set("");
+            ArsoundTheme.restartApp(activity);
+        }).icon("trash"));
+    }
+
+    private void pickTextColour() {
+        ColorPreset[] presets = {
+                new ColorPreset(text("Белый", "White"), "#FFFFFF"),
+                new ColorPreset(text("Тёплый белый", "Warm white"), "#FFF4E0"),
+                new ColorPreset(text("Сливочный", "Cream"), "#F5E6C8"),
+                new ColorPreset(text("Небо", "Sky"), "#9ED8FF"),
+                new ColorPreset(text("Мята", "Mint"), "#A8F0D0"),
+                new ColorPreset(text("Персик", "Peach"), "#FFB8A0"),
+                new ColorPreset(text("Сирень", "Lilac"), "#D4B8FF"),
+                new ColorPreset(text("Лимон", "Lemon"), "#FFF08A"),
+                new ColorPreset(text("Графит", "Graphite"), "#202124"),
+                new ColorPreset(text("Чёрный", "Black"), "#000000"),
+        };
+        String before = TextColour.hex();
+        boolean[] touched = {false};
+        ColorPickerSheet.show(ui, text("Цвет текста", "Text colour"), before.isEmpty() ? "#FFFFFF" : before, presets,
+                ColorRange.FULL, new ColorPickerSheet.Listener() {
+                    @Override
+                    public void onLive(String hex) {
+                        touched[0] = true;
+                    }
+
+                    @Override
+                    public void onDone(String hex) {
+                        if (!touched[0]) return;
+                        String kept = app.revanced.extension.soundcloud.theme.CustomTheme.hex(hex, "");
+                        if (kept.isEmpty() || kept.equals(before)) return;
+                        TextColour.set(kept);
+                        ArsoundTheme.restartApp(activity);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                    }
+
+                    @Override
+                    public String note(String hex) {
+                        return null;
+                    }
+                });
+    }
+
+    private void onFontChosen() {
+        long chosen = FontChoice.current();
+        if (chosen == FontChoice.OWN) {
+            android.content.Intent pick = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT)
+                    .addCategory(android.content.Intent.CATEGORY_OPENABLE)
+                    .setType("*/*")
+                    .putExtra(android.content.Intent.EXTRA_MIME_TYPES, new String[]{"font/ttf", "font/otf", "font/sfnt",
+                            "application/x-font-ttf", "application/x-font-otf", "application/vnd.ms-opentype",
+                            "application/font-sfnt", "application/octet-stream"});
+            try {
+                activity.startActivityForResult(pick, REQUEST_OWN_FONT);
+            } catch (Exception ex) {
+                Settings.putLong(FontChoice.KEY, fontBefore);
+                android.widget.Toast.makeText(activity, text("Нет приложения для выбора файла", "No app to pick a file"),
+                        android.widget.Toast.LENGTH_LONG).show();
+            }
+            return;
+        }
+        if (chosen == fontBefore) return;
+        ArsoundTheme.restartApp(activity);
+    }
+
+    private void onFontPicked(android.net.Uri picked) {
+        if (picked == null) {
+            Settings.putLong(FontChoice.KEY, fontBefore);
+            activity.recreate();
+            return;
+        }
+        app.revanced.extension.shared.Utils.runOnBackgroundThread(() -> {
+            boolean kept = FontChoice.saveOwn(activity, picked);
+            activity.runOnUiThread(() -> {
+                if (kept) {
+                    ArsoundTheme.restartApp(activity);
+                    return;
+                }
+                Settings.putLong(FontChoice.KEY, fontBefore);
+                android.widget.Toast.makeText(activity, text("Это не шрифт, который Android может открыть: нужен файл .ttf или .otf",
+                        "Android cannot open this as a font: a .ttf or .otf file is needed"), android.widget.Toast.LENGTH_LONG).show();
+                activity.recreate();
+            });
+        });
     }
 
     /** The new player and what belongs to it. */

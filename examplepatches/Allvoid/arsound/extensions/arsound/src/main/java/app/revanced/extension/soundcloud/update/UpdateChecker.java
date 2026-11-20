@@ -45,7 +45,7 @@ import app.revanced.extension.soundcloud.shared.Screens;
 @SuppressWarnings("unused")
 public final class UpdateChecker {
     /** Must match {@code version} in gradle.properties. */
-    public static final String VERSION = "1.2.1";
+    public static final String VERSION = "1.2.2-test.1";
 
     public static final String REPOSITORY_URL = "https://github.com/Allvoid/arsound";
     /** The ready APK of every version is posted here. */
@@ -95,6 +95,7 @@ public final class UpdateChecker {
                 .add("search switch", SearchSourceSwitch::onActivityResumed, SearchSourceSwitch::onActivityPaused)
                 .add("watch folder", WatchFolder::onActivityResumed)
                 .add("login logs", LoginLogsButton::onActivityResumed)
+                .add("accounts", app.revanced.extension.soundcloud.login.AccountEntry::onActivityResumed)
                 .add("mini player ripple", MiniPlayerRipple::onActivityResumed)
                 .add("motion blur", app.revanced.extension.soundcloud.motion.MotionBlur::onActivityResumed,
                         app.revanced.extension.soundcloud.motion.MotionBlur::onActivityPaused)

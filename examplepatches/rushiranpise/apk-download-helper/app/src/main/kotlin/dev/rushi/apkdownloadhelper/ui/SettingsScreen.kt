@@ -87,64 +87,34 @@ internal fun AppearanceTabContent(
 ) {
     var showAccentPicker by rememberSaveable { mutableStateOf(false) }
     val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    val styles = ThemeStyle.entries.filter { it != ThemeStyle.MATERIAL_YOU || supportsDynamicColor }
     val accent = settings.customAccentColor.toAccentColorOrNull()
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // THEME SECTION (Restored spacing)
-        SettingsSection(title = "Theme", icon = Icons.Outlined.DarkMode) {
+
+        SettingsSection(title = "Theme", icon = Icons.Outlined.Palette) {
+            ThemeSelectorCard(
+                themeMode = settings.themeMode,
+                onThemeModeSelected = { onSettingsChange(settings.copy(themeMode = it)) },
+                themeStyle = settings.themeStyle,
+                supportsDynamicColor = supportsDynamicColor,
+                onThemeStyleSelected = { onSettingsChange(settings.copy(themeStyle = it)) }
+            )
+
             SettingsGroup {
-                ThemeMode.entries.forEach { mode ->
-                    SettingsItem(
-                        icon = mode.icon(),
-                        title = mode.title,
-                        subtitle = mode.description,
-                        onClick = { onSettingsChange(settings.copy(themeMode = mode)) },
-                        trailingContent = { RadioDot(selected = settings.themeMode == mode) }
-                    )
-                }
-            }
-        }
-
-        // COLOR STYLE SECTION
-        SettingsSection(title = "Color Style", icon = Icons.Outlined.Palette) {
-            SettingsGroup {
-                styles.forEach { style ->
-                    SettingsItem(
-                        icon = style.icon(),
-                        title = style.title,
-                        subtitle = style.description,
-                        onClick = { onSettingsChange(settings.copy(themeStyle = style)) },
-                        trailingContent = { RadioDot(selected = settings.themeStyle == style) }
-                    )
-                }
-            }
-        }
-
-        // PURE BLACK SECTION
-        if (settings.themeMode != ThemeMode.LIGHT) {
-            SettingsSection(title = "Dark Theme", icon = Icons.Outlined.Contrast) {
-                SettingsGroup {
-                    SettingsSwitchItem(
-                        icon = Icons.Outlined.Contrast,
-                        title = stringResource(R.string.pure_black),
-                        subtitle = "Paint backgrounds fully black. Saves power on OLED screens.",
-                        checked = settings.pureBlackTheme,
-                        onToggle = { onSettingsChange(settings.copy(pureBlackTheme = !settings.pureBlackTheme)) }
-                    )
-                }
-            }
-        }
-
-        // ACCENT COLOR SECTION (Restored grid + reset button)
-        if (settings.themeStyle == ThemeStyle.MORPHE) {
-            SettingsSection(title = "Accent Color", icon = Icons.Outlined.Colorize) {
-                SettingsGroup {
+                if (settings.themeStyle == ThemeStyle.MORPHE) {
                     SettingsItemCard(onClick = null) {
-                        AccentGridSection {
+                        Column(
+                            modifier = Modifier.padding(MorpheDefaults.ContentPadding),
+                            verticalArrangement = Arrangement.spacedBy(MorpheDefaults.ContentPaddingSmall)
+                        ) {
+                            Text(
+                                text = "Accent color",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                             AccentSwatchGrid(
                                 colors = MorpheAccentPresets,
                                 selected = accent,
@@ -156,12 +126,15 @@ internal fun AppearanceTabContent(
                             )
                         }
                     }
-                    SettingsItem(
-                        icon = Icons.Outlined.Refresh,
-                        title = "Reset to default",
-                        subtitle = "Restore the app's default blue accent",
-                        onClick = { onSettingsChange(settings.copy(customAccentColor = "")) },
-                        trailingContent = { Text("Reset", color = MaterialTheme.colorScheme.primary) }
+                }
+
+                if (settings.themeMode != ThemeMode.LIGHT) {
+                    SettingsSwitchItem(
+                        icon = Icons.Outlined.Contrast,
+                        title = stringResource(R.string.pure_black),
+                        subtitle = "Uses true black backgrounds",
+                        checked = settings.pureBlackTheme,
+                        onToggle = { onSettingsChange(settings.copy(pureBlackTheme = !settings.pureBlackTheme)) }
                     )
                 }
             }
@@ -197,6 +170,143 @@ internal fun AppearanceTabContent(
 }
 
 // ==========================================
+// 1B. MORE CUSTOMIZATION TAB
+// ==========================================
+@Composable
+internal fun CustomizationTabContent(
+    settings: HelperSettings,
+    onSettingsChange: (HelperSettings) -> Unit
+) {
+    val monochrome = LocalMonochromeTheme.current
+    val useGradient = settings.useGradientCardColors && !monochrome
+    val scheme = MaterialTheme.colorScheme
+
+    var liveYoutubeApp by remember {
+        mutableStateOf<dev.rushi.apkdownloadhelper.updater.ArchiveApp?>(null)
+    }
+    LaunchedEffect(Unit) {
+        runCatching {
+            val index = dev.rushi.apkdownloadhelper.updater.MorpheArchive.fetchIndex()
+            liveYoutubeApp = index.apps.firstOrNull {
+                it.packageName == "com.google.android.youtube"
+            }
+        }
+    }
+
+    val previewApp = liveYoutubeApp ?: dev.rushi.apkdownloadhelper.updater.ArchiveApp(
+        packageName = "com.google.android.youtube",
+        name = "YouTube",
+        iconColor = "#FF0033",
+        iconUrl = "https://play-lh.googleusercontent.com/QNmuZQc9I6Zbe3mWnSr0hycnENqGFCI5p3yE29Hkxtf22T0IWS6zTrpxULLyyjWpB7ONAXDsDQXnXcVWokl3eg"
+    )
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        SettingsSection(title = "Find apps layout", icon = Icons.Outlined.ViewList) {
+            SettingsGroup {
+                SettingsSwitchItem(
+                    icon = Icons.Outlined.Dns,
+                    title = "Hide stats",
+                    subtitle = "Hide the Sources, Apps, Patches, and Universal counters at the top.",
+                    checked = settings.hideFindAppsStats,
+                    onToggle = {
+                        onSettingsChange(settings.copy(hideFindAppsStats = !settings.hideFindAppsStats))
+                    }
+                )
+                SettingsSwitchItem(
+                    icon = Icons.Outlined.Warning,
+                    title = "Hide disclaimer",
+                    subtitle = "Hide the community patch index disclaimer banner.",
+                    checked = settings.hideCommunityNotice,
+                    onToggle = {
+                        onSettingsChange(settings.copy(hideCommunityNotice = !settings.hideCommunityNotice))
+                    }
+                )
+
+                // Toggle + Live YouTube Preview inside the SAME card container
+                SettingsItemCard(
+                    onClick = {
+                        onSettingsChange(settings.copy(useGradientCardColors = !settings.useGradientCardColors))
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(14.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            ThemedIcon(
+                                icon = Icons.Outlined.AutoAwesome,
+                                size = MorpheDefaults.IconSize,
+                                tint = scheme.primary
+                            )
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                verticalArrangement = Arrangement.spacedBy(2.dp)
+                            ) {
+                                Text(
+                                    text = "Use gradient card colors",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium,
+                                    color = scheme.onSurface
+                                )
+                                Text(
+                                    text = "Tint app cards, loading skeletons, and app headers with each app's brand color.",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = scheme.onSurfaceVariant
+                                )
+                            }
+                            Switch(
+                                checked = settings.useGradientCardColors,
+                                onCheckedChange = {
+                                    onSettingsChange(settings.copy(useGradientCardColors = it))
+                                },
+                                thumbContent = {
+                                    Icon(
+                                        imageVector = if (settings.useGradientCardColors) Icons.Outlined.Check else Icons.Outlined.Close,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(SwitchDefaults.IconSize)
+                                    )
+                                }
+                            )
+                        }
+
+                        // Framed on the app's real background color so the theme card color stands out clearly
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(26.dp))
+                                .background(scheme.background)
+                                .padding(10.dp)
+                        ) {
+                            AppBrowserRow(
+                                app = previewApp,
+                                installed = false,
+                                favourite = false,
+                                shape = RoundedCornerShape(22.dp),
+                                useGradient = settings.useGradientCardColors,
+                                onToggleFavourite = {},
+                                onClick = {
+                                    onSettingsChange(settings.copy(useGradientCardColors = !settings.useGradientCardColors))
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ==========================================
 // 2. DOWNLOADS TAB
 // ==========================================
 @Composable
@@ -207,10 +317,23 @@ internal fun SystemTabContent(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var locationDialog by remember { mutableStateOf(false) }
+    var retentionDialog by remember { mutableStateOf(false) }
     var fastModePolicyDialog by remember { mutableStateOf(false) }
     var connectionCountDialog by remember { mutableStateOf(false) }
     var pendingLocation by remember { mutableStateOf<DownloadLocation?>(null) }
+    var storageRefreshToken by remember { mutableIntStateOf(0) }
+    var storageSummary by remember { mutableStateOf("Calculating storage…") }
+    var showClearStorageDialog by remember { mutableStateOf(false) }
     val latestSettings by rememberUpdatedState(settings)
+
+    LaunchedEffect(storageRefreshToken) {
+        storageSummary = withContext(Dispatchers.IO) {
+            "Cache ${context.temporaryDownloadsSize().formatBytes()} · " +
+                "External ${context.externalDownloadsSize().formatBytes()} · " +
+                "Downloads ${context.downloadsCopySize().formatBytes()} · " +
+                "Custom ${context.customDownloadsSize().formatBytes()}"
+        }
+    }
 
     val locations = DownloadLocation.entries
     val fastPolicies = FastModePolicy.entries
@@ -256,6 +379,31 @@ internal fun SystemTabContent(
         )
     }
 
+    if (retentionDialog) {
+        SettingsChoiceDialog(
+            title = "Keep downloads",
+            choices = DownloadRetention.entries.map { retention ->
+                SettingsChoice(
+                    icon = when (retention) {
+                        DownloadRetention.KEEP -> Icons.Outlined.SdStorage
+                        DownloadRetention.AFTER_HANDOFF -> Icons.Outlined.Delete
+                        DownloadRetention.HOUR_1,
+                        DownloadRetention.HOUR_24,
+                        DownloadRetention.DAY_7 -> Icons.Outlined.CleaningServices
+                    },
+                    title = retention.title,
+                    description = retention.description
+                )
+            },
+            selectedIndex = DownloadRetention.entries.indexOf(settings.downloadRetention),
+            onSelect = { index ->
+                onSettingsChange(settings.copy(downloadRetention = DownloadRetention.entries[index]))
+                retentionDialog = false
+            },
+            onDismiss = { retentionDialog = false }
+        )
+    }
+
     if (fastModePolicyDialog) {
         SettingsChoiceDialog(
             title = stringResource(R.string.which_version_to_fetch),
@@ -282,6 +430,50 @@ internal fun SystemTabContent(
         )
     }
 
+    if (showClearStorageDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearStorageDialog = false },
+            title = { Text("Clear storage?") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        "This permanently deletes cached hand-off files, app external copies, " +
+                            "saved APKs in Downloads/Morphe Helper, and copies saved to your custom folder. " +
+                            "This cannot be undone."
+                    )
+                    Text(
+                        text = storageSummary,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showClearStorageDialog = false
+                        scope.launch {
+                            val freed = withContext(Dispatchers.IO) { context.clearAllDownloads() }
+                            storageRefreshToken++
+                            Toast.makeText(
+                                context,
+                                if (freed > 0L) "Cleared ${freed.formatBytes()}" else "Nothing to clear",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                ) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showClearStorageDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -296,10 +488,17 @@ internal fun SystemTabContent(
                     trailingContent = { Text(downloadLocationLabel(context, settings), color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.bodyMedium) }
                 )
                 SettingsItem(
+                    icon = Icons.Outlined.Schedule,
+                    title = "Keep downloads",
+                    subtitle = settings.downloadRetention.description,
+                    onClick = { retentionDialog = true },
+                    trailingContent = { Text(settings.downloadRetention.title, color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.bodyMedium) }
+                )
+                SettingsItem(
                     icon = Icons.Outlined.CleaningServices,
                     title = "Storage used",
-                    subtitle = "Clear temporary files",
-                    onClick = { scope.launch(Dispatchers.IO) { context.clearTemporaryDownloads() } },
+                    subtitle = storageSummary,
+                    onClick = { showClearStorageDialog = true },
                     trailingContent = { Text("Clear", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium) }
                 )
                 SettingsItem(
@@ -312,7 +511,7 @@ internal fun SystemTabContent(
             }
         }
 
-        SettingsSection(title = "Download Behavior", icon = Icons.Outlined.Tune) {
+        SettingsSection(title = "Download behavior", icon = Icons.Outlined.Tune) {
             SettingsGroup {
                 SettingsSwitchItem(
                     icon = Icons.Outlined.PhoneAndroid,
@@ -324,11 +523,11 @@ internal fun SystemTabContent(
             }
         }
 
-        SettingsSection(title = "Fast Mode", icon = Icons.Outlined.Explore) {
+        SettingsSection(title = "Fast mode", icon = Icons.Outlined.Explore) {
             SettingsGroup {
                 SettingsSwitchItem(
                     icon = Icons.Outlined.Bolt,
-                    title = "Enable Fast Mode",
+                    title = "Enable Fast mode",
                     subtitle = "Auto-fetch a version across sources and return it automatically.",
                     checked = settings.fastMode,
                     onToggle = { onSettingsChange(settings.copy(fastMode = !settings.fastMode)) }
@@ -374,7 +573,7 @@ internal fun AdvancedTabContent(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SettingsSection(title = "Network Routing", icon = Icons.Outlined.NetworkCheck) {
+        SettingsSection(title = "Network routing", icon = Icons.Outlined.NetworkCheck) {
             SettingsGroup {
                 SettingsItem(
                     icon = settings.networkPolicy.icon(),
@@ -400,7 +599,7 @@ internal fun AdvancedTabContent(
             }
         }
 
-        SettingsSection(title = "VirusTotal Scanning", icon = Icons.Outlined.Shield) {
+        SettingsSection(title = "VirusTotal scanning", icon = Icons.Outlined.Shield) {
             SettingsGroup {
                 SettingsSwitchItem(
                     icon = Icons.Outlined.Shield,
@@ -463,12 +662,13 @@ internal fun LogsTabContent(
     onClearHistory: () -> Unit
 ) {
     var subTab by rememberSaveable { mutableStateOf(LogsSubTab.HISTORY) }
+    var displayedHistory by remember(historyEntries) { mutableStateOf(historyEntries) }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SettingsSection(title = "Logs & History", icon = Icons.AutoMirrored.Outlined.ViewList) {
+        SettingsSection(title = "Logs & history", icon = Icons.AutoMirrored.Outlined.ViewList) {
             MorpheSelectorRow(
                 options = LogsSubTab.entries.map { MorpheSelectorOption(label = it.label, icon = it.icon) },
                 selectedIndex = LogsSubTab.entries.indexOf(subTab),
@@ -478,7 +678,15 @@ internal fun LogsTabContent(
             Spacer(Modifier.height(8.dp))
 
             when (subTab) {
-                LogsSubTab.HISTORY -> DownloadHistorySection(entries = historyEntries, onClear = onClearHistory, onOpen = onOpenHistoryEntry, onShare = onShareHistoryEntry)
+                LogsSubTab.HISTORY -> DownloadHistorySection(
+                    entries = displayedHistory,
+                    onClear = {
+                        onClearHistory()
+                        displayedHistory = emptyList()
+                    },
+                    onOpen = onOpenHistoryEntry,
+                    onShare = onShareHistoryEntry
+                )
                 LogsSubTab.LOGGING -> SettingsGroup {
                     SettingsSwitchItem(
                         icon = Icons.Outlined.BugReport,
@@ -508,7 +716,7 @@ internal fun AboutTabContent(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        SettingsSection(title = "App Info", icon = Icons.Outlined.Info) {
+        SettingsSection(title = "App info", icon = Icons.Outlined.Info) {
             SettingsGroup {
                 SettingsItem(
                     icon = Icons.Outlined.PhoneAndroid,
@@ -518,7 +726,7 @@ internal fun AboutTabContent(
                 )
                 SettingsItem(
                     icon = Icons.Outlined.OpenInNew,
-                    title = "GitHub Repository",
+                    title = "GitHub repository",
                     subtitle = "View source code and report issues",
                     onClick = {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/rushiranpise/helper-for-morphe"))
@@ -678,7 +886,7 @@ internal fun SourcesSettingsScreen(
             }
         }
 
-        SettingsSection(title = "Providers & Priority", icon = Icons.Outlined.Dns) {
+        SettingsSection(title = "Providers & priority", icon = Icons.Outlined.Dns) {
             SettingsGroup {
                 val draggedHeight = if (startIndex in localOrder.indices) {
                     (rowHeights[localOrder[startIndex]] ?: 180).toFloat()
@@ -741,8 +949,8 @@ internal fun SourcesSettingsScreen(
                                 title = source.label,
                                 subtitle = when {
                                     !enabled -> "Disabled"
-                                    index == 0 && draggingSource == null -> "Tried first · Hold ≡ to reorder"
-                                    else -> "Hold ≡ to reorder"
+                                    index == 0 && draggingSource == null -> "Tried first"
+                                    else -> null
                                 },
                                 onClick = {
                                     onSettingsChange(
@@ -945,7 +1153,6 @@ internal fun SettingsOptionCard(
         color = if (selected) colors.surfaceVariant else colors.surfaceColorAtElevation(3.dp),
         contentColor = colors.onSurface,
         tonalElevation = if (selected) 0.dp else 1.dp,
-        border = if (selected) BorderStroke(1.5.dp, colors.onSurface.copy(alpha = 0.5f)) else null
     ) {
         Row(modifier = Modifier.fillMaxWidth().padding(MorpheDefaults.ContentPadding), horizontalArrangement = Arrangement.spacedBy(MorpheDefaults.ItemSpacing), verticalAlignment = Alignment.CenterVertically) {
             if (source != null) SourceAvatar(source = source, size = MorpheDefaults.IconSize)
@@ -1024,7 +1231,6 @@ internal fun VirusTotalQuotaCard(apiKey: String) {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(MorpheDefaults.CardCornerRadius),
         color = sourceCardFill(),
-        border = BorderStroke(1.dp, sourceCardBorder())
     ) {
         Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {

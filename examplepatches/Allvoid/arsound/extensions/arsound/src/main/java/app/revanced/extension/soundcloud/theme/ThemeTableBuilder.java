@@ -69,6 +69,13 @@ final class ThemeTableBuilder {
 
     /** Builds the table into {@code arsc}, with the fonts and the loading animation it names. */
     void build(File arsc) throws Exception {
+        if (FontChoice.FONTS_ONLY_ID.equals(theme.id)) {
+            // SoundCloud's own look with a font or a text colour of the user's choice: only these.
+            addFonts();
+            addTextColour();
+            ThemeFiles.write(arsc, table.build());
+            return;
+        }
         addColorTokens();
         addNamedColors();
         addResourceFiles();
@@ -93,6 +100,19 @@ final class ThemeTableBuilder {
         // Links («Ещё» under a description, links in texts) in the accent, not SoundCloud's blue.
         overrides.color("dark_mode_link", theme.accent(true), null);
         overrides.color("light_mode_link", theme.accent(false), null);
+        addTextColour();
+    }
+
+    /**
+     * The text colour chosen in Appearance ({@link TextColour}) in place of the "primary" token of both looks and a
+     * dimmer copy of it in place of "secondary".
+     */
+    private void addTextColour() {
+        if (!TextColour.isSet()) return;
+        overrides.color("dark_mode_primary", TextColour.primary(), null);
+        overrides.color("light_mode_primary", TextColour.primary(), null);
+        overrides.color("dark_mode_secondary", TextColour.secondary(), null);
+        overrides.color("light_mode_secondary", TextColour.secondary(), null);
     }
 
     /** Any other SoundCloud colour by name, such as the grey scale behind cards and the mini player's gradient. */
@@ -165,13 +185,22 @@ final class ThemeTableBuilder {
         overrides.dimen("mini_player_corner", radii.optInt("miniPlayer", 36));
     }
 
-    /** Fonts: files from the app's assets, given to Android through the provider of the loader. */
+    /**
+     * Fonts: files from the app's assets, given to Android through the provider of the loader. The theme's own, or the
+     * font chosen in Appearance ({@link FontChoice}); "@own" is the user's file, kept in the app's files already.
+     */
     private void addFonts() {
-        JSONObject fonts = theme.json.optJSONObject("fonts");
+        JSONObject fonts = FontChoice.fonts(context, theme.json.optJSONObject("fonts"));
         if (fonts == null) return;
         for (String[] slot : FONTS) {
             String file = fonts.optString(slot[0], "");
             if (file.isEmpty()) continue;
+            if (file.equals("@own")) {
+                if (new File(context.getFilesDir(), FontChoice.OWN_FILE).isFile()) {
+                    overrides.file("font", slot[1], "res/" + FontChoice.OWN_FILE);
+                }
+                continue;
+            }
             String path = ThemeFiles.ROOT + "fonts/" + file + ".ttf";
             // Android loads a font resource only from a path under res/.
             if (ThemeFiles.copyAsset(context, path, new File(context.getFilesDir(), path))) {

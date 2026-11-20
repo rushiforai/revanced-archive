@@ -38,8 +38,14 @@ public final class PlaybackEvents {
         playingUrn = urn;
         // Each listener on its own: one that fails must not stop the others, and nothing may reach the player,
         // where an exception closes the app.
+        boolean overlapped = false;
         try {
-            Crossfade.onPlay(exoPlayer, newTrack);
+            overlapped = CrossfadeOverlap.onPlay(trackId(urn), newTrack);
+        } catch (Throwable ex) {
+            failed("crossfade overlap, start", ex);
+        }
+        try {
+            Crossfade.onPlay(exoPlayer, newTrack, overlapped);
         } catch (Throwable ex) {
             failed("crossfade, start", ex);
         }
@@ -55,6 +61,7 @@ public final class PlaybackEvents {
                 failed("My Wave, track change", ex);
             }
         }
+        AudioDiagnostics.onPlay();
         try {
             SlowedPlayback.onPlay(exoPlayer, urn);
         } catch (Throwable ex) {
@@ -69,6 +76,7 @@ public final class PlaybackEvents {
         } catch (Throwable ex) {
             failed("crossfade, progress", ex);
         }
+        AudioDiagnostics.onProgress(position, duration);
         try {
             SlowedPlayback.reassert();
         } catch (Throwable ex) {
@@ -84,6 +92,12 @@ public final class PlaybackEvents {
         } catch (Throwable ex) {
             failed("My Wave, progress", ex);
         }
+    }
+
+    /** The number of a SoundCloud track's urn, or null. */
+    private static String trackId(String urn) {
+        String prefix = "soundcloud:tracks:";
+        return urn != null && urn.startsWith(prefix) ? urn.substring(prefix.length()) : null;
     }
 
     /** Logs a listener's failure, not more often than {@link #REPORT_EVERY_MS}: the progress comes twice a second. */
