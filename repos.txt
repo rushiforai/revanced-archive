@@ -98,3 +98,4 @@ simnple/revanced-patches
 valonsodev/jadx-revanced
 vasyl91/Expose-like-status-in-MediaSession
 vinceTheProgrammer/sticknodes-patches
+vinh2201/rvx-spoof-patch21
