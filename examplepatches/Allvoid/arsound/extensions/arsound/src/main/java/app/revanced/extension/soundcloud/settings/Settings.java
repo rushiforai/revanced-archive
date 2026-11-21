@@ -414,6 +414,7 @@ public final class Settings {
 
     public static final String HIDE_HEADER_ARTWORK = "hide_header_artwork";
     public static final String HIDE_HOME_GREETING = "hide_home_greeting";
+    public static final String PLAY_GLOW = "play_glow";
 
     /** Removes the picture behind the title of "Your likes" (the hearts) and of the purchases page. Off by default. */
     public static boolean isHeaderArtworkHidden() {
@@ -429,6 +430,8 @@ public final class Settings {
 
     /** The end of a track fades out and the next one fades in (player/Crossfade). Off by default. */
     public static final String CROSSFADE = "crossfade";
+    /** The next track goes on without a gap when it is on the phone (player/CrossfadeOverlap). Off by default. */
+    public static final String GAPLESS = "gapless_next";
     /** How long one fade of the smooth transition takes, in seconds. */
     public static final String CROSSFADE_SECONDS = "crossfade_seconds";
     /** Every track plays slowed (player/SlowedPlayback), except one whose title says it is slowed or sped up already. Off by default. */
@@ -450,6 +453,12 @@ public final class Settings {
 
     public static final String DUPLICATE_FILTER = "duplicate_filter";
     public static final String MERGE_EDITED_VERSIONS = "merge_edited_versions";
+    /** The Feed tab leaves out what people repost (off by default); recommendations/StreamReposts reads it. */
+    public static final String HIDE_FEED_REPOSTS = "hide_feed_reposts";
+
+    public static boolean isHideFeedRepostsEnabled() {
+        return BoolSettings.HIDE_FEED_REPOSTS.get();
+    }
 
     public static boolean isDuplicateFilterEnabled() {
         return BoolSettings.DUPLICATE_FILTER.get();
@@ -482,6 +491,41 @@ public final class Settings {
         if (preferences == null) return;
 
         preferences.edit().putInt(DEVELOPER_NETWORK_DELAY, seconds).apply();
+    }
+
+    public static final String DEVELOPER_FAULT_MODE = "developer_fault_mode";
+    public static final String DEVELOPER_REQUEST_DELAY_MS = "developer_request_delay_ms";
+
+    /** The simulated network fault ({@code FaultSimulation} modes). Only active while developer mode is on. */
+    public static String getDeveloperFaultMode() {
+        SharedPreferences preferences = preferences();
+        if (preferences == null || !preferences.getBoolean(DEVELOPER_MODE, false)) return "none";
+        return preferences.getString(DEVELOPER_FAULT_MODE, "none");
+    }
+
+    public static void setDeveloperFaultMode(String mode) {
+        SharedPreferences preferences = preferences();
+        if (preferences == null) return;
+
+        preferences.edit().putString(DEVELOPER_FAULT_MODE, mode).apply();
+    }
+
+    /**
+     * The free delay, in milliseconds, added to every request. Only active while developer mode is on. The delay in
+     * whole seconds of the earlier versions still counts until a value in milliseconds is set.
+     */
+    public static long getDeveloperRequestDelayMs() {
+        SharedPreferences preferences = preferences();
+        if (preferences == null || !preferences.getBoolean(DEVELOPER_MODE, false)) return 0;
+        if (preferences.contains(DEVELOPER_REQUEST_DELAY_MS)) return preferences.getLong(DEVELOPER_REQUEST_DELAY_MS, 0);
+        return preferences.getInt(DEVELOPER_NETWORK_DELAY, 0) * 1000L;
+    }
+
+    public static void setDeveloperRequestDelayMs(long milliseconds) {
+        SharedPreferences preferences = preferences();
+        if (preferences == null) return;
+
+        preferences.edit().putLong(DEVELOPER_REQUEST_DELAY_MS, milliseconds).apply();
     }
 
     public static final String BLOCK_PLAYBACK_ADS = "block_playback_ads";

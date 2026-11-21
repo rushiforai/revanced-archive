@@ -73,6 +73,11 @@ public final class BoolSettings {
     public static final BoolSetting THEME_EFFECTS = new BoolSetting(Settings.THEME_EFFECTS, true);
     /** Removes the picture behind the title of "Your likes" (the hearts) and of the purchases page. Off by default. */
     public static final BoolSetting HIDE_HEADER_ARTWORK = new BoolSetting(Settings.HIDE_HEADER_ARTWORK, false);
+    /**
+     * The glow around the play and pause buttons in the theme's colour. On by default; off swaps in flat buttons and
+     * restarts the app, as the buttons are part of the theme's resource table. Written at once for that restart.
+     */
+    public static final BoolSetting PLAY_GLOW = new BoolSetting(Settings.PLAY_GLOW, true, true);
     /** Removes the theme's greeting ("Привет, имя / Что послушаем?") from the top of the home screen. Off by default. */
     public static final BoolSetting HIDE_HOME_GREETING = new BoolSetting(Settings.HIDE_HOME_GREETING, false);
     /**
@@ -87,12 +92,19 @@ public final class BoolSettings {
     public static final BoolSetting WHOLE_PLAYER_COVER = new BoolSetting(Settings.WHOLE_PLAYER_COVER, true, true);
     /** The end of a track fades out and the next one fades in. Off by default. */
     public static final BoolSetting CROSSFADE = new BoolSetting(Settings.CROSSFADE, false);
+    /**
+     * The next track starts without a gap: it is opened in a second player ahead and goes on the moment the first one
+     * ends, as on Arsound Desktop; only for a track on the phone (a streamed one starts the usual way). Off by default until it is tried on a phone.
+     */
+    public static final BoolSetting GAPLESS = new BoolSetting(Settings.GAPLESS, false);
     /** Every track plays slowed, unless its title says it is slowed or sped up already. Off by default. */
     public static final BoolSetting SLOWED_PLAYBACK = new BoolSetting(Settings.SLOWED_PLAYBACK, false);
     /** Hides the comments that pop up over the player and their marks on the waveform. Off by default. */
     public static final BoolSetting HIDE_PLAYER_COMMENTS = new BoolSetting(Settings.HIDE_PLAYER_COMMENTS, false);
     public static final BoolSetting DUPLICATE_FILTER = new BoolSetting(Settings.DUPLICATE_FILTER, false);
     public static final BoolSetting MERGE_EDITED_VERSIONS = new BoolSetting(Settings.MERGE_EDITED_VERSIONS, false);
+    /** The Feed tab leaves out reposts, as the desktop's "Hide reposts" tick does. Off by default. */
+    public static final BoolSetting HIDE_FEED_REPOSTS = new BoolSetting(Settings.HIDE_FEED_REPOSTS, false);
     public static final BoolSetting DEVELOPER_MODE = new BoolSetting(Settings.DEVELOPER_MODE, false);
     /**
      * Controls the player-level ad request guard. Enabled by default because an ad request that

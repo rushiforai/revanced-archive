@@ -48,7 +48,10 @@ public final class FontChoice {
         }
         // The text colour rides in the same key: both are put into the one table.
         String colour = TextColour.key();
-        return colour.isEmpty() ? font : font + "~" + colour.substring(1);
+        String key = colour.isEmpty() ? font : font + "~" + colour.substring(1);
+        // And the play button glow: the flat buttons are put into the same table too.
+        String glow = PlayGlow.key();
+        return glow.isEmpty() ? key : key + "^" + glow;
     }
 
     /**
@@ -128,7 +131,7 @@ public final class FontChoice {
                 Logger.printInfo(() -> "Font: the picked file is not a font Android can read");
                 return false;
             }
-            if (target.exists() && !target.delete()) return false;
+            // Android renames over the old font in one step: the kept font stays in place if this fails.
             if (!temporary.renameTo(target)) return false;
             Logger.printInfo(() -> "Font: own font kept, " + target.length() + " bytes");
             return true;

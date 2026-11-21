@@ -1,5 +1,5 @@
 /**
- * Animated theme backgrounds: sparks, meteors, fireflies, petals, scanner squares, snow under frost, a storm, a turning record.
+ * Animated theme backgrounds: sparks, meteors, fireflies, petals, scanner squares, snow under frost, a storm, a turning record, soft colour blobs.
  *
  * <p>User view: a theme can have a moving background under the settings screens, over the main screen and in the
  * preview tiles. It runs only while visible, stands still in battery saver or when Android animations are off, and the

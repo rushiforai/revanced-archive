@@ -47,16 +47,53 @@ public final class AccountSwitch {
     private static final String EMAIL = "KEY_USER_EMAIL";
     /** How often Android syncs the account, as SoundCloud asks at its sign-in ({@code SyncConfig}). */
     private static final long SYNC_EVERY_SECONDS = 3600;
-    /** If SoundCloud never says its wipe is over, the switch goes on after this. */
+    /** If SoundCloud does not say its wipe is over by then, the user is asked: wait more or go on. */
     private static final long PURGE_WAIT_MS = 25_000;
+    /** The wait when the wipe could not be followed at all (SoundCloud changed its code): nothing will report its end. */
+    private static final long UNCONFIRMED_WAIT_MS = 8_000;
 
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
+    /** The wipes SoundCloud runs now, of ours or of the user's own sign-out. */
+    private static final PurgeGate PURGES = new PurgeGate();
+    /** A switch ended while no screen was in front: the app is started anew at the next screen. */
+    private static volatile boolean restartNeeded;
     private static WeakReference<Activity> starter = new WeakReference<>(null);
-    private static Dialog progress;
+    // Weak: a recreated activity (a turned phone) must not be held by the dialog of its old window.
+    private static WeakReference<Dialog> progress = new WeakReference<>(null);
     private static final Runnable PURGE_TIMEOUT = () -> {
-        Logger.printInfo(() -> "Accounts: SoundCloud did not report the end of its wipe, going on");
-        Utils.runOnBackgroundThread(() -> finishPending(Utils.getContext()));
+        Logger.printInfo(() -> "Accounts: SoundCloud did not report the end of its wipe, asking the user");
+        Utils.runOnBackgroundThread(() -> {
+            Context context = Utils.getContext();
+            // Not a switch of ours (SoundCloud's own sign-out): nothing to ask.
+            if (context == null) return;
+            if (AccountVault.pending(context) == null) {
+                // The switch is gone while a spinner may still cover the screen (the mark expired during "Wait more").
+                MAIN.post(AccountSwitch::switchGone);
+                return;
+            }
+            askAboutWipe(false);
+        });
     };
+
+    /** What a try at keeping the signed-in account came to. */
+    static final class Kept {
+        /** The kept copy, or null when there is nothing to keep (nobody signed in, no tokens yet) or it failed. */
+        final SavedAccount saved;
+        /** True when there was something to keep and it did not reach the disk: a switch must not remove the account. */
+        final boolean failed;
+        /** True when it did not fit: ten other accounts are kept, and none is dropped for it. */
+        final boolean full;
+
+        Kept(SavedAccount saved, boolean failed) {
+            this(saved, failed, false);
+        }
+
+        Kept(SavedAccount saved, boolean failed, boolean full) {
+            this.saved = saved;
+            this.failed = failed;
+            this.full = full;
+        }
+    }
 
     private AccountSwitch() {
     }
@@ -91,8 +128,13 @@ public final class AccountSwitch {
      * return to the app once the list is in use.
      */
     static SavedAccount snapshotCurrent(Context context) {
+        return keepCurrent(context).saved;
+    }
+
+    /** As {@link #snapshotCurrent}, but tells "nothing to keep" from "could not keep it". */
+    static Kept keepCurrent(Context context) {
         Account account = current(context);
-        if (account == null) return null;
+        if (account == null) return new Kept(null, false);
         try {
             AccountManager manager = AccountManager.get(context);
             SavedAccount saved = new SavedAccount(
@@ -107,16 +149,23 @@ public final class AccountSwitch {
             AccountVault.setLastCurrent(context, account.name);
             if (!saved.usable()) {
                 Logger.printInfo(() -> "Accounts: the signed-in account has no tokens yet, not kept");
-                return null;
+                return new Kept(null, false);
             }
             // Nothing to write when the copy at the top is the same: this runs on every return to the app.
             java.util.List<SavedAccount> kept = AccountVault.list(context);
-            if (!kept.isEmpty() && kept.get(0).sameSession(saved)) return kept.get(0);
-            AccountVault.save(context, saved);
-            return saved;
+            if (!kept.isEmpty() && kept.get(0).sameSession(saved)) return new Kept(kept.get(0), false);
+            if (AccountVault.isFullFor(context, saved.name)) {
+                Logger.printInfo(() -> "Accounts: ten accounts are kept, the signed-in one is not added");
+                return new Kept(null, true, true);
+            }
+            if (!AccountVault.save(context, saved)) {
+                Logger.printInfo(() -> "Accounts: the copy of the signed-in account was not written");
+                return new Kept(null, true);
+            }
+            return new Kept(saved, false);
         } catch (Exception ex) {
             Logger.printException(() -> "Accounts: could not keep the signed-in account", ex);
-            return null;
+            return new Kept(null, true);
         }
     }
 
@@ -175,6 +224,41 @@ public final class AccountSwitch {
         Context context = activity.getApplicationContext();
         showProgress(activity);
         Utils.runOnBackgroundThread(() -> {
+            AccountVault.SignInGate gate = AccountVault.signInGate(PURGES.busy(System.currentTimeMillis()),
+                    AccountVault.pending(context) != null, AccountVault.wipeUnfinished(context));
+            if (gate == AccountVault.SignInGate.WAIT) {
+                // A wipe of the old account's data is running (a switch of ours, or the user's own sign-out): a restart now
+                // would cut it off.
+                MAIN.post(() -> {
+                    hideProgress();
+                    if (!screenAlive(activity)) return;
+                    new ArsoundDialog(activity)
+                            .setTitle(Lang.text("Данные прошлого аккаунта ещё убираются", "The previous account's data is still being cleared"))
+                            .setMessage(Lang.text("Подождите немного и выберите аккаунт ещё раз.", "Wait a little and pick the account again."))
+                            .setPositiveButton(android.R.string.ok, null)
+                            .show();
+                });
+                return;
+            }
+            if (gate == AccountVault.SignInGate.WARN) {
+                MAIN.post(() -> {
+                    hideProgress();
+                    if (!screenAlive(activity)) return;
+                    new ArsoundDialog(activity)
+                            .setTitle(Lang.text("Прошлый аккаунт убран не до конца", "The previous account was not cleared completely"))
+                            .setMessage(Lang.text("Очистка данных прошлого аккаунта не закончилась: часть его лайков, плейлистов и истории "
+                                            + "может показаться у этого аккаунта.",
+                                    "The clearing of the previous account's data did not finish: some of its likes, playlists and "
+                                            + "history may show up under this account."))
+                            .setPositiveButton(Lang.text("Всё равно войти", "Sign in anyway"), (d, which) -> {
+                                Utils.runOnBackgroundThread(() -> AccountVault.clearWipeOpen(context));
+                                signInSaved(activity, target);
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
+                });
+                return;
+            }
             if (current(context) != null) {
                 // Signed in after all (in another window): this is a switch.
                 MAIN.post(() -> start(activity, target.name));
@@ -188,24 +272,83 @@ public final class AccountSwitch {
         });
     }
 
+    private static void askToWait(Activity activity) {
+        if (!screenAlive(activity)) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Данные прошлого аккаунта ещё убираются", "The previous account's data is still being cleared"))
+                .setMessage(Lang.text("Подождите немного и повторите.", "Wait a little and try again."))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    private static void askAboutCutWipe(Activity activity, Runnable goOn) {
+        if (!screenAlive(activity)) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Прошлый аккаунт убран не до конца", "The previous account was not cleared completely"))
+                .setMessage(Lang.text("Очистка данных прошлого аккаунта не закончилась: часть его лайков, плейлистов и истории "
+                                + "может показаться у следующего.",
+                        "The clearing of the previous account's data did not finish: some of its likes, playlists and "
+                                + "history may show up under the next one."))
+                .setPositiveButton(Lang.text("Всё равно продолжить", "Continue anyway"), (d, which) -> goOn.run())
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
     private static void start(Activity activity, String what) {
         Context context = activity.getApplicationContext();
         starter = new WeakReference<>(activity);
         showProgress(activity);
         Utils.runOnBackgroundThread(() -> {
-            snapshotCurrent(context);
+            // A wipe still running (ours or the user's own sign-out) or a cut one: the same wait and warning as at the sign-in.
+            AccountVault.SignInGate gate = AccountVault.signInGate(PURGES.busy(System.currentTimeMillis()),
+                    AccountVault.pending(context) != null, AccountVault.wipeUnfinished(context));
+            if (gate == AccountVault.SignInGate.WAIT) {
+                MAIN.post(() -> {
+                    hideProgress();
+                    askToWait(activity);
+                });
+                return;
+            }
+            if (gate == AccountVault.SignInGate.WARN) {
+                MAIN.post(() -> {
+                    hideProgress();
+                    // Warned once: the mark is cleared first, so the start that follows goes on.
+                    askAboutCutWipe(activity, () -> Utils.runOnBackgroundThread(() -> {
+                        AccountVault.clearWipeOpen(context);
+                        MAIN.post(() -> start(activity, what));
+                    }));
+                });
+                return;
+            }
+            Kept kept = keepCurrent(context);
             Account account = current(context);
             if (account != null && account.name.equals(what)) {
                 MAIN.post(AccountSwitch::hideProgress);
                 return;
             }
-            AccountVault.setPending(context, what);
+            // Taking the account out wipes its data, and the only way back is the kept copy: no usable copy, no switch (a
+            // copy that was not made because the tokens are not there yet leaves nothing to come back to).
+            if (!kept.failed && !AccountVault.canLeave(account != null, account == null ? null : AccountVault.find(context, account.name))) {
+                Logger.printInfo(() -> "Accounts: the switch is stopped, there is no usable copy of the signed-in account");
+                MAIN.post(() -> noCopy(activity));
+                return;
+            }
+            if (kept.failed || !AccountVault.setPending(context, what)) {
+                Logger.printInfo(() -> "Accounts: the switch is stopped, the account could not be kept");
+                final boolean full = kept.full;
+                MAIN.post(() -> {
+                    if (full) listFull(activity);
+                    else couldNotKeep(activity);
+                });
+                return;
+            }
             Settings.flush();
             if (account == null) {
                 finishPending(context);
                 return;
             }
             MAIN.postDelayed(PURGE_TIMEOUT, PURGE_WAIT_MS);
+            AccountVault.markWipeOpen(context);
             Logger.printInfo(() -> "Accounts: taking out " + SavedAccount.shownName(account.name));
             // Not SoundCloud's sign-out: that ends the session on the server too. This only takes the account off the
             // phone; SoundCloud's authenticator then wipes the user's data (subscribePurge hears when it is done).
@@ -219,29 +362,55 @@ public final class AccountSwitch {
      * ({@code io.reactivex.rxjava3.core.Completable}).
      */
     public static void subscribePurge(Object purge) {
+        Object onDone;
+        Object onError;
+        Method subscribe;
         try {
             ClassLoader loader = purge.getClass().getClassLoader();
             Class<?> action = Class.forName("io.reactivex.rxjava3.functions.Action", false, loader);
             Class<?> consumer = Class.forName("io.reactivex.rxjava3.functions.Consumer", false, loader);
-            Object onDone = Proxy.newProxyInstance(loader, new Class<?>[]{action}, (proxy, method, args) -> {
+            onDone = Proxy.newProxyInstance(loader, new Class<?>[]{action}, (proxy, method, args) -> {
                 if (method.getDeclaringClass() == Object.class) return objectMethod(proxy, method, args);
                 onPurged(null);
                 return null;
             });
-            Object onError = Proxy.newProxyInstance(loader, new Class<?>[]{consumer}, (proxy, method, args) -> {
+            onError = Proxy.newProxyInstance(loader, new Class<?>[]{consumer}, (proxy, method, args) -> {
                 if (method.getDeclaringClass() == Object.class) return objectMethod(proxy, method, args);
                 onPurged(args != null && args.length > 0 && args[0] instanceof Throwable ? (Throwable) args[0] : null);
                 return null;
             });
-            Method subscribe = purge.getClass().getMethod("subscribe", action, consumer);
-            subscribe.invoke(purge, onDone, onError);
+            subscribe = purge.getClass().getMethod("subscribe", action, consumer);
         } catch (Throwable ex) {
+            // Nothing was subscribed yet (only the proxies and the method were looked for), so the plain way is safe.
             Logger.printException(() -> "Accounts: could not follow SoundCloud's wipe, subscribing the plain way", ex);
             try {
                 purge.getClass().getMethod("subscribe").invoke(purge);
             } catch (Throwable again) {
                 Logger.printException(() -> "Accounts: SoundCloud's wipe did not start", again);
             }
+            // Its end will not be reported: a short wait, then the user is asked, instead of the full one.
+            Context context = Utils.getContext();
+            if (context != null) {
+                Utils.runOnBackgroundThread(() -> {
+                    if (AccountVault.pending(context) == null) return;
+                    MAIN.post(() -> {
+                        MAIN.removeCallbacks(PURGE_TIMEOUT);
+                        MAIN.postDelayed(PURGE_TIMEOUT, UNCONFIRMED_WAIT_MS);
+                    });
+                });
+            }
+            return;
+        }
+        PURGES.begin(System.currentTimeMillis());
+        // Whoever started this wipe (a switch of ours, the user's own sign-out): a cut one is told at the next sign-in.
+        Context purging = Utils.getContext();
+        if (purging != null) AccountVault.markWipeOpen(purging);
+        try {
+            subscribe.invoke(purge, onDone, onError);
+        } catch (Throwable ex) {
+            PURGES.end();
+            // Never a second subscribe after this one began: the wipe would run twice.
+            Logger.printException(() -> "Accounts: SoundCloud's wipe could not be followed", ex);
         }
     }
 
@@ -262,38 +431,160 @@ public final class AccountSwitch {
         Context context = Utils.getContext();
         if (context == null) return;
         MAIN.removeCallbacks(PURGE_TIMEOUT);
-        if (AccountVault.pending(context) == null) {
-            // SoundCloud's own sign-out: it ended the session on the server, the kept tokens of that account are dead.
-            String gone = AccountVault.lastCurrent(context);
-            if (gone != null) {
-                AccountVault.remove(context, gone);
-                Logger.printInfo(() -> "Accounts: signed out in SoundCloud, " + SavedAccount.shownName(gone) + " dropped from the list");
-            }
+        PURGES.end();
+        // Only a wipe that ended well closes the mark: one that failed or was cut leaves it, and the next sign-in warns.
+        if (error == null) AccountVault.clearWipeOpen(context);
+        // Read before pending(): a stale mark is cleared there, and the flag with it.
+        boolean gaveUp = AccountVault.isAbandoned();
+        AccountVault.AfterPurge after = AccountVault.afterPurge(AccountVault.pending(context) != null, gaveUp, error != null,
+                AccountVault.justFinished());
+        if (after == AccountVault.AfterPurge.LEAVE) {
+            Logger.printInfo(() -> "Accounts: the wipe ended after the switch was given up, nothing is changed");
+            // The wipe is over, so nothing is waited for: a mark kept on would turn a later sign-out of SoundCloud's own
+            // into this switch's end.
+            Utils.runOnBackgroundThread(() -> AccountVault.clearPending(context));
             return;
         }
+        if (after == AccountVault.AfterPurge.OWN_SIGN_OUT) {
+            // RULE (20.11): a kept account is never deleted by itself. The user's own sign-out in SoundCloud leaves its copy
+            // in "My accounts" (its tokens may be dead on the server; the user removes it there, or a sign-in with it that
+            // the server refuses says so). Guessing which end of a wipe belongs to what lost copies four times.
+            Logger.printInfo(() -> "Accounts: SoundCloud's wipe ended with no switch of ours, the kept accounts stay");
+            return;
+        }
+        // A wipe that failed leaves the old user's data on the phone: the user decides, nothing goes on by itself.
+        if (after == AccountVault.AfterPurge.ASK) {
+            askAboutWipe(true);
+            return;
+        }
+        Utils.runOnBackgroundThread(() -> finishPending(context));
+    }
+
+    /**
+     * The wipe of the old account's data did not finish in time (or failed): keeps the switch waiting and asks. Not
+     * "putting the next account in" by itself, since the process exits right after and would stop a wipe half-way.
+     */
+    private static void askAboutWipe(boolean failed) {
+        MAIN.post(() -> {
+            // The end of the wipe may have come while this waited for the main thread: the switch is not asked about then.
+            Context now = Utils.getContext();
+            if (!failed && now != null && AccountVault.pending(now) == null) {
+                hideProgress();
+                return;
+            }
+            Activity activity = UpdateChecker.resumedActivity();
+            if (!screenAlive(activity)) activity = starter.get();
+            if (!screenAlive(activity)) {
+                // Nobody to ask: the switch stays pending (and goes stale on its own), the app is not restarted.
+                Logger.printInfo(() -> "Accounts: the wipe did not finish, no screen to ask on");
+                hideProgress();
+                // Given up, but SoundCloud's wipe of the old account still runs: the mark stays (its end must not look like
+                // a sign-out of SoundCloud's own, which would drop the kept copy of the account left), and the end of the
+                // wipe neither removes anything nor restarts the app in the background. A wipe that already failed has no
+                // end to wait for: the mark goes at once.
+                Context left = Utils.getContext();
+                if (failed && left != null) Utils.runOnBackgroundThread(() -> AccountVault.clearPending(left));
+                else AccountVault.markAbandoned();
+                return;
+            }
+            hideProgress();
+            Activity screen = activity;
+            Context context = screen.getApplicationContext();
+            ArsoundDialog dialog = new ArsoundDialog(screen)
+                    .setCancelable(false)
+                    .setTitle(failed
+                            ? Lang.text("Не удалось убрать данные прошлого аккаунта", "Could not clear the previous account's data")
+                            : Lang.text("Данные прошлого аккаунта ещё убираются", "The previous account's data is still being cleared"))
+                    .setMessage(Lang.text("Если продолжить сейчас, часть данных прошлого аккаунта (лайки, плейлисты, "
+                                    + "история) может остаться на телефоне и показаться у нового.",
+                            "If you go on now, some of the previous account's data (likes, playlists, history) may "
+                                    + "stay on the phone and show up under the new one."));
+            if (failed) {
+                dialog.setPositiveButton(Lang.text("Всё равно продолжить", "Continue anyway"),
+                        (d, which) -> continueSwitch(screen, context));
+                dialog.setNegativeButton(Lang.text("Не сейчас", "Not now"),
+                        (d, which) -> Utils.runOnBackgroundThread(() -> AccountVault.clearPending(context)));
+            } else {
+                dialog.setPositiveButton(Lang.text("Ждать ещё", "Wait more"), (d, which) -> {
+                    showProgress(screen);
+                    MAIN.postDelayed(PURGE_TIMEOUT, PURGE_WAIT_MS);
+                    // The mark would look abandoned after two minutes of waiting.
+                    Utils.runOnBackgroundThread(() -> AccountVault.touchPending(context));
+                });
+                dialog.setNegativeButton(Lang.text("Всё равно продолжить", "Continue anyway"),
+                        (d, which) -> continueSwitch(screen, context));
+            }
+            progress = new WeakReference<>(dialog.show());
+        });
+    }
+
+    private static void continueSwitch(Activity activity, Context context) {
+        showProgress(activity);
         Utils.runOnBackgroundThread(() -> finishPending(context));
     }
 
     /** The wipe is over: puts the next account in (or none, for one more) and starts the app again. */
     private static synchronized void finishPending(Context context) {
         String what = AccountVault.pending(context);
-        if (what == null) return;
-        AccountVault.clearPending(context);
+        if (what == null) {
+            // Nothing to go on with (the mark expired while the question waited): the screen must not stay covered.
+            MAIN.post(AccountSwitch::switchGone);
+            return;
+        }
         if (!AccountVault.PENDING_ADD.equals(what)) {
             SavedAccount target = AccountVault.find(context, what);
             if (target == null || !putIn(context, target)) {
                 Logger.printInfo(() -> "Accounts: could not sign in as " + SavedAccount.shownName(what) + ", the sign-in screen opens");
             }
         }
+        // After the account is in: a wipe that ends before this point still finds the mark and waits for this method. The
+        // end of a wipe in the moments after it is told from a sign-out by justFinished.
+        AccountVault.markFinished();
+        AccountVault.clearPending(context);
         MAIN.post(() -> restart(context));
+    }
+
+    /** The switch is gone (its mark expired): the progress goes and the user is told what to do. */
+    private static void switchGone() {
+        boolean covered = progress.get() != null;
+        hideProgress();
+        if (!covered) return;
+        Activity activity = UpdateChecker.resumedActivity();
+        if (activity == null || activity.isFinishing()) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Смена аккаунта прервана", "The account switch was interrupted"))
+                .setMessage(Lang.text("Слишком долго не было ответа. Войдите в нужный аккаунт из списка «Мои аккаунты» на экране входа.",
+                        "There was no answer for too long. Sign in to the account you want from the My accounts list on the sign-in screen."))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    /** Screen hook: a switch that ended in the background is finished now, with the app started anew. */
+    static void performPendingRestart(Activity activity) {
+        if (!restartNeeded) return;
+        restartNeeded = false;
+        restart(activity.getApplicationContext());
+    }
+
+    /** Whether a dialog can be shown on the screen: a finishing or destroyed one would throw. */
+    static boolean screenAlive(Activity activity) {
+        return activity != null && !activity.isFinishing() && !activity.isDestroyed();
     }
 
     private static void restart(Context context) {
         hideProgress();
         Settings.flush();
-        Activity activity = starter.get();
-        if (activity == null || activity.isFinishing()) activity = UpdateChecker.resumedActivity();
-        Context from = activity != null ? activity : context;
+        // Only from a screen the user is looking at: from the background the system does not start an activity, and the exit
+        // would only end the process (and the music). The new account is in; the next start shows it.
+        Activity activity = UpdateChecker.resumedActivity();
+        if (activity == null || activity.isFinishing()) {
+            // Not ended here: the music would stop for nothing, and the new account is in already. The app starts anew at
+            // its next screen (performPendingRestart), so it does not go on with the old account's state for long.
+            Logger.printInfo(() -> "Accounts: the app is in the background, it restarts at its next screen");
+            restartNeeded = true;
+            return;
+        }
+        Context from = activity;
         Intent launch = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         if (launch == null) return;
         launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -309,10 +600,11 @@ public final class AccountSwitch {
 
     private static void showProgress(Activity activity) {
         hideProgress();
+        if (!screenAlive(activity)) return;
         ProgressBar spinner = new ProgressBar(activity);
         int pad = Dimens.dp(activity, 12);
         spinner.setPadding(pad, pad, pad, pad);
-        progress = new ArsoundDialog(activity)
+        progress = new WeakReference<>(new ArsoundDialog(activity)
                 .setTitle(Lang.text("Меняем аккаунт…", "Switching account…"))
                 .setMessage(Lang.text("SoundCloud убирает данные прошлого аккаунта с телефона, потом приложение "
                                 + "запустится заново. Скачанные треки остаются.",
@@ -320,21 +612,78 @@ public final class AccountSwitch {
                                 + "Downloaded tracks stay."))
                 .setView(spinner)
                 .setCancelable(false)
-                .show();
+                .show());
     }
 
     private static void hideProgress() {
-        if (progress == null) return;
+        Dialog dialog = progress.get();
+        if (dialog == null) return;
         try {
-            progress.dismiss();
+            dialog.dismiss();
         } catch (Exception ignored) {
             // Its window is gone with the activity.
         }
-        progress = null;
+        progress = new WeakReference<>(null);
+    }
+
+    /** The account could not be kept on the phone, so nothing was changed. */
+    private static void couldNotKeep(Activity activity) {
+        hideProgress();
+        if (!screenAlive(activity)) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Не получилось сохранить аккаунт", "Could not keep the account"))
+                .setMessage(Lang.text("Смена остановлена, ничего не изменилось. Проверьте свободное место на телефоне.",
+                        "The switch was stopped, nothing was changed. Check the free space on the phone."))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    private static void noCopy(Activity activity) {
+        hideProgress();
+        if (!screenAlive(activity)) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Аккаунт пока нельзя сохранить", "The account cannot be kept yet"))
+                .setMessage(Lang.text("У аккаунта ещё нет данных для входа. Смена остановлена, ничего не удалено: откройте "
+                                + "SoundCloud на минуту и повторите.",
+                        "The account has no sign-in data yet. The switch was stopped and nothing was removed: use SoundCloud "
+                                + "for a minute and try again."))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    /** The account the full-list message was shown for last: not repeated at every return to the app. */
+    private static volatile String toldFullFor;
+
+    /**
+     * On a return to the app: keeps a copy of the signed-in account; when the list is full and the account is not in it (a
+     * fresh sign-in of another), says so once, so the user does not learn it at the next switch.
+     */
+    static void snapshotAndTell(Activity activity) {
+        Kept kept = keepCurrent(activity);
+        if (!kept.full) return;
+        String name = currentName(activity);
+        if (name == null || name.equals(toldFullFor)) return;
+        toldFullFor = name;
+        MAIN.post(() -> listFull(activity));
+    }
+
+    /** Ten accounts are kept and the one signed in is not among them: nothing is dropped, the user removes one. */
+    static void listFull(Activity activity) {
+        hideProgress();
+        if (!screenAlive(activity)) return;
+        new ArsoundDialog(activity)
+                .setTitle(Lang.text("Список аккаунтов полон", "The list of accounts is full"))
+                .setMessage(Lang.text("Сохранено " + AccountVault.MAX_ACCOUNTS + " аккаунтов. Уберите один из сохранённых "
+                                + "аккаунтов (долгое нажатие на строке в списке) и повторите: ничего не удаляется само.",
+                        "Remove one of your saved accounts first (a long press on its row in the list), then try again: "
+                                + AccountVault.MAX_ACCOUNTS + " are kept, and nothing is deleted by itself."))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private static void failed(Activity activity) {
         hideProgress();
+        if (!screenAlive(activity)) return;
         new ArsoundDialog(activity)
                 .setTitle(Lang.text("Не получилось войти", "Could not sign in"))
                 .setMessage(Lang.text("Войдите в этот аккаунт обычным способом.", "Sign in to this account the usual way."))

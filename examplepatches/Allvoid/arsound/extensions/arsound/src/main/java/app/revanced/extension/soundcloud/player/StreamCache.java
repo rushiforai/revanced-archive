@@ -1,6 +1,8 @@
 package app.revanced.extension.soundcloud.player;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.shared.Utils;
@@ -55,22 +57,45 @@ public final class StreamCache {
             // The free space now (one call to the file system), with the cache as last counted (that count walks
             // every part, so it is done in the background): the space of the last start could be long gone.
             File directory = directory();
-            long free = directory == null ? -1 : (directory.isDirectory() ? directory : directory.getParentFile()).getUsableSpace();
-            if (free <= 0) {
-                long available = Settings.getLong(AVAILABLE_BYTES, -1);
-                if (available < 0) return chosen;
-                free = available;
-            } else {
-                free += Math.max(0, Settings.getLong(USED_BYTES, 0));
-            }
-            long available = free;
-            long limit = Math.max(MIN_SIZE, available - FREE_SPACE_RESERVE);
+            File measured = directory == null ? null : (directory.isDirectory() ? directory : directory.getParentFile());
+            // Unknown only when there is nothing to ask: a full storage answers 0, and that is the answer.
+            long free = usableOf(measured);
+            long limit = limitBySpace(free, Settings.getLong(AVAILABLE_BYTES, -1), Settings.getLong(USED_BYTES, 0));
+            if (limit < 0) return chosen;
             if (limit < chosen) Logger.printInfo(() -> "Stream cache size " + chosen + " is limited by free space to " + limit);
             return Math.min(chosen, limit);
         } catch (Exception ex) {
             Logger.printException(() -> "Could not limit the stream cache by free space", ex);
             return chosen;
         }
+    }
+
+    /** The free bytes under the path; -1 (unknown) when it is not there, where the system answers 0 as for a full disk. */
+    static long usableOf(File path) {
+        return path == null ? -1 : usableFrom(path.exists(), path.getUsableSpace());
+    }
+
+    /** The reading of the system for a path: 0 means a full disk only when the path is there. */
+    static long usableFrom(boolean exists, long reading) {
+        return exists ? reading : -1;
+    }
+
+    /**
+     * The most the cache may grow to for the space there is.
+     *
+     * @param free      The free space now, in bytes; negative when it could not be asked (0 is a full storage).
+     * @param available The cache and the free space as last measured, negative when never.
+     * @param used      The cache as last counted.
+     * @return The limit, never below the smallest cache; negative when the space is not known at all.
+     */
+    static long limitBySpace(long free, long available, long used) {
+        if (free < 0) {
+            if (available < 0) return -1;
+            free = available;
+        } else {
+            free += Math.max(0, used);
+        }
+        return Math.max(MIN_SIZE, free - FREE_SPACE_RESERVE);
     }
 
     /**
@@ -82,25 +107,32 @@ public final class StreamCache {
         if (opened) return;
         opened = true;
         try {
-            if (directory == null || !directory.isDirectory()) return;
-            File trash = trashOf(directory);
-            if (Settings.getBoolean(CLEAR_REQUESTED, false)) {
-                boolean moved = clear(directory, trash);
-                Settings.putBoolean(CLEAR_REQUESTED, false);
-                Logger.printInfo(() -> "Stream cache cleared: " + (moved ? "moved to the trash at once" : "could not be moved"));
-                deleteInBackground(trash);
-            } else {
-                long days = Settings.getLong(Settings.STREAM_CACHE_DAYS, 0);
-                Logger.printInfo(() -> "Stream cache opens, size " + (hasCustomSize() ? customSize() : "default")
-                        + ", keep days " + days);
-                // The old parts are found and moved to the trash in the background, not while SoundCloud waits for the
-                // cache: walking thousands of parts took seconds. A part moved away under the open cache is one it
-                // forgets when it misses it, and these were not played for days.
-                if (days > 0) removeOldInBackground(directory, trash, System.currentTimeMillis() - days * DAY_MS);
-                // Also what an earlier run did not finish deleting.
-                else deleteInBackground(trash);
+            boolean clearRequested = Settings.getBoolean(CLEAR_REQUESTED, false);
+            long days = Settings.getLong(Settings.STREAM_CACHE_DAYS, 0);
+            if (directory != null && directory.isDirectory()) {
+                File trash = trashOf(directory);
+                if (clearRequested) {
+                    boolean moved = clear(directory, trash);
+                    Logger.printInfo(() -> "Stream cache cleared: " + (moved ? "moved to the trash at once" : "could not be moved"));
+                    deleteInBackground(trash);
+                } else {
+                    Logger.printInfo(() -> "Stream cache opens, size " + (hasCustomSize() ? customSize() : "default")
+                            + ", keep days " + days);
+                    // The old parts are found and moved to the trash in the background, not while SoundCloud waits for the
+                    // cache: walking thousands of parts took seconds. A part moved away under the open cache is one it
+                    // forgets when it misses it, and these were not played for days.
+                    if (days > 0) removeOldInBackground(directory, trash, System.currentTimeMillis() - days * DAY_MS);
+                    // Also what an earlier run did not finish deleting.
+                    else deleteInBackground(trash);
+                }
+                if (hasCustomSize()) measureInBackground(directory);
             }
-            if (hasCustomSize()) measureInBackground(directory);
+            // The other place the cache may be in is not opened by SoundCloud, so it is tidied here the same way.
+            for (File other : candidates()) {
+                if (!other.equals(directory)) tidyOther(other, clearRequested, days);
+            }
+            // Settled whether or not the folder was there: nothing is left to clear after this start.
+            if (clearRequested) Settings.putBoolean(CLEAR_REQUESTED, false);
         } catch (Exception ex) {
             Logger.printException(() -> "Stream cache cleanup failure", ex);
         }
@@ -109,6 +141,37 @@ public final class StreamCache {
     private static File trashOf(File directory) {
         File parent = directory.getParentFile();
         return parent == null ? null : new File(parent, TRASH);
+    }
+
+    /** The other place the cache may be in, tidied the way the opened one is. Not opened by SoundCloud in this run. */
+    private static void tidyOther(File other, boolean clearRequested, long days) {
+        File trash = trashOf(other);
+        if (clearRequested) {
+            if (other.isDirectory()) clear(other, trash);
+        } else if (days > 0 && other.isDirectory()) {
+            removeOldInBackground(other, trash, System.currentTimeMillis() - days * DAY_MS);
+            return;
+        }
+        deleteInBackground(trash);
+    }
+
+    /**
+     * The places the cache may be in: the shared app folder (when Android gives one) and the app's own files. A cache
+     * written under one of them stays there after the other one is used, so both are counted, cleared and tidied.
+     */
+    private static List<File> candidates() {
+        List<File> result = new ArrayList<>(2);
+        android.content.Context context = Utils.getContext();
+        if (context == null) return result;
+        File shared = null;
+        try {
+            shared = context.getExternalFilesDir(null);
+        } catch (Exception ignored) {
+            // No shared storage at all: only the app's own files are left.
+        }
+        if (shared != null) result.add(new File(shared, "exocache"));
+        result.add(new File(context.getFilesDir(), "exocache"));
+        return result;
     }
 
     /**
@@ -205,24 +268,34 @@ public final class StreamCache {
         return new File(base != null ? base : context.getFilesDir(), "exocache");
     }
 
-    /** Space taken by the cache, in bytes. Blocks. */
+    /**
+     * Space taken by the stream cache, in bytes, in both places it may be (see {@link #candidates()}), and by the track
+     * fetched ahead, which is a stream too. Blocks.
+     */
     public static long usedBytes() {
-        return FileTree.size(directory());
+        long total = 0;
+        for (File folder : candidates()) total += FileTree.size(folder);
+        android.content.Context context = Utils.getContext();
+        if (context != null) total += FileTree.size(new File(context.getCacheDir(), PREFETCH_CACHE));
+        return total;
     }
 
+    /** The track fetched ahead: a stream, so it is counted with {@link #usedBytes()}. */
+    private static final String PREFETCH_CACHE = "arsound-next";
+    /** The pictures of the wallpaper catalogue: counted with the pictures, not with the streams. */
+    private static final String PICTURE_CACHE = "wallhaven-grid";
     /**
-     * The other caches of Arsound: the next track fetched ahead and the pictures of the wallpaper catalogue. They are
-     * counted with the stream cache and go with it: they were neither shown in the storage nor cleared. So are the
-     * covers kept for playing without a network (OfflineArtwork), which lie in the app's files, not in its cache.
+     * The other caches of Arsound, all cleared together. They go with the stream cache and were neither shown in the
+     * storage nor cleared before. The covers kept for playing without a network (OfflineArtwork) lie in the app's files,
+     * not in its cache, and are counted in {@link #otherCachesBytes()}.
      */
-    private static final String[] OTHER_CACHES = {"arsound-next", "wallhaven-grid"};
+    private static final String[] OTHER_CACHES = {PREFETCH_CACHE, PICTURE_CACHE};
 
-    /** Space the other caches take, in bytes. Blocks. */
+    /** Space the pictures take (the wallpaper catalogue and the covers kept for offline play), in bytes. Blocks. */
     public static long otherCachesBytes() {
         android.content.Context context = Utils.getContext();
         if (context == null) return 0;
-        long total = 0;
-        for (String name : OTHER_CACHES) total += FileTree.size(new File(context.getCacheDir(), name));
+        long total = FileTree.size(new File(context.getCacheDir(), PICTURE_CACHE));
         // The covers kept for playing without a network: up to 150 MB that no screen showed.
         total += app.revanced.extension.soundcloud.network.OfflineArtwork.usedBytes();
         return total;

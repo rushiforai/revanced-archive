@@ -14,6 +14,7 @@ import app.revanced.extension.shared.Utils;
 import app.revanced.extension.soundcloud.download.UnplayedDownloads;
 import app.revanced.extension.soundcloud.recommendations.SongNames;
 import app.revanced.extension.soundcloud.recommendations.WaveMemory;
+import app.revanced.extension.soundcloud.scrobble.Scrobbler;
 import app.revanced.extension.soundcloud.settings.Settings;
 
 /**
@@ -73,12 +74,23 @@ public final class ListeningStats {
             // Before the resume check: a listen taken up again after a restart still needs its length. A preview item
             // gives the preview's length, so a preview heard through counts as heard.
             if (value.contains(":tracks:")) WaveMemory.onTrackStarted(value, itemLength(item));
-            if (isResume(item, value)) return;
+            if (isResume(item, value)) {
+                // After a restart the scrobbler has no listen of this track: it takes the resumed one up, with what was
+                // heard before (it does nothing when the listen is in progress there already).
+                if (value.contains(":tracks:")) {
+                    ListenRecord progress = SESSION.progress(System.currentTimeMillis());
+                    Scrobbler.onTrackResumed(value, itemLength(item), progress == null ? 0 : progress.playedMs,
+                            progress == null ? 0 : progress.start);
+                }
+                return;
+            }
             finishListen();
             // Ads and other items that are not tracks are not counted.
             if (!value.contains(":tracks:")) return;
             // Followed with the statistics off too, for the wave: only the history is not kept then.
             SESSION.begin(value, System.currentTimeMillis());
+            // Scrobbling to ListenBrainz and Last.fm (off unless the user connected an account): only posts.
+            Scrobbler.onTrackStarted(value, itemLength(item));
         } catch (Exception ex) {
             Logger.printException(() -> "Listening stats: could not read the playback item", ex);
         }
@@ -138,8 +150,18 @@ public final class ListeningStats {
      * @param state         The ExoPlayer state; 3 is ready.
      */
     public static synchronized void onPlayerState(boolean playWhenReady, int state) {
-        if (!SESSION.isActive()) return;
         boolean playing = playWhenReady && state == STATE_READY;
+        // A pause ends the overlap of the smooth transition at once, not 1.5 s later when its silence check notices.
+        if (!playWhenReady) {
+            try {
+                CrossfadeOverlap.cancel();
+            } catch (Throwable ex) {
+                Logger.printException(() -> "Listening stats: the overlap could not be stopped at the pause", ex);
+            }
+        }
+        // Before the session check: the scrobbler also needs to know whether sound is playing when a track starts.
+        Scrobbler.onPlayingChanged(playing);
+        if (!SESSION.isActive()) return;
         // The mark that survives a restart is a part of the history: not kept with the statistics off.
         if (SESSION.onPlayingChanged(playing, System.currentTimeMillis()) && isEnabled()) savePending();
         // The track ended by itself.
@@ -183,6 +205,51 @@ public final class ListeningStats {
         HistoryFile.append(record);
     }
 
+    /**
+     * The artist and the title of a track as the statistics name them (the same as the lists of the statistics show):
+     * from SoundCloud's own database first, then from the server; the tags of an imported file. Blocks: may ask the
+     * server, so not on the main thread and not on the player's thread. Not synchronized with the recording on purpose.
+     *
+     * @return {artist, title}, or null when the track has no artist (a listen needs both).
+     */
+    public static String[] namesOf(String urn) {
+        return lookupNames(urn).names;
+    }
+
+    /** What {@link #lookupNames} found. */
+    public static final class NameLookup {
+        /** {artist, title}, or null. */
+        public final String[] names;
+        /**
+         * Whether the track was not found at all (no answer from the server, nothing stored), as against a track that is
+         * known but has no artist. Asking again later may help only in the first case.
+         */
+        public final boolean unresolved;
+
+        NameLookup(String[] names, boolean unresolved) {
+            this.names = names;
+            this.unresolved = unresolved;
+        }
+    }
+
+    /** {@link #namesOf} that also tells a track that could not be looked up from one that has no artist. Blocks, as it does. */
+    public static NameLookup lookupNames(String urn) {
+        Entry entry = new Entry(urn);
+        TrackTitleResolver.resolve(java.util.Collections.singletonList(entry), preferences());
+        return lookupOf(entry);
+    }
+
+    /** What the resolver left in the entry, as a lookup result. */
+    static NameLookup lookupOf(Entry entry) {
+        // A track the resolver knows nothing of has the placeholder name and the flag, not its urn.
+        boolean unresolved = entry.unresolved;
+        if (entry.artist == null || entry.artist.trim().isEmpty() || entry.title == null || entry.title.trim().isEmpty()
+                || unresolved) {
+            return new NameLookup(null, unresolved);
+        }
+        return new NameLookup(new String[]{entry.artist, entry.title}, false);
+    }
+
     public static synchronized void clear() {
         HistoryFile.delete();
         SharedPreferences preferences = preferences();
@@ -200,6 +267,8 @@ public final class ListeningStats {
         public String artist;
         public int plays;
         public long playedMs;
+        /** Set by the title resolver when nothing is known of the track: its title is then only a placeholder. */
+        boolean unresolved;
 
         Entry(String key) {
             this.key = key;
@@ -320,8 +389,20 @@ public final class ListeningStats {
 
     /** The listen still going on or paused: it is written only when the next track starts. */
     private static void addCurrent(Summary summary, Map<String, Entry> tracks, long since) {
+        ListenRecord current = currentListen();
+        if (current == null || current.start < since) return;
+        summary.addListen(entry(tracks, current.urn), current.start, current.playedMs);
+    }
+
+    /**
+     * The listen in progress, as the statistics count it: the screen and the year in review both add it to the history
+     * so they show the same time and tracks.
+     *
+     * @return The listen, or null when the statistics are off or it is too short to count.
+     */
+    private static ListenRecord currentListen() {
         // With the statistics off the listen is followed only for the wave and never written: it is no part of them.
-        if (!isEnabled()) return;
+        if (!isEnabled()) return null;
         ListenRecord current;
         synchronized (ListeningStats.class) {
             current = SESSION.progress(System.currentTimeMillis());
@@ -330,10 +411,42 @@ public final class ListeningStats {
             SharedPreferences preferences = preferences();
             String pending = preferences == null ? null : preferences.getString(PENDING, null);
             current = pending == null ? null : ListenRecord.parse(pending);
-            if (current == null) return;
         }
-        if (current.start < since || current.playedMs < MIN_LISTEN_MS) return;
-        summary.addListen(entry(tracks, current.urn), current.start, current.playedMs);
+        return countable(current);
+    }
+
+    /** The listen if it is long enough to be a line of the history, else null. */
+    static ListenRecord countable(ListenRecord listen) {
+        return listen == null || listen.playedMs < MIN_LISTEN_MS ? null : listen;
+    }
+
+    /**
+     * The year in review of [from, to): totals, tops, the busiest day, the longest streak and the new artists, out of
+     * the whole history. Blocks: reads the history file and may ask SoundCloud for track titles.
+     *
+     * @param from Epoch milliseconds, 0 from the beginning.
+     * @param to   Epoch milliseconds, exclusive; {@link Long#MAX_VALUE} up to now.
+     */
+    public static YearReview.Result review(long from, long to, java.util.TimeZone zone) {
+        List<ListenRecord> listens = new ArrayList<>();
+        HistoryFile.forEachLine(line -> {
+            // One damaged line must not hide the rest of the history; the listens before 2000 are damaged too.
+            ListenRecord record = ListenRecord.parse(line);
+            if (record != null && record.start >= ListenBuckets.EARLIEST) listens.add(record);
+        });
+        // The listen in progress counts here as on the statistics screen, or the card says less than the screen.
+        ListenRecord current = currentListen();
+        if (current != null && current.start >= ListenBuckets.EARLIEST) listens.add(current);
+        Map<String, Entry> tracks = new HashMap<>();
+        for (ListenRecord listen : listens) entry(tracks, listen.urn);
+        TrackTitleResolver.resolve(new ArrayList<>(tracks.values()), preferences());
+        YearReview.Result result = YearReview.build(listens, from, to, urn -> tracks.get(urn).artist, zone);
+        for (YearReview.TrackPlays track : result.topTracks) {
+            Entry entry = tracks.get(track.urn);
+            track.title = entry.title == null ? "" : entry.title;
+            track.artist = entry.artist == null ? "" : entry.artist;
+        }
+        return result;
     }
 
     // endregion

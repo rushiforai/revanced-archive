@@ -41,6 +41,10 @@ final class TransferScreen extends ScrollingScreen implements TransferJob.Listen
     private LinearLayout progressPart;
     /** The likes that wait for their days ({@link DailyLikeQueue}). */
     private LinearLayout likesPart;
+    private final Runnable likesListener = this::fillLikes;
+    /** The row of those likes, kept so a tick only changes its text and a tap on it is not lost. */
+    private ActionRow likesRow;
+    private ActionRow repairRow;
     private LinearLayout accountPart;
     private LinearLayout historyPart;
     /** The service whose account is shown, {@link TransferSource#id} kept in the settings. */
@@ -105,6 +109,8 @@ final class TransferScreen extends ScrollingScreen implements TransferJob.Listen
         list.addView(historyPart);
 
         TransferJob.addListener(this);
+        // The first read of the queue may come after the first look: the row is filled again when it ends.
+        DailyLikeQueue.setOnViewLoaded(likesListener);
         fillLikes();
         fillProgress();
         fillAccount();
@@ -123,6 +129,7 @@ final class TransferScreen extends ScrollingScreen implements TransferJob.Listen
     @Override
     void onDestroy() {
         TransferJob.removeListener(this);
+        DailyLikeQueue.clearOnViewLoaded(likesListener);
     }
 
     @Override
@@ -230,13 +237,17 @@ final class TransferScreen extends ScrollingScreen implements TransferJob.Listen
         dailyRow.addView(app.revanced.extension.soundcloud.shared.HelpBadge.create(activity,
                 ArsoundTheme.palette(activity, "secondary"), text("Что такое лайки по 50 в день", "What liking 50 a day is"),
                 text("В SoundCloud ограничение — около 50 лайков в сутки. Если лайкнуть больше, аккаунт на сутки теряет "
-                                + "возможность ставить лайки. Эта функция ставит ровно по 50 лайков в день, пока не пролайкает "
-                                + "все перенесённые треки. Пока она работает, дневной лимит уходит на неё — свои лайки в эти дни "
+                                + "возможность ставить лайки. Эта функция ставит не больше 50 лайков за любые 24 часа, считая "
+                                + "лайки этого аккаунта, поставленные вручную, и лайки «Лайкнуть все» в переносе и в «Моей "
+                                + "волне» (у тех свои пределы, и 50 за 24 часа на них не распространяется: они лишь заставляют "
+                                + "очередь ждать), пока не пролайкает все перенесённые треки. Пока окно занято, свои лайки "
                                 + "могут не сохраниться.",
                         "SoundCloud limits likes to about 50 a day. If you like more, the account loses the ability to like "
-                                + "for a day. This feature gives exactly 50 likes a day until all the transferred tracks are "
-                                + "liked. While it works, the daily limit goes to it, so your own likes on those days may not "
-                                + "be kept.")), app.revanced.extension.soundcloud.shared.HelpBadge.layoutParams(activity));
+                                + "for a day. This feature never likes more than 50 in any 24 hours, counting the likes of this "
+                                + "account made by hand and those of the transfer's and My Wave's \"Like all\" (those have "
+                                + "limits of their own and are not held to 50 in 24 hours: they only make the queue wait), until "
+                                + "all the transferred tracks are liked. While the window is full, your own likes may not be "
+                                + "kept.")), app.revanced.extension.soundcloud.shared.HelpBadge.layoutParams(activity));
         dailyRow.setVisibility(View.GONE);
         option.addView(dailyRow, 1);
         like.setOnCheckedChangeListener((button, checked) -> {
@@ -324,26 +335,85 @@ final class TransferScreen extends ScrollingScreen implements TransferJob.Listen
      * Nothing while no likes wait.
      */
     private void fillLikes() {
-        likesPart.removeAllViews();
         String line = DailyLikeQueue.progressLine();
-        if (line == null) return;
+        if (line == null) {
+            likesPart.removeAllViews();
+            likesRow = null;
+            repairRow = null;
+            return;
+        }
+        // Still on the screen: only its text changes, so a tap that is under way on the row is not lost.
+        if (likesRow != null && likesRow.getParent() == likesPart) {
+            likesRow.description().setText(likesStatus(line));
+            refreshRepairRow();
+            return;
+        }
+        likesPart.removeAllViews();
+        repairRow = null;
         likesPart.addView(ui.createSubHeading(text("Лайки перенесённых треков", "Likes of transferred tracks")));
-        ActionRow row = ui.createActionRow(text("Лайки по 50 в день", "Liking 50 a day"),
-                line + text(". Идут, пока приложение запускалось в этот день. Нажмите, чтобы остановить.",
-                        ". They go while the app was started that day. Tap to stop."), v ->
+        likesRow = ui.createActionRow(text("Лайки по 50 в день", "Liking 50 a day"), likesStatus(line), v ->
                 new ArsoundDialog(activity)
                         .setTitle(text("Остановить лайки?", "Stop the likes?"))
                         .setMessage(text("Оставшиеся треки больше не будут лайкаться. Уже поставленные лайки останутся.",
                                 "The tracks left will not be liked any more. The likes already given stay."))
                         .setPositiveButton(text("Остановить", "Stop"), (dialog, which) ->
                                 Utils.runOnBackgroundThread(() -> {
-                                    DailyLikeQueue.clear();
-                                    Utils.runOnMainThread(this::fillLikes);
+                                    boolean stopped = DailyLikeQueue.clear();
+                                    Utils.runOnMainThread(() -> {
+                                        if (!stopped) {
+                                            Toast.makeText(activity, text("Очередь не удалось прочитать: попробуйте ещё раз",
+                                                    "The queue could not be read: try again"), Toast.LENGTH_LONG).show();
+                                        }
+                                        fillLikes();
+                                    });
                                 }))
                         .setNegativeButton(text("Продолжить", "Keep going"), null)
                         .show());
-        row.icon("recs");
-        likesPart.addView(row);
+        likesRow.icon("recs");
+        likesPart.addView(likesRow);
+        refreshRepairRow();
+    }
+
+    /** The repair row: shown only while it is offered, taken away when it is not; looked at on every refill. */
+    private void refreshRepairRow() {
+        boolean offered = DailyLikeQueue.clockRepairOffered();
+        boolean shown = repairRow != null && repairRow.getParent() == likesPart;
+        if (!offered) {
+            if (shown) likesPart.removeView(repairRow);
+            repairRow = null;
+            return;
+        }
+        if (shown) return;
+        // A like counted at a moment far ahead of the clock (the phone started again with a clock set a year ahead for a
+        // while) blocks the queue: the user may count from now, after a confirmation.
+        repairRow = ui.createActionRow(text("Часы телефона шли вперёд — считать от сейчас",
+                        "The phone's clock was ahead - count from now"),
+                text("Лайки, посчитанные по сбившимся часам, будут считаться от этого момента: сутки от сейчас. "
+                                + "Меньше лайков не засчитается, снимется только блок на месяцы вперёд.",
+                        "The likes counted by the wrong clock will count from this moment: 24 hours from now. Fewer "
+                                + "likes are never counted; only the block that reaches far ahead is lifted."),
+                v -> new ArsoundDialog(activity)
+                        .setTitle(text("Считать от сейчас?", "Count from now?"))
+                        .setMessage(text("Часы телефона шли вперёд, и очередь ждёт времени, которое ещё не наступило. "
+                                        + "Лайки будут считаться от этого момента: следующие лайки пойдут через сутки "
+                                        + "после последнего, а не раньше.",
+                                "The phone's clock was ahead, and the queue waits for a time that has not come. The "
+                                        + "likes will count from this moment: the next ones go 24 hours after the last "
+                                        + "one, not sooner."))
+                        .setPositiveButton(text("Считать от сейчас", "Count from now"), (dialog, which) ->
+                                Utils.runOnBackgroundThread(() -> {
+                                    DailyLikeQueue.repairClock();
+                                    Utils.runOnMainThread(this::fillLikes);
+                                }))
+                        .setNegativeButton(text("Отмена", "Cancel"), null)
+                        .show());
+        repairRow.icon("info");
+        likesPart.addView(repairRow);
+    }
+
+    private static String likesStatus(String line) {
+        return line + text(". Не больше 50 за любые 24 часа; идут, пока приложение запущено. Нажмите, чтобы остановить.",
+                ". No more than 50 in any 24 hours; they go while the app runs. Tap to stop.");
     }
 
     /** A transfer the app was closed in the middle of: a tap goes on with it, the playlists made are reused. */

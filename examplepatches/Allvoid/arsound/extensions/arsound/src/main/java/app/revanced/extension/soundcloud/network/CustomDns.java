@@ -1,12 +1,14 @@
 package app.revanced.extension.soundcloud.network;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 import app.revanced.extension.shared.Logger;
 import app.revanced.extension.soundcloud.settings.Settings;
@@ -25,6 +27,8 @@ public final class CustomDns {
     public static final String MODE_AUTO = "auto";
     public static final String MODE_DOH = "doh";
     public static final String MODE_PLAIN = "plain";
+    /** Only the system resolver: the servers are not asked. */
+    public static final String MODE_SYSTEM = DnsModes.SYSTEM;
 
     /** The host name of the xbox-dns.ru preset, shown in the settings. */
     public static final String XBOX_DOH_HOST = "xbox-dns.ru";
@@ -62,9 +66,30 @@ public final class CustomDns {
         if (!PRESET_CUSTOM.equals(Settings.getDnsPreset())) return XBOX_SERVERS;
         List<String> servers = new ArrayList<>();
         for (String server : Settings.getCustomDnsServers().split("[,\\s]+")) {
-            if (!server.trim().isEmpty()) servers.add(server.trim());
+            // A name here would be looked up through the system resolver first: only addresses are kept.
+            if (isIpLiteral(server.trim())) servers.add(server.trim());
         }
         return servers.toArray(new String[0]);
+    }
+
+    private static final Pattern IPV4 = Pattern.compile(
+            "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])");
+
+    /**
+     * Whether the text is an IPv4 or IPv6 address written out, so that it needs no lookup. Checked by shape first: Java
+     * would send a dotted text that is not a valid address to the system resolver, and that is what this must not do.
+     */
+    public static boolean isIpLiteral(String text) {
+        if (text == null || text.isEmpty()) return false;
+        if (IPV4.matcher(text).matches()) return true;
+        if (text.indexOf(':') < 0 || !text.matches("[0-9a-fA-F:.]+")) return false;
+        try {
+            // With a colon in it, Java parses the text as an address and never asks a resolver.
+            InetAddress.getByName(text);
+            return true;
+        } catch (UnknownHostException ex) {
+            return false;
+        }
     }
 
     /**
@@ -75,7 +100,7 @@ public final class CustomDns {
             new java.util.concurrent.ConcurrentHashMap<>();
 
     public static List<InetAddress> lookup(String host) {
-        if (!Settings.isCustomDnsEnabled() || host == null) return null;
+        if (host == null || !DnsModes.asksCustomServers(Settings.isCustomDnsEnabled(), Settings.getDnsMode())) return null;
         if (host.matches("[0-9.]+") || host.contains(":")) return null;
         Entry known = cache.get(host);
         if (known != null && known.expiresAt > System.currentTimeMillis()) return known.addresses;
@@ -138,10 +163,69 @@ public final class CustomDns {
         for (DnsResolver resolver : RESOLVERS) resolver.markUp();
     }
 
+    /** What the chosen servers answered for one host, for the diagnostics. */
+    static final class Probe {
+        /** False when the servers are not used at all: the option is off, or the mode is "system only". */
+        final boolean active;
+        final List<String> addresses = new ArrayList<>();
+        /** "DoH" or "DNS" when a server answered. */
+        String method = "";
+        String error = "";
+        long elapsedMs;
+
+        Probe(boolean active) {
+            this.active = active;
+        }
+    }
+
+    /**
+     * Asks the chosen servers for the host with a real query, ignoring the cache and the marks of failed servers, so the
+     * diagnostics show what the servers say now. Blocks; not for the main thread.
+     */
+    static Probe probe(String host) {
+        String mode = Settings.getDnsMode();
+        Probe probe = new Probe(DnsModes.asksCustomServers(Settings.isCustomDnsEnabled(), mode));
+        if (!probe.active) return probe;
+        long start = System.currentTimeMillis();
+        StringBuilder tried = new StringBuilder();
+        for (DnsResolver resolver : RESOLVERS) {
+            if (!resolver.takesPartIn(mode) || !resolver.isConfigured()) continue;
+            DnsLookup lookup = resolver.resolve(host);
+            if (tried.length() > 0) tried.append(", ");
+            tried.append(resolver.label());
+            if (lookup.addresses != null && !lookup.addresses.isEmpty()) {
+                probe.method = resolver.label();
+                for (java.net.InetAddress address : lookup.addresses) probe.addresses.add(address.getHostAddress());
+                break;
+            }
+        }
+        probe.elapsedMs = System.currentTimeMillis() - start;
+        if (probe.addresses.isEmpty()) probe.error = tried.length() == 0 ? "no server is set" : "no answer from " + tried;
+        return probe;
+    }
+
+    /** The "Check" button in the mode "system only": what the phone's own DNS says. Null if it has no answer. */
+    private static String testSystem(String host, long start) {
+        try {
+            java.net.InetAddress[] found = java.net.InetAddress.getAllByName(host);
+            StringBuilder text = new StringBuilder(
+                    app.revanced.extension.soundcloud.shared.Lang.text("DNS телефона", "Phone DNS") + ", "
+                            + (System.currentTimeMillis() - start) + " ms: ");
+            for (int i = 0; i < Math.min(found.length, 3); i++) {
+                if (i > 0) text.append(", ");
+                text.append(found[i].getHostAddress());
+            }
+            return text.toString();
+        } catch (java.net.UnknownHostException ex) {
+            return null;
+        }
+    }
+
     /** Resolves a host through the chosen server only, for the "Check" button. */
     public static String test(String host) {
         long start = System.currentTimeMillis();
         String mode = Settings.getDnsMode();
+        if (DnsModes.SYSTEM.equals(mode)) return testSystem(host, start);
         DnsLookup found = null;
         String used = "";
         for (DnsResolver resolver : RESOLVERS) {
