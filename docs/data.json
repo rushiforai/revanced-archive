@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-22 04:48 UTC",
+  "generatedAt": "2026-11-23 05:35 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
   "appCount": 883,
-  "patchCount": 3381,
+  "patchCount": 3382,
   "universalPatchCount": 144,
   "hostCounts": {
     "github.com": 122,
@@ -68,28 +68,40 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.52.1 (2026-11-10)",
-        "date": "2026-11-10",
+        "title": "1.60.1 (2026-11-23)",
+        "date": "2026-11-23",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+            "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
           },
           {
             "category": "Features",
-            "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+            "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
           },
           {
             "category": "Features",
-            "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+            "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
           },
           {
             "category": "Features",
-            "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+            "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
           },
           {
             "category": "Features",
-            "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+            "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+          },
+          {
+            "category": "Features",
+            "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+          },
+          {
+            "category": "Features",
+            "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+          },
+          {
+            "category": "Features",
+            "text": "**paramount:** add experimental 17.3.0 target"
           }
         ]
       },
@@ -6331,47 +6343,47 @@
       "webUrl": "https://github.com/jasonwu1994/Gboard-patches",
       "addUrl": "https://Revanced.software/add-source?github=jasonwu1994/Gboard-patches",
       "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
-      "patchCount": 45,
+      "patchCount": 46,
       "appCount": 1,
       "createdAt": 1784836037428,
       "updatedAt": 1784836037428,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "4.3.0 (2026-11-12)",
-        "date": "2026-11-12",
+        "title": "4.4.0 (2026-11-21)",
+        "date": "2026-11-21",
         "items": [
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** add an FAQ section to the Frosted Glass page, with links for when the effect isn't working and for flickering on Pixel phones."
+            "text": "**Gboard:** switch icon sizing in the G logo patch from dp to percentages. Your icons can now get biiiiiig!"
           },
           {
             "category": "\u2728 New Features",
-            "text": "**Gboard:** change the defaults of two settings: English Up-Flick Uppercase is now off and the Access Points menu style is now on. Settings you have already saved are kept."
+            "text": "**Gboard:** add support for custom package names in Package Rename."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add the Shift + Backspace Forward Delete patch. Hold Shift and press Backspace to delete the character after the cursor, like the Delete key on a computer keyboard."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add a **Rambler Auto Stop** option (Off, 3 seconds, 5 seconds, or custom 1\u201359 seconds) to **Advanced Voice Typing** to automatically stop Rambler voice typing and keep the text after the chosen period of silence."
+          },
+          {
+            "category": "\u2728 New Features",
+            "text": "**Gboard:** add a **Shortcut position** option (**First** or **Last**) to **Long-Press Editing Shortcuts** to choose where the editing shortcut appears in a key's long-press popup."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** fix the keyboard closing by itself with Frosted Glass enabled (\"Software rendering doesn't support drawRenderNode\"). If blur fails to draw, the keyboard now falls back to its theme."
+            "text": "**Gboard:** fix **Key transparency** in **Frosted Glass** not applying to the circular background behind the microphone or other shortcut in the top-right toolbar slot, while keeping the icon clear and preserving transparent idle states."
           },
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** make \"Extend to navigation bar\" work on Android 15 and below. The navigation bar follows the keyboard's transparency, without blur."
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Gboard:** make \"Extend to navigation bar\" work with narrower docked keyboards, such as one-handed mode."
+            "text": "**Gboard:** keep standard voice typing in Traditional Chinese (zh-TW) on Gboard's built-in S3 recognizer with **Advanced Voice Typing**, and allow S3 voice typing in airplane mode when a usable network (such as Wi-Fi) is connected."
           },
           {
             "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u5728\u300c\u78e8\u7802\u73bb\u7483\u300d\u9801\u9762\u65b0\u589e FAQ \u5340\u584a\uff0c\u63d0\u4f9b\u300c\u70ba\u4ec0\u9ebc\u78e8\u7802\u73bb\u7483\u6c92\u6709\u6548\u679c\uff1f\u300d\u548c\u300c\u70ba\u4ec0\u9ebc Pixel \u624b\u6a5f\u8f38\u5165\u6587\u5b57\u6642\u6703\u9583\u720d\uff1f\u300d\u7684\u8aaa\u660e\u9023\u7d50\u3002"
-          },
-          {
-            "category": "\u2728 \u65b0\u529f\u80fd",
-            "text": "**Gboard:** \u8abf\u6574\u5169\u9805\u8a2d\u5b9a\u7684\u9810\u8a2d\u503c\uff1a\u300c\u82f1\u6587\u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\u300d\u6539\u70ba\u95dc\u9589\uff0c\u300cAccess Points \u9078\u55ae\u6a23\u5f0f\u300d\u6539\u70ba\u958b\u555f\u3002\u5df2\u5132\u5b58\u7684\u8a2d\u5b9a\u4e0d\u53d7\u5f71\u97ff\u3002"
-          },
-          {
-            "category": "\ud83d\udc1b \u4fee\u5fa9",
-            "text": "**Gboard:** \u4fee\u5fa9\u555f\u7528\u78e8\u7802\u73bb\u7483\u5f8c\u9375\u76e4\u81ea\u884c\u95dc\u9589\u7684\u554f\u984c\uff08Software rendering doesn't support drawRenderNode\uff09\u3002\u6a21\u7cca\u6548\u679c\u7e6a\u88fd\u5931\u6557\u6642\uff0c\u9375\u76e4\u6703\u6539\u56de\u4f7f\u7528\u4e3b\u984c\u80cc\u666f\u3002"
+            "text": "**Gboard:** G logo patch\uff1a\u5716\u793a\u5927\u5c0f\u5f9e dp \u6539\u70ba\u767e\u5206\u6bd4\u8abf\u6574\uff0c\u73fe\u5728\u4f60\u7684\u5716\u793a\u53ef\u4ee5\u8b8a\u5f97\u8d85\u7d1a\u5927\uff01"
           }
         ]
       },
@@ -6379,7 +6391,7 @@
         {
           "name": "com.google.android.inputmethod.latin",
           "packageName": "com.google.android.inputmethod.latin",
-          "patchCount": 45,
+          "patchCount": 46,
           "iconUrl": "",
           "iconColor": ""
         }
@@ -10949,40 +10961,20 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "2.4.1-dev.1 (2026-11-18)",
-        "date": "2026-11-18",
+        "title": "2.5.1 (2026-11-23)",
+        "date": "2026-11-23",
         "items": [
           {
             "category": "Bug Fixes",
-            "text": "preserve Markdown repair compatibility with Android 6"
+            "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
           },
           {
             "category": "Bug Fixes",
-            "text": "repair relative markdown links on all Reddit clients"
+            "text": "**rif:** Resolved crashing from inline video handling"
           },
           {
             "category": "Bug Fixes",
-            "text": "restore comment video streams in RIF, Boost, and Joey"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**rif:** block ads and fix crash on Platinum version"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-          },
-          {
-            "category": "Bug Fixes",
-            "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-          },
-          {
-            "category": "Features",
-            "text": "Add About Patcheddit menu"
-          },
-          {
-            "category": "Features",
-            "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+            "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
           }
         ]
       },
@@ -18939,40 +18931,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -19088,40 +19060,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -21971,40 +21923,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -27798,28 +27730,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -27861,7 +27805,8 @@
             }
           ],
           "versions": [
-            "6.23.23+v15.5.0.70-armv7a"
+            "6.23.23+v15.5.0.70-armv7a",
+            "6.24.7+v16.0.0.332-allAbis"
           ]
         }
       ],
@@ -27905,7 +27850,8 @@
         }
       ],
       "versions": [
-        "6.23.23+v15.5.0.70-armv7a"
+        "6.23.23+v15.5.0.70-armv7a",
+        "6.24.7+v16.0.0.332-allAbis"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -28055,28 +28001,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -28261,28 +28219,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -28341,28 +28311,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -28707,28 +28689,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -29037,28 +29031,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -29197,28 +29203,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -29271,28 +29289,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -30127,40 +30157,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/jasonwu1994/Gboard-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/jasonwu1994.png?size=96",
           "latestChanges": {
-            "title": "4.3.0 (2026-11-12)",
-            "date": "2026-11-12",
+            "title": "4.4.0 (2026-11-21)",
+            "date": "2026-11-21",
             "items": [
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** add an FAQ section to the Frosted Glass page, with links for when the effect isn't working and for flickering on Pixel phones."
+                "text": "**Gboard:** switch icon sizing in the G logo patch from dp to percentages. Your icons can now get biiiiiig!"
               },
               {
                 "category": "\u2728 New Features",
-                "text": "**Gboard:** change the defaults of two settings: English Up-Flick Uppercase is now off and the Access Points menu style is now on. Settings you have already saved are kept."
+                "text": "**Gboard:** add support for custom package names in Package Rename."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add the Shift + Backspace Forward Delete patch. Hold Shift and press Backspace to delete the character after the cursor, like the Delete key on a computer keyboard."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add a **Rambler Auto Stop** option (Off, 3 seconds, 5 seconds, or custom 1\u201359 seconds) to **Advanced Voice Typing** to automatically stop Rambler voice typing and keep the text after the chosen period of silence."
+              },
+              {
+                "category": "\u2728 New Features",
+                "text": "**Gboard:** add a **Shortcut position** option (**First** or **Last**) to **Long-Press Editing Shortcuts** to choose where the editing shortcut appears in a key's long-press popup."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** fix the keyboard closing by itself with Frosted Glass enabled (\"Software rendering doesn't support drawRenderNode\"). If blur fails to draw, the keyboard now falls back to its theme."
+                "text": "**Gboard:** fix **Key transparency** in **Frosted Glass** not applying to the circular background behind the microphone or other shortcut in the top-right toolbar slot, while keeping the icon clear and preserving transparent idle states."
               },
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** make \"Extend to navigation bar\" work on Android 15 and below. The navigation bar follows the keyboard's transparency, without blur."
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Gboard:** make \"Extend to navigation bar\" work with narrower docked keyboards, such as one-handed mode."
+                "text": "**Gboard:** keep standard voice typing in Traditional Chinese (zh-TW) on Gboard's built-in S3 recognizer with **Advanced Voice Typing**, and allow S3 voice typing in airplane mode when a usable network (such as Wi-Fi) is connected."
               },
               {
                 "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u5728\u300c\u78e8\u7802\u73bb\u7483\u300d\u9801\u9762\u65b0\u589e FAQ \u5340\u584a\uff0c\u63d0\u4f9b\u300c\u70ba\u4ec0\u9ebc\u78e8\u7802\u73bb\u7483\u6c92\u6709\u6548\u679c\uff1f\u300d\u548c\u300c\u70ba\u4ec0\u9ebc Pixel \u624b\u6a5f\u8f38\u5165\u6587\u5b57\u6642\u6703\u9583\u720d\uff1f\u300d\u7684\u8aaa\u660e\u9023\u7d50\u3002"
-              },
-              {
-                "category": "\u2728 \u65b0\u529f\u80fd",
-                "text": "**Gboard:** \u8abf\u6574\u5169\u9805\u8a2d\u5b9a\u7684\u9810\u8a2d\u503c\uff1a\u300c\u82f1\u6587\u9375\u76e4\u4e0a\u6ed1\u5927\u5c0f\u5beb\u300d\u6539\u70ba\u95dc\u9589\uff0c\u300cAccess Points \u9078\u55ae\u6a23\u5f0f\u300d\u6539\u70ba\u958b\u555f\u3002\u5df2\u5132\u5b58\u7684\u8a2d\u5b9a\u4e0d\u53d7\u5f71\u97ff\u3002"
-              },
-              {
-                "category": "\ud83d\udc1b \u4fee\u5fa9",
-                "text": "**Gboard:** \u4fee\u5fa9\u555f\u7528\u78e8\u7802\u73bb\u7483\u5f8c\u9375\u76e4\u81ea\u884c\u95dc\u9589\u7684\u554f\u984c\uff08Software rendering doesn't support drawRenderNode\uff09\u3002\u6a21\u7cca\u6548\u679c\u7e6a\u88fd\u5931\u6557\u6642\uff0c\u9375\u76e4\u6703\u6539\u56de\u4f7f\u7528\u4e3b\u984c\u80cc\u666f\u3002"
+                "text": "**Gboard:** G logo patch\uff1a\u5716\u793a\u5927\u5c0f\u5f9e dp \u6539\u70ba\u767e\u5206\u6bd4\u8abf\u6574\uff0c\u73fe\u5728\u4f60\u7684\u5716\u793a\u53ef\u4ee5\u8b8a\u5f97\u8d85\u7d1a\u5927\uff01"
               }
             ]
           },
@@ -30298,7 +30328,7 @@
             },
             {
               "name": "Package Rename",
-              "description": "\u5c07\u5957\u4ef6\u540d\u7a31\u6539\u6210 dev.jason.com.google.android.inputmethod.latin\uff0c\u4e26\u53ef\u81ea\u8a02 App \u540d\u7a31\uff0c\u4ee5\u4fbf\u5171\u5b58\u5b89\u88dd\nRename the package to dev.jason.com.google.android.inputmethod.latin and allow a custom app name so it can be installed alongside the official Gboard."
+              "description": "\u5c07\u5957\u4ef6\u540d\u7a31\u6539\u6210\u53ef\u81ea\u8a02\u7684\u503c(\u9810\u8a2d dev.jason.com...latin)\uff0c\u4e26\u53ef\u81ea\u8a02 App \u540d\u7a31\uff0c\u4ee5\u4fbf\u5171\u5b58\u5b89\u88dd\nRename the package to a configurable name (default dev.jason.com...latin) and allow a custom app name so it can be installed alongside the official Gboard."
             },
             {
               "name": "Quick Insert",
@@ -30311,6 +30341,10 @@
             {
               "name": "Settings Homepage Override",
               "description": "\u5141\u8a31\u5207\u63db\u65b0\u7248\u6216\u820a\u7248 Gboard \u8a2d\u5b9a\u9801\u9762\nAllow switching between the new and legacy Gboard settings pages."
+            },
+            {
+              "name": "Shift + Backspace Forward Delete",
+              "description": "\u6309\u4f4f Shift \u518d\u6309\u9000\u683c\u9375\uff0c\u6703\u522a\u9664\u6e38\u6a19\u53f3\u908a\u7684\u5b57\uff0c\u4f5c\u7528\u7b49\u540c\u96fb\u8166\u9375\u76e4\u7684 Delete \u9375\u3002\nHold Shift and press Backspace to delete the character after the cursor, like the Delete key on a computer keyboard."
             },
             {
               "name": "Simple Calculator",
@@ -30478,6 +30512,7 @@
         "Remove promotional banners",
         "Rounded Keyboard Panel",
         "Settings Homepage Override",
+        "Shift + Backspace Forward Delete",
         "Simple Calculator",
         "Swipe Down to Dismiss Keyboard",
         "Swipeable Custom Top Row",
@@ -30673,7 +30708,7 @@
         },
         {
           "name": "Package Rename",
-          "description": "\u5c07\u5957\u4ef6\u540d\u7a31\u6539\u6210 dev.jason.com.google.android.inputmethod.latin\uff0c\u4e26\u53ef\u81ea\u8a02 App \u540d\u7a31\uff0c\u4ee5\u4fbf\u5171\u5b58\u5b89\u88dd\nRename the package to dev.jason.com.google.android.inputmethod.latin and allow a custom app name so it can be installed alongside the official Gboard."
+          "description": "\u5c07\u5957\u4ef6\u540d\u7a31\u6539\u6210\u53ef\u81ea\u8a02\u7684\u503c(\u9810\u8a2d dev.jason.com...latin)\uff0c\u4e26\u53ef\u81ea\u8a02 App \u540d\u7a31\uff0c\u4ee5\u4fbf\u5171\u5b58\u5b89\u88dd\nRename the package to a configurable name (default dev.jason.com...latin) and allow a custom app name so it can be installed alongside the official Gboard."
         },
         {
           "name": "Quick Insert",
@@ -30690,6 +30725,10 @@
         {
           "name": "Settings Homepage Override",
           "description": "\u5141\u8a31\u5207\u63db\u65b0\u7248\u6216\u820a\u7248 Gboard \u8a2d\u5b9a\u9801\u9762\nAllow switching between the new and legacy Gboard settings pages."
+        },
+        {
+          "name": "Shift + Backspace Forward Delete",
+          "description": "\u6309\u4f4f Shift \u518d\u6309\u9000\u683c\u9375\uff0c\u6703\u522a\u9664\u6e38\u6a19\u53f3\u908a\u7684\u5b57\uff0c\u4f5c\u7528\u7b49\u540c\u96fb\u8166\u9375\u76e4\u7684 Delete \u9375\u3002\nHold Shift and press Backspace to delete the character after the cursor, like the Delete key on a computer keyboard."
         },
         {
           "name": "Simple Calculator",
@@ -30758,28 +30797,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -31151,28 +31202,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -32217,28 +32280,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -32300,28 +32375,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -33262,28 +33349,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -33433,28 +33532,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -33616,28 +33727,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -38123,28 +38246,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -38969,28 +39104,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -49208,40 +49355,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -49344,40 +49471,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -49480,40 +49587,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -51687,28 +51774,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -51763,28 +51862,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -52682,40 +52793,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -52854,40 +52945,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -53017,40 +53088,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -68225,28 +68276,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -68273,8 +68336,6 @@
           ],
           "versions": [
             "7.10.102",
-            "7.5.102",
-            "7.6.100",
             "7.8.100"
           ]
         },
@@ -68344,8 +68405,6 @@
       ],
       "versions": [
         "7.10.102",
-        "7.5.102",
-        "7.6.100",
         "7.8.100",
         "7.9.21"
       ],
@@ -76139,8 +76198,8 @@
       ],
       "patches": [
         "AMOLED dark theme",
-        "Bypass Session Expiry",
-        "Bypass session expiry"
+        "Bypass session expiry",
+        "Bypass Session Expiry"
       ],
       "patchDetails": [
         {
@@ -76148,12 +76207,12 @@
           "description": "Replaces the light theme with a pure black dark theme. Requires Android 13 or later."
         },
         {
-          "name": "Bypass Session Expiry",
-          "description": "Kills session expiry dialogs"
-        },
-        {
           "name": "Bypass session expiry",
           "description": "Stops the session expired prompt and toast."
+        },
+        {
+          "name": "Bypass Session Expiry",
+          "description": "Kills session expiry dialogs"
         }
       ],
       "versions": [
@@ -77311,40 +77370,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -77478,40 +77517,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -77937,40 +77956,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -78167,40 +78166,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -86070,40 +86049,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -86290,40 +86249,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -86797,40 +86736,20 @@
           "changelogUrl": "https://raw.githubusercontent.com/wchill/patcheddit/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/wchill.png?size=96",
           "latestChanges": {
-            "title": "2.4.1-dev.1 (2026-11-18)",
-            "date": "2026-11-18",
+            "title": "2.5.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "preserve Markdown repair compatibility with Android 6"
+                "text": "**infinity:** Resolve crash due to unspecified color when opening Patcheddit settings"
               },
               {
                 "category": "Bug Fixes",
-                "text": "repair relative markdown links on all Reddit clients"
+                "text": "**rif:** Resolved crashing from inline video handling"
               },
               {
                 "category": "Bug Fixes",
-                "text": "restore comment video streams in RIF, Boost, and Joey"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**rif:** block ads and fix crash on Platinum version"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**boost:** Add backwards compatibility Spoof client patch for users not using RedReader client ID"
-              },
-              {
-                "category": "Bug Fixes",
-                "text": "**sync:** Crash in Sync free when opening Settings menu due to empty drawable"
-              },
-              {
-                "category": "Features",
-                "text": "Add About Patcheddit menu"
-              },
-              {
-                "category": "Features",
-                "text": "**boost:** Add ability to manually fetch comments/posts from Arctic Shift and warn when loading failed"
+                "text": "**rif:** Resolved HTTP 403 Forbidden on anonymous mode browsing"
               }
             ]
           },
@@ -91204,28 +91123,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -91326,28 +91257,40 @@
           "changelogUrl": "https://raw.githubusercontent.com/ajstrick81/morphe-androidtv-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ajstrick81.png?size=96",
           "latestChanges": {
-            "title": "1.52.1 (2026-11-10)",
-            "date": "2026-11-10",
+            "title": "1.60.1 (2026-11-23)",
+            "date": "2026-11-23",
             "items": [
               {
                 "category": "Bug Fixes",
-                "text": "**pluto:** strip v17 channel bumpers and reordered creative paths (#298) (77ad227), closes #144"
+                "text": "**peacock:** drop 7.5.102 and 7.6.100 targets (server force-update)"
               },
               {
                 "category": "Features",
-                "text": "**vix:** support 4.52.0_tv and remove server-stitched pre-roll ads (6826310), closes #315 #315"
+                "text": "**discoveryplus:** add opt-in Store Country Override for the Italian free tier"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** build the ad-strip hook for arm64-v8a as well as armeabi-v7a (fd7603b), closes #error 260/#282"
+                "text": "**joyn:** add experimental Joyn Android TV ad patch (f1f6c29), closes #328"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** ship the v16 chapteringAdBreak inline patch (rescued from a stash) (d4d6196), closes #310"
+                "text": "**discoveryplus:** add experimental discovery+ Android TV ad patches"
               },
               {
                 "category": "Features",
-                "text": "**primevideo:** support 6.24.7 / 6.24.13 (v16) as experimental targets"
+                "text": "**mediaset:** support Mediaset Infinity 8.1.20 and mark it stable (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**mediaset:** skip ads in Mediaset Infinity Android TV 8.1.13 (#217)"
+              },
+              {
+                "category": "Features",
+                "text": "**youtubetv:** YouTube for Android TV - skip ads and MicroG support"
+              },
+              {
+                "category": "Features",
+                "text": "**paramount:** add experimental 17.3.0 target"
               }
             ]
           },
@@ -93020,8 +92963,8 @@
         "Enable Viber Plus features",
         "Filter business chats",
         "GmsCore support",
-        "Hide Ads",
         "Hide ads",
+        "Hide Ads",
         "Hide image remix",
         "Hide More screen items",
         "Hide navigation buttons",
@@ -93070,12 +93013,12 @@
           "description": "Signs in through GmsCore instead of Google Play Services. Requires GmsCore to be installed."
         },
         {
-          "name": "Hide Ads",
-          "description": "Hides ad banners between chats."
-        },
-        {
           "name": "Hide ads",
           "description": "Hides ads in the chat list, the More screen, Explore, search and after calls."
+        },
+        {
+          "name": "Hide Ads",
+          "description": "Hides ad banners between chats."
         },
         {
           "name": "Hide image remix",
@@ -98222,8 +98165,8 @@
         "Video playback",
         "Video quality",
         "Visual preferences icons for YouTube",
-        "Voice over translation",
         "Voice Over Translation",
+        "Voice over translation",
         "Voice Over Translation (Yandex)",
         "Watch history",
         "Watch later button",
@@ -98917,12 +98860,12 @@
           "description": "Adds icons to specific preferences in the settings."
         },
         {
-          "name": "Voice over translation",
-          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
-        },
-        {
           "name": "Voice Over Translation",
           "description": "Adds an option to enable Yandex voice-over translation of video audio tracks."
+        },
+        {
+          "name": "Voice over translation",
+          "description": "Adds additional voice over languages using text-to-speech synchronized to the video playback."
         },
         {
           "name": "Voice Over Translation (Yandex)",
