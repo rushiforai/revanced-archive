@@ -1,4 +1,4 @@
-package dev.rushi.apkdownloadhelper
+﻿package dev.rushi.apkdownloadhelper
 
 import dev.rushi.apkdownloadhelper.download.*
 import dev.rushi.apkdownloadhelper.sources.*
@@ -9,6 +9,7 @@ import dev.rushi.apkdownloadhelper.updater.*
 import okhttp3.Cookie
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -45,6 +46,32 @@ class SessionCookiesTest {
 
         assertEquals(listOf("cf_clearance"), sent.map { it.name })
         assertEquals("session", sent.single().value)
+    }
+
+    @Test
+    fun `cookies with the same name on different paths are both sent`() {
+        SessionCookies.saveFromResponse(
+            variantPage,
+            listOf(
+                cookie(name = "session", value = "root", path = "/"),
+                cookie(name = "session", value = "apk", path = "/apk/")
+            )
+        )
+
+        val sent = SessionCookies.loadForRequest(variantPage)
+
+        assertEquals(listOf("/apk/", "/"), sent.map { it.path })
+        assertEquals(listOf("apk", "root"), sent.map { it.value })
+    }
+
+    @Test
+    fun `cookie domains never widen to a public suffix`() {
+        assertEquals("192.168.1.5", rootDomain("192.168.1.5"))
+        assertEquals("apkmirror.com", rootDomain("apkmirror.com"))
+        // The unit-test JVM has no Android asset database, so the safe fallback
+        // is host-only; the device resolves the registrable domain instead.
+        val coUkDomain = rootDomain("www.example.co.uk")
+        assertTrue(coUkDomain != "co.uk" && coUkDomain != "uk")
     }
 
     @Test
@@ -94,6 +121,26 @@ class SessionCookiesTest {
     }
 
     @Test
+    fun `an unchanged browser cookie keeps the jar's secure flag`() {
+        val secure = Cookie.Builder()
+            .name("cf_clearance")
+            .value("same")
+            .hostOnlyDomain("www.apkmirror.com")
+            .path("/")
+            .secure()
+            .expiresAt(System.currentTimeMillis() + 60_000)
+            .build()
+        SessionCookies.saveFromResponse(variantPage, listOf(secure))
+
+        SessionCookies.importCookieHeader(variantPage, "cf_clearance=same")
+
+        val sent = SessionCookies.loadForRequest(variantPage)
+        assertEquals(1, sent.size)
+        assertTrue(sent.single().secure)
+        assertEquals("same", sent.single().value)
+    }
+
+    @Test
     fun `an imported cookie replaces the jar's stale value`() {
         SessionCookies.saveFromResponse(variantPage, listOf(cookie(value = "stale")))
 
@@ -112,4 +159,56 @@ class SessionCookiesTest {
         assertEquals(0, SessionCookies.hostCount)
         assertTrue(SessionCookies.loadForRequest(variantPage).isEmpty())
     }
+
+    @Test
+    fun `an imported cookie is available on the sibling download subdomain`() {
+        val downloadPage = "https://apkmirror.com/apk/google-inc/youtube/".toHttpUrl()
+        val cdnDownload = "https://download.apkmirror.com/files/youtube.apk".toHttpUrl()
+
+        SessionCookies.importCookieHeader(downloadPage, "cf_clearance=cf_pass_123; session=sess_abc")
+
+        val sentToCdn = SessionCookies.loadForRequest(cdnDownload)
+        assertEquals(listOf("cf_clearance", "session"), sentToCdn.map { it.name })
+        assertEquals("cf_pass_123", sentToCdn.first().value)
+
+        // Ensure other domains never receive them
+        val apkPureRequest = "https://download.apkpure.com/b/APK/test".toHttpUrl()
+        assertTrue(SessionCookies.loadForRequest(apkPureRequest).isEmpty())
+    }
+
+    @Test
+    fun `referer cookies only merge within the same site`() {
+        assertTrue(
+            sameCookieSite(
+                "https://www.apkmirror.com/wp-content/download.php?id=1",
+                "https://www.apkmirror.com/apk/example/"
+            )
+        )
+        assertFalse(
+            sameCookieSite(
+                "https://files.example.net/app.apk",
+                "https://www.apkmirror.com/apk/example/"
+            )
+        )
+        assertFalse(
+            sameCookieSite(
+                "https://www.example.co.uk/app.apk",
+                "https://other.co.uk/page"
+            )
+        )
+    }
+
+    @Test
+    fun `mergeCookieHeaders combines cookies from download url and referer`() {
+        val downloadCookies = "download_token=token456; common=from_download"
+        val refererCookies = "cf_clearance=cf_clear_999; common=from_referer; session=sess_orig"
+
+        val merged = mergeCookieHeaders(downloadCookies, refererCookies)
+
+        assertTrue(merged.contains("cf_clearance=cf_clear_999"))
+        assertTrue(merged.contains("session=sess_orig"))
+        assertTrue(merged.contains("download_token=token456"))
+        assertTrue(merged.contains("common=from_download"))
+    }
 }
+

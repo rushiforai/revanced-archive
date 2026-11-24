@@ -1,8 +1,9 @@
-﻿package dev.rushi.apkdownloadhelper.download
+package dev.rushi.apkdownloadhelper.download
 
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.util.Locale
 
 /**
@@ -26,23 +27,27 @@ internal object SessionCookies : CookieJar {
 
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
         if (cookies.isEmpty()) return
-        val host = url.host.lowercase(Locale.US)
         val now = System.currentTimeMillis()
         synchronized(byHost) {
-            byHost.getOrPut(host) { mutableListOf() }
-                .removeAll { it.expiresAt < now }
             cookies.forEach { cookie ->
-                // A re-set cookie replaces the old one of the same name and path instead
-                // of piling up, which is what a session refresh looks like.
-                byHost[host]?.removeAll { existing ->
+                val key = cookie.domain.lowercase(Locale.US)
+                val list = byHost.getOrPut(key) { mutableListOf() }
+                list.removeAll { it.expiresAt < now }
+                list.removeAll { existing ->
                     existing.name == cookie.name && existing.path == cookie.path
                 }
-                byHost[host]?.add(cookie)
+                list.add(cookie)
+                if (list.size > MAX_COOKIES_PER_HOST) {
+                    byHost[key] = list.takeLast(MAX_COOKIES_PER_HOST).toMutableList()
+                }
             }
-            val stored = byHost[host]
-            if (stored != null && stored.size > MAX_COOKIES_PER_HOST) {
-                byHost[host] = stored.takeLast(MAX_COOKIES_PER_HOST).toMutableList()
+        }
+        runCatching {
+            val cm = android.webkit.CookieManager.getInstance() ?: return@runCatching
+            cookies.forEach { cookie ->
+                cm.setCookie(url.toString(), cookie.toString())
             }
+            cm.flush()
         }
     }
 
@@ -57,7 +62,88 @@ internal object SessionCookies : CookieJar {
     fun importCookieHeader(url: HttpUrl, header: String?) {
         if (header.isNullOrBlank()) return
         val host = url.host.lowercase(Locale.US)
-        val imported = header.split(';').mapNotNull { raw ->
+        val imported = parseCookieHeader(url, header, rootDomain(host))
+        if (imported.isEmpty()) return
+        synchronized(byHost) {
+            val keys = candidateDomainKeys(host)
+            imported.forEach { cookie ->
+                // A Cookie request header carries no attributes. If the value is
+                // unchanged, keep the structured cookie and its Secure/expiry
+                // metadata instead of replacing it with a reconstructed one.
+                val unchanged = keys.asSequence()
+                    .mapNotNull { byHost[it] }
+                    .flatten()
+                    .any { existing ->
+                        existing.name == cookie.name &&
+                            existing.path == cookie.path &&
+                            existing.value == cookie.value
+                    }
+                if (unchanged) return@forEach
+                keys.forEach { key ->
+                    byHost[key]?.removeAll { existing ->
+                        existing.name == cookie.name && existing.path == cookie.path
+                    }
+                }
+                val targetKey = cookie.domain.lowercase(Locale.US)
+                val stored = byHost.getOrPut(targetKey) { mutableListOf() }
+                stored.removeAll { existing ->
+                    existing.name == cookie.name && existing.path == cookie.path
+                }
+                stored.add(cookie)
+                if (stored.size > MAX_COOKIES_PER_HOST) {
+                    byHost[targetKey] = stored.takeLast(MAX_COOKIES_PER_HOST).toMutableList()
+                }
+            }
+        }
+    }
+
+    override fun loadForRequest(url: HttpUrl): List<Cookie> {
+        // The browser's Cookie header has no attributes, so using it to replace
+        // the jar's cookies would drop their Secure, path and expiry metadata.
+        // Keep it request-scoped instead; CookieManager has already matched it
+        // to this URL, and structured cookies fill in the rest.
+        val browserCookies = runCatching {
+            val cm = android.webkit.CookieManager.getInstance()
+            cm?.getCookie(url.toString())
+        }.getOrNull()?.let { header ->
+            parseCookieHeader(url, header, rootDomain(url.host))
+        }.orEmpty()
+
+        val keys = candidateDomainKeys(url.host)
+        val now = System.currentTimeMillis()
+        // A name is not a cookie identity: the same name can exist on a
+        // different path or domain, and the more specific path must go first.
+        val cookiesByIdentity = LinkedHashMap<String, Cookie>()
+        browserCookies.forEach { cookie ->
+            cookiesByIdentity[cookieIdentity(cookie)] = cookie
+        }
+        synchronized(byHost) {
+            keys.forEach { key ->
+                val stored = byHost[key] ?: return@forEach
+                stored.removeAll { it.expiresAt < now }
+                if (stored.isEmpty()) {
+                    byHost.remove(key)
+                } else {
+                    stored.filter { it.matches(url) }.forEach { cookie ->
+                        cookiesByIdentity.putIfAbsent(cookieIdentity(cookie), cookie)
+                    }
+                }
+            }
+        }
+        return cookiesByIdentity.values.sortedByDescending { it.path.length }
+    }
+
+    private fun cookieIdentity(cookie: Cookie): String =
+        "${cookie.name}\u0000${cookie.domain.lowercase(Locale.US)}\u0000${cookie.path}"
+
+    /**
+     * Parses a `Cookie` request header into session cookies for [url].
+     * The header has no path or expiration, so [domain] is supplied by the caller.
+     */
+    private fun parseCookieHeader(url: HttpUrl, header: String?, domain: String): List<Cookie> {
+        if (header.isNullOrBlank()) return emptyList()
+        val host = url.host.lowercase(Locale.US)
+        return header.split(';').mapNotNull { raw ->
             val pair = raw.trim()
             val separator = pair.indexOf('=')
             if (separator <= 0) return@mapNotNull null
@@ -68,40 +154,19 @@ internal object SessionCookies : CookieJar {
                 Cookie.Builder()
                     .name(name)
                     .value(value)
-                    .hostOnlyDomain(host)
+                    .domain(domain)
                     .path("/")
-                    .expiresAt(Long.MAX_VALUE)
                     .build()
-            }.getOrNull()
-        }
-        if (imported.isEmpty()) return
-        synchronized(byHost) {
-            val stored = byHost.getOrPut(host) { mutableListOf() }
-            imported.forEach { cookie ->
-                stored.removeAll { existing ->
-                    existing.name == cookie.name && existing.path == cookie.path
-                }
-                stored.add(cookie)
+            }.getOrElse {
+                runCatching {
+                    Cookie.Builder()
+                        .name(name)
+                        .value(value)
+                        .hostOnlyDomain(host)
+                        .path("/")
+                        .build()
+                }.getOrNull()
             }
-            if (stored.size > MAX_COOKIES_PER_HOST) {
-                byHost[host] = stored.takeLast(MAX_COOKIES_PER_HOST).toMutableList()
-            }
-        }
-    }
-
-    override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        val host = url.host.lowercase(Locale.US)
-        val now = System.currentTimeMillis()
-        synchronized(byHost) {
-            val stored = byHost[host] ?: return emptyList()
-            stored.removeAll { it.expiresAt < now }
-            if (stored.isEmpty()) {
-                byHost.remove(host)
-                return emptyList()
-            }
-            // Cookies are per host in this jar, but still honours the path they were set
-            // on, so a cookie set for /apk/ is not sent to an unrelated path.
-            return stored.filter { it.matches(url) }
         }
     }
 
@@ -113,5 +178,40 @@ internal object SessionCookies : CookieJar {
     /** How many hosts currently hold cookies, for diagnostics. */
     val hostCount: Int
         get() = synchronized(byHost) { byHost.size }
+}
+
+/**
+ * The registrable domain for [host], using the public suffix list so a
+ * host such as `www.example.co.uk` yields `example.co.uk`, not `co.uk`.
+ * IP addresses and hosts without a registrable domain stay host-only.
+ */
+internal fun rootDomain(host: String): String {
+    val normalized = host.lowercase(Locale.US)
+    return registrableDomainOrNull(normalized) ?: normalized
+}
+
+/**
+ * The public-suffix-aware registrable domain, or null when the lookup data is
+ * unavailable (plain JVM tests) or the host has no registrable domain (IPs).
+ */
+private fun registrableDomainOrNull(host: String): String? {
+    val url = runCatching { "https://$host/".toHttpUrl() }.getOrNull() ?: return null
+    return runCatching { url.topPrivateDomain() }
+        .getOrNull()
+        ?.lowercase(Locale.US)
+}
+
+internal fun candidateDomainKeys(host: String): List<String> {
+    val normalized = host.lowercase(Locale.US)
+    val parts = normalized.split('.').filter { it.isNotBlank() }
+    if (parts.size <= 1) return listOf(normalized)
+    val keys = mutableListOf<String>()
+    for (i in 0 until parts.size - 1) {
+        keys.add(parts.subList(i, parts.size).joinToString("."))
+    }
+    // Never look above the registrable domain: `co.uk` is not a cookie scope.
+    val registrable = registrableDomainOrNull(normalized) ?: return keys
+    val boundary = keys.indexOf(registrable)
+    return if (boundary >= 0) keys.take(boundary + 1) else keys
 }
 

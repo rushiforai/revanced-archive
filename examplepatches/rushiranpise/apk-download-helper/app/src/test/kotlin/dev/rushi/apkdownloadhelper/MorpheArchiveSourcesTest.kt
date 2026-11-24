@@ -7,6 +7,8 @@ import dev.rushi.apkdownloadhelper.ui.*
 import dev.rushi.apkdownloadhelper.updater.*
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class MorpheArchiveSourcesTest {
@@ -89,4 +91,100 @@ class MorpheArchiveSourcesTest {
         assertEquals("only/patches", groups[0].primary.repo)
         assertEquals(emptyList<String>(), groups[0].mirrors.map { it.repo })
     }
+
+    @Test
+    fun `matchingReason returns null when query matches app name or package directly`() {
+        val app = ArchiveApp(
+            name = "YouTube",
+            packageName = "com.google.android.youtube",
+            patches = listOf("SponsorBlock", "Return YouTube Dislike")
+        )
+        assertNull(app.matchingReason("youtube"))
+        assertNull(app.matchingReason("google"))
+    }
+
+    @Test
+    fun `matchingReason identifies patch match`() {
+        val app = ArchiveApp(
+            name = "YouTube",
+            packageName = "com.google.android.youtube",
+            patches = listOf("SponsorBlock", "Return YouTube Dislike")
+        )
+        val reason = app.matchingReason("sponsorblock")
+        assertTrue(reason is MatchReason.Patch)
+        assertEquals("Patch: SponsorBlock", reason?.label)
+    }
+
+    @Test
+    fun `matchingReason identifies a patch detail name match`() {
+        val app = ArchiveApp(
+            name = "YouTube",
+            packageName = "com.google.android.youtube",
+            patchDetails = listOf(
+                ArchivePatch(name = "SponsorBlock", description = "Skips sponsor segments")
+            )
+        )
+        val reason = app.matchingReason("sponsorblock")
+        assertTrue(reason is MatchReason.Patch)
+        assertEquals("Patch: SponsorBlock", reason?.label)
+    }
+
+    @Test
+    fun `matchingReason identifies source repo match`() {
+        val app = ArchiveApp(
+            name = "YouTube",
+            packageName = "com.google.android.youtube",
+            sources = listOf(
+                ArchiveSource(repo = "anddea/revanced-patches")
+            )
+        )
+        val reason = app.matchingReason("anddea")
+        assertTrue(reason is MatchReason.SourceRepo)
+        assertEquals("Source: revanced-patches", reason?.label)
+    }
+
+    @Test
+    fun `a disk index does not replace a fetched index`() {
+        val fetched = MorpheArchiveIndex(
+            generatedAt = "2026-11-23 12:00 UTC",
+            apps = listOf(ArchiveApp(name = "Fresh", packageName = "com.fresh"))
+        )
+        val disk = MorpheArchiveIndex(
+            generatedAt = "2026-11-22 12:00 UTC",
+            apps = listOf(ArchiveApp(name = "Old", packageName = "com.old"))
+        )
+        MorpheArchive.inMemoryIndex = fetched
+
+        val published = MorpheArchive.publishDiskIndex(disk)
+
+        assertEquals(fetched, published)
+        assertEquals(fetched, MorpheArchive.inMemoryIndex)
+    }
+
+    @Test
+    fun `a disk index fills an empty cache`() {
+        val disk = MorpheArchiveIndex(
+            generatedAt = "2026-11-22 12:00 UTC",
+            apps = listOf(ArchiveApp(name = "Old", packageName = "com.old"))
+        )
+        MorpheArchive.inMemoryIndex = null
+
+        val published = MorpheArchive.publishDiskIndex(disk)
+
+        assertEquals(disk, published)
+        assertEquals(disk, MorpheArchive.inMemoryIndex)
+    }
+
+    @Test
+    fun `inMemoryIndex caches the loaded index in RAM`() {
+        val testIndex = MorpheArchiveIndex(
+            generatedAt = "2026-11-22 12:00 UTC",
+            apps = listOf(
+                ArchiveApp(name = "TestApp", packageName = "com.test.app")
+            )
+        )
+        MorpheArchive.inMemoryIndex = testIndex
+        assertEquals(testIndex, MorpheArchive.inMemoryIndex)
+    }
 }
+

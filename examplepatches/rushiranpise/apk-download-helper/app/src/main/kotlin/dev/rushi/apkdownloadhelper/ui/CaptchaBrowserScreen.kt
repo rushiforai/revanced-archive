@@ -53,6 +53,7 @@ import dev.rushi.apkdownloadhelper.R
 import dev.rushi.apkdownloadhelper.TAG
 import dev.rushi.apkdownloadhelper.download.AdGuardDns
 import dev.rushi.apkdownloadhelper.download.orderedFileKinds
+import dev.rushi.apkdownloadhelper.download.rootDomain
 import kotlinx.coroutines.delay
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
@@ -1021,15 +1022,53 @@ internal fun String.isUptodownFileUrl(): Boolean {
     return uri.path.orEmpty().contains("/dwn/", ignoreCase = true)
 }
 
+internal fun mergeCookieHeaders(first: String, second: String): String {
+    val cookies = LinkedHashMap<String, String>()
+    listOf(second, first).forEach { header ->
+        header.split(';').forEach { pair ->
+            val sep = pair.indexOf('=')
+            if (sep > 0) {
+                val name = pair.substring(0, sep).trim()
+                val value = pair.substring(sep + 1).trim()
+                if (name.isNotEmpty()) {
+                    cookies[name] = value
+                }
+            }
+        }
+    }
+    return cookies.entries.joinToString("; ") { "${it.key}=${it.value}" }
+}
+
 /**
- * Cookies the browser holds for a captured file URL, falling back to the page
- * that produced it. The downloader imports this header into its own jar; it is
- * the same session that passed the challenge, so the file hop must reuse it.
+ * Cookies the browser holds for a captured file URL, combining cookies from both
+ * the download URL and the referer page that produced it (which carries the Cloudflare clearance).
  */
 private fun browserCookieHeader(downloadUrl: String, referer: String?): String? {
     val manager = CookieManager.getInstance()
-    return manager.getCookie(downloadUrl)?.takeIf(String::isNotBlank)
-        ?: referer?.let { manager.getCookie(it) }?.takeIf(String::isNotBlank)
+    val downloadCookies = manager.getCookie(downloadUrl)?.takeIf(String::isNotBlank)
+    // A referer on another site has no business supplying cookies for the file.
+    // Same-site page cookies stay useful for Cloudflare's clearance pair.
+    val refererCookies = referer
+        ?.takeIf { sameCookieSite(downloadUrl, it) }
+        ?.let { manager.getCookie(it) }
+        ?.takeIf(String::isNotBlank)
+    return when {
+        downloadCookies != null && refererCookies != null -> mergeCookieHeaders(downloadCookies, refererCookies)
+        downloadCookies != null -> downloadCookies
+        else -> refererCookies
+    }
+}
+
+/** True when both URLs belong to the same host or registrable domain. */
+internal fun sameCookieSite(downloadUrl: String, refererUrl: String): Boolean {
+    val downloadHost = runCatching { java.net.URI(downloadUrl.urlDecoded()).host }.getOrNull()
+        ?.lowercase(Locale.US)
+        ?: return false
+    val refererHost = runCatching { java.net.URI(refererUrl.urlDecoded()).host }.getOrNull()
+        ?.lowercase(Locale.US)
+        ?: return false
+    if (downloadHost == refererHost) return true
+    return rootDomain(downloadHost) == rootDomain(refererHost)
 }
 
 /**

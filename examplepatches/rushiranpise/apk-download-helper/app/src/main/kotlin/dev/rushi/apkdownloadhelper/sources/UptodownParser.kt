@@ -1,4 +1,4 @@
-﻿package dev.rushi.apkdownloadhelper.sources
+package dev.rushi.apkdownloadhelper.sources
 
 import android.net.Uri
 import android.util.Log
@@ -116,7 +116,7 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
         candidate: DownloadCandidate
     ): DownloadCandidate? {
         val pageDoc = fetchDocument(candidate.url)
-        val directUrl = uptodownDownloadUrlFromPage(pageDoc)
+        val directUrl = uptodownDownloadUrlFromPage(pageDoc, request.packageName)
         if (directUrl == null) {
             return null
         }
@@ -251,7 +251,7 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
         }
 
         val fileKind = uptodownFileKindFromFilePage(doc)
-        val directUrl = uptodownDownloadUrlFromPage(doc)
+        val directUrl = uptodownDownloadUrlFromPage(doc, request.packageName)
         return listOf(
             DownloadCandidate(
                 source = DownloadSource.UPTODOWN,
@@ -397,8 +397,8 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
             // (e.g. an "external" Play Store listing like Discord). Pointing at a
             // store page is not a downloadable file, so don't treat it as a direct
             // download  the row should fall back to opening the page instead.
-            ?.takeUnless { it.isPlayStoreListing() }
-            ?: uptodownDownloadUrlFromPage(doc)
+            ?.takeUnless { it.isPlayStoreListing() || (request.packageName != "com.uptodown" && it.isUptodownStoreListing()) }
+            ?: uptodownDownloadUrlFromPage(doc, request.packageName)
         val normalizedDetailUrl = detailUrl.trimEnd('/')
         val dataCode = versionsDoc?.let(::uptodownDataCode) ?: uptodownDataCode(doc)
         dataCode
@@ -554,7 +554,7 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
                 ?: "apk"
             )
             .lowercase(Locale.US)
-        val directUrl = uptodownDownloadUrlFromPage(pageDoc)
+        val directUrl = uptodownDownloadUrlFromPage(pageDoc, request.packageName)
 
         return listOf(
             DownloadCandidate(
@@ -599,7 +599,7 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
     ): DownloadCandidate? {
         val tokenDoc = fetchDocument("$detailUrl/download/${variant.fileId}-x", referer = versionPageUrl)
         val fileKind = variant.fileKind.lowercase(Locale.US)
-        val directUrl = uptodownDownloadUrlFromPage(tokenDoc) ?: return null
+        val directUrl = uptodownDownloadUrlFromPage(tokenDoc, request.packageName) ?: return null
         val variantLabel = variant.displayLabel()
         val variantFileSuffix = variantLabel.variantFileSuffix()
         // Uptodown's download page publishes the file's SHA-256 in its info
@@ -737,12 +737,20 @@ internal class UptodownParser(private val ctx: SourceParserContext) : ApkSourceP
             contains("market.android.com", ignoreCase = true) ||
             startsWith("market://", ignoreCase = true)
 
-    private fun uptodownDownloadUrlFromPage(doc: Document): String? {
+    private fun String.isUptodownStoreListing(): Boolean =
+        contains("uptodown-android", ignoreCase = true) ||
+            contains("com.uptodown", ignoreCase = true) ||
+            contains("uptodown-app-store", ignoreCase = true)
+
+    private fun uptodownDownloadUrlFromPage(doc: Document, requestedPackage: String?): String? {
         val dataUrl = doc.selectFirst("#detail-download-button[data-url]")
             ?.attr("data-url")
             ?.takeIf(String::isNotBlank)
             ?: return null
         val normalized = dataUrl.trim()
+        // The store app is a genuine download when it is the app that was asked
+        // for; for every other app this button is a cross-promotion.
+        if (requestedPackage != "com.uptodown" && normalized.isUptodownStoreListing()) return null
         return if (normalized.startsWith("http", ignoreCase = true)) {
             normalized.normalizedHttpUrlOrNull()
         } else {

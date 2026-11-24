@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.annotations.SerializedName
 import dev.rushi.apkdownloadhelper.gson
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -132,7 +133,46 @@ internal data class ArchiveApp(
             else -> 100
         }
     }
+
+    fun matchingReason(query: String): MatchReason? {
+        if (query.isBlank()) return null
+        ensureSearchIndex()
+        val q = query.trim().lowercase(Locale.US)
+        if (nameLower.contains(q) || packageLower.contains(q)) return null
+
+        patches.firstOrNull { it.lowercase(Locale.US).contains(q) }?.let {
+            return MatchReason.Patch(it)
+        }
+        sources.forEach { source ->
+            source.patches.firstOrNull { it.name.lowercase(Locale.US).contains(q) }?.let {
+                return MatchReason.Patch(it.name)
+            }
+        }
+        sources.firstOrNull { it.repo.lowercase(Locale.US).contains(q) }?.let {
+            val repoName = it.repo.substringAfterLast('/')
+            return MatchReason.SourceRepo(repoName.ifBlank { it.repo })
+        }
+        patchDetails.firstOrNull { it.name.lowercase(Locale.US).contains(q) }?.let {
+            return MatchReason.Patch(it.name)
+        }
+        patchDetails.firstOrNull { it.description?.lowercase(Locale.US)?.contains(q) == true }?.let {
+            return MatchReason.Patch(it.name.ifBlank { "Matches description" })
+        }
+        sources.forEach { source ->
+            source.patches.firstOrNull { it.description?.lowercase(Locale.US)?.contains(q) == true }?.let {
+                return MatchReason.Patch(it.name.ifBlank { "Matches description" })
+            }
+        }
+        return null
+    }
 }
+
+sealed class MatchReason(val label: String) {
+    data class Patch(val name: String) : MatchReason("Patch: $name")
+    data class SourceRepo(val repo: String) : MatchReason("Source: $repo")
+    data class Description(val text: String) : MatchReason("Match: $text")
+}
+
 
 internal data class ArchivePatch(
     @SerializedName("name") val name: String = "",
@@ -342,12 +382,28 @@ internal object MorpheArchive {
     private const val CONNECT_TIMEOUT_S = 10L
     private const val READ_TIMEOUT_S = 45L
 
+    /** Short window where callers arriving just after a fetch reuse its result. */
+    private const val FETCH_REUSE_WINDOW_NANOS = 10_000_000_000L
+
+    private val fetchLock = Any()
+    private val indexLock = Any()
+
+    @Volatile
+    private var lastFetchAtNanos = 0L
+
+    @Volatile
+    private var inFlightFetch: CompletableDeferred<MorpheArchiveIndex>? = null
+
     /** Shared client: used for the index fetch and for source avatars. */
     val http = OkHttpClient.Builder()
         .connectTimeout(CONNECT_TIMEOUT_S, TimeUnit.SECONDS)
         .readTimeout(READ_TIMEOUT_S, TimeUnit.SECONDS)
         .followRedirects(true)
         .build()
+
+    @Volatile
+    var inMemoryIndex: MorpheArchiveIndex? = null
+        internal set
 
     @Volatile
     private var patchListCache = java.util.concurrent.ConcurrentHashMap<String, List<ArchivePatch>>()
@@ -449,14 +505,25 @@ internal object MorpheArchive {
     private const val CACHE_FILE_NAME = "morphe_archive_cache.json"
 
     fun loadCachedIndex(context: Context): MorpheArchiveIndex? {
-        return runCatching {
+        inMemoryIndex?.let { return it }
+        val loaded = runCatching {
             val file = File(context.filesDir, CACHE_FILE_NAME)
             if (!file.exists() || file.length() == 0L) return null
             val body = file.readText()
             val parsed = gson.fromJson(body, MorpheArchiveData::class.java) ?: return null
             hydrateIndex(parsed)
-        }.getOrNull()
+        }.getOrNull() ?: return null
+        return publishDiskIndex(loaded)
     }
+
+    /**
+     * Publishes a disk snapshot only when no fresher index is in memory. A fetch
+     * that completed while the file was being read keeps its result.
+     */
+    internal fun publishDiskIndex(loaded: MorpheArchiveIndex): MorpheArchiveIndex =
+        synchronized(indexLock) {
+            inMemoryIndex ?: loaded.also { inMemoryIndex = it }
+        }
 
     /**
      * Replaces the cache in one step: a failed or interrupted write leaves the
@@ -523,7 +590,46 @@ internal object MorpheArchive {
         )
     }
 
-    suspend fun fetchIndex(context: Context? = null): MorpheArchiveIndex = withContext(Dispatchers.IO) {
+    suspend fun fetchIndex(context: Context? = null): MorpheArchiveIndex {
+        inMemoryIndex?.takeIf { recentlyFetched() }?.let { return it }
+        // A cold launch composes both browser pages at once. Let them share one
+        // request instead of downloading the index twice.
+        val (pending, owner) = synchronized(fetchLock) {
+            val existing = inFlightFetch
+            if (existing != null) {
+                existing to false
+            } else {
+                CompletableDeferred<MorpheArchiveIndex>().also { inFlightFetch = it } to true
+            }
+        }
+        if (!owner) return pending.await()
+        return try {
+            val result = withContext(Dispatchers.IO) { fetchIndexFromNetwork(context) }
+            if (result.fromNetwork) {
+                synchronized(fetchLock) { lastFetchAtNanos = System.nanoTime() }
+            }
+            pending.complete(result.index)
+            result.index
+        } catch (error: Throwable) {
+            pending.completeExceptionally(error)
+            throw error
+        } finally {
+            synchronized(fetchLock) { inFlightFetch = null }
+        }
+    }
+
+    private fun recentlyFetched(): Boolean {
+        val completedAt = lastFetchAtNanos
+        if (completedAt == 0L) return false
+        return System.nanoTime() - completedAt in 0 until FETCH_REUSE_WINDOW_NANOS
+    }
+
+    private data class IndexFetchResult(
+        val index: MorpheArchiveIndex,
+        val fromNetwork: Boolean
+    )
+
+    private fun fetchIndexFromNetwork(context: Context?): IndexFetchResult {
         val request = Request.Builder()
             .url(INDEX_URL)
             .header(
@@ -532,7 +638,7 @@ internal object MorpheArchive {
             )
             .header("Accept", "application/json")
             .build()
-        try {
+        return try {
             http.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) {
                     error("Index request failed: HTTP ${response.code}")
@@ -544,16 +650,19 @@ internal object MorpheArchive {
                     error("Index response contained no apps")
                 }
                 val index = hydrateIndex(parsed)
+                synchronized(indexLock) { inMemoryIndex = index }
                 if (context != null) {
                     runCatching { writeCacheFile(context, body) }
                         .onFailure { Log.w(TAG, "Could not cache the app index", it) }
                 }
-                index
+                IndexFetchResult(index, fromNetwork = true)
             }
         } catch (e: Exception) {
             if (context != null) {
                 val cached = loadCachedIndex(context)
-                if (cached != null) return@withContext cached
+                // A disk fallback is not a fresh fetch: a later Retry must
+                // still reach the network instead of reusing this result.
+                if (cached != null) return IndexFetchResult(cached, fromNetwork = false)
             }
             throw e
         }

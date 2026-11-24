@@ -222,4 +222,65 @@ class UptodownParserTest {
         assertEquals("2.0.0", candidate.versionName)
         assertEquals("a".repeat(64), candidate.files.single().expectedSha256)
     }
+
+    @Test
+    fun resolveHistoryCandidate_keepsStoreApkWhenStoreIsRequested() = runBlocking {
+        val storePackage = "com.uptodown"
+        val storePageUrl = "https://uptodown-android.en.uptodown.com/android/download"
+        val storeDownloadPage = """
+            <html><body>
+              <button id="detail-download-button"
+                data-url="https://dw.uptodown.com/dwn/uptodown-app-store-6.0.0"></button>
+            </body></html>
+        """.trimIndent()
+        val parser = UptodownParser(
+            testParserContext(pages = mapOf(storePageUrl to storeDownloadPage))
+        )
+        val candidate = DownloadCandidate(
+            source = DownloadSource.UPTODOWN,
+            name = "Uptodown App Store",
+            packageName = storePackage,
+            versionName = "6.0.0",
+            versionCode = null,
+            url = storePageUrl,
+            fileKind = "apk",
+            option = CandidateOption.LATEST,
+            directDownload = false,
+            versionStatus = VersionStatus.LATEST,
+            formatMatches = true
+        )
+
+        val resolved = parser.resolveHistoryCandidate(
+            testRequest(packageName = storePackage),
+            candidate
+        )
+
+        assertNotNull(resolved)
+        assertEquals("https://dw.uptodown.com/dwn/uptodown-app-store-6.0.0", resolved!!.url)
+        assertTrue(resolved.directDownload)
+    }
+
+    @Test
+    fun resolveLatest_rejectsUptodownStoreDownloadButton() = runBlocking {
+        val downloadPageWithStoreButton = """
+            <html><body>
+              <div id="detail-app-name" data-code="12345">Example App</div>
+              <table><tr><th>Package Name</th><td>$packageName</td></tr></table>
+              <button id="detail-download-button" data-url="https://uptodown-android.en.uptodown.com/android/download">Download</button>
+            </body></html>
+        """.trimIndent()
+        val parser = UptodownParser(
+            testParserContext(
+                pages = mapOf(
+                    searchUrl to "<html><body><a href=\"$detailUrl\">Example App</a></body></html>",
+                    "$detailUrl/download" to downloadPageWithStoreButton
+                )
+            )
+        )
+        val candidates = parser.findCandidates(
+            testRequest(packageName = packageName),
+            CandidateOption.LATEST
+        )
+        assertTrue(candidates.isEmpty() || !candidates.any { it.url.contains("uptodown-android") })
+    }
 }
