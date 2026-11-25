@@ -149,7 +149,8 @@ internal object UpdateChecker {
                 if (release.optBoolean("draft", false)) continue
                 if (!includePrereleases && release.optBoolean("prerelease", false)) continue
                 val info = parseRelease(release)
-                if (info.version.isBlank()) continue
+                // PR test builds use a non-version tag such as ci-pr-builds.
+                if (!VERSION.matches(info.version)) continue
                 if (!includePrereleases && UpdateInfo.isPrerelease(info.version)) continue
                 add(info)
             }
@@ -170,6 +171,8 @@ internal object UpdateChecker {
                 if (!name.endsWith(".apk", ignoreCase = true) || !url.startsWith("https://")) {
                     continue
                 }
+                // Release builds also attach a debug APK; never offer it as an update.
+                if (name.endsWith("-debug.apk", ignoreCase = true)) continue
                 if (fallback == null) fallback = asset
                 if (name.contains("universal", ignoreCase = true)) {
                     chosen = asset

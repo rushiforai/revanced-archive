@@ -820,11 +820,6 @@
     "integrations": false,
     "disabled": false
   },
-  "ftl": {
-    "patches": "https://github.com/BlazeFTL/FTL-Patches",
-    "integrations": false,
-    "disabled": false
-  },
   "braintropy": {
     "patches": "https://github.com/braiNtropy/braintropy-patches",
     "integrations": false,
@@ -2215,11 +2210,6 @@
     "integrations": false,
     "disabled": false
   },
-  "facebook-lite-morphe": {
-    "patches": "https://github.com/BlazeFTL/FaceBook-Lite-Morphe",
-    "integrations": false,
-    "disabled": false
-  },
   "raid-judu": {
     "patches": "https://github.com/Vakarux12/raid-judu-patches",
     "integrations": false,
@@ -3350,11 +3340,6 @@
     "integrations": false,
     "disabled": false
   },
-  "np-morphe-patches": {
-    "patches": "https://github.com/prtmN5H1/NP-morphe-patches",
-    "integrations": false,
-    "disabled": false
-  },
   "kmmiio99o-reseam-patches": {
     "patches": "https://github.com/kmmiio99o/reseam-patches",
     "integrations": false,
@@ -4347,6 +4332,26 @@
   },
   "morphe-patches-13": {
     "patches": "https://github.com/josselinonduty/morphe-patches",
+    "integrations": false,
+    "disabled": false
+  },
+  "gboard-rambler-enhancements": {
+    "patches": "https://github.com/abotmaker/gboard-rambler-enhancements",
+    "integrations": false,
+    "disabled": false
+  },
+  "glyphchemy": {
+    "patches": "https://github.com/assc0d3r/GLYPHCHEMY",
+    "integrations": false,
+    "disabled": false
+  },
+  "byd-maps-patches": {
+    "patches": "https://github.com/kennyric/byd-maps-patches",
+    "integrations": false,
+    "disabled": false
+  },
+  "morphe-patches-14": {
+    "patches": "https://github.com/mben25/morphe-patches",
     "integrations": false,
     "disabled": false
   }

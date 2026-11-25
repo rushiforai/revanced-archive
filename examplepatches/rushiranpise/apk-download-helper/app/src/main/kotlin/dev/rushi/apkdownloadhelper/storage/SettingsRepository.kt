@@ -1,4 +1,4 @@
-﻿package dev.rushi.apkdownloadhelper.storage
+package dev.rushi.apkdownloadhelper.storage
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,7 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import dev.rushi.apkdownloadhelper.BuildConfig
 import dev.rushi.apkdownloadhelper.download.VirusTotalScanner
-import dev.rushi.apkdownloadhelper.ui.DownloadSource
+import dev.rushi.apkdownloadhelper.ui.model.DownloadSource
 import dev.rushi.apkdownloadhelper.updater.UpdateInfo
 import java.io.File
 
@@ -130,6 +130,8 @@ internal data class HelperSettings(
     val customAccentColor: String = "",
     /** Drifting circles behind the pager; off removes the backdrop entirely. */
     val animatedBackground: Boolean = true,
+    /** Frosted glass blur on headers and cards; off keeps them solid. */
+    val blurEffects: Boolean = true,
     val hideFindAppsStats: Boolean = false,
     val hideCommunityNotice: Boolean = false,
     val useGradientCardColors: Boolean = true,
@@ -411,6 +413,7 @@ internal fun Context.loadHelperSettings(): HelperSettings {
         pureBlackTheme = prefs.getBoolean("pure_black_theme", false),
         customAccentColor = prefs.getString("custom_accent_color", "") ?: "",
         animatedBackground = prefs.getBoolean("animated_background", true),
+        blurEffects = prefs.getBoolean("blur_effects", true),
         hideFindAppsStats = prefs.getBoolean("hide_find_apps_stats", false),
         hideCommunityNotice = prefs.getBoolean("hide_community_notice", false),
         useGradientCardColors = prefs.getBoolean("use_gradient_card_colors", true),
@@ -503,6 +506,7 @@ internal fun Context.saveHelperSettings(settings: HelperSettings) {
         .putBoolean("pure_black_theme", settings.pureBlackTheme)
         .putString("custom_accent_color", settings.customAccentColor)
         .putBoolean("animated_background", settings.animatedBackground)
+        .putBoolean("blur_effects", settings.blurEffects)
         .putBoolean("adguard_dns", settings.adGuardDns)
         .putBoolean("virus_total_enabled", settings.virusTotalEnabled)
         .putString("virus_total_api_key", settings.virusTotalApiKey)

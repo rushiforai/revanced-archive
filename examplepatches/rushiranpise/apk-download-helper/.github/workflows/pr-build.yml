@@ -1,0 +1,188 @@
+name: PR build
+
+# The repository owner comments /build on a pull request to run this. Nothing
+# runs on a push. The PR code is built with the release signing secrets, so the
+# owner-only gate is what keeps this run intentional.
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-build-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build PR APKs
+    if: >-
+      github.event.issue.pull_request != null &&
+      github.event.comment.user.login == github.repository_owner &&
+      startsWith(github.event.comment.body, '/build')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pr_number: ${{ steps.pr.outputs.number }}
+      head_sha: ${{ steps.pr.outputs.sha }}
+      debug_apk_url: ${{ steps.debug_apk.outputs['artifact-url'] }}
+      release_apk_url: ${{ steps.release_apk.outputs['artifact-url'] }}
+
+    steps:
+      - name: Resolve pull request head
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        shell: bash
+        run: |
+          sha="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.head.sha')"
+
+          if [[ -z "$sha" ]]; then
+            echo "::error::Could not resolve the pull request head."
+            exit 1
+          fi
+
+          {
+            echo "number=${PR_NUMBER}"
+            echo "sha=${sha}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Checkout pull request
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ steps.pr.outputs.number }}/head
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Decode release keystore
+        id: signing
+        env:
+          HELPER_RELEASE_KEYSTORE_BASE64: ${{ secrets.HELPER_RELEASE_KEYSTORE_BASE64 }}
+          HELPER_RELEASE_STORE_PASSWORD: ${{ secrets.HELPER_RELEASE_STORE_PASSWORD }}
+          HELPER_RELEASE_KEY_ALIAS: ${{ secrets.HELPER_RELEASE_KEY_ALIAS }}
+          HELPER_RELEASE_KEY_PASSWORD: ${{ secrets.HELPER_RELEASE_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          missing=0
+          for name in \
+            HELPER_RELEASE_KEYSTORE_BASE64 \
+            HELPER_RELEASE_STORE_PASSWORD \
+            HELPER_RELEASE_KEY_ALIAS \
+            HELPER_RELEASE_KEY_PASSWORD
+          do
+            if [[ -z "${!name}" ]]; then
+              echo "::error::Missing repository secret: ${name}"
+              missing=1
+            fi
+          done
+
+          if [[ "$missing" -ne 0 ]]; then
+            exit 1
+          fi
+
+          mkdir -p "$RUNNER_TEMP/signing"
+          store_file="$RUNNER_TEMP/signing/helper-release.jks"
+          printf '%s' "$HELPER_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$store_file"
+          echo "store_file=$store_file" >> "$GITHUB_OUTPUT"
+
+      - name: Build debug and release APKs
+        env:
+          HELPER_RELEASE_STORE_FILE: ${{ steps.signing.outputs.store_file }}
+          HELPER_RELEASE_STORE_PASSWORD: ${{ secrets.HELPER_RELEASE_STORE_PASSWORD }}
+          HELPER_RELEASE_KEY_ALIAS: ${{ secrets.HELPER_RELEASE_KEY_ALIAS }}
+          HELPER_RELEASE_KEY_PASSWORD: ${{ secrets.HELPER_RELEASE_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
+
+      - name: Collect APKs
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        shell: bash
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-debug.apk "dist/pr-${PR_NUMBER}-debug.apk"
+          cp app/build/outputs/apk/release/app-release.apk "dist/pr-${PR_NUMBER}-release.apk"
+          ls -l dist
+
+      - name: Upload debug APK
+        id: debug_apk
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/pr-${{ steps.pr.outputs.number }}-debug.apk
+          archive: false
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
+
+      - name: Upload release APK
+        id: release_apk
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/pr-${{ steps.pr.outputs.number }}-release.apk
+          archive: false
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
+
+  comment:
+    name: Comment APK links
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Comment links on the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ needs.build.outputs.pr_number }}
+          HEAD_SHA: ${{ needs.build.outputs.head_sha }}
+          DEBUG_APK_URL: ${{ needs.build.outputs.debug_apk_url }}
+          RELEASE_APK_URL: ${{ needs.build.outputs.release_apk_url }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          if [[ -z "$DEBUG_APK_URL" || -z "$RELEASE_APK_URL" ]]; then
+            echo "::error::Missing APK artifact URLs."
+            exit 1
+          fi
+
+          short_sha="${HEAD_SHA:0:7}"
+          body="$(cat <<EOF
+          <!-- helper-pr-build -->
+          **Test build for \`${short_sha}\` is ready.**
+
+          - [Debug APK](${DEBUG_APK_URL})
+          - [Release APK](${RELEASE_APK_URL})
+
+          The release APK is signed with the release key. The debug APK is debug-signed. Links expire after 7 days.
+
+          Comment \`/build\` again after new commits to refresh these links. [Workflow run](${RUN_URL})
+          EOF
+          )"
+
+          comment_id="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" --paginate \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("<!-- helper-pr-build -->"))) | .id' \
+            | tail -n 1)"
+
+          if [[ -n "$comment_id" ]]; then
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${comment_id}" -f body="$body" >/dev/null
+          else
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" -f body="$body" >/dev/null
+          fi

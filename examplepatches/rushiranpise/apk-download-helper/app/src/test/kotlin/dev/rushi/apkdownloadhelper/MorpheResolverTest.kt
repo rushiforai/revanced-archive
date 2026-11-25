@@ -1,10 +1,6 @@
 package dev.rushi.apkdownloadhelper
 
-import dev.rushi.apkdownloadhelper.download.*
 import dev.rushi.apkdownloadhelper.sources.*
-import dev.rushi.apkdownloadhelper.storage.*
-import dev.rushi.apkdownloadhelper.ui.*
-import dev.rushi.apkdownloadhelper.updater.*
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -36,6 +32,49 @@ class MorpheResolverTest {
         )
 
         assertEquals("com.example.app~2.0.0~arm64-v8a~123456", morpheResolveQuery(request))
+    }
+
+    @Test
+    fun `one query per build code, in Morphe's order, then the bare query`() {
+        // Hushfacebook declares an arm64-v8a build and an armeabi-v7a build of the same
+        // version, so Morphe sends both codes. Asking for each keeps the resolver from
+        // answering the bare query with a default variant that neither code names.
+        val request = testRequest(
+            packageName = "com.facebook.katana",
+            versionName = "588.0.0.42.55"
+        ).copy(versionCodes = linkedSetOf(707615136L, 707615135L))
+
+        assertEquals(
+            listOf(
+                "com.facebook.katana~588.0.0.42.55~arm64-v8a~707615136",
+                "com.facebook.katana~588.0.0.42.55~arm64-v8a~707615135",
+                "com.facebook.katana~588.0.0.42.55~arm64-v8a"
+            ),
+            morpheResolveQueries(request)
+        )
+        assertEquals("com.facebook.katana~588.0.0.42.55~arm64-v8a~707615136", morpheResolveQuery(request))
+    }
+
+    @Test
+    fun `a single build code is queried once, then the bare query`() {
+        val request = testRequest(
+            packageName = "com.example.app",
+            versionName = "2.0.0",
+            versionCode = 123456L
+        )
+
+        assertEquals(
+            listOf("com.example.app~2.0.0~arm64-v8a~123456", "com.example.app~2.0.0~arm64-v8a"),
+            morpheResolveQueries(request)
+        )
+    }
+
+    @Test
+    fun `a resolver answer names one build only on a variant or file page`() {
+        assertEquals(true, resolvedUrlNamesOneBuild(variant))
+        assertEquals(true, resolvedUrlNamesOneBuild("https://instagram.en.uptodown.com/android/download/1233072194-x"))
+        assertEquals(false, resolvedUrlNamesOneBuild(release))
+        assertEquals(false, resolvedUrlNamesOneBuild("https://google.com/search?q=com.example.app+nodpi"))
     }
 
     @Test
