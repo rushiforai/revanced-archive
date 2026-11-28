@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-27 06:31 UTC",
+  "generatedAt": "2026-11-28 06:15 UTC",
   "configFile": "Revanced_archive_config_v1.json",
   "configVersion": 1,
   "repoCount": 126,
-  "appCount": 904,
-  "patchCount": 3505,
+  "appCount": 907,
+  "patchCount": 3520,
   "universalPatchCount": 149,
   "hostCounts": {
     "github.com": 122,
@@ -502,7 +502,7 @@
       "webUrl": "https://github.com/AmpleReVanced/revanced-patches",
       "addUrl": "https://Revanced.software/add-source?github=AmpleReVanced/revanced-patches",
       "avatarUrl": "https://github.com/AmpleReVanced.png?size=96",
-      "patchCount": 128,
+      "patchCount": 132,
       "appCount": 8,
       "createdAt": 1784836018996,
       "updatedAt": 1784836018996,
@@ -550,7 +550,7 @@
         {
           "name": "Chzzk",
           "packageName": "com.navercorp.game.android.community",
-          "patchCount": 5,
+          "patchCount": 6,
           "iconUrl": "",
           "iconColor": "#00FFA3"
         },
@@ -571,7 +571,7 @@
         {
           "name": "Kakao Talk",
           "packageName": "com.kakao.talk",
-          "patchCount": 76,
+          "patchCount": 79,
           "iconUrl": "",
           "iconColor": "#FEE500"
         },
@@ -1281,12 +1281,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "2.16.3 (2026-11-24)",
-        "date": "2026-11-24",
+        "title": "2.16.4 (2026-11-28)",
+        "date": "2026-11-28",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cleanup emojis"
+            "category": "Updated App Support",
+            "text": "**solid-explorer:** support v3.6.6"
+          },
+          {
+            "category": "Updated App Support",
+            "text": "**zangi:** support v7.0.0"
           }
         ]
       },
@@ -1758,47 +1762,19 @@
       "webUrl": "https://github.com/byehi98/okish-morphe-patches",
       "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
       "avatarUrl": "https://github.com/byehi98.png?size=96",
-      "patchCount": 161,
-      "appCount": 62,
+      "patchCount": 172,
+      "appCount": 65,
       "createdAt": 1784836032190,
       "updatedAt": 1784836032190,
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.52.0 (2026-11-20)",
-        "date": "2026-11-20",
+        "title": "1.53.1 (2026-11-27)",
+        "date": "2026-11-27",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**docscanner:** remove allow clone and declutter patches"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**appusage:** add patches for v6.19"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**crazygames:** add Google login via MicroG-RE patch"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-          },
-          {
-            "category": "\u2728 New Features",
-            "text": "**injustice:** add native store unlock and IAP bypass patches"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**dantheaman:** update target to v1.14.12"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**fancypants:** update target to v1.0.50"
+            "text": "**razygames:** add installer tamper patch and enable GMS auth by"
           }
         ]
       },
@@ -1827,14 +1803,14 @@
         {
           "name": "Alto's Adventure",
           "packageName": "com.noodlecake.altosadventure",
-          "patchCount": 1,
+          "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#5BC0EB"
         },
         {
           "name": "Alto's Odyssey",
           "packageName": "com.noodlecake.altosodyssey",
-          "patchCount": 1,
+          "patchCount": 2,
           "iconUrl": "",
           "iconColor": "#E8A33D"
         },
@@ -1853,6 +1829,13 @@
           "iconColor": "#8B4513"
         },
         {
+          "name": "Brotato",
+          "packageName": "com.brotato.shooting.survivors.action.roguelike",
+          "patchCount": 2,
+          "iconUrl": "",
+          "iconColor": "#FFC107"
+        },
+        {
           "name": "Burrito Bison: Launcha Libre",
           "packageName": "com.kongregate.mobile.burritobison3.google",
           "patchCount": 2,
@@ -1869,7 +1852,7 @@
         {
           "name": "CrazyGames",
           "packageName": "com.crazygames.crazygamesapp",
-          "patchCount": 3,
+          "patchCount": 4,
           "iconUrl": "",
           "iconColor": "#6842FF"
         },
@@ -2075,6 +2058,20 @@
           "patchCount": 3,
           "iconUrl": "",
           "iconColor": "#2196F3"
+        },
+        {
+          "name": "Ninja Arashi",
+          "packageName": "com.blackpanther.ninjaarashi",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": ""
+        },
+        {
+          "name": "Ninja Arashi 2",
+          "packageName": "com.blackpanther.ninjaarashi2",
+          "patchCount": 3,
+          "iconUrl": "",
+          "iconColor": ""
         },
         {
           "name": "Off The Road",
@@ -2327,32 +2324,16 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "1.12.0 (2026-11-21)",
-        "date": "2026-11-21",
+        "title": "1.12.1 (2026-11-27)",
+        "date": "2026-11-27",
         "items": [
           {
-            "category": "\u2728 New Features",
-            "text": "**ChatGPT:** add custom UI and monospace font patches"
-          },
-          {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**bitwarden:** adapt font patches to Bitwarden's switch to Inter"
-          },
-          {
-            "category": "\ud83d\udc1b Bug Fixes",
-            "text": "**Where is my Train:** update font patch fingerprints"
+            "text": "**GitHub:** disambiguate Compose paragraph fingerprint"
           },
           {
             "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Bitwarden:** Update app support to 2026.11.1"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**GitHub:** Update app support to 1.284.0"
-          },
-          {
-            "category": "\ud83d\ude80 Updated App Support",
-            "text": "**Where is my Train:** Update app support to 7.1.5.1012928357"
+            "text": "**GitHub:** Update app support to 1.285.0"
           }
         ]
       },
@@ -10966,12 +10947,12 @@
       "createdDate": "2026-07-23",
       "updatedDate": "2026-07-23",
       "latestChanges": {
-        "title": "2.0.1 (2026-11-17)",
-        "date": "2026-11-17",
+        "title": "2.0.2 (2026-11-27)",
+        "date": "2026-11-27",
         "items": [
           {
             "category": "\ud83d\udc1b Bug Fixes",
-            "text": "Support official Morphe patches v2.3.0 in YouTube and Reddit"
+            "text": "Support official Morphe patches v2.4.0 in YouTube and Reddit"
           }
         ]
       },
@@ -11742,40 +11723,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -12335,40 +12288,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -12390,7 +12315,7 @@
             }
           ],
           "versions": [
-            "12.8.3"
+            "12.8.5"
           ]
         }
       ],
@@ -12409,7 +12334,7 @@
         }
       ],
       "versions": [
-        "12.8.3"
+        "12.8.5"
       ],
       "iconColor": "#00A651",
       "iconUrl": ""
@@ -13234,40 +13159,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -14146,40 +14043,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -14194,24 +14063,33 @@
             {
               "name": "IAP Unlock",
               "description": "Unlocks all in-app purchases by faking Google Play billing query results."
+            },
+            {
+              "name": "Unlimited Coins",
+              "description": "Sets your coin balance to 999,999,999 every time your profile loads or updates. Coins effectively never run out, so every character and upgrade is affordable. Applied to libil2cpp.so at the code level, so clearing app data does not reset it."
             }
           ],
           "versions": [
-            "1.8.27"
+            "1.8.34"
           ]
         }
       ],
       "patches": [
-        "IAP Unlock"
+        "IAP Unlock",
+        "Unlimited Coins"
       ],
       "patchDetails": [
         {
           "name": "IAP Unlock",
           "description": "Unlocks all in-app purchases by faking Google Play billing query results."
+        },
+        {
+          "name": "Unlimited Coins",
+          "description": "Sets your coin balance to 999,999,999 every time your profile loads or updates. Coins effectively never run out, so every character and upgrade is affordable. Applied to libil2cpp.so at the code level, so clearing app data does not reset it."
         }
       ],
       "versions": [
-        "1.8.27"
+        "1.8.34"
       ],
       "iconColor": "#5BC0EB",
       "iconUrl": ""
@@ -14232,40 +14110,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -14280,24 +14130,33 @@
             {
               "name": "IAP Unlock",
               "description": "Unlocks all in-app purchases in Alto's Odyssey by faking Google Play billing query results."
+            },
+            {
+              "name": "Unlimited Coins",
+              "description": "Sets your coin balance to 999,999,999 every time your profile loads or updates. Coins effectively never run out, so every character and upgrade is affordable. Applied to libil2cpp.so at the code level, so clearing app data does not reset it."
             }
           ],
           "versions": [
-            "1.0.42"
+            "1.0.45"
           ]
         }
       ],
       "patches": [
-        "IAP Unlock"
+        "IAP Unlock",
+        "Unlimited Coins"
       ],
       "patchDetails": [
         {
           "name": "IAP Unlock",
           "description": "Unlocks all in-app purchases in Alto's Odyssey by faking Google Play billing query results."
+        },
+        {
+          "name": "Unlimited Coins",
+          "description": "Sets your coin balance to 999,999,999 every time your profile loads or updates. Coins effectively never run out, so every character and upgrade is affordable. Applied to libil2cpp.so at the code level, so clearing app data does not reset it."
         }
       ],
       "versions": [
-        "1.0.42"
+        "1.0.45"
       ],
       "iconColor": "#E8A33D",
       "iconUrl": ""
@@ -15403,40 +15262,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -15450,11 +15281,11 @@
           "patches": [
             {
               "name": "Bypass PairIP license check",
-              "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall/error dialog and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after 30 seconds."
+              "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall/error dialog, no retry loop and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after a few seconds."
             },
             {
               "name": "Spoof original signature",
-              "description": "Makes the app see the original developer certificate instead of the one used to re-sign the APK. Stops the ~2 second anti-tamper process kill (Process.killProcess + System.exit) scheduled from icr.onCreate/onDestroy, prevents the PRO flag from being reset to the free version, and restores the trusted paths used by widgets, export/backup and history queries."
+              "description": "Makes the app see the original developer certificate instead of the one used to re-sign the APK. Stops the ~2 second anti-tamper process kill (Process.killProcess + System.exit) scheduled from the window lifecycle, prevents the PRO flag from being reset to the free version, and restores the trusted paths used by widgets, export/backup and history queries."
             },
             {
               "name": "Unlock premium",
@@ -15462,7 +15293,7 @@
             }
           ],
           "versions": [
-            "6.19"
+            "6.20"
           ]
         }
       ],
@@ -15474,11 +15305,11 @@
       "patchDetails": [
         {
           "name": "Bypass PairIP license check",
-          "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall/error dialog and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after 30 seconds."
+          "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall/error dialog, no retry loop and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after a few seconds."
         },
         {
           "name": "Spoof original signature",
-          "description": "Makes the app see the original developer certificate instead of the one used to re-sign the APK. Stops the ~2 second anti-tamper process kill (Process.killProcess + System.exit) scheduled from icr.onCreate/onDestroy, prevents the PRO flag from being reset to the free version, and restores the trusted paths used by widgets, export/backup and history queries."
+          "description": "Makes the app see the original developer certificate instead of the one used to re-sign the APK. Stops the ~2 second anti-tamper process kill (Process.killProcess + System.exit) scheduled from the window lifecycle, prevents the PRO flag from being reset to the free version, and restores the trusted paths used by widgets, export/backup and history queries."
         },
         {
           "name": "Unlock premium",
@@ -15486,7 +15317,7 @@
         }
       ],
       "versions": [
-        "6.19"
+        "6.20"
       ],
       "iconColor": "#FE6C5E",
       "iconUrl": ""
@@ -16594,12 +16425,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -17442,12 +17277,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -17582,12 +17421,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -18968,12 +18811,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -20304,40 +20151,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -20679,32 +20498,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-11-21)",
-            "date": "2026-11-21",
+            "title": "1.12.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**ChatGPT:** add custom UI and monospace font patches"
-              },
-              {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**bitwarden:** adapt font patches to Bitwarden's switch to Inter"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Where is my Train:** update font patch fingerprints"
+                "text": "**GitHub:** disambiguate Compose paragraph fingerprint"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.11.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.284.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Where is my Train:** Update app support to 7.1.5.1012928357"
+                "text": "**GitHub:** Update app support to 1.285.0"
               }
             ]
           },
@@ -21108,12 +20911,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -23289,6 +23096,73 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.brotato.shooting.survivors.action.roguelike",
+      "name": "Brotato",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-brotato-shooting-survivors-action-roguelike-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-brotato-shooting-survivors-action-roguelike-byehi98-okish-morphe-patches",
+            "assetName": "brotato-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Bypass PairIP signature & license check",
+              "description": "Neutralises the PairIP v2 signature gate (SignatureTamperedException) and the Play licence flow (service bind, signed-response validation, paywall and its delayed System.exit) so a re-signed Brotato build launches. Required for every other Brotato patch."
+            },
+            {
+              "name": "Free IAP",
+              "description": "Every real-money shop, mall and DLC tile is granted locally the moment you tap it \u2014 no Play billing, no payment screen, no charge. Repeat purchases of the same tile keep working. Client-side only."
+            }
+          ],
+          "versions": [
+            "1.3.951"
+          ]
+        }
+      ],
+      "patches": [
+        "Bypass PairIP signature & license check",
+        "Free IAP"
+      ],
+      "patchDetails": [
+        {
+          "name": "Bypass PairIP signature & license check",
+          "description": "Neutralises the PairIP v2 signature gate (SignatureTamperedException) and the Play licence flow (service bind, signed-response validation, paywall and its delayed System.exit) so a re-signed Brotato build launches. Required for every other Brotato patch."
+        },
+        {
+          "name": "Free IAP",
+          "description": "Every real-money shop, mall and DLC tile is granted locally the moment you tap it \u2014 no Play billing, no payment screen, no charge. Repeat purchases of the same tile keep working. Client-side only."
+        }
+      ],
+      "versions": [
+        "1.3.951"
+      ],
+      "iconColor": "#FFC107",
+      "iconUrl": ""
+    },
+    {
       "packageName": "com.bubblesoft.android.bubbleupnp",
       "name": "BubbleUPnP",
       "repos": [
@@ -23424,40 +23298,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -26197,32 +26043,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-11-21)",
-            "date": "2026-11-21",
+            "title": "1.12.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**ChatGPT:** add custom UI and monospace font patches"
-              },
-              {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**bitwarden:** adapt font patches to Bitwarden's switch to Inter"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Where is my Train:** update font patch fingerprints"
+                "text": "**GitHub:** disambiguate Compose paragraph fingerprint"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.11.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.284.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Where is my Train:** Update app support to 7.1.5.1012928357"
+                "text": "**GitHub:** Update app support to 1.285.0"
               }
             ]
           },
@@ -26553,6 +26383,10 @@
               "description": "Disables CHZZK peer-assisted grid streaming and forces CDN playback."
             },
             {
+              "name": "Fix KeyBox initialization",
+              "description": "Allows CHZZK's bundled keys to load after patching and resigning the app."
+            },
+            {
               "name": "Hide home banners",
               "description": "Hides promotional banners on the CHZZK home recommend tab, including the top banner carousel and the in-feed event and image banners."
             },
@@ -26562,8 +26396,7 @@
             }
           ],
           "versions": [
-            "3.13.2",
-            "3.15.2"
+            "3.18.0"
           ]
         }
       ],
@@ -26571,6 +26404,7 @@
         "Auto claim TongPow",
         "Disable ads",
         "Disable P2P",
+        "Fix KeyBox initialization",
         "Hide home banners",
         "Unlock cheat key"
       ],
@@ -26588,6 +26422,10 @@
           "description": "Disables CHZZK peer-assisted grid streaming and forces CDN playback."
         },
         {
+          "name": "Fix KeyBox initialization",
+          "description": "Allows CHZZK's bundled keys to load after patching and resigning the app."
+        },
+        {
           "name": "Hide home banners",
           "description": "Hides promotional banners on the CHZZK home recommend tab, including the top banner carousel and the in-feed event and image banners."
         },
@@ -26597,8 +26435,7 @@
         }
       ],
       "versions": [
-        "3.13.2",
-        "3.15.2"
+        "3.18.0"
       ],
       "iconColor": "#00FFA3",
       "iconUrl": ""
@@ -29448,32 +29285,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-11-21)",
-            "date": "2026-11-21",
+            "title": "1.12.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**ChatGPT:** add custom UI and monospace font patches"
-              },
-              {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**bitwarden:** adapt font patches to Bitwarden's switch to Inter"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Where is my Train:** update font patch fingerprints"
+                "text": "**GitHub:** disambiguate Compose paragraph fingerprint"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.11.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.284.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Where is my Train:** Update app support to 7.1.5.1012928357"
+                "text": "**GitHub:** Update app support to 1.285.0"
               }
             ]
           },
@@ -29503,7 +29324,7 @@
             }
           ],
           "versions": [
-            "1.284.0"
+            "1.285.0"
           ]
         },
         {
@@ -29610,7 +29431,7 @@
         }
       ],
       "versions": [
-        "1.284.0"
+        "1.285.0"
       ],
       "iconColor": "#181C20",
       "iconUrl": ""
@@ -32065,8 +31886,8 @@
       ],
       "patches": [
         "Disable analytics",
-        "Disable telemetry",
         "Disable Telemetry",
+        "Disable telemetry",
         "Disable update check",
         "Enable premium features",
         "GMS sign-in bypass",
@@ -32110,11 +31931,11 @@
           "description": "Suppresses Truecaller's CleverTap behavioural event tracking to prevent user-activity telemetry."
         },
         {
-          "name": "Disable telemetry",
+          "name": "Disable Telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
-          "name": "Disable Telemetry",
+          "name": "Disable telemetry",
           "description": "Disables AppStartTracker and other telemetry points."
         },
         {
@@ -35733,12 +35554,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -35924,40 +35749,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -36047,40 +35844,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -36092,6 +35861,10 @@
             "webUrl": "https://github.com/rushiforai/Revanced-builder"
           },
           "patches": [
+            {
+              "name": "Bypass installer tamper check",
+              "description": "Disables the installer-package blacklist in CrazyGamesApplication.onCreate and in the portal's document-start bundle. Without it, an APK installed by Morphe Manager (installer app.morphe.manager) is SIGKILLed during startup and, if it survives, shows the \"Time to update\" wall. adb-installed builds are unaffected. No gameplay impact."
+            },
             {
               "name": "Bypass PairIP license check",
               "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after 30 seconds with LicenseActivity plus System.exit(0)."
@@ -36106,7 +35879,7 @@
             }
           ],
           "versions": [
-            "1.7.13"
+            "1.7.14"
           ]
         },
         {
@@ -36162,6 +35935,7 @@
         }
       ],
       "patches": [
+        "Bypass installer tamper check",
         "Bypass PairIP license check",
         "Bypass Play license check",
         "Change app name",
@@ -36172,6 +35946,10 @@
         "Remove ads and unlock ad rewards"
       ],
       "patchDetails": [
+        {
+          "name": "Bypass installer tamper check",
+          "description": "Disables the installer-package blacklist in CrazyGamesApplication.onCreate and in the portal's document-start bundle. Without it, an APK installed by Morphe Manager (installer app.morphe.manager) is SIGKILLed during startup and, if it survives, shows the \"Time to update\" wall. adb-installed builds are unaffected. No gameplay impact."
+        },
         {
           "name": "Bypass PairIP license check",
           "description": "Disables PairIP (com.pairip.licensecheck) verification: no install-source check, no Play licensing bind, no paywall and no delayed process exit. Required for sideloaded or re-signed APKs, which PairIP would otherwise close after 30 seconds with LicenseActivity plus System.exit(0)."
@@ -36207,7 +35985,7 @@
       ],
       "versions": [
         "1.6.7",
-        "1.7.13"
+        "1.7.14"
       ],
       "iconColor": "#6842FF",
       "iconUrl": ""
@@ -36630,40 +36408,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -36834,40 +36584,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -37534,40 +37256,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -37601,7 +37295,7 @@
             }
           ],
           "versions": [
-            "1.14.12"
+            "1.14.14"
           ]
         }
       ],
@@ -37635,7 +37329,7 @@
         }
       ],
       "versions": [
-        "1.14.12"
+        "1.14.14"
       ],
       "iconColor": "#1A237E",
       "iconUrl": ""
@@ -37812,10 +37506,6 @@
               "description": "Disables the app's update check."
             },
             {
-              "name": "Enable OneStore feature",
-              "description": "Enables the OneStore feature in DC Inside app."
-            },
-            {
               "name": "Filter recently viewed posts by gallery",
               "description": "Adds a gallery filter below the recently viewed posts filters, which narrows the list down to the posts of a single gallery."
             },
@@ -37860,12 +37550,16 @@
               "description": "Adds options to show the author identifier next to the nickname in posts, post lists, comments, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
             },
             {
+              "name": "Show live best on home",
+              "description": "Shows real-time best posts instead of recommended posts on the home screen."
+            },
+            {
               "name": "Spoof Signature",
               "description": "Spoofs the app signature to bypass integrity checks."
             }
           ],
           "versions": [
-            "5.3.20"
+            "5.3.30"
           ]
         }
       ],
@@ -37883,7 +37577,6 @@
         "Disable DCCon loading",
         "Disable Image Ad",
         "Disable update check",
-        "Enable OneStore feature",
         "Filter recently viewed posts by gallery",
         "Gallery watch mode",
         "Hide DC official notices",
@@ -37895,6 +37588,7 @@
         "Render big DCCon as normal size",
         "Restore old post icons",
         "Show author identifier",
+        "Show live best on home",
         "Spoof Signature"
       ],
       "patchDetails": [
@@ -37951,10 +37645,6 @@
           "description": "Disables the app's update check."
         },
         {
-          "name": "Enable OneStore feature",
-          "description": "Enables the OneStore feature in DC Inside app."
-        },
-        {
           "name": "Filter recently viewed posts by gallery",
           "description": "Adds a gallery filter below the recently viewed posts filters, which narrows the list down to the posts of a single gallery."
         },
@@ -37999,12 +37689,16 @@
           "description": "Adds options to show the author identifier next to the nickname in posts, post lists, comments, and the recently-viewed posts list. The recently-viewed list only shows it for posts opened after this patch is installed."
         },
         {
+          "name": "Show live best on home",
+          "description": "Shows real-time best posts instead of recommended posts on the home screen."
+        },
+        {
           "name": "Spoof Signature",
           "description": "Spoofs the app signature to bypass integrity checks."
         }
       ],
       "versions": [
-        "5.3.20"
+        "5.3.30"
       ],
       "iconColor": "#3D4491",
       "iconUrl": ""
@@ -38238,40 +37932,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -38342,40 +38008,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -39053,40 +38691,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -39104,7 +38714,7 @@
             }
           ],
           "versions": [
-            "6.9.14"
+            "6.9.16"
           ]
         },
         {
@@ -39154,7 +38764,7 @@
       ],
       "versions": [
         "6.8.18",
-        "6.9.14"
+        "6.9.16"
       ],
       "iconColor": "#2196F3",
       "iconUrl": ""
@@ -39274,40 +38884,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -39625,40 +39207,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -39849,40 +39403,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -40063,40 +39589,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -40997,12 +40495,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -41897,40 +41399,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -41952,7 +41426,7 @@
             }
           ],
           "versions": [
-            "1.15.26"
+            "1.15.27"
           ]
         }
       ],
@@ -41971,7 +41445,7 @@
         }
       ],
       "versions": [
-        "1.15.26"
+        "1.15.27"
       ],
       "iconColor": "#FFB300",
       "iconUrl": ""
@@ -41992,40 +41466,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -42976,7 +42422,8 @@
             "1.5.0.16",
             "1.5.0.7",
             "1.5.0.8",
-            "1.5.0.9"
+            "1.5.0.9",
+            "1.5.1.7"
           ]
         }
       ],
@@ -43004,7 +42451,8 @@
         "1.5.0.16",
         "1.5.0.7",
         "1.5.0.8",
-        "1.5.0.9"
+        "1.5.0.9",
+        "1.5.1.7"
       ],
       "iconColor": "#0096FA",
       "iconUrl": ""
@@ -43994,40 +43442,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -44310,40 +43730,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -44489,40 +43881,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -46090,40 +45454,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -46435,40 +45771,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -46736,40 +46044,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -46840,40 +46120,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -47356,40 +46608,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -50020,40 +49244,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -50186,12 +49382,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -51360,40 +50560,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -51455,40 +50627,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -51514,7 +50658,7 @@
             }
           ],
           "versions": [
-            "1.88.0"
+            "1.89.0"
           ]
         }
       ],
@@ -51538,7 +50682,7 @@
         }
       ],
       "versions": [
-        "1.88.0"
+        "1.89.0"
       ],
       "iconColor": "#8B0000",
       "iconUrl": ""
@@ -52615,40 +51759,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -53980,7 +53096,7 @@
             },
             {
               "name": "Allow Open Chat Managers To Block Members",
-              "description": "Allows open chat room hosts and co-hosts to block regular members from their profiles."
+              "description": "Shows the personal block button for eligible members alongside Open Chat host actions."
             },
             {
               "name": "Allow open chat media bundle",
@@ -54103,6 +53219,10 @@
               "description": "Disables the shortform ad load and render paths."
             },
             {
+              "name": "Disable SSL pinning",
+              "description": "Adds a debug option to inspect OkHttp and WebView HTTPS traffic using an installed proxy CA certificate."
+            },
+            {
               "name": "Disable Talk Share Log",
               "description": "Disable talk share log"
             },
@@ -54128,7 +53248,7 @@
             },
             {
               "name": "Ghost Mode",
-              "description": "Don't expose your typing status to the other party."
+              "description": "Adds options to hide your typing status and to keep chats from being marked as read."
             },
             {
               "name": "Hide More tab components",
@@ -54145,6 +53265,10 @@
             {
               "name": "Ignore forward restriction",
               "description": "Ignores the restrictions that stop messages such as KakaoLink from being forwarded to another chatroom."
+            },
+            {
+              "name": "Open chat member memo",
+              "description": "Adds a private memo to open chat members, shown on their profile and next to their nickname."
             },
             {
               "name": "Open profile from open chat feed",
@@ -54223,6 +53347,10 @@
               "description": "Shows the content of AlimTalk, Leverage and Universal messages that are replaced with a placeholder asking to open them on mobile while signed in on a sub device."
             },
             {
+              "name": "Show who hid messages or removed members",
+              "description": "Shows the nickname of the host or staff member who hid messages or removed members in open chats."
+            },
+            {
               "name": "Spoof apk checksums",
               "description": "Spoofs the apk checksums to pass integrity checks."
             },
@@ -54252,7 +53380,7 @@
             }
           ],
           "versions": [
-            "26.9.0"
+            "26.10.1"
           ]
         }
       ],
@@ -54296,6 +53424,7 @@
         "Disable SDK Tracker",
         "Disable Sentry",
         "Disable ShortForm ad",
+        "Disable SSL pinning",
         "Disable Talk Share Log",
         "Disable verifying signature",
         "Enable Markdown",
@@ -54307,6 +53436,7 @@
         "Hide More tab Game tab",
         "Hook Package Manager",
         "Ignore forward restriction",
+        "Open chat member memo",
         "Open profile from open chat feed",
         "Override feature flag",
         "Register settings activity",
@@ -54326,6 +53456,7 @@
         "Show message details",
         "Show message read receipts",
         "Show messages restricted to mobile",
+        "Show who hid messages or removed members",
         "Spoof apk checksums",
         "Spoof App ID",
         "Spoof attestation package name",
@@ -54369,7 +53500,7 @@
         },
         {
           "name": "Allow Open Chat Managers To Block Members",
-          "description": "Allows open chat room hosts and co-hosts to block regular members from their profiles."
+          "description": "Shows the personal block button for eligible members alongside Open Chat host actions."
         },
         {
           "name": "Allow open chat media bundle",
@@ -54492,6 +53623,10 @@
           "description": "Disables the shortform ad load and render paths."
         },
         {
+          "name": "Disable SSL pinning",
+          "description": "Adds a debug option to inspect OkHttp and WebView HTTPS traffic using an installed proxy CA certificate."
+        },
+        {
           "name": "Disable Talk Share Log",
           "description": "Disable talk share log"
         },
@@ -54517,7 +53652,7 @@
         },
         {
           "name": "Ghost Mode",
-          "description": "Don't expose your typing status to the other party."
+          "description": "Adds options to hide your typing status and to keep chats from being marked as read."
         },
         {
           "name": "Hide More tab components",
@@ -54534,6 +53669,10 @@
         {
           "name": "Ignore forward restriction",
           "description": "Ignores the restrictions that stop messages such as KakaoLink from being forwarded to another chatroom."
+        },
+        {
+          "name": "Open chat member memo",
+          "description": "Adds a private memo to open chat members, shown on their profile and next to their nickname."
         },
         {
           "name": "Open profile from open chat feed",
@@ -54612,6 +53751,10 @@
           "description": "Shows the content of AlimTalk, Leverage and Universal messages that are replaced with a placeholder asking to open them on mobile while signed in on a sub device."
         },
         {
+          "name": "Show who hid messages or removed members",
+          "description": "Shows the nickname of the host or staff member who hid messages or removed members in open chats."
+        },
+        {
           "name": "Spoof apk checksums",
           "description": "Spoofs the apk checksums to pass integrity checks."
         },
@@ -54641,7 +53784,7 @@
         }
       ],
       "versions": [
-        "26.9.0"
+        "26.10.1"
       ],
       "iconColor": "#FEE500",
       "iconUrl": ""
@@ -55814,40 +54957,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -57264,40 +56379,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -57863,40 +56950,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -57922,7 +56981,7 @@
             }
           ],
           "versions": [
-            "0.0.3497"
+            "0.0.3536"
           ]
         }
       ],
@@ -57946,7 +57005,7 @@
         }
       ],
       "versions": [
-        "0.0.3497"
+        "0.0.3536"
       ],
       "iconColor": "#6C4AB6",
       "iconUrl": ""
@@ -57967,40 +57026,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -60497,40 +59528,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -60556,7 +59559,7 @@
             }
           ],
           "versions": [
-            "1.43"
+            "1.45"
           ]
         }
       ],
@@ -60580,7 +59583,7 @@
         }
       ],
       "versions": [
-        "1.43"
+        "1.45"
       ],
       "iconColor": "#2196F3",
       "iconUrl": ""
@@ -61784,12 +60787,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -63673,6 +62680,8 @@
           "versions": [
             "6.10.0.16",
             "6.11.2.2",
+            "6.12.2.4",
+            "6.13.1.2",
             "6.9.1.3"
           ]
         }
@@ -63689,6 +62698,8 @@
       "versions": [
         "6.10.0.16",
         "6.11.2.2",
+        "6.12.2.4",
+        "6.13.1.2",
         "6.9.1.3"
       ],
       "iconColor": "#03C75A",
@@ -65099,6 +64110,158 @@
       "iconUrl": ""
     },
     {
+      "packageName": "com.blackpanther.ninjaarashi",
+      "name": "Ninja Arashi",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-blackpanther-ninjaarashi-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-blackpanther-ninjaarashi-byehi98-okish-morphe-patches",
+            "assetName": "ninja-arashi-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Free Ad Rewards",
+              "description": "Every \"watch ad\" button pays out immediately without playing an ad: the shop reward grants 2000 coins and 50 diamonds, and the in-level revive button revives you. Works offline and can be tapped repeatedly."
+            },
+            {
+              "name": "Free In-App Purchases",
+              "description": "The four shop buttons grant their item directly instead of opening Google Play billing: 20,000 coins, 2,000 diamonds, Remove Ads and the Halo pack. No payment sheet appears and the purchases are saved normally."
+            },
+            {
+              "name": "Remove Ads",
+              "description": "Makes the game start up ad-free: banners, interstitials and the app-open ad never load, and the shop already shows \"Remove Ads\" as owned. The game's own ad-free flag is set before Unity starts, so the setting survives restarts and clearing app data simply re-applies it on the next launch."
+            }
+          ],
+          "versions": [
+            "1.9.3"
+          ]
+        }
+      ],
+      "patches": [
+        "Free Ad Rewards",
+        "Free In-App Purchases",
+        "Remove Ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Free Ad Rewards",
+          "description": "Every \"watch ad\" button pays out immediately without playing an ad: the shop reward grants 2000 coins and 50 diamonds, and the in-level revive button revives you. Works offline and can be tapped repeatedly."
+        },
+        {
+          "name": "Free In-App Purchases",
+          "description": "The four shop buttons grant their item directly instead of opening Google Play billing: 20,000 coins, 2,000 diamonds, Remove Ads and the Halo pack. No payment sheet appears and the purchases are saved normally."
+        },
+        {
+          "name": "Remove Ads",
+          "description": "Makes the game start up ad-free: banners, interstitials and the app-open ad never load, and the shop already shows \"Remove Ads\" as owned. The game's own ad-free flag is set before Unity starts, so the setting survives restarts and clearing app data simply re-applies it on the next launch."
+        }
+      ],
+      "versions": [
+        "1.9.3"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
+      "packageName": "com.blackpanther.ninjaarashi2",
+      "name": "Ninja Arashi 2",
+      "repos": [
+        "byehi98/okish-morphe-patches"
+      ],
+      "sources": [
+        {
+          "repo": "byehi98/okish-morphe-patches",
+          "host": "github.com",
+          "webUrl": "https://github.com/byehi98/okish-morphe-patches",
+          "addUrl": "https://Revanced.software/add-source?github=byehi98/okish-morphe-patches",
+          "source": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/patches-bundle.json",
+          "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
+          "avatarUrl": "https://github.com/byehi98.png?size=96",
+          "latestChanges": {
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
+            "items": [
+              {
+                "category": "\ud83d\udc1b Bug Fixes",
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
+              }
+            ]
+          },
+          "builder": {
+            "buildId": "com-blackpanther-ninjaarashi2-byehi98-okish-morphe-patches",
+            "releaseTag": "app-com-blackpanther-ninjaarashi2-byehi98-okish-morphe-patches",
+            "assetName": "ninja-arashi-2-byehi98-okish-morphe-patches.apk",
+            "repo": "rushiforai/Revanced-builder",
+            "webUrl": "https://github.com/rushiforai/Revanced-builder"
+          },
+          "patches": [
+            {
+              "name": "Free Ad Rewards",
+              "description": "Every \"watch an ad\" button pays out immediately without playing an ad: the main-menu gift grants 100 diamonds and the in-level revive button revives you. Works offline. The gift can be claimed repeatedly \u2014 the cooldown and availability checks are removed."
+            },
+            {
+              "name": "Free In-App Purchases",
+              "description": "Every shop button grants its item directly instead of opening Google Play billing: Remove Ads and the four diamond packs (1 / 2 / 5 / 10). No payment sheet appears, the grant runs the game's own success handler, and the purchase is saved normally."
+            },
+            {
+              "name": "Remove Ads",
+              "description": "Removes every ad from the game: banners, interstitials, the app-open ad and the rewarded-video prompts are all suppressed in native code, so the ad SDK is never asked to display anything. Works offline and needs no purchase."
+            }
+          ],
+          "versions": [
+            "1.9.6"
+          ]
+        }
+      ],
+      "patches": [
+        "Free Ad Rewards",
+        "Free In-App Purchases",
+        "Remove Ads"
+      ],
+      "patchDetails": [
+        {
+          "name": "Free Ad Rewards",
+          "description": "Every \"watch an ad\" button pays out immediately without playing an ad: the main-menu gift grants 100 diamonds and the in-level revive button revives you. Works offline. The gift can be claimed repeatedly \u2014 the cooldown and availability checks are removed."
+        },
+        {
+          "name": "Free In-App Purchases",
+          "description": "Every shop button grants its item directly instead of opening Google Play billing: Remove Ads and the four diamond packs (1 / 2 / 5 / 10). No payment sheet appears, the grant runs the game's own success handler, and the purchase is saved normally."
+        },
+        {
+          "name": "Remove Ads",
+          "description": "Removes every ad from the game: banners, interstitials, the app-open ad and the rewarded-video prompts are all suppressed in native code, so the ad SDK is never asked to display anything. Works offline and needs no purchase."
+        }
+      ],
+      "versions": [
+        "1.9.6"
+      ],
+      "iconColor": "",
+      "iconUrl": ""
+    },
+    {
       "packageName": "app.ninjavpn.android",
       "name": "Ninja VPN",
       "repos": [
@@ -66468,40 +65631,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -66975,40 +66110,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -67301,40 +66408,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -71727,40 +70806,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -71922,40 +70973,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -73405,40 +72428,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -73662,40 +72657,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -73929,12 +72896,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -78110,12 +77081,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "2.0.1 (2026-11-17)",
-            "date": "2026-11-17",
+            "title": "2.0.2 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support official Morphe patches v2.3.0 in YouTube and Reddit"
+                "text": "Support official Morphe patches v2.4.0 in YouTube and Reddit"
               }
             ]
           },
@@ -80106,40 +79077,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -80161,7 +79104,7 @@
             }
           ],
           "versions": [
-            "4.26.0"
+            "4.27.0"
           ]
         }
       ],
@@ -80180,7 +79123,7 @@
         }
       ],
       "versions": [
-        "4.26.0"
+        "4.27.0"
       ],
       "iconColor": "#689F38",
       "iconUrl": ""
@@ -81293,7 +80236,7 @@
             }
           ],
           "versions": [
-            "5.9.40.48"
+            "5.9.50.10"
           ]
         }
       ],
@@ -81307,7 +80250,7 @@
         }
       ],
       "versions": [
-        "5.9.40.48"
+        "5.9.50.10"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -82292,40 +81235,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -82686,12 +81601,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -82888,12 +81807,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -83235,40 +82158,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -83322,40 +82217,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -83831,12 +82698,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -83898,12 +82769,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -83926,7 +82801,8 @@
           ],
           "versions": [
             "3.6.4",
-            "3.6.5"
+            "3.6.5",
+            "3.6.6"
           ]
         }
       ],
@@ -83946,7 +82822,8 @@
       ],
       "versions": [
         "3.6.4",
-        "3.6.5"
+        "3.6.5",
+        "3.6.6"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -84034,40 +82911,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -84093,7 +82942,7 @@
             }
           ],
           "versions": [
-            "10.7.0"
+            "10.8.0"
           ]
         }
       ],
@@ -84117,7 +82966,7 @@
         }
       ],
       "versions": [
-        "10.7.0"
+        "10.8.0"
       ],
       "iconColor": "#3040F0",
       "iconUrl": ""
@@ -84368,11 +83217,7 @@
             }
           ],
           "versions": [
-            "8.28.5",
-            "8.29.3",
-            "8.30.1",
-            "8.31.3",
-            "8.33.0"
+            "8.36.2"
           ]
         }
       ],
@@ -84436,11 +83281,7 @@
         }
       ],
       "versions": [
-        "8.28.5",
-        "8.29.3",
-        "8.30.1",
-        "8.31.3",
-        "8.33.0"
+        "8.36.2"
       ],
       "iconColor": "#0068FF",
       "iconUrl": ""
@@ -84600,12 +83441,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -85374,12 +84219,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -85567,7 +84416,7 @@
           ],
           "versions": [
             "1.5.3",
-            "1.5.4"
+            "1.5.4.1"
           ]
         }
       ],
@@ -85597,7 +84446,7 @@
       ],
       "versions": [
         "1.5.3",
-        "1.5.4"
+        "1.5.4.1"
       ],
       "iconColor": "#3D8AFF",
       "iconUrl": ""
@@ -85847,12 +84696,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -86994,40 +85847,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -87053,7 +85878,7 @@
             }
           ],
           "versions": [
-            "4.8.10.0"
+            "4.9.0.0"
           ]
         }
       ],
@@ -87077,7 +85902,7 @@
         }
       ],
       "versions": [
-        "4.8.10.0"
+        "4.9.0.0"
       ],
       "iconColor": "#6D9B39",
       "iconUrl": ""
@@ -87098,40 +85923,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -87157,7 +85954,7 @@
             }
           ],
           "versions": [
-            "1.5.1"
+            "1.5.2"
           ]
         }
       ],
@@ -87181,7 +85978,7 @@
         }
       ],
       "versions": [
-        "1.5.1"
+        "1.5.2"
       ],
       "iconColor": "#4C7A26",
       "iconUrl": ""
@@ -87202,40 +85999,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -87333,40 +86102,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -88820,7 +87561,7 @@
             },
             {
               "name": "Experimental Unlock",
-              "description": "Opt-in, server-dependent unlocks: voice-to-text transcription flag, buzz call +time (prolong) count, AI chat companion gate, and fake-GPS default-coordinate blacklist bypass. Client gates only \u2014 the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing"
+              "description": "Opt-in, server-dependent unlocks: buzz call +time (prolong) count, pin-chat remaining count, AI chat advice/analysis guide counts, and fake-GPS default-coordinate blacklist bypass. Client gates only \u2014 the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing"
             },
             {
               "name": "GMS Compatibility",
@@ -88868,7 +87609,7 @@
             }
           ],
           "versions": [
-            "7.5.4"
+            "7.5.6.1"
           ]
         }
       ],
@@ -88909,7 +87650,7 @@
         },
         {
           "name": "Experimental Unlock",
-          "description": "Opt-in, server-dependent unlocks: voice-to-text transcription flag, buzz call +time (prolong) count, AI chat companion gate, and fake-GPS default-coordinate blacklist bypass. Client gates only \u2014 the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing"
+          "description": "Opt-in, server-dependent unlocks: buzz call +time (prolong) count, pin-chat remaining count, AI chat advice/analysis guide counts, and fake-GPS default-coordinate blacklist bypass. Client gates only \u2014 the server may refuse (quota/region); each has a graceful failure path. Enable only after device-testing"
         },
         {
           "name": "GMS Compatibility",
@@ -88957,7 +87698,7 @@
         }
       ],
       "versions": [
-        "7.5.4"
+        "7.5.6.1"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -89896,40 +88637,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -90960,40 +89673,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -91923,40 +90608,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -92009,40 +90666,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -92444,40 +91073,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -93452,12 +92053,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -94271,40 +92876,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -94691,8 +93268,8 @@
         "Explain Google Drive errors",
         "Filter business chats",
         "GmsCore support",
-        "Hide Ads",
         "Hide ads",
+        "Hide Ads",
         "Hide image remix",
         "Hide More screen items",
         "Hide navigation buttons",
@@ -94746,12 +93323,12 @@
           "description": "Signs in through GmsCore instead of Google Play Services. Google Drive backup and restore work only with this patch. Requires GmsCore to be installed."
         },
         {
-          "name": "Hide Ads",
-          "description": "Hides ad banners between chats."
-        },
-        {
           "name": "Hide ads",
           "description": "Hides ads in the chat list, the More screen, Explore, search and after calls."
+        },
+        {
+          "name": "Hide Ads",
+          "description": "Hides ad banners between chats."
         },
         {
           "name": "Hide image remix",
@@ -95061,40 +93638,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/byehi98/okish-morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/byehi98.png?size=96",
           "latestChanges": {
-            "title": "1.52.0 (2026-11-20)",
-            "date": "2026-11-20",
+            "title": "1.53.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**docscanner:** remove allow clone and declutter patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**appusage:** add patches for v6.19"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add Google login via MicroG-RE patch"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**crazygames:** add remove ads and pairip license check bypass patches"
-              },
-              {
-                "category": "\u2728 New Features",
-                "text": "**injustice:** add native store unlock and IAP bypass patches"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**dantheaman:** update target to v1.14.12"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**docscanner:** update target to v6.9.14 and added additional patches."
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**fancypants:** update target to v1.0.50"
+                "text": "**razygames:** add installer tamper patch and enable GMS auth by"
               }
             ]
           },
@@ -95873,12 +94422,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -97022,32 +95575,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/ch3thanhs/stylus/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/ch3thanhs.png?size=96",
           "latestChanges": {
-            "title": "1.12.0 (2026-11-21)",
-            "date": "2026-11-21",
+            "title": "1.12.1 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
-                "category": "\u2728 New Features",
-                "text": "**ChatGPT:** add custom UI and monospace font patches"
-              },
-              {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**bitwarden:** adapt font patches to Bitwarden's switch to Inter"
-              },
-              {
-                "category": "\ud83d\udc1b Bug Fixes",
-                "text": "**Where is my Train:** update font patch fingerprints"
+                "text": "**GitHub:** disambiguate Compose paragraph fingerprint"
               },
               {
                 "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Bitwarden:** Update app support to 2026.11.1"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**GitHub:** Update app support to 1.284.0"
-              },
-              {
-                "category": "\ud83d\ude80 Updated App Support",
-                "text": "**Where is my Train:** Update app support to 7.1.5.1012928357"
+                "text": "**GitHub:** Update app support to 1.285.0"
               }
             ]
           },
@@ -99519,12 +98056,12 @@
           "changelogUrl": "https://raw.githubusercontent.com/variablenine/morphe-patches/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/variablenine.png?size=96",
           "latestChanges": {
-            "title": "2.0.1 (2026-11-17)",
-            "date": "2026-11-17",
+            "title": "2.0.2 (2026-11-27)",
+            "date": "2026-11-27",
             "items": [
               {
                 "category": "\ud83d\udc1b Bug Fixes",
-                "text": "Support official Morphe patches v2.3.0 in YouTube and Reddit"
+                "text": "Support official Morphe patches v2.4.0 in YouTube and Reddit"
               }
             ]
           },
@@ -100006,8 +98543,8 @@
         "Seekbar",
         "Seekbar components",
         "Series tracking",
-        "Set transcript cookies",
         "Set Transcript Cookies",
+        "Set transcript cookies",
         "Settings for YouTube",
         "Settings menu filter",
         "Shorts autoplay",
@@ -100657,11 +99194,11 @@
           "description": "Adds a series library to History with local progress and episode continuation. This patch works with YouTube 21.02 and newer."
         },
         {
-          "name": "Set transcript cookies",
+          "name": "Set Transcript Cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
-          "name": "Set Transcript Cookies",
+          "name": "Set transcript cookies",
           "description": "Adds an option to set Cookies in YouTube Transcript API requests."
         },
         {
@@ -102372,12 +100909,16 @@
           "changelogUrl": "https://raw.githubusercontent.com/BholeyKaBhakt/android-patches-xtra/main/CHANGELOG.md",
           "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
           "latestChanges": {
-            "title": "2.16.3 (2026-11-24)",
-            "date": "2026-11-24",
+            "title": "2.16.4 (2026-11-28)",
+            "date": "2026-11-28",
             "items": [
               {
-                "category": "Bug Fixes",
-                "text": "cleanup emojis"
+                "category": "Updated App Support",
+                "text": "**solid-explorer:** support v3.6.6"
+              },
+              {
+                "category": "Updated App Support",
+                "text": "**zangi:** support v7.0.0"
               }
             ]
           },
@@ -102400,7 +100941,8 @@
           ],
           "versions": [
             "6.6.4",
-            "6.6.6"
+            "6.6.6",
+            "7.0.0"
           ]
         }
       ],
@@ -102420,7 +100962,8 @@
       ],
       "versions": [
         "6.6.4",
-        "6.6.6"
+        "6.6.6",
+        "7.0.0"
       ],
       "iconColor": "",
       "iconUrl": ""
@@ -103270,12 +101813,16 @@
       "avatarUrl": "https://github.com/BholeyKaBhakt.png?size=96",
       "patchCount": 4,
       "latestChanges": {
-        "title": "2.16.3 (2026-11-24)",
-        "date": "2026-11-24",
+        "title": "2.16.4 (2026-11-28)",
+        "date": "2026-11-28",
         "items": [
           {
-            "category": "Bug Fixes",
-            "text": "cleanup emojis"
+            "category": "Updated App Support",
+            "text": "**solid-explorer:** support v3.6.6"
+          },
+          {
+            "category": "Updated App Support",
+            "text": "**zangi:** support v7.0.0"
           }
         ]
       },
