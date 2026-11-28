@@ -34,16 +34,15 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
@@ -103,6 +102,8 @@ import dev.rushi.apkdownloadhelper.storage.logcatLoggingEnabled
 import dev.rushi.apkdownloadhelper.storage.orderedSources
 import dev.rushi.apkdownloadhelper.storage.prepareDownloadHandoff
 import dev.rushi.apkdownloadhelper.storage.recordHandOff
+import dev.rushi.apkdownloadhelper.storage.downloadsCopyRelativePath
+import android.provider.DocumentsContract
 import dev.rushi.apkdownloadhelper.storage.restoreAndPersistRateLimiter
 import dev.rushi.apkdownloadhelper.storage.saveHelperSettings
 import dev.rushi.apkdownloadhelper.storage.scheduleHandoffCleanup
@@ -128,6 +129,9 @@ import dev.rushi.apkdownloadhelper.ui.model.FastModeFindResult
 import dev.rushi.apkdownloadhelper.ui.model.FastModeProgress
 import dev.rushi.apkdownloadhelper.ui.model.HelperRequest
 import dev.rushi.apkdownloadhelper.ui.screen.helper.HelperScreen
+import dev.rushi.apkdownloadhelper.ui.screen.helper.StoredApkCardItem
+import dev.rushi.apkdownloadhelper.ui.screen.helper.StoredAppDetailScreen
+import dev.rushi.apkdownloadhelper.ui.screen.helper.deleteStoredApkFromEverywhere
 import dev.rushi.apkdownloadhelper.ui.screen.home.HomePagerScreen
 import dev.rushi.apkdownloadhelper.ui.screen.requests.RequestsScreen
 import dev.rushi.apkdownloadhelper.ui.theme.LocalMonochromeTheme
@@ -139,6 +143,7 @@ import dev.rushi.apkdownloadhelper.ui.shared.layout.PushedScreen
 import dev.rushi.apkdownloadhelper.ui.theme.AppTypography
 import dev.rushi.apkdownloadhelper.ui.model.ResolveOutcome
 import dev.rushi.apkdownloadhelper.ui.model.ResolveState
+import dev.rushi.apkdownloadhelper.ui.shared.dialog.DialogLayerHost
 import dev.rushi.apkdownloadhelper.ui.shared.dialog.ReuseOfferDialog
 import dev.rushi.apkdownloadhelper.ui.shared.dialog.ReuseOption
 import dev.rushi.apkdownloadhelper.ui.screen.settings.SettingsCategory
@@ -173,7 +178,9 @@ import dev.rushi.apkdownloadhelper.updater.UpdateInfo
 import dev.rushi.apkdownloadhelper.updater.UpdateManager
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.Cache
@@ -186,6 +193,7 @@ import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.LocalRippleConfiguration
@@ -398,6 +406,7 @@ class MainActivity : ComponentActivity() {
     private var activeDownloadCandidate: DownloadCandidate? = null
     private var pendingSwitchTarget: DownloadCandidate? = null
     private var pendingSwitchOption: CandidateOption? = null
+    private var pendingSwitchJob: Job? = null
     private var switchCandidatePrompt by mutableStateOf<SwitchCandidatePrompt?>(null)
 
     // Non-null while the in-app browser is open for a candidate whose source
@@ -462,8 +471,8 @@ class MainActivity : ComponentActivity() {
         }
         val launchIntent = intent
         if (launchIntent?.getBooleanExtra(EXTRA_OPEN_TRACKING, false) == true) {
-            openTrackingToken++
             launchIntent.removeExtra(EXTRA_OPEN_TRACKING)
+            if (!helperSettings.hideTracking) openTrackingToken++
         }
         TrackingCheckScheduler.sync(applicationContext)
         // A Morphe request takes over the screen as soon as it arrives. Its
@@ -482,11 +491,14 @@ class MainActivity : ComponentActivity() {
                 updatePrompt = prompt
             }
             // Refresh and persist the archive index cache in the background so local opens
-            // and Tracking mode already have up-to-date data on disk.
-            runCatching {
-                dev.rushi.apkdownloadhelper.updater.MorpheArchive.fetchIndex(
-                    context = applicationContext
-                )
+            // and Tracking mode already have up-to-date data on disk. When Find apps is
+            // hidden, helpers read the disk cache through loadCachedIndex instead.
+            if (!helperSettings.hideFindAppsTab) {
+                runCatching {
+                    dev.rushi.apkdownloadhelper.updater.MorpheArchive.fetchIndex(
+                        context = applicationContext
+                    )
+                }
             }
         }
         startRequestLog(request)
@@ -517,11 +529,19 @@ class MainActivity : ComponentActivity() {
             var isSettingsSubpageOpen by remember { mutableStateOf(false) }
             var activeSettingsCategory by rememberSaveable { mutableStateOf<SettingsCategory?>(null) }
             var showSourcesScreen by rememberSaveable { mutableStateOf(false) }
+            var showRequestsScreen by rememberSaveable { mutableStateOf(false) }
+            var showTrackingScreen by rememberSaveable { mutableStateOf(false) }
             var selectedArchiveApp by remember { mutableStateOf<ArchiveApp?>(null) }
             var lastSelectedArchiveApp by remember { mutableStateOf<ArchiveApp?>(null) }
             if (selectedArchiveApp != null) {
                 lastSelectedArchiveApp = selectedArchiveApp
             }
+            var selectedStoredApk by remember { mutableStateOf<StoredApkCardItem?>(null) }
+            var lastSelectedStoredApk by remember { mutableStateOf<StoredApkCardItem?>(null) }
+            if (selectedStoredApk != null) {
+                lastSelectedStoredApk = selectedStoredApk
+            }
+            val pagerStateHolder = rememberSaveableStateHolder()
 
             // --- FIX: Holds the category on screen during the exit animation ---
             var lastActiveCategory by remember { mutableStateOf<SettingsCategory?>(null) }
@@ -532,15 +552,30 @@ class MainActivity : ComponentActivity() {
                 if (requestResetToken > 0) {
                     activeSettingsCategory = null
                     selectedArchiveApp = null
+                    selectedStoredApk = null
+                    showRequestsScreen = false
                 }
             }
             LaunchedEffect(openTrackingToken) {
-                if (openTrackingToken > 0) {
+                if (openTrackingToken > 0 && !helperSettings.hideTracking) {
                     activeSettingsCategory = null
                     selectedArchiveApp = null
+                    selectedStoredApk = null
                     showSourcesScreen = false
+                    showRequestsScreen = false
+                    showTrackingScreen = true
                     showUpdates = false
                     updatePrompt = null
+                }
+            }
+
+            // If a feature was turned off while its overlay is open, dismiss it.
+            LaunchedEffect(helperSettings.hideTracking) {
+                if (helperSettings.hideTracking) showTrackingScreen = false
+            }
+            LaunchedEffect(helperSettings.hideFindAppsTab, helperSettings.hideRequestsButton) {
+                if (helperSettings.hideFindAppsTab || helperSettings.hideRequestsButton) {
+                    showRequestsScreen = false
                 }
             }
 
@@ -555,6 +590,7 @@ class MainActivity : ComponentActivity() {
                 accentColorHex = helperSettings.customAccentColor,
                 blurEnabled = helperSettings.blurEffects
             ) {
+              DialogLayerHost {
                 Box(modifier = Modifier.fillMaxSize()) {
                     val captcha = captchaBrowser
                     if (captcha != null) {
@@ -569,27 +605,22 @@ class MainActivity : ComponentActivity() {
                             onChallengeTimeout = ::onBrowserChallengeTimeout
                         )
                     } else {
-                        val backgroundModifier =
-                            if (showUpdates || activeSettingsCategory != null || showSourcesScreen || selectedArchiveApp != null) {
-                                Modifier
-                                    .focusProperties { canFocus = false }
-                                    .clearAndSetSemantics {}
-                            } else {
-                                Modifier
-                            }
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .then(backgroundModifier)
-                        ) {
-                            HomePagerScreen(
+                        val overlayVisible =
+                            showUpdates || activeSettingsCategory != null || showSourcesScreen ||
+                                showRequestsScreen || showTrackingScreen ||
+                                selectedArchiveApp != null || selectedStoredApk != null
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            if (!overlayVisible) {
+                                pagerStateHolder.SaveableStateProvider("home-pager") {
+                                    HomePagerScreen(
                                 requestResetToken = requestResetToken,
-                                openTrackingToken = openTrackingToken,
+                                hideFindApps = helperSettings.hideFindAppsTab,
                                 animatedBackground = helperSettings.animatedBackground,
                                 findAppsContent = { bottomBarHeight ->
                                     AppBrowserScreen(
                                         hideStats = helperSettings.hideFindAppsStats,
                                         hideCommunityNotice = helperSettings.hideCommunityNotice,
+                                        hideRequests = helperSettings.hideRequestsButton,
                                         useGradientCards = helperSettings.useGradientCardColors,
                                         bottomContentPadding = if (bottomBarHeight > 0.dp) {
                                             bottomBarHeight + 24.dp
@@ -597,21 +628,7 @@ class MainActivity : ComponentActivity() {
                                             160.dp
                                         },
                                         onBack = null,
-                                        onOpenApp = { selectedArchiveApp = it }
-                                    )
-                                },
-                                trackingContent = { bottomBarHeight ->
-                                    AppBrowserScreen(
-                                        trackedOnly = true,
-                                        hideStats = true,
-                                        hideCommunityNotice = true,
-                                        useGradientCards = helperSettings.useGradientCardColors,
-                                        bottomContentPadding = if (bottomBarHeight > 0.dp) {
-                                            bottomBarHeight + 24.dp
-                                        } else {
-                                            160.dp
-                                        },
-                                        onBack = null,
+                                        onOpenRequests = { showRequestsScreen = true },
                                         onOpenApp = { selectedArchiveApp = it }
                                     )
                                 },
@@ -665,20 +682,14 @@ class MainActivity : ComponentActivity() {
                                         onSkipFastModeMismatch = { fastModeChoose(FastModeChoice.NEXT) },
                                         onChooseVersion = ::fastModeChooseVersion,
                                         onOpenMorphe = ::openMorpheManager,
+                                        onOpenTracking = { showTrackingScreen = true },
+                                        hideTracking = helperSettings.hideTracking,
+                                        onOpenStoredItem = { selectedStoredApk = it },
                                         onSolveCaptcha = ::openCaptchaBrowser,
                                         onFormatToggle = ::toggleRequestedFileKind,
                                         onProceedAfterScan = ::proceedAfterScan,
                                         onCancelAfterScan = ::cancelAfterScan,
                                         onSkipScan = ::skipScanAndHandoff
-                                    )
-                                },
-                                requestsContent = { bottomBarHeight ->
-                                    RequestsScreen(
-                                        bottomContentPadding = if (bottomBarHeight > 0.dp) {
-                                            bottomBarHeight + 24.dp
-                                        } else {
-                                            160.dp
-                                        }
                                     )
                                 },
                                 settingsContent = { bottomBarHeight ->
@@ -691,9 +702,14 @@ class MainActivity : ComponentActivity() {
                                     showUpdates ||
                                             activeSettingsCategory != null ||
                                             showSourcesScreen ||
+                                            showRequestsScreen ||
+                                            showTrackingScreen ||
                                             selectedArchiveApp != null ||
+                                            selectedStoredApk != null ||
                                             (request != null && (
-                                                    uiState is UiState.Ready ||
+                                                    uiState is UiState.Idle ||
+                                                            uiState is UiState.Loading ||
+                                                            uiState is UiState.Ready ||
                                                             uiState is UiState.Downloading ||
                                                             uiState is UiState.FastMode ||
                                                             uiState is UiState.ScanAsk ||
@@ -703,6 +719,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
+                }
+            }
 
                     val offer = reuseOffer
                     if (offer != null) {
@@ -786,6 +804,39 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    // --- OVERLAY FOR TRACKING ---
+                    AnimatedVisibility(
+                        visible = showTrackingScreen,
+                        enter = AppAnimations.pushEnter,
+                        exit = AppAnimations.pushExit
+                    ) {
+                        PushedScreen {
+                            AppBrowserScreen(
+                                trackedOnly = true,
+                                hideStats = true,
+                                hideCommunityNotice = true,
+                                useGradientCards = helperSettings.useGradientCardColors,
+                                bottomContentPadding = 96.dp,
+                                onBack = { showTrackingScreen = false },
+                                onOpenApp = { selectedArchiveApp = it }
+                            )
+                        }
+                    }
+
+                    // --- OVERLAY FOR REQUESTS ---
+                    AnimatedVisibility(
+                        visible = showRequestsScreen,
+                        enter = AppAnimations.pushEnter,
+                        exit = AppAnimations.pushExit
+                    ) {
+                        PushedScreen {
+                            RequestsScreen(
+                                bottomContentPadding = 96.dp,
+                                onBack = { showRequestsScreen = false }
+                            )
+                        }
+                    }
+
                     // --- OVERLAY FOR FIND APPS DETAIL ---
                     AnimatedVisibility(
                         visible = selectedArchiveApp != null,
@@ -804,6 +855,127 @@ class MainActivity : ComponentActivity() {
                                     installed = isInstalled,
                                     useGradientHeader = helperSettings.useGradientCardColors,
                                     onBack = { selectedArchiveApp = null },
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
+                        }
+                    }
+
+                    // --- OVERLAY FOR HELPER DOWNLOADED APK DETAIL ---
+                    AnimatedVisibility(
+                        visible = selectedStoredApk != null,
+                        enter = AppAnimations.pushEnter,
+                        exit = AppAnimations.pushExit
+                    ) {
+                        val storedItem = lastSelectedStoredApk
+                        if (storedItem != null) {
+                            PushedScreen {
+                                StoredAppDetailScreen(
+                                    item = storedItem,
+                                    useGradientHeader = helperSettings.useGradientCardColors,
+                                    onOpenFile = { target ->
+                                        val open = Intent(Intent.ACTION_VIEW).apply {
+                                            setDataAndType(target.uri, fileNameMimeType(target.fileName))
+                                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                        }
+                                        runCatching { startActivity(open) }
+                                    },
+                                    onOpenFolder = { target ->
+                                        val authority = target.uri.authority.orEmpty()
+                                        val folderUri: Uri? =
+                                            if (authority.startsWith("com.android.externalstorage")) {
+                                                helperSettings.downloadCustomTreeUri
+                                                    .takeIf { it.isNotBlank() }
+                                                    ?.let { raw ->
+                                                        val tree = Uri.parse(raw)
+                                                        DocumentsContract.buildDocumentUriUsingTree(
+                                                            tree,
+                                                            DocumentsContract.getTreeDocumentId(tree)
+                                                        )
+                                                    }
+                                            } else {
+                                                DocumentsContract.buildDocumentUri(
+                                                    "com.android.externalstorage.documents",
+                                                    "primary:${downloadsCopyRelativePath()}"
+                                                )
+                                            }
+                                        val opened = folderUri != null && runCatching {
+                                            startActivity(
+                                                Intent(Intent.ACTION_VIEW)
+                                                    .setDataAndType(folderUri, DocumentsContract.Document.MIME_TYPE_DIR)
+                                                    .addFlags(
+                                                        Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                                                            Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    )
+                                            )
+                                        }.isSuccess
+                                        if (!opened) {
+                                            runCatching {
+                                                startActivity(Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS))
+                                            }
+                                        }
+                                    },
+                                    onExportFile = { target ->
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            val result = runCatching {
+                                                val dir = File(cacheDir, "export_tmp/${UUID.randomUUID()}").apply { mkdirs() }
+                                                val tmp = File(dir, target.fileName)
+                                                try {
+                                                    contentResolver.openInputStream(target.uri)?.use { input ->
+                                                        tmp.outputStream().use { input.copyTo(it) }
+                                                    } ?: error("Could not read the file")
+                                                    copyToDownloads(tmp)
+                                                } finally {
+                                                    runCatching { dir.deleteRecursively() }
+                                                }
+                                            }
+                                            withContext(Dispatchers.Main) {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    if (result.isSuccess) "Exported to Downloads/Morphe Helper"
+                                                    else "Export failed: ${result.exceptionOrNull()?.message}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    },
+                                    onShareFile = { target ->
+                                        val share = Intent(Intent.ACTION_SEND).apply {
+                                            type = fileNameMimeType(target.fileName)
+                                            putExtra(Intent.EXTRA_STREAM, target.uri)
+                                            clipData = ClipData.newUri(contentResolver, target.fileName, target.uri)
+                                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                        }
+                                        runCatching {
+                                            startActivity(Intent.createChooser(share, "Share ${target.fileName}"))
+                                        }
+                                    },
+                                    onDeleteFile = { target ->
+                                        lifecycleScope.launch {
+                                            val deleted = withContext(Dispatchers.IO) {
+                                                deleteStoredApkFromEverywhere(applicationContext, target)
+                                            }
+                                            if (deleted) {
+                                                DownloadHistoryStore.removeByUris(
+                                                    context = applicationContext,
+                                                    uris = setOf(target.id)
+                                                )
+                                                selectedStoredApk = null
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Deleted ${target.fileName}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Could not delete ${target.fileName}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    },
+                                    onBack = { selectedStoredApk = null },
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }
@@ -858,6 +1030,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
+              }
             }
         }
     }
@@ -873,9 +1046,11 @@ class MainActivity : ComponentActivity() {
         setIntent(intent)
         if (intent.getBooleanExtra(EXTRA_OPEN_TRACKING, false)) {
             intent.removeExtra(EXTRA_OPEN_TRACKING)
-            openTrackingToken++
-            showUpdates = false
-            updatePrompt = null
+            if (!helperSettings.hideTracking) {
+                openTrackingToken++
+                showUpdates = false
+                updatePrompt = null
+            }
             installedPackageRefreshToken++
             return
         }
@@ -1361,6 +1536,8 @@ class MainActivity : ComponentActivity() {
         pendingSwitchSource = null
         pendingSwitchTarget = null
         pendingSwitchOption = null
+        pendingSwitchJob?.cancel()
+        pendingSwitchJob = null
         activeDownloadCandidate = null
         switchCandidatePrompt = null
         autoRetryActive = false
@@ -1473,8 +1650,16 @@ class MainActivity : ComponentActivity() {
                 helperSettings.preferredSource != settings.preferredSource
         val densityPreferenceChanged =
             helperSettings.preferDensitySpecificVariants != settings.preferDensitySpecificVariants
+        val trackingVisibilityChanged =
+            helperSettings.hideTracking != settings.hideTracking ||
+                helperSettings.hideFindAppsTab != settings.hideFindAppsTab
         helperSettings = settings
         saveHelperSettings(settings)
+        if (trackingVisibilityChanged) {
+            // Cancel background checks immediately when tracking is hidden;
+            // resume the 6-hour cycle when it is shown again.
+            TrackingCheckScheduler.sync(applicationContext)
+        }
         if (densityPreferenceChanged) {
             request = request?.copy(
                 preferDensitySpecificVariants = settings.preferDensitySpecificVariants
@@ -1909,10 +2094,12 @@ class MainActivity : ComponentActivity() {
         pendingSwitchOption = null
         appendLog("Resolving ${source.label} for ${option.labelForLogs} again…", LogLevel.Info)
         uiState = UiState.Loading
-        lifecycleScope.launch {
+        pendingSwitchJob?.cancel()
+        pendingSwitchJob = lifecycleScope.launch {
             val outcome = withContext(Dispatchers.IO) {
                 resolveSourceSection(activeRequest, source, option)
             }
+            ensureActive()
             if (outcome.candidates.isEmpty()) {
                 val message = outcome.notFoundMessage
                     ?: outcome.errorMessage
@@ -1929,6 +2116,7 @@ class MainActivity : ComponentActivity() {
             }
             val candidate = matching.singleOrNull()
             if (candidate != null) {
+                ensureActive()
                 appendLog(
                     "Continuing on ${source.label} with ${candidate.versionDisplay} " +
                         "(${candidate.variantLabel ?: candidate.variantTag ?: candidate.fileKind.uppercase(Locale.US)})."
@@ -1943,6 +2131,7 @@ class MainActivity : ComponentActivity() {
                     "No matching variant was found on ${source.label}. Pick a file to continue."
                 else -> "More than one file matched on ${source.label}. Pick the one you want."
             }
+            ensureActive()
             showSwitchCandidatePrompt(outcome.candidates, source, option, detail)
         }
     }
@@ -2225,6 +2414,11 @@ class MainActivity : ComponentActivity() {
 
     private fun cancelFastMode() {
         sourcePrefetch.cancel()
+        pendingSwitchJob?.cancel()
+        pendingSwitchJob = null
+        pendingSwitchSource = null
+        pendingSwitchTarget = null
+        pendingSwitchOption = null
         if (autoRetryActive) {
             appendLog("Retry cancelled  taking over manually.", LogLevel.Warning)
             autoRetryActive = false

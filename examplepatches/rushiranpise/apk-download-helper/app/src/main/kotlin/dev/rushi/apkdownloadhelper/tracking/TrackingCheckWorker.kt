@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dev.rushi.apkdownloadhelper.MainActivity
+import dev.rushi.apkdownloadhelper.storage.loadHelperSettings
 import dev.rushi.apkdownloadhelper.ui.model.TrackingStore
 import dev.rushi.apkdownloadhelper.ui.model.TrackedAppChanges
 import dev.rushi.apkdownloadhelper.ui.model.trackedChanges
@@ -49,6 +50,8 @@ class TrackingCheckWorker(
 ) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork(): Result {
+        val settings = applicationContext.loadHelperSettings()
+        if (settings.hideFindAppsTab || settings.hideTracking) return Result.success()
         val context = applicationContext
         val tracked = TrackingStore.load(context)
         if (tracked.isEmpty()) return Result.success()
@@ -60,6 +63,13 @@ class TrackingCheckWorker(
             throw error
         } catch (error: Exception) {
             return Result.retry()
+        }
+
+        // Settings can change while the index request is in flight. Do not post
+        // notifications or advance the baseline after either feature is hidden.
+        val latestSettings = applicationContext.loadHelperSettings()
+        if (latestSettings.hideFindAppsTab || latestSettings.hideTracking) {
+            return Result.success()
         }
 
         val apps = index.apps.associateBy { trackingPackageKey(it.packageName) }

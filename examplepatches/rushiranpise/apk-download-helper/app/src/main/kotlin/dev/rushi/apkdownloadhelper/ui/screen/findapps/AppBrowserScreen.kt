@@ -83,7 +83,6 @@ import dev.rushi.apkdownloadhelper.ui.shared.appcard.FindAppsStatsStrip
 import dev.rushi.apkdownloadhelper.ui.shared.banner.AppDisclaimerBanner
 import dev.rushi.apkdownloadhelper.ui.shared.button.AnimatedFab
 import dev.rushi.apkdownloadhelper.ui.shared.button.GlassHeaderButton
-import dev.rushi.apkdownloadhelper.ui.shared.button.HeaderIconButton
 import dev.rushi.apkdownloadhelper.ui.shared.card.InfoCard
 import dev.rushi.apkdownloadhelper.ui.shared.chip.CompactFilterChip
 import dev.rushi.apkdownloadhelper.ui.shared.icon.ThemedIcon
@@ -115,18 +114,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.compose.material.icons.outlined.HowToVote
+import dev.rushi.apkdownloadhelper.ui.shared.button.BottomCloseBar
 
 @Composable
 internal fun AppBrowserScreen(
     trackedOnly: Boolean = false,
     hideStats: Boolean = false,
     hideCommunityNotice: Boolean = false,
+    hideRequests: Boolean = false,
     useGradientCards: Boolean = true,
     bottomContentPadding: Dp = 160.dp,
     onBack: (() -> Unit)? = null,
+    onOpenRequests: (() -> Unit)? = null,
     onOpenApp: (ArchiveApp) -> Unit = {},
     modifier: Modifier = Modifier
-) {
+)  {
     val initialIndex = MorpheArchive.inMemoryIndex
     var apps by remember {
         mutableStateOf<List<ArchiveApp>?>(
@@ -170,6 +173,7 @@ internal fun AppBrowserScreen(
     val searchFocusRequester = remember { FocusRequester() }
     val density = LocalDensity.current
     var headerHeightDp by remember { mutableStateOf(0.dp) }
+    var closeBarHeightDp by remember { mutableStateOf(0.dp) }
     val headerHaze = remember { HazeState() }
 
     val isScrolled by remember(listState) {
@@ -339,6 +343,9 @@ internal fun AppBrowserScreen(
 
     // A kept-composed page must not consume Back while another page is shown.
     val pageSelected = LocalPagerPageSelected.current
+    BackHandler(enabled = onBack != null && pageSelected) {
+        onBack?.invoke()
+    }
     BackHandler(enabled = searchExpanded && pageSelected) {
         query = ""
         searchExpanded = false
@@ -463,7 +470,7 @@ internal fun AppBrowserScreen(
                 top = headerHeightDp + 10.dp,
                 start = AppDefaults.ContentPadding,
                 end = AppDefaults.ContentPadding,
-                bottom = bottomContentPadding
+                bottom = if (onBack != null) closeBarHeightDp + 24.dp else bottomContentPadding
             )
         ) {
             // Always show Disclaimer, Filter, and Sort immediately
@@ -758,7 +765,7 @@ internal fun AppBrowserScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .navigationBarsPadding()
-                .padding(end = 20.dp, bottom = 104.dp)
+                .padding(end = 20.dp, bottom = if (onBack != null) 104.dp else 104.dp)
         ) {
             Surface(
                 onClick = { scope.launch { listState.animateScrollToItem(0) } },
@@ -773,6 +780,17 @@ internal fun AppBrowserScreen(
                     modifier = Modifier.padding(12.dp)
                 )
             }
+        }
+
+        // CHILD 5: Pinned Bottom Close bar (only when this screen has a back handler)
+        if (onBack != null) {
+            BottomCloseBar(
+                onClose = onBack,
+                hazeState = headerHaze,
+                showBackground = true,
+                onHeightChanged = { closeBarHeightDp = it },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         }
 
         // CHILD 4: Top-aligned Floating Header (MUST have .align(Alignment.TopCenter))
@@ -857,14 +875,6 @@ internal fun AppBrowserScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (onBack != null) {
-                            HeaderIconButton(
-                                icon = Icons.AutoMirrored.Outlined.ArrowBack,
-                                contentDescription = stringResource(R.string.back),
-                                onClick = onBack
-                            )
-                        }
-
                         Column(
                             modifier = Modifier.weight(1f),
                             verticalArrangement = Arrangement.Center
@@ -918,6 +928,14 @@ internal fun AppBrowserScreen(
                                 loadKey++
                             }
                         )
+
+                        if (!trackedOnly && onOpenRequests != null && !hideRequests) {
+                            GlassHeaderButton(
+                                icon = Icons.Outlined.HowToVote,
+                                contentDescription = "Requests",
+                                onClick = onOpenRequests
+                            )
+                        }
 
                         if (!trackedOnly) {
                             GlassHeaderButton(

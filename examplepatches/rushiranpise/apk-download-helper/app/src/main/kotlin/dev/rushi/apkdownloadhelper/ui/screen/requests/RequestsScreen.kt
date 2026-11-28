@@ -12,19 +12,26 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -43,13 +50,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import dev.rushi.apkdownloadhelper.R
 import dev.rushi.apkdownloadhelper.ui.screen.home.LocalPagerPageSelected
+import dev.rushi.apkdownloadhelper.ui.theme.AppDefaults
+import dev.rushi.apkdownloadhelper.ui.theme.pressScale
+import dev.rushi.apkdownloadhelper.ui.theme.rememberMorphePillShape
 import dev.rushi.apkdownloadhelper.ui.util.openExternal
 import kotlin.math.roundToInt
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import dev.rushi.apkdownloadhelper.ui.shared.button.BottomCloseBar
+import dev.rushi.apkdownloadhelper.ui.theme.AppColors
+import dev.rushi.apkdownloadhelper.ui.theme.glassFill
+import dev.rushi.apkdownloadhelper.ui.theme.pressScale
+import dev.rushi.apkdownloadhelper.ui.theme.rememberMorphePillShape
 
 private const val REQUESTS_HOST = "morphe-patches.software"
 private const val REQUESTS_URL = "https://$REQUESTS_HOST/requests"
@@ -69,13 +98,19 @@ private val LightPageBackground = Color(0xFFFFFFFF)
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 internal fun RequestsScreen(
-    bottomContentPadding: Dp = 160.dp,
+    bottomContentPadding: Dp = 96.dp,
+    onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val density = LocalDensity.current
     val dark = rememberUpdatedState(isDark)
-    val bottomPadding = rememberUpdatedState(bottomContentPadding.value.roundToInt())
+    var footerHeightDp by remember { mutableStateOf(0.dp) }
+    val effectiveBottomPadding =
+        if (onBack != null) maxOf(bottomContentPadding, footerHeightDp + 24.dp)
+        else bottomContentPadding
+    val bottomPadding = rememberUpdatedState(effectiveBottomPadding)
     var loading by remember { mutableStateOf(true) }
     var failed by remember { mutableStateOf(false) }
     var canGoBack by remember { mutableStateOf(false) }
@@ -134,7 +169,10 @@ internal fun RequestsScreen(
                     hasLoadedOnce = true
                     canGoBack = view.canGoBack()
                     view.evaluateJavascript(
-                        requestsPageScript(dark.value, bottomPadding.value),
+                        requestsPageScript(
+                            dark.value,
+                            with(density) { bottomPadding.value.roundToPx() }
+                        ),
                         null
                     )
                 }
@@ -169,12 +207,15 @@ internal fun RequestsScreen(
         }
     }
 
-    LaunchedEffect(isDark, bottomContentPadding) {
+    LaunchedEffect(isDark, effectiveBottomPadding) {
         webView.setBackgroundColor(
             (if (isDark) DarkPageBackground else LightPageBackground).toArgb()
         )
         webView.evaluateJavascript(
-            requestsPageScript(isDark, bottomContentPadding.value.roundToInt()),
+            requestsPageScript(
+                isDark,
+                with(density) { effectiveBottomPadding.roundToPx() }
+            ),
             null
         )
     }
@@ -182,8 +223,14 @@ internal fun RequestsScreen(
     // The page stays composed while another tab is shown, so only take Back
     // when the board is visible and has somewhere to return to.
     val pageSelected = LocalPagerPageSelected.current
-    BackHandler(enabled = pageSelected && canGoBack) {
-        webView.goBack()
+    val scheme = MaterialTheme.colorScheme
+    var headerHeightDp by remember { mutableStateOf(0.dp) }
+    BackHandler(enabled = canGoBack || onBack != null) {
+        if (canGoBack) {
+            webView.goBack()
+        } else {
+            onBack?.invoke()
+        }
     }
 
     Box(
@@ -201,6 +248,16 @@ internal fun RequestsScreen(
 
         if (loading && !failed && !hasLoadedOnce) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+
+        // Scrim + Close pill (only shown when a back handler is wired up)
+        if (onBack != null) {
+            BottomCloseBar(
+                onClose = onBack,
+                showBackground = true,
+                onHeightChanged = { footerHeightDp = it },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         }
 
         if (hasLoadedOnce && !failed) {
@@ -275,8 +332,9 @@ internal fun RequestsScreen(
 
 /**
  * Keeps the board's own theme in step with the app, leaves room for the app's
- * bottom bar, and gives the captcha card its natural height. The site's modal
- * otherwise collapses to max-height 0 in a WebView and clips the widget.
+ * bottom bar, raises the board's toast above it, and gives the captcha card
+ * its natural height. The site's modal otherwise collapses to max-height 0 in
+ * a WebView and clips the widget.
  */
 private fun requestsPageScript(dark: Boolean, bottomPaddingPx: Int): String = """
 (function () {
@@ -306,6 +364,10 @@ private fun requestsPageScript(dark: Boolean, bottomPaddingPx: Int): String = ""
       // The app already has its own navigation; the site header only eats
       // vertical space and hides itself on scroll.
       'nav#u3c4db{display:none !important;}' +
+      // The board's toast is fixed to the viewport bottom. Lift it above the
+      // app's close bar so vote confirmations and errors stay readable.
+      '#rq-toast{bottom:${bottomPaddingPx}px !important;' +
+      'z-index:3000 !important;}' +
       // Sticky header and modal blurs are expensive to recomposite per frame.
       '.u3c4db,.u60f3e,.modal-backdrop{backdrop-filter:none !important;' +
       '-webkit-backdrop-filter:none !important;}' +
